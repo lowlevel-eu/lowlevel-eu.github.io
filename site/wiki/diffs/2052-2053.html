@@ -1,0 +1,122 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Benutzer:Jidder/Makefile — Änderungen 2052 → 2053</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Benutzer:Jidder/Makefile — Änderungen 2052 → 2053</h1><nav><a href="../revisions/2052/index.html">Version 2052</a> · <a href="../revisions/2053/index.html">Version 2053</a> · <a href="../history/1535/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l4" >Zeile 4:</td>
+<td colspan="2" class="diff-lineno">Zeile 4:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*.nobuild-Dateien müssen jetzt folgenden Inhalt haben:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*.nobuild-Dateien müssen jetzt folgenden Inhalt haben:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; $(eval $(NOBUILD))</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; $(eval $(NOBUILD))</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">*Zur Zeit (Revision 485) müssen .nobuild-Dateien in den Verzeichnissen src/modules/c, src/modules/cpp, src/modules/keyboard, src/modules/pas, src/modules/vga, und src/modules/videodriver liegen.</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">*Die Datei src/modules/lib/lostio/include/lostio_internal.h muss nach src/modules/lib/lostio/lostio_internal.h verschoben werden.</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">*Die Dateien in src/modules/lib/init/zlib/ müssen nach src/modules/lib/init/ verschoben werden. </del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">*tests.mod heisst jetzt automatisch testlib.mod, die alte explizite Benennung stimmt nicht mit dem Verzeichnisnamen überein.</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">*Den Ordner src/modules/c/shell nach src/modules/shell verschieben, und dann den Inhalt von src/modules/shell/cmds nach src/modules/shell verschieben.</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">*Den Ordner src/modules/c/desktop nach src/modules/desktop verschieben.</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">Ich steig schon lange nicht mehr wirklich durch LOST durch. Wenn jemand bessere Funktionalitätstests der Binaries machen kann als testlib.mod auszuführen, wäre das praktisch.</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Diese Makefile erfordert mindestens GNU Make Version 3.80. (MinGW-Nutzer haben nur Version 3.79.1. Workaround: Das von Make von cygwin mit dem zusätzlichen Parameter CC=gcc)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Diese Makefile erfordert mindestens GNU Make Version 3.80. (MinGW-Nutzer haben nur Version 3.79.1. Workaround: Das von Make von cygwin mit dem zusätzlichen Parameter CC=gcc)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Usage ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Usage ==</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">*Datei namens Makefile.Jidder in trunk erstellen</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">*Untenstehenden Kram reinkopieren</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*make -f Makefile.Jidder</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*make -f Makefile.Jidder</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*Den Reflex einen Kaffee zu holen unterdrücken, denn es dauert gar nicht so lang</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*Den Reflex einen Kaffee zu holen unterdrücken, denn es dauert gar nicht so lang</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>*<del class="diffchange diffchange-inline">make internal_image (oder die </del>Dateien in build irgendwie <del class="diffchange diffchange-inline">anders </del>auf ein Image popeln.<del class="diffchange diffchange-inline">)</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>*<ins class="diffchange diffchange-inline">Die </ins>Dateien in build irgendwie auf ein Image popeln.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Todo ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Todo ==</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">*Module c und cpp wieder unterstützen</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*Dependencies</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*Dependencies</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">&lt;code&gt;</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">### Experimentelle Makefile von Jidder. Bei Problemen: pech :P ^^</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"># .nobuild-Dateien müssen folgendes enthalten: $(eval $(NOBUILD))</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">LDFLAGS_KERNEL := -T src/kernel/src/kernel.ld</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">LDFLAGS_MODULES := -m elf_i386 -Ttext=0x40000000</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">CPPFLAGS += -Isrc/include -Isrc/include/arch/i386</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"># Alle Module im Verzeichnis src/modules</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">MODULES := $(filter-out include lib,$(notdir $(wildcard src/modules/*)))</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">all: lib kernel modules</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">clean:</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">	-rm -f $(ALL_LIBS) build/lost.krn $(ALL_MODULES) $(ALL_OBJS) </del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">### Eine Regel für .asm-Dateien, da es keine eingebaute gibt</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">NASM := nasm</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">NASMFLAGS := -f elf</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">%.o: %.asm</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">	$(NASM) $(NASMFLAGS) $&lt; -o $@</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">### Hilfsfunktionen/-makros</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"># Unterstützte Dateiendungen</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">EXTENSIONS := .asm .S .c .cpp</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"># $(call SOURCE_FILES,dir) gibt alle Quelltext-Dateien im Verzeichnis dir zurück</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">SOURCE_FILES = $(wildcard $(addprefix $(1)/*,$(EXTENSIONS)))</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"># $(call OBJECT_FILES,foo.c bar.asm baz.cpp) gibt &quot;foo.o bar.o baz.o&quot; zurück</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">OBJECT_FILES = $(addsuffix .o,$(basename $(1)))</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"># $(call SOURCE_FILES,dir/*) gibt alle Quelltext-Dateien in den Unterverzeichnissen von dir zurück</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">SOURCE_FILES_WILDCARD = $(foreach dir,$(wildcard $(1)),$(call SOURCE_FILES,$(dir)))</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">### Kernel</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">kernel: build/lost.krn</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">KERNEL_SRC = $(call SOURCE_FILES,src/kernel/src) $(call SOURCE_FILES_WILDCARD,src/kernel/src/*)</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">KERNEL_OBJS = $(call OBJECT_FILES,$(KERNEL_SRC))</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">ALL_OBJS += $(KERNEL_OBJS)</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">build/lost.krn: $(KERNEL_OBJS) src/lib/library.a</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">	ld -o $@ $(LDFLAGS_KERNEL) $^</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">build/lost.krn: CPPFLAGS += -Isrc/kernel/include</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">### Module</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">modules: $(MODULE_LIBS) $(MODULES:%=build/%.mod)</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">modules: CPPFLAGS += -Isrc/modules/include</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">define MODULE_template</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">NOBUILD = build/$(1).mod: nobuild ;</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">$(1)_SRC := $(call SOURCE_FILES,src/modules/$(1))</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">$(1)_OBJS := $$(call OBJECT_FILES,$$($(1)_SRC))</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">build/$(1).mod: CPPFLAGS += -Isrc/modules/$(1)/include</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">build/$(1).mod: $$($(1)_OBJS) src/modules/lib/library.a</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">	ld $(LDFLAGS_MODULES) $$^ -o $$@</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">-include src/modules/$(1)/.nobuild</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">ALL_OBJS += $$($(1)_OBJS)</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">ALL_MODULES += build/$(1).mod</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">endef</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">$(foreach module,$(MODULES),$(eval $(call MODULE_template,$(module))))</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">nobuild:</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">### Libraries</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">lib: src/lib/library.a src/modules/lib/library.a</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">### Library die in den Kernel und die Module gelinkt wird</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">LIB_SRC = $(call SOURCE_FILES,src/lib) $(call SOURCE_FILES_WILDCARD,src/lib/*)</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">LIB_OBJS = $(call OBJECT_FILES,$(LIB_SRC))</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">ALL_OBJS += $(LIB_OBJS)</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">ALL_LIBS += src/lib/library.a</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">src/lib/library.a: $(LIB_OBJS)</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">	$(AR) rs $@ $^</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">### Library die nur in die Module gelinkt wird</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">MODULES_LIB_SRC = $(call SOURCE_FILES,src/modules/lib) $(call SOURCE_FILES_WILDCARD,src/modules/lib/*) $(call SOURCE_FILES_WILDCARD,src/modules/lib/*/*)</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">MODULES_LIB_OBJS = $(call OBJECT_FILES,$(MODULES_LIB_SRC))</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">ALL_OBJS += $(MODULES_LIB_OBJS)</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">ALL_LIBS += src/modules/lib/library.a</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">src/modules/lib/library.a: $(MODULES_LIB_OBJS) $(LIB_OBJS)</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">	$(AR) rs $@ $^</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">src/modules/lib/library.a: CPPFLAGS += -Isrc/modules/include</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">&lt;/code&gt;</del></div></td><td colspan="2">&#160;</td></tr>
+</table></body></html>

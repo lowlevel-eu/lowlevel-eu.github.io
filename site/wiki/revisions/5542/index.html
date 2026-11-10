@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Cirrus Logic – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Cirrus_Logic rootpage-Cirrus_Logic skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1743/index.html">Aktueller Artikel</a> · <a href="../../history/1743/index.html">Versionsgeschichte</a> · <a href="../../source/5542.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Cirrus Logic</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 10. August 2009, 16:32 Uhr von <a class="mw-userlink" href="../../pages/1489/index.html" title="Benutzer:Bluecode"><bdi>Bluecode</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Qemu</a> -&gt; <a href="../../pages/1505/index.html" title="QEMU">QEMU</a>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/5043-5542.html" title="Cirrus Logic">Unterschied</a>) <a href="../5043/index.html" title="Cirrus Logic">← Nächstältere Version</a> | Aktuelle Version (Unterschied) | Nächstjüngere Version → (Unterschied)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p><a href="../../pages/1505/index.html" title="QEMU">QEMU</a> emuliert primär eine Cirrus Logic GD5446. Mit dieser Grafikkarte ist es sehr einfach, mit einem eigenen <a class="mw-redirect" data-archive-original-href="../../pages/1482/index.html" href="../../pages/1479/index.html" title="OS">OS</a> in den Genuss hardwarebeschleunigter¹ 2D-Grafik zu kommen.
+</p><p>¹So weit ich es gesehen habe, werden die Grundoperationen hardwarebeschleunigt dargestellt. Alle Angaben ohne Gewähr.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Ressourcen"><span class="tocnumber">1</span> <span class="toctext">Ressourcen</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Initialisierung"><span class="tocnumber">2</span> <span class="toctext">Initialisierung</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Offscreen_Memory"><span class="tocnumber">3</span> <span class="toctext">Offscreen Memory</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Beschleunigung"><span class="tocnumber">4</span> <span class="toctext">Beschleunigung</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Zeichnen_von_gef.C3.BCllten_Rechtecken"><span class="tocnumber">4.1</span> <span class="toctext">Zeichnen von gefüllten Rechtecken</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Kopieren_von_Teilen_des_Bildschirms_und_des_Offscreen_Buffers"><span class="tocnumber">4.2</span> <span class="toctext">Kopieren von Teilen des Bildschirms und des Offscreen Buffers</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Text_zeichnen"><span class="tocnumber">4.3</span> <span class="toctext">Text zeichnen</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Hardware-Cursor"><span class="tocnumber">5</span> <span class="toctext">Hardware-Cursor</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Links"><span class="tocnumber">6</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Ressourcen">Ressourcen</span></h2>
+<p>Die Grafikkarte ist eine <a class="mw-redirect" data-archive-original-href="../../pages/1627/index.html" href="../../pages/1626/index.html" title="PCI">PCI</a>-Karte, Vendor-ID 0x1013, Chip-ID 0x00B8. Sie wird größtenteils über MMIO angesteuert, dabei werden zwei Speicherbereiche als MMIO-Interface zur Karte benutzt, die über die PCI-Schnittstelle abgefragt werden können: Der erste fängt im Falle <a href="../../pages/1505/index.html" title="QEMU">QEMUs</a> an der Adresse 0xF0000000 an und ist 32 Megabytes groß und dient als Framebufferschnittstelle, der zweite (kleinere) Bereich (für die Steuerung der Karte) fängt bei 0xF2000000 an und ist 4 KBytes lang.
+</p><p>In diesen zweiten Bereich sind sämtliche VGA-Ports gemappt, wobei man von dem Port 0x3C0 abziehen muss, um den Offset in den MMIO-Bereich zu erhalten. So befindet sich das Register VGA_MISC_OUT_W (0x3C2) an der Speicheradresse 0xF2000002.
+</p><p>VGA besitzt an einigen Stellen hinter einem Port mehrere Register, zwischen denen über einen zweiten Indexport gewechselt werden kann. An diesen Stellen besitzt die Grafikkarte oft Zusatzports, vor allem die Register 0x3CE und 0x3CF werden in diesem Zusammenhang für die Hardwarebeschleunigung verwendet.
+</p>
+<h2><span class="mw-headline" id="Initialisierung">Initialisierung</span></h2>
+<p>Es gibt zwei Möglichkeiten, die Grafikkarte zu initialisieren: Entweder über die VGA-Register, oder über VESA.
+</p><p>Die Programmierung über die VGA-Register ist recht kompliziert, ich habe es nicht geschafft, wer es versuchen will, viel Spaß, als Lektüre empfehle ich den Xorg-Treiber (siehe Anhang).
+</p><p>Über VESA lässt sich die Karte dagegen sehr einfach einrichten, es reicht aus, über den int10 (entweder mit vm86, einem Emulator oder im Realmode bei Betriebssystemstart) eine größere Auflösung zu wählen.
+</p><p>Ist die Karte einmal in dem Videomodus, muss noch die Beschleunigung aktiviert werden. Dies geschieht durch Schreiben in das Graph-Register 0E:
+</p><p>&lt;c&gt;
+</p>
+<ol><li>define VGA_GRAPH_INDEX 0x3CE</li>
+<li>define VGA_GRAPH_DATA 0x3CF</li></ol>
+<p>outb(VGA_GRAPH_INDEX, 0x0E);
+outb(VGA_GRAPH_DATA, 0x20);
+// Oder
+outw(VGA_GRAPH_INDEX, 0x200E);
+&lt;/c&gt;
+</p><p>Ich habe diese Methode jedoch nur in <a href="../../pages/1505/index.html" title="QEMU">QEMU</a> getestet. Ich bin mir ziemlich sicher, dass das in der echten Welt da draußen nicht so einfach tut, aber wer hat schon eine Cirrus Logic. :)
+</p>
+<h2><span class="mw-headline" id="Offscreen_Memory">Offscreen Memory</span></h2>
+<p>Die von QEMU initialisierte Cirrus hat 2 Megabyte Videoram, der nicht dem Framebuffer zugeordnet ist. Es liegt in linear hinter dem Framebuffer und kann genau wie dieser für Beschleunigung benutzt werden.
+TODO: Das hier überprüfen. Eventuell sinds auch 4 Megabyte, dann allerdings inklusive Framebuffer.
+</p>
+<h2><span class="mw-headline" id="Beschleunigung">Beschleunigung</span></h2>
+<p>TODO: Zeichnen per MMIO über die Register?
+</p><p>Für beschleunigtes Zeichnen werden für verschiedene Zeichenarten verschiedene Raster Ops benutzt:
+</p><p>&lt;c&gt;
+const unsigned char cirrus_rop[] = {
+</p>
+<pre>   0x00, // clear
+   0x05, // and
+   0x09, // andreverse
+   0x0D, // copy        Einfaches Setzen der Farbe
+   0x50, // andinverted
+   0x06, // noop
+   0x59, // xor
+   0x6D, // or
+   0x95, // equiv
+   0x0B, // invert
+   0xAD, // orreverse
+   0xD0, // copyinverted
+   0xD6, // orinverted
+   0xDA, // nand
+   0x0E, // set
+</pre>
+<p>};
+</p><p>void set_rop(int rop)
+{
+</p>
+<pre>   outb(VGA_GRAPH_INDEX, 0x32);
+   outb(VGA_GRAPH_DATA, cirrus_rop[rop]);
+</pre>
+<p>}
+&lt;/c&gt;
+</p><p>Nach jeder Zeichenoperation muss zum Starten des Zeichnens entweder 0x02 in das Graph-Register 0x31 geschrieben werden oder die Karte nach der Initialisierung in den Autostart-Modus versetzt werden:
+&lt;c&gt;
+// Autostart aktivieren
+outw(VGA_GRAPH_INDEX, 0x8031);
+&lt;/c&gt;
+</p>
+<h3><span id="Zeichnen_von_gefüllten_Rechtecken"></span><span class="mw-headline" id="Zeichnen_von_gef.C3.BCllten_Rechtecken">Zeichnen von gefüllten Rechtecken</span></h3>
+<p>Zuerst muss das Zeichnen von Rechtecken mit der gewünschten Farbe und dem gewünschten Raster Op initialisiert werden. Für einfache gefüllte Rechtecke benutzen wir hier COPY.
+</p><p>&lt;c&gt;
+set_rop(3);
+</p><p>// Initialisieren
+outw(VGA_GRAPH_INDEX, 0x0433); // 0x04 nach GR33
+</p><p>// Pixelgröße einstellen
+outw(VGA_GRAPH_INDEX, 0xC030 |((bitsPerPixel - 8) &lt;&lt; 9));
+// Farbe einstellen
+outw(VGA_GRAPH_INDEX, ((b &lt;&lt; 8) &amp; 0xff00) | 0x01);
+outw(VGA_GRAPH_INDEX, ((r) &amp; 0xff00) | 0x11);
+outw(VGA_GRAPH_INDEX, ((g &gt;&gt; 8) &amp; 0xff00) | 0x13);
+outw(VGA_GRAPH_INDEX, 0x15);
+</p><p>// Pitch einstellen (Bytes in einer Zeile
+int pitch = screenwidth * bitsPerPixel / 8;
+outw(VGA_GRAPH_INDEX, ((pitch &lt;&lt; 8) &amp; 0xff00) | 0x24);
+outw(VGA_GRAPH_INDEX, ((pitch) &amp; 0x1f00) | 0x25);
+</p><p><br/>
+// Jetzt können beliebig viele Rechtecke mit diesen Einstellungen gezeichnet werden:
+</p><p>// Breite
+outw(VGA_GRAPH_INDEX, (((width * 3 - 1) &lt;&lt; 8) &amp; 0xff00) | 0x20);
+outw(VGA_GRAPH_INDEX, (((width * 3 - 1)) &amp; 0x1f00) | 0x21);
+// Höhe
+outw(VGA_GRAPH_INDEX, (((height - 1) &lt;&lt; 8) &amp; 0xff00) | 0x22);
+outw(VGA_GRAPH_INDEX, ((height - 1) &amp; 0x0700) | 0x23);
+int dest = pitch * y + x * bitsPerPixel / 8;
+outw(VGA_GRAPH_INDEX, ((dest &lt;&lt; 8) &amp; 0xff00) | 0x28);
+outw(VGA_GRAPH_INDEX, ((dest) &amp; 0xff00) | 0x29);
+outw(VGA_GRAPH_INDEX, ((dest &gt;&gt; 8) &amp; 0x3f00) | 0x2A);
+// Starte Zeichenvorgang
+if (!autostart)
+</p>
+<pre>   outw(VGA_GRAPH_INDEX, 0x0231);
+</pre>
+<p>&lt;/c&gt;
+</p>
+<h3><span class="mw-headline" id="Kopieren_von_Teilen_des_Bildschirms_und_des_Offscreen_Buffers">Kopieren von Teilen des Bildschirms und des Offscreen Buffers</span></h3>
+<p>&lt;c&gt;
+set_rop(3);
+// Als erstes muss für Quelle und Ziel der Pitch eingestellt werden. Wir nehmen für beides die Bildschirmbreite
+// Alternativ kann man hier die Breite eines Bitmaps einstellen, wenn es im Offscreen-Buffer liegt.
+int pitch = screenwidth * bitsPerPixel / 8;
+// Ziel
+outw(VGA_GRAPH_INDEX, ((pitch &lt;&lt; 8) &amp; 0xff00) | 0x24);
+outw(VGA_GRAPH_INDEX, ((pitch) &amp; 0x1f00) | 0x25);
+// Quelle
+outw(VGA_GRAPH_INDEX, ((pitch &lt;&lt; 8) &amp; 0xff00) | 0x26);
+outw(VGA_GRAPH_INDEX, ((pitch) &amp; 0x1f00) | 0x27);
+</p><p>// Breiten/Höhenangaben des zu kopierenden Bereichs umrechnen
+int ww = (width * 3) - 1;
+int hh = height - 1;
+</p><p>// Wenn man nach unten verschiebt, muss auch unten angefangen werden mit kopieren
+int decrement = 0;
+// src und dest sind die Adressen der Bereiche im Framebuffer
+int src = pitch*y1 + x1 * 3;
+int dest = pitch*y2 + x2 * 3;
+if (dest &gt; src) {
+	decrement = 1 &lt;&lt; 8;
+	dest += hh * pitch + ww;
+	src += hh * pitch + ww;
+}
+</p><p>outw(VGA_GRAPH_INDEX, decrement | 0x30);
+</p><p>// Breite
+outw(VGA_GRAPH_INDEX, ((ww &lt;&lt; 8) &amp; 0xff00) | 0x20);
+outw(VGA_GRAPH_INDEX, ((ww) &amp; 0x1f00) | 0x21);
+// Höhe
+outw(VGA_GRAPH_INDEX, ((hh &lt;&lt; 8) &amp; 0xff00) | 0x22);
+outw(VGA_GRAPH_INDEX, ((hh) &amp; 0x0700) | 0x23);
+</p><p>// Quelle
+outw(VGA_GRAPH_INDEX, ((src &lt;&lt; 8) &amp; 0xff00) | 0x2C);
+outw(VGA_GRAPH_INDEX, ((src) &amp; 0xff00) | 0x2D);
+outw(VGA_GRAPH_INDEX, ((src &gt;&gt; 8) &amp; 0x3f00)| 0x2E);
+</p><p>// Ziel
+outw(VGA_GRAPH_INDEX, ((dest  &lt;&lt; 8) &amp; 0xff00) | 0x28);
+outw(VGA_GRAPH_INDEX, ((dest) &amp; 0xff00) | 0x29);
+outw(VGA_GRAPH_INDEX, ((dest &gt;&gt; 8) &amp; 0x3f00) | 0x2A);
+</p><p>if (!autostart)
+</p>
+<pre>   outw(port, 0x0231);
+</pre>
+<p>&lt;/c&gt;
+</p>
+<h3><span class="mw-headline" id="Text_zeichnen">Text zeichnen</span></h3>
+<p>Zur Anwendung der verschiedenen Raster Ops noch ein kleines Beispiel: Wir wollen einen Buchstaben auf den Bildschirm zeichnen, dabei wollen wir *nicht* die Grafik zerstören, die unter dem Buchstaben liegt, sondern ihn mit Transparenz zeichnen. Dazu erstellen wir eine invertierte Maske (Buchstabe schwarz) und ein Bitmap mit dem Buchstaben in der gewünschten Farbe.
+</p><p>Dann zeichnen wir zuerst die Maske mit dem Rop "and", sodass die schwarzen Bereiche (der Buchstabe selbst) im Framebuffer ebenfalls schwarz werden.
+Im zweiten Schritt zeichnen wir das farbige Bitmap mit dem Rop "or", sodass die vorher geschwärzten Bereiche mit der Farbe gefüllt werden. Wichtig ist, dass Maske und Bitmap von der Form her natürlich übereinstimmen. ^^
+</p>
+<h2><span class="mw-headline" id="Hardware-Cursor">Hardware-Cursor</span></h2>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li><a class="external free" href="http://www.koders.com/c/fidC2D0E7B95D33763B17521DF3EA7B68C81D500CAD.aspx" rel="nofollow">http://www.koders.com/c/fidC2D0E7B95D33763B17521DF3EA7B68C81D500CAD.aspx</a> Code aus QEMU</li>
+<li><a class="external free" href="http://cgit.freedesktop.org/xorg/driver/xf86-video-cirrus/" rel="nofollow">http://cgit.freedesktop.org/xorg/driver/xf86-video-cirrus/</a> Xorg-Treiber</li>
+<li><a class="external text" href="http://www.tjd.phlegethon.org/gd5446trm.pdf.gz" rel="nofollow">Datenblatt von Cirrus Logic</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164925
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.005 seconds
+Real time usage: 0.005 seconds
+Preprocessor visited node count: 35/1000000
+Preprocessor generated node count: 40/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:1743-0!canonical and timestamp 20261109164925 and revision id 5542
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Cirrus_Logic&amp;oldid=5542</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1927/index.html" title="Kategorie:Grafikkarte">Grafikkarte</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1743/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2496/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1743/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 10. August 2009 um 16:32 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Entwicklungsumgebung – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Entwicklungsumgebung rootpage-Entwicklungsumgebung skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="index.html">Aktueller Artikel</a> · <a href="../../history/1810/index.html">Versionsgeschichte</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Entwicklungsumgebung</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Vorlage:Stub" style="margin-bottom:1em">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #f6f6f6; margin: 0 0em; padding: 0 0px; border: 1px solid #d6d6d6;" width="100%">
+<tbody><tr>
+<td>Diese Seite ist ein Artikel, welcher <b>mehr</b> haben könnte..<br/>
+<p>Wenn du mehr darüber weißt oder recherchieren willst, bist <b>du</b> aufgerufen, dies zu tun. Wenn du dir in einer Sache nicht sicher bist, dann stell es auf die Diskussionsseite.
+</p>
+</td></tr></tbody></table>
+</div>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Vorwort"><span class="tocnumber">1</span> <span class="toctext">Vorwort</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Unter_Linux"><span class="tocnumber">2</span> <span class="toctext">Unter Linux</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Unter_Windows"><span class="tocnumber">3</span> <span class="toctext">Unter Windows</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Singularity-Modell"><span class="tocnumber">4</span> <span class="toctext">Singularity-Modell</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#.NET-Framework-Modell"><span class="tocnumber">4.1</span> <span class="toctext">.NET-Framework-Modell</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Microsoft_Visual_Studio_.28IDE.29"><span class="tocnumber">4.2</span> <span class="toctext">Microsoft Visual Studio (IDE)</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Eclipse_.28IDE.29"><span class="tocnumber">4.3</span> <span class="toctext">Eclipse (IDE)</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Sonstige.2C_eine_auf_GCC-Basis"><span class="tocnumber">4.4</span> <span class="toctext">Sonstige, eine auf GCC-Basis</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Code::Blocks"><span class="tocnumber">5</span> <span class="toctext">Code::Blocks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Vorwort">Vorwort</span></h2>
+<p>Leider gibt es verschiedene Ansichten darüber, welche Plattform nun die bessere ist um eine Entwicklungsumgebung einzurichten. Jedoch soll keiner dieser Plattformen zwingend empfohlen werden, bzw. soll auch keine vernachlässigt werden. Daher wird in diesem Artikel zu jeder der in dieser Community verwendeten Plattform sehr nützliche Informationen preisgeben, wie man auf der jeweiligen Plattform am besten vorgeht.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Unter_Linux">Unter Linux</span></h2>
+<p>Unter <a href="../1641/index.html" title="Linux">Linux</a> stehen einige einfach zu benutzenden Tools zum Compilieren bereit, unter anderem <a href="../1805/index.html" title="GNU Compiler Collection"> gcc</a>/g++ etc. für höhere Sprachen und <a href="../1909/index.html" title="Netwide Assembler"> nasm</a>/gas für <a href="../1514/index.html" title="Assembler">Assembler</a>, <a href="../1932/index.html" title="Linker"> gelinkt</a> wird üblicherweise mit dem GNU ld, womit sowohl raw binaries als auch ELF-Programme sowie eine breite Auswahl an anderen Formaten erzeugt werden kann. Alle diese Programme sind einfach über den Paketmanager der meisten Distributionen verfügbar.
+Gleichzeitig gibt es eine sehr breite Auswahl an mächtigen <a href="../1908/index.html" title="Editor"> Texteditoren</a> mit Syntax-Highlighting (z.B. gedit, kate, vim, emacs) sowie eine Reihe gute Entwicklungsumgebungen (KDevelop, Anjuta, Code::Blocks(? lässt sich zumindest mit externen <a href="../1436/index.html" title="Makefile"> Makefiles</a> benutzen)). Für die Entwicklung sowohl mit einem simplen Texteditor als auch mit einer IDE gibt es dabei eine große Anzahl an vorhandenen Build-Systemen, die (üblicherweise basierend auf Makefiles) das Compilieren des OS bei sehr hoher Flexibilität drastisch vereinfachen (Beispiel: CMake).
+</p><p>Das schwierigste ist wohl nun, aus dieser recht hohen Anzahl an Möglichkeiten vor allem bei Editor/Buildsystem die herrauszusuchen, mit der man am besten klar kommt. Für Source-Releases ist es jedoch zumindest sinnvoll, ein von der <a class="mw-redirect" data-archive-original-href="../1957/index.html" href="../1864/index.html" title="Kommandozeile">Kommandozeile</a> aufrufbares Buildsystem bereitzustellen (Makefiles, CMake, autotools), da eine IDE wie Code::Blocks nicht unbedingt weit verbreitet ist, dazu kommen im Vergleich zu den genannten Tools größere Unterschiede zwischen Projektdateien verschiedener Versionen. Alternative: CMake selbst kann Projektdateien für Code::Blocks (noch nicht komplett implementiert) und MSVC erzeugen und kann direkt aus KDevelop eingebunden werden. Nachteil hierbei ist jedoch wieder, dass die CMake-Dateien normalerweise von Hand geschrieben werden müssen, was die Vorteile im Normalfall jedoch aufhebt (TODO: Es gibt eine Menge alternative Systeme zu CMake, ich kenne mich mit ihnen nur nicht aus. Wer sich damit auskennt, sollte diesen Absatz dann gleich auch etwas neutraler formulieren :D).
+</p>
+<h2><span class="mw-headline" id="Unter_Windows">Unter Windows</span></h2>
+<p>Auch <a href="../1558/index.html" title="Windows">Windows</a> bietet eine Fülle an Entwicklungsumgebungen, mit denen sich hervorragend entwickeln lässt
+</p><p>Eine Auswahl:
+</p>
+<ul><li>Microsoft Visual Studio (IDE)</li>
+<li><a class="external text" href="http://de.wikipedia.org/wiki/Eclipse_(IDE)" rel="nofollow">Eclipse (IDE)</a></li>
+<li>Code::Blocks</li>
+<li>DevCpp</li></ul>
+<p>Da das Hauptklientiel von Windows nicht der Programmierer, sondern der "Otto-Normal-User" ist, bietet Windows dementsprechend keine bzw. nur wenige Entwicklungstools von sich aus mit. Dem neuen OS-Developer stehen am Anfang nichts weiter als der gute alte Notepad zur Verfügung. Zum Glück sieht die Situation heute besser aus als vor Jahren: Viele wichtige Tools wurden portiert oder für Windows neu entwickelt:
+</p>
+<ul><li><a class="external text" href="http://delorie.com" rel="nofollow">DJGPP</a> (Windows-Port von gcc)</li>
+<li>MinGw</li>
+<li>Cygwin</li></ul>
+<p>Mitsamt den Tools hat man fast die gleichen Voraussetzungen wie unter Linux.
+</p>
+<h2><span class="mw-headline" id="Singularity-Modell">Singularity-Modell</span></h2>
+<p>Eine Umgebung wie diese macht nur Sinn, wenn mein sein OS wie Singularity mit Managed-Code (wie C#) entwickeln möchte. Hierfür ist Singularity ein gutes Modell, an dem man sich gut orientieren kann, sofern man einmal richtig durchgeblickt hat. Sich die Dokus von Singularity anzuschauen kann keineswegs verkehrt sein. Doch wenn man sich Singularity mal genauer anschaut, ist das eher ein Sprachenwirrwarr, Assembler, C (glaube auch C++), C# und Sing#/Spec#.
+</p><p>Lassen wir uns nicht davon beirren, was wir brauchen sind eher die Build-Tools. Ja ja, hab ich auch gesehen, kein Editor. Naja, ein echter Hardcore-Freak kommt auch mit einem Highlight-losen Editor zurecht ... ich eher weniger. Aber hier kann man ja entweder auf Microsoft Visual Studio Express oder auf Notepad++ setzen, beiden natürlich kostenlos. Notepad++ wird zwar von vielen empfohlen, wer aber zu denen gehört, die gerne ihr Listing ausdrucken, dem empfehle ich die Visual Studio IDE, da Notepad++ meinen Geschmack nach zu verschwenderisch mit Papier um geht. Aber es soll jeder selbst entscheiden, welchen Editor er nutzen möchte.
+</p><p>Auf die Frage, ob wir noch einen Assembler, Compiler oder Linker benötigen ... nöööö, ist alles in den Build-Tools von Singularity zu finden, egal ob 16, 32 oder 64 Bit. Was uns aber fehlt, ist die eigentliche .NET-Framework Build-Umgebung, welche aber Bestandteil des .NET-Frameworks ist. Aktuell ist derzeit die Version 3.5 SP1, welche zwar schon bei Windows 7 mit bei ist, jedoch bei den Vorgängerversionen nachinstalliert werden müsste. Version 2.0 würde zwar auch ausreichen, da wir ja eigentlich ja nur den Builder (MSBuild.exe) brauchen.
+</p><p>OK, was benötigen wir nun alles. Die folgende Liste enthält alle nützlichen Links:
+</p>
+<ul><li><a class="external text" href="http://www.codeplex.com/singularity/" rel="nofollow">Microsoft Singularity RDK 2.0</a></li>
+<li><a class="external text" href="http://www.microsoft.com/downloads/details.aspx?FamilyID=333325fd-ae52-4e35-b531-508d977d32a6&amp;DisplayLang=de" rel="nofollow">Microsoft .NET-Framework v3.5</a></li>
+<li><a class="external text" href="http://www.microsoft.com/germany/express/" rel="nofollow">Microsoft Visual Studio 2008 Express</a></li>
+<li><a class="external text" href="http://notepad-plus.sourceforge.net/de/site.htm" rel="nofollow">Notepad++</a></li>
+<li><a class="external text" href="http://www.microsoft.com/whdc/devtools/debugging/default.mspx" rel="nofollow">Microsoft Windows-Debugger x86/x64 für Kernel-Debug</a></li>
+<li><a class="external text" href="http://www.microsoft.com/downloads/details.aspx?FamilyID=28c97d22-6eb8-4a09-a7f7-f6c7a1f000b5&amp;DisplayLang=de" rel="nofollow">Microsoft Virtual PC 2007 inkl. SP 1</a></li></ul>
+<h3><span class="mw-headline" id=".NET-Framework-Modell">.NET-Framework-Modell</span></h3>
+<p>"In Bearbeitung!"
+</p>
+<h3><span id="Microsoft_Visual_Studio_(IDE)"></span><span class="mw-headline" id="Microsoft_Visual_Studio_.28IDE.29">Microsoft Visual Studio (IDE)</span></h3>
+<h3><span id="Eclipse_(IDE)"></span><span class="mw-headline" id="Eclipse_.28IDE.29">Eclipse (IDE)</span></h3>
+<h3><span id="Sonstige,_eine_auf_GCC-Basis"></span><span class="mw-headline" id="Sonstige.2C_eine_auf_GCC-Basis">Sonstige, eine auf GCC-Basis</span></h3>
+<h2><span class="mw-headline" id="Code::Blocks">Code::Blocks</span></h2>
+<p><a class="external text" href="http://www.codeblocks.org" rel="nofollow">Code::Blocks</a> ist eine Entwicklungsumgebung für die Sprachen <a href="../1526/index.html" title="C">C</a> und <a href="../1486/index.html" title="C++">C++</a>. Die Syntaxhervorhebung beherrscht jedoch auch zahlreiche weitere Sprachen, etwa <a href="../1514/index.html" title="Assembler">Assembler</a>, <a href="../1863/index.html" title="D">D</a>, <a href="../1742/index.html" title="Ada">Ada</a>, Haskell und viele weitere. Code::Blocks bringt standartmäßig keinen Compiler mit, es wird jedoch so gut wie jeder aktuelle Compiler unterstützt:
+</p>
+<ul><li>GNU Compiler Collection</li>
+<li>Digital Mars D Compiler</li>
+<li>Tiny C Compiler</li>
+<li>Intel C/C++ Compiler</li>
+<li>...</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165121
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.005 seconds
+Real time usage: 0.006 seconds
+Preprocessor visited node count: 40/1000000
+Preprocessor generated node count: 58/1000000
+Post‐expand include size: 485/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.583      1 Vorlage:Stub
+100.00%    0.583      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:1810-0!canonical and timestamp 20261109165121 and revision id 10865
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="../../revisions/10865/index.html">http://wiki.localhost:8080/w/index.php?title=Entwicklungsumgebung&amp;oldid=10865</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../1618/index.html" title="Kategorie:Stub">Stub</a></li><li><a href="../1924/index.html" title="Kategorie:Werkzeuge">Werkzeuge</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../1811/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1810/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="../../revisions/10865/index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 22. September 2012 um 17:09 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

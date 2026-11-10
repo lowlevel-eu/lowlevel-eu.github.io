@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Teil 5 - Interrupts – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Teil_5_-_Interrupts rootpage-Teil_5_-_Interrupts skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1898/index.html">Aktueller Artikel</a> · <a href="../../history/1898/index.html">Versionsgeschichte</a> · <a href="../../source/8348.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Teil 5 - Interrupts</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 22. September 2010, 17:35 Uhr von <a class="mw-userlink" href="../../pages/1489/index.html" title="Benutzer:Bluecode"><bdi>Bluecode</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Wir versuchen relativ einheitlich (u)intXY_t im Wiki zu benutzen, da damit explizit wird, dass man eine bestimmte Größe nehmen sollte, siehe auch &lt;stdint.h&gt;)</span></div><div id="mw-revision-nav">(<a href="../../diffs/8347-8348.html" title="Teil 5 - Interrupts">Unterschied</a>) <a href="../8347/index.html" title="Teil 5 - Interrupts">← Nächstältere Version</a> | <a href="../../pages/1898/index.html" title="Teil 5 - Interrupts">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../9044/index.html" title="Teil 5 - Interrupts">Nächstjüngere Version →</a> (<a href="../../diffs/8348-9044.html" title="Teil 5 - Interrupts">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><table style="width:100%; background-color: #D0D8FF; border: 1px solid #b8c0e8; text-align:center; margin-bottom: 10px;">
+<tbody><tr>
+<td style="width:33%; text-align:left;">« <a href="../../pages/1897/index.html" title="Teil 4 - Hello World">Teil 4 - Hello World</a></td>
+<td style="width:33%; text-align:center;"><b>Navigation</b></td>
+<td style="width:33%; text-align:right;"><a href="../../pages/1899/index.html" title="Teil 6 - Multitasking">Teil 6 - Multitasking</a> »</td>
+</tr>
+</tbody></table>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Das_Ziel"><span class="tocnumber">1</span> <span class="toctext">Das Ziel</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Global_Descriptor_Table"><span class="tocnumber">2</span> <span class="toctext">Global Descriptor Table</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Interrupt_Descriptor_Table"><span class="tocnumber">3</span> <span class="toctext">Interrupt Descriptor Table</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Programmable_Interrupt_Controller"><span class="tocnumber">4</span> <span class="toctext">Programmable Interrupt Controller</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#N.C3.BCtzliche_Interrupthandler"><span class="tocnumber">5</span> <span class="toctext">Nützliche Interrupthandler</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Das_Ziel">Das Ziel</span></h2>
+<p>In diesem Teil wollen wir unserern Kernel <i>Interrupts</i> behandeln lassen. Ein Interrupt ist eine Unterbrechnung des aktuell ausgeführten Code, um eine Kernelfunktion (den <i>Interrupt-Handler</i>) aufzurufen. Es gibt drei unterschiedliche interessante Arten von Interrupts und keine davon ist für ein Betriebssystem verzichtbar:
+</p>
+<ul><li><a href="../../pages/1824/index.html" title="Exception">Exceptions</a> treten bei Fehlern auf. Der Kernel kann in manchen Fällen den Fehler beheben und das unterbrochene Programm fortsetzen. In anderen Fällen bleibt ihm nicht anderes übrig als das Programm (möglicherweise sich selbst) abzubrechen und eine Fehlermeldung auszugeben.</li>
+<li><a class="mw-redirect" data-archive-original-href="../../pages/1667/index.html" href="../../pages/1465/index.html#IRQ_Tabelle" title="IRQ">IRQs</a> (auch <i>Hardware-Interrupts</i>) werden von angeschlossener Hardware ausgelöst. Sie müssen vom passenden Treiber verarbeitet werden. Beispielsweise löst das Diskettenlaufwerk einen IRQ aus, wenn es einen Lesebefehl fertig ausgeführt hat oder eine Netzwerkkarte, wenn sie ein Ethernetpaket empfangen hat.</li>
+<li><i>Software-Interrupts</i> werden gezielt von Programmen aufgerufen, z.B. mit der <i>int</i>-Instruktion. Das häufigste Einsatzgebiet ist der Aufruf von <i>Syscalls</i>, also von Kernelfunktionen, in Programmen.</li></ul>
+<h2><span class="mw-headline" id="Global_Descriptor_Table">Global Descriptor Table</span></h2>
+<p>Die Multibootspezifikation garantiert uns, dass unser Kernel bei seinem Aufruf mit Segmenten arbeitet, die bei Null beginnen und die gesamten 4 GB abdecken, die i386 unterstützt. Sie macht aber keine Angaben darüber, welche Werte genau in den Segmentregistern stehen. Sobald wir ein Segmentregister neu laden wollen, müssen wir das also wissen. Weil ein Interrupt immer auch zumindest das Codesegment neu setzt, müssen wir die Segmente selbst so definieren, wie wir sie brauchen. Die Tabelle, die die Segmentdefinitionen enthält, ist die Global Descriptor Table (GDT).
+</p><p>Es gibt in diesem Wiki schon einen sehr ausführlichen Artikel zum Thema, daher möchte ich an dieser Stelle einfach nur darauf verweisen anstatt ihn zu kopieren:
+</p>
+<ul><li><a href="../../pages/1661/index.html" title="Global Descriptor Table">Global Descriptor Table</a></li></ul>
+<p>Ich gehe im Folgenden davon aus, dass die im Artikel beschriebenen Code- und Datensegmente in der Reihenfolge angelegt worden sind, in der sie im Artikel vorgeschlagen sind. Die TSS-Einträge brauchen wir vorerst noch nicht. Wir haben also in etwa den folgenden Code:
+</p><p>&lt;c&gt;#define GDT_FLAG_DATASEG 0x02
+</p>
+<ol><li>define GDT_FLAG_CODESEG 0x0a</li>
+<li>define GDT_FLAG_TSS     0x09</li></ol>
+<ol><li>define GDT_FLAG_SEGMENT 0x10</li>
+<li>define GDT_FLAG_RING0   0x00</li>
+<li>define GDT_FLAG_RING3   0x60</li>
+<li>define GDT_FLAG_PRESENT 0x80</li></ol>
+<ol><li>define GDT_FLAG_4K_GRAN 0x800</li>
+<li>define GDT_FLAG_32_BIT  0x400</li></ol>
+<p>void init_gdt(void)
+{
+</p>
+<pre>   set_entry(0, 0, 0, 0);
+   set_entry(1, 0, 0xfffff, GDT_FLAG_SEGMENT | GDT_FLAG_32_BIT |
+       GDT_FLAG_CODESEG | GDT_FLAG_4K_GRAN | GDT_FLAG_PRESENT);
+   set_entry(2, 0, 0xfffff, GDT_FLAG_SEGMENT | GDT_FLAG_32_BIT |
+       GDT_FLAG_DATASEG | GDT_FLAG_4K_GRAN | GDT_FLAG_PRESENT);
+   set_entry(3, 0, 0xfffff, GDT_FLAG_SEGMENT | GDT_FLAG_32_BIT |
+       GDT_FLAG_CODESEG | GDT_FLAG_4K_GRAN | GDT_FLAG_PRESENT | GDT_FLAG_RING3);
+   set_entry(4, 0, 0xfffff, GDT_FLAG_SEGMENT | GDT_FLAG_32_BIT |
+       GDT_FLAG_DATASEG | GDT_FLAG_4K_GRAN | GDT_FLAG_PRESENT | GDT_FLAG_RING3);
+</pre>
+<pre>   load_gdt();
+</pre>
+<p>}&lt;/c&gt;
+</p><p>Testen lässt sich die GDT ganz einfach: Wenn der Kernel nach dem Laden der GDT und dem Neuladen der Segmentregister noch läuft, war es wohl hinreichend richtig. Wenn der Rechner neu startet, stimmt noch irgendetwas nicht ganz.
+</p>
+<h2><span class="mw-headline" id="Interrupt_Descriptor_Table">Interrupt Descriptor Table</span></h2>
+<p>Eine zweite Tabelle, die <a href="../../pages/1603/index.html" title="Interrupt Descriptor Table">Interrupt Descriptor Table</a> (IDT), beschreibt, wie mit den unterschiedlichen Interrupts umzugehen ist. Schau Dir am besten auch hier den Artikel an, um herauszufinden, wie die Einträge der Tabelle aussehen.
+</p><p>Für einen ersten Test nimmst Du am besten einen einfachen Handler her, ohne aus dem Interrupt zurückzuspringen:
+&lt;c&gt;void int_handler(void)
+{
+</p>
+<pre>   kprintf("Ein Interrupt!\n");
+   while(1);
+</pre>
+<p>}&lt;/c&gt;
+Nachdem Du die GDT und IDT eingerichtet hast (und den Handler für Interrupt 0, also in den ersten Eintrag der IDT eingetragen hast), kannst Du versuchen, diesen Interrupt auszulösen:
+&lt;c&gt;asm volatile("int $0x0");&lt;/c&gt;
+Wenn alles funktioniert, bekommst Du jetzt unsere Erfolgsmeldung aus dem Interrupt.
+</p>
+<h2><span class="mw-headline" id="Programmable_Interrupt_Controller">Programmable Interrupt Controller</span></h2>
+<p>Dummerweise liegen auf den ersten paar Interruptnummern sowohl einige Exceptions als auch einige Hardware-Interrupts. Wir müssen diese beiden Fälle natürlich unterscheiden können, um sinnvoll mit ihnen umzugehen. Exceptions lassen sich nicht auf andere Nummern legen, aber bei Hardware-Interrupts ist es glücklicherweise möglich: Wir müssen dazu nur den <a href="../../pages/1465/index.html" title="Programmable Interrupt Controller">Programmable Interrupt Controller</a> (PIC) umprogrammieren.
+</p><p>Ein übliches Modell ist es, auf den Interrupts 0 bis 0x1f die Exceptions zu haben, direkt anschließend von 0x20 bis 0x2f die IRQs und ab 0x30 die Software-Interrupts, z.B. Syscalls. In diesem Fall müssten wir den beiden PICs also mitteilen, sie sollen die IRQs ab 0x20 bzw. 0x28 anfangen lassen:
+</p><p>&lt;c&gt;// Master-PIC initialisieren
+outb(0x20, 0x11); // Initialisierungsbefehl fuer den PIC
+outb(0x21, 0x20); // Interruptnummer fuer IRQ 0
+outb(0x21, 0x04); // An IRQ 2 haengt der Slave
+outb(0x21, 0x01); // ICW 4
+</p><p>// Slave-PIC initialisieren
+outb(0xa0, 0x11); // Initialisierungsbefehl fuer den PIC
+outb(0xa1, 0x28); // Interruptnummer fuer IRQ 8
+outb(0xa1, 0x02); // An IRQ 2 haengt der Slave
+outb(0xa1, 0x01); // ICW 4
+</p><p>// Alle IRQs aktivieren (demaskieren)
+outb(0x20, 0x0);
+outb(0xa0, 0x0);&lt;/c&gt;
+</p><p>Dabei ist <i>outb</i> eine Funktion, um einen 8-Bit-Wert an einen <a href="../../pages/1543/index.html" title="I/O Ports"> I/O-Port</a> zu schreiben, und kann wie in <a href="../../pages/1472/index.html" title="Inline-Assembler mit GCC">Inline-Assembler mit GCC</a> beschrieben definiert werden:
+&lt;c&gt;static inline void outb(uint16_t port, uint8_t data)
+{
+</p>
+<pre>   asm volatile ("outb %0, %1" : : "a" (data), "Nd" (port));
+</pre>
+<p>}&lt;/c&gt;
+</p><p>Nachdem die IRQs auf sinnvolle Nummern gelegt sind und Handler in der IDT installiert sind, kannst Du Hardware-Interrupts aktivieren:
+&lt;c&gt;asm volatile("sti");&lt;/c&gt;
+Achtung: Der Timer liegt auf IRQ 0 und löst in regelmäßigen Abständen mehrmals pro Sekunde einen IRQ aus. Zumindest IRQ 0 muss also auf jeden Fall sinnvoll behandelt werden, ansonsten währt die Freude nicht lang.
+</p>
+<h2><span id="Nützliche_Interrupthandler"></span><span class="mw-headline" id="N.C3.BCtzliche_Interrupthandler">Nützliche Interrupthandler</span></h2>
+<p>Jetzt fehlt nur noch die eigentliche Funktion, die aufgerufen werden soll, wenn ein Interrupt auftritt. Meistens möchte man nur einen einzigen Handler für alle Interrupts zusammen haben, der allerdings die Interruptnummer (und den sonstigen Prozessorzustand beim Auftreten des Interrupts) als Parameter übergeben bekommt.
+</p><p>Ein vorgeschalteter Teil soll den Prozessorzustand sichern und der eigentliche Handler soll nur noch ungefähr so aussehen:
+</p><p>&lt;c&gt;void handle_interrupt(struct cpu_state* cpu)
+{
+</p>
+<pre>   if (cpu-&gt;intr &lt;= 0x1f) {
+       kprintf("Exception %d, Kernel angehalten!\n", cpu-&gt;intr);
+</pre>
+<pre>       // Hier den CPU-Zustand ausgeben
+</pre>
+<pre>       while(1) {
+           // Prozessor anhalten
+           asm volatile("cli; hlt");
+       }
+   } else {
+       // Hier den Hardwareinterrupt behandeln
+   }
+</pre>
+<p>}&lt;/c&gt;
+</p><p>Das lässt sich einfach genug erreichen, dazu nehmen wir zur Abwechslung wieder einmal Assembler zur Hilfe. Wir müssen dazu für jeden Interrupt einen eigenen Handler definieren, der aber nichts anderes macht, als die Interruptnummer auf den Stack zu legen und in einen gemeinsamen Handler für alle Interrupts zu springen. Außerdem müssen wir aufpassen, weil manche Exceptions einen Fehlercode auf den Stack legen, bei allen anderen Interrupts fehlt er. Um alle Interrupts gleich aussehen zu lassen, legen wir vor der Interruptnummer noch eine 0 auf den Stack, wenn kein Fehlercode vorhanden ist. Wir definieren also:
+</p><p>&lt;asm&gt;.macro intr_stub nr
+.global intr_stub_\nr
+intr_stub_\nr:
+</p>
+<pre>   pushl $0
+   pushl $\nr
+   jmp intr_common_handler
+</pre>
+<p>.endm
+</p><p>.macro intr_stub_error_code nr
+.global intr_stub_\nr
+intr_stub_\nr:
+</p>
+<pre>   pushl $\nr
+   jmp intr_common_handler
+</pre>
+<p>.endm
+</p><p>// Exceptions
+intr_stub 0
+intr_stub 1
+intr_stub 2
+intr_stub 3
+intr_stub 4
+intr_stub 5
+intr_stub 6
+intr_stub 7
+intr_stub_error_code 8
+intr_stub 9
+intr_stub_error_code 10
+intr_stub_error_code 11
+intr_stub_error_code 12
+intr_stub_error_code 13
+intr_stub_error_code 14
+intr_stub 15
+intr_stub 16
+intr_stub_error_code 17
+intr_stub 18
+</p><p>// IRQs
+intr_stub 32
+// usw. bis 47
+</p><p>// Syscall
+intr_stub 48&lt;/asm&gt;
+</p><p>Im zweiten Teil müssen wir jetzt den <i>intr_common_handler</i> definieren. Er soll den CPU-Zustand auf den Stack speichern und dann die oben genannte Funktion <i>handle_interrupt</i> aufrufen. Nachdem der Interrupt fertig behandelt ist, stellen wir den CPU-Zustand wieder her und springen zurück in das unterbrochene Programm. Das könnte ungefähr so aussehen:
+</p><p>&lt;asm&gt;.extern handle_interrupt
+intr_common_handler:
+</p>
+<pre>   // CPU-Zustand sichern
+   push %ebp
+   push %edi
+   push %esi
+   push %edx
+   push %ecx
+   push %ebx
+   push %eax
+</pre>
+<pre>   // Handler aufrufen
+   push %esp
+   call handle_interrupt
+   add $4, %esp
+</pre>
+<pre>   // CPU-Zustand wiederherstellen
+   pop %eax
+   pop %ebx
+   pop %ecx
+   pop %edx
+   pop %esi
+   pop %edi
+   pop %ebp
+</pre>
+<pre>   // Fehlercode und Interruptnummer vom Stack nehmen
+   add $8, %esp
+</pre>
+<pre>   // Ruecksprung zum unterbrochenen Code
+   iret&lt;/asm&gt;
+</pre>
+<p>Die passende Definition für struct cpu_state sähe in diesem Fall so aus, dass sie einfach die auf den Stack gepushten Werte enthält. Zur Erinnerung, der Stack wächst nach unten, daher fängt die Struktur mit dem zuletzt gepushten (also eax) an:
+&lt;c&gt;struct cpu_state {
+</p>
+<pre>   // Von Hand gesicherte Register
+   uint32_t   eax;
+   uint32_t   ebx;
+   uint32_t   ecx;
+   uint32_t   edx;
+   uint32_t   esi;
+   uint32_t   edi;
+   uint32_t   ebp;
+</pre>
+<pre>   uint32_t   intr;
+   uint32_t   error;
+</pre>
+<pre>   // Von der CPU gesichert
+   uint32_t   eip;
+   uint32_t   cs;
+   uint32_t   eflags;
+   uint32_t   esp;
+   uint32_t   ss;
+</pre>
+<p>};&lt;/c&gt;
+</p><p>Nachdem die Handler für die einzelnen Interrupts nun fertig geschrieben sind, müssen sie (falls noch nicht geschehen) natürlich noch in die IDT eingetragen werden, damit sie beim Auftreten eines Interrupts angesprungen werden. Andernfalls würde der Code nie ausgeführt werden.
+</p><p>Eine geeignete Implementierung für Exceptions ist die oben schon vorgeschlagene Fehlermeldung mit anschließendem Anhalten des Systems (später könnte man das aktuell ausgeführte Programm beenden, aber wir haben so etwas ja noch nicht). Für Hardware-Interrupts muss zumindest ein EOI (End of Interrupt) an den PIC gesendet werden, damit der Interrupt gleich beim nächsten Mal wieder gemeldet wird und nicht noch vom letzten Aufruf blockiert ist:
+&lt;c&gt;if (cpu-&gt;intr &gt;= 0x20 &amp;&amp; cpu-&gt;intr &lt;= 0x2f) {
+</p>
+<pre>   if (cpu-&gt;intr &gt;= 0x28) {
+       outb(0xa0, 0x20);
+   }
+   outb(0x20, 0x20);
+</pre>
+<p>}&lt;/c&gt;
+</p><p>Mit diesen Interrupthandlern ließe sich an dieser Stelle beispielsweise schon ein <a href="../../pages/1468/index.html" title="Keyboard Controller">Tastaturtreiber</a> schreiben.
+</p><p><br/>
+</p>
+<table style="width:100%; background-color: #D0D8FF; border: 1px solid #b8c0e8; text-align:center; margin-bottom: 10px;">
+<tbody><tr>
+<td style="width:33%; text-align:left;">« <a href="../../pages/1897/index.html" title="Teil 4 - Hello World">Teil 4 - Hello World</a></td>
+<td style="width:33%; text-align:center;"><b>Navigation</b></td>
+<td style="width:33%; text-align:right;"><a href="../../pages/1899/index.html" title="Teil 6 - Multitasking">Teil 6 - Multitasking</a> »</td>
+</tr>
+</tbody></table>
+<!-- 
+NewPP limit report
+Cached time: 20261109170502
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.005 seconds
+Real time usage: 0.006 seconds
+Preprocessor visited node count: 56/1000000
+Preprocessor generated node count: 160/1000000
+Post‐expand include size: 856/2097152 bytes
+Template argument size: 196/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.902      1 -total
+ 92.47%    0.834      2 Vorlage:Navigation
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Teil_5_-_Interrupts&amp;oldid=8348</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1895/index.html" title="Kategorie:OS-Dev für Einsteiger">OS-Dev für Einsteiger</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1898/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2137/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1898/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

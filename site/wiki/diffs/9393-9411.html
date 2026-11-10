@@ -1,0 +1,115 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PS/2-Maus Tutorial — Änderungen 9393 → 9411</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>PS/2-Maus Tutorial — Änderungen 9393 → 9411</h1><nav><a href="../revisions/9393/index.html">Version 9393</a> · <a href="../revisions/9411/index.html">Version 9411</a> · <a href="../history/2390/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l33" >Zeile 33:</td>
+<td colspan="2" class="diff-lineno">Zeile 33:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">VOID </del>kbc_write_inbuf(<del class="diffchange diffchange-inline">BYTE </del>data)</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">void </ins>kbc_write_inbuf(<ins class="diffchange diffchange-inline">uint8_t </ins>data)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; <del class="diffchange diffchange-inline">DWORD </del>to = 255;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; <ins class="diffchange diffchange-inline">uint32_t </ins>to = 255;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; while ( inb(0x64) &amp; 0x02)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; while ( inb(0x64) &amp; 0x02)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l51" >Zeile 51:</td>
+<td colspan="2" class="diff-lineno">Zeile 51:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">BYTE </del>kbc_read_outbuf()</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">uint8_t </ins>kbc_read_outbuf()</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; <del class="diffchange diffchange-inline">DWORD </del>to = 255;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; <ins class="diffchange diffchange-inline">uint32t </ins>to = 255;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; while ( ! (inb(0x64) &amp; 0x01) )</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; while ( ! (inb(0x64) &amp; 0x01) )</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l70" >Zeile 70:</td>
+<td colspan="2" class="diff-lineno">Zeile 70:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">VOID </del>kbc_send_cmd (<del class="diffchange diffchange-inline">BYTE </del>cmd)</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">void </ins>kbc_send_cmd (<ins class="diffchange diffchange-inline">uint8_t </ins>cmd)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; <del class="diffchange diffchange-inline">DWORD </del>to = 255;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; <ins class="diffchange diffchange-inline">uint32_t </ins>to = 255;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; <del class="diffchange diffchange-inline">BYTE </del>kbc_status = inb(KBC_STATUS);</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; <ins class="diffchange diffchange-inline">uint8_t </ins>kbc_status = inb(KBC_STATUS);</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; while ( inb(0x64) &amp; 0x02)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; while ( inb(0x64) &amp; 0x02)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l116" >Zeile 116:</td>
+<td colspan="2" class="diff-lineno">Zeile 116:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">VOID </del>mouse_send_cmd(<del class="diffchange diffchange-inline">BYTE </del>cmd)</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">void </ins>mouse_send_cmd(<ins class="diffchange diffchange-inline">uint8_t </ins>cmd)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; kbc_send_cmd(KBC_CMD_MOUSE);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; kbc_send_cmd(KBC_CMD_MOUSE);</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l139" >Zeile 139:</td>
+<td colspan="2" class="diff-lineno">Zeile 139:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">BYTE </del>mouse_read_data()</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">uint8_t </ins>mouse_read_data()</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; return kbc_read_outbuf();</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; return kbc_read_outbuf();</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l151" >Zeile 151:</td>
+<td colspan="2" class="diff-lineno">Zeile 151:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#define ACK 0xFA</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#define ACK 0xFA</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">VOID </del>mouse_install()</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">void </ins>mouse_install()</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; <del class="diffchange diffchange-inline">BYTE </del>command_byte;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; <ins class="diffchange diffchange-inline">uint8_t </ins>command_byte;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">&#160; &#160; &#160; </del>//leere den Daten Puffer</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; </ins>//leere den Daten Puffer</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; while ( inb(0x64) &amp; 0x01)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; while ( inb(0x64) &amp; 0x01)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l161" >Zeile 161:</td>
+<td colspan="2" class="diff-lineno">Zeile 161:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; }</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; }</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">&#160; &#160; &#160; </del>//aktiviere die Maus beim Keyboard Controller</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; </ins>//aktiviere die Maus beim Keyboard Controller</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; kbc_send_cmd(0xA8);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; kbc_send_cmd(0xA8);</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">&#160; &#160; &#160; </del>//Bit 1 im Command Byte setzen</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; </ins>//Bit 1 im Command Byte setzen</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; kbc_send_cmd(0x20);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; kbc_send_cmd(0x20);</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; cb = kbc_read_outbuf();</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; cb = kbc_read_outbuf();</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l171" >Zeile 171:</td>
+<td colspan="2" class="diff-lineno">Zeile 171:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; kbc_write_inbuf(cb);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; kbc_write_inbuf(cb);</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">&#160; &#160; &#160; </del>//Standards setzen</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; </ins>//Standards setzen</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; mouse_send_cmd(0xF6)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; mouse_send_cmd(0xF6)</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; if ( mouse_read_data() != ACK)</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; if( mouse_read_data() != ACK)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; kprintf(“mouse error!”);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; kprintf(“mouse error!”);</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l179" >Zeile 179:</td>
+<td colspan="2" class="diff-lineno">Zeile 179:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; }</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; }</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">&#160; &#160; &#160; </del>//das Senden von Daten aktivieren</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; </ins>//das Senden von Daten aktivieren</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; mous_send_cmd(0xF4);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; mous_send_cmd(0xF4);</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; if ( mouse_read_data() != ACK)</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; if( mouse_read_data() != ACK)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; kprintf(“mouse error!”);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; kprintf(“mouse error!”);</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l217" >Zeile 217:</td>
+<td colspan="2" class="diff-lineno">Zeile 217:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">BYTE </del>cycle=1;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">uint8_t </ins>cycle=1;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">BYTE </del>flags;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">uint8_t </ins>flags;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>int x_mov, y_mov;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>int x_mov, y_mov;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">VOID </del>irq_12_handler()</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">void </ins>irq_12_handler()</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; <del class="diffchange diffchange-inline">DWORD </del>val;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; <ins class="diffchange diffchange-inline">uint32_t </ins>val;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; switch (cycle)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; switch (cycle)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l239" >Zeile 239:</td>
+<td colspan="2" class="diff-lineno">Zeile 239:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; case 2:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; case 2:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; val = mouse_read_data();</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; val = mouse_read_data();</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; &#160; &#160; val &amp;= (<del class="diffchange diffchange-inline">DWORD</del>) 0xFF;		//es dürfen wirklich nur die ersten 8 Bits belegt sein!</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; &#160; &#160; val &amp;= (<ins class="diffchange diffchange-inline">uint32_t </ins>)0xFF;		//es dürfen wirklich nur die ersten 8 Bits belegt sein!</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; if (flags &amp; 0x10)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; if (flags &amp; 0x10)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; &#160; x_mov = (val | 0xFFFFFF00);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; &#160; x_mov = (val | 0xFFFFFF00);</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l248" >Zeile 248:</td>
+<td colspan="2" class="diff-lineno">Zeile 248:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; case 3:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; case 3:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; val = inb(0x60);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; val = inb(0x60);</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; &#160; &#160; val &amp;= (<del class="diffchange diffchange-inline">DWORD</del>) 0xFF;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; &#160; &#160; val &amp;= (<ins class="diffchange diffchange-inline">uint32_t </ins>)0xFF;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; if (flags &amp; 0x20)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; if (flags &amp; 0x20)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; &#160; y_mov = - (val | 0xFFFFFF00);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; &#160; y_mov = - (val | 0xFFFFFF00);</div></td></tr>
+</table></body></html>

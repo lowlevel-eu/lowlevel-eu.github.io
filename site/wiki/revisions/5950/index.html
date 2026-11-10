@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Color Graphics Adapter – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Color_Graphics_Adapter rootpage-Color_Graphics_Adapter skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1890/index.html">Aktueller Artikel</a> · <a href="../../history/1890/index.html">Versionsgeschichte</a> · <a href="../../source/5950.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Color Graphics Adapter</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 23. September 2009, 00:29 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Jidder</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Rechtschreibung, Formulierung, ...)</span></div><div id="mw-revision-nav">(<a href="../../diffs/5859-5950.html" title="Color Graphics Adapter">Unterschied</a>) <a href="../5859/index.html" title="Color Graphics Adapter">← Nächstältere Version</a> | <a href="../../pages/1890/index.html" title="Color Graphics Adapter">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../6450/index.html" title="Color Graphics Adapter">Nächstjüngere Version →</a> (<a href="../../diffs/5950-6450.html" title="Color Graphics Adapter">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Der <b>Color Graphics Adapter</b> (<b>CGA</b>) ist die Grafikkarte, die den 80x25 Textmodus eingeführt hat. In diesem Modus können ausschließlich Zeichen auf einem Raster vom Format 80x25 dargestellt werden. Jedes Zeichen kann in einer von 16 Farben dargestellt werden, sowie mit einer von 8 Hintergrundfarben hinterlegt werden und optional blinken. Die Anzahl der Hintergrundfarben kann auch auf 16 erweitert werden, allerdings können dann die Zeichen nicht mehr blinken.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Videospeicher"><span class="tocnumber">1</span> <span class="toctext">Videospeicher</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Aufbau_das_Attribut-Bytes"><span class="tocnumber">1.1</span> <span class="toctext">Aufbau das Attribut-Bytes</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Regen_Buffer"><span class="tocnumber">1.2</span> <span class="toctext">Regen Buffer</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#I.2FO_Ports"><span class="tocnumber">2</span> <span class="toctext">I/O Ports</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Interne_Register"><span class="tocnumber">2.1</span> <span class="toctext">Interne Register</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Cursor_Format"><span class="tocnumber">2.1.1</span> <span class="toctext">Cursor Format</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Start_Address"><span class="tocnumber">2.1.2</span> <span class="toctext">Start Address</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Cursor_Address"><span class="tocnumber">2.1.3</span> <span class="toctext">Cursor Address</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#16_Hintergrundfarben"><span class="tocnumber">2.2</span> <span class="toctext">16 Hintergrundfarben</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Vertical_Sync"><span class="tocnumber">2.3</span> <span class="toctext">Vertical Sync</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Textausgabe"><span class="tocnumber">3</span> <span class="toctext">Textausgabe</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Palette"><span class="tocnumber">4</span> <span class="toctext">Palette</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Siehe_auch"><span class="tocnumber">5</span> <span class="toctext">Siehe auch</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Videospeicher">Videospeicher</span></h2>
+<p>Im 80x25 Textmodus (16 Farben) wird der Speicher ab Adresse 0xB8000 als Puffer verwendet. In diesem Speicher liegen für jedes Zeichen abwechselnd jeweils ein Byte mit dem Index in die Font Table (in der Regel der ASCII-Code des Zeichens) und ein Attribut-Byte. Das heißt jedes Zeichen belegt zwei Bytes im Videospeicher.
+</p>
+<h3><span class="mw-headline" id="Aufbau_das_Attribut-Bytes">Aufbau das Attribut-Bytes</span></h3>
+<table class="prettytable" style="text-align: center;">
+<tbody><tr>
+<th><b>Bit</b>
+</th>
+<th width="10%">7
+</th>
+<th width="10%">6
+</th>
+<th width="10%">5
+</th>
+<th width="10%">4
+</th>
+<th width="10%">3
+</th>
+<th width="10%">2
+</th>
+<th width="10%">1
+</th>
+<th width="10%">0
+</th></tr>
+<tr>
+<td><b>Bedeutung</b></td>
+<td>Blinken</td>
+<td colspan="3">Hintergrundfarbe</td>
+<td colspan="4">Vordergrundfarbe
+</td></tr></tbody></table>
+<ul><li>Ist das Bit 7 gesetzt, so blinkt das Zeichen.</li>
+<li>Die Hintergrundfarbe setzt den Hintergrund des Zeichens auf eine der ersten 8 CGA-Farben. (Siehe unten für 16 Hintergrundfarben.)</li>
+<li>Die Vordergrundfarbe setzt die Farbe des Zeichens auf eine der 16 CGA-Farben.</li></ul>
+<p>Farben der Standard-CGA-Palette in der englischen Wikipedia: <a class="external autonumber" href="http://en.wikipedia.org/wiki/List_of_8-bit_computer_hardware_palettes#CGA" rel="nofollow">[1]</a>
+</p>
+<h3><span class="mw-headline" id="Regen_Buffer">Regen Buffer</span></h3>
+<p>Der Videospeicher wird auch als Regen Buffer (von engl. <i>regenerate</i>) bezeichnet. Er war ursprünglich 16 KiB groß und ging von 0xB8000 bis 0xBC000, bei neueren Grafikkarten (relativ zum CGA) ist er 32 KiB groß und geht bis 0xC0000. Im Folgenden gehen wir davon aus, dass der Puffer 32 KiB groß ist, denn einen originalen IBM PC hat vermutlich keiner mehr rumstehen. 
+</p><p>Aus dem Regen Buffer liest die Grafikkarte die Zeichencodes sowie die Attribute aus, und erstellt daraus die Signale für den Monitor. Die Bezeichnung <i>regenerate</i> zeigt an, dass die Grafikkarte nicht direkt die Buchstaben an den Monitor sendet, sondern das Videosignal anhand des Regen Buffers und der Font Table generiert.
+</p><p>In der 80x25 Auflösung können 80*25 Zeichen dargestellt werden, von denen jedes 2 Bytes belegt. Das heißt es werden 80*25*2 = 4000 Bytes verwendet. In dem Regen Buffer wären also für insgesamt 8 Bildschirmseiten (= 32 KiB/4000) Platz. Standardmäßig werden (nach dem Systemstart) die ersten 4000 Bytes an Adresse 0xB8000 zur Darstellung verwendet. Man kann allerdings dieses Fenster verschieben indem man den Grafikadapter anweist eine andere Startadresse zu nehmen. (Siehe <a href="#Interne_Register">Interne Register</a> weiter unten.)
+</p><p>Für die 8 Bildschirmseiten verwendet das BIOS Startadressen, die jeweils Vielfache von 0x4000 (4 KiB) sind. Allerdings ist man weder daran gebunden, noch muss man dieses Konzept von 8 getrennten Bildschirmseiten beibehalten (sofern man das BIOS vollständig umgeht). Man kann z.B. durch Verschieben der Startadresse in 80er-Schritten ein Hardware Scrolling realisieren.
+</p>
+<h2><span id="I/O_Ports"></span><span class="mw-headline" id="I.2FO_Ports">I/O Ports</span></h2>
+<p>Die I/O Ports 0x3D0 bis 0x3DC sind für den CGA reserviert. Die Ports sind jeweils ein Byte groß.
+</p>
+<h3><span class="mw-headline" id="Interne_Register">Interne Register</span></h3>
+<p>Der Motorola 6845 CRT Controller hat 18 interne Register, die verschiedene Aspekte der Darstellung kontrollieren. Sie werden über die Ports 0x3D4 und 0x3D5 angesteuert. Das Laden eines Registers erfolgt, indem der Index des Registers an den Port 0x3D4 geschrieben wird, und dann die Daten nach Port 0x3D5 geschrieben werden. 
+</p><p>Die folgende Tabelle listet alle zur Verfügung stehenden Register auf:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Index</th>
+<th>Register Typ</th>
+<th>Einheit
+</th></tr>
+<tr>
+<td>0</td>
+<td>Horizontal Total</td>
+<td>Character
+</td></tr>
+<tr>
+<td>1</td>
+<td>Horizontal Displayed</td>
+<td>Character
+</td></tr>
+<tr>
+<td>2</td>
+<td>Horizontal Sync Position</td>
+<td>Character
+</td></tr>
+<tr>
+<td>3</td>
+<td>Horizontal Sync Width</td>
+<td>Character
+</td></tr>
+<tr>
+<td>4</td>
+<td>Vertical Total</td>
+<td>Character Row
+</td></tr>
+<tr>
+<td>5</td>
+<td>Vertical Total Adjust</td>
+<td>Scan Line
+</td></tr>
+<tr>
+<td>6</td>
+<td>Vertical Displayed</td>
+<td>Character Row
+</td></tr>
+<tr>
+<td>7</td>
+<td>Vertical Sync Position</td>
+<td>Character Row
+</td></tr>
+<tr>
+<td>8</td>
+<td>Interlace Mode</td>
+<td>-
+</td></tr>
+<tr>
+<td>9</td>
+<td>Maximum Scan Line Address</td>
+<td>Scan Line
+</td></tr>
+<tr>
+<td>10</td>
+<td>Cursor Start</td>
+<td>Scan Line
+</td></tr>
+<tr>
+<td>11</td>
+<td>Cursor End</td>
+<td>Scan Line
+</td></tr>
+<tr>
+<td>12</td>
+<td>Start Address (High Byte)
+</td>
+<td rowspan="2">Offset
+</td></tr>
+<tr>
+<td>13</td>
+<td>Start Address (Low Byte)
+</td></tr>
+<tr>
+<td>14</td>
+<td>Cursor Address (High Byte)
+</td>
+<td rowspan="2">Offset
+</td></tr>
+<tr>
+<td>15</td>
+<td>Cursor Address (Low Byte)
+</td></tr>
+<tr>
+<td>16</td>
+<td>Light Pen (High Byte)
+</td>
+<td rowspan="2">?
+</td></tr>
+<tr>
+<td>17</td>
+<td>Light Pen (Low Byte)
+</td></tr>
+</tbody></table>
+<p>Die ersten 10 Register (0-9) steuern das Timing des CRT-Displays, sowie weitere Details der Darstellung, die über den Zweck dieses Artikels hinausgehen. Informationen dazu gibt es im Datenblatt des 6845 z.B. unter <a class="external autonumber" href="http://bbc.nvg.org/doc/datasheets/MC6845.zip" rel="nofollow">[2]</a>.
+</p><p>Nur die Register 14 bis 17 können laut Spezifikation ausgelesen werden. Deswegen ist es notwendig die Werte der anderen Register in einer Variable zu speichern, wenn man ihre Werte benötigt. Das BIOS nutzt dafür zum Beispiel Teile der <a href="../../pages/1564/index.html#Grafik-Adapter-Informationen" title="BIOS Data Area">BIOS Data Area</a>.
+</p>
+<h4><span class="mw-headline" id="Cursor_Format">Cursor Format</span></h4>
+<p>Die Register 10 und 11 steuern die Form des Cursors. Die unteren 5 Bits dieser Register geben jeweils die Start- und End-Scanline des Cursors innerhalb eines Zeichens an. Außerdem steuern Bits 5 und 6 des Registers 10 das Blinken des Cursors.
+</p>
+<table class="prettytable" style="text-align: center;">
+<tbody><tr>
+<th>Register
+</th>
+<th width="10%">7
+</th>
+<th width="10%">6
+</th>
+<th width="10%">5
+</th>
+<th width="10%">4
+</th>
+<th width="10%">3
+</th>
+<th width="10%">2
+</th>
+<th width="10%">1
+</th>
+<th width="10%">0
+</th></tr>
+<tr>
+<td><b>Cursor Start</b></td>
+<td>n/a</td>
+<td>Enable</td>
+<td>Timing
+</td>
+<td colspan="5">Scanline
+</td></tr>
+<tr>
+<td><b>Cursor End</b>
+</td>
+<td colspan="3">n/a
+</td>
+<td colspan="5">Scanline
+</td></tr></tbody></table>
+<p>Die folgende Tabelle listet alle möglichen Belegungen von Enable und Timing auf:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Enable</th>
+<th>Timing</th>
+<th>Effekt
+</th></tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>Cursor blinkt nicht
+</td></tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>Cursor wird nicht dargestellt
+</td></tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>Cursor blinkt normal
+</td></tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>Cursor blinkt schnell
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="Start_Address">Start Address</span></h4>
+<p>Die Register 12 und 13 geben das Offset an, an dem das erste darzustellende Zeichen auf dem Bildschirm, also das Zeichen oben links, steht. Dabei ist zu beachten, dass die Berechnung des Offsets wie die Berechnung der Cursorposition (siehe unten) verläuft. Das heißt das Offset darf nicht mit 2 multipliziert werden, um die Attribute einzubeziehen. 
+</p><p>Beispiel, das analog zum BIOS den Speicher in 8 Seiten unterteilt:
+&lt;c&gt;/* Unsere Auflösung */
+</p>
+<ol><li>define ROWS 25</li>
+<li>define COLS 80</li></ol>
+<p>/*
+</p>
+<pre>* DISPLAY_PAGE_OFFSET gibt die Startadresse der übergebenen Seitennummer 
+* zurück. Dabei rundet es die Adresse einer Bildschirmseite auf das 
+* nächste Vielfache von 256 auf. Das Makro ist etwas komplizierter als nötig, 
+* falls es jemand mit anderen Auflösungen verwenden will. Für den 80x25-
+* Modus vereinfacht es sich zu ((page) * 2048). 
+*/
+</pre>
+<ol><li>define DISPLAY_PAGE_OFFSET(page) ((page) * ((ROWS * COLS + 0xff) &amp; 0xff00))</li></ol>
+<p>/* Die Startadresse der dargestellten Seite */
+unsigned short start_address;
+</p><p>void select_page(unsigned int page)
+{
+</p>
+<pre>   start_address = DISPLAY_PAGE_OFFSET(page);
+</pre>
+<pre>   outb(0x3D4, 13);
+   outb(0x3D5, start_address &amp; 0xff); // Low Byte schreiben
+   outb(0x3D4, 12);
+   outb(0x3D5, (start_address &gt;&gt; 8) &amp; 0xff); // High Byte schreiben
+</pre>
+<pre>   /* 
+    * Hier muss noch die Cursorposition gesetzt werden, da diese für 
+    * jede Page eine andere ist. Das heißt sie muss z.B. in einem Array 
+    * gespeichert werden, wenn man mehrere Pages verwalten möchte.
+    *
+    * Das Setzen des Cursors wird im nächsten Abschnitt erläutert.
+    */
+</pre>
+<p>}&lt;/c&gt;
+</p>
+<h4><span class="mw-headline" id="Cursor_Address">Cursor Address</span></h4>
+<p>Die Register 14 und 15 setzen die Cursor-Adresse, die sich aus der Cursor-Position berechnet. Um den Cursor zum Beispiel in die Zeile 10 und Spalte 63 zu setzen, muss man 10 * 80 + 63 = 863 rechnen. Dieser Wert wird dann in die High- und Low-Bytes der Register für die Cursor Adresse geschrieben. 
+</p><p>Dabei ist zu beachten, dass wenn man wie im letzten Abschnitt beschrieben die Startadresse verändert, diese Startadresse auf die Cursor-Adresse addieren muss.
+</p><p>Beispiel:
+&lt;c&gt;/* Unsere Auflösung */
+</p>
+<ol><li>define ROWS 25</li>
+<li>define COLS 80</li></ol>
+<p>/* Cursor-Position, die durch die Ausgabefunktionen gesetzt werden */
+unsigned int cursor_x;
+unsigned int cursor_y;
+</p><p>void update_cursor()
+{
+</p>
+<pre>   unsigned short cursor_address = cursor_x + cursor_y * COLS;
+</pre>
+<pre>   // die Startadresse dazuaddieren (nur nötig, wenn man diese auch verändert hat)
+   cursor_address += start_address; 
+</pre>
+<pre>   outb(0x3D4, 15);
+   outb(0x3D5, cursor_address &amp; 0xff);
+   outb(0x3D4, 14);
+   outb(0x3D5, (cursor_address &gt;&gt; 8) &amp; 0xff);
+</pre>
+<p>}&lt;/c&gt;
+</p>
+<h3><span class="mw-headline" id="16_Hintergrundfarben">16 Hintergrundfarben</span></h3>
+<p>Um 16 Hintergrundfarben zu nutzen, muss das Bit 5 im Mode-Select Register (Port 0x3D8) gelöscht werden. Dadurch bedeutet das Bit 7 im Attribut-Feld nicht mehr, dass das Zeichen blinken soll. Das Feld für die Hintergrundfarbe erweitert sich dann auf die Bits 4 bis 7, und es können somit 16 Hintergrundfarben dargestellt werden. Diese Farben stammen aus der selben Palette wie die Vordergrundfarben.
+</p>
+<h3><span class="mw-headline" id="Vertical_Sync">Vertical Sync</span></h3>
+<p>Bit 3 des Status Registers (Port 0x3DA) wird von der Grafikkarte genau dann gesetzt, wenn der Monitor sich im Vertical Retrace Mode befindet. Das heißt dann ist der Elektronenstrahl gerade deaktiviert und wird wieder von unten nach oben bewegt, um ein weiteres Bild darzustellen. Dieses Bit ist besonders bei der Darstellung von Grafikmodi z.B. in Spielen oder graphischen Oberflächen interessant. Wenn man darauf wartet, dass dieses Bit gesetzt ist, bevor man beginnt in den Grafikspeicher zu schreiben, verhindert man, dass der Monitor mitten in der Darstellung eines Bildes andere Daten vorgesetzt bekommt. Dadurch lässt sich verhindern, dass das Bild bei horizontalen Bewegungen zerissen erscheint. Der Code dafür könnte z.B. so aussehen:
+&lt;c&gt;// Direkt vor dem Zeichnen aufrufen
+// (besser: direkt vor dem Kopieren des Double Buffers)
+void vsync()
+{
+</p>
+<pre>   do {} while (inb(0x3DA) &amp; 8) != 0); // warten, wenn der vsync bereits läuft
+   do {} while (inb(0x3DA) &amp; 8) == 0); // warten während der Monitor darstellt
+</pre>
+<p>}&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Textausgabe">Textausgabe</span></h2>
+<p>Die Ausgabe von Text erfolgt entweder über die <a class="mw-redirect" data-archive-original-href="../../pages/1632/index.html" href="../../pages/1616/index.html" title="BIOS">BIOS</a>-Funktionen (z.B. Int 0x10/AH=0x0E), oder über das direkte Schreiben in den Videospeicher. Dies ist im Artikel <a href="../../pages/1549/index.html" title="Textausgabe">Textausgabe</a> genauer beschrieben.
+</p>
+<h2><span class="mw-headline" id="Palette">Palette</span></h2>
+<p>Die Farben des Textmodus können mit Hilfe der Palette der <a class="mw-redirect" data-archive-original-href="../../pages/1517/index.html" href="../../pages/1516/index.html" title="VGA">VGA</a>-Karten verändert werden. Das Setzen der RGB-Werte funktioniert wie im VGA Modus über die Register 0x3C8 und 0x3C9. Die Farben des CGA-Modus sind allerdings nicht linear im Farbraum der VGA-Modi angeordnet.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>CGA Index</th>
+<th>VGA Paletten Index
+</th></tr>
+<tr>
+<td>0</td>
+<td>0
+</td></tr>
+<tr>
+<td>1</td>
+<td>1
+</td></tr>
+<tr>
+<td>2</td>
+<td>2
+</td></tr>
+<tr>
+<td>3</td>
+<td>3
+</td></tr>
+<tr>
+<td>4</td>
+<td>4
+</td></tr>
+<tr>
+<td>5</td>
+<td>5
+</td></tr>
+<tr>
+<td>6</td>
+<td>20
+</td></tr>
+<tr>
+<td>7</td>
+<td>7
+</td></tr>
+<tr>
+<td>8</td>
+<td>55
+</td></tr>
+<tr>
+<td>9</td>
+<td>56
+</td></tr>
+<tr>
+<td>10</td>
+<td>57
+</td></tr>
+<tr>
+<td>11</td>
+<td>58
+</td></tr>
+<tr>
+<td>12</td>
+<td>59
+</td></tr>
+<tr>
+<td>13</td>
+<td>60
+</td></tr>
+<tr>
+<td>14</td>
+<td>61
+</td></tr>
+<tr>
+<td>15</td>
+<td>62
+</td></tr>
+</tbody></table>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li>IBM PC Technical Reference (z.B. unter <a class="external autonumber" href="http://www.retroarchive.org/dos/docs/index.html" rel="nofollow">[3]</a>)</li>
+<li><a class="external text" href="http://en.wikipedia.org/wiki/Color_Graphics_Adapter" rel="nofollow">Artikel in der englischen Wikipedia</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164937
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.010 seconds
+Real time usage: 0.010 seconds
+Preprocessor visited node count: 67/1000000
+Preprocessor generated node count: 98/1000000
+Post‐expand include size: 95/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.985      1 -total
+ 71.46%    0.704      5 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Color_Graphics_Adapter&amp;oldid=5950</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li><li><a href="../../pages/1447/index.html" title="Kategorie:Hardware">Hardware</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1890/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1890/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

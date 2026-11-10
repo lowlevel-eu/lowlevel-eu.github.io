@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Subversion – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Subversion rootpage-Subversion skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="index.html">Aktueller Artikel</a> · <a href="../../history/2036/index.html">Versionsgeschichte</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Subversion</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Template_Stub">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #D0D8FF; margin: 0 0em; padding: 0 0px; border: 1px solid #b8c0e8" width="100%">
+<tbody><tr>
+<td>Diese Seite oder Abschnitt ist zwar komplett, es wird aber folgende Verbesserungen gewünscht:<br/>
+<p><i>Kontrolllesen, außerdem meine TODOs im Text abarbeiten bitte :) </i>
+</p><p>Hilf Lowlevel, den Artikel zu verbessern.
+</p>
+</td></tr></tbody></table>
+</div>
+<p><br/>
+<b>Subversion</b> (oft abgekürzt als <b>SVN</b>) ist ein zentrales <a href="../1801/index.html" title="Versionsverwaltung">Versionskontrollsystem</a>.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Entwicklungsziel"><span class="tocnumber">1</span> <span class="toctext">Entwicklungsziel</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Installation"><span class="tocnumber">2</span> <span class="toctext">Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Linux"><span class="tocnumber">2.1</span> <span class="toctext">Linux</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Windows"><span class="tocnumber">2.2</span> <span class="toctext">Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Schnellstart"><span class="tocnumber">3</span> <span class="toctext">Schnellstart</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Archiv_herunterladen_.28checkout.29"><span class="tocnumber">3.1</span> <span class="toctext">Archiv herunterladen (checkout)</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Archiv_aktualisieren_.28update.29"><span class="tocnumber">3.2</span> <span class="toctext">Archiv aktualisieren (update)</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#.C3.84nderungen_.C3.BCbertragen_.28commit.29"><span class="tocnumber">3.3</span> <span class="toctext">Änderungen übertragen (commit)</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Ausblick"><span class="tocnumber">3.4</span> <span class="toctext">Ausblick</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Kostenloses_Subversion-Hosting"><span class="tocnumber">4</span> <span class="toctext">Kostenloses Subversion-Hosting</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Weblinks"><span class="tocnumber">5</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Entwicklungsziel">Entwicklungsziel</span></h2>
+<p>Die Arbeiten am Subversionprojekt wurden 2000 begonnen. Das Ziel war es, Probleme bei <a class="mw-redirect" data-archive-original-href="../2105/index.html" href="../2104/index.html" title="CVS">CVS</a> zu umgehen: Ein Beispiel dafür ist das Branching, welches jetzt in konstanter Laufzeit vonstatten geht. Dieser Ansatz brachte dem Projekt schnell den Slogan "CVS done right" ein. Darum wird <a class="mw-redirect" data-archive-original-href="../2105/index.html" href="../2104/index.html" title="CVS">CVS</a> heutzutage auch meistens nur noch genutzt, wenn die Entwickler Subversion nicht kennen, oder die Umstellung auf ein neues System scheuen.
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<h3><span class="mw-headline" id="Linux">Linux</span></h3>
+<p>Subversion lässt sich bei jeder größeren Distribution aus den Paketquellen installieren. Meist heißt das Paket <i>subversion</i>.
+</p><p>Es gibt jedoch, wie unter Windows, einen grafischen SVN Clienten namens kdesvn, der sehr komfortabel ist.
+</p>
+<h3><span class="mw-headline" id="Windows">Windows</span></h3>
+<p>Unter Windows ist die Arbeit mit der Shell oft weniger bequem als unter Linux, darum empfiehlt sich die Installation von TortoiseSVN, welches sich sehr gut in den Windows Explorer integiert.
+</p><p>Dazu lädt man zunächst das aktuelle Paket von <a class="external text" href="http://tortoisesvn.net/downloads" rel="nofollow">dieser Seite</a> herunter, und installiert es. Nach der Installation stehen im Kontextmenü des Windows Explorers die unten genannten Befehle für SVN zur Verfügung.
+</p>
+<h2><span class="mw-headline" id="Schnellstart">Schnellstart</span></h2>
+<p>Für einen reibungslosen Einsteig in Subversion gibt es hier eine Auflistung der wichtigsten Befehle. Jedoch empfiehlt sich auf jedem Fall ein genaues Studium der <a class="external text" href="http://svnbook.red-bean.com/nightly/en/index.html" rel="nofollow">Dokumentation</a>, da hier nur die wirklich grundlegendsten Befehle aufgelistet werden.
+</p><p>Bei Windows ist das Prinzip genau gleich, nur muss man die Befehle im Kontextmenü auswählen, und erhält für die Befehlsparameter praktische Eingabefenster.
+</p>
+<h3><span id="Archiv_herunterladen_(checkout)"></span><span class="mw-headline" id="Archiv_herunterladen_.28checkout.29">Archiv herunterladen (checkout)</span></h3>
+<p>Um an der Entwicklung eines bestehenden Projektes teilzunehmen muss man oft erst die Entwicklerversion herunterladen. Subversion bietet dafür den Befehl <tt>checkout</tt>, den man oft auch <tt>co</tt> abkürzt.
+</p><p>Beispiel (Kopie des Tyndur-Archives):
+</p>
+<pre># Archiv herunterladen
+svn co svn://overgames.de/lost 
+</pre>
+<h3><span id="Archiv_aktualisieren_(update)"></span><span class="mw-headline" id="Archiv_aktualisieren_.28update.29">Archiv aktualisieren (update)</span></h3>
+<p>Wenn sich das Archiv auf dem Server verändert hat, weil ein anderer Entwickler einen Commit gemacht hat, dann ist es nötig, seine Arbeitskopie auf den selben Stand zu bringen. Das geschieht durch den Befehl <tt>update</tt> (oder kurz <tt>up</tt>).
+</p><p>Bei einem Update kann es passieren, dass Konflikte entstehen. Diese korrigiert man einfach, indem man die diff-ähnlichen Kommentare in den Dateien, welche in Konflikt stehen, von Hand auflöst.
+</p>
+<pre># Alle Änderungen herunterladen
+svn up
+</pre>
+<h3><span id="Änderungen_übertragen_(commit)"></span><span class="mw-headline" id=".C3.84nderungen_.C3.BCbertragen_.28commit.29">Änderungen übertragen (commit)</span></h3>
+<p>Irgendwann kommt der Zeitpunkt, an dem man seine Änderungen öffentlich machen will. Das geschieht mit dem Befehl <tt>commit</tt> (kurz <tt>ci</tt>).
+</p><p>Im Gegensatz zu <a href="../1889/index.html" title="Git">Git</a> werden alle Änderungen an getrackten Dateien standardmäßig automatisch übertragen, ohne dass man sie explizit zu einem Commit hinzufügen muss, also Vorsicht.
+</p>
+<pre># Alle Änderungen hochladen
+svn ci
+</pre>
+<h3><span class="mw-headline" id="Ausblick">Ausblick</span></h3>
+<p><i>TODO: Ein svn-affiner Mensch bitte die anderen wichtigen Befehle hier erwähnen, danke</i>
+</p>
+<h2><span class="mw-headline" id="Kostenloses_Subversion-Hosting">Kostenloses Subversion-Hosting</span></h2>
+<p>Hier eine Liste von Anbietern, bei denen man sein Subversion-Archiv kostenlos hosten kann, um es für die Öffentlichkeit zugängig zu machen.
+</p>
+<ul><li><a class="external text" href="http://sourceforge.net" rel="nofollow">SourceForge</a>: Bietet auch Hosting für Git und CVS</li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://de.wikipedia.org/wiki/Apache_Subversion" rel="nofollow">Subversion bei Wikipedia</a></li>
+<li><a class="external text" href="http://subversion.tigris.org/" rel="nofollow">Subversion Homepage</a></li>
+<li><a class="external text" href="http://svnbook.red-bean.com/nightly/de/index.html" rel="nofollow">Subversion-Dokumentation</a></li>
+<li><a class="external text" href="http://svnbook.red-bean.com/nightly/en/index.html" rel="nofollow">Aktuellere Dokumentation (englisch)</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170307
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.007 seconds
+Real time usage: 0.009 seconds
+Preprocessor visited node count: 76/1000000
+Preprocessor generated node count: 138/1000000
+Post‐expand include size: 421/2097152 bytes
+Template argument size: 65/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 167/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.871      1 Vorlage:TODO
+100.00%    1.871      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:2036-0!canonical and timestamp 20261109170307 and revision id 8324
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="../../revisions/8324/index.html">http://wiki.localhost:8080/w/index.php?title=Subversion&amp;oldid=8324</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../1820/index.html" title="Kategorie:TODO">TODO</a></li><li><a href="../1887/index.html" title="Kategorie:Versionsverwaltung">Versionsverwaltung</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2036/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="../../revisions/8324/index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 20. September 2010 um 19:29 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

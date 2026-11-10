@@ -1,0 +1,19 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Diskussion:Eigener Bootloader — Änderungen 9663 → 9664</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Diskussion:Eigener Bootloader — Änderungen 9663 → 9664</h1><nav><a href="../revisions/9663/index.html">Version 9663</a> · <a href="../revisions/9664/index.html">Version 9664</a> · <a href="../history/2217/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l80" >Zeile 80:</td>
+<td colspan="2" class="diff-lineno">Zeile 80:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; mov ss,ax</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; mov ss,ax</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; mov sp,7BFEh ; nicht hinter dem Bootsektor, weil man erst wissen muss, wo die Erweiterten BIOS-Daten sind</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; mov sp,7BFEh ; nicht hinter dem Bootsektor, weil man erst wissen muss, wo die Erweiterten BIOS-Daten sind</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; ... rest vom Bootsektor</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; ... rest vom Bootsektor</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>org 7DFEh</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>org 7DFEh</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>dw&#160; 0AA55h ; (höhere Ziffern stehen hinten)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>dw&#160; 0AA55h ; (höhere Ziffern stehen hinten)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>nun kann man die erste Datei laden, und Interrupt Vektoren darauf setzten, Die erste Datei muss dann widerum nicht erst die Segmente verändern, um die BIOSdaten zu lesen.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>nun kann man die erste Datei laden, und Interrupt Vektoren darauf setzten, Die erste Datei muss dann widerum nicht erst die Segmente verändern, um die BIOSdaten zu lesen.</div></td></tr>
+</table></body></html>

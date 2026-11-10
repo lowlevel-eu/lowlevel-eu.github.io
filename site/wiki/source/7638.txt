@@ -1,0 +1,384 @@
+Die '''x86-64'''-Architektur (bzw. '''x64''' oder '''AMD64''') ist eine Erweiterung der [[x86]]-Architektur um 64-Bit-Register, Instruktionen zur Datenverarbeitung mit diesen Registern und um einen neuen Modus, den [[Long Mode]]. Der Long Mode erlaubt überhaupt erst die Benutzung der 64-Bit-Register. Darüber hinaus wurden einige veraltete aus dem [[Protected Mode]] bekannte Features entfernt, um gewisse Optimierungen möglich zu machen.
+
+
+== CPU ==
+=== Register ===
+==== Übersicht ====
+<center>
+{| {{Prettytable}}
+! Bits || Register
+|-
+| '''8''' || AL, BL, CL, DL, DIL, SIL, BPL, SPL, R8L, R9L, R10L, R11L, R12L, R13L, R14L, R15L
+|-
+| '''16''' || AX, BX, CX, DX, DI, SI, BP, SP, CS, DS, ES, FS, GS, SS, R8W, R9W, R10W, R11W, R12W, R13W, R14W, R15W
+|-
+| '''32''' || EAX, EBX, ECX, EDX, EDI, ESI, EBP, ESP, EIP, EFLAGS, R8D, R9D, R10D, R11D, R12D, R13D, R14D, R15D
+|-
+| '''64''' || RAX, RBX, RCX, RDX, RDI, RSI, RBP, RSP, RIP, RFLAGS, R8, R9, R10, R11, R12, R13, R14, R15
+|-
+| '''128''' || XMM0, XMM1, XMM2, XMM3, XMM4, XMM5, XMM6, XMM7, XMM8, XMM9, XMM10, XMM11, XMM12, XMM13, XMM14, XMM15
+|}
+</center>
+
+
+==== Allzweckregister ====
+{| style="width:100%"
+|
+{| {{Prettytable}}
+! colspan="8" align="center" | Bytes
+|-
+! width="30pt" | 7 
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="8" align="center" | R?X
+|- 
+| colspan="4" style="background:lightgrey" |  
+| colspan="4" align="center" | E?X
+|-
+| colspan="6" style="background:lightgrey" | 
+| colspan="2" align="center" | ?X
+|-
+| colspan="6" style="background:lightgrey" | 
+| align="center" | ?H
+| align="center" | ?L
+|-
+| colspan="8" style="background:lightgrey" align="center" | ? = A, B, C, D
+|}
+
+|
+{| {{Prettytable}}
+! colspan="8" align="center" | Bytes
+|-
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="8" align="center" | R?
+|- 
+| colspan="4" style="background:lightgrey" |  
+| colspan="4" align="center" | R?D
+|-
+| colspan="6" style="background:lightgrey" | 
+| colspan="2" align="center" | R?W
+|-
+| colspan="7" style="background:lightgrey" |
+| align="center" | R?B
+|-
+| colspan="8" style="background:lightgrey" align="center" | ? = 8, 9, 10, 11, 12, 13, 14, 15
+|}
+
+| Die Allzweckregister können, wie ihr Name schon andeutet eigentlich für fast jeden Zweck genutzt werden. Trotzdem gibt es einige gebräuchliche Nutzungen, siehe [[x86#Allzweckregister | hier]]
+
+
+{{Achtung|Text= ''Die '''?H'''-Register sind nur in Funktionen nutzbar, die '''keinen''' REX-Präfix benutzen!'' <br/> ''Die '''R?B''' Register heißen in manchen Compilern oder Assemblern '''R?L'''''}}
+
+|}
+
+
+==== Indexregister ====
+{| style="width:100%"
+|
+{| {{Prettytable}}
+! colspan="8" align="center" | Bytes
+|-
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="8" align="center" | R?I
+|- 
+| colspan="4" style="background:lightgrey" |  
+| colspan="4" align="center" | E?I
+|-
+| colspan="6" style="background:lightgrey" | 
+| colspan="2" align="center" | ?I
+|-
+| colspan="7" style="background:lightgrey" |
+| align="center" | ?IL
+|-
+| colspan="8" style="background:lightgrey" align="center" | ? = D, S
+|}
+
+| Die Indexregister werden oft als Indexe in Datenbereichen verwendet, siehe [[x86#Indexregister | hier]].
+
+
+{{Achtung|Text= ''Die '''?IL'''-Register sind nur in Funktion nutzbar, die einen REX-Präfix '''benutzen'''!''}}
+
+|}
+
+
+==== Zeigerregister ====
+{| style="width:100%"
+|
+{| {{Prettytable}}
+! colspan="8" align="center" | Bytes
+|-
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="8" align="center" | R?P
+|- 
+| colspan="4" style="background:lightgrey" |  
+| colspan="4" align="center" | E?P
+|-
+| colspan="6" style="background:lightgrey" | 
+| colspan="2" align="center" | ?P
+|-
+| colspan="7" style="background:lightgrey" |
+| align="center" | ?PL*
+|-
+| colspan="8" style="background:lightgrey" align="center" | ? = B, S
+|}
+
+| Die Zeigerregister werden genutzt, um auf Stellen im Speicher zu zeigen, siehe [[x86#Zeigerregister | hier]]
+
+
+{{Achtung|Text= ''Die '''?PL'''-Register sind nur in Funktion nutzbar, die einen REX-Präfix '''benutzen'''!''}}
+|}
+
+==== Instruktionsregister ====
+{| style="width:100%"
+|
+{| {{Prettytable}}
+! colspan="8" align="center" | Bytes
+|-
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="8" align="center" | RIP
+|- 
+| colspan="4" style="background:lightgrey" |  
+| colspan="4" align="center" | EIP
+|-
+| colspan="6" style="background:lightgrey" | 
+| colspan="2" align="center" | IP
+|}
+
+| Das Instruktionsregister '''RIP''' zeigt ''immer'' auf den nächsten auszuführenden Befehl. Es kann nicht direkt geändert werden, sondern nur über Funktion wie ''jmp'', ''call'' oder ''ret''
+
+|}
+
+
+==== Flagregister ====
+→ ''Hauptartikel: [[RFLAGS]]''
+
+{| style="width:100%"
+|
+{| {{Prettytable}}
+! colspan="8" align="center" | Bytes
+|-
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="8" align="center" | RFLAGS
+|- 
+| colspan="4" style="background:lightgrey" |  
+| colspan="4" align="center" | EFLAGS
+|}
+
+| Das Flagregister '''RFLAGS''' speichert einige Konfigurationsmöglichkeiten und Systemzuständen, beispielweise, ob Interrupts gerade erlaubt sind oder ob ein Übertrag bei einer Addition stattfand.
+
+|}
+
+
+==== Segmentregister ====
+{| style="width:100%"
+|
+{| {{Prettytable}}
+! colspan="2" align="center" | Bytes
+|-
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="2" align="center" | ?S
+|-
+| colspan="2" style="background:lightgrey" align="center" | ? = C, D, E, F, G, S
+|}
+
+| Die Segmentregister geben die Basisadresse des aktuellen Segments an, siehe [[x86#Segmentregister | hier]]. Die Segmentregister sind im [[Long Mode]] auch für die Segmentierung mit Hilfe der [[GDT]] verantwortlich.
+
+
+{{Achtung|Text= Im [[Long Mode]] werden viele Bits der [[GDT]]-Einträge '''ignoriert'''!}}
+|}
+
+
+==== SSE-Register ====
+{| {{Prettytable}}
+! colspan="16" align="center" | Bytes
+|-
+! width="30pt" | 15
+! width="30pt" | 14
+! width="30pt" | 13
+! width="30pt" | 12
+! width="30pt" | 11
+! width="30pt" | 10
+! width="30pt" | 9
+! width="30pt" | 8
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="16" align="center" | XMM?
+|-
+| colspan="16" style="background:lightgrey" align="center" | ? = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+|}
+
+
+==== Floatingpointregister ====
+{| {{Prettytable}}
+! colspan="10" align="center" | Bytes
+|-
+! width="30pt" | 9
+! width="30pt" | 8
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="10" align="center" | ST?
+|-
+| colspan="10" style="background:lightgrey" align="center" | ? = 0, 1, 2, 3, 4, 5, 6, 7
+|}
+
+{| {{Prettytable}}
+! colspan="16" align="center" | Bits
+|-
+! width="30pt" | 15
+! width="30pt" | 14
+! width="30pt" | 13
+! width="30pt" | 12
+! width="30pt" | 11
+! width="30pt" | 10
+! width="30pt" | 9
+! width="30pt" | 8
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="16" align="center" | Control Register
+|}
+
+
+{| {{Prettytable}}
+! colspan="16" align="center" | Bits
+|-
+! width="30pt" | 15
+! width="30pt" | 14
+! width="30pt" | 13
+! width="30pt" | 12
+! width="30pt" | 11
+! width="30pt" | 10
+! width="30pt" | 9
+! width="30pt" | 8
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="16" align="center" | Status Register
+|}
+
+
+{| {{Prettytable}}
+! colspan="16" align="center" | Bits
+|-
+! width="30pt" | 15
+! width="30pt" | 14
+! width="30pt" | 13
+! width="30pt" | 12
+! width="30pt" | 11
+! width="30pt" | 10
+! width="30pt" | 9
+! width="30pt" | 8
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="16" align="center" | Tag Register
+|}
+
+{| {{Prettytable}}
+! colspan="10" align="center" | Bits
+|-
+! width="30pt" | 9
+! width="30pt" | 8
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="10" align="center" | FOP
+|}
+
+
+== sonstige Hardware ==
+→ ''siehe: [[x86#sonstige Hardware | x86]]''
+
+
+== Weblinks ==
+* [http://www.intel.com/products/processor/manuals/ Intel Manuals]
+* [http://www.amd.com/us-en/Processors/DevelopWithAMD/0,,30_2252_739_7044,00.html AMD Manuals]
+
+[[Kategorie:Hardware]]
+[[Kategorie:X86-64]]

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>RTL8139 – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-RTL8139 rootpage-RTL8139 skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1533/index.html">Aktueller Artikel</a> · <a href="../../history/1533/index.html">Versionsgeschichte</a> · <a href="../../source/5562.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">RTL8139</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 11. August 2009, 11:49 Uhr von <a class="mw-userlink" href="../../pages/1865/index.html" title="Benutzer:Hartmut"><bdi>Hartmut</bdi></a> <span class="mw-usertoollinks">(<a class="mw-usertoollinks-talk" href="../../pages/2608/index.html" title="Benutzer Diskussion:Hartmut">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Initialisierung">→</a>‎<span dir="auto"><span class="autocomment">Initialisierung: </span> týndur und nicht LOST</span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/4619-5562.html" title="RTL8139">Unterschied</a>) <a href="../4619/index.html" title="RTL8139">← Nächstältere Version</a> | <a href="../../pages/1533/index.html" title="RTL8139">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../5563/index.html" title="RTL8139">Nächstjüngere Version →</a> (<a href="../../diffs/5562-5563.html" title="RTL8139">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Grunds.C3.A4tzliches"><span class="tocnumber">1</span> <span class="toctext">Grundsätzliches</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Voraussetzungen"><span class="tocnumber">1.1</span> <span class="toctext">Voraussetzungen</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Funktionweise"><span class="tocnumber">1.2</span> <span class="toctext">Funktionweise</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Initialisierung"><span class="tocnumber">2</span> <span class="toctext">Initialisierung</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Senden_eines_Pakets"><span class="tocnumber">3</span> <span class="toctext">Senden eines Pakets</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Empfangen"><span class="tocnumber">4</span> <span class="toctext">Empfangen</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Sonstiges"><span class="tocnumber">5</span> <span class="toctext">Sonstiges</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#MAC-Adresse"><span class="tocnumber">5.1</span> <span class="toctext">MAC-Adresse</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Siehe_auch"><span class="tocnumber">6</span> <span class="toctext">Siehe auch</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Web-Links"><span class="tocnumber">7</span> <span class="toctext">Web-Links</span></a></li>
+</ul>
+</div>
+<h2><span id="Grundsätzliches"></span><span class="mw-headline" id="Grunds.C3.A4tzliches">Grundsätzliches</span></h2>
+<h3><span class="mw-headline" id="Voraussetzungen">Voraussetzungen</span></h3>
+<p>Ich gehe davon aus, dass jeder, der vorhat, mit diesem Tutorial einen Netzwerktreiber für den RTL8139-Chip zu schreiben, mit seinem System bereits auf einem gewissen Stand ist. Grundlagen wie das Empfangen von IRQs oder Speicherverwaltung sind selbstverständlich, außerdem sollte eine Möglichkeit bestehen, IRQs und Ports von PCI-Geräten herauszufinden.
+</p><p>Als Emulator empfehle ich qemu (ich benutze Version 0.8.2, vermutlich ab 0.8.0 kann der RTL8139-Chipsatz emuliert werden). Dabei sind auf der Kommandozeile -net-Parameter anzugeben, z.B.:
+</p>
+<pre>qemu -fda lost.img -net nic,model=rtl8139 -net user</pre>
+<p>Mit diesen Parametern emuliert qemu eine Netzwerkkarte mit RTL8139-Chipsatz, die sich in einem virtuellen Netzwerk befindet. Nach außen ins große weite Internet kommt man über den virtuellen qemu-Router an der IP-Adresse 10.0.2.2.
+</p>
+<h3><span class="mw-headline" id="Funktionweise">Funktionweise</span></h3>
+<p>Wie bereits erwähnt, benutzt der Chipsatz verschiedene Ressourcen:
+</p>
+<ul><li>Ports: Über I/O-Ports lassen sich die Register der Netzwerkkarte ansprechen, über die die grundlegende Konfiguration vorgenommen wird.</li>
+<li>IRQ: Unter anderem wird ein IRQ ausgelöst, sobald ein Ethernet-Paket eingetroffen ist oder ein Paket verschickt wurde.</li>
+<li>Speicher: Zum Senden und Empfangen wird jeweils ein Ringpuffer im Arbeitsspeicher benutzt. Ringpuffer bedeutet, dass der Puffer zunächst ganz normal von vorne bis zum Ende gefüllt wird. Anschließend wird wieder zum Anfang des Puffers umgebrochen und dort mit dem Füllen fortgefahren (falls die alten Daten dort abgearbeitet sind, ansonsten kommt es zu einem Fehler).</li></ul>
+<h2><span class="mw-headline" id="Initialisierung">Initialisierung</span></h2>
+<ol><li>Vom PCI-Treiber den IRQ und die I/O-Ports holen</li>
+<li>IRQ-Handler und ggf. I/O-Ports registrieren</li>
+<li>Einen Reset der Karte durchführen: Bit 4 im Befehlsregister (0x37, 1 Byte) setzen. Wenn ich hier Portnummern von Registern angebe, ist damit der Offset zum ersten Port der Karte gemeint, der durch die PCI-Funktionen ermittelt werden muss.</li>
+<li>Aktivieren des Transmitters und des Receivers: Setze Bits 2 und 3 (TE bzw. RE) im Befehlsregister (0x37, 1 Byte). Dies darf angeblich nicht erst später geschehen, da die folgenden Befehle ansonsten ignoriert würden.</li>
+<li>TCR (Transmit Configuration Register, 0x40, 4 Bytes) und RCR (Receive Configuration Register, 0x44, 4 Bytes) setzen. An dieser Stelle nicht weiter kommentierter Vorschlag: TCR = 0x03000700, RCR = 0x0000070a</li>
+<li>Puffer für den Empfang (evtl auch zum Senden, das kann aber auch später passieren) initialisieren. Wir brauchen für bei den vorgeschlagenen Werten 8K + 16 Bytes für den Empfangspuffer und einen ausreichend großen Sendepuffer. Was ausreichend bedeutet, ist dabei davon abhängig, welche Menge wir auf einmal absenden wollen. Anschließend muss die physische (!) Adresse des Empfangspuffers nach RBSTART (0x30, 4 Bytes) geschrieben werden.</li>
+<li>Interruptmaske setzen (0x3C, 2 Bytes). In diesem Register können die Ereignisse ausgewählt werden, die einen IRQ auslösen sollen. Wir nehmen der Einfachkeit halber alle und setzen 0xffff.</li></ol>
+<p>Konstanten aus dem týndur-Code:
+&lt;c&gt;
+// Portnummern der Register
+</p>
+<ol><li>define REG_ID0 0x00</li>
+<li>define REG_ID4 0x04</li></ol>
+<ol><li>define REG_TRANSMIT_STATUS0 0x10</li>
+<li>define REG_TRANSMIT_ADDR0 0x20</li>
+<li>define REG_RECEIVE_BUFFER 0x30</li>
+<li>define REG_COMMAND 0x37</li>
+<li>define REG_CUR_READ_ADDR 0x38</li>
+<li>define REG_INTERRUPT_MASK 0x3C</li>
+<li>define REG_INTERRUPT_STATUS 0x3E</li>
+<li>define REG_TRANSMIT_CONFIGURATION 0x40</li>
+<li>define REG_RECEIVE_CONFIGURATION 0x44</li></ol>
+<p>// Werte für die Register
+// Kontrollregister
+</p>
+<ol><li>define CR_RESET                (1 &lt;&lt; 4)</li>
+<li>define CR_RECEIVER_ENABLE      (1 &lt;&lt; 3)</li>
+<li>define CR_TRANSMITTER_ENABLE   (1 &lt;&lt; 2)</li>
+<li>define CR_BUFFER_IS_EMPTY      (1 &lt;&lt; 0)</li></ol>
+<p>// Transmitter-Konfiguration
+</p>
+<ol><li>define TCR_IFG_STANDARD        (3 &lt;&lt; 24)</li>
+<li>define TCR_MXDMA_512           (5 &lt;&lt; 8)</li>
+<li>define TCR_MXDMA_1024          (6 &lt;&lt; 8)</li>
+<li>define TCR_MXDMA_2048          (7 &lt;&lt; 8)</li></ol>
+<p>// Receiver-Konfiguration
+</p>
+<ol><li>define RCR_MXDMA_512           (5 &lt;&lt; 8)</li>
+<li>define RCR_MXDMA_1024          (6 &lt;&lt; 8)</li>
+<li>define RCR_MXDMA_UNLIMITED     (7 &lt;&lt; 8)</li>
+<li>define RCR_ACCEPT_BROADCAST    (1 &lt;&lt; 3)</li>
+<li>define RCR_ACCEPT_MULTICAST    (1 &lt;&lt; 2)</li>
+<li>define RCR_ACCEPT_PHYS_MATCH   (1 &lt;&lt; 1)</li></ol>
+<p>// Interrupt-Statusregister
+</p>
+<ol><li>define ISR_RECEIVE_BUFFER_OVERFLOW     (1 &lt;&lt; 4)</li>
+<li>define ISR_TRANSMIT_OK                 (1 &lt;&lt; 2)</li>
+<li>define ISR_RECEIVE_OK                  (1 &lt;&lt; 0)</li></ol>
+<p>&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Senden_eines_Pakets">Senden eines Pakets</span></h2>
+<p>Senden ist eigentlich eine ganz einfache Übung, nachdem alles konfiguriert ist. Wir brauchen spätestens hier einen Sendepuffer, von dem wir die physische Adresse wissen. Anschließend müssen wir einfach der Netzwerkkarte diese Adresse geben.
+</p><p>Eine Besonderheit gibt es noch zu erwähnen: Ringpuffer überall. Die Karte kennt vier Deskriptoren für das Senden, die immer brav der Reihe nach benutzt werden müssen, ansonsten passiert einfach gar nichts. Das kann man durchaus ausnutzen, indem man den nächsten Puffer schon vorbereitet, solange der erste nicht komplett verschickt ist, für den Anfang reicht es aber, eins nach dem anderen zu machen.
+</p><p>Zuerst muss die Adresse nach TSDx (vier Register ab 0x10, je 4 Bytes) geschrieben werden, anschließend muss in TSAD (vier Register ab 0x20, je 4 Bytes) die Größe der zu übertragenden Daten eingetragen werden (Bits 0-12). Gleichzeitig wird damit das Bit 13 (OWN) gelöscht, was die Übertragung anstößt.
+</p><p>Im folgenden ein Codebeispiel, wie es in LOST benutzt wird:
+&lt;c&gt;
+</p>
+<pre>   // Adresse und Größe des Buffers setzen
+   // In TASD (REG_TRANSMIT_STATUS) wird das OWN-Bit gelöscht, was die
+   // tatsächliche Übertragung anstößt.
+   write_register_dword(netcard,
+       REG_TRANSMIT_ADDR0 + (4 * netcard-&gt;cur_buffer),
+       (dword) netcard-&gt;buffer.phys);
+</pre>
+<pre>   write_register_dword(netcard,
+       REG_TRANSMIT_STATUS0 + (4 * netcard-&gt;cur_buffer),
+       size);
+</pre>
+<pre>   // Die vier Deskriptoren müssen der Reihe nach verwendet werden,
+   // auch wenn wir momentan nur einen einzigen Puffer verwenden
+   // und immer warten.
+   netcard-&gt;cur_buffer++;
+   netcard-&gt;cur_buffer %= 4;
+</pre>
+<p>&lt;/c&gt;
+</p><p>Sobald die Karte fertig ist, schickt sie einen IRQ und in ISR (0x3E, 2 Bytes) ist das Bit 2 (TOK = Transmit OK) gesetzt. Nachdem die nötigen Aktionen durchgeführt wurden (z.B. Puffer wieder freigeben) muss das Bit gelöscht werden. Bits in ISR werden dadurch gelöscht, dass man sie beim Schreiben setzt. Um TOK zu löschen, würde man also 0x04 nach ISR schreiben.
+</p>
+<h2><span class="mw-headline" id="Empfangen">Empfangen</span></h2>
+<p>Sobald ein Paket eintrifft, wird ebenfalls ein IRQ ausgelöst und in ISR (0x3E, 2 Bytes) ist das Bit 0 (ROK = Receive OK) gesetzt. Auch hier gilt, dass das Bit nach erfolgter Behandlung des Interupts durch Schreiben von 0x01 nach ISR gelöscht werden möchte.
+</p><p>Bei der Behandlung des Interrupts ist zu beachten, dass mehrere Pakete eingetroffen sein könnten. Daher müssen in einer Schleife solange Pakete eingelesen werden, bis Bit 0 (BUFE = Buffer Empty) im Befehlsregister (CR, 0x37, 1 Byte) gesetzt ist. 
+</p>
+<pre>Bytes 0-1:     Paketheader (Bit 0 = ROK)
+Bytes 2-3:     Länge des Pakets
+Bytes 4-n:     Daten (Payload)
+Bytes n+1-n+4: CRC-Prüfsumme
+</pre>
+<p>Was wir unbedingt wissen müssen, ist unsere aktuelle Position im Ringpuffer (am Anfang 0). An dieser Stelle können wir zwei Bytes Paketheader abholen (Bit 0 = ROK sollte dort gesetzt sein) und darauf folgend zwei Bytes Länge abholen. Entsprechend viele Bytes folgen anschließend noch, die das eigentliche Paket und am Ende vier Bytes CRC-Prüfsumme enthalten (letztere kann man einfach ignorieren). 
+</p><p>Beim Auslesen der Daten ist unbedingt zu beachten, dass es sich um einen Ringpuffer handelt. Das bedeutet, dass sich irgendwo in der Mitte der Daten der Umbruch befinden könnte, wo es wieder bei Null losgeht. Durch anfängliches Ignorieren dieser Tatsache habe ich meinen Treiber in LOST schon abstürzen lassen.
+</p><p>Anschließend muss der Netzwerkkarte mitgeteilt werden, dass wir etwas gelesen haben. Dazu schreiben wir in das Register CAPR (Current Address of Packet Read, 0x38, 2 Bytes) das Offset des nächsten erwarteten Pakets:
+</p><p>&lt;c&gt;
+</p>
+<pre>   // Den aktuellen Offset im Lesepuffer anpassen. Jedes Paket ist
+   // dword-aligned, daher anschließend Aufrundung.
+   netcard-&gt;rx_buffer_offset += length + 4;
+   netcard-&gt;rx_buffer_offset = (netcard-&gt;rx_buffer_offset + 3) &amp; ~0x3;
+</pre>
+<pre>   // Überläufe abfangen
+   netcard-&gt;rx_buffer_offset %= 0x2000;
+</pre>
+<pre>   write_register_word(netcard, REG_CUR_READ_ADDR,
+       netcard-&gt;rx_buffer_offset - 0x10);
+</pre>
+<p>&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Sonstiges">Sonstiges</span></h2>
+<h3><span class="mw-headline" id="MAC-Adresse">MAC-Adresse</span></h3>
+<p>Die MAC-Adresse ist in den Registern IDR0 bis IDR5 (0x00 bis 0x05) gespeichert und kann dort sowohl gelesen als auch gesetzt werden.
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a href="../../pages/1876/index.html" title="Ethernet">Ethernet</a></li></ul>
+<h2><span class="mw-headline" id="Web-Links">Web-Links</span></h2>
+<ul><li><a class="external text" href="http://www.cs.usfca.edu/~cruse/cs326/RTL8139D_DataSheet.pdf" rel="nofollow">RTL8139-Datenblatt</a> (Kapitel 5: Beschreibung aller Register)</li>
+<li><a class="external text" href="http://www.cs.usfca.edu/~cruse/cs326/RTL8139_ProgrammersGuide.pdf" rel="nofollow">RTL8139(A/B) Programming Guide (V0.1)</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170143
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.004 seconds
+Real time usage: 0.005 seconds
+Preprocessor visited node count: 56/1000000
+Preprocessor generated node count: 84/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 209/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=RTL8139&amp;oldid=5562</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li><li><a href="../../pages/1826/index.html" title="Kategorie:Netzwerkkarte">Netzwerkkarte</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1533/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2279/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1533/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

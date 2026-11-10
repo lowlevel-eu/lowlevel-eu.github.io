@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Master Boot Record – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Master_Boot_Record rootpage-Master_Boot_Record skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1431/index.html">Aktueller Artikel</a> · <a href="../../history/1431/index.html">Versionsgeschichte</a> · <a href="../../source/9695.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Master Boot Record</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 20. April 2011, 22:14 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>IO.SYS</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/6317-9695.html" title="Master Boot Record">Unterschied</a>) <a href="../6317/index.html" title="Master Boot Record">← Nächstältere Version</a> | <a href="../../pages/1431/index.html" title="Master Boot Record">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../9706/index.html" title="Master Boot Record">Nächstjüngere Version →</a> (<a href="../../diffs/9695-9706.html" title="Master Boot Record">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Der <b>Master Boot Record</b> (MBR) ist der erste Sektor einer Festplatte. Die Aufgabe des MBR ist es, die Partitionen zu definieren und den <a href="../../pages/1475/index.html" title="Bootsektor">Bootsektor</a> einer bootbaren Partition zu laden und zu starten.
+</p><p>Die Sektorennummer des MBR anhand der zwei Addressierungsmöglichkeiten:  
+</p>
+<pre>LBA : 0x00000000
+CHS : Cylinder: 0, Head: 0, Sector: 1
+</pre>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Aufbau"><span class="tocnumber">1</span> <span class="toctext">Aufbau</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Partitionstabelle"><span class="tocnumber">2</span> <span class="toctext">Partitionstabelle</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.C3.9Cbereink.C3.BCnfte"><span class="tocnumber">3</span> <span class="toctext">Übereinkünfte</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Versteckte_.28reservierte_Sektoren.29"><span class="tocnumber">3.1</span> <span class="toctext">Versteckte (reservierte Sektoren)</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Partitionsgrenzen"><span class="tocnumber">3.2</span> <span class="toctext">Partitionsgrenzen</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Nur_eine_Bootf.C3.A4hige_Partition"><span class="tocnumber">3.3</span> <span class="toctext">Nur eine Bootfähige Partition</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Verhalten_des_MBRcodes"><span class="tocnumber">3.4</span> <span class="toctext">Verhalten des MBRcodes</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Aufbau">Aufbau</span></h2>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset
+</th>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>0x0000-0x01BD
+</td>
+<td>Code zum Laden einer Partition
+</td></tr>
+<tr>
+<td>0x01BE-0x01FD
+</td>
+<td>Partitionstabelle
+</td></tr>
+<tr>
+<td>0x01FE-0x01FF
+</td>
+<td>Bootsignatur 0xAA55
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Partitionstabelle">Partitionstabelle</span></h2>
+<p>Die Partitionstabelle besteht aus 4 Einträgen à 16 Byte in folgendem Format:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset
+</th>
+<th>Größe
+</th>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>0x0
+</td>
+<td>DB
+</td>
+<td>Bootflag <br/>
+<ul><li>0x00 nicht bootbar</li>
+<li>0x80 bootbare Partition</li></ul>
+</td></tr>
+<tr>
+<td>0x1
+</td>
+<td>DB
+</td>
+<td>Kopf an dem die Partition anfängt
+</td></tr>
+<tr>
+<td>0x2
+</td>
+<td>DB
+</td>
+<td>
+<ul><li>Bit 0-5 -&gt; Anfangs Sektor</li>
+<li>Bit 6-7 -&gt; Bit 8-9 des Anfangs-Zylinders</li></ul>
+</td></tr>
+<tr>
+<td>0x3
+</td>
+<td>DB
+</td>
+<td>Bit 0-7 des Anfangs-Zylinders
+</td></tr>
+<tr>
+<td>0x4
+</td>
+<td>DB
+</td>
+<td>Gibt den Partitions Typ an
+</td></tr>
+<tr>
+<td>0x5
+</td>
+<td>DB
+</td>
+<td>Kopf an dem die Partition endet
+</td></tr>
+<tr>
+<td>0x6
+</td>
+<td>DB
+</td>
+<td>
+<ul><li>Bit 0-5 -&gt; Letzter Sektor</li>
+<li>Bit 6-7 -&gt; Bit 8-9 des letzten Zylinders</li></ul>
+</td></tr>
+<tr>
+<td>0x7
+</td>
+<td>DB
+</td>
+<td>Bit 0-7 des letzten Zylinders
+</td></tr>
+<tr>
+<td>0x8
+</td>
+<td>DD
+</td>
+<td>LBA (Logical Block Addressing) Nummer des Ersten Sektors
+</td></tr>
+<tr>
+<td>0xC
+</td>
+<td>DD
+</td>
+<td>Länge der Partition in Sektoren
+</td></tr></tbody></table>
+<h2><span id="Übereinkünfte"></span><span class="mw-headline" id=".C3.9Cbereink.C3.BCnfte">Übereinkünfte</span></h2>
+<p>Bei dem MBR muss man beachten, das er 'über' den Betriebssystemen steht, da ja eine Partitionierte Festplatte durchaus mehrere verschiedene Betriebssystem auf den Partitionen enthalten kann. Beim Anlegen eines MBRs muss darauf Rücksicht genommen werden, dass gewisse Übereinkünfte eingehalten werden, um die Partitionstabelle für andere Betriebssysteme lesbar zu halten ihre Partitionen nicht zu beschädigen, reservierte Sektoren frei zu Halten und Partitionsgranzen korrekt zu setzten.
+</p><p>Es ist zu beachten, das die ATA-Übereinkünfte variieren je nachdem ob die Festplatte (nativ) durch LBA oder CHS adressiert wird. 
+</p>
+<h3><span id="Versteckte_(reservierte_Sektoren)"></span><span class="mw-headline" id="Versteckte_.28reservierte_Sektoren.29">Versteckte (reservierte Sektoren)</span></h3>
+<p>Vor der ersten Partition müssen sich versteckte Sektoren befinden, die zu keiner Partition gehören. Der erste davon enthält den MBR selbst, die anderen sind für erweiterungen reserviert. ( eine Erweiterung, die gerade im kommen ist, ist das <i>Extendet Firmware Interface</i>(<a class="mw-redirect" data-archive-original-href="../../pages/2614/index.html" href="../../pages/2612/index.html" title="EFI">EFI</a>), eine erweiterung zum MBR, die langsam nötig wird, da für neue Festplatten, die 48bit LBA nutzen, das 32bit Feld des Normalen LBA nicht ausreicht. Weiterhin könnten auch Bootmanager oder Präboot-Treiber in den Verteckten Sektoren sein.
+</p><p>Die Anzahl der verstecketen Sektoren beträgt:
+</p>
+<ul><li>bei <b>CHS</b>-Adressierung <b>eine Spur</b></li>
+<li>bei <b>LBA</b>-Adressierung <b>64 (40h) Sektoren</b> (was übrigens auch der virtuellen Spur der durch int 13h emulierten CHS-adressierung entspricht)</li></ul>
+<h3><span class="mw-headline" id="Partitionsgrenzen">Partitionsgrenzen</span></h3>
+<p>Partitionen dürfen nicht an beliebigen Sektoren beginnen. Diese Übereinkunft hängt bei der CHS-Adressierung damit zu sammen, dass immer ganze Spuren formatiert werden müssen, und bei der LBA-Adresseirung, sorgt sie für bessere Übersicht, und bessere Nutzung des Festplattencaches.
+</p><p>Die Partitionsgrenzen sollten ...
+</p>
+<ul><li>bei <b>CHS</b>-Adressierung auf ganzzahligen <b>ganze Spuren</b> liegen</li>
+<li>bei <b>LBA</b>-Adressierung <b> auf </b>ganzzahligen Megabytes n*100000h<b>  liegen</b></li></ul>
+<h3><span id="Nur_eine_Bootfähige_Partition"></span><span class="mw-headline" id="Nur_eine_Bootf.C3.A4hige_Partition">Nur eine Bootfähige Partition</span></h3>
+<p>Der Standart MBR prüft alle Partitionen auf Bootfähigkeit. Wenn mehrere Partitionen Bootfähig sind, bricht er mit der Meldung "Ungültige Partitionstabelle" ab. Es darf also nur eine Bootfähig sein. 
+Es ist  durchaus möglich einfach einen anderen Code einzufügen, der sich anders verhält, doch dann muss man bedenken, das ein anderes Betriebssystem den MBR-Code möglicherweise wieder durch einen Standartkonformen ersetzt, und dann die Tabelle als ungültig erkannt wird.
+</p>
+<h3><span class="mw-headline" id="Verhalten_des_MBRcodes">Verhalten des MBRcodes</span></h3>
+<ul><li>Stack setzten</li>
+<li>sich selbst nach 0000h:0600h kopieren, und dort weitermachen (jmp far)</li>
+<li>die ersten Bytes der Partitionen auf 80h prüfen.</li>
+<li>wenn keine Bootfähig, dann int 18h aufrufen (Das BIOS wird dann entweder das nächste Laufwerk booten, eine Fehlermeldung ausgeben oder den ROM-BASIC-Interpreter Starten)</li>
+<li>wenn mehrere Bootfähig, Abbruch mit Fehlermeldung</li>
+<li>wenn eine Bootfähig den ersten Sektor der Partition laden.
+<ul><li>Wenn er per CHS erreichbar ist CHS verwenden.</li>
+<li>Wenn nicht LBA verwenden</li></ul></li>
+<li>wenn Fehler Laufwerk justieren und nochmal versuchen</li>
+<li>0000h:7DFEh auf Signatur 55h,0AAh prüfen</li>
+<li>wenn nicht vorhanden Laufwerk justieren und nochmal versuchen</li>
+<li>wenn immer noch nicht vorhanden Abbruch mit Fehlermeldung, (oder ggf. eigene Erweiterung verwenden (z.b. hohe bits der LBA in obsolete CHS Felder))</li>
+<li>ES:DI auf den Partitionseintrag der Partition setzten</li>
+<li>DL wieder auf BIOS-Nummer des physischen Laufwerks setzten</li>
+<li>den geladenen Sektor anspringen (jmp 0000h:7C00h)</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165707
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.005 seconds
+Real time usage: 0.005 seconds
+Preprocessor visited node count: 34/1000000
+Preprocessor generated node count: 50/1000000
+Post‐expand include size: 38/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.623      1 -total
+ 89.25%    0.556      2 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Master_Boot_Record&amp;oldid=9695</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li><li><a href="../../pages/1447/index.html" title="Kategorie:Hardware">Hardware</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1431/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2413/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1431/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Grand Unified Bootloader – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Grand_Unified_Bootloader rootpage-Grand_Unified_Bootloader skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1567/index.html">Aktueller Artikel</a> · <a href="../../history/1567/index.html">Versionsgeschichte</a> · <a href="../../source/9865.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Grand Unified Bootloader</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 21. Juni 2011, 18:27 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Fukano</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Rechtschreibfehler)</span></div><div id="mw-revision-nav">(<a href="../../diffs/9802-9865.html" title="Grand Unified Bootloader">Unterschied</a>) <a href="../9802/index.html" title="Grand Unified Bootloader">← Nächstältere Version</a> | <a href="../../pages/1567/index.html" title="Grand Unified Bootloader">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../10900/index.html" title="Grand Unified Bootloader">Nächstjüngere Version →</a> (<a href="../../diffs/9865-10900.html" title="Grand Unified Bootloader">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="float:right; width:300px; padding-left:20px; padding-bottom: 20px; background-color:white">
+<div style="font-weight:normal; text-align:left; border:1px solid lightgray;">
+<table width="100%">
+<tbody><tr align="center" style="background:lightgray">
+<th colspan="2">Allgemeines
+</th></tr>
+<tr>
+<td>Name:</td>
+<td><b>GR</b>and <b>U</b>nified <b>B</b>ootloader
+</td></tr>
+<tr>
+<td>Entwickler:</td>
+<td>-
+</td></tr>
+<tr>
+<td>Akt. Version:</td>
+<td>0.97 (GRUB legacy)<br/>1.99 (GRUB2)
+</td></tr>
+<tr>
+<td>Lizenz:</td>
+<td>GNU GPL V 2 (GRUB legacy)<br/>GNU GPL V 3 (GRUB2)
+</td></tr>
+<tr>
+<td>Plattform:</td>
+<td>Unix
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Homepage
+</th></tr>
+<tr>
+<td colspan="2"><center><a class="external text" href="http://www.gnu.org/software/grub/grub.html" rel="nofollow">http://www.gnu.org/software/grub/grub.html</a></center>
+</td></tr></tbody></table>
+</div>
+</div>
+<p>Der <b>GR</b>and <b>U</b>nified <b>B</b>ootloader (<b>GRUB</b>) ist ein <a href="../../pages/1560/index.html" title="Multiboot">Multiboot</a>-konformer <a href="../../pages/1477/index.html" title="Bootloader">Bootloader</a> der ursprünglich aus dem GNU-Hurd-Projekt entstammt, aber inzwischen bei allen gängigen Linux-Distributionen als Bootloader eingesetzt wird. Im Falle der Betriebssystementwicklung ist es empfehlenswert GRUB den Kernel booten zu lassen, da GRUB sehr flexibel ist und einen großen Funktionsumfang bietet (siehe Abschnitt <a href="../../pages/1567/index.html#Warum_GRUB.3F" title="Grand Unified Bootloader"> Warum GRUB?</a>).
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Warum_GRUB.3F"><span class="tocnumber">1</span> <span class="toctext">Warum GRUB?</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#GRUB_legacy"><span class="tocnumber">2</span> <span class="toctext">GRUB legacy</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Funktionen"><span class="tocnumber">2.1</span> <span class="toctext">Funktionen</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Diskettenimage_erstellen"><span class="tocnumber">2.2</span> <span class="toctext">Diskettenimage erstellen</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="#Linux"><span class="tocnumber">2.2.1</span> <span class="toctext">Linux</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Windows_32-Bit"><span class="tocnumber">2.2.2</span> <span class="toctext">Windows 32-Bit</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Windows_64-Bit"><span class="tocnumber">2.2.3</span> <span class="toctext">Windows 64-Bit</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="#CD-Image_herstellen"><span class="tocnumber">2.3</span> <span class="toctext">CD-Image herstellen</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Konfigurationsdatei"><span class="tocnumber">2.4</span> <span class="toctext">Konfigurationsdatei</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#Wichtige_Befehle"><span class="tocnumber">2.4.1</span> <span class="toctext">Wichtige Befehle</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Beispielkonnfigurationsdatei"><span class="tocnumber">2.4.2</span> <span class="toctext">Beispielkonnfigurationsdatei</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#GRUB_2"><span class="tocnumber">3</span> <span class="toctext">GRUB 2</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Neuerungen_gegen.C3.BCber_GRUB_Legacy"><span class="tocnumber">3.1</span> <span class="toctext">Neuerungen gegenüber GRUB Legacy</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Disketten-Image_erstellen"><span class="tocnumber">3.2</span> <span class="toctext">Disketten-Image erstellen</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="#Linux_2"><span class="tocnumber">3.2.1</span> <span class="toctext">Linux</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#Windows"><span class="tocnumber">3.2.2</span> <span class="toctext">Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-17"><a href="#CD-Image_erstellen"><span class="tocnumber">3.3</span> <span class="toctext">CD-Image erstellen</span></a>
+<ul>
+<li class="toclevel-3 tocsection-18"><a href="#Linux_3"><span class="tocnumber">3.3.1</span> <span class="toctext">Linux</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#Windows_2"><span class="tocnumber">3.3.2</span> <span class="toctext">Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-20"><a href="#Beispielkonfigurationsdatei"><span class="tocnumber">3.4</span> <span class="toctext">Beispielkonfigurationsdatei</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-21"><a href="#Siehe_auch"><span class="tocnumber">4</span> <span class="toctext">Siehe auch</span></a></li>
+<li class="toclevel-1 tocsection-22"><a href="#Weblinks"><span class="tocnumber">5</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span id="Warum_GRUB?"></span><span class="mw-headline" id="Warum_GRUB.3F">Warum GRUB?</span></h2>
+<p>Im <a class="external text archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Forum</a> und hier im Wiki wird von den meisten GRUB empfohlen und selbst verwendet. Außerdem benutzen die Tutorials im Wiki (größtenteils) GRUB. Dies geschieht aus folgenden Gründen:
+</p>
+<ul><li>Einen Bootloader zu schreiben setzt <b>tiefergehende Assemblerkenntnisse</b> voraus. Falls man diese noch nicht hat, dann wird man sehr wahrscheinlich am Bootloader scheitern oder aber einen Teil/den größten Teil aus anderem Quellcode zusammenkopieren.</li>
+<li>Dabei kommen dann <b>fehleranfällige</b> Bootloader heraus, von denen der jeweilige Programmierer meist nicht weiß, was sie genau machen (z. B. in welchem Dateiformat der Kernel sein muss, an welche Adresse der Kernel geladen wird oder wie viel vom Kernel überhaupt geladen wird) und im Forum werden dann Threads mit 500 Zeilen zusammengefrickelten Assemblercode und der Frage <i>„Warum funktioniert denn das nicht so, wie ich das will!?“</i> erstellt. Der Punkt hier ist nicht, dass wir zu faul wären Fragen zu beantworten, sondern, dass es einfach nichts bringt einen eigenen Bootloader zu schreiben, wenn derjenige nicht einmal im Ansatz verstanden hat, was er denn da überhaupt tut. Das ist dann für uns primär frustrierend.</li>
+<li>Diese Fehleranfälligkeit kann auch dazu führen, dass das ganze eine Weile funktioniert, aber irgendwann tauchen plötzlich seltsame Fehler auf. Dies kann unter anderem den Grund haben, dass nicht der komplette Kernel geladen wird, sondern z. B. nur die ersten paar Kilobyte. Solche Fehler sind meist extrem <b>schwer zu debuggen</b>.</li>
+<li>Eventuell tauchen später auch <b>neue Anforderungen</b> an den Bootloader auf, z. B. könnte man bei einem <a class="mw-redirect" data-archive-original-href="../../pages/1676/index.html" href="../../pages/1478/index.html#Mikrokernel" title="Mikrokernel">Mikrokernel</a> durch den Bootloader Module (meistens Treiber) laden wollen. Dann wird entweder versucht das schnell <i>hinzufrickeln</i> oder aber man entscheidet sich dann doch gegen einen Mikrokernel, d. h. es kann <b>Auswirkungen auf das Design</b> des Kernels haben.</li>
+<li>Falls man allerdings von Anfang an intensiv seinen Bootloader plant – was einem Anfänger aufgrund mangelnder Erfahrung verwehrt bleibt – und diesen sehr gewissenhaft programmiert, dann ist das ein Projekt für sich, d. h. es wird <b>Unmengen an Zeit verschlucken</b> (wir reden hier nicht von Tagen oder Wochen).</li>
+<li>Der <b><a class="mw-redirect" data-archive-original-href="../../pages/1912/index.html" href="../../pages/1852/index.html" title="Bootvorgang">Bootvorgang</a> auf x86-Prozessoren</b> hat so manches Hindernis, welches von Intel und Konsorten gerne aufgrund von Abwärtskompatibilität aufgestellt wurde. Beispiele hierfür sind der <a href="../../pages/1665/index.html" title="Real Mode">Real Mode</a> (der Bootloader startet im Realmode) und das <a href="../../pages/1462/index.html" title="A20-Gate">A20-Gate</a>, welches aktiviert werden muss.</li></ul>
+<p>Wir möchten natürlich dem geneigten Leser nicht vorenthalten, was genau er denn verpasst, wenn er GRUB benutzt:
+</p>
+<ul><li>Eine eingehende Beschäftigung mit dem <a href="../../pages/1665/index.html" title="Real Mode">Real Mode</a> bleibt wahrscheinlich aus (oder kommt erst, wenn man sich mit dem <a href="../../pages/1546/index.html" title="Virtual 8086 Mode">Virtual 8086 Mode</a> beschäftigt).</li>
+<li>Assemblerkenntnisse zu erlangen auch für den Kernel bzw. darüber hinaus fürs Debuggen wichtig, da z. B. im Kernel an einigen kleinen Stellen <a href="../../pages/1472/index.html" title="Inline-Assembler mit GCC"> Inlineassembler</a> verwendet werden muss.</li></ul>
+<h2><span class="mw-headline" id="GRUB_legacy">GRUB legacy</span></h2>
+<p>GRUB legacy ist die ursprüngliche Version von GRUB und wird unter der <a data-archive-original-href="../../pages/1552/index.html#General_Public_License" href="../../pages/1552/index.html" title="Lizenzen — Der ursprüngliche Abschnitt ist in dieser Momentaufnahme nicht verfügbar; stattdessen wird der Artikel angezeigt."> GNU General Public License</a> vertrieben. Wie man einen Multiboot-Kernel erstellt, der mit GRUB gebootet werden kann, wird im Artikel <a href="../../pages/1897/index.html" title="Teil 4 - Hello World"> OS-Dev für Einsteiger - Teil 4</a> beschrieben.
+</p>
+<h3><span class="mw-headline" id="Funktionen">Funktionen</span></h3>
+<ul><li>Liest <a href="../../pages/1617/index.html" title="Ext2">ext2</a>, <a href="../../pages/1660/index.html" title="Ext3">ext3</a>, UFS, UFS2, ReiserFS, <a class="mw-redirect" data-archive-original-href="../../pages/1804/index.html" href="../../pages/1643/index.html" title="FAT">FAT</a>, NTFS, <a href="../../pages/1730/index.html" title="ISO9660">ISO9660</a>, JFS, Minix, FFS, XFS</li>
+<li>Auswahlmenü um verschiedene Betriebssysteme zu laden.</li>
+<li>Bootet von Disketten, Festplatten, CDs, DVDs und Flashdisks.</li>
+<li>Beinhaltet eine Shell</li>
+<li>Kann mit einem Passwort gesichert werden</li>
+<li>Kann von einem TFTP-Server booten</li></ul>
+<h3><span class="mw-headline" id="Diskettenimage_erstellen">Diskettenimage erstellen</span></h3>
+<h4><span class="mw-headline" id="Linux">Linux</span></h4>
+<div style="padding: 2px 2px 2px 9px; background-color: #ffffff; color: #000000; border: 2px solid #bf111b; text-align:left; margin: 0.5em 0">
+<p style="color: #bf111b"><b>Achtung!</b></p>
+<p>Funktioniert nur wenn GRUB legacy auf dem Hostsystem installiert ist.
+</p>
+</div>
+<p>Wir brauchen also zunächst einmal ein mit <a class="mw-redirect" data-archive-original-href="../../pages/1804/index.html" href="../../pages/1643/index.html" title="FAT">FAT</a>-formatiertes Diskettenimage:
+</p>
+<pre># dd of=test.img bs=1024 seek=1440 count=0
+# mkdosfs test.img
+</pre>
+<p>Anstelle von <i>mkdosfs test.img</i> kann auch <i>mke2fs -F test.img</i> verwendet werden, was ein <a href="../../pages/1617/index.html" title="Ext2">Ext2</a>-formatiertes Diskettenimage erstellt. Danach muss dieses Image gemountet und alle nötigen Dateien auf das Image kopiert werden werden:
+</p>
+<pre># sudo mount -oloop test.img /mnt
+# sudo mkdir /mnt/grub
+# sudo cp /boot/grub/stage* /mnt/grub
+# sudo cp kernel /mnt
+# sudo umount /mnt
+</pre>
+<p>Anschließend das Image noch bootbar machen:
+</p>
+<pre># grub
+
+grub&gt; device (fd0) test.img
+grub&gt; root (fd0)
+grub&gt; setup (fd0)
+grub&gt; quit
+</pre>
+<h4><span class="mw-headline" id="Windows_32-Bit">Windows 32-Bit</span></h4>
+<div style="padding: 2px 2px 2px 9px; background-color: #ffffff; color: #000000; border: 2px solid #bf111b; text-align:left; margin: 0.5em 0">
+<p style="color: #bf111b"><b>Achtung!</b></p>
+<p>Funktioniert nur mit GRUB4DOS, nicht aber mit GRUB/GRUB2!
+</p>
+</div>
+<p>Es sind folgende Tools vonnöten:
+</p>
+<ul><li><a class="external text" href="http://www.nu2.nu/bfi/" rel="nofollow">BFI</a> (<i>Build Floppy Image</i>)</li>
+<li><a class="external text" href="https://gna.org/projects/grub4dos" rel="nofollow">GRUB4DOS</a></li></ul>
+<p>Wir brauchen also zunächst einmal einen Ordner. In desen Ordner kommen die Dateien <i>grldr</i> (GRUB4DOS Stage2),
+<i>menu.lst</i> (Die GRUB Konfigurationsdatei) und der kernel.
+Aus diesem Ordner machen wir jetzt ein Image.
+</p>
+<pre>bfi -t=144 -f=floppy.img floppy
+</pre>
+<p><small>Erstellt die Datei floppy.img mit dem Inhalt des Ordners <i>floppy</i>.</small>
+</p><p>Nun muss GRUB nur noch auf dem Image installiert werden und das Image bootfähig gemacht werden. Das geschieht mit folgendem Befehl:
+</p>
+<pre>bootlace.com --fat12 --floppy floppy.img
+</pre>
+<p><small>Installiert GRUB-stage1 in den Bootsektor des Floppy Images</small>
+</p><p>Den ganzen Prozess kann man in einer .bat Datei zusammenfassen.
+</p>
+<h4><span class="mw-headline" id="Windows_64-Bit">Windows 64-Bit</span></h4>
+<p>Da Windows 64-Bit Systeme die direkte Ausführung von .com Dateien, die 16-Bit sind, verweigern, muss man hier einen kleinen Umweg nehmen:
+</p>
+<pre>bfi.exe -t=144 -f=floppy.img floppy -b=mbr.bin
+</pre>
+<p><small>Erstellt die Datei floppy.img mit dem Inhalt der Ordnes <i>floppy</i> und dem MBR aus <i>mbr.bin</i>.</small>
+</p><p>Der Ordner <i>floppy</i> hat exakt den gleichen Inhalt wie bei oben. Die <i>mbr.bin</i> kann erstellt werden indem man den <a class="mw-redirect" data-archive-original-href="../../pages/1439/index.html" href="../../pages/1431/index.html" title="MBR">MBR</a> bspw. von einem existierenden Image mittels <a class="external text" href="http://www.chrysocome.net/dd" rel="nofollow">dd for Windows</a> extrahiert. Wer kein zur der GRUB Version kompatibles Image hat, kann sich mittels der Bootlace.com einmalig eines auf einem anderen PC oder in der <a class="external text" href="http://www.dosbox.com/" rel="nofollow">DosBox</a> erstellen.
+</p>
+<h3><span class="mw-headline" id="CD-Image_herstellen">CD-Image herstellen</span></h3>
+<p>Es sind folgende Tools vonnöten:
+</p>
+<ul><li>stage2_eltorito von GRUB (Sollte bei deinem Linux dabei sein. Windows Nutzer können die <i>stage2_eltorito</i> von <a class="mw-redirect" data-archive-original-href="../../pages/2146/index.html" href="../../pages/1796/index.html" title="Tyndur">tyndur</a> nehmen)</li>
+<li>mkisofs (für Windows Nutzer <a class="external text" href="http://www.student.tugraz.at/thomas.plank/" rel="nofollow">hier</a> verfügbar)</li></ul>
+<p>Als Erstes sollte man die Dateien, die nachher auf der CD landen sollen, in einen Ordner kopieren. Dazu gehören auch die von GRUB benötigten Dateien und zwar <i>menu.lst</i> und <i>stage2_eltorito</i>. Diese gehören in den Ordner (relativ von der CD aus) <i>/boot/grub/</i>. Man kann sie auch in einen beliebigen anderen Ordner packen, dann muss man allerdings mit den Hexeditor an <i>stage2_eltorito</i>. Anschließend erstellt man das CD-Image folgendermaßen:
+</p>
+<pre>mkisofs -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -o cdrom.iso cdrom_files/
+</pre>
+<p>Dies erzeugt ein CD-Image namens <i>cdrom.iso</i> aus den Dateien des Ordners <i>cdrom_files</i>. <i>boot/grub/stage2_eltorito</i> ist dabei ein relativer Pfad von der CD aus auf den Bootloader.
+</p><p><br/>
+<i>Mögliche Probleme</i>:
+</p>
+<ul><li>Die menu.lst kann nicht geladen werden, d.h. es erscheint nur der GRUB-Prompt. Schuld an diesem Fehler ist ein falscher Pfad in stage2 (der Pfad ist Lowercase, aber ISO-Level-1 speichert nur Uppercase). Abhilfe schafft entweder GRUB gepatcht neu bauen, oder einfach den Pfad im Binary zu ändern:<code>sed -i "s/boot\/grub\/menu.lst/BOOT\/GRUB\/MENU.LST/g" stage2_eltorito</code><small>Nur für Linux User, die <i>stage2_eltorito</i> von tyndur sollte aber funktionieren.</small></li>
+<li>Es gibt Systeme die nicht von ElTorito-CDs booten können. Abhilfe schafft hier manchmal, statt ElTorito die Floppyemulation zum Booten zu verwenden. Einfach ein Floppyimage mit allen benötigten Treibern erstellen, welches dann von CD weiterlädt. Das CD-Image hierfür wird dann via<code>mkisofs -b floppy.img -o cdrom.iso cdrom_files/</code><br/>erstellt. <b>ACHTUNG</b>: Man braucht, wenn man nicht alles im Speicher hat, wirklich eigene Treiber, denn das Floppy-Image ist ab dem Protected Mode weg (es werden Interrupts umgeleitet).</li></ul>
+<h3><span class="mw-headline" id="Konfigurationsdatei">Konfigurationsdatei</span></h3>
+<h4><span class="mw-headline" id="Wichtige_Befehle">Wichtige Befehle</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th>Befehl
+</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>title &lt;NAME&gt;
+</td>
+<td>Der name wird im Auswahlmenu beim Booten angezeigt.
+</td></tr>
+<tr>
+<td>kernel &lt;/pfad/zum/kernel/datei&gt;
+</td>
+<td>Läd den angegebenen Kernel
+</td></tr>
+<tr>
+<td>module &lt;/pfad/zum/modul/datei&gt;
+</td>
+<td>Läd das angegebene Modul in den Speicher und trägt es in die Multiboot modulliste ein
+</td></tr>
+<tr>
+<td>boot
+</td>
+<td>Sagt Grub das er jetzt in den Kernel springen soll.
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="Beispielkonnfigurationsdatei">Beispielkonnfigurationsdatei</span></h4>
+<p><code>
+title OS_Name
+kernel /kernel
+module /modul.mod
+boot
+</code>
+Diese Beispielkonfigurationsdatei lädt die Datei <tt>kernel</tt> aus dem Wurzelverzeichnis als Kernel in den Speicher, lädt die Datei <tt>modul.mod</tt> als Modul in den Speicher und führt den Kernel danach aus.
+</p>
+<h2><span class="mw-headline" id="GRUB_2">GRUB 2</span></h2>
+<p>GRUB 2 ist der Nachfolger von GRUB legacy und wurde von Grund auf neu geschrieben. Er ist genauso wie GRUB legacy <a href="../../pages/1560/index.html" title="Multiboot">multibootfähig</a>. Außerdem wird mit GRUB 2 der Multiboot-2-Standard, der sich momentan noch in Entwicklung befindet, unterstützt.
+</p>
+<h3><span id="Neuerungen_gegenüber_GRUB_Legacy"></span><span class="mw-headline" id="Neuerungen_gegen.C3.BCber_GRUB_Legacy">Neuerungen gegenüber GRUB Legacy</span></h3>
+<p>GRUB 2 weist eine Vielzahl an Neuerungen auf:
+</p>
+<ul><li>Scripting-Support mit Lua</li>
+<li>Grafische Benutzerschnittstelle (nicht mit einer klassischen GUI bzw. einem Desktop zu verwechseln!)</li>
+<li>Dynamisches Laden von Module auch während der Laufzeit</li>
+<li>Unterstützung neuer Architekturen</li>
+<li>Internationalisierung</li>
+<li>Modulares und objektorientiertes Framework für Dateisysteme etc.</li>
+<li>Cross-Plattform-Installation</li></ul>
+<h3><span class="mw-headline" id="Disketten-Image_erstellen">Disketten-Image erstellen</span></h3>
+<h4><span class="mw-headline" id="Linux_2">Linux</span></h4>
+<p>Du benötigst ein Disketten Image mit GRUB Legacy drauf, wie man das erstellt, wird oben beschrieben.
+</p>
+<pre>mkdir mnt
+sudo mount -oloop floppy.img mnt
+cd mnt
+</pre>
+<p>Jetzt müssen alle Dateien und Ordner außer /boot/grub und seinem Inhalt gelöscht werden. Danach verändert man den Inhalt der Datei menu.lst folgendermaßen:
+</p>
+<pre>timeout=0
+
+title GRUB 2
+kernel /boot/grub2/core.img
+boot
+</pre>
+<p>Als nächstes legt man unter boot ein Verzeichnis grub2 an und führt dann folgende Befehle aus, um die core.img für GRUB 2 zu erhalten:
+</p>
+<pre>cd /usr/lib/grub/i386-pc
+grub-mkimage -p /boot/grub2 -o /tmp/grubimage/mnt/boot/grub2 *.mod
+</pre>
+<p>Erklärung:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Option
+</th>
+<th>Erklärung
+</th></tr>
+<tr>
+<td>-p /boot/grub2
+</td>
+<td>Der Pfad auf dem Image, in welchem GRUB später nach der grub.cfg sucht, wenn dieser nicht angegeben wird /boot/grub
+</td></tr>
+<tr>
+<td>-o ...
+</td>
+<td>Die Ausgabedatei, standardmäßig stdout
+</td></tr>
+<tr>
+<td>*.mod
+</td>
+<td>Die Module, die eingefügt werden, folgende müssen mindestens vorhanden sein: fat sh multiboot ls ext2 configfile extcmd biosdisk (Zumindest hat mit diesen bei mir alles funktioniert)
+</td></tr></tbody></table>
+<p>Nun erstellt man noch eine grub.cfg mit folgendem Inhalt unter /boot/grub2 auf dem Image ein:
+</p>
+<pre> set timeout=10
+ set default=0
+ 
+ menuentry "OS-Name"
+ {
+     multiboot /pfad/zu/kernel/kernel/datei
+     boot    
+ }
+</pre>
+<p>Anschließend kopiert man den Kernel und die dazugehörigen Dateien auf das Image und unmountet es:
+&lt;bash&gt;sudo umount mnt&lt;/bash&gt;
+Das Image ist danach fertig.
+</p>
+<h4><span class="mw-headline" id="Windows">Windows</span></h4>
+<p>// Todo kann man sich die GRUB2 Binary irgendwo runterladen?
+</p>
+<h3><span class="mw-headline" id="CD-Image_erstellen">CD-Image erstellen</span></h3>
+<h4><span class="mw-headline" id="Linux_3">Linux</span></h4>
+<p>Wenn GRUB2 installiert ist, dann muss folgendes auf der Kommandozeile eingegeben werden:
+</p>
+<pre>grub-mkrescue --output=GRUB2.iso /angegebener/Pfad
+</pre>
+<p>Man kopiert alles vorher in den Ordner, der angegeben wurde und GRUB erstellt, dann das Image ohne, dass man etwas extra machen muss. Das, was in dem angegebenen Pfad enthalten ist spiegelt die Ordnerstruktur auf dem CD-Image wieder.
+</p>
+<h4><span class="mw-headline" id="Windows_2">Windows</span></h4>
+<p>Unter Windows gibt es noch keine Möglichkeit, ein CD-Image von GRUB2 zu erstellen. Am besten nimmt man ein Fertiges.
+Dafür ist das Ändern des Images sehr einfach. Man lädt <a class="external text" href="http://www.chip.de/downloads/UltraISO_14293961.html" rel="nofollow">UltraISO</a> herunter, falls man Windows-User ist (das Programm ist Shareware und bis 300MB begrenzt). Wenn UltraISO heruntergeladen und installiert ist, sollte man folgende Dateien in einem Ordner haben: Das GRUB2.iso-Image, die grub.cfg und alle für das eigene OS nötigen Dateien (Kernel, Module, Programe etc.).
+Das sollte dann so ausehen:
+<a class="image" href="../../pages/2243/index.html"><img alt="GRUB2-1.PNG" height="130" src="../../../assets/wiki/2e24a2a99df542a6fdf59338.png" width="597"/></a>
+</p><p>Die grub.cfg sollte folgenden inhalt haben:
+</p>
+<pre>set timeout=15
+set default=0
+ 
+menuentry "_OS_"
+{
+   multiboot /boot/kernel.elf   
+   boot                         
+}
+</pre>
+<p>Wenn das der Fall ist, UltraISO starten, den "Weiterhin testen..."-Button betätigen, 
+auf Datei-&gt;Öffnen klicken und dann das GRUB2-Image auswählen und öffnen.
+Das Fenster sollte dan wie folgt aussehen:
+In der Verzeichnisstruktur zu dem Ordner mit der grub.cfg und den eigenen OS-Dateien wechseln. Das Fenster sollte dann den Inhalt des Ordners beinhalten.
+</p><p><a class="image" href="../../pages/2244/index.html"><img alt="GRUB2-2.PNG" height="489" src="../../../assets/wiki/4ddf57a0f124cc86939aa1f1.png" width="839"/></a>
+</p><p>Kernel ins Image bringen:
+Obenb Links auf den Ordner "boot" und unten rechts auf die eigene Kernel-Datei klicken. Klicke auf den makierten Button.
+</p><p><a class="image" href="../../pages/2245/index.html"><img alt="GRUB2-3.PNG" height="490" src="../../../assets/wiki/df899bb927881d410569f65f.png" width="838"/></a>
+</p><p>grub.cfg ins Image bringen:
+Oben links auf das Plus neben dem Ordner "boot" klicken und dann auf den Ordner "Grub". Die grub.cfg auswählen und auf den markierten Button klicken. 
+</p><p><a class="image" href="../../pages/2246/index.html"><img alt="GRUB2-4.PNG" height="489" src="../../../assets/wiki/0be0cc5a3cdf1480b45fc729.png" width="837"/></a>
+</p><p>Auf "Datei-&gt;Speichern" klicken.
+</p><p>Nun ist das Image bereit, um auf einem echten PC oder einem Emulator gebootet zu werden.
+Achtung: Beachten, dass immer, wenn sich etwas am Kernel oder den Modulen ändert, diese erneut dem Image hinzugefügt werden müssen.
+</p>
+<h3><span class="mw-headline" id="Beispielkonfigurationsdatei">Beispielkonfigurationsdatei</span></h3>
+<pre>menuentry "OS_Name"
+{
+  multiboot /kernel
+  module /modul.mod
+  boot
+}
+</pre>
+<p>Diese Beispielkonfigurationsdatei lädt die Datei <tt>kernel</tt> aus dem Wurzelverzeichnis als Kernel in den Speicher, lädt die Datei <tt>modul.mod</tt> als Modul in den Speicher und führt den Kernel danach aus.
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li>GRUB legacy
+<ul><li><a href="../../pages/1897/index.html" title="Teil 4 - Hello World"> OS-Dev für Einsteiger - Teil 4</a>: kleiner Beispielkernel mit Multiboot</li>
+<li><a href="../../pages/1737/index.html" title="GRUB Installation auf einem USB-Stick">GRUB Installation auf einem USB-Stick</a></li></ul></li>
+<li>GRUB 2
+<ul><li><a class="external text" href="http://wiki.osdev.org/GRUB_2" rel="nofollow">Disketten-/ISO-Images mit GRUB 2 erstellen</a></li></ul></li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://de.wikipedia.org/wiki/GRUB" rel="nofollow">Wikipedia:GRUB</a></li>
+<li><a class="external text" href="https://gna.org/projects/grub4dos" rel="nofollow">GRUB für DOS</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165321
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.015 seconds
+Real time usage: 0.018 seconds
+Preprocessor visited node count: 243/1000000
+Preprocessor generated node count: 518/1000000
+Post‐expand include size: 1297/2097152 bytes
+Template argument size: 342/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 1056/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    2.137      1 -total
+ 31.86%    0.681      1 Vorlage:Infobox_Software
+ 25.42%    0.543      2 Vorlage:Achtung
+ 22.33%    0.477      2 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Grand_Unified_Bootloader&amp;oldid=9865</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1483/index.html" title="Kategorie:Software">Software</a></li><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1567/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2434/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1567/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/GRUB" hreflang="en" lang="en" title="GRUB – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

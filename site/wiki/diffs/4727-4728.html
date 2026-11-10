@@ -1,0 +1,17 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Teil 5 - Interrupts — Änderungen 4727 → 4728</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Teil 5 - Interrupts — Änderungen 4727 → 4728</h1><nav><a href="../revisions/4727/index.html">Version 4727</a> · <a href="../revisions/4728/index.html">Version 4728</a> · <a href="../history/1898/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l73" >Zeile 73:</td>
+<td colspan="2" class="diff-lineno">Zeile 73:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>// Alle IRQs aktivieren (demaskieren)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>// Alle IRQs aktivieren (demaskieren)</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">outl</del>(0x20, 0x0);</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">outb</ins>(0x20, 0x0);</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">outl</del>(0xa0, 0x0);&lt;/c&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">outb</ins>(0xa0, 0x0);&lt;/c&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Dabei ist &lt;i&gt;<del class="diffchange diffchange-inline">outl</del>&lt;/i&gt; eine Funktion, um einen <del class="diffchange diffchange-inline">32</del>-Bit-Wert an einen [[IO-Port]] zu schreiben, und kann wie in [[Inline-Assembler mit GCC]] beschrieben definiert werden:</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Dabei ist &lt;i&gt;<ins class="diffchange diffchange-inline">outb</ins>&lt;/i&gt; eine Funktion, um einen <ins class="diffchange diffchange-inline">8</ins>-Bit-Wert an einen [[IO-Port]] zu schreiben, und kann wie in [[Inline-Assembler mit GCC]] beschrieben definiert werden:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;static inline void outb(unsigned short port, unsigned char data)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;static inline void outb(unsigned short port, unsigned char data)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td></tr>
+</table></body></html>

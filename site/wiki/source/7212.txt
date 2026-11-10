@@ -1,0 +1,644 @@
+'''Peripheral Component Interconnect''' (kurz '''PCI''') ist ein [[:Kategorie:Bus | Bus]] zur leichten Verbindung von Peripheriegeräten mit der CPU.
+
+Die Informationen in diesem Artikel beziehen sich auch auf die vom klassischen PCI-Bus abgeleiteten Bus-Standards: PCI-Express, Hypertransport, PCI-X und AGP. Diese Busse basieren vom logischen Protokoll her auf PCI aber benutzen andere physikalische Daten-Übertragungsmechanismen bzw. andere Topologien.
+
+== Konfigurations-Register ==
+Jedes PCI-Gerät besitzt einen eigenen Konfigurations-Adressraum, welcher 256 Byte groß ist. Gelesen und beschrieben wird er 32bit-weise mithilfe eines Adress-I/O-Ports (0xCF8) und eines Daten-I/O-Ports (0xCFC).
+
+Bei PCI-Express, Hypertransport und PCI-X ist der Konfigurations-Adress-Raum 4096 Byte groß.
+
+=== Aufbau des Adress-I/O-Ports ===
+{| {{Prettytable}}
+|- align="center"
+! 31         || 30-24      || 23-16     || 15-11        || 10-8            || 7-0
+|- align="center"
+| Enable Bit || bgcolor="#bbb" | Reserviert || Busnummer || Gerätenummer || Funktionsnummer || Registernummer<br> bit0 u. bit1 sind 0
+|}
+<br />
+
+=== Aufbau des Konfigurations-Adressraum ===
+Im Konfigurations-Adressraum sind die ersten 64&nbsp;Byte fest für den Basis-Header reserviert. Die restlichen Bytes stehen zur freien Nutzung durch das Gerät zur Verfügung, in diesem Bereich sind auch die Capabilities untergebracht.
+
+Im Basis-Header sind die Bytes 0x000-0x00F, 0x034, 0x03C und 0x03D für alle PCI-Geräte identisch definiert. Diese Bytes dienen dazu das PCI-Gerät zu klassifizieren und identifizieren.
+{| {{Prettytable}}
+|- align="center"
+! Register || width="22%" | 31-24 || width="22%" | 23-16 || width="22%" | 15-8 || width="22%" | 7-0
+|- align="center"
+| 0x00       || colspan="2" | Device ID      || colspan="2" | Vendor ID
+|- align="center"
+| 0x04       || colspan="2" | Status         || colspan="2" | Command
+|- align="center"
+| 0x08       || colspan="3" | Classcode || Revision ID
+|- align="center"
+| 0x0C     || BIST        || Header Type   || Latency Timer || Cache Line Size
+|- align="center"
+| 0x10     || colspan="4" bgcolor="#bbb" | Header Type Specific
+|- align="center"
+| 0x14     || colspan="4" bgcolor="#bbb" | Header Type Specific
+|- align="center"
+| 0x18     || colspan="4" bgcolor="#bbb" | Header Type Specific
+|- align="center"
+| 0x1C     || colspan="4" bgcolor="#bbb" | Header Type Specific
+|- align="center"
+| 0x20     || colspan="4" bgcolor="#bbb" | Header Type Specific
+|- align="center"
+| 0x24     || colspan="4" bgcolor="#bbb" | Header Type Specific
+|- align="center"
+| 0x28     || colspan="4" bgcolor="#bbb" | Header Type Specific
+|- align="center"
+| 0x2C     || colspan="4" bgcolor="#bbb" | Header Type Specific
+|- align="center"
+| 0x30     || colspan="4" bgcolor="#bbb" | Header Type Specific
+|- align="center"
+| 0x34 || colspan="3" bgcolor="#bbb" | Header Type Specific || Capabilities&nbsp;Pointer
+|- align="center"
+| 0x38     || colspan="4" bgcolor="#bbb" | Header Type Specific
+|- align="center"
+| 0x3C || colspan="2" bgcolor="#bbb" | Header Type Specific || Interrupt Pin || Interrupt Line
+|}
+*Die ''Vendor ID''s werden von PCI-SIG verwaltet und den Herstellern zugewiesen. Der Wert 0xffff ist für den Fall reserviert, dass an dieser Stelle kein Gerät vorhanden ist.
+*Die ''Device ID''s verwalten die Hardwarehersteller selbst. Sie dient zusammen mit der ''Vendor ID'' der eindeutigen Identifikation des Gerätes.
+*Im ''Status''-Register werden verschiedene Basis-Status und Gerät-Fähigkeiten angezeigt. 
+*Im ''Command''-Register werden verschiedene Basis-Konfigurationen vorgenommen.
+*''Classcode'' ist noch einmal geteilt. Die oberen 8&nbsp;Bit (Byte 0x00B) repräsentieren die ''Base Class''. Die mittleren 8&nbsp;Bit (Byte 0x00A) stehen für die ''Subclass'' und die unter 8&nbsp;Bit (Byte 0x009) für das ''Programming Interface''.
+*Die ''Revision ID'' wird vom Hardwarehersteller selbst verwaltet.
+*Mit dem ''BIST''-Register kann ein Geräte-Spezifischer Selbst-Test ausgelöst und ausgewertet werden. Diese Funktion ist optional und wird nur von wenigen PCI-Geräten unterstützt.
+*''Header Type'' spezifiziert den Inhalt der Register 0x010-0x03F. Dabei gibt Bit&nbsp;7 an ob es sich um ein Multifunction-Device handelt oder nicht, in dem Fall muss das Bit&nbsp;7 in allen vorhandenen Funktionen gesetzt sein.
+{| {{Prettytable}}
+|- align="center"
+! Header Type || Kurze Beschreibung
+|- align="center"
+| 0x00 || [[#Header_Type_0x00|Standard]]
+|- align="center"
+| 0x01 || [[#Header_Type_0x01|PCI/PCI-Bridge]]
+|- align="center"
+| 0x02 || CardBus-Bridge
+|}
+*Der ''Capabilities&nbsp;Pointer'' zeigt, falls er gültig ist, auf die erste Capability-Struktur, welche der Start einer verketteten Liste ist. Für gültige Capabilities&nbsp;Pointer sind nur Werte von 0x40 bis 0xF0 erlaubt.
+*Im ''Interrupt Pin''-Register wird angegeben, welches Interrupt-Pin das Gerät verwendet. 0x00 steht für kein Interrupt-Signal, trotzdem kann noch MSI(-X) benutzt werden. Die Werte 0x01 bis 0x04 stehen für #INTA bis #INTD, alle anderen Werte sind nicht erlaubt. Bei Singlefunction-Devices ist nur Pin #INTA erlaubt. Bei Multifunction-Devices dürfen auch #INTB bis #INTD benutzt werden, es dürfen auch mehrere Funktionen in einem PCI-Gerät sich eine Interrupt-Leitung teilen.
+*Im ''Interrupt Line''-Register legt das BIOS die zugewiesene x86-Interrupt-Nummer ab, welche das #INT?-Signal des betreffendem PCI-Geräts auslöst.
+
+====Header Type 0x00====
+{| {{Prettytable}}
+|- align="center"
+! Register || width="22%" | 31-24 || width="22%" | 23-16 || width="22%" | 15-8 || width="22%" | 7-0
+|- align="center"
+| 0x10     || colspan="4" | Base Address 0 (BAR0)
+|- align="center"
+| 0x14     || colspan="4" | Base Address 1 (BAR1)
+|- align="center"
+| 0x18     || colspan="4" | Base Address 2 (BAR2)
+|- align="center"
+| 0x1C     || colspan="4" | Base Address 3 (BAR3)
+|- align="center"
+| 0x20     || colspan="4" | Base Address 4 (BAR4)
+|- align="center"
+| 0x24     || colspan="4" | Base Address 5 (BAR5)
+|- align="center"
+| 0x28     || colspan="4" | Cardbus CIS Pointer
+|- align="center"
+| 0x2C     || colspan="2" | Subsystem ID || colspan="2" | Subsystem Vendor ID
+|- align="center"
+| 0x30     || colspan="4" | Expansion ROM base address
+|- align="center"
+| 0x34 || colspan="3" bgcolor="#bbb" | Reserviert || Capabilities&nbsp;Pointer
+|- align="center"
+| 0x38     || colspan="4" bgcolor="#bbb" | Reserviert
+|- align="center"
+| 0x3C || Max Latency || Min Grant || Interrupt Pin || Interrupt Line
+|}
+
+====Header Type 0x01====
+{| {{Prettytable}}
+|- align="center"
+! Register || width="22%" | 31-24 || width="22%" | 23-16 || width="22%" | 15-8 || width="22%" | 7-0
+|- align="center"
+| 0x10 || colspan="4" | Base address 0
+|- align="center"
+| 0x14 || colspan="4" | Base address 1
+|- align="center"
+| 0x18 || Secondary latency timer || Subordinate bus № || Secondary bus № || Primary bus №
+|- align="center"
+| 0x1C || colspan="2" | Secondary Status || I/O Limit || I/O base
+|- align="center"
+| 0x20 || colspan="2" |Memory limit || colspan="2" | Memory base
+|- align="center"
+| 0x24 || colspan="2" | Prefetchable memory limit || colspan="2" | Prefetchable memory base
+|- align="center"
+| 0x28 || colspan="4" | Prefetchable base upper 32 bits
+|- align="center"
+| 0x2C || colspan="4" | Prefetchable limit upper 32 bits
+|- align="center"
+| 0x30 || colspan="2" | I/O limit upper 16 bits || colspan="2" | I/O base upper 16 bits
+|- align="center"
+| 0x34 || colspan="3" bgcolor="#bbb" | Reserviert || Capabilities pointer
+|- align="center"
+| 0x38 || colspan="4" | Extension ROM base address
+|- align="center"
+| 0x3C || colspan="2" | Bridge control || Interrupt pin || Interrupt line
+|}
+
+=== Bedeutung einiger Register ===
+
+==== Status-Register ====
+''TODO''
+
+==== Command-Register ====
+
+{| {{Prettytable}}
+! Bit !! Name !! Bedeutung
+|-
+| 0 || IO Space || Nur wenn dieses Bit gesetzt ist, kann der I/O-Raum des Geräts verwendet werden, sonst ist er deaktiviert.<br />Falls das Gerät keine IO-Ports anbietet, ist dieses Bit fest auf 0 geklemmt.
+|-
+| 1 || Memory Space || Nur wenn dieses Bit gesetzt ist, können MMIO-Register verwendet werden, sonst sind diese deaktiviert.<br />Falls das Gerät kein MMIO (oder andere Speicherbereiche) anbietet, ist dieses Bit fest auf 0 geklemmt.
+|-
+| 2 || Bus Master || Ist dieses Bit gesetzt, so darf das Gerät als Busmaster auf dem PCI-Bus arbeiten. Das ist z.&nbsp;B. für PCI-DMA notwendig (wird u.&nbsp;a. von Netzwerkkarten und (S)ATA-Host-Controllern verwendet).<br />Falls das Gerät nicht busmasterfähig ist, ist dieses Bit fest auf 0 geklemmt.<br />Wenn dieses Bit auf 0 steht, wird damit auch MSI(-X) unterbunden.
+|-
+| 3 || Special Cycles || Wenn dieses Bit gelöscht ist, dann muss das Gerät alle Special Cycles auf dem PCI-Bus ignorieren. Special Cycles werden zum Broadcasten von speziellen Nachrichten an alle PCI-Geräte benutzt.<br />Es gibt nur wenige PCI-Geräte, bei denen dieses Bit überhaupt beschreibbar ist, bei den meisten ist es fest auf 0 geklemmt. Bei PCI-Express ist es immer fest auf 0 geklemmt.
+|-
+| 4 || Memory Write and Invalidate Enable || Falls gesetzt, kann das Gerät diesen Befehl (Memory Write and Invalidate) ausführen, sonst muss es sich mit einem einfachen Memory Write begnügen.<br />Bei PCI-Express ist dieses Bit immer fest auf 0 geklemmt.
+|-
+| 5 || VGA Palette Snoop || Dieses Bit ist nur für VGA-kompatible Geräte interessant (ist es gesetzt, so werden Zugriffe auf die VGA-Palettenregister gesondert behandelt), auf allen anderen Geräten ist es immer fest auf 0 geklemmt.<br />Bei PCI-Express und Hypertransport ist dieses Bit immer fest auf 0 geklemmt, dort wird sowas in den Bridges konfiguriert.
+|-
+| 6 || Parity Error Response || Ist dieses Bit gesetzt, so wird bei Parityfehlern auf dem PCI-Bus das Detected-Parity-Error-Statusbit im Statusregister gesetzt. Nicht jede PCI-Hardware unterstützt die Generierung und Prüfung des Paritybits auf dem PCI-Bus, sodass dieses Bit dann fest auf 0 geklemmt ist. Daher sollte dieses Bit nur dann auf 1 gesetzt werden, wenn alle PCI-Geräte auf dem betreffenden physischen PCI-Bus-Segment die Parity-Bit-Generierung unterstützen.<br />Bei PCI-Express und Hypertransport gibt es leistungsfähigere Fehlererkennungsmechanismen, deren Benutzung zu bevorzugen ist.
+|-
+| 7 || IDSEL Stepping /<br />Wait Cycle Control || Dieses Bit war nur in den ersten PCI-Spezifikationen gültig (vor 2.0) und muss immer auf 0 gesetzt werden. Auf allen PCI-Geräten seit der PCI-Spezifikation 2.0 (ab 1993) ist dieses Bit immer fest auf 0 geklemmt.
+|-
+| 8 || SERR# Enable || Wenn dieses Bit gesetzt ist darf/soll das Gerät erkannte schwerwiegende Fehler (z.&nbsp;B. Parityfehler während der Adressierungsphase oder ungültige Kommandos) über die extra #SERR-Leitung, oder bei PCI-Express über spezielle Messages, melden. Solche Fehler lösen für gewöhnlich einen NMI oder eine Machine-Check-Exception aus.<br />Bei PCI-Express und Hypertransport gibt es leistungsfähigere Fehlererkennungsmechanismen, deren Benutzung zu bevorzugen ist.
+|-
+| 9 || Fast Back-to-Back Enable || Wenn dieses Bit auf 1 gesetzt ist soll das PCI-Gerät Back-to-Back-Zugriffe (als Slave)unterstützen und darf auch solche Zugriffe (als Master) ausführen. Dieses Bit lässt sich nur auf 1 setzen, wenn das zugehörige Bit im Status-Register diese Fähigkeit signalisiert, andernfalls ist es fest auf 0 geklemmt. Dieses Bit darf nur dann auf 1 gesetzt werden wenn alle PCI-Geräte auf dem betreffenden physischen PCI-Bus-Segment Back-to-Back-Zugriffe unterstützen. Wenn alle Geräte diesen Modus unterstützen, kann die Idle-Phase zwischen zwei PCI-Zyklen entfallen. Das erhöht etwas den Datendurchsatz auf dem PCI-Bus.<br />Bei PCI-Express, Hypertransport und PCI-X ist es immer fest auf 0 geklemmt.
+|-
+| 10 || Interrupt Disable || Ist dieses Flag gesetzt, dann kann das entsprechende Gerät keine IRQs auslösen. Nach dem Hardware-Reset muss dieses Bit dummerweise immer gelöscht sein, sodass IRQs anfangs nicht verboten sind. MSI(-X) ist davon unabhängig, dafür gibt es spezielle Interrupt-Enable-Bits in den entsprechenden Capabilities.
+|}
+
+Bit 7 ist auf 0 zu setzen, Bits 11 bis 15 sind reserviert (und undefiniert) und müssen ebenfalls immer auf 0 gesetzt werden. Nach dem Reset des Geräts sind alle hier aufgeführten Bits auf 0 gesetzt (wobei das BIOS wohl einige davon setzen wird). Die Software sollte immer prüfen, ob sich die gewünschten Bits auch wirklich auf 1 setzen lassen, einige Bits sind eben fest auf 0 geklemmt.
+
+==== Base-Address-Register ====
+''TODO''
+
+=== Codebeispiel ===
+<c>
+#define PCI_CONFIG_DATA    0xCFC
+#define PCI_CONFIG_ADDRESS 0xCF8
+
+/**
+ * Liest ein Dword aus einem PCI-Konfigurations-Register
+ *  @param bus Bus
+ *  @param dev Gerät
+ *  @param func Funktion
+ *  @param offset Registernummer
+ *  @return Register content
+ */
+int pci_config_readd(int bus,int dev,int func,int offset) {
+  int val;
+  int address = 0x80000000|(bus<<16)|(dev<<11)|(func<<8)|(offset&0xFC);
+  outl(PCI_CONFIG_ADDRESS,address);
+  val = inl(PCI_CONFIG_DATA);
+  return val;
+}
+
+/**
+ * Schreibt ein Dword in in ein PCI-Konfigurations-Register
+ *  @param bus Bus
+ *  @param dev Gerät
+ *  @param func Funktion
+ *  @param offset Registernummer
+ *  @param val Wert zum Schreiben
+ */
+void pci_config_writed(int bus,int dev,int func,int offset,int val) {
+  int address = 0x80000000|(bus<<16)|(dev<<11)|(func<<8)|(offset&0xFC);
+  outl(PCI_CONFIG_ADDRESS,address);
+  outl(PCI_CONFIG_DATA,val);
+}
+</c>
+
+== Classcodes ==
+{| {{Prettytable}}
+! Class     || Beschreibung
+|-
+| 0x00      || [[#Class_0x00_-_Pre_2.0 | Alle Geräte die gebaut wurden bevor Classcodes eingeführt wurden ]]
+|-
+| 0x01      || [[#Class_0x01_-_Massenspeicher | Massenspeicher]]
+|-
+| 0x02      || [[#Class_0x02_-_Netzwerk-Controller | Netzwerk-Controller]]
+|-
+| 0x03      || [[#Class_0x03_-_Bildschirm-Controller | Bildschirm-Controller]]
+|-
+| 0x04      || [[#Class_0x04_-_Multimedia-Geräte | Multimedia-Geräte]]
+|-
+| 0x05      || [[#Class_0x05_-_Speicher-Controller | Speicher-Controller]]
+|-
+| 0x06      || [[#Class_0x06_-_Bridge-Geräte | Bridge-Geräte]]
+|-
+| 0x07      || [[#Class_0x07_-_Controller_zur_einfachen_Kommunikation | Controller zur einfachen Kommunikation]]
+|-
+| 0x08      || [[#Class_0x08_-_System-Peripherie | System-Peripherie]]
+|-
+| 0x09      || [[#Class_0x09_-_Input-Geräte | Input-Geräte]]
+|-
+| 0x0A      || [[#Class_0x0A_-_Docking-Stationen | Docking-Stationen]]
+|-
+| 0x0B      || [[#Class_0x0B_-_Prozessoren | Prozessoren]]
+|-
+| 0x0C      || [[#Class_0x0C_-_Serielle_Buscontroller | Serielle Buscontroller]]
+|-
+| 0x0D      || [[#Class_0x0D_-_Wireless-Controller | Wireless-Controller]]
+|-
+| 0x0E      || [[#Class_0x0E_-_Intelligente_Controller | Intelligente Controller]]
+|-
+| 0x0F      || [[#Class_0x0F_-_Satelliten-Kommunikations-Controller | Satelliten-Kommunikations-Controller]]
+|-
+| 0x10      || [[#Class_0x10_-_Encryption/Decryption-Controller | Encryption/Decryption-Controller]]
+|-
+| 0x11      || [[#Class_0x11_-_Datenerfassungs-_und_Signalprozessor-Controller | Datenerfassungs- und Signalprozessor-Controller]]
+|- bgcolor='#BBB'
+| 0x12-0xFE || ''Reserviert''
+|-
+| 0xFF      || Sonstige
+|}
+<br />
+
+=== Class 0x00 - Pre 2.0 ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x00     || 0x00     || Alle nicht-[[Video Graphics Array | VGA]]-Geräte
+|-
+| 0x01     || 0x00     || VGA-Geräte
+|}
+<br />
+
+=== Class 0x01 - Massenspeicher ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x00     || 0x00     || SCSI
+|-
+| 0x01     || 0x??     || IDE
+|-
+| 0x02     || 0x00     || [[Floppy Disk Controller | Floppy]]
+|-
+| 0x03     || 0x00     || IPI
+|-
+| 0x04     || 0x00     || RAID
+|-
+| 0x05     || 0x20     || [[AT Attachment | ATA]]-Controller (Single [[Direct Memory Access | DMA]])
+|-
+| 0x05     || 0x30     || ATA-Controller (Chained DMA)
+|-
+| 0x80     || 0x00     || Anderer Massenspeicher
+|}
+<br />
+
+=== Class 0x02 - [[:Kategorie:Netzwerk | Netzwerk]]-Controller ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x00     || 0x00     || [[Ethernet]]
+|-
+| 0x01     || 0x00     || Token Ring
+|-
+| 0x02     || 0x00     || FDDI
+|-
+| 0x03     || 0x00     || ATM
+|-
+| 0x04     || 0x00     || ISDN
+|-
+| 0x05     || 0x00     || World FIP (Feldbus)
+|-
+| 0x06     || 0x??     || PICMG 2.14, Multi-Computing
+|-
+| 0x80     || 0x00     || Anderer Netzwerk-Controller
+|}
+<br />
+
+=== Class 0x03 - Bildschirm-Controller ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x00     || 0x00     || VGA
+|-
+| 0x00     || 0x01     || 8514
+|-
+| 0x01     || 0x00     || XGA
+|-
+| 0x02     || 0x00     || 3D
+|-
+| 0x80     || 0x00     || Anderer Bildschirm-Controller
+|}
+<br />
+
+=== Class 0x04 - Multimedia-Geräte ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x00     || 0x00     || Video-Gerät
+|-
+| 0x01     || 0x00     || Audio-Gerät
+|-
+| 0x02     || 0x00     || Telefonie
+|-
+| 0x80     || 0x00     || Anderes Multimedia-Gerät
+|}
+<br />
+
+=== Class 0x05 - Speicher-Controller ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x00     || 0x00     || RAM
+|-
+| 0x01     || 0x00     || Flash-Speicher
+|-
+| 0x80     || 0x00     || Anderer Speicher
+|}
+<br />
+
+=== Class 0x06 - Bridge-Geräte ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x00     || 0x00     || Host/PCI-Bridge
+|-
+| 0x01     || 0x00     || PCI/ISA-Bridge
+|-
+| 0x02     || 0x00     || PCI/EISA-Bridge
+|-
+| 0x03     || 0x00     || PCI/MicroChannel-Bridge
+|-
+| 0x04     || 0x00     || PCI/PCI-Bridge (hat Header Type 0x01)
+|-
+| 0x04     || 0x01     || PCI/PCI-Bridge (Subtractive Decode, hat Header Type 0x01)
+|-
+| 0x05     || 0x00     || PCI/PCMCIA-Bridge
+|-
+| 0x06     || 0x00     || PCI/NuBus-Bridge
+|-
+| 0x07     || 0x00     || PCI/CardBus-Bridge
+|-
+| 0x08     || 0x??     || Raceway, Switched Fabric
+|-
+| 0x09     || 0x40     || Semitransparente PCI/PCI-Bridge
+(primär zum Host)
+|-
+| 0x09     || 0x80     || Semitransparente PCI/PCI-Bridge (sekundär zum Host)
+|-
+| 0x0A     || 0x00     || InfiniBand/PCI-Brige
+|-
+| 0x80     || Anderer Bridge-Typ
+|}
+<br />
+
+=== Class 0x07 - Controller zur einfachen Kommunikation ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x00     || 0x00     || Serielle Schnittstelle
+(XT-kompatibel)
+|-
+| 0x00     || 0x01     || Serielle Schnittstelle (16450)
+|-
+| 0x00     || 0x02     || Serielle Schnittstelle (16550)
+|-
+| 0x00     || 0x03     || Serielle Schnittstelle (16650)
+|-
+| 0x00     || 0x04     || Serielle Schnittstelle (16750)
+|-
+| 0x00     || 0x05     || Serielle Schnittstelle (16850)
+|-
+| 0x00     || 0x06     || Serielle Schnittstelle (16950)
+|-
+| 0x01     || 0x00     || Parallelport
+(Standard)
+|-
+| 0x01     || 0x01     || Parallelport (Bidirektional)
+|-
+| 0x01     || 0x02     || Parallelport (ECP 1.0)
+|-
+| 0x01     || 0x03     || Parallelport (IEEE 1284)
+|-
+| 0x01     || 0xFE     || IEEE-1284-Gerät, Target
+|-
+| 0x02     || 0x00     || Multiport Serial Controller
+|-
+| 0x03     || 0x00     || Standard-Modem
+|-
+| 0x03     || 0x01     || Hayes-kompatibles Modem (16450)
+|-
+| 0x04     || 0x00     || GPIB (IEEE488.1/2) Controller
+|-
+| 0x04     || 0x02     || Hayes-kompatibles Modem (16550)
+|-
+| 0x04     || 0x03     || Hayes-kompatibles Modem (16650)
+|-
+| 0x04     || 0x04     || Hayes-kompatibles Modem (16750)
+|-
+| 0x05     || 0x00     || SmartCard
+|-
+| 0x80     || 0x00     || Andere
+Controller
+|}
+<br />
+
+=== Class 0x08 - System-Peripherie ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x00     || 0x00     || 8259-[[Programmable Interrupt Controller | PIC]]
+|-
+| 0x00     || 0x01     || ISA-PIC
+|-
+| 0x00     || 0x02     || EISA-PIC
+|-
+| 0x00     || 0x10     || IO-[[Advanced Programmable Interrupt Controller | APIC]] (EISA)
+|-
+| 0x00     || 0x20     || IOx-APIC
+|-
+| 0x01     || 0x00     || 8237-DMA-Controller
+|-
+| 0x01     || 0x01     || ISA-DMA-Controller
+|-
+| 0x01     || 0x02     || EISA-DMA-Controller
+|-
+| 0x02     || 0x00     || Standard-8254-Timer
+|-
+| 0x02     || 0x01     || ISA-System-Timer
+|-
+| 0x02     || 0x02     || EISA-System-Timer
+|-
+| 0x03     || 0x00     || Standard [[Real Time Clock]]
+|-
+| 0x03     || 0x01     || ISA Real Time Clock
+|-
+| 0x04     || 0x00     || PCI Hot Plug Controller
+|-
+| 0x80     || 0x00     || Andere System-Peripherie
+|}
+<br />
+
+=== Class 0x09 - Input-Geräte ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x00     || 0x00     || Tastatur
+|-
+| 0x01     || 0x00     || Digitizer (Stift)
+|-
+| 0x02     || 0x00     || Maus
+|-
+| 0x03     || 0x00     || Scanner
+|-
+| 0x04     || 0x00     || Standard-[[Gameport]]
+|-
+| 0x04     || 0x10     || Gameport
+|-
+| 0x80     || 0x00     || Anderes Input-Gerät
+|}
+<br />
+
+=== Class 0x0A - Docking-Stationen ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x00     || 0x00     || Normale Docking-Station
+|-
+| 0x80     || 0x00     || Andere Docking-Station
+|}
+<br />
+
+=== Class 0x0B - Prozessoren ===
+{| {{Prettytable}}
+! Subclass || Programming-Interface || Beschreibung
+|-
+| 0x00     || 0x00     || 386
+|-
+| 0x01     || 0x00     || 486
+|-
+| 0x02     || 0x00     || Pentium
+|-
+| 0x10     || 0x00     || Alpha
+|-
+| 0x20     || 0x00     || PowerPC
+|-
+| 0x30     || 0x00     || MIPS
+|-
+| 0x40     || 0x00     || Coprozessor
+|-
+|}
+<br />
+
+=== Class 0x0C - Serielle Buscontroller ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x00     || 0x00     || Firewire (IEEE 1394)
+|-
+| 0x00     || 0x10     || Firewire (OHCI)
+|-
+| 0x01     || 0x00     || ACCESS-Bus
+|-
+| 0x02     || 0x00     || SSA (Serial Storage Architecture)
+|-
+| 0x03     || 0x00     || [[Universal Serial Bus | USB]]-Host (UHCI)
+|-
+| 0x03     || 0x10     || USB-Host (OHCI)
+|-
+| 0x03     || 0x20     || USB-Host (EHCI)
+|-
+| 0x03     || 0x80     || USB-Host (kein HCI)
+|-
+| 0x03     || 0xFE     || USB-Gerät
+|-
+| 0x04     || 0x00     || Fibre Channel
+|-
+| 0x05     || 0x00     || SMB (System Management Bus)
+|-
+| 0x06     || 0x00     || InfiniBand
+|-
+| 0x07     || 0x00     || IPMI SMIC Interface
+|-
+| 0x07     || 0x01     || IPMI Keyboard Style Interface
+|-
+| 0x07     || 0x02     || IPMI Block Transfer Device
+|-
+| 0x08     || 0x00     || SERCOS Interface
+|-
+| 0x09     || 0x00     || CANBus
+|}
+<br />
+
+=== Class 0x0D - Wireless-Controller ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x00     || 0x00     || iRDA
+|-
+| 0x01     || 0x00     || Consumer Infrared
+|-
+| 0x10     || 0x00     || Radio Frequency
+|-
+| 0x11     || 0x00     || Bluetooth
+|-
+| 0x12     || 0x00     || Broadband
+|-
+| 0x80     || 0x00     || Anderer Wireless-Controller
+|}
+<br />
+
+=== Class 0x0E - Intelligente Controller ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x00     || 0x??     || I²O-Architektur
+|-
+| 0x00     || 0x00     || Message FIFO
+|}
+<br />
+
+=== Class 0x0F - Satelliten-Kommunikations-Controller ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x01     || 0x00     || TV
+|-
+| 0x02     || 0x00     || Audio
+|-
+| 0x03     || 0x00     || Sprache
+|-
+| 0x04     || 0x00     || Daten
+|}
+<br />
+
+=== Class 0x10 - Encryption/Decryption-Controller ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x01     || 0x00     || Netzwerk
+|-
+| 0x10     || 0x00     || Entertainment
+|-
+| 0x80     || 0x00     || Anderer Controller
+|}
+<br />
+
+=== Class 0x11 - Datenerfassungs- und Signalprozessor-Controller ===
+{| {{Prettytable}}
+! Subclass || Programming Interface || Beschreibung
+|-
+| 0x00     || 0x00     || Digital Input/Output Module
+|-
+| 0x01     || 0x00     || Zähler
+|-
+| 0x10     || 0x00     || Synchronisation und Frequenzmessung
+|-
+| 0x20     || 0x00     || Management Card
+|-
+| 0x80     || 0x00     || Anderer Controller
+|}
+<br />
+
+== Weblinks ==
+* [http://pci-ids.ucw.cz/ Linux PCI ID Repositorium] - Enthält viele VendorIDs und die dazugehörigen DeviceIDs
+
+[[Kategorie:Hardware]]
+[[Kategorie:Bus]]

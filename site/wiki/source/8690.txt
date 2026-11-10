@@ -1,0 +1,48 @@
+= QEMU und GDB =
+[[QEMU]] bietet die Möglichkeit den laufenden Kernel mit [[GDB]] zu debuggen. Um dieses Feature zu aktivieren muss man seinen Kernel mit der Option „-g“ übersetzen und übergibt dann man die Parameter „-s“ (kurzform zu „-gdb tcp::1234“) und „-S“ mit an QEMU.
+
+Beispiel:
+
+ qemu -s -S -kernel kernel.bin
+
+Darauf startet man in einem neuen Terminal GDB (oder man hängt an den Aufruf von qemu ein ''&'' an).
+
+ gdb kernel.bin
+
+Um diesen nun mit QEMU zu verbinden gibt man 
+
+ target remote 1234 
+
+(oder das entsprechende Device das man mit „-gdb“ QEMU übergeben hat) in die GDB-Eingabeaufforderung ein. Darauf kann man Breakpoints setzen; um Beispielsweise in der Datei ''main.c'' in Zeile ''42'' einen Breakpoint einzufügen gibt man 
+
+ break main.c:42
+
+ein. GDB sollte einem die entsprechende Adresse und die Nummer des Breakpoints ausgeben.
+Sobald man den Befehl 
+
+ continue
+
+oder deren Kurzform „cont“ eingibt (und mit Enter betstätigt), sollte der Kernel bis zum definierten Breakpoint laufen (außer er crasht vorher oder der Breakpoint ist unerreichbar). 
+Sobald der Breakpoint erreicht ist zeigt GDB die aktuelle Codezeile an und stoppt die Ausführung. Mit 
+
+ display ''variable''
+
+kann man nun Variablen definieren, die bei jedem Schritt ausgeben werden sollen. Mit 
+
+ undisplay ''variable''
+
+kann dies für die entsprechende Variable wieder abgeschaltet werden.
+Den gestoppten Kernel kann man jetzt mit 
+
+ next
+
+durchsteppen. Mit 
+
+ step
+
+wird auch in Funktionen hereingesprungen. Um die Ausführung wieder fortzusetzen gibt man einfach 
+ cont
+(oder „continue“) ein.
+Ein 
+ quit
+beendet GDB.

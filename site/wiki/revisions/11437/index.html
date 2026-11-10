@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Raspberry Pi – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Raspberry_Pi rootpage-Raspberry_Pi skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2637/index.html">Aktueller Artikel</a> · <a href="../../history/2637/index.html">Versionsgeschichte</a> · <a href="../../source/11437.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Raspberry Pi</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 2. August 2020, 22:50 Uhr von <a class="mw-userlink" href="../../pages/2674/index.html" title="Benutzerin:Littlefox"><bdi>Littlefox</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Kategorien)</span></div><div id="mw-revision-nav">(<a href="../../diffs/11417-11437.html" title="Raspberry Pi">Unterschied</a>) <a href="../11417/index.html" title="Raspberry Pi">← Nächstältere Version</a> | Aktuelle Version (Unterschied) | Nächstjüngere Version → (Unterschied)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="float:right; width:300px; padding-left:20px; padding-bottom: 20px; background-color:white">
+<div style="font-weight:normal; text-align:left; border:1px solid lightgray;">
+<table width="100%">
+<tbody><tr align="center">
+<td colspan="2" style="padding: 0px;" width="100%"><a class="image" href="../../pages/2640/index.html"><img alt="Raspberrypi.png" height="187" src="../../../assets/wiki/8b16125091fa6b61b9cb99d4.png" srcset="../../../assets/wiki/ad6c9e830f7b380c413dc886.png 1.5x, ../../../assets/wiki/ba0d370f315eabd1f8ce2bb5.png 2x" width="280"/></a>
+</td></tr>
+<tr align="center" style="background: lightgray;">
+<th colspan="2">
+</th></tr>
+<tr>
+<td valign="top">Entwickler:</td>
+<td>Raspberry Pi Foundation
+</td></tr>
+<tr>
+<td valign="top">CPU:</td>
+<td>ARM1176JZF-S
+</td></tr>
+<tr>
+<td valign="top">GPU:</td>
+<td>Broadcom VideoCore IV
+</td></tr>
+<tr>
+<td valign="top">Hardware:</td>
+<td>Ethernet, Kartenleser, 256-512MB RAM, USB, HDMI
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Homepage
+</th></tr>
+<tr>
+<td colspan="2"><center><a class="external free" href="http://www.raspberrypi.org/" rel="nofollow">http://www.raspberrypi.org/</a></center>
+</td></tr></tbody></table>
+</div>
+</div>
+<p>Der Raspberry Pi ist ein kreditkartengroßer Computer, der von der <a class="external text" href="http://www.raspberrypi.org/" rel="nofollow">Raspberry Pi Foundation</a> entwickelt wurde und wird.
+Er basiert auf einem <a href="../../pages/2101/index.html" title="ARM">ARM</a>-Prozessor und bietet, je nach Modell, zusätzlich <a class="mw-redirect" data-archive-original-href="../../pages/1689/index.html" href="../../pages/1690/index.html" title="USB">USB</a>, <a href="../../pages/1876/index.html" title="Ethernet">Ethernet</a>, SD-Slots uvm.
+</p><p>Des Weiteren ist der Raspberry Pi zudem sehr günstig (B-Variante ohne MwSt. 35 US-$), was ihn für Interessierte noch attraktiver macht.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Bedeutung_f.C3.BCr_OS-Entwickler"><span class="tocnumber">1</span> <span class="toctext">Bedeutung für OS-Entwickler</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Technik"><span class="tocnumber">2</span> <span class="toctext">Technik</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Unterschiede_zwischen_den_Modellen_A_und_B"><span class="tocnumber">2.1</span> <span class="toctext">Unterschiede zwischen den Modellen A und B</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Eigene_Erweiterungen"><span class="tocnumber">3</span> <span class="toctext">Eigene Erweiterungen</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Prozessor"><span class="tocnumber">4</span> <span class="toctext">Prozessor</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Weblinks"><span class="tocnumber">5</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span id="Bedeutung_für_OS-Entwickler"></span><span class="mw-headline" id="Bedeutung_f.C3.BCr_OS-Entwickler">Bedeutung für OS-Entwickler</span></h2>
+<p>Der Raspberry Pi ist eine sehr interessante Plattform für <a class="mw-redirect" data-archive-original-href="../../pages/1482/index.html" href="../../pages/1479/index.html" title="OS">OS</a>-Entwickler:
+</p><p>Normale PCs sind heute aus sehr vielen verschiedenen Bauteilen zusammengesetzt - so gibt es jährlich neue Grafikkartenserien und Prozessoren, und es gibt unzählige weitere Bauteile, die ein PC-Nutzer verbauen kann. Es ist für Hobby-OS-Entwickler unmöglich, für all jene Geräte Treiber zu schreiben.
+Der Raspberry Pi dagegen ist eine Plattform, den es "nur" in 2 Ausführungen gibt - einer A-Variante und einer erweiterten B-Variante. Natürlich gibt es auch hier immer wieder kleinere Veränderungen, was die Bestückung betrifft, jedoch kann man diese Änderungen leicht nachvollziehen und sein OS einfach nachrüsten, sodass man (fast) die gesamte Hardware unterstützen kann (abgesehen von eigenen Erweiterungen; s.u.).
+</p><p>Des Weiteren ist der Raspberry Pi einer der wenigen Rechner auf ARM-Basis zu für Privatpersonen erschwinglichen Preisen. Üblicherweise sind diese entweder sehr teuer oder als eingebettete Systeme implementiert, sodass deren Programmierung mangels Schnittstellen zum Benutzer üblicherweise eher langweilig ist.
+</p>
+<h2><span class="mw-headline" id="Technik">Technik</span></h2>
+<p>Der Raspberry Pi ist 85,60 mm × 53,98 mm × 17 mm groß. Er besitzt als CPU einen ARM1176JZF-S mit 700 MHz und sogar eine eigene GPU, nämlich den Broadcom VideoCore IV. Beide Ausführungen verfügen außerdem über einen HDMI- sowie einen Composite Video-Ausgang. Ton wird entweder über HDMI oder separat über Klinke (3,5 mm) ausgegeben.
+</p><p>Eine Festplatte ist nicht verbaut, dafür gibt es einen Kartenleser für SDHC-, SDXC-, MMC- und SDIO-Karten. Es existieren noch einige GPIO-Ports für eigene Erweiterungen (s.u.). Mit Strom wird der Rechner wahlweise über Batterien oder einen MicroUSB-Port versorgt.
+</p>
+<h3><span class="mw-headline" id="Unterschiede_zwischen_den_Modellen_A_und_B">Unterschiede zwischen den Modellen A und B</span></h3>
+<p>Während die A-Variante mit 256 MB auskommen muss, wurden der B-Variante in der aktuellen Version 512 MB spendiert. Über USB-Anschlüsse verfügen beide Modelle, jedoch hat die B-Variante einen Hub integriert, der einen weiteren USB-Anschluss zulässt (der auch verbaut wurde). Die B-Variante besitzt zudem einen Ethernet-Controller, benötigt dafür aber insgesamt auch 3,5 Watt im Gegensatz zu 2,5W beim A-Modell.
+</p>
+<h2><span class="mw-headline" id="Eigene_Erweiterungen">Eigene Erweiterungen</span></h2>
+<p>Der Raspberry Pi verfügt über eine Schnittstelle, mit der man eigene Hardware anbauen kann (z.B. eine Platine mit Temperatursensoren). Elektrotechnisch interessierte können somit also - anders als bei handelsüblichen PCs - eigene Bauteile entwerfen, für die man dann sogar die Unterstützung im eigenen Betriebssystem einbauen kann.
+</p>
+<h2><span class="mw-headline" id="Prozessor">Prozessor</span></h2>
+<p>Beim Prozessor handelt es sich um einen <a href="../../pages/2101/index.html" title="ARM">ARM</a> Prozessor, der so oder ähnlich auch in Handies vorkommt:
+</p>
+<pre>pi@raspberrypi:~ $ uname -m
+armv6l
+</pre>
+<p>Die Main-Routine eines C-Programms, welches nur mittels printf hello world ausgibt, sieht so aus:
+</p>
+<pre>00010408 &lt;main&gt;:
+   10408:       e92d4800        push    {fp, lr}
+   1040c:       e28db004        add     fp, sp, #4
+   10410:       e59f000c        ldr     r0, [pc, #12]   ; 10424 &lt;main+0x1c&gt;
+   10414:       ebffffb3        bl      102e8 &lt;printf@plt&gt;
+   10418:       e3a03000        mov     r3, #0
+   1041c:       e1a00003        mov     r0, r3
+   10420:       e8bd8800        pop     {fp, pc}
+   10424:       00010498        .word   0x00010498
+</pre>
+<p>Man erkennt die feste Befehlsbreite - jeder Maschinensprachenbefehl ist 4 Bytes lang.
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://elinux.org/RaspberryPi_Osdev" rel="nofollow">elinux Raspberry Pi osdev</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170149
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.233 seconds
+Real time usage: 0.243 seconds
+Preprocessor visited node count: 56/1000000
+Preprocessor generated node count: 197/1000000
+Post‐expand include size: 750/2097152 bytes
+Template argument size: 160/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 476/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.776      1 Vorlage:Infobox_EmbeddedSystem
+100.00%    0.776      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:2637-0!canonical and timestamp 20261109170149 and revision id 11437
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Raspberry_Pi&amp;oldid=11437</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1447/index.html" title="Kategorie:Hardware">Hardware</a></li><li><a href="../../pages/2100/index.html" title="Kategorie:ARM">ARM</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2637/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2637/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/ARM_RaspberryPi" hreflang="en" lang="en" title="ARM RaspberryPi – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 2. August 2020 um 22:50 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

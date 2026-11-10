@@ -1,0 +1,61 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>C++-Kernel mit GRUB — Änderungen 6692 → 6695</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>C++-Kernel mit GRUB — Änderungen 6692 → 6695</h1><nav><a href="../revisions/6692/index.html">Version 6692</a> · <a href="../revisions/6695/index.html">Version 6695</a> · <a href="../history/2124/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l12" >Zeile 12:</td>
+<td colspan="2" class="diff-lineno">Zeile 12:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#include &quot;Multiboot.h&quot;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#include &quot;Multiboot.h&quot;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>void <del class="diffchange diffchange-inline">main</del>(const Multiboot&amp; multiboot_structur,</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">extern &quot;C&quot; </ins>void <ins class="diffchange diffchange-inline">kernelMain</ins>(const Multiboot&amp; multiboot_structur,</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">&#160; &#160; &#160; &#160; &#160; </del>uint32_t multiboot_magic)</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;  uint32_t multiboot_magic);</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">void kernelMain(const Multiboot&amp; multiboot_structur,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; </ins>uint32_t multiboot_magic)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; if (multiboot_magic != MULTIBOOT_MAGIC)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; if (multiboot_magic != MULTIBOOT_MAGIC)</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l32" >Zeile 32:</td>
+<td colspan="2" class="diff-lineno">Zeile 35:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;cpp&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;cpp&gt;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">#ifndef TYPES_H</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">#define TYPES_H</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>/* Garantiert, dass ein Typ nicht gepaddet wird und somit exakt die Größe seiner Member hat */</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>/* Garantiert, dass ein Typ nicht gepaddet wird und somit exakt die Größe seiner Member hat */</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#define PACKED __attribute__((packed))</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#define PACKED __attribute__((packed))</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l38" >Zeile 38:</td>
+<td colspan="2" class="diff-lineno">Zeile 44:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>typedef unsigned short uint16_t;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>typedef unsigned short uint16_t;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>typedef unsigned int&#160;  uint32_t;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>typedef unsigned int&#160;  uint32_t;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">#endif</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/cpp&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/cpp&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l198" >Zeile 198:</td>
+<td colspan="2" class="diff-lineno">Zeile 206:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#define MULTIBOOT_H</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#define MULTIBOOT_H</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>#include <del class="diffchange diffchange-inline">&lt;</del>types.h<del class="diffchange diffchange-inline">&gt;</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>#include <ins class="diffchange diffchange-inline">&quot;</ins>types.h<ins class="diffchange diffchange-inline">&quot;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#define MULTIBOOT_MAGIC 0x2BADB002</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#define MULTIBOOT_MAGIC 0x2BADB002</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l227" >Zeile 227:</td>
+<td colspan="2" class="diff-lineno">Zeile 235:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; &#160;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; &#160;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>global loader					; Unser Einsprungspunkt</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>global loader					; Unser Einsprungspunkt</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>extern <del class="diffchange diffchange-inline">main					</del>; <del class="diffchange diffchange-inline">main</del>() aus Kernel.cpp</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>extern <ins class="diffchange diffchange-inline">kernelMain				</ins>; <ins class="diffchange diffchange-inline">kernelMain</ins>() aus Kernel.cpp</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>extern initialiseConstructors			; aus Startup.cpp</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>extern initialiseConstructors			; aus Startup.cpp</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; &#160;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; &#160;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>FLAGS&#160; &#160; equ 0</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>FLAGS&#160; &#160; equ 0</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>MAGIC&#160; &#160; equ 0x1BADB002 <del class="diffchange diffchange-inline">&#160; &#160; &#160; 	</del>; Magicnumber - Erkennungsmerkmal für GRUB</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>MAGIC&#160; &#160; equ 0x1BADB002	<ins class="diffchange diffchange-inline">			</ins>; Magicnumber - Erkennungsmerkmal für GRUB</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>CHECKSUM equ -(MAGIC + FLAGS) <del class="diffchange diffchange-inline">	</del>; Checksum</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>CHECKSUM equ -(MAGIC + FLAGS)	<ins class="diffchange diffchange-inline">		</ins>; Checksum</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; &#160;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; &#160;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>section .text</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>section .text</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l246" >Zeile 246:</td>
+<td colspan="2" class="diff-lineno">Zeile 254:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; push ebx&#160; &#160; &#160; &#160;  				; Adresse der Multiboot-Structure auf den Stack legen</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; push ebx&#160; &#160; &#160; &#160;  				; Adresse der Multiboot-Structure auf den Stack legen</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; call initialiseConstructors&#160;  		; Konstruktoren aufrufen</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; call initialiseConstructors&#160;  		; Konstruktoren aufrufen</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; call <del class="diffchange diffchange-inline">main&#160; &#160; &#160;  				</del>; <del class="diffchange diffchange-inline">main </del>aufrufen</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; call <ins class="diffchange diffchange-inline">kernelMain&#160; &#160;  				</ins>; <ins class="diffchange diffchange-inline">kernelMain </ins>aufrufen</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>stop:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>stop:</div></td></tr>
+</table></body></html>

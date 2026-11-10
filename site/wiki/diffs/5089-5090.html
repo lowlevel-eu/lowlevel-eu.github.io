@@ -1,0 +1,54 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Linker — Änderungen 5089 → 5090</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Linker — Änderungen 5089 → 5090</h1><nav><a href="../revisions/5089/index.html">Version 5089</a> · <a href="../revisions/5090/index.html">Version 5090</a> · <a href="../history/1932/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l35" >Zeile 35:</td>
+<td colspan="2" class="diff-lineno">Zeile 35:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Erst durch das Zusammenlinken mit anderen Objektdateien (hier: die der libc) wird der nötige Code in die Datei</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Erst durch das Zusammenlinken mit anderen Objektdateien (hier: die der libc) wird der nötige Code in die Datei</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>eingelinkt und die Datei ausführbar gemacht:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>eingelinkt und die Datei ausführbar gemacht:</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">== Linkerdatei ==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Eine Linkerdatei definiert, wo welche Sektionen des Codes liegen.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Hier ein Beispiel aus dem Betriebssystem [[Qultics]]:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;code&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">OUTPUT_FORMAT(elf32-i386)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">OUTPUT_ARCH(i386:i386)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">ENTRY(start)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">phys = 0x00100000;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">SECTIONS</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">{</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">	kernel_start = phys;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; .text phys : AT(phys) {</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; code = .;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; *(.text)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; *(.rodata)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; . = ALIGN(4096);</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; }</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; .data : AT(phys + (data - code))</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; {</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; data = .;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; *(.data)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; . = ALIGN(4096);</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; }</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; .bss : AT(phys + (bss - code))</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; {</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; bss = .;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; *(.bss)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; . = ALIGN(4096);</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; }</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; end = .;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; kernel_end = end;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; kernel_size = kernel_end - kernel_start;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/code&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Werkzeuge]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Werkzeuge]]</div></td></tr>
+</table></body></html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Assembler – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Assembler rootpage-Assembler skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1514/index.html">Aktueller Artikel</a> · <a href="../../history/1514/index.html">Versionsgeschichte</a> · <a href="../../source/10217.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Assembler</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 11. November 2011, 18:55 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Jidder</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#AT.26T-Syntax">→</a>‎<span dir="auto"><span class="autocomment">AT&amp;T-Syntax: </span> Noch mehr Korrekturen</span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/10215-10217.html" title="Assembler">Unterschied</a>) <a href="../10215/index.html" title="Assembler">← Nächstältere Version</a> | Aktuelle Version (Unterschied) | Nächstjüngere Version → (Unterschied)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Als Assembler wird sowohl die Assemblersprache, als auch das Programm zur Übersetzung von Quelltexten in Assemblersprache in Maschinensprache bezeichnet. Die CPU führt ausschließlich Maschinenbefehle aus, die als Folge von Bytes im Speicher vorliegen. Jedem Maschinenbefehl ist genau ein Assemblerbefehl (Mnemonic) zugeordnet. Diese 1:1-Abbildung auf die CPU-Befehle hat zur Folge, dass in der Regel Assemblerprogramme nicht zwischen verschiedenen Prozessortypen übertragbar sind. Außerdem werden in Assembler geschriebene Programme schnell sehr lang und erfordern, dass der Programmierer sich wenig zielführend mit vielen Details der Architektur auseinandersetzen muss.
+</p><p>Der sinnvolle Einsatz von Assembler beschränkt sich darauf, eine Umgebung für eine Hochsprache aufzubauen, sowie kurze, plattformabhängige Hilfsfunktionen und Einsprungsstellen für z. B. <a class="mw-redirect" data-archive-original-href="../../pages/1882/index.html" href="../../pages/1857/index.html" title="ISR">Interrupt-Behandlungsroutinen</a> bereitzustellen.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Aufgaben_eines_Assemblers"><span class="tocnumber">1</span> <span class="toctext">Aufgaben eines Assemblers</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Aufbau_von_Assemblerbefehlen"><span class="tocnumber">2</span> <span class="toctext">Aufbau von Assemblerbefehlen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Syntax"><span class="tocnumber">2.1</span> <span class="toctext">Syntax</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Intel-Syntax"><span class="tocnumber">2.1.1</span> <span class="toctext">Intel-Syntax</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#AT.26T-Syntax"><span class="tocnumber">2.1.2</span> <span class="toctext">AT&amp;T-Syntax</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Inline-Assembler"><span class="tocnumber">3</span> <span class="toctext">Inline-Assembler</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Weblinks"><span class="tocnumber">4</span> <span class="toctext">Weblinks</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Assembler"><span class="tocnumber">4.1</span> <span class="toctext">Assembler</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Befehls.C3.BCbersichten"><span class="tocnumber">4.2</span> <span class="toctext">Befehlsübersichten</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Aufgaben_eines_Assemblers">Aufgaben eines Assemblers</span></h2>
+<ul><li>Übersetzung von Assembler in Maschinencode</li>
+<li>Auflösen der symbolischen Namen (z. B. von Labels) in numerische Konstanten, soweit möglich</li>
+<li>Erzeugung von Objektcode, der in der Regel noch <a href="../../pages/1932/index.html" title="Linker">gelinkt</a> werden muss</li></ul>
+<h2><span class="mw-headline" id="Aufbau_von_Assemblerbefehlen">Aufbau von Assemblerbefehlen</span></h2>
+<p>Die direkte Abbildung von Assemblerbefehlen auf Maschinenbefehle hat zur Folge, dass Assemblerbefehle immer den selben Aufbau haben. Ein Maschinenbefehl besteht aus einem Opcode, meist gefolgt von einem oder mehreren Operanden. Dieses spiegelt sich auch in Assemblerbefehlen wieder, die immer den gleichen Aufbau haben:
+</p>
+<pre>mnemonic operand1, operand2
+</pre>
+<p>Bei der x86-Architektur ist bei zweistelligen Operationen (Addition, Subtraktion, bitweise Operationen, etc.), immer einer der beiden Operanden sowohl Quelle als auch Ziel. Es existiert also z. B. ein Befehl, um das Register eax zu ebx zu addieren, und das Ergebnis in ebx zu speichern. Aber es existiert kein Befehl, um das Ergebnis in einem dritten Register zu speichern.
+</p>
+<h3><span class="mw-headline" id="Syntax">Syntax</span></h3>
+<p>Bei Assembler unterscheidet man verschiedene Syntax. Bei der x86-CPU-Familie unterscheidend man zwischen Intel- und AT&amp;T-Syntax. Zu den Assemblern, deren Syntax auf der Intel-Syntax aufbaut, gehören <a class="mw-redirect" data-archive-original-href="../../pages/2092/index.html" href="../../pages/2091/index.html" title="FASM">FASM</a>, <a class="mw-redirect" data-archive-original-href="../../pages/1941/index.html" href="../../pages/1909/index.html" title="NASM">NASM</a>, MASM und TASM. Die AT&amp;T-Syntax kann von dem GNU Assembler, der in den binutils enthalten ist, und anderen Unix-Assemblern ("as") verarbeitet werden. YASM und neuere Versionen des GNU Assemblers können zwischen beiden Syntax umschalten. Die Programme in den binutils können aber mit beiden Syntax-Varianten souverän umgehen, ebenfalls kann der gcc beides ausgeben.
+</p>
+<h4><span class="mw-headline" id="Intel-Syntax">Intel-Syntax</span></h4>
+<p>Als Intel-Syntax bezeichnet man diejenigen Syntax Formen, die von der Syntax des alten Assemblers ASM86 von der Firma Intel abgeleitet worden sind. Zu den Hauptmerkmalen der Intel-Syntax gehört die Reihenfolge der Operanden, bei Befehlen mit zwei Operanden oder mehr. Das Ziel einer derartigen Operation steht immer als erstes in der Operandenliste. Die Addition von eax zu ebx sieht dann z. B. so aus, wobei das Ergebnis in ebx ist:
+&lt;asm&gt;add ebx, eax&lt;/asm&gt;
+</p><p>Kommentare werden in der Intel-Syntax mit einem Semikolon eingeleitet:
+&lt;asm&gt;; Das ist ein Kommentar.&lt;/asm&gt;
+</p><p>Darüber hinaus wird die Wortlänge anhand der Registerbezeichnung bestimmt. Speicherzugriffe werden mit eckigen Klammern angedeutet.
+&lt;asm&gt;mov ax, [ebp] ; lädt ein word (2 Byte Zahl) von der Adresse in ebp nach ax&lt;/asm&gt;
+&lt;asm&gt;mov cl, [esi] ; lädt ein Byte von der Adresse in esi nach cl&lt;/asm&gt;
+</p><p>Wenn die Wortlänge nicht eindeutig feststellbar ist, muss sie angegeben werden:
+&lt;asm&gt;push dword ptr [ebp + 4] ; schiebt ein dword (4 Byte Zahl) von der Adresse, welche um 4 größer ist als die in ebp, auf den Stack&lt;/asm&gt;
+</p><p>Alle Bestandteile der Adresse werden  in der Klammer angegeben, werden die Klammern Weggelassen wir eine Konstante oder der Registerinhalt verwendet:
+&lt;asm&gt;add dh, [ebp + eax*4 + 5] ; addiert dh mit den Byte, dessen Adresse sich durch ebp + eax*4 + 5 berechnen lässt und speichert das Ergebnis wieder in dh ab&lt;/asm&gt;
+&lt;asm&gt;sub ecx, 16 ; verringert den Wert in ecx um 16&lt;/asm&gt;
+&lt;asm&gt;or ecx, eax ; ecx = Wert in ecx OR Wert in eax&lt;/asm&gt;
+</p><p>Allerdings wird die Zuordnung Adresse = eckige Klammer in einigen Assembler nicht konsequent verwendet, so das man Aufpassen muss. 
+</p>
+<h4><span id="AT&amp;T-Syntax"></span><span class="mw-headline" id="AT.26T-Syntax">AT&amp;T-Syntax</span></h4>
+<p>Der AT&amp;T-Syntax leitet sich von derjenigen Syntax ab, die der Unix Assembler (as) für verschiedene Prozessorplattformen verwendet. Auf der x86-Plattform ist sie zwar weniger verbreitet, allerdings arbeitet die GNU Implementierung der Unix-Werkzeuge (gcc, gdb, ...) vorwiegend damit. In der AT&amp;T-Syntax werden die Register mit einem % als Präfix versehen und der Zieloperand ist der letzte Operand. Das Beispiel von eben sieht dann so aus:
+&lt;asm&gt;add %eax, %ebx&lt;/asm&gt;
+</p><p>Kommentare werden im AT&amp;T-Syntax mit einem Doppelkreuz eingeleitet:
+&lt;asm&gt;# Das ist ein Kommentar.&lt;/asm&gt;
+</p><p>Die Wortlänge wird als Suffix an den Opcode angehängt, "b" steht für Byte, "w" für Word (2 Byte), "l" für DWord (4 Byte) und "q" für QWord (8 Byte). Die Wortlänge kann aber weggelassen werden, wenn die Länge aus den Registernamen hervorgeht.
+Register in Klammern werden für die indirekte Adressierung des Speichers verwendet.
+&lt;asm&gt;movw (%ebp), %ax # lädt ein Word (2 Byte Zahl) von der Adresse in ebp nach ax&lt;/asm&gt;
+&lt;asm&gt;movb (%esi), %cl # lädt ein Byte von der Adresse in esi nach cl&lt;/asm&gt;
+&lt;asm&gt;pushl 4(%ebp) # schiebt ein dword (4 Byte Zahl) von der Adresse, welche um 4 größer ist als die in ebp, auf den Stack. S.u.&lt;/asm&gt;
+</p><p>Die Bezeichnung von Adressen ist allerdings komplizierter. Sie werden wie folgt dargestellt (wobei alle Bestandteile optional sind):
+</p>
+<pre><tt>&lt;Adressbasis&gt;(&lt;Erstes Register, das addiert werden soll&gt;,&lt;Zweites Register&gt;,&lt;Faktor, mit dem das zweite Register zuvor multipliziert wird&gt;)</tt>
+</pre>
+<p>Also z.B.
+&lt;asm&gt;addb 5(%ebp,%eax,4), %dh # addiert dh mit den Byte, dessen Adresse sich durch ebp + eax*4 + 5 berechnen lässt&lt;/asm&gt;
+&lt;asm&gt;addb 12345, %dh # addiert dh mit den Byte von der Adresse 12345 und speichert das Ergebnis wieder in dh ab&lt;/asm&gt;
+</p><p>Konstanten wird ein Dollarzeichen vorgestellt, um sie von Adressen zu unterscheiden.
+&lt;asm&gt;subl $16, %ecx # Verringert den Wert in ecx um 16&lt;/asm&gt;
+</p>
+<h2><span class="mw-headline" id="Inline-Assembler">Inline-Assembler</span></h2>
+<p>Als Inline-Assembler bezeichnet man die Einbettung von Assemblerbefehlen im Quelltext eines Hochsprachenprogramms. Dieses erweist sich als nützlich, wenn man nicht den Umweg über einen Funktionsaufruf gehen will, um Assemblercode auszuführen. Siehe auch <a href="../../pages/1472/index.html" title="Inline-Assembler mit GCC">Inline-Assembler mit GCC</a>.
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<h3><span class="mw-headline" id="Assembler">Assembler</span></h3>
+<ul><li><a class="external text" href="http://www.nasm.us/" rel="nofollow">NASM (Netwide Assembler)</a></li>
+<li><a class="external text" href="http://msdn.microsoft.com/en-us/library/afzk3475.aspx" rel="nofollow">MASM (Microsoft Macro Assembler)</a></li>
+<li><a class="external text" href="http://www.flatassembler.net/" rel="nofollow">FASM (Flat Assembler)</a></li>
+<li><a class="external text" href="http://www.tortall.net/projects/yasm/" rel="nofollow">YASM</a></li>
+<li><a class="external text" href="http://sourceware.org/binutils/docs-2.19/as/GNU-Assembler.html" rel="nofollow">GAS (GNU Assembler)</a></li></ul>
+<h3><span id="Befehlsübersichten"></span><span class="mw-headline" id="Befehls.C3.BCbersichten">Befehlsübersichten</span></h3>
+<ul><li><a class="external text" href="http://www.intel.com/products/processor/manuals/" rel="nofollow">Intel Manual Volume 2A/B: Instruction Set Reference</a></li>
+<li><a class="external text" href="http://www.amd.com/us-en/Processors/DevelopWithAMD/0,,30_2252_875_7044,00.html" rel="nofollow">AMD Manual Volume 3: General-Purpose and System Instructions</a></li>
+<li><a class="external text" href="http://www.pbhq.de/asm86faq/" rel="nofollow">ASM86FAQ</a> (10 Jahre alt, aber auf Deutsch)</li>
+<li><a class="external text" href="http://www.i8086.de" rel="nofollow">i8086.de</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164556
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.004 seconds
+Real time usage: 0.005 seconds
+Preprocessor visited node count: 37/1000000
+Preprocessor generated node count: 44/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:1514-0!canonical and timestamp 20261109164556 and revision id 10217
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Assembler&amp;oldid=10217</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1648/index.html" title="Kategorie:Programmiersprache">Programmiersprache</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1514/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2480/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1514/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/Assembly" hreflang="en" lang="en" title="Assembly – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 11. November 2011 um 18:55 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

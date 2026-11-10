@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>ARM-OS-Dev für Einsteiger – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-ARM-OS-Dev_für_Einsteiger rootpage-ARM-OS-Dev_für_Einsteiger skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="index.html">Aktueller Artikel</a> · <a href="../../history/2417/index.html">Versionsgeschichte</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">ARM-OS-Dev für Einsteiger</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><table style="width:100%; background-color: #D0D8FF; border: 1px solid #b8c0e8; text-align:center; margin-bottom: 10px;">
+<tbody><tr>
+<td style="width:33%; text-align:left;"> </td>
+<td style="width:33%; text-align:center;"><b>Navigation</b></td>
+<td style="width:33%; text-align:right;"><a href="../2418/index.html" title="ARM-OS-Dev Teil 1 – Entwicklungsumgebung">ARM-OS-Dev Teil 1 – Entwicklungsumgebung</a> »</td>
+</tr>
+</tbody></table>
+<p>Diese Reihe soll eine Adaption der <a href="../1619/index.html" title="OS-Dev für Einsteiger">OS-Dev-für-Einsteiger-Reihe</a> für ARM-Systeme sein. Viele der dort gesagten Dinge gelten unabhängig von der Architektur, dies gilt insbesondere für den Einführungsartikel. Bei Gemeinsamkeiten wird auf die x86-Reihe verwiesen, Unterschiede werden hier verdeutlicht und erklärt.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Vor_dem_Start"><span class="tocnumber">1</span> <span class="toctext">Vor dem Start</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Wo_anfangen.3F"><span class="tocnumber">2</span> <span class="toctext">Wo anfangen?</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Booten"><span class="tocnumber">2.1</span> <span class="toctext">Booten</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Hello_World_und_weiter"><span class="tocnumber">2.2</span> <span class="toctext">Hello World und weiter</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Tabellen"><span class="tocnumber">2.3</span> <span class="toctext">Tabellen</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Der_eigentliche_Kernel"><span class="tocnumber">3</span> <span class="toctext">Der eigentliche Kernel</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Treiber"><span class="tocnumber">3.1</span> <span class="toctext">Treiber</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Weblinks"><span class="tocnumber">4</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Vor_dem_Start">Vor dem Start</span></h2>
+<p>Alles in der x86-Reihe gesagte gilt auch hier, mit dem Unterschied, dass sich die Wahl der Plattform erübrigt. Verwendet wird in dieser Tutorialreihe das sogenannte Integrator/CP-Board, welches die Standardumgebung des ARM-QEMU darstellt. Echte Integrator/CP-Boards sind recht teuer und schwer zu bekommen, sodass die Ausführung des hier gezeigten Codes wohl auf QEMU beschränkt bleiben wird. Die Übertragung des Tutorials auf andere Plattformen sollte jedoch nicht allzu schwer fallen, wenn die dort vorhandene Hardware bekannt ist.
+</p><p>Als eine zusätzliche Voraussetzung wäre in dieser Tutorialreihe die Kenntnis der x86-Architektur bzw. von grundlegenden Abläufen wie Interruptbehandlung und ähnlichem zu nennen. Sehr sinnvoll ist es auch, den <a href="../2101/index.html" title="ARM">ARM</a>-Artikel gelesen zu haben.
+</p>
+<h2><span id="Wo_anfangen?"></span><span class="mw-headline" id="Wo_anfangen.3F">Wo anfangen?</span></h2>
+<h3><span class="mw-headline" id="Booten">Booten</span></h3>
+<p>Dies ist eine interessantere Frage als auf x86, denn im Unterschied zu PCs existiert bei ARM keine einheitliche Bootumgebung. Der Prozessor beginnt seine Ausführung an der Speicheradresse 0x00000000, dort kann jedoch je nach Plattform entweder ein BIOS (z. B. Game Boy Advance), ein in den RAM eingeblendeter Flashspeicher (z. B. Integrator/CP-Board) oder etwas ganz anderes sein. Im ersten Fall wird das BIOS eine erste Umgebung aufsetzen und anschließend einen spezifizischen Einsprungspunkt aufrufen (ähnlich dem PC-BIOS), im zweiten muss am Beginn des Flashspeichers der Bootcode stehen. Aufgrund dieser Unterschiede wird im Folgenden nur noch auf die Umgebung eingegangen, die das Integrator/CP-Board (im weiteren Verlauf „I/CP“ genannt) bietet.
+</p>
+<h3><span class="mw-headline" id="Hello_World_und_weiter">Hello World und weiter</span></h3>
+<p>Leider gibt es auch hier keine einheitliche Umgebung. Beim I/CP gibt es keinen schönen Textgrafikmodus wie bei der PC-Grafikausgabe, sodass man die Wahl hat, entweder einen VGA-Grafikmodus zu initialisieren und dann alle Zeichen des „Hello, World“ selbst zu zeichnen oder die Zeichen per serieller Schnittstelle auszugeben. Ersteres ist auf echter Hardware besser, letzteres dafür wesentlich einfacher zu implementieren. Da ich davon ausgehe, dass sowieso niemand ein echtes I/CP hat und QEMU zur Ausführung des Codes verwendet, wird in diesem Tutorial die serielle Schnittstelle verwendet, die mit QEMU genauso (im Zweifelsfalle besser) gut wie eine grafische VGA-Ausgabe ist.
+</p>
+<h3><span class="mw-headline" id="Tabellen">Tabellen</span></h3>
+<p>Bei ARM gibt es keine Descriptortabellen wie bei x86. Eine Segmentierung des Speichers findet nicht statt. Interrupts und Exceptions werden behandelt, indem an feste Stellen im Speicher gesprungen wird. Die Verwaltung des virtuellen Speichers geschieht im Allgemeinen über Paging (all dies wird in der Tutorialreihe behandelt).
+</p>
+<h2><span class="mw-headline" id="Der_eigentliche_Kernel">Der eigentliche Kernel</span></h2>
+<p>Hier gelten wieder die gleichen Prinzipien wie in der x86-Reihe. Unterschiede sind, dass die Privilegien nicht durch die Ringe 0 bis 3, sondern durch Prozessormodi vergeben werden. Es gibt sechs privilegierte Modi und einen Usermodus, in dem alle Programme laufen. Kernelcode wird immer in einem der privilegierten Modi ausgeführt (IRQ/FIQ für Interrupts, SVC für Syscalls, ABT/UND für Exceptions; SYS könnte für Programme verwendet werden, die im Kernelmodus laufen sollen).
+</p><p>Als kleine Anmerkung wäre noch zu nennen, dass das Multitasking auf ARM natürlich ohne x86-TSS geschieht. Dazu mehr im entsprechenden Teil der Reihe.
+</p>
+<h3><span class="mw-headline" id="Treiber">Treiber</span></h3>
+<p>An sich gelten hier die gleichen Regeln wie für x86-Treiber. Zu beachten ist jedoch, dass es selten so schöne Tutorials wie für x86-Geräte gibt und man sich daher im Allgemeinen selbst durch die Spezifikationen quälen muss. Bei I/CP ist dies jedoch durch ein entsprechendes Manual, das eine Zusammenfassung des Interfaces für jedes vorhandene Gerät bietet, recht einfach. <a class="mw-redirect" data-archive-original-href="../1625/index.html" href="../1622/index.html" title="CDI">CDI</a> kann man theoretisch auch auf ARM implementieren, praktisch ist dies wenig sinnvoll, da bisher kaum Treiber für Geräte von ARM-Plattformen existieren (wobei es auf einigen ARM-Plattformen auch PCI gibt, wodurch man die Treiber für PCI-Geräte durchaus nutzen kann, soweit diese kein x86-Port-I/O verwenden).
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://infocenter.arm.com/help/topic/com.arm.doc.dui0138e/DUI0138E_CMxx6_UserGuide.pdf" rel="nofollow">Integrator/CP-Manual</a> – Vor allem Informationen zur Speichermap, Interrupts, etc.</li>
+<li><a class="external text" href="http://infocenter.arm.com/help/topic/com.arm.doc.dui0159b/DUI0159B_integratorcp_1_0_ug.pdf" rel="nofollow">Integrator/CP-Manual</a> – Eher Informationen zur Peripherie (VGA-Ausgabe, PS/2-Eingabe, Timer, etc.)</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164511
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.005 seconds
+Real time usage: 0.006 seconds
+Preprocessor visited node count: 47/1000000
+Preprocessor generated node count: 120/1000000
+Post‐expand include size: 418/2097152 bytes
+Template argument size: 92/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.286      1 Vorlage:Navigation
+100.00%    1.286      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:2417-0!canonical and timestamp 20261109164511 and revision id 9764
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="../../revisions/9764/index.html">http://wiki.localhost:8080/w/index.php?title=ARM-OS-Dev_für_Einsteiger&amp;oldid=9764</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../1895/index.html" title="Kategorie:OS-Dev für Einsteiger">OS-Dev für Einsteiger</a></li><li><a href="../2100/index.html" title="Kategorie:ARM">ARM</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2417/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="../../revisions/9764/index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 11. Mai 2011 um 18:21 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

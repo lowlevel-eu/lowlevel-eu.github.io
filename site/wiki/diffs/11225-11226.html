@@ -1,0 +1,40 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Maschinensprache — Änderungen 11225 → 11226</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Maschinensprache — Änderungen 11225 → 11226</h1><nav><a href="../revisions/11225/index.html">Version 11225</a> · <a href="../revisions/11226/index.html">Version 11226</a> · <a href="../history/2654/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l4" >Zeile 4:</td>
+<td colspan="2" class="diff-lineno">Zeile 4:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; eb ff</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; eb ff</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Zum ''zweiten'' Byte, also zum ''Parameter'' des Kommandos. Das bedeutet, nach dem Byte &quot;eb&quot; wird das Byte &quot;ff&quot; ausgefuehrt, das &quot;eigentlich&quot; als Parameter gedacht war. Ein solches Konstrukt ist in assembler unmoeglich. Diese Konstrukte wurden jedoch zum Sparen von Speicherplatz eingesetzt.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Zum ''zweiten'' Byte, also zum ''Parameter'' des Kommandos. Das bedeutet, nach dem Byte &quot;eb&quot; wird das Byte &quot;ff&quot; ausgefuehrt, das &quot;eigentlich&quot; als Parameter gedacht war. Ein solches Konstrukt ist in assembler unmoeglich. Diese Konstrukte wurden jedoch zum Sparen von Speicherplatz eingesetzt.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Mit Linux ist es moeglich, assembler in Maschinensprache zu uebersetzen (kompilieren) und umgekehrt (disassemblieren). Ich mache es hier einmal vor. Folgendes Programm beschreibt eine Endlosschleife in Assembler:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">'''endless.asm'''</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> global _start</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> _start:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; nop</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> jmp _start</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">zum Uebersetzen in Maschinensprache starten wir:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> nasm -f elf64 endless.asm</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">um das Ganze zu einem unter Linux ausfuehrbaren Programm zu machen geben wir ein:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> ld -s -o endless endless.o</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Zum disassemblieren geben wir ein:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> # objdump -M intel -d endless</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> endless:&#160; &#160;  file format elf64-x86-64</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> Disassembly of section .text:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> 0000000000400080 &lt;.text&gt;:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160;  400080:&#160; &#160; &#160;  90&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; nop&#160;  </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160;  400081:&#160; &#160; &#160;  eb fc&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;  jmp&#160; &#160; 0x400080</ins></div></td></tr>
+</table></body></html>

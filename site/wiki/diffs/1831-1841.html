@@ -1,0 +1,32 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Multitasking — Änderungen 1831 → 1841</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Multitasking — Änderungen 1831 → 1841</h1><nav><a href="../revisions/1831/index.html">Version 1831</a> · <a href="../revisions/1841/index.html">Version 1841</a> · <a href="../history/1495/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l2" >Zeile 2:</td>
+<td colspan="2" class="diff-lineno">Zeile 2:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Dies wird realisiert, indem blitzschnell zwischen mehreren Prozessen hin und her geschaltet wird</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Dies wird realisiert, indem blitzschnell zwischen mehreren Prozessen hin und her geschaltet wird</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>und so jedem Prozess für eine bestimmte Zeit die CPU zur Verfügung gestellt wird.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>und so jedem Prozess für eine bestimmte Zeit die CPU zur Verfügung gestellt wird.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">== Prinzip ==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Beim Multitasking wird ein Prozess ausgeführt, und dann nach einer bestimmten Zeit zum nächsten Prozess geschaltet. Dabei gibt es verschieden Sheduling - Algorithmen, also bestimmte Methoden, wie der nächste Task ausgewählt wird. Das einfachste hierbei ist das Round Robin. Es wird einfach eine Liste geführt, in der jeder Task angeführt ist. Ausgewählt wird dann immer der nächste Task in der Liste. Eine Idee ist es auch, mit Prioritäten zu arbeiten, das heißt, dass verschiedene Prozesse unterschiedlich gewichtet werden. (z.B. mehr Prozessorzeit bekommen, oder öfters aufgerufen werden)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Beim Umschalten muss folgendes erledigt werden:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">*ALLE Register speichern</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">*Rücksprungadresse speichern (damit man weiß, wo man das Programm fortführen muss)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">*Stack wechseln</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">*Register des nächsten Prozesses wiederherstellen</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">*An die Rücksprungadresse des nächsten Prozesses springen.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">== Zwei Methoden ==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Dabei wird zwischen zwei Methoden unterschieden:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">*Software - Multitasking</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">und</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">*Hardware - Multitasking</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">===Software - Multitasking===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Hierbei wird die Umschaltarbeit komplett vom Betriebsystem ausgeführt. Der Prozessor macht dabei nichts. </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">===Hardware - Multitasking===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Im Gegensatz zum Software-Multitasking, wird hier die meiste Arbeit vom Prozessor erledigt.</ins></div></td></tr>
+</table></body></html>

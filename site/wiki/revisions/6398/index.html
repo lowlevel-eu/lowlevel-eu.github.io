@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>C++-Kernel mit GRUB – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-C_-Kernel_mit_GRUB rootpage-C_-Kernel_mit_GRUB skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2124/index.html">Aktueller Artikel</a> · <a href="../../history/2124/index.html">Versionsgeschichte</a> · <a href="../../source/6398.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">C++-Kernel mit GRUB</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 29. November 2009, 02:07 Uhr von <a class="mw-userlink" href="../../pages/1865/index.html" title="Benutzer:Hartmut"><bdi>Hartmut</bdi></a> <span class="mw-usertoollinks">(<a class="mw-usertoollinks-talk" href="../../pages/2608/index.html" title="Benutzer Diskussion:Hartmut">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Typos, Umformulierung usw. usf.)</span></div><div id="mw-revision-nav">(<a href="../../diffs/6395-6398.html" title="C++-Kernel mit GRUB">Unterschied</a>) <a href="../6395/index.html" title="C++-Kernel mit GRUB">← Nächstältere Version</a> | <a href="../../pages/2124/index.html" title="C++-Kernel mit GRUB">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../6399/index.html" title="C++-Kernel mit GRUB">Nächstjüngere Version →</a> (<a href="../../diffs/6398-6399.html" title="C++-Kernel mit GRUB">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Die Programmierung eines <a href="../../pages/1478/index.html" title="Kernel">Kernels</a> in <a href="../../pages/1486/index.html" title="C++">C++</a> unterscheidet sich in einigen Punkten von der mit <a href="../../pages/1526/index.html" title="C">C</a>. Da wären zum Beispiel der Aufruf der Konstruktoren, bzw. der Destruktoren, die vor bzw. nach dem eigentlichen Kernel aufgerufen werden. Unser Kernel wird mittels <a class="mw-redirect" data-archive-original-href="../../pages/1960/index.html" href="../../pages/1567/index.html" title="GRUB">GRUB</a> geladen.
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Kernel"><span class="tocnumber">1</span> <span class="toctext">Kernel</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Kernel.cpp"><span class="tocnumber">1.1</span> <span class="toctext">Kernel.cpp</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#MyOS.h"><span class="tocnumber">1.2</span> <span class="toctext">MyOS.h</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#cKernel.c"><span class="tocnumber">1.3</span> <span class="toctext">cKernel.c</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#asmKernel.asm"><span class="tocnumber">1.4</span> <span class="toctext">asmKernel.asm</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Kompilieren_und_Linken"><span class="tocnumber">2</span> <span class="toctext">Kompilieren und Linken</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Anmerkungen"><span class="tocnumber">3</span> <span class="toctext">Anmerkungen</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Siehe_auch"><span class="tocnumber">4</span> <span class="toctext">Siehe auch</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Kernel">Kernel</span></h2>
+<p>Wir werden mit <a class="mw-redirect" data-archive-original-href="../../pages/1846/index.html" href="../../pages/1805/index.html" title="GCC">GCC</a> und <a class="mw-redirect" data-archive-original-href="../../pages/1941/index.html" href="../../pages/1909/index.html" title="NASM">NASM</a> arbeiten. Ich verwende den <a href="../../pages/1450/index.html" title="Crosscompiler für Windows">Crosscompiler_für_Windows</a>Cross-Compiler von <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Jidder</a>, es sollte aber keinen Unterschied zu einem "normalen" gcc unter Linux geben.
+</p>
+<h3><span class="mw-headline" id="Kernel.cpp">Kernel.cpp</span></h3>
+<p>Da wir ja schon mit C++ arbeiten, wäre auch etwas OOP angebracht. Deshalb erstellen wir ein Klasse namens Video, die wir in einen Header stecken. Dadurch ist unsere kernel.cpp sehr übersichtlich:
+&lt;cpp&gt;
+</p>
+<ol><li>include "MyOS.h" 							// Einbinden unseres Header</li></ol>
+<p>void main(void){
+	Video screen;							// Screen instanzieren
+	screen.color(0x7000); 						// Vordergrund Schwarz, Hintergrund Dunkelgrau
+	screen.clear();							// Bildschirm leeren
+	screen.write((char *)"Wilkommen im C++-TestKernel!"); 		// Textausgabe
+}
+&lt;/cpp&gt;
+</p>
+<h3><span class="mw-headline" id="MyOS.h">MyOS.h</span></h3>
+<p>Der Header ist dann doch etwas umfangreicher:
+</p><p>&lt;cpp&gt;
+</p>
+<ol><li>ifndef MyOS_H</li>
+<li>define MyOS_H</li></ol>
+<p>class Video
+{
+	public:
+		Video();						// Konstruktor
+		~Video();						// Destruktor
+		void clear();						// Leeren des Bildschirms, die Größe liegt bei 80x25 Zeichen
+		void write(char *cp);					// Textausgabe
+		void put(char c);					// Ausgabe eines einzelnen Zeichens
+		void color(int color);					// Setzen der FG/BG Farben
+	private:
+		unsigned short *videomem;				// Zeiger auf den Videospeicher
+		unsigned int off;					// Y-Position der Textausgabe, je volle Zeile +80
+		unsigned int pos;					// X-Position der Textausgabe, ab Zeilenanfang
+		unsigned int screen_color;				// FB/BG Farbe
+};
+Video::Video(){
+	screen_color = 0x0700;						// Setzen der Farbe auf Dunkelgrau auf Schwarz
+	pos=0;								// Setzen der Textausgabe auf
+	off=0;								// link soben.
+	videomem = (unsigned short*) 0xb8000;				// Startadresse des Videospeichers
+}
+Video::~Video(){}
+void Video::clear(){
+	for(int i=0;i&lt;(80*25);i++)
+	{
+		videomem[i] = (unsigned char)' ' |screen_color;		// Füllen des Bildschirms mit Leerzeichen
+	}
+	pos = 0;							// Zurücksetzen der Textausgabe nach links oben
+	off = 0;							
+}
+void Video::write(char *cp){
+	char *str = cp, *ch;
+	for(ch = str; *ch; ch++){
+		put(*ch);						// Für jedes einzelne Zeichen wird put() aufgerufen
+	}
+}
+void Video::put(char c){
+	if(pos &gt;= 80){							// Wenn die Textausgabe den rechten...
+		pos = 0;
+		off += 80;
+	}
+	if(off&gt;=(80*25)){						// ...oder den unteren Bildschirmrand erreicht, gibt es einen 
+		clear();						// Umbruch bzw. es wird aufgeräumt.
+	}
+	videomem[off + pos] = (unsigned char)c|screen_color;  		// Setzen des Zeichens und der Farbe in den Videospeicher
+	pos++;
+}
+void Video::color(int color){								
+screen_color = color;							
+}
+</p>
+<ol><li>endif</li></ol>
+<p>&lt;/cpp&gt;
+</p>
+<h3><span class="mw-headline" id="cKernel.c">cKernel.c</span></h3>
+<p>Um den Konstruktor bzw. den Destruktor aufzurufen, werden diese beiden Funktionen später mit in den Kernel gelinkt:
+</p><p>&lt;c&gt;
+void _cmain()
+{
+	extern void (*__CTOR_LIST__)();
+	void (**constructor)() = 	&amp;__CTOR_LIST__;
+	int total = *(int *) constructor;
+	constructor++;
+	while(total){
+		(*constructor)();
+		total--;
+		constructor++;
+	}
+}
+</p><p>void _catexit()
+{
+	extern void (*__DTOR_LIST__)();
+	void (**deconstructor)() = &amp;__DTOR_LIST__;
+	deconstructor++;
+	int total = *(int *) deconstructor;
+	while(total)
+	{
+		(*deconstructor)();
+		total--;
+		deconstructor++;
+	}
+}
+&lt;/c&gt;
+</p>
+<h3><span class="mw-headline" id="asmKernel.asm">asmKernel.asm</span></h3>
+<p>Auch bei C++ kommen wir nicht um ein wenig Assembler herum:
+</p><p>&lt;asm&gt;
+</p><p>global loader					; Unser Einsprungspunkt
+extern main					; main() aus Kernel.cpp
+extern _cmain					; _cmain() aus cKernel.c
+extern _catexit					; _catexit() aus cKernel.c
+</p><p>FLAGS    equ 0
+MAGIC    equ 0x1BADB002       	; Magicnumber - Erkennungsmerkmal für GRUB
+CHECKSUM equ -(MAGIC + FLAGS) 	; Checksum
+</p><p>section .text
+align 4
+MultiBootHeader:
+</p>
+<pre> dd MAGIC       				; Magic number
+ dd FLAGS       				; Flags
+ dd CHECKSUM    				; Checksum
+
+</pre>
+<p>loader:
+</p>
+<pre> mov esp,0x200000 				; Stack an die 2MB-Grenze platzieren
+ push eax         				; Multiboot Magicnumber auf den Stack legen
+ push ebx         				; Adresse der Multiboot-Structure auf den Stack legen
+ call _cmain      				; main-Funktion des C++-Kernels aufrufen
+ call main       				; cmain-Funktion des C-Kernels aufrufen
+ call _catexit    				; atexit-Funktion des C-Kernels aufrufen
+ jmp stop
+ 
+</pre>
+<p>stop:						; endlos Schleife nach Beendung unseres Kernels
+</p>
+<pre>jmp stop
+
+</pre>
+<p>&lt;/asm&gt;
+</p>
+<h2><span class="mw-headline" id="Kompilieren_und_Linken">Kompilieren und Linken</span></h2>
+<p>Die asmKernel.asm:
+</p>
+<pre>nasm -f elf -o asmKernel.o asmKernel.asm
+</pre>
+<p>Kernel.cpp:
+</p>
+<pre>gcc -nostdlib -fno-builtin -fno-rtti -ffreestanding -fno-exceptions -c -Os -o Kernel.o Kernel.cpp
+</pre>
+<p>cKernel.cpp:
+</p>
+<pre>gcc -Wall -Werror -nostdinc -m32 -ffreestanding -fno-leading-underscore -c -o cKernel.o cKernel.c 
+</pre>
+<p><br/>
+Nun zu einer der wichtigsten Stellen: Dem Linkvorgang:
+Wir müssen die asmKernel.o, die Kernel.o und die cKernel.o zu einer Kernel.bin linken, die dann von GRUB geladen werden kann.
+</p><p>Unser Linkerscript (link.txt)
+</p>
+<pre>ENTRY(loader)
+OUTPUT_FORMAT(elf32-i386)
+OUTPUT_ARCH(i386:i386)
+
+SECTIONS
+{
+  .text  0x0100000 : {
+    code = .; _code = .; __code = .;
+    *(.text)
+    . = ALIGN(1);
+  }
+  .data  : {
+    __CTOR_LIST__ = .; LONG((__CTOR_END__ - __CTOR_LIST__) / 4 - 2) *(.ctors) LONG(0) __CTOR_END__ = .;
+    __DTOR_LIST__ = .; LONG((__DTOR_END__ - __DTOR_LIST__) / 4 - 2) *(.dtors) LONG(0) __DTOR_END__ = .;
+
+    data = .; _data = .; __data = .;
+    *(.data)
+    . = ALIGN(1);
+  }
+  .bss  :
+  {
+    bss = .; _bss = .; __bss = .;
+    *(.bss)
+    . = ALIGN(1);
+  }
+  end = .; _end = .; __end = .;
+}
+</pre>
+<p>Wir teilen dem Linker mit, dass wir die Labels __CTOR_LIST__, __CTOR_END, __DTOR_LIST__ und __DTOR_END__ in der Datei cKernel.c haben und er diese beim Linken berücksichtigen soll.
+Nur noch ein kurzer Aufruf von LD, und wir haben unseren fertigen Kernel in der Hand (bzw. Maus ;-)):
+</p>
+<pre>ld -T link.txt -o kernel.bin asmKernel.o cKernel.o Kernel.o
+</pre>
+<p>Und fertig ist unser Kernel! Wie der Kernel nun mitsamt GRUB auf einer Diskette landet kann im Artikel <a href="../../pages/1604/index.html" title="C-Kernel mit GRUB">C-Kernel mit GRUB</a> nachgelesen werden, dort verfährt man einfach analog.
+</p>
+<h2><span class="mw-headline" id="Anmerkungen">Anmerkungen</span></h2>
+<p>Es kann unter Umständen nötig sein, __CTOR_LIST__ etc. durch _CTOR_LIST__ zu ersetzen, also das _ weglassen. Ich vermute, dass das von der GCC Version abhängig ist.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a href="../../pages/1604/index.html" title="C-Kernel mit GRUB">C-Kernel mit GRUB</a></li>
+<li><a class="mw-redirect" data-archive-original-href="../../pages/1960/index.html" href="../../pages/1567/index.html" title="GRUB">GRUB</a></li>
+<li><a href="../../pages/1486/index.html" title="C++">C++</a></li>
+<li><a href="../../pages/1560/index.html" title="Multiboot">Multiboot</a></li>
+<li><a class="mw-redirect" data-archive-original-href="../../pages/1934/index.html" href="../../pages/1932/index.html" title="Linkerscript">Linkerscript</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164802
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.004 seconds
+Real time usage: 0.005 seconds
+Preprocessor visited node count: 40/1000000
+Preprocessor generated node count: 56/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 592/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=C%2B%2B-Kernel_mit_GRUB&amp;oldid=6398</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2124/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2124/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

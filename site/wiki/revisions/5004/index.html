@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Git – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Git rootpage-Git skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1889/index.html">Aktueller Artikel</a> · <a href="../../history/1889/index.html">Versionsgeschichte</a> · <a href="../../source/5004.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Git</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 1. August 2009, 19:02 Uhr von <a class="mw-userlink" href="../../pages/1871/index.html" title="Benutzer:DickHuuhn"><bdi>DickHuuhn</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(týndur statt tyndur)</span></div><div id="mw-revision-nav">(<a href="../../diffs/4725-5004.html" title="Git">Unterschied</a>) <a href="../4725/index.html" title="Git">← Nächstältere Version</a> | <a href="../../pages/1889/index.html" title="Git">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../5573/index.html" title="Git">Nächstjüngere Version →</a> (<a href="../../diffs/5004-5573.html" title="Git">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p><b>Git</b> ist ein dezentrales <a href="../../pages/1801/index.html" title="Versionsverwaltung">Source-Code-Managementsystem</a>. Git wurde ursprünglich für die Entwicklung des <a href="../../pages/1641/index.html" title="Linux">Linux</a>-Kernels entwickelt und steht unter der GPL.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Geschichte"><span class="tocnumber">1</span> <span class="toctext">Geschichte</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Installation"><span class="tocnumber">2</span> <span class="toctext">Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Windows"><span class="tocnumber">2.1</span> <span class="toctext">Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Aufbau_von_git"><span class="tocnumber">3</span> <span class="toctext">Aufbau von git</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Schnellstart"><span class="tocnumber">4</span> <span class="toctext">Schnellstart</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Archiv_herunterladen_.28clone.29"><span class="tocnumber">4.1</span> <span class="toctext">Archiv herunterladen (clone)</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Archiv_aktualisieren_.28pull.29"><span class="tocnumber">4.2</span> <span class="toctext">Archiv aktualisieren (pull)</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#.C3.84nderungen_anwenden_.28add.2Fcommit.29"><span class="tocnumber">4.3</span> <span class="toctext">Änderungen anwenden (add/commit)</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#.C3.84nderungen_.C3.BCbertragen_.28push.29"><span class="tocnumber">4.4</span> <span class="toctext">Änderungen übertragen (push)</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Ausblick"><span class="tocnumber">4.5</span> <span class="toctext">Ausblick</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Vergleich_zu_Subversion"><span class="tocnumber">5</span> <span class="toctext">Vergleich zu Subversion</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Vorteile_von_git"><span class="tocnumber">5.1</span> <span class="toctext">Vorteile von git</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Nachteile_von_git"><span class="tocnumber">5.2</span> <span class="toctext">Nachteile von git</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Kostenloses_Git-Hosting"><span class="tocnumber">6</span> <span class="toctext">Kostenloses Git-Hosting</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Weblinks"><span class="tocnumber">7</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Geschichte">Geschichte</span></h2>
+<p>Nachdem das alte Versionsverwaltungssystem des Linux-Kernels seine Lizenz änderte, und es dadurch für einige Entwickler nicht mehr möglich war, dieses System zu nutzen, beschloss Linus Torvalds, ein eigenes SCM zu entwickeln, da andere SCMs nicht die Anforderungen der Kernelentwickler erfüllten.
+</p><p>Designziel von git war es insbesondere, ein sehr schnelles Zusammenführen von Entwicklungszweigen (Merging) zu ermöglichen. Des Weiteren musste das System eine Korruption der Versionsgeschichte, zum Beispiel durch einen Festplattenschaden oder bösartigen Angriff, selbstständig erkennen. Außerdem musste es möglich sein, dass Entwickler unabhängig voneinander arbeiten. Alle diese Ziele wurden durch git verwirklicht.
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>Die meisten Linuxdistributoren bieten git bereits in ihren Software-Archiven an. Bei einigen Distributoren steht "git" jedoch als Abkürzung für die bereits länger existierenden GNU Interactive Tools, daher kann es sein, dass das Paket "git" nicht das Versionsverwaltungssystem installiert.
+</p>
+<ul><li>Benutzer von Ubuntu oder Debian installieren das Paket <i>git-core</i>.</li>
+<li>Fedora-User können einfach das Paket <i>git</i> nehmen.</li></ul>
+<h3><span class="mw-headline" id="Windows">Windows</span></h3>
+<p>Für Windowsbenutzer existiert ein Port von git, der sich msysgit nennt und unter <a class="external autonumber" href="http://code.google.com/p/msysgit/" rel="nofollow">[1]</a> heruntergeladen werden kann. Msysgit kommt komplett mit einer Konsole (GitBash), die sich auch in Kontextmenüs integriert, und ermöglicht so auch dem Windowsnutzer komfortables Arbeiten mit git.
+</p>
+<h2><span class="mw-headline" id="Aufbau_von_git">Aufbau von git</span></h2>
+<p><i>TODO: Eventuell näher auf das Architekturdesign eingehen.</i>
+</p><p>Grundsätzlich ist git ein verteiltes SCM. Das heißt, dass zu einem Projekt jeder Entwickler ein eigenes lokales Projektarchiv (Repository) hat. Normalerweise werden die Archive nur lokal genutzt, aber den Entwickler hindert nichts daran, sein lokales Repository auch öffentlich einsehbar zu machen.
+</p><p>Git behandelt jedes Archiv unabhängig. Verbindungen zu einem Server werden nicht hergestellt, bis der Benutzer es explizit wünscht (z.B. durch die Befehle <tt>push</tt> und <tt>pull</tt>). Ein Archiv besteht aus einer Ansammlung von Patches (diffs/Deltas), die die einzelnen commits darstellen und durch eine Baumstruktur miteinander in Verhältnis stehen. Durch Hinabwandern des Baumes und Anwendung der Patches auf dem Weg kann somit der Status zum Zeitpunkt jedes einzelnen commits hergestellt werden. Verzweigungsstellen zu verschiedenen Branches sind in dieser Baumstruktur Punkte, an denen ein commit mehr als ein Kind hat, und Merges sind solche commits, die mehr als einen Vater haben.
+</p><p>Die einzelnen Branches sind jeweils durch einen sogenannten <i>head</i> markiert, der sozusagen einen Zeiger auf den letzten commit dieses Zweiges darstellt.
+</p>
+<h2><span class="mw-headline" id="Schnellstart">Schnellstart</span></h2>
+<p>Um schnell in git einsteigen zu können, sind hier die allerwichtigsten Befehle dargestellt. Dies ist jedoch keine Anleitung, und spricht branching und merging zum Beispiel gar nicht an. Ein einfaches Tutorial gibt es (auf Englisch) auf der Git Homepage. (siehe <a href="../../pages/1889/index.html#Weblinks" title="Git">Weblinks</a>)
+</p>
+<h3><span id="Archiv_herunterladen_(clone)"></span><span class="mw-headline" id="Archiv_herunterladen_.28clone.29">Archiv herunterladen (clone)</span></h3>
+<p>Um mit der Entwicklung zu beginnen, muss man zunächst natürlich seine eigene Kopie des Repositorys haben. Diese bekommt man mit dem <tt>clone</tt>-Befehl. Der Befehl ist das git-Äquivalent zum Subversion-Befehl <tt>checkout</tt>. (Achtung: Dieser Befehl existiert zwar auch in git, hat aber eine andere Aufgabe)
+</p><p>Da die gesamte Versionsgeschichte des Projektes heruntergeladen wird, kann dieser Befehl je nach Verbindungsgeschwindigkeit sehr lange dauern.
+</p><p>Beispiel (Kopie des offiziellen týndur-Archives anfordern):
+</p>
+<pre>git clone git://git.tyndur.org/tyndur.git
+</pre>
+<h3><span id="Archiv_aktualisieren_(pull)"></span><span class="mw-headline" id="Archiv_aktualisieren_.28pull.29">Archiv aktualisieren (pull)</span></h3>
+<p>Der Befehl <tt>pull</tt> berechnet die Änderungen zwischen dem eigenen Archiv und dem Remote-Archiv und fordert die Änderungen vom Server an. <tt>pull</tt> bezieht die Änderungen standardmäßig von dem origin-Archiv, das ist normalerweise das Archiv von dem ursprünglich geclonet wurde. Unter Subversion funktioniert der <tt>update</tt>-Befehl ähnlich.
+</p><p>Wenn eigene commits vorliegen, die nicht auf dem Server ist (wie es bei git eigentlich typisch ist), dann kann <tt>pull</tt> angewiesen werden, versuchen, die Änderungen in den eigenen Tree zu übernehmen, sodass nachher sowohl die lokalen, als auch die remote-commits vorliegen. Dies geht mit dem <tt>--rebase</tt>-Parameter.
+</p><p>Beispiel:
+</p>
+<pre># Falls der lokale Tree frei von eigenen commits ist
+git pull
+
+# Falls der Tree eigene commits enthält, die dem Server unbekannt sind
+git pull --rebase
+</pre>
+<h3><span id="Änderungen_anwenden_(add/commit)"></span><span class="mw-headline" id=".C3.84nderungen_anwenden_.28add.2Fcommit.29">Änderungen anwenden (add/commit)</span></h3>
+<p>Will man seine Änderungen am Code in einen commit packen, so muss man git zunächst mitteilen, welche Dateiänderungen wichtig sind. Das macht man mit dem <tt>add</tt>-Befehl.
+</p><p>Sobald man alle Dateien hinzugefügt hat, ruft man <tt>git commit</tt> auf. Es öffnet sich ein Editor, in dem man die commit-Nachricht eingibt. Man kann jedoch auch mit dem Parameter <tt>-m</tt> direkt eine Nachricht angeben.
+</p><p>Im Gegensatz zu den gleichbenannten Subversion-Befehlen laufen beide Befehle bei git nur lokal ab.
+</p><p>Beispiel:
+</p>
+<pre># Geänderte Dateien hinzufügen
+git add foo.c bar.c
+
+# Änderungen eintragen
+git commit
+# Oder auch so
+git commit -m "Fixes bug #31415"
+</pre>
+<h3><span id="Änderungen_übertragen_(push)"></span><span class="mw-headline" id=".C3.84nderungen_.C3.BCbertragen_.28push.29">Änderungen übertragen (push)</span></h3>
+<p>Sobald commits vorliegen, möchte man diese sicherlich an den Hauptserver übertragen und öffentlich machen. Dies macht man mit dem <tt>push</tt>-Befehl, vorausgesetzt, man hat auch Schreibzugriff. In anderen Fällen muss man meistens Patches an die Entwickler schicken (z.B. bei týndur). Git bietet dafür ebenfalls komfortable Mechanismen, die in der git-Dokumentation zu finden sind.
+</p><p>Zum erfolgreichen push muss der tree jedoch ein wenig mit dem auf dem Hauptserver abgestimmt sein. Vorher ist also ein <tt>git pull --rebase</tt> zu empfehlen, um Konflikte zu vermeiden.
+</p><p>Da bei Subversion alle Commits direkt auf den Server kommen, gibt es hier keinen vergleichbaren Befehl. Der SVN-Befehl <tt>commit</tt> vereint sozusagen die Funktionalität von Gits <tt>commit</tt> und <tt>push</tt>
+</p><p>Beispiel:
+</p>
+<pre># Änderungen des Servers übertragen
+git pull --rebase
+
+# Eigene Änderungen auf den Server übertragen
+git push
+</pre>
+<h3><span class="mw-headline" id="Ausblick">Ausblick</span></h3>
+<p>Oben werden nur sehr grundlegende Befehle genannt, die nur ein sehr begrenztes Arbeiten ermöglichen. Hier werden auch solche genannt, die oben aus Platzgründen nicht erwähnt werden, aber trotzdem sehr wichtig sind. Dieser Absatz soll ein Anreiz sein, die Befehle in der Git-Dokumentation oder mit Hilfe von <tt>man</tt> nachzuschlagen. Bei <tt>man</tt> findet man diese Befehle unter dem Namen <tt>git-&lt;BEFEHL&gt;</tt>.
+</p><p>Um erstmal ein eigenes Archiv anzulegen, sollte man den Befehl <tt>init</tt> kennen. Außerdem wird man sicherlich oft die Git-Befehle <tt>diff</tt>, <tt>log</tt> und <tt>status</tt> brauchen. Um Fehler in der History zu korrigieren muss man sicher auch einmal die Befehle <tt>reset</tt> oder <tt>revert</tt> anwenden.
+</p><p>Sehr wichtig sind die Branching-Mechanismen. Mit den oben genannten Befehlen wäre es nur möglich auf einem Branch zu arbeiten. Davon ist grundsätzlich abzuraten; viele Projekte verbieten sogar das Arbeiten im Hauptzweig (<i>master</i>). Wichtige Branching-Befehle sind <tt>branch</tt>, <tt>merge</tt>, <tt>rebase</tt> und <tt>checkout</tt>.
+</p><p>Äußerst wichtig für das Aktualisieren des Trees während der täglichen Arbeit ist <tt>stash</tt>, das es ermöglicht, die Änderungen an seiner Arbeitskopie zwischenzuspeichern und einen saubere Arbeitskopie zum <tt>pull</tt>en zu bekommen.
+</p><p>Aber auch die bereits oben erklärten Befehle sollte man in der Dokumentation nachschauen, da alle noch interessante Parameter haben, die sicherlich zur Anwendung kommen.
+</p>
+<h2><span class="mw-headline" id="Vergleich_zu_Subversion">Vergleich zu Subversion</span></h2>
+<p>Wie bei so vielen konkurrierenden Projekten gibt es auch viele Meinungen, Diskussionen und Flamewars bei der Frage, welches SCM das beste sei. Git und <a href="../../pages/2036/index.html" title="Subversion">Subversion</a> werden oft direkt miteinander verglichen, was einerseits mit der Popularität beider Systeme zusammenhängt, aber vielleicht auch mit den starken Meinungen von Linus Torvalds gegenüber Subversion (und insbesondere <a class="mw-redirect" data-archive-original-href="../../pages/2105/index.html" href="../../pages/2104/index.html" title="CVS">CVS</a>). Dieser Abschnitt nimmt sich der wichtigsten Argumente an, und soll als Entscheidungshilfe dienen.
+</p>
+<h3><span class="mw-headline" id="Vorteile_von_git">Vorteile von git</span></h3>
+<p>Das dezentrale System von git bietet viel Komfort für Programmierer. Anders als bei Subversion kann auch jeder, der nicht zum Kernentwicklerteam gehört, und keinen Schreibzugriff auf das Archiv hat, jederzeit alle Möglichkeiten, die das SCM bietet, ausnutzen. Niemand hindert den Entwickler daran, in seinem Archiv commits zu machen. So wird ein Programmierer viel eher ordentliche, atomare commits machen, auch wenn diese instabil und ungetestet sind, als bei zentralen Systemen, wo ein ungetesteter commit bedeuten würde, dass jeder Entwickler nun eine instabile Version zum arbeiten bekommt. Außerdem wird so den Entwicklern das Erstellen von Patches, die früher oder später zur Mailingliste müssen, komfortabler gemacht.
+</p>
+<h3><span class="mw-headline" id="Nachteile_von_git">Nachteile von git</span></h3>
+<p><i>TODO: Lass sich hier mal einer was einfallen *g*</i>
+</p>
+<h2><span class="mw-headline" id="Kostenloses_Git-Hosting">Kostenloses Git-Hosting</span></h2>
+<p>Für den Hobby-Betriebssystementwickler ist es sicherlich irgendwann wichtig, dass das Projekt veröffentlicht wird, und jeder einfachen Zugriff auf den Sourcecode hat. Daher gibt es hier eine Liste von kostenlosen git-Hostern.
+</p><p>Falls ihr ebenfalls empfehlenswerte, kostenlose Hoster kennt, oder Kommentare zu den hier aufgelisteten habt, dann zögert nicht, diese hier hinzuzufügen
+</p>
+<ul><li><a class="external text" href="http://repo.or.cz" rel="nofollow">repo.or.cz</a>: Nur grundlegende Funktionen.</li></ul>
+<ul><li><a class="external text" href="http://github.com" rel="nofollow">Github</a>: Kostenlos für Open-Source-Projekte. Bietet weitere Features, zum Beispiel Beobachtungslisten für die Aktivitäten anderer Entwickler und Projekte.</li></ul>
+<ul><li><a class="external text" href="http://gitorious.org" rel="nofollow">Gitorious</a></li></ul>
+<ul><li><a class="external text" href="http://sourceforge.net" rel="nofollow">SourceForge</a>: Bietet noch Support für andere SCMs.</li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://de.wikipedia.org/wiki/Git" rel="nofollow">Git bei Wikipedia</a></li></ul>
+<ul><li><a class="external text" href="http://git-scm.com/" rel="nofollow">Git Homepage</a> (englisch)</li></ul>
+<ul><li><a class="external text" href="http://git-scm.com/documentation" rel="nofollow">Git Dokumentation, Anfängertutorial und Crashkurs für SVN-Umsteiger</a> (englisch)</li></ul>
+<ul><li><a class="external text" href="http://www.youtube.com/watch?v=4XpnKHJAok8" rel="nofollow">Rede von Linus Torvalds über git</a> (englisch)</li></ul>
+<ul><li><a class="external text" href="http://git.or.cz/gitwiki/LinusTalk200705Transcript" rel="nofollow">Transskription dieser Rede</a> (englisch)</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165307
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.006 seconds
+Preprocessor visited node count: 95/1000000
+Preprocessor generated node count: 144/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 494/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Git&amp;oldid=5004</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1887/index.html" title="Kategorie:Versionsverwaltung">Versionsverwaltung</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1889/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/1894/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1889/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

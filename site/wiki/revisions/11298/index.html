@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>SurO – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-SurO rootpage-SurO skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2233/index.html">Aktueller Artikel</a> · <a href="../../history/2233/index.html">Versionsgeschichte</a> · <a href="../../source/11298.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">SurO</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 9. Oktober 2015, 17:56 Uhr von <a class="mw-userlink" href="../../pages/2234/index.html" title="Benutzer:Sur3"><bdi>Sur3</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Konzepte/ToDo: BlockDaten, TriebMeister, Filter-Ketten (CDI-Kompatibilität), virtuelles Dateisystem grob erklärt)</span></div><div id="mw-revision-nav">(<a href="../../diffs/11296-11298.html" title="SurO">Unterschied</a>) <a href="../11296/index.html" title="SurO">← Nächstältere Version</a> | <a href="../../pages/2233/index.html" title="SurO">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../11299/index.html" title="SurO">Nächstjüngere Version →</a> (<a href="../../diffs/11298-11299.html" title="SurO">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="float:right; width:300px; padding-left:20px; padding-bottom: 20px; background-color:white">
+<div style="font-weight:normal; text-align:left; border:1px solid lightgray;">
+<table width="100%">
+<tbody><tr align="center" style="background: lightgray;">
+<th colspan="2">SurO (ehemals SUR-Office)
+</th></tr>
+<tr align="center">
+<td colspan="2" style="padding: 0px;" width="100%">
+</td></tr>
+<tr>
+<td valign="top">Entwickler:</td>
+<td><a href="../../pages/2234/index.html" title="Benutzer:Sur3">Sur3</a>
+</td></tr>
+<tr>
+<td valign="top">Akt. Version:</td>
+<td>3,5b
+</td></tr>
+<tr>
+<td valign="top"><a href="../../pages/1552/index.html" title="Lizenzen">Lizenz</a>:</td>
+<td><a class="external text" href="http://creativecommons.org/licenses/by-nc-nd/3.0/de/" rel="nofollow">by-nc-nd 3.0</a>
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">OS-Eigenschaften
+</th></tr>
+<tr>
+<td valign="top">Plattform:</td>
+<td><a href="../../pages/1749/index.html" title="X86">x86</a>, geplant: <a class="mw-redirect" data-archive-original-href="../../pages/1869/index.html" href="../../pages/1758/index.html" title="AMD64">AMD64</a>, <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">AVR</a> und <a href="../../pages/2101/index.html" title="ARM">ARM</a>
+</td></tr>
+<tr>
+<td valign="top"><a href="../../pages/1478/index.html" title="Kernel">Kernelart</a>:</td>
+<td>Hybridkernel
+</td></tr>
+<tr>
+<td valign="top"><a href="../../pages/1648/index.html" title="Kategorie:Programmiersprache">Sprache</a>:</td>
+<td><a href="../../pages/1514/index.html" title="Assembler"> ASM</a>
+</td></tr>
+<tr>
+<td valign="top">API:</td>
+<td>-
+</td></tr>
+<tr>
+<td valign="top">Binärformat:</td>
+<td>.x (eigenes)
+</td></tr>
+<tr>
+<td valign="top"><a class="mw-redirect" data-archive-original-href="../../pages/1519/index.html" href="../../pages/1530/index.html" title="IPC">IPC-Methode</a>:</td>
+<td>-
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Homepage
+</th></tr>
+<tr>
+<td colspan="2"><center>(noch keine)</center>
+</td></tr></tbody></table>
+</div>
+</div>
+<p>SurO ist ein HobbyOS, welches durch einen Programmierwettstreit entstanden ist.
+Version 0.1 war noch eine in QBasic geschriebene DOS-GUI.
+Version 3,5b ist momentan in Flat-Assembler geschrieben,
+soll aber dann in Version 3,5c einen eigenen (Meta-)Assemblerdialekt benutzen.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Screenshot"><span class="tocnumber">1</span> <span class="toctext">Screenshot</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Features"><span class="tocnumber">2</span> <span class="toctext">Features</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Ladbare_Programme_.5BProgrammiersprache.5D"><span class="tocnumber">3</span> <span class="toctext">Ladbare Programme [Programmiersprache]</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Beispiel-Programm_f.C3.BCr_die_zugeh.C3.B6rige_C-Bibliothek"><span class="tocnumber">4</span> <span class="toctext">Beispiel-Programm für die zugehörige C-Bibliothek</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Konzepte"><span class="tocnumber">5</span> <span class="toctext">Konzepte</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#ToDo"><span class="tocnumber">6</span> <span class="toctext">ToDo</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Screenshot">Screenshot</span></h2>
+<p>Intern geschossener Screenshot mit diversen Programmen auf verschiedenen verschobenen Hyperebenen.
+</p><p><a class="external text" href="http://postimg.org/image/xjxi14945/" rel="nofollow"><img alt="image.jpg" src="http://s18.postimg.org/xjxi14945/image.jpg"/></a>
+</p><p>Sichtbare Programme: Datum, Uhrzeit, Tetris, Mandelbrot, Editor mit ASCII-Code des Mandelbrotprogrammes.
+</p>
+<h2><span class="mw-headline" id="Features">Features</span></h2>
+<p>Im Moment sind die folgenden Features implementiert:
+</p>
+<ul><li>Multitasking (+SMP)</li>
+<li>FAT32 Dateisystem</li>
+<li>Editor (Angucken und Editieren des Arbeitsspeichers oder von Dateien)</li>
+<li>HyperEbenenProjektionsTreiber (Sowas wie Grafikfenster für Programme)</li>
+<li>1024x768x25 (8881 rgba) Grafik + süßer Fadenkreuzmauszeiger</li>
+<li>kleine C-Bibliothek &lt;surlib.c&gt; über Interrupt 35h</li>
+<li>Uhr- und Datumsanzeige</li>
+<li>Screenshots im SVM-Format (abgewandeltes PPM-Format, kann in PPM umgewandelt werden)</li></ul>
+<h2><span id="Ladbare_Programme_[Programmiersprache]"></span><span class="mw-headline" id="Ladbare_Programme_.5BProgrammiersprache.5D">Ladbare Programme [Programmiersprache]</span></h2>
+<ul><li>Tetris [fasm]</li>
+<li>Mandelbrot [C]</li>
+<li>Hallo Welt [C]</li></ul>
+<h2><span id="Beispiel-Programm_für_die_zugehörige_C-Bibliothek"></span><span class="mw-headline" id="Beispiel-Programm_f.C3.BCr_die_zugeh.C3.B6rige_C-Bibliothek">Beispiel-Programm für die zugehörige C-Bibliothek</span></h2>
+<p>&lt;c&gt;
+</p>
+<ol><li>include "surlib.h"</li></ol>
+<p>void main(){
+</p>
+<pre>sur_HE_erstelle_std();					//Grafikfenster erstellen
+sur_HE_clear(0x00330011);				//mit aRGB-Wert Füllen
+sur_Eingabe_registriereTasten_AlifNum();		//Alphanumerische Tastatur anfordern
+char cha[2]; cha[1]=0;					//Nullterminiertes Zeichen
+sur_HE_male_cstring("Hallo",0x4040,0x0000ffff);	//schreibe "Hallo" in Türkis auf den Bildschirm
+							 //zweiter parameter ist die Position 0x400*y+x
+ sur_Eingabe_warteTaste(cha);				//auf einen Tastendruck warten
+ sur_wandle_deKey2ANSI(cha);				//deutschen Tastencode in Schriftzeichen umwandeln
+sur_HE_male_cstring("Welt!",0x4070,0x00ffff00);	//schreibe "Welt!" in Gelb auf den Bildschirm
+ sur_HE_male_cstring(cha,0x8040,0x0000ff00);		//Gib das Zeichen von der Tastatur in Grün aus
+sur_sys_prog_ende();					//Beende das Programm
+</pre>
+<p>}
+&lt;/c&gt;
+Kompiliert wird in ein Binärformat mit:
+</p>
+<pre>gcc sur_hello_world.c -o hello.x -m32 -nostdlib -O2 -emain -Wl,-Ttext,0 -Wl,--oformat,binary --std=gnu99
+</pre>
+<h2><span class="mw-headline" id="Konzepte">Konzepte</span></h2>
+<p>Sogenannte BlockDaten [BD] bestehend aus Datenblock-Ketten, diese sollen Systemweit Verwendung finden und ermöglichen Sparse-Files und das schnelle Einfügen durch Zwischenblöcke.
+</p><p>Filter die zwischen BD und Flachen Daten umwandeln, aber auch Filter die ein Bild rotieren etc. Filter verwenden Systemweit Verwendung in Treiberketten die von dem sogenannten TriebMeister [TM] (eine Art Treiberverwaltung nur weitgehender, da sie auch Userprogramme einbinden kann) aufgebaut werden sollen.
+</p><p>Der TriebMeister soll später vermutlich außerdem eine Kompatibilitätsschicht zur Benutzung von CDI erhalten, eventuell über einen einfachen Filter als Zwischenschicht.
+</p>
+<h2><span class="mw-headline" id="ToDo">ToDo</span></h2>
+<p>Aktuell wird daran gearbeitet das Sheduling zu optimieren
+und das Bearbeiten von Dateien komfortabler zu machen indem BlockDaten und die Grundfunktionen des Texteditors vi implementiert werden.
+</p><p>Außerdem soll ein virtuelles Dateisystem [vDS] implementiert werden, dieses soll unter anderem als Zwischenschicht zum FAT32-Treiber dienen und über zusätzliche Filter Dateiverschlüsselung bieten, aber zunächst dient es dazu dem ebenfalls zu implementierenden TriebMeister feste Zugriffsorte für interne oder ladbare Treibermodule zu geben, um so unter anderem den geplanten RTL8139-Treiber nach Erkennung durch den PCI-Treiber laden zu können.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109170314
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.006 seconds
+Preprocessor visited node count: 71/1000000
+Preprocessor generated node count: 306/1000000
+Post‐expand include size: 1176/2097152 bytes
+Template argument size: 223/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 117/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.056      1 Vorlage:Infobox_OS
+100.00%    1.056      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=SurO&amp;oldid=11298</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1649/index.html" title="Kategorie:Betriebssystem">Betriebssystem</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2233/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2233/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

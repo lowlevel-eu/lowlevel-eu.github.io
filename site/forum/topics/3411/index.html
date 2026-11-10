@@ -1,0 +1,649 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="Fragen: OS Design - Kernel, Treiber, Module, Relocational ELF" name="description"/>
+<title>Fragen: OS Design - Kernel, Treiber, Module, Relocational ELF</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:31</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Fragen: OS Design - Kernel, Treiber, Module, Relocational ELF</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg39195"></a>
+<div class="nextlinks"><a href="../3413/index.html#msg39236">« vorheriges</a> <a href="../3360/index.html#msg38906">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] 
+				</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/d4e7b293435eb0f7983a825d.gif"/>
+<span id="author">Autor</span>
+						Thema: Fragen: OS Design - Kernel, Treiber, Module, Relocational ELF  (Gelesen 44004 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Krendor</a>
+</h4>
+<ul class="reset smalltext" id="msg_39195_extra_info">
+<li class="postcount">Beiträge: 19</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong> am:</strong> 14. February 2015, 10:01 »</div>
+<div class="posttile"><h5 id="subject_39195">
+<a href="index.html#msg39195" rel="nofollow">Fragen: OS Design - Kernel, Treiber, Module, Relocational ELF</a>
+</h5></div>
+<div id="msg_39195_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39195">Hallo Kollegen der Hobbybetriebssystementwicklung,<br/><br/>nach langer Zeit steige ich nun wieder in die Betriebssystementwicklung ein und habe auch schon eine Vorstellung davon, was mein Betriebssystem können soll. Die Featureliste ist schon recht lange, aber nur, weil ich alles im Detail erwähne. Zusammengefasst in folgende Begriffe:<br/>Paging, multithreading, Inter process communication, vga text modus, shell, porting gcc + standard c lib, executing elf files, read cdrom, read/write hdd, FAT12/16/32 und iso9660.<br/>Damit sollte man schon etwas arbeiten können. Später kann man das ganze ja um Sound, netzwerk, acpi, usw. erweitern.<br/><br/>Jetzt langsam zu meiner Frage. Ich will nur sicher gehen, dass ich keinen Denkfehler mache. Ich definiere Interfaces (C++) für die Treiber und die Treiber implementieren diese dann. Z.B. gibt es ein Interface FAT12 oder meinetwegen auch FAT allgemein, und für jedes Filesystem wird dann ein Objekt dieses Interfaces angelegt. Die Treiber laufen also im Ring 0, also im Kernel. Die Treiber liegen als ELF Relocation Datei vor und werden vom Kernel geladen. Es gibt 4 Funktionen, die implementiert werden müssen: GetInfo gibt z.B. zurück, was für ein Treiber das überhaupt ist | getInstance gibt ein Object des Treibers zurück (das sich an das Interface hält), Initialize and Release sind wohl selbsterklärend. GRUB2 lädt nur die Treiber als Module, die für das nachladen weiterer Treiber nötig sind. Der Kernel geht die Module durch, schaut nach was für ein Treiber es ist, löst die Relocations auf, und kann ihn dann nutzen. Für Anwenderprogramme in Ring 3 gibt es dann eine eigene API, die per Interrupt mit dem Kernel kommuniziert.<br/><br/>Habe ich dabei irgendwas übersehen?<br/><br/>Viele Grüße<br/>Krendor</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39195">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39196"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_39196_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #1 am:</strong> 14. February 2015, 14:44 »</div>
+<div class="posttile"><h5 id="subject_39196">
+<a href="index.html#msg39196" rel="nofollow">Re: Fragen: OS Design - Kernel, Treiber, Module, Relocational ELF</a>
+</h5></div>
+<div id="msg_39196_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39196">Klingt mehr oder weniger nach den Standardvorgehen für einen modularisierten Monolithen. Ich denke, du bist auf dem richtigen Weg.<br/><br/>Das Treiber-Interface sollte aber natürlich weder FAT12 noch FAT sein, sondern was allgemeines für Dateisysteme, wo du dann später auch z.B. einen ext2-Treiber einfach reinhängen kannst.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39196">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39196_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39197"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Krendor</a>
+</h4>
+<ul class="reset smalltext" id="msg_39197_extra_info">
+<li class="postcount">Beiträge: 19</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #2 am:</strong> 14. February 2015, 16:19 »</div>
+<div class="posttile"><h5 id="subject_39197">
+<a href="index.html#msg39197" rel="nofollow">Re: Fragen: OS Design - Kernel, Treiber, Module, Relocational ELF</a>
+</h5></div>
+<div id="msg_39197_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39197"><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Das Treiber-Interface sollte aber natürlich weder FAT12 noch FAT sein, sondern was allgemeines für Dateisysteme, wo du dann später auch z.B. einen ext2-Treiber einfach reinhängen kannst.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da hast du natürlich recht. <img alt=":D" class="smiley" src="../../../assets/forum/57bf2c2855c7eae0a902bed6.gif" title="Cheesy"/> Ich war anscheinend schon bei der Implementierung. Diese kann man bei FAT ja eigentlich zusammenfassen.<br/><br/>Die Funktion GetInfo soll ja unter anderem eine Interface-ID zurückgeben, damit man weiß, welches Interface der Treiber implementiert. (getInstance liefert ja nur einen Zeiger auf ein Objekt zurück) Jetzt muss mir nur noch eine Lösung für folgendes Problem einfallen: Wer und wie erkennt wann, welcher Treiber benötigt wird? Um bei den Dateisystemen zu bleiben: Der ATA Treiber erkennt eine Festplatte, wie erkenne ich, ob ich eine Instanz von FAT, EFS, oder sonstwas brauche? Soll einfach jeder Treiber mal geladen und getestet werden? Soll der ATA Treiber das Dateisystem erkennen sollen? (Dann hätte er wissen, das er nicht haben dürfte. Wird problematisch, wenn es einen Treiber für ein neues Dateisystem gibt. Dann müsste man auch den ATA Treiber anpassen)<br/><br/>Ich wollte erstmal einfach alle Treiber aus dem Verzeichnis Driver laden. Wahrscheinlich erstelle ich eine Liste pro Interface mit den zugehörigen Treibern. Vielleicht bekommt der Kernel auch eine Funktion Interface getDriverByIID(InterfaceID, index), dann könnte jeder Treiber sich seinen Subtreiber selber erstellen. Aber wie mache ich das bei folgender Struktur? PCI Treiber durchsucht alle PCI Geräte, für jeden gefundenen DiskController erstellt er eine Instanz des zugehörigen Treibers, dieser erstellt pro angeschlossenem ATA/ATAPI Device wieder eine Instanz, diese wiederum pro Dateisystem ebenfalls eine Instanz. Aber am Ende muss es genau eine Instanz des VFS Treibers geben, der dann alle Instanzen der Dateisysteme zusammenführt.<br/><br/>Viele Grüße<br/>Krendor</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39197">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39198"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_39198_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #3 am:</strong> 15. February 2015, 00:15 »</div>
+<div class="posttile"><h5 id="subject_39198">
+<a href="index.html#msg39198" rel="nofollow">Re: Fragen: OS Design - Kernel, Treiber, Module, Relocational ELF</a>
+</h5></div>
+<div id="msg_39198_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39198"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39197">Zitat von: Krendor am 14. February 2015, 16:19</a></div></div><blockquote class="bbc_standard_quote">Wer und wie erkennt wann, welcher Treiber benötigt wird? Um bei den Dateisystemen zu bleiben: Der ATA Treiber erkennt eine Festplatte, wie erkenne ich, ob ich eine Instanz von FAT, EFS, oder sonstwas brauche? Soll einfach jeder Treiber mal geladen und getestet werden?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Im Falle einer Festplatte brauchst du vermutlich erstmal einen Partitions-Layer, der erstmal MBR (ggf. GPT) zerpflückt. Wenn der durchgelaufen ist, dann hast du statt einer Festplatte mehrere voneinander streng zu trennende Blöcke (Partitionen), und du kennst von jeder Partition den Typen (= Dateisystem). Da die Typen nicht immer eindeutig sind (Linux-Partitionen haben alle die MBR-ID 0x83), kannst du dafür einfach eine feste Liste von Dateisystemen nacheinander ausprobieren.<br/><br/>Wenn diese Heuristik fehlschlägt, dann muss der Benutzer eingreifen. Einfach mal alle Dateisystemtreiber auf ein Block Device loszulassen, ist jedenfalls unelegant, weil nicht alle Dateisysteme eindeutige Headerfelder haben. Wenn ein solcher Treiber fälschlicherweise glaubt, er versteht einen Garbage-Header, zerstörst du dir u.U. Partitionen, die du nie hättest anfassen sollen. (Windows ist bekannt dafür, gewissen Linux-Partitionen einen Laufwerksbuchstaben zuzuweisen und bei einem Zugriff zu fragen, ob das komische Ding da formatiert werden soll. Passiert aber nur selten.)<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39197">Zitat von: Krendor am 14. February 2015, 16:19</a></div></div><blockquote class="bbc_standard_quote">Ich wollte erstmal einfach alle Treiber aus dem Verzeichnis Driver laden. Wahrscheinlich erstelle ich eine Liste pro Interface mit den zugehörigen Treibern.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Je nachdem, was du für Hardware unterstützen möchtest, musst du unterscheiden zwischen erkennbaren und nicht erkennbaren Geräten.<br/><br/>Erkennbare Geräte sind einfacher: Wenn du einen PCI-Bustreiber lädst, dann kann er dir sagen, welche Geräte an ihm angeschlossen sind. Diese Information (und die eindeutige ID) könntest du z.B. in eine Art "Event" verpacken und an den Kernel schicken, damit der dann den entsprechenden Treiber lädt - und zwar auch zur Laufzeit. Die meisten für dich wichtigen PC-Geräte funktionieren so, also PCI, USB, SATA, ISAPnP, Firewire usw. Wenn du das ordentlich hinbekommst, dann hast du auch die Grundlage für Hot-Plugging gelegt.<br/><br/>Nicht erkennbare Geräte kannst du nicht erkennen. Du kannst nur auf gut Glück einen Treiber auf eine bestimmte Hardware-Adresse laden und schauen, ob der Treiber dort seine Hardware findet. Das heißt, du brauchst irgendwo eine Liste von bekannten Standardadressen, wo du die dafür vorgesehenen Treiber einfach mal lädst und guckst, was passiert. Das betrifft alle Geräte, die entweder historisch gewachsen oder extrem simpel sind, also per ISA, I²C, SPI oder ähnlich beschränkten Bussystemen angeschlossen sind. Manche modernen Geräte kannst du wegen Kompatiblität auch so behandeln (USB-Tastatur, PCI-VGA). Beispiele sind die PS/2-, COM- und LPT-Schnittstellen, IDE-Festplatten (aber nicht unbedingt der dazugehörige IDE-Controller), viele Mainboardgeräte (z.B. Flashbausteine, Temperatursensoren), oder der DDC/EDID-Baustein in Bildschirmen.<br/><br/>Wenn du alle Geräte als "nicht erkennbar" behandelst - was auch gut funktioniert, zumindest für statische Geräte - dann musst du aber bedenken, dass du die Treiber in einer gewissen Reihenfolge laden musst, und dass du gewisse Treiber u.U. auch mehrfach laden musst (z.B. PCI-PCI-Bridges).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39197">Zitat von: Krendor am 14. February 2015, 16:19</a></div></div><blockquote class="bbc_standard_quote">PCI Treiber durchsucht alle PCI Geräte, für jeden gefundenen DiskController erstellt er eine Instanz des zugehörigen Treibers, dieser erstellt pro angeschlossenem ATA/ATAPI Device wieder eine Instanz, diese wiederum pro Dateisystem ebenfalls eine Instanz. Aber am Ende muss es genau eine Instanz des VFS Treibers geben, der dann alle Instanzen der Dateisysteme zusammenführt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Exakt. Entweder, alle aktiven Dateisysteme müssen sich im einzigen VFS-Treiber anmelden ("Mounten"), oder jedes Dateisystem stellt sein eigenes VFS-Interface bereit ("Laufwerksbuchstaben").</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39198">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39199"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Krendor</a>
+</h4>
+<ul class="reset smalltext" id="msg_39199_extra_info">
+<li class="postcount">Beiträge: 19</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #4 am:</strong> 15. February 2015, 11:10 »</div>
+<div class="posttile"><h5 id="subject_39199">
+<a href="index.html#msg39199" rel="nofollow">Re: Fragen: OS Design - Kernel, Treiber, Module, Relocational ELF</a>
+</h5></div>
+<div id="msg_39199_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39199"><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">oder jedes Dateisystem stellt sein eigenes VFS-Interface bereit ("Laufwerksbuchstaben").</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Die Idee gefällt mir, weil ich sowieso auf Laufwerksbuchstaben hinaus wollte. Aber dise Buchstaben müssen ja auch verwaltet werden. (Damit es keine doppelten gibt) Also werde ich doch ein zentrales VFS benötigen... Das kann ich dann bei Bedarf auch schnell zu einem Linux-Style VFS umprogrammieren.  <img alt=":-D" class="smiley" src="../../../assets/forum/40e5b6b3635b5359f55907e5.gif" title="grin"/> Da fällt mir ein: Das VFS kann sich ja einfach alle Instanzen der Dateisystem Treiber geben lassen. <img alt="8-)" class="smiley" src="../../../assets/forum/02cf07575d06e00e076aefea.gif" title="cool"/><br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">dass du die Treiber in einer gewissen Reihenfolge laden musst, und dass du gewisse Treiber u.U. auch mehrfach laden musst (z.B. PCI-PCI-Bridges).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das mit den PCI-PCI-Bridges verstehe ich noch nicht so ganz. Ich weiß, dass sie 2 Busse miteinander verbinden, aber sind die nicht schon vom BIOS initialisiert? Ist nicht alles vom BIOS initialisiert was PCI betrifft? <br/>Allerdings muss ich Treiber nicht mehrfach laden; Ich erstelle nur eine weitere Instanz vom Treiber. (c++) <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/>Ich denke, ich programmiere erst mal den kernel fertig. Der muss noch die physiche und virtuelle Speicherverwaltung bekommen. Danach fange ich einfach mal mit den Interfaces an und merke ja sofort, wenn sich Probleme ergeben und. Danach kommt Multithreading und die Treiber. Und dann als erstes eine Shell...<br/><br/>Edit: Vielleicht sollte ich einfach alle Treiber in den Kernel integrieren. Das ist ja nur ein Hobbyprojekt und so groß wird das sicher auch nicht.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39199">
+								« <em>Letzte Änderung: 15. February 2015, 12:54 von Krendor</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39200"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_39200_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #5 am:</strong> 15. February 2015, 16:47 »</div>
+<div class="posttile"><h5 id="subject_39200">
+<a href="index.html#msg39200" rel="nofollow">Re: Fragen: OS Design - Kernel, Treiber, Module, Relocational ELF</a>
+</h5></div>
+<div id="msg_39200_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39200"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39199">Zitat von: Krendor am 15. February 2015, 11:10</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_alternate_quote">oder jedes Dateisystem stellt sein eigenes VFS-Interface bereit ("Laufwerksbuchstaben").</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Die Idee gefällt mir, weil ich sowieso auf Laufwerksbuchstaben hinaus wollte. Aber dise Buchstaben müssen ja auch verwaltet werden. (Damit es keine doppelten gibt) Also werde ich doch ein zentrales VFS benötigen...</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, aber das kann man auch einfacher haben: Ein Array aus 26 Einträgen, wo jeweils ein Handle auf eine Dateisystems-Instanz abgelegt wird, und zwei Funktionen GibMirLaufwerksbuchstaben() und IchGebLaufwerksbuchstabenZurueck().<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39199">Zitat von: Krendor am 15. February 2015, 11:10</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_alternate_quote">dass du die Treiber in einer gewissen Reihenfolge laden musst, und dass du gewisse Treiber u.U. auch mehrfach laden musst (z.B. PCI-PCI-Bridges).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das mit den PCI-PCI-Bridges verstehe ich noch nicht so ganz. Ich weiß, dass sie 2 Busse miteinander verbinden, aber sind die nicht schon vom BIOS initialisiert?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Eine PCI-PCI-Bridge schenkt dir einen neuen PCI-Bus, nachdem du sie initialisiert hast. Aber was ich meinte, war allgemeiner. Wenn du z.B. ein Notebook mit CardBus-Schnittstelle hast, dann ist diese Schnittstelle ein "PCI-Gerät". Und wenn du den Treiber für dieses Gerät lädst, dann taucht ein neuer PCI-Bus auf, mit der evtl. eingesteckten Karte drin. Entweder, dein Kernel erzeugt dann ein Event "neue Hardware gefunden", oder du musst alle deine PCI-Treiber neu laden, damit sie vielleicht <em>jetzt</em> etwas finden, was sie vorher nicht gefunden haben.<br/><br/>Gut, das sind alles ziemliche Spezialfälle, die du nicht unterstützen musst, aber vorher drüber nachdenken schadet sicherlich nicht. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39199">Zitat von: Krendor am 15. February 2015, 11:10</a></div></div><blockquote class="bbc_standard_quote">Ist nicht alles vom BIOS initialisiert was PCI betrifft?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das weiß ich nicht. Ich kann mir aber gut vorstellen, dass manche BIOSse nur das initialisieren, was sie zum booten brauchen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39199">Zitat von: Krendor am 15. February 2015, 11:10</a></div></div><blockquote class="bbc_standard_quote">Edit: Vielleicht sollte ich einfach alle Treiber in den Kernel integrieren. Das ist ja nur ein Hobbyprojekt und so groß wird das sicher auch nicht.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dann brauchst du dir über meine Hinweise auch keine großen Gedanken machen. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39200">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39201"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Krendor</a>
+</h4>
+<ul class="reset smalltext" id="msg_39201_extra_info">
+<li class="postcount">Beiträge: 19</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #6 am:</strong> 17. February 2015, 13:10 »</div>
+<div class="posttile"><h5 id="subject_39201">
+<a href="index.html#msg39201" rel="nofollow">Re: Fragen: OS Design - Kernel, Treiber, Module, Relocational ELF</a>
+</h5></div>
+<div id="msg_39201_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39201"><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Das weiß ich nicht. Ich kann mir aber gut vorstellen, dass manche BIOSse nur das initialisieren, was sie zum booten brauchen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Soll ich also am besten alle Geräte neu initialisieren? Das stelle ich mir nur im Falle von I/O Ports schwer vor, da ich nicht weiß, welche Ports schon vom System benutzt werden...<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Eine PCI-PCI-Bridge schenkt dir einen neuen PCI-Bus, ...</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Tja, da hapert es wohl noch mit meinem Verständnis. Auf PCI greife ich doch über 2 Register zu. (1 mal Adresse und 1 mal Daten) Das Adressregister ist aufgeteilt in Bus, Gerät und Funktion. Damit habe ich doch schon mehrere Busse. Wofür dann noch Bridges? Entweder kann ich auf die anderen Busse nur zugreifen, wenn die Bridge richtig angelegt ist, oder die Bridge selber stellt nochmal 2 Ports (Daten und Adresse) zur Verfügung. Das wird im Wiki leider nicht so richtig ersichtlich.<br/><br/>Ich dachte in diesem Fall auch eher, dass ich einen Treiber PCI habe, der alle Geräte durchsucht und dann Instanzen von PCIDevice anlegt. PCIDevice wiederum scannt das Gerät und lädt den entsprechenden Treiber nach. (Disk Controller, VGA, usw.)  In dem Falle hat der Treiber PCI einfach eine Methode "rescan", die erneut nach Geräten sucht, aber nur für neue Geräte die Treiber lädt.<br/>(Wenn ich vom Treiber laden rede, dann meine ich, dass der Treiber nur geladen wird, wenn er noch nicht geladen ist, und dass dann eine neue Instanz von der Klasse angelegt wird.)<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Dann brauchst du dir über meine Hinweise auch keine großen Gedanken machen. </blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Hab ich auch erst gedacht, aber dann ist mir eingefallen, dass ich trotzdem Treiberklassen brauche und mir somit über alles klar werden muss. <img alt=":-D" class="smiley" src="../../../assets/forum/40e5b6b3635b5359f55907e5.gif" title="grin"/> Außerdem will ich ja lernen... <img alt=":wink:" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39201">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39205"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_39205_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #7 am:</strong> 18. February 2015, 13:40 »</div>
+<div class="posttile"><h5 id="subject_39205">
+<a href="index.html#msg39205" rel="nofollow">Re: Fragen: OS Design - Kernel, Treiber, Module, Relocational ELF</a>
+</h5></div>
+<div id="msg_39205_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39205"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39201">Zitat von: Krendor am 17. February 2015, 13:10</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_alternate_quote">Das weiß ich nicht. Ich kann mir aber gut vorstellen, dass manche BIOSse nur das initialisieren, was sie zum booten brauchen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Soll ich also am besten alle Geräte neu initialisieren? Das stelle ich mir nur im Falle von I/O Ports schwer vor, da ich nicht weiß, welche Ports schon vom System benutzt werden...</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Initialisiere einfach alles, was du brauchst, und ignoriere den Rest. Damit fährst du für den Anfang gut genug.<br/><br/>Was die I/O-Ports angeht: Das ist genau das, was ich weiter oben beschrieben habe. Einfache (ISA-)Geräte kannst du nicht identifizieren, sondern nur auf gut Glück ein paar Ports lesen/schreiben und schauen, ob das, was da passiert, ungefähr so aussieht wie das, was dein gesuchtes Gerät dort tun würde. Deswegen gibt es da nichts zu initialisieren.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39201">Zitat von: Krendor am 17. February 2015, 13:10</a></div></div><blockquote class="bbc_standard_quote">Das Adressregister ist aufgeteilt in Bus, Gerät und Funktion. Damit habe ich doch schon mehrere Busse. Wofür dann noch Bridges?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Bridges sind ein Hardware-Feature. Die kriegst du, weil die Hardware so gebaut ist, und vermutlich kannst du sie auch erstmal ignorieren.<br/><br/>Ich wollte damit nur sagen, dass du manche Geräte erst sehen/ansprechen kannst, wenn du bestimmte <em>andere</em> Geräte funktionierend in deinen Kernel integriert hast.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39201">Zitat von: Krendor am 17. February 2015, 13:10</a></div></div><blockquote class="bbc_standard_quote">In dem Falle hat der Treiber PCI einfach eine Methode "rescan", die erneut nach Geräten sucht, aber nur für neue Geräte die Treiber lädt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, klingt gut.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39205">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39206"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Krendor</a>
+</h4>
+<ul class="reset smalltext" id="msg_39206_extra_info">
+<li class="postcount">Beiträge: 19</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #8 am:</strong> 18. February 2015, 15:44 »</div>
+<div class="posttile"><h5 id="subject_39206">
+<a href="index.html#msg39206" rel="nofollow">Re: Fragen: OS Design - Kernel, Treiber, Module, Relocational ELF</a>
+</h5></div>
+<div id="msg_39206_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39206"><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Ich wollte damit nur sagen, dass du manche Geräte erst sehen/ansprechen kannst, wenn du bestimmte andere Geräte funktionierend in deinen Kernel integriert hast.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dessen bin ich mir bewusst. Aber trotzdem danke. <img alt=":-)" class="smiley" src="../../../assets/forum/3bd230edbfa99cc1552b7785.gif" title="smiley"/><br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Was die I/O-Ports angeht: Das ist genau das, was ich weiter oben beschrieben habe. Einfache (ISA-)Geräte kannst du nicht identifizieren, sondern nur auf gut Glück ein paar Ports lesen/schreiben und schauen, ob das, was da passiert, ungefähr so aussieht wie das, was dein gesuchtes Gerät dort tun würde. Deswegen gibt es da nichts zu initialisieren.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Aber ein PCI Gerät kann in den BARs auch nach IO-Ports verlangen. Das wird durch eine 1 in Bit 0 im BAR angezeigt. ein Massenspeichercontroller für ATA oder SATA würde da z.B. die standard Ports 0x1F0 bis 0x1F7 haben.<br/><br/>Edit: Eine Frage noch zu den Descriptoren: Muss ich lgdt, lidt, usw. physische oder virtuelle Adressen nach der Aktivierung von Paging übergeben?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39206">
+								« <em>Letzte Änderung: 19. February 2015, 11:49 von Krendor</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39207"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_39207_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #9 am:</strong> 19. February 2015, 13:53 »</div>
+<div class="posttile"><h5 id="subject_39207">
+<a href="index.html#msg39207" rel="nofollow">Re: Fragen: OS Design - Kernel, Treiber, Module, Relocational ELF</a>
+</h5></div>
+<div id="msg_39207_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39207"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39206">Zitat von: Krendor am 18. February 2015, 15:44</a></div></div><blockquote class="bbc_standard_quote">Aber ein PCI Gerät kann in den BARs auch nach IO-Ports verlangen. Das wird durch eine 1 in Bit 0 im BAR angezeigt. ein Massenspeichercontroller für ATA oder SATA würde da z.B. die standard Ports 0x1F0 bis 0x1F7 haben.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, bei solchen Geräten weißt du dann genau, dass an den betreffenden I/O-Ports ein Gerät hängt und brauchst nicht rumzuprobieren. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39207">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] 
+				</div></div>
+<div class="nextlinks_bottom"><a href="../3413/index.html#msg39236">« vorheriges</a> <a href="../3360/index.html#msg38906">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Fragen: OS Design - Kernel, Treiber, Module, Relocational ELF</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.008 Sekunden mit 31 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

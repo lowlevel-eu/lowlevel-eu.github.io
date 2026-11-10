@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Teil 4 - Hello World – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Teil_4_-_Hello_World rootpage-Teil_4_-_Hello_World skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1897/index.html">Aktueller Artikel</a> · <a href="../../history/1897/index.html">Versionsgeschichte</a> · <a href="../../source/9921.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Teil 4 - Hello World</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 13. Juli 2011, 17:50 Uhr von <a class="mw-userlink" href="../../pages/2196/index.html" title="Benutzer:Erik.vikinger"><bdi>Erik.vikinger</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Der_Hello-World-Kernel">→</a>‎<span dir="auto"><span class="autocomment">Der Hello-World-Kernel: </span> also wenn dann richtig, heißlaufen sollte die CPU am besten gar nicht</span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/9920-9921.html" title="Teil 4 - Hello World">Unterschied</a>) <a href="../9920/index.html" title="Teil 4 - Hello World">← Nächstältere Version</a> | <a href="../../pages/1897/index.html" title="Teil 4 - Hello World">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../11217/index.html" title="Teil 4 - Hello World">Nächstjüngere Version →</a> (<a href="../../diffs/9921-11217.html" title="Teil 4 - Hello World">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><table style="width:100%; background-color: #D0D8FF; border: 1px solid #b8c0e8; text-align:center; margin-bottom: 10px;">
+<tbody><tr>
+<td style="width:33%; text-align:left;">« <a href="../../pages/1896/index.html" title="Teil 3 - Trockenübungen">Teil 3 - Trockenübungen</a></td>
+<td style="width:33%; text-align:center;"><b>Navigation</b></td>
+<td style="width:33%; text-align:right;"><a href="../../pages/1898/index.html" title="Teil 5 - Interrupts">Teil 5 - Interrupts</a> »</td>
+</tr>
+</tbody></table>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Der_Bootprozess"><span class="tocnumber">1</span> <span class="toctext">Der Bootprozess</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Multiboot"><span class="tocnumber">2</span> <span class="toctext">Multiboot</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Der_Hello-World-Kernel"><span class="tocnumber">3</span> <span class="toctext">Der Hello-World-Kernel</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Multiboot-Header_in_einer_eigenen_Sektion"><span class="tocnumber">4</span> <span class="toctext">Multiboot-Header in einer eigenen Sektion</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#printf"><span class="tocnumber">5</span> <span class="toctext">printf</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Troubleshooting"><span class="tocnumber">6</span> <span class="toctext">Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#undefined_reference_to_.60init.27"><span class="tocnumber">6.1</span> <span class="toctext">undefined reference to `init'</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Weitere_Quellen"><span class="tocnumber">7</span> <span class="toctext">Weitere Quellen</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Der_Bootprozess">Der Bootprozess</span></h2>
+<p>Bevor wir anfangen, Code zu schreiben, zunächst ein kleiner Blick auf den Bootprozess. Aus Sicht des Kernels könnte dieser Abschnitt den Titel "was bisher geschah" tragen.
+</p><p>Bei einem CPU-Reset (der beispielsweise beim Anschalten passiert) wird der gesamte Prozessorzustand neu gesetzt. Insbesondere schaltet der Prozessor in den Real Mode und springt an die lineare Adresse 0xffff0 (z.B. cs:ip = f000:fff0). An dieser Adresse liegt das BIOS. Das BIOS initialisiert die Hardware, führt einen Selbsttest durch und wenn es fertig ist, löst es einen Interrupt 0x19 aus. Der Handler lädt den Bootsektor von der Festplatte oder Diskette nach linear 0x7c00 (z.B. 07c0:0000) und springt an diese Adresse.
+</p><p>Der Bootloader ist anschließend dafür zuständig, den Kernel des Betriebssystems in den Speicher zu laden, eine passende Umgebung aufzusetzen und an den Einsprungspunkt des Kernels zu springen. Zum Vorbereiten der Umgebung gehört der Wechsel in den passenden Prozessormodus (in unserem Fall der <a href="../../pages/1464/index.html" title="Protected Mode">32-Bit-Protected-Mode</a> des x86) und die Übergabe bestimmter Informationen an den Kernel (z.B. über den vorhandenen Speicher, eine Kernelkommandozeile, usw.)
+</p><p>Sobald der Bootloader an den Einsprungspunkt des Kernels gesprungen ist, gibt er die Kontrolle komplett an den Kernel ab. Er wird dann nicht mehr benötigt und sein Speicher kann anderweitig verwendet werden.
+</p>
+<h2><span class="mw-headline" id="Multiboot">Multiboot</span></h2>
+<p>Für unser Betriebssystem werden wir <a class="mw-redirect" data-archive-original-href="../../pages/1960/index.html" href="../../pages/1567/index.html" title="GRUB">GRUB</a> als Bootloader benutzen. GRUB ist einfach zu benutzen, weit verbreitet und hat einen großen Funktionsumfang.
+</p><p>Es gibt Leute, die der Meinung sind, man sollte seinen Bootloader selbst schreiben, damit man die Sache wirklich selbst gemacht hat. Diese Leute benutzen dann in ihrem Bootloader die Funktionen des BIOS, fangen also nur an einer anderen Stelle an, auf den Code anderer aufzusetzen. Dazu müssen sie auf Dauer viel Zeit in die Funktionalität des Bootloaders investieren, wenn sie nicht in ihrem Betriebssystem mit Einschränkungen leben wollen. Bootloader sind nette Projekte, aber wir konzentrieren uns hier auf das Betriebssystem.
+</p><p><a href="../../pages/1560/index.html" title="Multiboot">Multiboot</a> ist der Name der Spezifikation, die ein Kernel einhalten muss, um von GRUB geladen werden zu können. Der verlinkte Artikel enthält dazu mehr Informationen.
+</p>
+<h2><span class="mw-headline" id="Der_Hello-World-Kernel">Der Hello-World-Kernel</span></h2>
+<p>"Hello World" ausgeben zu wollen stellt uns vor zwei Schwierigkeiten: Zum ersten müssen wir wissen, wie man Text auf den Bildschirm bekommt - und zum zweiten müssen wir dafür sorgen, dass der entsprechende Code überhaupt ausgeführt wird.
+</p><p>Fangen wir mit dem einfachen an: Direkt nach dem Booten ist ein PC im Textmodus. Im Textmodus werden auf dem Bildschirm die Zeichen dargestellt, die im Grafikspeicher ab der Adresse 0xb8000 liegen. Dabei braucht jedes Zeichen zwei Bytes: Das erste Byte ist das Zeichen selbst. Das zweite Byte ist das sogenannte Attributbyte, das die Farbe und Hintergrundfarbe des Texts festlegt - mehr Details stehen bei Bedarf im Artikel <a href="../../pages/1549/index.html" title="Textausgabe">Textausgabe</a>. Wir legen also folgendermaßen los (die Datei heißt bei mir init.c):
+</p><p>&lt;c&gt;void init(void)
+{
+</p>
+<pre>   const char hw[] = "Hello World!";
+   int i;
+   char* video = (char*) 0xb8000;
+</pre>
+<pre>   // C-Strings haben ein Nullbyte als Abschluss
+   for (i = 0; hw[i] != '\0'; i++) {
+</pre>
+<pre>       // Zeichen i in den Videospeicher kopieren
+       video[i * 2] = hw[i];
+</pre>
+<pre>       // 0x07 = Hellgrau auf Schwarz
+       video[i * 2 + 1] = 0x07;
+   }
+</pre>
+<p>}&lt;/c&gt;
+</p><p>Nachdem wir das erste Problem souverän gelöst haben, müssen wir den Code jetzt nur noch zur Ausführung bringen. Wir müssen also irgendwie den Multiboot-Header in unsere Binary bekommen. Außerdem benutzt unsere Funktion ein paar lokale Variablen. Lokale Variablen landen auf dem <a href="../../pages/2165/index.html" title="Stack">Stack</a>, deswegen müssen wir etwas Speicherplatz für den Stack vorsehen. Diesen Teil erledigen wir in Assembler (diese Datei ist die start.S):
+</p><p>&lt;asm&gt;.section .text
+</p><p>// Init ist eine Funktion aus init.c
+.extern init
+</p>
+<ol><li>define MB_MAGIC 0x1badb002</li>
+<li>define MB_FLAGS 0x0</li>
+<li>define MB_CHECKSUM -(MB_MAGIC + MB_FLAGS)</li></ol>
+<p>// Der Multiboot-Header
+.align 4
+.int    MB_MAGIC
+.int    MB_FLAGS
+.int    MB_CHECKSUM
+</p><p>// _start muss global sein, damit der Linker es findet und als Einsprungspunkt
+// benutzen kann (alle Labels, die nicht global sind, sind nur in dieser Datei
+// sichtbar)
+.global _start
+_start:
+</p>
+<pre>   // Stack initialisieren
+   mov $kernel_stack, %esp
+</pre>
+<pre>   // C-Code aufrufen
+   call init
+</pre>
+<pre>   // Falls wir jemals aus init zurueckkommen sollten, sperren wir die Interrupts und
+   // halten einfach den Prozessor an. (man braucht ihn ja nicht unnötig heißlaufen lassen.)
+</pre>
+<p>_stop:
+</p>
+<pre>   cli
+   hlt
+   
+   // Sollte es doch weitergehen, probieren wir erneut die CPU schlafen zu lassen
+   jmp _stop
+</pre>
+<p>// 8 kB Stack fuer den Kernel. Das Label steht hinter dem freien Speicher,
+// weil der Stack nach unten waechst
+.section .bss
+.space 8192
+kernel_stack:&lt;/asm&gt;
+</p><p>An dieser Stelle wären wir mit dem Code fertig. Jetzt müssen wir ihn noch kompilieren und irgendwie ausprobieren. Man kann natürlich von Hand den Compiler und den Linker aufrufen, aber es empfiehlt sich, <i>make</i> dafür zu benutzen. make übersetzt immer nur alle Dateien neu, die sich tatsächlich geändert haben, und es vergisst dabei auch nichts. Eine passende <i><a href="../../pages/1436/index.html" title="Makefile">Makefile</a></i> (das ist der Dateiname der Steuerdatei für make) könnte beispielsweise so aussehen:
+</p>
+<pre>SRCS = $(shell find -name '*.[cS]')
+OBJS = $(addsuffix .o,$(basename $(SRCS)))
+
+CC = gcc
+LD = ld
+
+ASFLAGS = -m32
+CFLAGS = -m32 -Wall -g -fno-stack-protector -nostdinc
+LDFLAGS = -melf_i386 -Ttext=0x100000
+
+kernel: $(OBJS)
+	$(LD) $(LDFLAGS) -o $@ $^
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $^
+
+%.o: %.S
+	$(CC) $(ASFLAGS) -c -o $@ $^
+
+clean:
+	rm $(OBJS)
+
+.PHONY: clean
+</pre>
+<p>Erwähnenswert ist vor allem die Option <i>-Ttext=0x100000</i> für ld. Das ist die Adresse, an die der Kernel geladen werden soll und an der er ausgeführt wird. GRUB kann einen Kernel nicht an eine niedrigere Adresse als 1 MB laden und 0x100000 sind genau 1 MB.
+</p><p>Die Werte für CC und LD müssen ggf. angepasst werden, so dass sie auf einen Compiler bzw. Linker zeigen, der i386-ELF-Dateien erzeugt. Mit dem Crosscompiler unter Windows könnte es beispielsweise sein, dass für CC <i>i586-elf-gcc</i> und für LD <i>i586-elf-ld</i> eingetragen werden muss.
+</p><p>Nach einem Aufruf von <i>make</i> solltest Du jetzt eine Datei <i>kernel</i> vorfinden. Jetzt müssen wir ihn nur noch irgendwie ausführen. Dazu gibt es mehrere Möglichkeiten:
+</p>
+<ul><li>qemu kann ab Version 0.11 Multiboot-Kernel direkt laden. <i>qemu -kernel kernel</i> bringt unseren Kernel zur Ausführung und schreibt ein wunderschönes Hello World in die linke obere Ecke. Den Rest des Bildschirms zu löschen haben wir leider vergessen, so dass das über irgendwelche BIOS-Meldungen geschrieben wird.</li>
+<li>Jeder beliebige Emulator kann von Disketten-Images booten, z.B. qemu mit <i>qemu -fda floppy.img</i>. Wir brauchen also ein Diskettenimage, das GRUB und unseren Kernel enthält. Dazu gibt es den Artikel zu <a class="mw-redirect" data-archive-original-href="../../pages/1960/index.html#GRUB_legacy" href="../../pages/1567/index.html#GRUB_legacy" title="GRUB"> GRUB legacy</a> in diesem Wiki.</li>
+<li>Ein echter PC und eine echte Floppy geht natürlich auch. Dazu entweder das Image erstellen und auf Diskette schreiben (z.B. mit <i>dd</i> oder <i>rawrite</i>) oder direkt eine GRUB-Diskette nehmen und den Kernel darauf kopieren</li></ul>
+<p>Wenn wir nicht mit qemu 0.11 direkt booten, sondern ein Diskettenimage (bzw. eine echte Diskette) benutzen, begrüßt uns nach dem Booten GRUB (jedenfalls, wenn keine menu.lst angelegt wurde). Der Kernel kann dann folgendermaßen gestartet werden:
+</p>
+<pre>kernel /kernel
+boot</pre>
+<h2><span class="mw-headline" id="Multiboot-Header_in_einer_eigenen_Sektion">Multiboot-Header in einer eigenen Sektion</span></h2>
+<p>Der Kernel scheint zwar wunderbar zu funktionieren, aber er enthält einen Fehler. Der Fehler ist im Moment nicht dramatisch, aber irgendwann wird er unerwartet zuschlagen - wir sollten es deshalb lieber gleich richtig machen.
+</p><p>Wie bereits erwähnt muss der Multiboot-Header des Kernels in den ersten 8 kB der Datei liegen. Das funktioniert im Moment mehr oder weniger zufälligerweise. Die Sektion .text landet zwar am Anfang der Binary, aber in welcher Reihenfolge die Dateien hineingeschrieben werden, bleibt dem Linker überlassen. Wir können es aber erzwingen, dass .text mit dem Multiboot-Header anfängt: Wir legen ihn zunächst in seine eigenen Sektion und sagen dem Linker dann, wie er es zusammenbauen soll.
+</p><p>Dazu ändern wir den Anfang der start.S folgendermaßen ab:
+&lt;asm&gt;.section multiboot
+</p>
+<ol><li>define MB_MAGIC 0x1badb002</li>
+<li>define MB_FLAGS 0x0</li>
+<li>define MB_CHECKSUM -(MB_MAGIC + MB_FLAGS)</li></ol>
+<p>// Der Multiboot-Header
+.align 4
+.int    MB_MAGIC
+.int    MB_FLAGS
+.int    MB_CHECKSUM
+</p><p>.section .text
+</p><p>// Init ist eine Funktion aus init.c
+.extern init
+</p><p>// _start muss global sein, damit der Linker es findet und als Einsprungspunkt
+...&lt;/asm&gt;
+</p><p>Außerdem erstellen wir ein <i>Linkerskript</i>, die Datei kernel.ld:
+</p>
+<pre>/*  Bei _start soll die Ausfuehrung losgehen */
+ENTRY(_start)
+
+/*
+ * Hier wird festgelegt, in welcher Reihenfolge welche Sektionen in die Binary
+ * geschrieben werden sollen
+ */
+SECTIONS
+{
+    /*
+     * . ist die aktuelle Position in der Datei. Wir wollen den Kernel wie gehabt
+     * an 1 MB laden, also muessen wir dort die erste Sektion hinlegen
+     */
+    . = 0x100000;
+
+    /*
+     * Der Multiboot-Header muss zuerst kommen (in den ersten 8 kB).
+     * Die Standardsektionen einfach hintereinander weg einbinden.
+     */
+    .text : {
+        *(multiboot)
+        *(.text)
+    }
+    .data ALIGN(4096) : {
+        *(.data)
+    }
+    .rodata ALIGN(4096) : {
+        *(.rodata)
+    }
+    .bss ALIGN(4096) : {
+        *(.bss)
+    }
+}
+</pre>
+<p>Anschließend muss der Linker auch noch wissen, dass er die Datei benutzen soll. Daher wird in der Makefile das <i>-Ttext=0x100000</i> zu einem <i>-Tkernel.ld</i>
+</p>
+<h2><span class="mw-headline" id="printf">printf</span></h2>
+<p>Nach sehr viel sehr detailliert besprochenem Code kommen wir zu einigen Aufgaben, die ich dem geneigten Leser gern zur Übung überlassen würde. Es handelt sich dabei um Funktionen zur <a href="../../pages/1549/index.html" title="Textausgabe">Textausgabe</a> - denn man kann keine Fehler finden, wenn man sich keine Informationen anzeigen lassen kann. Wir brauchen mindestens:
+</p>
+<ul><li>Eine Funktion zum Löschen des Bildschirms (nicht zwingend, sieht aber einfach schöner aus)</li>
+<li>Eine Funktion um Text auszugeben</li>
+<li>Eine Funktion um Zahlen in dezimaler Schreibweise auszugeben</li>
+<li>Eine Funktion um Zahlen und Pointer in hexadezimaler Schreibweise auszugeben</li></ul>
+<p>In den folgenden Teilen gehe ich davon aus, dass die unteren drei Aufgaben von einer Funktion kprintf() übernommen werden, die für die genannten Fälle genau so funktioniert, wie die normale printf()-Funktion. Die Funktionen kommen am besten in ihre eigene Quellcodedatei (z.B. console.c) und werden in den Beispielen in der Headerdatei <i>console.h</i> erwartet.
+</p><p>Für die Implementierung von printf benötigt man <i>stdarg.h</i>, um die variable Parameterliste auszuwerten. gcc bietet dafür bereits Builtins an (bzw. eine komplette <i>stdarg.h</i>, wenn man einen <a href="../../pages/1628/index.html" title="Cross-Compiler">Cross-Compiler</a> benutzt), so dass die Headerdatei nur folgendes enthalten muss:
+&lt;c&gt;
+typedef __builtin_va_list       va_list;
+</p>
+<ol><li>define va_start(ap, X)         __builtin_va_start(ap, X)</li>
+<li>define va_arg(ap, type)        __builtin_va_arg(ap, type)</li>
+<li>define va_end(ap)              __builtin_va_end(ap)</li></ol>
+<p>&lt;/c&gt;
+</p><p>Außerdem könnte es eine gute Idee sein, alle Ausgaben auch auf der <a href="../../pages/1561/index.html" title="Serielle Schnittstelle"> seriellen Schnittstelle</a> auszugeben. Die Emulatoren können eigentlich alle die Ausgaben auf der seriellen Schnittstelle auf der Konsole anzeigen oder in eine Datei schreiben. Das macht es unnötig, Dinge aus dem Emulator abzuschreiben (z.B. Adressen in Fehlermeldungen).
+</p><p>Die Datei init.c sollte hinterher nur noch so aussehen (abgesehen vielleicht von einem Aufruf, um den Bildschirm zu löschen):
+&lt;c&gt;#include "console.h"
+</p><p>void init(void)
+{
+</p>
+<pre>   kprintf("Hello World!\n");
+</pre>
+<p>}&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<p><i>→ Hauptartikel: <a class="mw-redirect" data-archive-original-href="../../pages/2227/index.html" href="../../pages/2263/index.html" title="Troubleshooting">Troubleshooting</a> (gilt natürlich auch für die folgenden Artikel der OS-Dev für Einsteiger Serie)</i>
+</p>
+<h3><span id="undefined_reference_to_`init'"></span><span class="mw-headline" id="undefined_reference_to_.60init.27">undefined reference to `init'</span></h3>
+<p>Du benutzt einen <a href="../../pages/1486/index.html" title="C++">C++</a>-Compiler zum kompilieren und hast die Funktion <i>void init(void)</i> im Sourcecode aber nicht <i>extern "C"</i> deklariert, siehe auch <a data-archive-original-href="../../pages/1486/index.html#C.2B.2B_Funktionen_aus_C.2FAssembler_nutzen" href="../../pages/1486/index.html" title="C++ — Der ursprüngliche Abschnitt ist in dieser Momentaufnahme nicht verfügbar; stattdessen wird der Artikel angezeigt."> hier</a>.
+</p>
+<h2><span class="mw-headline" id="Weitere_Quellen">Weitere Quellen</span></h2>
+<p>Hier und jeweils am Ende der folgenden Teile der Reihe folgt eine Auflistung von externen Quellen, die sich eignen, um bei Unklarheiten nachzuschlagen oder das jeweilige Thema zu vertiefen. Es ist empfehlenswert, sich vor allem auch damit vertraut zu machen, wie man offizielle Spezifikationen zu lesen hat (denn spätestens zu fortgeschritteneren Themen gibt es keine Tutorials mehr).
+</p>
+<ul><li><a href="../../pages/1560/index.html" title="Multiboot">Multiboot</a>-Spezifikation: <a class="external text" href="http://www.gnu.org/software/grub/manual/multiboot/multiboot.pdf" rel="nofollow">http://www.gnu.org/software/grub/manual/multiboot/multiboot.pdf</a></li>
+<li>Der Quellcode eines Beispielkernels zu diesem und den folgenden Teilen der Tutorialreihe kann man <a class="external text" href="http://git.tyndur.org/?p=tutorial.git;a=summary" rel="nofollow">hier</a> einsehen. Der Sourcecode ist <b>nicht</b> dazu gedacht, kopiert zu werden, sondern sollte nur im Notfall verwendet werden, um eine unverstandene Kleinigkeit nachzuschauen. Falls größere Verständnisprobleme auftauchen, kann jederzeit im <a class="external text archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Forum</a> oder im <a href="../../pages/1463/index.html" title="IRC">IRC</a> nachgefragt werden.</li></ul>
+<p><br/>
+</p>
+<table style="width:100%; background-color: #D0D8FF; border: 1px solid #b8c0e8; text-align:center; margin-bottom: 10px;">
+<tbody><tr>
+<td style="width:33%; text-align:left;">« <a href="../../pages/1896/index.html" title="Teil 3 - Trockenübungen">Teil 3 - Trockenübungen</a></td>
+<td style="width:33%; text-align:center;"><b>Navigation</b></td>
+<td style="width:33%; text-align:right;"><a href="../../pages/1898/index.html" title="Teil 5 - Interrupts">Teil 5 - Interrupts</a> »</td>
+</tr>
+</tbody></table>
+<!-- 
+NewPP limit report
+Cached time: 20261109170454
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.007 seconds
+Real time usage: 0.008 seconds
+Preprocessor visited node count: 95/1000000
+Preprocessor generated node count: 232/1000000
+Post‐expand include size: 864/2097152 bytes
+Template argument size: 204/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 1164/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.036      1 -total
+ 79.24%    0.821      2 Vorlage:Navigation
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Teil_4_-_Hello_World&amp;oldid=9921</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1895/index.html" title="Kategorie:OS-Dev für Einsteiger">OS-Dev für Einsteiger</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1897/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2439/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1897/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

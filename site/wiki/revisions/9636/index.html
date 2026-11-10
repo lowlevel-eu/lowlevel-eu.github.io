@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Pascal – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Pascal rootpage-Pascal skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1623/index.html">Aktueller Artikel</a> · <a href="../../history/1623/index.html">Versionsgeschichte</a> · <a href="../../source/9636.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Pascal</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 28. März 2011, 14:42 Uhr von <a class="mw-userlink" href="../../pages/2378/index.html" title="Benutzer:Sfan"><bdi>Sfan</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(ausversehen was in den asm code gekommen)</span></div><div id="mw-revision-nav">(<a href="../../diffs/9633-9636.html" title="Pascal">Unterschied</a>) <a href="../9633/index.html" title="Pascal">← Nächstältere Version</a> | <a href="../../pages/1623/index.html" title="Pascal">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../9638/index.html" title="Pascal">Nächstjüngere Version →</a> (<a href="../../diffs/9636-9638.html" title="Pascal">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="float:right; width:300px; padding-left:20px; padding-bottom: 20px; background-color:white">
+<div style="font-weight:normal; text-align:left; border:1px solid lightgray;">
+<table width="100%">
+<tbody><tr align="center" style="background:lightgray">
+<th colspan="2">Allgemeines
+</th></tr>
+<tr>
+<td>Name:</td>
+<td>(Turbo/Object)Pascal
+</td></tr>
+<tr>
+<td>Inlineassembler:</td>
+<td>Ja (Intel-Syntax)
+</td></tr>
+<tr>
+<td>Compiler:</td>
+<td>FreePascal, Borland Delphi
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Spracheneigenschaften
+</th></tr>
+<tr>
+<td>Plattformen:</td>
+<td><a href="../../pages/1558/index.html" title="Windows">Windows</a> (Hier vor allem Delphi), <a href="../../pages/1641/index.html" title="Linux">Linux</a>, u.a.
+</td></tr>
+<tr>
+<td>Beispielkernel in der Sprache:</td>
+<td>s.u.
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Homepage
+</th></tr>
+<tr>
+<td colspan="2"><center><a class="external text" href="http://www.freepascal.net/" rel="nofollow">www.freepascal.net</a></center>
+</td></tr></tbody></table>
+</div>
+</div>
+<p>Pascal ist eine strukturierte, prozedurale, objektorientierte, nach Blaise Pascal benannte, und von Nikolaus Wirth im Jahre 1972 als Lehrsprache konzipierte Programmiersprache. Sie ist ähnlich mächtig wie C und wurde im Laufe der Jahre durch verschiedene Sprachkonstrukte erweitert und weiterentwickelt (Borlands Delphi, ObjectPascal).
+</p>
+<h2><span class="mw-headline" id="Pascal_in_der_Betriebssystementwicklung">Pascal in der Betriebssystementwicklung</span></h2>
+<p>Anders als oft behauptet, ist Pascal eine Programmiersprache, die durchaus auch für die Lowlevel-Entwicklung geeignet ist. Allerdings stehen die Funktionen der Standardbibliothek nicht zur Verfügung. Als Daumenregel kann man festhalten, dass Pascal in diesem Zustand ähnlich mächtig wie C ist.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Beispielkernel_in_Pascal">Beispielkernel in Pascal</span></h2>
+<p>Zunächst <b>kernel.pas</b> - der eigentliche Kernel, der ein Zeichen ausgibt.
+&lt;pascal&gt;unit kernel;
+</p><p>interface
+</p><p>procedure PASCALMAIN();
+type tScreen = array[1..25, 1..80] of record
+</p>
+<pre>   c: char;
+   attr: byte;
+</pre>
+<p>end;
+implementation
+</p><p><br/>
+procedure PASCALMAIN();
+var
+</p>
+<pre>   screen: ^tScreen;
+</pre>
+<p>begin
+</p>
+<pre>   screen := Pointer($B8000);
+   screen^[1, 1].c := '#';
+   screen^[1, 1].attr := $07;
+</pre>
+<p>end;
+</p><p>end.
+&lt;/pascal&gt;
+Die Zeile <i>screen^[1, 1].attr := $07;</i> definiert die Zeichenfarbe, in diesem Fall Grau auf Schwarz.
+Wollen wir jetzt aber z.B. einen Bluescreen-Zeichenhintergrund haben müssten wir <i>screen^[1, 1].attr := $1F;</i> nehmen.
+Für weitere Farben siehe <a href="../../pages/1549/index.html" title="Textausgabe">Textausgabe</a>.
+</p><p>Das war der einfache Teil. Als nächstes brauchen wir eine eigene system-Unit, die allerdings für den Anfang nur zwei Stubs bereitstellen muss. <b>system.pas</b>:
+&lt;pascal&gt;unit system;
+</p><p>interface
+</p><p>procedure FPC_INITIALIZEUNITS; compilerproc;
+procedure FPC_DO_EXIT; compilerproc;
+</p><p>implementation
+</p><p>procedure FPC_INITIALIZEUNITS; alias: 'FPC_INITIALIZEUNITS'; compilerproc;
+begin
+end;
+</p><p>procedure FPC_DO_EXIT; alias: 'FPC_DO_EXIT'; compilerproc;
+begin
+end;
+</p><p>end.&lt;/pascal&gt;
+</p><p>Und der dritte Teil ist ein Assembler-Stub, <b>prt0.asm</b>:
+&lt;asm&gt;
+extern KERNEL_PASCALMAIN
+global _start
+</p><p>section .text
+_start:
+</p>
+<pre>   ; Stack initalisieren
+   mov esp, kernelstack
+</pre>
+<pre>   call KERNEL_PASCALMAIN
+   jmp $
+</pre>
+<p>multiboot_header:
+align 4
+</p>
+<pre> MULTIBOOT_MAGIC     equ 0x1BADB002
+ MULTIBOOT_FLAGS     equ 0x03
+ MULTIBOOT_CHECKSUM  equ -MULTIBOOT_MAGIC-MULTIBOOT_FLAGS
+</pre>
+<pre> dd MULTIBOOT_MAGIC
+ dd MULTIBOOT_FLAGS
+ dd MULTIBOOT_CHECKSUM
+</pre>
+<p>section .bss
+</p>
+<pre> resb  16384
+</pre>
+<p>kernelstack:&lt;/asm&gt;
+</p><p>Jetzt sind nur noch 2 leere Units nötig damit der Kernel läuft.
+</p><p><b>si_prc.pas</b>:
+&lt;pascal&gt;
+unit si_prc;
+</p><p>interface
+</p><p>implementation
+</p><p>end.
+&lt;/pascal&gt;
+<b>fpintres.pas</b>:
+&lt;pascal&gt;
+unit fpintres;
+</p><p>interface
+</p><p>implementation
+</p><p>end.
+&lt;/pascal&gt;
+</p><p>Anschließend müssen diese fünf Dateien kompiliert/assembliert und gelinkt werden. Das ist der Punkt, der mir noch nicht so ganz gefällt, weil ich ld eigentlich nicht von Hand aufrufen müssen will, um text=0x100000 setzen zu können.
+</p>
+<pre>nasm -felf prt0.asm
+fpc kernel
+ld -Ttext=0x100000 *.o -o kernel
+</pre>
+<p>Wer jetzt neugierig ist was der Kernel alles so auf dem Bildschirm bringt, kann den Kernel nach dem linken sofort mit <a href="../../pages/1505/index.html" title="QEMU">QEMU</a> ausführen:
+</p>
+<pre>qemu -kernel kernel
+</pre>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://www.freepascal.org" rel="nofollow">FreePascal</a></li>
+<li><a class="external text" href="http://code.google.com/p/fpos/" rel="nofollow">FpOS - ein in Pascal geschriebenes OS</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170014
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.004 seconds
+Real time usage: 0.005 seconds
+Preprocessor visited node count: 52/1000000
+Preprocessor generated node count: 170/1000000
+Post‐expand include size: 814/2097152 bytes
+Template argument size: 166/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 108/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.842      1 Vorlage:Sprache
+100.00%    0.842      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Pascal&amp;oldid=9636</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1648/index.html" title="Kategorie:Programmiersprache">Programmiersprache</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1623/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2153/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1623/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

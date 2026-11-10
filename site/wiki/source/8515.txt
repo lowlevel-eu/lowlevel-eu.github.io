@@ -1,0 +1,85 @@
+Das Wiki braucht dringend einen neuen Kategorienbaum. Manche Artikel kann man im Moment wirklich nicht vernünftig kategorisieren. Alles nur nach [[:Kategorie:Glossar]] zu stopfen kann es auch nicht sein. (siehe auch [[Lowlevel:Kategoriebaum]])
+
+== Überarbeiten/Fehler beheben ==
+* [[GRUB#GRUB 2]]: Sowohl Diskettenimage als auch CD-Image scheint nicht wirklich zu tun
+* [[Floppy Disk Controller]]
+
+== Magazin ausschlachten ==
+* [[Ausgabe 1#Lowlevel-Grundlagen, Teil 1|Ausgabe 1: Lowlevel-Grundlagen]]
+* [[Ausgabe 2#Lowlevel-Grundlagen, Teil 2|Ausgabe 2: Lowlevel-Grundlagen]]
+
+== Erweitern ==
+* [[System Management Mode]]
+** Was soll da rein? Viel mehr als wofür er genutzt wird, würde ich da nicht reinpacken… —[[Benutzer:XanClic|Clici McXan]] 18:32, 3. Okt. 2010 (CEST)
+** Und genau das hab ich jetzt schon reingeschrieben —[[Benutzer:XanClic|Clici McXan]] 18:52, 3. Okt. 2010 (CEST)
+* [[ISA]] Der vollständigkeit halber PnP beschreiben.
+** Wieso werden meine Fragen einfach entfernt? Nichtsdestotrotz: Wer braucht das wirklich, sodass es auf dieser Liste stehen muss? (Kategorie:TODO per Vorlage:TODO reicht ja) —[[Benutzer:XanClic|Clici McXan]] 18:52, 3. Okt. 2010 (CEST)
+* [[Textausgabe]] RealMode
+** Ich bin mit der Gliederung des Artikels überhaupt nicht einverstanden, muss man extra zwei Tutorials zur Textausgabe in den Artikel packen? Reicht es nicht, einfach zu Beschreiben, wie man das macht? Muss man für alles ein Händchen-Halt-Tutorial schreiben? --[[Benutzer:Hartmut|DerHartmut]] 18:49, 3. Okt. 2010 (CEST)
+* [[Heapverwaltung]]: Buddy?
+* [[FAT]]: Wie liest man Dateien? 
+** Sollte man das nicht selbst anhand des Artikels rausfinden können? —[[Benutzer:XanClic|Clici McXan]] 18:32, 3. Okt. 2010 (CEST)
+* [[Long Mode]]
+* [[Linux]] - Mache ich, Themen: Wie der Kernel funktioniert etc. --[[Benutzer:Hartmut|DerHartmut]] 18:03, 3. Okt. 2010 (CEST)
+* [[Windows]] - Mache ich, Themen: Wie der Kernel funktioniert etc. --[[Benutzer:Hartmut|DerHartmut]] 18:03, 3. Okt. 2010 (CEST)
+* [[SMP]]
+* [[APM]]
+* [[APIC]]
+* [[Cross-Compiler]]: aus irgendeinem Grund ist hier der i*86 Teil weggefallen
+* [[Mathematischer Koprozessor]] - Programmierung, Einsatz im OS-Dev
+** FPU wird bei OS-Dev eher weniger als bei anderer Programmierung eingesetzt, oder? Korrekter wäre vielleicht, wie man math.h-Funktionen implementiert, aber das sollte man imho auch per Intelmanual rausfinden können… —[[Benutzer:XanClic|Clici McXan]] 18:32, 3. Okt. 2010 (CEST)
+* [[Troubleshooting]] Themen siehe [[Diskussion:Erste_Hilfe]]
+* [[IPC]]: Ideen für RPC aus dem Thread im Forum
+** Welcher Thread? Der hier: http://forum.lowlevel.eu/index.php?topic=1787.0 Steht im Artikel unter Links.
+*** Ja. Wobei bei den 4 Möglichkeiten von bluecode noch eine fehlt: der Thread der einen/mehrere Service(s) anbieten will wartet (blockierend per Syscall) einfach auf ankommende Anfragen, so ähnlich wie bei TCP-Server-Sockets. Die Anfrage könnte dann entweder im Thread selber bearbeitet werden (womit dann keine weiteren Anfragen parallel bearbeitet werden können) oder es wird ein Worker-Thread erstellt/aktiviert (wobei dann die Variante mit den OS-gemanagten-PopUp-Threads wieder interessanter klingt weil damit im Service eine Ebene weg fällt).
+** logischer Adressierungsmodus
+** [[Benutzer:Bluecode]] glaubt, dass in der SMP-Spec irgendwas dazu steht wie die PIC mit dem Zeuch verbunden ist bzw. verbunden sein kann
+* irgendwo edge- vs. level-triggered Interrupts besprechen
+* [[x86]]
+** Ergänzungen zur Handhabung von Interrupts
+*** Was genau? Denke das gehört eher dann in [[Real Mode]], [[Protected Mode]] und/oder [[Long Mode]]
+** Eingehen auf verschiedene Befehlssätze
+*** [[Benutzer:Bluecode | bluecode]] würde Vorschlagen nur auf [[FPU (x86)]], [[MMX]] und [[SSE]] zu verweisen
+**** Das Wichtigste für uns OS-Frickler ist vielleicht, wie man die mit Multitasking kombiniert. Also wie man unnötiges Sichern/Wiederherstellen der Register vermeidet. 3DNow! wäre wohl auch noch ein Kandidat in der Liste.
+***** 3DNow! ist eher bedeutungslos, von SSE überholt und wird hoffentlich nicht mehr eingesetzt, da es nur unter AMD CPUs läuft
+** Liste der Hardware die sonst noch zu einem x86-System gehört
+*** Wozu? --[[Benutzer:Hartmut|DerHartmut]] 18:49, 3. Okt. 2010 (CEST)
+* [[x86-64]]: SSE und FPU Register in [[FPU (x86)]] und [[SSE]] oder so verschieben
+* [[AMD PCnet]]
+
+== Kleinigkeiten ==
+* [[I/O APIC]]: Beschreibung des INIT Delivery Modes
+
+== Neu erstellen ==
+* [http://de.wikipedia.org/wiki/GUID_Partition_Table GUID-Partitionierungsschema]
+* [http://de.wikipedia.org/wiki/Extensible_Firmware_Interface EFI]
+* [[ReiserFS]]
+* [[Ext2]]
+* [[Ext3]]
+* [[Ext4]]
+* [[UDF]]
+* Debuggen mit Qemu und GDB
+* [[OHCI]]
+* [[EHCI]]
+* [[xHCI]]
+* [[ACPI]]
+* [[VFS]]
+* RaWrite: evtl. mit Commands usw.
+** Was hat das mit OS-Dev zu tun? Da kann man auch gleich dd erklären (was sicherlich komplizierter zu bedienen ist). —[[Benutzer:XanClic|Clici McXan]] 18:35, 3. Okt. 2010 (CEST)
+* Entwicklungsumgebungen - Woraus sollte sie bestehen, welche Programme gibt es für einen Verwendungszweck - gesonderte Programmvorstellungen, vllt. Empfehlungen wären gut! Die unterschiedlichen Entwicklungsplattformen (Linux, Windows, ...) sollten schon aufgeführt sein.
+** Teilweise erledigt: [[Editor]]en sind schon abgedeckt.
+* <strike>Interne Darstellung der Zahlen, Darstellungsmöglichkeiten negativer Zahlen, Aufbau von Gleitkommazahlen (IEEE)</strike>
+:* ''Muss noch ausgebaut werden, siehe [[Binäre Datentypen]]''
+* Wie funktionert eine CPU, ein Befehl, ein Maschinenzyklus, ein Interrupt? Alles, was an den Universitäten im Laufe von 2-4 Semestern gelehrt wird, in 5 Absätzen mit einer prise Humor und garniert mit bunten Struktogrammen.
+* Datenblätter lesen und verstehen! Was tun, wenn das Internet kaputt gegangen ist, und man keine Codebeispiele zum Abtippen hat? (Zum Anfang vielleicht die Datenblätter von [[PIC]], [[PIT]] und die Intel Manuals. Dann knackigere Sachen wie Netzwerkkarten, Soundkarten, ATA, ... was weiß ich.)
+:Was meinst du damit? Soll das eine Anleitung werden, wie man Datenblätter ließt oder Primär eine Liste mit allen Datenblättern als Links? [[Benutzer:Programm Noob|Programm Noob]] 14:53, 7. Jan. 2010 (CET)
+:: Eine Anleitung, Links zu Datenblättern sind bei den Artikeln weit besser aufgehoben
+* Variable Sektor-Größen bei Massenspeichern (Block-Devices). Dafür dürfte sich wohl kein eigener Artikel lohnen aber es sollte in einigen Artikeln berücksichtigt werden, z.B. könnten sich einige Dateisystem-Strukturen ändern wenn sie auf größere Sektoren "skaliert" werden (zumindest bei den komplexeren Dateisystemen, also nicht bei FAT). Auch müsste ein OS mit verschiedenen Sektorgrößen von verschiedenen Massenspeichern gleichzeitig umgehen können. "Variabel" deshalb weil ich nicht glaube, das wenn die HDD-Hersteller erst mal damit angefangen haben an der Sektorgröße zu drehen, das dann bei 4k wieder Schluss ist. --[[Benutzer:Erik.vikinger|Erik.vikinger]] 18:40, 16. Apr. 2010 (CEST)
+* Hier kommt dein Wunsch hin ;)
+
+== Diskussionen, die sich noch nicht erledigt haben ==
+* siehe [http://www.lowlevel.eu/w/index.php?title=Spezial%3APr%C3%A4fixindex&from=&namespace=1 Liste der Diskussionsseiten]
+
+Siehe auch: [[Spezial:Wantedpages | Gewünschte Seiten]] | [[Spezial:Wantedcategories | Gewünschte Kategorieseiten]] | [[Spezial:Linkliste/Vorlage:TODO | Seiten, die die TODO-Vorlage verwenden]] | [[:Kategorie:Stub | Stubs]]
+
+[[Kategorie:TODO|!TODO]]

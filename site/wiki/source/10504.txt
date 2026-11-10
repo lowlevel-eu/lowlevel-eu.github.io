@@ -1,0 +1,36 @@
+== add esp,4 ==
+
+na<h dem call interupt_handler, wozu soll dass add esp,4 da? ich versteh nicht was da vom stack genommen wird. ich mein die funktion gibt doch nichts zurück -.-. ich mein der aufruf parameter wird doch automatisch von c wieder vom stack genommen, oder täusche ich mich da? <small>(''Der vorstehende, nicht signierte Beitrag stammt von'' [[Benutzer:Sebi2020|Sebi2020]] 13:50, 22. Dez. 2009 (CET))</small>
+
+:Genau, da täuschst du dich: http://de.wikipedia.org/wiki/Aufrufkonvention#cdecl ;-) --[[Benutzer:XanClic|XanClic]] 15:56, 22. Dez. 2009 (CET)
+:: Also der verlinkte beitrag wiederspricht dir und sagt, dass c dass sehr wohl tut. --[[Benutzer:Sebi2020|Sebi2020]] 20:09, 22. Dez. 2009 (CET)
+:::Natürlich tut C das, irgendwie muss es ja runter. Aber die Funktion macht das nicht für dich, das macht immer der Aufrufer. Und wenn der Aufrufer kein C-Code ist, dann passiert es eben ''nicht'' automatisch. Das entsprechende Zitat im Artikel ist: "Um wieder auf die Position von vorher zu kommen, muss im Anschluss an den Aufruf wieder 12 auf den Wert im ESP-Register addiert werden." --[[Benutzer:XanClic|XanClic]] 21:15, 22. Dez. 2009 (CET)
+:::: Dann musst du dass auch sagen, dass es um den Aufrufer geht --[[Benutzer:Sebi2020|Sebi2020]] 10:46, 23. Dez. 2009 (CET)
+:::::Muss ich nicht, weil das meiner Meinung nach klar war. Wenn du zu einem Assemblerstub sagst, der eine C-Funktion aufruft: "Das macht C doch automatisch", dann war es aus meiner Sicht korrekt zu sagen, "macht es nicht", weil hier nur die aufgerufene Funktion in C geschrieben ist und die macht es eben nicht. --[[Benutzer:XanClic|XanClic]] 12:40, 23. Dez. 2009 (CET)
+
+== pusha/popa ==
+Ich habe den Code grad mal überflogen, da ist mir aufgefallen, dass da 
+    push %ebp
+    push %edi
+    push %esi
+    push %edx
+    push %ecx
+    push %ebx
+    push %eax
+steht. Wie wäre es mit einem einfachen "pusha" und entsprechend dazu popa weiter unten?! --[[Benutzer:Bjork|Bjork]] 21:12, 8. Feb. 2010 (CET)
+
+:Es könnte sein, dass alles einzeln zu speichern/wiederherzustellen etwas schneller ist (dazu hatte ich mal eine Diskussion), schlimmstenfalls ist es wohl gleich schnell wie ein pusha/popa. --[[Benutzer:XanClic|XanClic]] 21:34, 8. Feb. 2010 (CET)
+
+:Ein Vorteil ist, dass dadurch die Reihenfolge der Register explizit ist. Der Aufbau von struct cpu_state ist damit klarer. --[[Benutzer:Jidder|Jidder]] 22:36, 8. Feb. 2010 (CET)
+
+== make: gdt undeclared ==
+
+Ich erhalte eine kuriose Fehlermeldung, und glaube, dass es daran liegt, dass mein Compiler den Wert uint64_t nicht kennt. Ich nutze den von Lowlevel vorgeschlagenen Crosscompiler für Windows.
+Hier die Fehlermeldung (habe das nur schnell abgetippt):
+<c>In file included from main.c:3:
+gdt.h: In function set_entry:
+gdt.h:8: 'gdt' undeclared (first use in this function)
+(...)
+make: *** [main.o] Error 1</c>
+** Welchen Code kompilierst du denn? Der Tutorial-Kernel kann es nicht sein, da gibt es weder gdt.h noch main.c. In der intr.c finde ich nur ein struct uint64_t gdt[GDT_ENTRIES]. uint64_t sollte in der Datei stdint.h definiert sein als unsigned long long int. --[[Benutzer:Hartmut|DerHartmut]] 13:54, 10. Mär. 2012 (CET) (PS: Bitte deine Beiträge immer mit <nowiki>--~~~~</nowiki> signieren - Danke!)
+*** Ich kompiliere den Tutorial-Kernel! main.c ist die Hauptdatei. gdt.h ist der Header für die GDT. Was ist da jetzt so unklar? Zu stdint.h: Wo steht, dass man das einbinden soll?? Und was für ein struct?? Ich habe folgende Zeile: <c>static uint64_t gdt[GDT_ENTRIES];</c> Das habe ich aus dem Artikel zur GDT kopiert!

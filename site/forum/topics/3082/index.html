@@ -1,0 +1,416 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="Kernel malloc/free, kompakt und leichtgewichtig" name="description"/>
+<title>Kernel malloc/free, kompakt und leichtgewichtig</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:30</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Kernel malloc/free, kompakt und leichtgewichtig</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg35752"></a>
+<div class="nextlinks"><a href="../3087/index.html#msg35788">« vorheriges</a> <a href="../3078/index.html#msg35729">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] 
+				</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/d4e7b293435eb0f7983a825d.gif"/>
+<span id="author">Autor</span>
+						Thema: Kernel malloc/free, kompakt und leichtgewichtig  (Gelesen 22797 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Dimension</a>
+</h4>
+<ul class="reset smalltext" id="msg_35752_extra_info">
+<li class="postcount">Beiträge: 155</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong> am:</strong> 17. August 2012, 23:46 »</div>
+<div class="posttile"><h5 id="subject_35752">
+<a href="index.html#msg35752" rel="nofollow">Kernel malloc/free, kompakt und leichtgewichtig</a>
+</h5></div>
+<div id="msg_35752_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_35752">Diese kompakte und leichtgewichtige Implementierung eines Kernel malloc/free ist aus meinem Treiber-Testkernel und soll der Lowlevel-Community nicht vorenthalten bleiben.<br/><br/><a class="bbc_link" href="http://pastebin.com/JBcwaTpv" target="_blank">http://pastebin.com/JBcwaTpv</a><br/><br/>Die Speicherverwaltung weist Speicherblöcke der Größe <em>Seitengröße &lt;&lt; n</em> direkt aus dem physischen Speicher zu. Die Seitengröße ist auf 4K festgelegt. In der Standardkonfiguration ist <em>MEMORY_PAGES = 8K</em>, es sind also insgesamt <em>8K * 4K = 32M</em> für malloc verfügbar. Die Verwaltungsdaten (hier Arrays mit Bitmaps) kommen extra in das data Segment. <em>MEMORY_MEMORY_START_P = 16M</em> bedeutet, dass der Speicherbereich erst ab 16M beginnt und bei <em>MEMORY_MEMORY_END_P = 16M + 32M = 48M</em> endet. Der Bereich darunter (ab 1M) ist also für die text, data und bss Segmente des Kernels<br/><br/>malloc() gibt einen Zeiger auf einen Bereich mit der kleinstmöglichen Speicherklasse zurück. Die Speicherklasse bestimmt die Größe des zugewiesenen Speicherbereichs folgendermaßen: <em>Größe = 1 &lt;&lt; Klasse</em>. Die kleinste Klasse ist <em>MEMORY_CLASS_START = 12</em>, da <em>1 &lt;&lt; 12 == MEMORY_PAGE_SIZE == 4K</em>. Die Anzahl unterschiedlicher Speicherklassen wird mit <em>MEMORY_SHIFT_LIMIT = 6</em> festgelegt. Die größte Klasse (inklusive) ist somit <em>MEMORY_CLASS_END = 12 + 6 = 18</em>.<br/><br/>Wie der Speicher mit <em>MEMORY_SHIFT_LIMIT = 2</em> und <em>MEMORY_PAGES = 8</em> aufgeteilt werden würde, zeigt folgendes Beispiel:<br/><br/><tt class="bbc_tt">0x00000 +---+<br/>        |   | 16x Blöcke der Größe  4K = 64K<br/>        |   |<br/>        |   |<br/>        |   |<br/>0x10000 +---+<br/>        |   |  4x Blöcke der Größe  8K = 32K<br/>        |   |<br/>0x18000 +---+<br/>        |   |  2x Blöcke der Größe 16K = 32K<br/>        |   |<br/>0x20000 +---+</tt><br/><br/>Das Ganze hat dann noch einen Offset von <em>MEMORY_MEMORY_START_P</em>. Die letzte Klasse bekommt dabei einen Slot mehr, da der Platz nun nicht weiter aufgeteilt wird.<br/><br/>Die Referenzen auf printf(), print_str() und halt() müssen in der Umgebung des Kernels aufgelöst werden. Um die Bitmaps zu löschen, muss vor dem ersten malloc() mem_init() ausgeführt werden.<br/><br/>Das Laufzeitverhalten kann verbessert werden, indem freie Slots im Hintergrund gesucht werden. Die Speicherverwaltung weist keine externe Fragmentierung auf und ist weitestgehend robust implementiert, was aber durch Redundanz und/oder Asserts noch gesteigert werden kann.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_35752">
+								« <em>Letzte Änderung: 17. August 2012, 23:48 von Dimension</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg35754"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Jidder</a>
+</h4>
+<ul class="reset smalltext" id="msg_35754_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 1 625</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #1 am:</strong> 18. August 2012, 01:10 »</div>
+<div class="posttile"><h5 id="subject_35754">
+<a href="index.html#msg35754" rel="nofollow">Re: Kernel malloc/free, kompakt und leichtgewichtig</a>
+</h5></div>
+<div id="msg_35754_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_35754">Ich würde das nicht als malloc/free bezeichnen. Was dein Code da verwaltet, ist physischer Speicher mit der Granularität einer Seitengröße. Unter malloc/free würde ich Byte-Granularität (plus ggf. geringen Overhead/Fragmentierung) erwarten. Darüber hinaus sollten bei einem modernen System malloc/free auf virtuellem Speicher arbeiten.<br/><br/>Immerhin heißen die Funktionen im Code nicht malloc/free. Gerade wenn man Code anderen zur Verfügung stellt, ist es problematisch, wenn er nicht das tut, was der Name verspricht.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg35752">Zitat von: Dimension am 17. August 2012, 23:46</a></div></div><blockquote class="bbc_standard_quote">Die Speicherverwaltung weist keine externe Fragmentierung auf</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dafür aber interne Fragmentierung. Wenn ich die Implementierung richtig verstehe, kann dein Allokator maximal 8192x mem_alloc(1) bedienen, und hat dann die kompletten 32 MB verbraucht. Und dann macht dein Algorithmus noch etwas, das irgendwie über interne und externe Fragmentierung hinausgeht. Er kann maximal 2x mem_alloc(200000) erfolgreich bedienen, was 0,5 MB Speicher verbraucht. Die freien 31,5 MB können nicht mehr für weitere mem_alloc(200000) verwendet werden.<br/><br/>Übrigens hat das Wiki auch ein paar interessante Vorschläge für die <a class="bbc_link" href="../../../wiki/pages/1591/index.html" target="_blank">Speicherwaltung</a>.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_35754">
+								« <em>Letzte Änderung: 18. August 2012, 01:12 von Jidder</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_35754_signature">Dieser Text wird unter jedem Beitrag angezeigt.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg35755"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Dimension</a>
+</h4>
+<ul class="reset smalltext" id="msg_35755_extra_info">
+<li class="postcount">Beiträge: 155</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #2 am:</strong> 18. August 2012, 08:36 »</div>
+<div class="posttile"><h5 id="subject_35755">
+<a href="index.html#msg35755" rel="nofollow">Re: Kernel malloc/free, kompakt und leichtgewichtig</a>
+</h5></div>
+<div id="msg_35755_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_35755">Ich habe das geschrieben, um eine Umgebung für NetBSD-Treiber bereitzustellen. Wobei alle möglichen allocs, frees und reallocs umgeleitet werden.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg35754">Zitat von: Jidder am 18. August 2012, 01:10</a></div></div><blockquote class="bbc_standard_quote">Er kann maximal 2x mem_alloc(200000) erfolgreich bedienen, was 0,5 MB Speicher verbraucht. Die freien 31,5 MB können nicht mehr für weitere mem_alloc(200000) verwendet werden.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/>Deshalb ist das auch eine Speichervewaltung für <span class="bbc_u">Test</span>-Kernel. Es ging mir in erster Linie darum Speicher-Bereiche mit der Größe von mehr als einer Seite in möglichst wenig Code bereitzustellen.<br/><br/>Die entsprechenden Artikel im Wiki habe ich mir, neben praktischen Beispielen aus realen Kerneln, angeschaut. Ich hatte gehofft, dass ich einen weiteren Artikel im Wiki hinzufügen könnte.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_35755">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg35769"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Dimension</a>
+</h4>
+<ul class="reset smalltext" id="msg_35769_extra_info">
+<li class="postcount">Beiträge: 155</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #3 am:</strong> 20. August 2012, 13:40 »</div>
+<div class="posttile"><h5 id="subject_35769">
+<a href="index.html#msg35769" rel="nofollow">Re: Kernel malloc/free, kompakt und leichtgewichtig</a>
+</h5></div>
+<div id="msg_35769_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_35769">Was gibt es beim Erstellen eines neuen Artikels im Wiki zu beachten? Gibt es eine Seite mit Richtlinien und Hilfestellungen?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_35769">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg35770"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_35770_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #4 am:</strong> 20. August 2012, 15:48 »</div>
+<div class="posttile"><h5 id="subject_35770">
+<a href="index.html#msg35770" rel="nofollow">Re: Kernel malloc/free, kompakt und leichtgewichtig</a>
+</h5></div>
+<div id="msg_35770_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_35770">Sowas?<br/><br/><a class="bbc_link" href="../../../wiki/pages/2049/index.html" target="_blank">http://www.lowlevel.eu/wiki/Wiki-Crashkurs</a><br/><a class="bbc_link" href="../../../wiki/pages/1832/index.html" target="_blank">http://www.lowlevel.eu/wiki/Designrichtlinien</a><br/><br/>Und vor allem natürlich: Nur korrekte und nützliche Informationen ins Wiki schreiben. Das Wiki soll helfen, nicht noch mehr verwirren.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_35770">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_35770_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] 
+				</div></div>
+<div class="nextlinks_bottom"><a href="../3087/index.html#msg35788">« vorheriges</a> <a href="../3078/index.html#msg35729">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Kernel malloc/free, kompakt und leichtgewichtig</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.007 Sekunden mit 31 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

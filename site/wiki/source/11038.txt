@@ -1,0 +1,83 @@
+{{Infobox OS
+| Name = FruityOrange
+| Logo = [[Bild:FruityOrangeLogo.png]]
+| Version = 0.04
+| Entwickler = [[Benutzer:Micha.linuxfreak|Micha]]
+| Lizenz = [[Lizenz#GNU_General_Public_License|GNU General Public License]]
+| Kernel = [[Kernel#Monolithischer_Kernel|Monolithisch]]
+| API = nativ
+| Binaerformat = [[ELF]]
+| Sprache = [[C]] ([[Assembler]])
+| Plattform = [[x86|i386]]
+| IPC = ---
+| Homepage = https://github.com/micha-/FruityOrange<br/>https://code.google.com/p/fruityorange/
+}}
+FruityOrange ist ein Betriebssystem für den [[x86|i386]], welches [[GRUB]] als Bootloader benutzt.
+<br/><br/>
+== Features ==
+* Higherhalf-Kernel mit GDT Trick
+* printf, panic, debug
+* [[GDT]], [[Interrupt|Interrupts]]
+* [[Physische Speicherverwaltung]], [[Paging]], [[Heap]]
+* [[Multitasking]], Elf32-loader
+=== Treiber ===
+* [[Textausgabe|CGA Grafik]] ;)
+* [[Keyboard_Controller|Tastatur (KBC)]]
+* [[PIT]]
+* [[CMOS|CMOS / RTC]]
+
+== Syscalls ==
+
+{| {{prettytable}}
+!Nummer (in %eax)
+!Name
+!Beschreibung
+!ebx
+!ecx
+!edx
+|-
+|0
+|exit
+|Beendet das aktuelle programm
+|exit-Status
+|
+|
+|-
+|1
+|putc
+|Gibt ein Zeichen auf dem Bildschirm aus
+|Zeichen
+|
+|
+|-
+|2
+|puts
+|Gibt einen String auf dem Bildschirm aus
+|Pointer zum String
+|L&auml;nge des Strings
+|
+|-
+|3
+|getch
+|Wartet auf einen Tastendruck
+|Hier wird der ASCII-Code des gedrückten Zeichens reingeschrieben
+|
+|
+|-
+|4
+|gets
+|Liest einen String &uuml;ber die Tastatur ein.
+|Pointer zum String (muss vorher abgespeichert werden)
+|L&auml;nge des eingegebenen Strings (wird hier reingeschrieben)
+|
+|-
+|5
+|usleep
+|Legt das Programm f&uuml;r %ebx Mikrosekunden schlafen
+|Anzahl der Mikrosekunden, die zu warten sind
+|
+|
+|}
+
+
+[[Category:Betriebssystem]]

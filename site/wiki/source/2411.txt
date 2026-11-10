@@ -1,0 +1,307 @@
+Ein '''Complementary Metal Oxide Semiconductor''' (= '''CMOS''') ist eigentlich ein elektronischer Baustein, aber im Bereich der Betriebssystemprogrammierung ist damit meistens der Batterie-gepufferte SRAM eines [[x86]]- bzw. [[x86-64]]-Computers gemeint. In diesem speichert das [[BIOS]] Informationen beispielsweise über die angeschlossene Hardware. Außerdem wird darin die momentane Uhrzeit und das Datum gespeichert und von einer Echtzeituhr aktualisiert.
+
+== Aufbau ==
+
+Im CMOS werden folgende jeweils 1 Byte große Felder gespeichert.
+Die mit ''BCD'' markierten Einträge sind standardmässig im [[BCD | BCD-Format]] kodiert.
+
+<br>
+<center>
+{| border="1" cellspacing="0"
+|-
+! Offset
+! Beschreibung
+|-
+| 0x00 || Sekunde (BCD)
+|-
+| 0x01 || Alarmsekunde (BCD)
+|-
+| 0x02 || Minute (BCD)
+|-
+| 0x03 || Alarmminute (BCD)
+|-
+| 0x04 || Stunde (BCD)
+|-
+| 0x05 || Alarmstunde (BCD)
+|-
+| 0x06 || Wochentag (BCD)
+|-
+| 0x07 || Tag des Monats (BCD)
+|-
+| 0x08 || Monat (BCD)
+|-
+| 0x09 || Jahr (letzten zwei Stellen) (BCD)
+|-
+| 0x0A || [[#0x0A - Statusregister A | Statusregister A]]
+|-
+| 0x0B || [[#0x0B - Statusregister B | Statusregister B]]
+|-
+| 0x0C || [[#0x0C - Statusregister C | Statusregister C]] (schreibgeschützt)
+|-
+| 0x0D || [[#0x0D - Statusregister D | Statusregister D]] (schreibgeschützt)
+|-
+| 0x0E || [[#0x0E - POST-Diagnoesstatusbyte | POST-Diagnosestatusbyte]]
+|-
+| 0x0F || [[#0x0F - Shutdown-Statusbyte | Shutdown-Statusbyte]]
+|-
+| 0x10 || [[#0x10 - Typ der  Diskettenlaufwerke | Typ der Diskettenlaufwerke]]
+|-
+| 0x11 || reserviert 
+|-
+| 0x12 || [[#0x12 - Typ der Festplattenlaufwerke | Typ der Festplattenlaufwerke]]
+|-
+| 0x13 || reserviert
+|-
+| 0x14 || [[#0x14 - Gerätebyte | Gerätebyte]]
+|-
+| 0x15 || Größe des Basisspeichers in kB (niederwertiges Byte)
+|-
+| 0x16 || Größe des Basisspeichers in kB (höherwertiges Byte)
+|-
+| 0x17 || Größe des Erweiterungsspeichers in kB (niederwertiges Byte)
+|-
+| 0x18 || Größe des Erweiterungsspeichers in kB (höherwertiges Byte)
+|-
+| 0x19 || Erweiterungsbyte 1. Festplatte
+|-
+| 0x1A || Erweiterungsbyte 2. Festplatte
+|-
+| 0x1B - 0x1F || Reserviert
+|-
+| 0x20 - 0x27 || Parameter vom 1. benutzerdefinierten Festplattentyp
+|-
+| 0x28 - 0x2D || Reserviert
+|-
+| 0x2E || [[#0x2E & 0x2F - CMOS-Prüfsumme | CMOS-Prüfsumme]] (niederwertiges Byte)
+|-
+| 0x2F || [[#0x2E & 0x2F - CMOS-Prüfsumme | CMOS-Prüfsumme]] (höherwertiges Byte)
+|-
+| 0x30 || Erweiterter Speicher (niederwertiges Byte)
+|-
+| 0x31 || Erweiterter Speicher (höherwertiges Byte)
+|-
+| 0x32 || Jahrhundert (BCD)
+|-
+| 0x35 - 0x3C || Parameter vom 2. benutzerdefinierten Festplattentyp
+|}
+</center>
+<br>
+
+=== 0x0A - Statusregister A ===
+<center>
+{| border="1" cellspacing="0"
+|-
+! Bit
+! Beschreibung
+|-
+| 7 || Zeit-Update-Zyklus (1 = Update läuft => Zeitangaben undefiniert)
+|-
+| 6-4 || Zeit-Basis (Standard = 010b = 32768 Hz)
+|-
+| 3-0 || Auswahl-Bits für Interrupt-Rate
+             0000b = kein Interrupt
+             0011b = alle 122 Mikrosekunden (minimum)
+             0110b = 976.562 Mikrosekunden (Standard)
+             1111b = 500 Millisekunden
+|}
+</center>
+<br>
+
+
+=== 0x0B - Statusregister B ===
+<center>
+{| border="1" cellspacing="0"
+|-
+! Bit
+! Beschreibung
+|-
+| 7 || Zeit-Update (0 = Zeit aktualisieren, 1 = Zeit-update anhalten)
+|-
+| 6 || Periodischer Interrupt mit Rate aus Statusregister A (0 = deaktiviert (Standard), 1 = aktiviert)
+|-
+| 5 || Alarm Interrupt wenn Uhrzeit = Alarmzeit (0 = deaktiviert (Standard), 1 = aktiviert)
+|-
+| 4 || Update-Interrupt (0 = deaktiviert (Standard), 1 = aktiviert)
+|-
+| 3 || Rechtecks-Frequenz mit Rate aus Statusregister A erzeugen (0 = deaktiviert (Standard), 1 = aktiviert)
+|-
+| 2 || Daten Modus (0 = BCD, 1 = Binär)
+|-
+| 1 || 24 Stundenformat (0 = 12 Stunden, 1 = 24 Stunden (Standard))
+|-
+| 0 || Sommerzeit (0 = deaktiviert (Standard), 1 = aktiviert)
+|}
+</center>
+<br>
+
+
+=== 0x0C - Statusregister C ===
+<center>
+{| border="1" cellspacing="0"
+|-
+! Bit
+! Beschreibung
+|-
+| 7 || Interrupt-Request (1 = RTC hat Interrupt angefordert)
+|-
+| 6 || IRQ-Quelle ist periodischer Interrupt (0 = nein, 1 = ja)
+|-
+| 5 || IRQ-Quelle ist Alarm-Interrupt (0 = nein, 1 = ja)
+|-
+| 4 || IRQ-Interrupt ist Update-Interrupt (0 = nein, 1 = ja)
+|-
+| 3-0 || Reserviert
+|}
+</center>
+<br>
+
+
+=== 0x0D - Statusregister D===
+<center>
+{| border="1" cellspacing="0"
+|-
+! Bit
+! Beschreibung
+|-
+| 7 || Gültigkeit der Daten im CMOS (0 = ungültig, 1 = Daten sind gültig)
+|-
+| 6-0 || Reserviert
+|}
+</center>
+<br>
+
+
+=== 0x0E - [[POST]]-Diagnosestatusbyte ===
+<center>
+{| border="1" cellspacing="0"
+|-
+! Bit
+! Beschreibung
+|-
+| 7 || Stromversorgung (0 = OK, 1 = Stromversorgung war unterbrochen)
+|-
+| 6 || CMOS-Prüfsumme (0 = OK, 1 = Prüfsumme falsch)
+|-
+| 5 || Konfiguration im CMOS stimmt mit ermittelten Werten überein (0 = OK, 1 = nein)
+|-
+| 4 || Speichergröße im CMOS == ermittelte Speichergröße  (0 = ja, 1 = nein)
+|-
+| 3 || Laufwerk bzw Controllerfehler (0 = OK, 1 = Fehler)
+|-
+| 2 || Uhrzeit gültig (0 = OK, 1 = Fehler)
+|-
+| 1 || Fehler bei Adapterinitialisierung (0 = OK, 1 = Fehler)
+|-
+| 0 || Timeout beim Adapter-ID lesen
+|}
+</center>
+<br>
+
+
+=== 0x0F - Shutdown-Statusbyte ===
+Prozessoren können nicht vom [[Protected Mode]] in den Realmode zurückgeschaltet werden. Zu diesem Zweck ist ein Prozessor-Reset nötig. Das Shutdown-Statusbyte dient dazu dem BIOS anzuzeigen ob der PC neu gebootet oder der Prozessor nur im Realmode neu gestartet werden soll.
+
+Werte des Bytes:
+ 0x00 - 0x03:  Power-On Reset durchführen
+ 0x04:  int 0x19-reboot
+ 0x05:  EOI an PIC ausgeben, Tastatur resetten, Sprung zur Addresse [0x0040:0x0067]
+ 0x09:  zurück zu int 0x15, Funktion 0x87 (Block im Extenden Memory verschieben)
+ 0x0A:  JMP zu [0x0040:0x0067]
+ 0x0B:  IRET zu [0x0040:0x0067]
+ 0x0C:  RET zu [0x0040:0x0067]
+<br>
+
+
+=== 0x10 - Typ der [[FDC | Diskettenlaufwerke]] ===
+In diesem Byte wird der Typ der [[FDC | Diskettenlaufwerke]] gespeichert, wobei in den Bits 4-7 der Typ des ersten Laufwerks gespeichert ist und in den Bits 0-3 der Typ des zweiten Laufwerks.
+Die Typen sind wie folgt kodiert:
+ 0000b = Laufwerk nicht vorhanden
+ 0001b = 5 1/4'' - 360 kB
+ 0010b = 5 1/4'' - 1.2 MB
+ 0011b = 3 1/2'' - 720 kB
+ 0100b = 2 1/2'' - 1.44 MB (sollte eigentlich heutzutage der Standard sein)
+ 0101b - 1111b sind unbenutzt
+<br>
+
+
+=== 0x12 - Typ der Festplattenlaufwerke ===
+In diesem Byte wird der Typ der Festplattenlaufwerke gespeichert, wobei in den Bits 4-7 der Typ des ersten Laufwerks gespeichert ist und in den Bits 0-3 der Typ des zweiten Laufwerks.
+Die Typen sind wie folgt kodiert:
+ 0000b = Laufwerk nicht vorhanden
+ 0001b - 1110b = Typen 1-14
+ 1111b = Typ laut Erweiterungsbyte der Festplatte
+<br>
+
+=== 0x14 - Gerätebyte ===
+Hier werden Informationen über die allgemeine Hardwarekonfiguration des PCs gespeichert.
+{| border="1"
+! Bits || 7-6 || 5-4 || 3 || 2 || 1 || 0
+|-
+| || Anzahl Floppys || Display-Typ || Display vorhanden? || Keyboard vorhanden? || Mathematischer Koprozessor vorhanden? || Floppy
+|}
+
+<b>Anzahl Floppys</b><br>
+Auf diesen Wert nur verlassen wenn Floppy=1<br>
+ 00b  1 Floppy-Laufwerk
+ 01b  2 Floppy-Laufwerke
+
+<b>Display-Typ</b>
+ 00b  BIOS-Display-Adapter
+ 01b  CGA (40 Spalten)
+ 10b  CGA (80 Spalten)
+ 11b  Monochrom
+
+
+=== 0x2E & 0x2F - CMOS-Prüfsumme ===
+Die CMOS-Prüfsumme ist eine 16 Bit grosse, byteweise Summe der Werte der Bytes von 0x10 bis 0x2D.
+
+== Programmierung ==
+
+Die Programmierung des CMOS ist denkbar einfach: Die sieben niederwertigen Bits des I/O Ports 0x70 dienen als Offset (siehe Tabelle). Das höchste Bit sollte nicht verändert werden, es dient als [[Non_Maskable_Interrupt | NMI]]-Markierungsregister. Durch Lesen bzw. Schreiben des I/O Ports 0x71 kann dann der Wert an diesem Offset gelesen bzw. geschrieben werden.
+
+<asm>
+;Ein Makro um ein Byte aus dem CMOS auszulesen
+;Der einzige Parameter ist das Offset des Bytes welches gelesen werden soll
+;Rückgabe ist das gelesene Byte in AL
+
+%macro read_byte 1
+  in al, 0x70         ;Bit 7 des Ports sichern
+  and al, 10000000b
+  or al, %1           ;Offset (Parameter 1) dazumixen
+  out 0x70, al        ;Offset setzen
+  in al, 0x71         ;Byte lesen
+%endmacro
+</asm>
+
+<c>
+#define CMOS_PORT_ADDRESS 0x70
+#define CMOS_PORT_DATA    0x71
+
+/**
+ * Liest ein Byte aus den CMOS
+ *  @param offset Offset im CMOS
+ *  @return Gelesener Wert
+ */
+u8 cmos_read(u8 offset) {
+  outb(CMOS_PORT_ADDRESS,offset&0x7F);
+  return inb(CMOS_PORT_DATA);
+}
+
+/**
+ * Schreibt ein Byte in das CMOS
+ *  @param offset Offset im CMOS
+ *  @param val Zu schreibender Wert
+ */
+void cmos_write(u8 offset,u8 val) {
+  outb(CMOS_PORT_ADDRESS,offset&0x7F);
+  outb(CMOS_PORT_DATA,val);
+}
+</c>
+
+== Weblinks ==
+* [http://de.wikipedia.org/wiki/Complementary_Metal_Oxide_Semiconductor Wikipedia: CMOS] (''deutsch'')
+* [http://www.nondot.org/sabre/os/files/MiscHW/RealtimeClockFAQ.txt Real Time Clock / CMOS Setup Reference] (''englisch'')
+* [http://www.bioscentral.com/misc/cmosmap.htm CMOS-Aufbau] (''englisch'')
+
+[[Category:Glossar]]
+[[Category:Hardware]]

@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Peripheral Component Interconnect – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Peripheral_Component_Interconnect rootpage-Peripheral_Component_Interconnect skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1626/index.html">Aktueller Artikel</a> · <a href="../../history/1626/index.html">Versionsgeschichte</a> · <a href="../../source/9887.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Peripheral Component Interconnect</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 29. Juni 2011, 17:47 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Mr. X</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Base-Address-Register">→</a>‎<span dir="auto"><span class="autocomment">Base-Address-Register: </span> Gramatik</span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/9566-9887.html" title="Peripheral Component Interconnect">Unterschied</a>) <a href="../9566/index.html" title="Peripheral Component Interconnect">← Nächstältere Version</a> | <a href="../../pages/1626/index.html" title="Peripheral Component Interconnect">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../11007/index.html" title="Peripheral Component Interconnect">Nächstjüngere Version →</a> (<a href="../../diffs/9887-11007.html" title="Peripheral Component Interconnect">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p><b>Peripheral Component Interconnect</b> (kurz <b>PCI</b>) ist ein <a href="../../pages/1769/index.html" title="Kategorie:Bus"> Bus</a> zur leichten Verbindung von Peripheriegeräten mit der CPU.
+</p><p>Die Informationen in diesem Artikel beziehen sich auch auf die vom klassischen PCI-Bus abgeleiteten Bus-Standards: PCI-Express, Hypertransport, PCI-X und AGP. Diese Busse basieren vom logischen Protokoll her auf PCI aber benutzen andere physikalische Daten-Übertragungsmechanismen bzw. andere Topologien.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Konfigurations-Adressraum"><span class="tocnumber">1</span> <span class="toctext">Konfigurations-Adressraum</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Aufbau_des_Konfigurations-Adressraum"><span class="tocnumber">1.1</span> <span class="toctext">Aufbau des Konfigurations-Adressraum</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#Header_Type_0x00"><span class="tocnumber">1.1.1</span> <span class="toctext">Header Type 0x00</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="#Header_Type_0x01"><span class="tocnumber">1.1.2</span> <span class="toctext">Header Type 0x01</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-5"><a href="#Bedeutung_einiger_Register"><span class="tocnumber">1.2</span> <span class="toctext">Bedeutung einiger Register</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Status-Register"><span class="tocnumber">1.2.1</span> <span class="toctext">Status-Register</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Command-Register"><span class="tocnumber">1.2.2</span> <span class="toctext">Command-Register</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Base-Address-Register"><span class="tocnumber">1.2.3</span> <span class="toctext">Base-Address-Register</span></a>
+<ul>
+<li class="toclevel-4 tocsection-9"><a href="#Base-Address-Register_f.C3.BCr_Speicher-Ressourcen_mit_32-Bit-Adresse"><span class="tocnumber">1.2.3.1</span> <span class="toctext">Base-Address-Register für Speicher-Ressourcen mit 32-Bit-Adresse</span></a></li>
+<li class="toclevel-4 tocsection-10"><a href="#Base-Address-Register_f.C3.BCr_Speicher-Ressourcen_mit_64-Bit-Adresse"><span class="tocnumber">1.2.3.2</span> <span class="toctext">Base-Address-Register für Speicher-Ressourcen mit 64-Bit-Adresse</span></a></li>
+<li class="toclevel-4 tocsection-11"><a href="#Base-Address-Register_f.C3.BCr_IO-Ressourcen"><span class="tocnumber">1.2.3.3</span> <span class="toctext">Base-Address-Register für IO-Ressourcen</span></a></li>
+<li class="toclevel-4 tocsection-12"><a href="#Beispiel-Code_zur_BAR-Analyse"><span class="tocnumber">1.2.3.4</span> <span class="toctext">Beispiel-Code zur BAR-Analyse</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="#Zugriff_auf_den_Konfigurations-Adressraum"><span class="tocnumber">1.3</span> <span class="toctext">Zugriff auf den Konfigurations-Adressraum</span></a>
+<ul>
+<li class="toclevel-3 tocsection-14"><a href="#Aufbau_des_Adress-I.2FO-Ports"><span class="tocnumber">1.3.1</span> <span class="toctext">Aufbau des Adress-I/O-Ports</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#Codebeispiel"><span class="tocnumber">1.3.2</span> <span class="toctext">Codebeispiel</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Classcodes"><span class="tocnumber">2</span> <span class="toctext">Classcodes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-17"><a href="#Class_0x00_-_Pre_2.0"><span class="tocnumber">2.1</span> <span class="toctext">Class 0x00 - Pre 2.0</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Class_0x01_-_Massenspeicher"><span class="tocnumber">2.2</span> <span class="toctext">Class 0x01 - Massenspeicher</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#Class_0x02_-_Netzwerk-Controller"><span class="tocnumber">2.3</span> <span class="toctext">Class 0x02 -  Netzwerk-Controller</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#Class_0x03_-_Bildschirm-Controller"><span class="tocnumber">2.4</span> <span class="toctext">Class 0x03 - Bildschirm-Controller</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#Class_0x04_-_Multimedia-Ger.C3.A4te"><span class="tocnumber">2.5</span> <span class="toctext">Class 0x04 - Multimedia-Geräte</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#Class_0x05_-_Speicher-Controller"><span class="tocnumber">2.6</span> <span class="toctext">Class 0x05 - Speicher-Controller</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="#Class_0x06_-_Bridge-Ger.C3.A4te"><span class="tocnumber">2.7</span> <span class="toctext">Class 0x06 - Bridge-Geräte</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="#Class_0x07_-_Controller_zur_einfachen_Kommunikation"><span class="tocnumber">2.8</span> <span class="toctext">Class 0x07 - Controller zur einfachen Kommunikation</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="#Class_0x08_-_System-Peripherie"><span class="tocnumber">2.9</span> <span class="toctext">Class 0x08 - System-Peripherie</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="#Class_0x09_-_Input-Ger.C3.A4te"><span class="tocnumber">2.10</span> <span class="toctext">Class 0x09 - Input-Geräte</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="#Class_0x0A_-_Docking-Stationen"><span class="tocnumber">2.11</span> <span class="toctext">Class 0x0A - Docking-Stationen</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="#Class_0x0B_-_Prozessoren"><span class="tocnumber">2.12</span> <span class="toctext">Class 0x0B - Prozessoren</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="#Class_0x0C_-_Serielle_Buscontroller"><span class="tocnumber">2.13</span> <span class="toctext">Class 0x0C - Serielle Buscontroller</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="#Class_0x0D_-_Wireless-Controller"><span class="tocnumber">2.14</span> <span class="toctext">Class 0x0D - Wireless-Controller</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="#Class_0x0E_-_Intelligente_Controller"><span class="tocnumber">2.15</span> <span class="toctext">Class 0x0E - Intelligente Controller</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="#Class_0x0F_-_Satelliten-Kommunikations-Controller"><span class="tocnumber">2.16</span> <span class="toctext">Class 0x0F - Satelliten-Kommunikations-Controller</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="#Class_0x10_-_Encryption.2FDecryption-Controller"><span class="tocnumber">2.17</span> <span class="toctext">Class 0x10 - Encryption/Decryption-Controller</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="#Class_0x11_-_Datenerfassungs-_und_Signalprozessor-Controller"><span class="tocnumber">2.18</span> <span class="toctext">Class 0x11 - Datenerfassungs- und Signalprozessor-Controller</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-35"><a href="#Weblinks"><span class="tocnumber">3</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Konfigurations-Adressraum">Konfigurations-Adressraum</span></h2>
+<p>Jedes PCI-Gerät besitzt einen eigenen Konfigurations-Adressraum, welcher 256 Byte groß ist und verschiedene Konfigurations-Register enthält. Bei PCI-Express, Hypertransport und PCI-X ist der Konfigurations-Adress-Raum 4096 Byte groß. Auf den Konfigurations-Adressraum kann immer Zugegriffen werden, unabhängig vom Zustand des PCI-Geräts (von den Zuständen "defekt", "ausgebaut" oder "abgeschaltet" mal abgesehen). Für den Zugriff auf den Konfigurations-Adressraum werden die PCI-Geräte über ihre Bus-Nummer, Device-Nummer und Function-Nummer angesprochen, dazu müssen eventuelle PCI-to-PCI-Bridges korrekt konfiguriert sein.
+</p>
+<h3><span class="mw-headline" id="Aufbau_des_Konfigurations-Adressraum">Aufbau des Konfigurations-Adressraum</span></h3>
+<p>Im Konfigurations-Adressraum sind die ersten 64 Byte fest für den Basis-Header reserviert. Die restlichen Bytes stehen zur freien Nutzung durch das Gerät zur Verfügung, in diesem Bereich sind auch die Capabilities untergebracht.
+</p><p>Im Basis-Header sind die Bytes 0x000 &amp;#150; 0x00F, 0x034, 0x03C und 0x03D für alle PCI-Geräte identisch definiert. Diese Bytes dienen dazu, das PCI-Gerät zu klassifizieren und identifizieren.
+</p>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>Register</th>
+<th width="22%">31-24</th>
+<th width="22%">23-16</th>
+<th width="22%">15-8</th>
+<th width="22%">7-0
+</th></tr>
+<tr align="center">
+<td>0x000</td>
+<td colspan="2">Device ID</td>
+<td colspan="2">Vendor ID
+</td></tr>
+<tr align="center">
+<td>0x004</td>
+<td colspan="2">Status</td>
+<td colspan="2">Command
+</td></tr>
+<tr align="center">
+<td>0x008</td>
+<td colspan="3">Classcode</td>
+<td>Revision ID
+</td></tr>
+<tr align="center">
+<td>0x00C</td>
+<td>BIST</td>
+<td>Header Type</td>
+<td>Latency Timer</td>
+<td>Cache Line Size
+</td></tr>
+<tr align="center">
+<td>0x010</td>
+<td bgcolor="#bbb" colspan="4">Header Type Specific
+</td></tr>
+<tr align="center">
+<td>0x014</td>
+<td bgcolor="#bbb" colspan="4">Header Type Specific
+</td></tr>
+<tr align="center">
+<td>0x018</td>
+<td bgcolor="#bbb" colspan="4">Header Type Specific
+</td></tr>
+<tr align="center">
+<td>0x01C</td>
+<td bgcolor="#bbb" colspan="4">Header Type Specific
+</td></tr>
+<tr align="center">
+<td>0x020</td>
+<td bgcolor="#bbb" colspan="4">Header Type Specific
+</td></tr>
+<tr align="center">
+<td>0x024</td>
+<td bgcolor="#bbb" colspan="4">Header Type Specific
+</td></tr>
+<tr align="center">
+<td>0x028</td>
+<td bgcolor="#bbb" colspan="4">Header Type Specific
+</td></tr>
+<tr align="center">
+<td>0x02C</td>
+<td bgcolor="#bbb" colspan="4">Header Type Specific
+</td></tr>
+<tr align="center">
+<td>0x030</td>
+<td bgcolor="#bbb" colspan="4">Header Type Specific
+</td></tr>
+<tr align="center">
+<td>0x034</td>
+<td bgcolor="#bbb" colspan="3">Header Type Specific</td>
+<td>Capabilities Pointer
+</td></tr>
+<tr align="center">
+<td>0x038</td>
+<td bgcolor="#bbb" colspan="4">Header Type Specific
+</td></tr>
+<tr align="center">
+<td>0x03C</td>
+<td bgcolor="#bbb" colspan="2">Header Type Specific</td>
+<td>Interrupt Pin</td>
+<td>Interrupt Line
+</td></tr></tbody></table>
+<ul><li>Die <i>Vendor ID</i>s werden von PCI-SIG verwaltet und den Herstellern zugewiesen. Der Wert 0xffff ist für den Fall reserviert, dass an dieser Stelle kein Gerät vorhanden ist.</li>
+<li>Die <i>Device ID</i>s verwalten die Hardwarehersteller selbst. Sie dient zusammen mit der <i>Vendor ID</i> der eindeutigen Identifikation des Gerätes.</li>
+<li>Im <i>Status</i>-Register werden verschiedene Basis-Status und Gerät-Fähigkeiten angezeigt.</li>
+<li>Im <i>Command</i>-Register werden verschiedene Basis-Konfigurationen vorgenommen.</li>
+<li><i>Classcode</i> ist noch einmal geteilt. Die oberen 8 Bit (Byte 0x00B) repräsentieren die <i>Base Class</i>, die mittleren 8 Bit (Byte 0x00A) stehen für die <i>Subclass</i> und die unteren 8 Bit (Byte 0x009) für das <i>Programming Interface</i>.</li>
+<li>Die <i>Revision ID</i> wird vom Hardwarehersteller selbst verwaltet.</li>
+<li>Mit dem <i>BIST</i>-Register kann ein gerätespezifischer Selbsttest ausgelöst und ausgewertet werden. Diese Funktion ist optional und wird nur von wenigen PCI-Geräten unterstützt.</li>
+<li><i>Header Type</i> spezifiziert den Inhalt der Register 0x010 &amp;#150; 0x03F. Dabei gibt Bit 7 an, ob es sich um ein Multifunction-Device handelt oder nicht, in dem Fall muss das Bit 7 in allen vorhandenen Funktionen gesetzt sein.</li></ul>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>Header Type</th>
+<th>Kurze Beschreibung
+</th></tr>
+<tr align="center">
+<td>0x00</td>
+<td><a href="#Header_Type_0x00">Standard</a>
+</td></tr>
+<tr align="center">
+<td>0x01</td>
+<td><a href="#Header_Type_0x01">PCI/PCI-Bridge</a>
+</td></tr>
+<tr align="center">
+<td>0x02</td>
+<td>CardBus-Bridge
+</td></tr></tbody></table>
+<ul><li>Der <i>Capabilities Pointer</i> zeigt, falls er gültig ist, auf die erste Capability-Struktur, welche der Start einer verketteten Liste ist. Für gültige Capabilities Pointer sind nur Werte von 0x40 bis 0xF0 erlaubt.</li>
+<li>Im <i>Interrupt Pin</i>-Register wird angegeben, welches Interrupt-Pin das Gerät verwendet. 0x00 steht für kein Interrupt-Signal, trotzdem kann noch <a class="mw-redirect" data-archive-original-href="../../pages/2401/index.html" href="../../pages/2400/index.html" title="MSI">MSI</a>(-X) benutzt werden. Die Werte 0x01 bis 0x04 stehen für #INTA bis #INTD, alle anderen Werte sind nicht erlaubt. Bei Singlefunction-Devices ist nur Pin #INTA erlaubt. Bei Multifunction-Devices dürfen auch #INTB bis #INTD benutzt werden, es dürfen auch mehrere Funktionen in einem PCI-Gerät sich eine Interrupt-Leitung teilen.</li>
+<li>Im <i>Interrupt Line</i>-Register legt das BIOS die zugewiesene x86-Interrupt-Nummer ab, welche das #INT?-Signal des betreffendem PCI-Geräts auslöst. Diese Info ist nur relevant wenn man die IRQs über den klassischen PIC vermitteln lässt, wenn die APICs benutzt werden ist diese Info unter Umständen nur noch von begrenztem Nutzen. Diese Info ist eine reine Freundlichkeit des BIOS der x86-Plattform, auf allen anderen Plattformen bleibt dieses Register leer. Dem PCI-Gerät ist der Wert in diesem Register egal und wird es auch nicht verändern. Falls das PCI-Gerät keine Interrupts benutzt, oder nur per MSI(-X) signalisiert, kann dieses Register auch fest auf 0x00 geklemmt sein.</li></ul>
+<h4><span class="mw-headline" id="Header_Type_0x00">Header Type 0x00</span></h4>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>Register</th>
+<th width="22%">31-24</th>
+<th width="22%">23-16</th>
+<th width="22%">15-8</th>
+<th width="22%">7-0
+</th></tr>
+<tr align="center">
+<td>0x010</td>
+<td colspan="4">Base Address #0 (BAR0)
+</td></tr>
+<tr align="center">
+<td>0x014</td>
+<td colspan="4">Base Address #1 (BAR1)
+</td></tr>
+<tr align="center">
+<td>0x018</td>
+<td colspan="4">Base Address #2 (BAR2)
+</td></tr>
+<tr align="center">
+<td>0x01C</td>
+<td colspan="4">Base Address #3 (BAR3)
+</td></tr>
+<tr align="center">
+<td>0x020</td>
+<td colspan="4">Base Address #4 (BAR4)
+</td></tr>
+<tr align="center">
+<td>0x024</td>
+<td colspan="4">Base Address #5 (BAR5)
+</td></tr>
+<tr align="center">
+<td>0x028</td>
+<td colspan="4">Cardbus CIS Pointer
+</td></tr>
+<tr align="center">
+<td>0x02C</td>
+<td colspan="2">Subsystem ID</td>
+<td colspan="2">Subsystem Vendor ID
+</td></tr>
+<tr align="center">
+<td>0x030</td>
+<td colspan="4">Expansion ROM base address
+</td></tr>
+<tr align="center">
+<td>0x034</td>
+<td bgcolor="#bbb" colspan="3">Reserviert</td>
+<td>Capabilities Pointer
+</td></tr>
+<tr align="center">
+<td>0x038</td>
+<td bgcolor="#bbb" colspan="4">Reserviert
+</td></tr>
+<tr align="center">
+<td>0x03C</td>
+<td>Max Latency</td>
+<td>Min Grant</td>
+<td>Interrupt Pin</td>
+<td>Interrupt Line
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="Header_Type_0x01">Header Type 0x01</span></h4>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>Register</th>
+<th width="22%">31-24</th>
+<th width="22%">23-16</th>
+<th width="22%">15-8</th>
+<th width="22%">7-0
+</th></tr>
+<tr align="center">
+<td>0x010</td>
+<td colspan="4">Base Address #0 (BAR0)
+</td></tr>
+<tr align="center">
+<td>0x014</td>
+<td colspan="4">Base Address #1 (BAR1)
+</td></tr>
+<tr align="center">
+<td>0x018</td>
+<td>Secondary latency timer</td>
+<td>Subordinate bus №</td>
+<td>Secondary bus №</td>
+<td>Primary bus №
+</td></tr>
+<tr align="center">
+<td>0x01C</td>
+<td colspan="2">Secondary Status</td>
+<td>I/O Limit</td>
+<td>I/O base
+</td></tr>
+<tr align="center">
+<td>0x020</td>
+<td colspan="2">Memory limit</td>
+<td colspan="2">Memory base
+</td></tr>
+<tr align="center">
+<td>0x024</td>
+<td colspan="2">Prefetchable memory limit</td>
+<td colspan="2">Prefetchable memory base
+</td></tr>
+<tr align="center">
+<td>0x028</td>
+<td colspan="4">Prefetchable base upper 32 bits
+</td></tr>
+<tr align="center">
+<td>0x02C</td>
+<td colspan="4">Prefetchable limit upper 32 bits
+</td></tr>
+<tr align="center">
+<td>0x030</td>
+<td colspan="2">I/O limit upper 16 bits</td>
+<td colspan="2">I/O base upper 16 bits
+</td></tr>
+<tr align="center">
+<td>0x034</td>
+<td bgcolor="#bbb" colspan="3">Reserviert</td>
+<td>Capabilities pointer
+</td></tr>
+<tr align="center">
+<td>0x038</td>
+<td colspan="4">Extension ROM base address
+</td></tr>
+<tr align="center">
+<td>0x03C</td>
+<td colspan="2">Bridge control</td>
+<td>Interrupt pin</td>
+<td>Interrupt line
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Bedeutung_einiger_Register">Bedeutung einiger Register</span></h3>
+<h4><span class="mw-headline" id="Status-Register">Status-Register</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Name</th>
+<th>Typ</th>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>3</td>
+<td>Interrupt Status</td>
+<td>RO / dynamic</td>
+<td>Wenn dieses Bit auf 1 gesetzt ist möchte das betreffende PCI-Gerät einen Interrupt über sein #INT?-Signal melden. Nur wenn das Bit 10 im Command-Register gelöscht ist wird auch tatsächlich ein Interrupt (an den PIC o.ä.) signalisiert. Falls das PCI-Gerät keine Interrupts benutzt oder diese ausschließlich per <a class="mw-redirect" data-archive-original-href="../../pages/2401/index.html" href="../../pages/2400/index.html" title="MSI">MSI</a>(-X) signalisiert kann dieses Bit fest auf 0 geklemmt sein. Auf Bridges meldet dieses Bit nur eigene Interrupts, durch geleitete Interrupts, von sekundären Bussen zum übergeordnetem Bus, beeinflussen dieses Bit nicht.
+</td></tr>
+<tr>
+<td>4</td>
+<td>Capabilities List</td>
+<td>RO / fix</td>
+<td>Wenn dieses Bit auf 1 gesetzt ist ist der Capabilities-Pointer (Offset 0x034) gültig.<br/>Bei PCI-Express, Hypertransport und PCI-X (und wahrscheinlich auch AGP) muss dieses Bit immer gesetzt sein da dort bus-spezifische Capabilities Pflicht sind.
+</td></tr>
+<tr>
+<td>5</td>
+<td>66 MHz Capable</td>
+<td>RO / fix</td>
+<td>Dieses Bit gibt an ob eine PCI-Karte nicht nur mit maximal 33 MHz-Bus-Takt arbeiten kann sondern bis zu 66 MHz verträgt. Nur wenn alle PCI-Geräte auf dem betreffenden physischen PCI-Bus-Segment mit mehr als 33 MHz umgehen können darf dieses Bus-Segment auch mit mehr als 33 MHz, bis maximal 66 MHz, betrieben werden.<br/>Dieses Bit ist nur beim klassischen PCI gültig und bei allen PCI-Nachfolgern immer fest auf 0 geklemmt, außer bei AGP dort ist es immer fest auf 1 geklemmt. Für die Software hat dieses Bit keine Bedeutung, auf dem PCI-Bus wird die Geschwindigkeit in Hardware ausgehandelt, wenn die Software auf den Konfigurations-Adressraum der angeschlossenen Geräte zugreifen kann ist der Bus bereits funktionsfähig.
+</td></tr>
+<tr>
+<td>7</td>
+<td>Fast Back-to-Back Transactions Capable</td>
+<td>RO / fix</td>
+<td>Wenn diese Bit gesetzt ist bedeutet dasss dass das betreffende PCI-Gerät die minimal schnelleren Back-to-Back Transfers unterstützt. Als Target werden diese Transfers immer unterstützt, aber als Master dürfen diese Transfers nur benutzt werden falls das Bit 9 im Command-Register gesetzt ist.
+</td></tr>
+<tr>
+<td>8</td>
+<td>Master Data Parity Error</td>
+<td>RW1C / dynamic</td>
+<td><i>TODO</i>
+</td></tr>
+<tr>
+<td>10-9</td>
+<td>DEVSEL Timing</td>
+<td>RO / fix</td>
+<td>Diese 2 Bits, als unsigned Integer betrachtet, geben an nach wie vielen PCI-Bus-Takten das PCI-Gerät erkannt hat ob es das Target eines Zugriffs ist. Gültige Werte sind 0, 1 und 2. Der Wert 3 darf nicht verwendet werden, jedes PCI-Gerät muss nach spätestens 2 Takten dekodiert haben ob es das gewünschte Target ist oder nicht. Im 3ten Takt wird dann eine eventuell vorhandene Subtractive-Bridge aktiv und nimmt den Transfer entgegen oder der Zugriff geht ins Leere und der Initiator meldet das als Fehler.
+</td></tr>
+<tr>
+<td>11</td>
+<td>Signalled Target-Abort</td>
+<td>RW1C / dynamic</td>
+<td><i>TODO</i>
+</td></tr>
+<tr>
+<td>12</td>
+<td>Received Target-Abort</td>
+<td>RW1C / dynamic</td>
+<td><i>TODO</i>
+</td></tr>
+<tr>
+<td>13</td>
+<td>Received Master-Abort</td>
+<td>RW1C / dynamic</td>
+<td><i>TODO</i>
+</td></tr>
+<tr>
+<td>14</td>
+<td>Signalled System Error</td>
+<td>RW1C / dynamic</td>
+<td><i>TODO</i>
+</td></tr>
+<tr>
+<td>15</td>
+<td>Detected Parity Error</td>
+<td>RW1C / dynamic</td>
+<td><i>TODO</i>
+</td></tr></tbody></table>
+<p>Nicht beschriebene Bits sind reserviert und liefern beim lesen eine 0. Die Bits im Status-Register sind entweder Read-Only (RO) oder lassen sich durch beschreiben mit einer 1 rücksetzen (RW1C), das beschreiben mit einer 0 hat keinen Effekt. Einige Bits ändern ihren Zustand nie (fix) und andere können ihren Zustand durch bestimmte Ereignisse ändern (dynamic).
+</p>
+<h4><span class="mw-headline" id="Command-Register">Command-Register</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Name</th>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>0</td>
+<td>IO Space</td>
+<td>Nur wenn dieses Bit gesetzt ist, kann der I/O-Raum des Geräts verwendet werden, sonst ist er deaktiviert.<br/>Falls das Gerät keine IO-Ports anbietet, ist dieses Bit fest auf 0 geklemmt.
+</td></tr>
+<tr>
+<td>1</td>
+<td>Memory Space</td>
+<td>Nur wenn dieses Bit gesetzt ist, können MMIO-Register verwendet werden, sonst sind diese deaktiviert.<br/>Falls das Gerät kein MMIO (oder andere Speicherbereiche) anbietet, ist dieses Bit fest auf 0 geklemmt.
+</td></tr>
+<tr>
+<td>2</td>
+<td>Bus Master</td>
+<td>Ist dieses Bit gesetzt, so darf das Gerät als Busmaster auf dem PCI-Bus arbeiten. Das ist z. B. für PCI-DMA notwendig (wird u. a. von Netzwerkkarten und (S)ATA-Host-Controllern verwendet).<br/>Falls das Gerät nicht busmasterfähig ist, ist dieses Bit fest auf 0 geklemmt.<br/>Wenn dieses Bit auf 0 steht, wird damit auch <a class="mw-redirect" data-archive-original-href="../../pages/2401/index.html" href="../../pages/2400/index.html" title="MSI">MSI</a>(-X) unterbunden.
+</td></tr>
+<tr>
+<td>3</td>
+<td>Special Cycles</td>
+<td>Wenn dieses Bit gelöscht ist, dann muss das Gerät alle Special Cycles auf dem PCI-Bus ignorieren. Special Cycles werden zum Broadcasten von speziellen Nachrichten an alle PCI-Geräte benutzt.<br/>Es gibt nur wenige PCI-Geräte, bei denen dieses Bit überhaupt beschreibbar ist, bei den meisten ist es fest auf 0 geklemmt. Bei PCI-Express ist es immer fest auf 0 geklemmt.
+</td></tr>
+<tr>
+<td>4</td>
+<td>Memory Write and Invalidate Enable</td>
+<td>Falls gesetzt, kann das Gerät diesen Befehl (Memory Write and Invalidate) ausführen, sonst muss es sich mit einem einfachen Memory Write begnügen.<br/>Bei PCI-Express ist dieses Bit immer fest auf 0 geklemmt.
+</td></tr>
+<tr>
+<td>5</td>
+<td>VGA Palette Snoop</td>
+<td>Dieses Bit ist nur für VGA-kompatible Geräte interessant (ist es gesetzt, so werden Zugriffe auf die VGA-Palettenregister gesondert behandelt), auf allen anderen Geräten ist es immer fest auf 0 geklemmt.<br/>Bei PCI-Express und Hypertransport ist dieses Bit immer fest auf 0 geklemmt, dort wird sowas in den Bridges konfiguriert.
+</td></tr>
+<tr>
+<td>6</td>
+<td>Parity Error Response</td>
+<td>Ist dieses Bit gesetzt, so wird bei Parityfehlern auf dem PCI-Bus das Detected-Parity-Error-Statusbit im Statusregister gesetzt. Nicht jede PCI-Hardware unterstützt die Generierung und Prüfung des Paritybits auf dem PCI-Bus, sodass dieses Bit dann fest auf 0 geklemmt ist. Daher sollte dieses Bit nur dann auf 1 gesetzt werden, wenn alle PCI-Geräte auf dem betreffenden physischen PCI-Bus-Segment die Parity-Bit-Generierung unterstützen.<br/>Bei PCI-Express und Hypertransport gibt es leistungsfähigere Fehlererkennungsmechanismen, deren Benutzung zu bevorzugen ist.
+</td></tr>
+<tr>
+<td>7</td>
+<td>IDSEL Stepping /<br/>Wait Cycle Control</td>
+<td>Dieses Bit war nur in den ersten PCI-Spezifikationen gültig (vor 2.0) und muss immer auf 0 gesetzt werden. Auf allen PCI-Geräten seit der PCI-Spezifikation 2.0 (ab 1993) ist dieses Bit immer fest auf 0 geklemmt.
+</td></tr>
+<tr>
+<td>8</td>
+<td>SERR# Enable</td>
+<td>Wenn dieses Bit gesetzt ist darf/soll das Gerät erkannte schwerwiegende Fehler (z. B. Parityfehler während der Adressierungsphase oder ungültige Kommandos) über die extra #SERR-Leitung, oder bei PCI-Express über spezielle Messages, melden. Solche Fehler lösen für gewöhnlich einen NMI oder eine Machine-Check-Exception aus.<br/>Bei PCI-Express und Hypertransport gibt es leistungsfähigere Fehlererkennungsmechanismen, deren Benutzung zu bevorzugen ist.
+</td></tr>
+<tr>
+<td>9</td>
+<td>Fast Back-to-Back Enable</td>
+<td>Wenn dieses Bit auf 1 gesetzt ist soll das PCI-Gerät Back-to-Back-Zugriffe (als Target) unterstützen und darf auch solche Zugriffe (als Master) ausführen. Dieses Bit lässt sich nur auf 1 setzen, wenn das zugehörige Bit 7 im Status-Register diese Fähigkeit signalisiert, andernfalls ist es fest auf 0 geklemmt. Dieses Bit darf nur dann auf 1 gesetzt werden wenn alle PCI-Geräte auf dem betreffenden physischen PCI-Bus-Segment Back-to-Back-Zugriffe unterstützen. Wenn alle Geräte diesen Modus unterstützen, kann die Idle-Phase zwischen zwei PCI-Zyklen entfallen. Das erhöht etwas den Datendurchsatz auf dem PCI-Bus.<br/>Bei PCI-Express, Hypertransport und PCI-X ist dieses Bit immer fest auf 0 geklemmt.
+</td></tr>
+<tr>
+<td>10</td>
+<td>Interrupt Disable</td>
+<td>Ist dieses Flag gesetzt, dann kann das entsprechende Gerät keine IRQs auslösen. Nach dem Hardware-Reset muss dieses Bit dummerweise immer gelöscht sein, sodass IRQs anfangs nicht verboten sind. MSI(-X) ist davon unabhängig, dafür gibt es spezielle Interrupt-Enable-Bits in den entsprechenden Capabilities.
+</td></tr></tbody></table>
+<p>Bit 7 ist auf 0 zu setzen, Bits 11 bis 15 sind reserviert (und undefiniert) und müssen ebenfalls immer auf 0 gesetzt werden. Nach dem Reset des Geräts sind alle hier aufgeführten Bits auf 0 gesetzt (wobei das BIOS wohl einige davon setzen wird). Die Software sollte immer prüfen, ob sich die gewünschten Bits auch wirklich auf 1 setzen lassen, einige Bits sind eben fest auf 0 geklemmt. Es sind zwar nicht alle Bits beschreibbar aber kein Bit im Command-Register wird seinen Zustand von alleine ändern.
+</p>
+<h4><span class="mw-headline" id="Base-Address-Register">Base-Address-Register</span></h4>
+<p>Die Base-Address-Register dienen dem Zuweisen von Adressen an die Ressourcen des PCI-Gerätes. Ein PCI-Gerät kann bis zu 6, bei Bridges nur maximal 2, Ressourcen anbieten, denen das BIOS oder OS eine Adresse zuweist, über welche diese Ressourcen dann ansprechbar sind. Als Ressourcen können Speicherbereiche aber auch IO-Bereiche angeboten werden, der IO-Adress-Raum wird aber nicht auf jeder Plattform unterstützt, eigentlich nur beim PC. Die IO-Ressourcen haben verschiedene Nachteile, u.a. sind sie langsamer da es keine Burst-Zugriffe gibt und es gibt Einschränkungen bei der Adressenraumgröße. Speicher-Ressourcen können neben den einfachen 32-Bit-Adressen auch 64-Bit-Adressen nutzen, wofür dann aber 2 hintereinander liegende BARs für eine Ressource benutzt werden müssen, das folgende BAR enthält dann die oberen 32 Bit der Basis-Adresse.
+</p><p>In den unteren 2 Bit (IO-Ressourcen) oder 4 Bit (Speicher-Ressourcen) eines BAR ist codiert was für eine Ressource dieses BAR anbietet, diese Bits sind immer fest und können nicht verändert werden. Die restlichen Bits können für die Basis-Adresse benutzt werden wobei für die Basis-Adresse als ganzes die unteren 2 oder 4 Bits als 0 angenommen werden. Daraus ergibt sich das IO-Ressourcen immer mindestens 4 Bytes und Speicher-Ressourcen immer mindesten 16 Bytes groß sein müssen. Um größere Ressourcen anzubieten, können oberhalb der fest definierten unteren Bits noch weitere Bits fest auf 0 geklemmt sein. Um z. B. eine 256 Byte große Speicher-Ressource anzubieten müssen dann auch die Bits 4 bis 7 fest auf 0 geklemmt sein. Wenn dann das BIOS oder OS das BAR mit lauter 1en beschreibt und anschließend zurück ließt, was den Wert 0xFFFFFF00 ergibt, kann es ermitteln welche Bits zur Konfiguration der Basis-Adresse zur Verfügung stehen. Wenn z. B. der Wert 0xFFFF0000 von einem BAR für eine 32-Bit-Speicher-Ressource gelesen wird bedeutet dass das die Bits 16 bis 31 für die Basis-Adresse zu Verfügung stehen und diese Speicher-Ressource 64 kBytes groß ist. Daraus das die Bits 0 bis 15 der Basis-Adresse 0 sind ergibt sich das diese Speicher-Ressource auch an einer 64-kByte-Grenze ausgerichtet sein muss. Da immer mindestens 1 Bit für die Basis-Adresse beschreibbar sein muss, können mit einer 32-Bit-Adresse maximal 2 GByte große Ressourcen angeboten werden. Die angebotenen Ressourcen müssen immer eine Zweierpotenz als Größe haben und sind dann auch entsprechend ausgerichtet.
+</p><p>Nur alleine durch lesen der BAR-Register kann man nicht auf die Größe der betreffenden Ressourcen schließen. Zum kompletten analysieren der BARs müssen diese auch immer beschrieben werden. Darüber hinaus haben es die PCI-Erfinder auch versäumt wenigstens dafür zu sorgen das man nur durch lesen den genauen Type des BARs erkennen kann. Falls die unteren 4 Bit alle 0 sind ist es entweder ein unbenutzter BAR oder eine non-prefetchable 32-Bit-Speicher-Ressource, genau kann man das erst ermitteln indem man prüft ob die restlichen Bits beschreibbar sind.
+</p>
+<h5><span id="Base-Address-Register_für_Speicher-Ressourcen_mit_32-Bit-Adresse"></span><span class="mw-headline" id="Base-Address-Register_f.C3.BCr_Speicher-Ressourcen_mit_32-Bit-Adresse">Base-Address-Register für Speicher-Ressourcen mit 32-Bit-Adresse</span></h5>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>31-4</th>
+<th width="10%">3</th>
+<th width="20%">2-1</th>
+<th width="10%">0
+</th></tr>
+<tr align="center">
+<td>Base Address</td>
+<td>P</td>
+<td>Typ</td>
+<td>0
+</td></tr></tbody></table>
+<p>Das Bit 0 signalisiert mit seinem Wert 0 das es sich bei dem betreffenden BAR um eine Speicher-Ressource handelt und die Werte 00 und 01 in den Bits 2-1 signalisieren das es sich um einen 32-Bit-BAR handelt. Die Bits 31-4 geben die Basis-Adressbits 31-4 der Speicher-Ressource an.
+</p>
+<h5><span id="Base-Address-Register_für_Speicher-Ressourcen_mit_64-Bit-Adresse"></span><span class="mw-headline" id="Base-Address-Register_f.C3.BCr_Speicher-Ressourcen_mit_64-Bit-Adresse">Base-Address-Register für Speicher-Ressourcen mit 64-Bit-Adresse</span></h5>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>63-4</th>
+<th width="6%">3</th>
+<th width="12%">2-1</th>
+<th width="6%">0
+</th></tr>
+<tr align="center">
+<td>Base Address</td>
+<td>P</td>
+<td>Typ</td>
+<td>0
+</td></tr></tbody></table>
+<p>Das Bit 0 signalisiert mit seinem Wert 0 das es sich bei dem betreffenden BAR um eine Speicher-Ressource handelt und der Wert 10 in den Bits 2-1 signalisiert das es sich um einen 64-Bit-BAR handelt. Die Bits 63-4 geben die Basis-Adressbits 63-4 der Speicher-Ressource an. Das Prefetchable-Bit muss bei 64-Bit-Speicher-Ressourcen eigentlich immer fest auf 1 geklemmt sein, die PCI-Spezifikation verlangt das zwar nicht explizit aber bei Non-Prefetchable-Speicher macht eine 64-Bit-Adresse keinen Sinn da PCI-to-PCI-Bridges Zugriffe auf Non-Prefetchable-Speicher nur mit einer 32-Bit-Adresse weiterleiten können (siehe Bytes 0x020 bis 0x023 im Type 0x01 Konfigurations-Adressraum).
+</p>
+<h5><span id="Base-Address-Register_für_IO-Ressourcen"></span><span class="mw-headline" id="Base-Address-Register_f.C3.BCr_IO-Ressourcen">Base-Address-Register für IO-Ressourcen</span></h5>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>31-2</th>
+<th width="10%">1</th>
+<th width="10%">0
+</th></tr>
+<tr align="center">
+<td>Base Address</td>
+<td>R</td>
+<td>1
+</td></tr></tbody></table>
+<p>Das Bit 0 signalisiert mit seinem Wert 1 das es sich bei dem betreffenden BAR um eine IO-Ressource handelt. Das Bit 1 ist reserviert und muss beim lesen ignoriert und beim schreiben mit 0 gelöscht werden. Die Bits 31-2 geben die Basis-Adressbits 31-2 der IO-Ressource an. Die IO-Ressource muss also mindestens 4 Byte groß sein. Oft sind die Bits 31-16 fest auf 0 geklemmt so das nur 16-Bit-IO-Adressen benutzt werden können, auf der PC-Plattform unterstützen die CPUs sowieso nur 16-Bit-IO-Adressen so das normalerweise daraus kein Problem entsteht.
+</p>
+<h5><span class="mw-headline" id="Beispiel-Code_zur_BAR-Analyse">Beispiel-Code zur BAR-Analyse</span></h5>
+<p>Der folgende C-Code analysiert alle BARs im Konfigurations-Adressraum eines PCI-Gerätes und gibt alle verfügbaren Informationen aus. Dieser Code sollte möglichst nicht auf aktivierte PCI-Geräte angewendet werden, falls doch wäre es geschickt den Vorgang atomar zu gestalten und alle BARs vorher zu sichern und hinter zu restaurieren. Außerdem sollten die Bits 0 und 1 des Command-Registers gelöscht sein.
+&lt;c&gt;/*** Diesen Code darf jeder, unter Berücksichtigung der Lizenz für diesen Wiki-Artikel, zu jedem Zweck kopieren, nutzen und verändern!
+</p>
+<pre>    (C) &lt;<a class="external free" href="../../pages/1712/index.html" rel="nofollow">http://www.lowlevel.eu/</a>&gt; ***/
+</pre>
+<p><br/>
+/* deklariert einen Typ der Bus, Device und Function enthält um ein bestimmtes PCI-Gerät zu adressieren,
+</p>
+<pre>  außerdem bin ich einfach zu faul 3 Einzelwerte durch meinen Quäl-Code zu schicken */
+</pre>
+<p>typedef  ....  pci_bdf_t;
+</p><p>/* ließt einen 32Bit-Wert aus dem Config-Space vom PCI-Gerät (addr) an Offset (offset) und gibt ihn zurück */
+extern uint32_t pci_config_readd(pci_bdf_t addr,uint offset);
+</p><p>/* schreibt einen 32Bit-Wert (value) in den Config-Space vom PCI-Gerät (addr) an Offset (offset) */
+extern void pci_config_writed(pci_bdf_t addr,uint offset,uint32_t value);
+</p><p><br/>
+/* sucht das unterste gesetzte Bit in einem 32Bit-Wert , value darf nicht 0 sein */
+static uint get_number_of_lowest_set_bit(uint32_t value);
+static uint get_number_of_lowest_set_bit(uint32_t value)
+{
+</p>
+<pre> uint pos = 0;
+ uint32_t mask = 0x00000001;
+ while (!(value &amp; mask))
+  { ++pos; mask=mask&lt;&lt;1; }
+ return pos;
+</pre>
+<p>}
+</p><p>/* sucht das oberste gesetzte Bit in einem 32Bit-Wert , value darf nicht 0 sein */
+static uint get_number_of_highest_set_bit(uint32_t value);
+static uint get_number_of_highest_set_bit(uint32_t value)
+{
+</p>
+<pre> uint pos = 31;
+ uint32_t mask = 0x80000000;
+ while (!(value &amp; mask))
+  { --pos; mask=mask&gt;&gt;1; }
+ return pos;
+</pre>
+<p>}
+</p><p><br/>
+/* analysiert die BARs eines bestimmten PCI-Gerätes, das PCI-Gerät sollte hierfür unbenutzt sein */
+void pci_config_bar_analyze(const pci_bdf_t addr)
+{
+</p>
+<pre> // Header-Type auslesen um zu ermitteln wie viele BARs vorhanden sind :
+ const uint32_t headerType = ( pci_config_readd(addr,0x00C) &gt;&gt; 16 ) &amp; 0x7F;
+ // es werden nur Type 0x00 (normale Devices) und 0x01 (PCI-to-PCI-Bridges) unterstützt :
+ if (headerType &gt;= 0x02)
+  { printf("FEHLER : nicht unterstützter Header-Type gefunden!\n"); return; }
+</pre>
+<pre> // 6 BARs für Type 0x00 und 2 BARs für Type 0x01 :
+ const uint max_bars = 6 - (headerType * 4);
+</pre>
+<pre> for (uint bar = 0 ; bar &lt; max_bars ; ++bar)
+  {
+    // Offset des aktuellen BAR ermitteln :
+    const uint barOffset = 0x010+(bar*4);
+</pre>
+<pre>    // prüfen ob Speicher oder IO :
+    if ( (pci_config_readd(addr,barOffset) &amp; 0x1) == 0 )
+     { // Speicher-Ressource :
+</pre>
+<pre>       // Prefetchable-Bit auslesen und passenden Text auswählen :
+       static const char* ptext_pref = "prefetchable"; // Text für prefetchable
+       static const char* ptext_nopr = "non-prefetchable"; // Text für non-prefetchable
+       const char* const ptext = (((pci_config_readd(addr,barOffset) &gt;&gt; 3) &amp; 0x1) == 1) ? ptext_pref : ptext_nopr;
+</pre>
+<pre>       // check Memory-BAR-Type :
+       switch((pci_config_readd(addr,barOffset) &gt;&gt; 1) &amp; 0x3)
+        {
+          case 0x0: // 32Bit Memory-BAR :
+            {
+            pci_config_writed(addr,barOffset,0xFFFFFFF0); // mit lauter 1en überschreiben
+            const uint32_t barValue = pci_config_readd(addr,barOffset) &amp; 0xFFFFFFF0; // und wieder zurücklesen
+            if (barValue == 0) // es muss mindestens ein Adressbit 1 (also beschreibbar) sein
+             {
+               if (ptext != ptext_nopr) // unbenutzte BARs müssen komplett 0 sein (auch das Prefetchable-Bit darf nicht gesetzt sein)
+                { printf("FEHLER : 32Bit-Memory-BAR %u enthält keine beschreibbaren Adressbits!\n",bar); return; }
+</pre>
+<pre>               // BAR-Infos ausgeben :
+               printf("BAR %u ist unbenutzt.\n",bar);
+             }
+            else
+             {
+               const uint lowestBit = get_number_of_lowest_set_bit(barValue);
+               // es muss eine gültige 32Bit-Adresse sein :
+               if ( (get_number_of_highest_set_bit(barValue) != 31) || (lowestBit &gt; 31) || (lowestBit &lt; 4) )
+                { printf("FEHLER : 32Bit-Memory-BAR %u enthält ungültige beschreibbare Adressbits!\n",bar); return; }
+</pre>
+<pre>               // BAR-Infos ausgeben :
+               printf("BAR %u enhält eine %s 32Bit-Memory-Ressource mit einer Größe von 2^%u Bytes.\n",bar,ptext,lowestBit);
+             }
+            }
+            break;
+</pre>
+<pre>          case 0x1: // 20Bit Memory-BAR :
+            {
+            if (headerType == 0x01)
+             { printf("FEHLER : 20Bit-Memory-BAR %u ist für eine Bridge nicht erlaubt!\n",bar); return; }
+</pre>
+<pre>            pci_config_writed(addr,barOffset,0xFFFFFFF0); // mit lauter 1en überschreiben
+            const uint32_t barValue = pci_config_readd(addr,barOffset) &amp; 0xFFFFFFF0; // und wieder zurücklesen
+            if (barValue == 0) // es muss mindestens ein Adressbit 1 (also beschreibbar) sein
+             { printf("FEHLER : 20Bit-Memory-BAR %u enthält keine beschreibbaren Adressbits!\n",bar); return; }
+</pre>
+<pre>            const uint lowestBit = get_number_of_lowest_set_bit(barValue);
+            // es muss eine gültige 20Bit-Adresse sein :
+            if ( (get_number_of_highest_set_bit(barValue) != 19) || (lowestBit &gt; 19) || (lowestBit &lt; 4) )
+             { printf("FEHLER : 20Bit-Memory-BAR %u enthält ungültige beschreibbare Adressbits!\n",bar); return; }
+</pre>
+<pre>            // BAR-Infos ausgeben :
+            printf("BAR %u enhält eine %s 20Bit-Memory-Ressource mit einer Größe von 2^%u Bytes.\n",bar,ptext,lowestBit);
+            }
+            break;
+</pre>
+<pre>          case 0x2: // 64Bit Memory-BAR :
+            {
+            // prüfen ob ein 64Bit-BAR an der aktuellen Position überhaupt möglich ist :
+            if (bar &gt;= (max_bars-1))
+             { printf("FEHLER : 64Bit-Memory-BAR %u darf nicht an letzter Position beginnen!\n",bar); return; }
+            // non-prefetchable 64-BARs können nicht hinter Bridges benutzt werden (? aber in der Spec sind sie nicht verboten ?) :
+            if (ptext != &amp;ptext_pref[0])
+             { printf("FEHLER : 64Bit-Memory-BAR %u enthält eine non-prefetchable Memory-Ressource!\n",bar); return; }
+</pre>
+<pre>            pci_config_writed(addr,barOffset,0xFFFFFFF0); // mit lauter 1en überschreiben
+            pci_config_writed(addr,barOffset+4,0xFFFFFFFF); // mit lauter 1en überschreiben
+            const uint32_t barLowValue  = pci_config_readd(addr,barOffset) &amp; 0xFFFFFFF0; // und wieder zurücklesen
+            const uint32_t barHighValue = pci_config_readd(addr,barOffset+4); // und wieder zurücklesen
+</pre>
+<pre>            uint lowestBit = 0;
+            if (barLowValue != 0)
+             { // kleiner als 4 GByte :
+               lowestBit = get_number_of_lowest_set_bit(barLowValue);
+               // es muss eine gültige kleine 64Bit-Adresse sein :
+               if ( (barHighValue != 0xFFFFFFFF) || (get_number_of_highest_set_bit(barLowValue) != 31) || (lowestBit &gt; 31) || (lowestBit &lt; 4) )
+                { printf("FEHLER : 64Bit-Memory-BAR %u enthält ungültige beschreibbare Adressbits im unteren Adressteil!\n",bar); return; }
+             }
+            else
+             { // größer/gleich als 4 GByte :
+               lowestBit = get_number_of_lowest_set_bit(barHighValue) + 32;
+               // es muss eine gültige große 64Bit-Adresse sein :
+               if ( (get_number_of_highest_set_bit(barHighValue) != 31) || (lowestBit &gt; 63) || (lowestBit &lt; 32) )
+                { printf("FEHLER : 64Bit-Memory-BAR %u enthält ungültige beschreibbare Adressbits im oberen Adressteil!\n",bar); return; }
+             }
+</pre>
+<pre>            // BAR-Infos ausgeben :
+            printf("BAR %u enhält eine %s 64Bit-Memory-Ressource mit einer Größe von 2^%u Bytes.\n",bar,ptext,lowestBit);
+</pre>
+<pre>            // den nachfolgenden BAR für die Analyse überspringen :
+            ++bar;
+</pre>
+<pre>            // BAR-Infos ausgeben :
+            printf("BAR %u ist nicht nutzbar da er die oberen 32 Bits des vorrangegangenen 64Bit-BARs enthält\n",bar);
+            }
+            break;
+</pre>
+<pre>          default: // ungültiger Memory-BAR :
+            printf("FEHLER : Memory-BAR %u ist ungültig!\n",bar); return;
+        }
+     }
+    else
+     { // IO-Ressource :
+       pci_config_writed(addr,barOffset,0xFFFFFFFC); // mit lauter 1en überschreiben
+       const uint32_t barValue = pci_config_readd(addr,barOffset) &amp; 0xFFFFFFFC; // und wieder zurücklesen
+       if (barValue == 0) // es muss mindestens ein Adressbit 1 (also beschreibbar) sein
+        { printf("FEHLER : IO-BAR %u enthält keine beschreibbaren Adressbits!\n",bar); return; }
+</pre>
+<pre>       const uint lowestBit  = get_number_of_lowest_set_bit(barValue);
+       const uint highestBit = get_number_of_highest_set_bit(barValue);
+       // es muss entwerder eine gültige 32Bit-Adresse oder eine gültige 16Bit-Adresse sein :
+       if ( ( (highestBit != 31) &amp;&amp; (highestBit != 15) ) || (highestBit &lt; lowestBit) || (lowestBit &lt; 2) )
+        { printf("FEHLER : IO-BAR %u enthält ungültige beschreibbare Adressbits!\n",bar); return; }
+</pre>
+<pre>       // BAR-Infos ausgeben :
+       printf("BAR %u enhält eine %uBit-IO-Ressource mit einer Größe von 2^%u Bytes.\n",bar,highestBit+1,lowestBit);
+     }
+  }
+ if (bar != max_bars)
+  { printf("interner Fehler in Schleife!\n"); return; }
+</pre>
+<p>}&lt;/c&gt;
+</p>
+<h3><span class="mw-headline" id="Zugriff_auf_den_Konfigurations-Adressraum">Zugriff auf den Konfigurations-Adressraum</span></h3>
+<p>Gelesen und beschrieben wird der Konfigurations-Adressraum, bei PCs, 32bit-weise mithilfe eines Adress-I/O-Ports (0x0CF8) und eines Daten-I/O-Ports (0x0CFC).
+</p>
+<h4><span id="Aufbau_des_Adress-I/O-Ports"></span><span class="mw-headline" id="Aufbau_des_Adress-I.2FO-Ports">Aufbau des Adress-I/O-Ports</span></h4>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>31</th>
+<th>30-24</th>
+<th>23-16</th>
+<th>15-11</th>
+<th>10-8</th>
+<th>7-0
+</th></tr>
+<tr align="center">
+<td>Enable Bit</td>
+<td bgcolor="#bbb">Reserviert</td>
+<td>Busnummer</td>
+<td>Gerätenummer</td>
+<td>Funktionsnummer</td>
+<td>Registernummer<br/> Bit 0 u. Bit 1 sind 0
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="Codebeispiel">Codebeispiel</span></h4>
+<p>&lt;c&gt;
+</p>
+<ol><li>define PCI_CONFIG_DATA    0x0CFC</li>
+<li>define PCI_CONFIG_ADDRESS 0x0CF8</li></ol>
+<p>/**
+</p>
+<pre>* Liest ein Dword aus einem PCI-Konfigurations-Register
+*  @param bus Bus
+*  @param dev Gerät
+*  @param func Funktion
+*  @param offset Registernummer
+*  @return Register content
+*/
+</pre>
+<p>int pci_config_readd(int bus,int dev,int func,int offset) {
+</p>
+<pre> int val;
+ int address = 0x80000000|(bus&lt;&lt;16)|(dev&lt;&lt;11)|(func&lt;&lt;8)|(offset&amp;0xFC);
+ outl(PCI_CONFIG_ADDRESS,address);
+ val = inl(PCI_CONFIG_DATA);
+ return val;
+</pre>
+<p>}
+</p><p>/**
+</p>
+<pre>* Schreibt ein Dword in ein PCI-Konfigurations-Register
+*  @param bus Bus
+*  @param dev Gerät
+*  @param func Funktion
+*  @param offset Registernummer
+*  @param val Wert zum Schreiben
+*/
+</pre>
+<p>void pci_config_writed(int bus,int dev,int func,int offset,int val) {
+</p>
+<pre> int address = 0x80000000|(bus&lt;&lt;16)|(dev&lt;&lt;11)|(func&lt;&lt;8)|(offset&amp;0xFC);
+ outl(PCI_CONFIG_ADDRESS,address);
+ outl(PCI_CONFIG_DATA,val);
+</pre>
+<p>}
+&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Classcodes">Classcodes</span></h2>
+<table class="prettytable">
+<tbody><tr>
+<th>Baseclass</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td><a href="#Class_0x00_-_Pre_2.0"> Alle Geräte die gebaut wurden bevor Classcodes eingeführt wurden</a>
+</td></tr>
+<tr>
+<td>0x01</td>
+<td><a href="#Class_0x01_-_Massenspeicher"> Massenspeicher</a>
+</td></tr>
+<tr>
+<td>0x02</td>
+<td><a href="#Class_0x02_-_Netzwerk-Controller"> Netzwerk-Controller</a>
+</td></tr>
+<tr>
+<td>0x03</td>
+<td><a href="#Class_0x03_-_Bildschirm-Controller"> Bildschirm-Controller</a>
+</td></tr>
+<tr>
+<td>0x04</td>
+<td><a href="#Class_0x04_-_Multimedia-Ger.C3.A4te"> Multimedia-Geräte</a>
+</td></tr>
+<tr>
+<td>0x05</td>
+<td><a href="#Class_0x05_-_Speicher-Controller"> Speicher-Controller</a>
+</td></tr>
+<tr>
+<td>0x06</td>
+<td><a href="#Class_0x06_-_Bridge-Ger.C3.A4te"> Bridge-Geräte</a>
+</td></tr>
+<tr>
+<td>0x07</td>
+<td><a href="#Class_0x07_-_Controller_zur_einfachen_Kommunikation"> Controller zur einfachen Kommunikation</a>
+</td></tr>
+<tr>
+<td>0x08</td>
+<td><a href="#Class_0x08_-_System-Peripherie"> System-Peripherie</a>
+</td></tr>
+<tr>
+<td>0x09</td>
+<td><a href="#Class_0x09_-_Input-Ger.C3.A4te"> Input-Geräte</a>
+</td></tr>
+<tr>
+<td>0x0A</td>
+<td><a href="#Class_0x0A_-_Docking-Stationen"> Docking-Stationen</a>
+</td></tr>
+<tr>
+<td>0x0B</td>
+<td><a href="#Class_0x0B_-_Prozessoren"> Prozessoren</a>
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td><a href="#Class_0x0C_-_Serielle_Buscontroller"> Serielle Buscontroller</a>
+</td></tr>
+<tr>
+<td>0x0D</td>
+<td><a href="#Class_0x0D_-_Wireless-Controller"> Wireless-Controller</a>
+</td></tr>
+<tr>
+<td>0x0E</td>
+<td><a href="#Class_0x0E_-_Intelligente_Controller"> Intelligente Controller</a>
+</td></tr>
+<tr>
+<td>0x0F</td>
+<td><a href="#Class_0x0F_-_Satelliten-Kommunikations-Controller"> Satelliten-Kommunikations-Controller</a>
+</td></tr>
+<tr>
+<td>0x10</td>
+<td><a href="#Class_0x10_-_Encryption.2FDecryption-Controller"> Encryption/Decryption-Controller</a>
+</td></tr>
+<tr>
+<td>0x11</td>
+<td><a href="#Class_0x11_-_Datenerfassungs-_und_Signalprozessor-Controller"> Datenerfassungs- und Signalprozessor-Controller</a>
+</td></tr>
+<tr bgcolor="#BBB">
+<td>0x12-0xFE</td>
+<td><i>Reserviert</i>
+</td></tr>
+<tr>
+<td>0xFF</td>
+<td>Sonstige
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Class_0x00_-_Pre_2.0">Class 0x00 - Pre 2.0</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td>Alle nicht-VGA-Geräte
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x00</td>
+<td><a href="../../pages/1516/index.html" title="Video Graphics Array"> VGA</a>-Geräte
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Class_0x01_-_Massenspeicher">Class 0x01 - Massenspeicher</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td>SCSI
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x??</td>
+<td>IDE
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>0x00</td>
+<td><a href="../../pages/1443/index.html" title="Floppy Disk Controller"> Floppy</a>
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>0x00</td>
+<td>IPI
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>0x00</td>
+<td>RAID
+</td></tr>
+<tr>
+<td>0x05</td>
+<td>0x20</td>
+<td><a href="../../pages/1522/index.html" title="AT Attachment"> ATA</a>-Controller (Single <a href="../../pages/1555/index.html" title="Direct Memory Access"> DMA</a>)
+</td></tr>
+<tr>
+<td>0x05</td>
+<td>0x30</td>
+<td>ATA-Controller (Chained DMA)
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>0x00</td>
+<td>SATA-Controller (Herstellerspezifische Schnittstelle)
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>0x01</td>
+<td>SATA-Controller (AHCI 1.0)
+</td></tr>
+<tr>
+<td>0x07</td>
+<td>0x00</td>
+<td>SAS-Controller (Serial Attached SCSI)
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>0x00</td>
+<td>Anderer Massenspeicher
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Class_0x02_-_Netzwerk-Controller">Class 0x02 - <a href="../../pages/1888/index.html" title="Kategorie:Netzwerk"> Netzwerk</a>-Controller</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td><a href="../../pages/1876/index.html" title="Ethernet">Ethernet</a>
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x00</td>
+<td>Token Ring
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>0x00</td>
+<td>FDDI
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>0x00</td>
+<td>ATM
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>0x00</td>
+<td>ISDN
+</td></tr>
+<tr>
+<td>0x05</td>
+<td>0x00</td>
+<td>World FIP (Feldbus)
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>0x??</td>
+<td>PICMG 2.14, Multi-Computing
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>0x00</td>
+<td>Anderer Netzwerk-Controller
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Class_0x03_-_Bildschirm-Controller">Class 0x03 - Bildschirm-Controller</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td>VGA
+</td></tr>
+<tr>
+<td>0x00</td>
+<td>0x01</td>
+<td>8514
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x00</td>
+<td>XGA
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>0x00</td>
+<td>3D
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>0x00</td>
+<td>Anderer Bildschirm-Controller
+</td></tr></tbody></table>
+<h3><span id="Class_0x04_-_Multimedia-Geräte"></span><span class="mw-headline" id="Class_0x04_-_Multimedia-Ger.C3.A4te">Class 0x04 - Multimedia-Geräte</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td>Video-Gerät
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x00</td>
+<td>Audio-Gerät
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>0x00</td>
+<td>Telefonie
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>??</td>
+<td>HD-Audio-Gerät
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>0x00</td>
+<td>Anderes Multimedia-Gerät
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Class_0x05_-_Speicher-Controller">Class 0x05 - Speicher-Controller</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td>RAM
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x00</td>
+<td>Flash-Speicher
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>0x00</td>
+<td>Anderer Speicher
+</td></tr></tbody></table>
+<h3><span id="Class_0x06_-_Bridge-Geräte"></span><span class="mw-headline" id="Class_0x06_-_Bridge-Ger.C3.A4te">Class 0x06 - Bridge-Geräte</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td>Host/PCI-Bridge
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x00</td>
+<td>PCI/ISA-Bridge
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>0x00</td>
+<td>PCI/EISA-Bridge
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>0x00</td>
+<td>PCI/MicroChannel-Bridge
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>0x00</td>
+<td>PCI/PCI-Bridge (hat Header Type 0x01)
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>0x01</td>
+<td>PCI/PCI-Bridge (Subtractive Decode, hat Header Type 0x01)
+</td></tr>
+<tr>
+<td>0x05</td>
+<td>0x00</td>
+<td>PCI/PCMCIA-Bridge
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>0x00</td>
+<td>PCI/NuBus-Bridge
+</td></tr>
+<tr>
+<td>0x07</td>
+<td>0x00</td>
+<td>PCI/CardBus-Bridge
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>0x??</td>
+<td>Raceway, Switched Fabric
+</td></tr>
+<tr>
+<td>0x09</td>
+<td>0x40</td>
+<td>Semitransparente PCI/PCI-Bridge (primär zum Host)
+</td></tr>
+<tr>
+<td>0x09</td>
+<td>0x80</td>
+<td>Semitransparente PCI/PCI-Bridge (sekundär zum Host)
+</td></tr>
+<tr>
+<td>0x0A</td>
+<td>0x00</td>
+<td>InfiniBand/PCI-Brige
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>0x??</td>
+<td>Anderer Bridge-Typ
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Class_0x07_-_Controller_zur_einfachen_Kommunikation">Class 0x07 - Controller zur einfachen Kommunikation</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td>Serielle Schnittstelle (XT-kompatibel)
+</td></tr>
+<tr>
+<td>0x00</td>
+<td>0x01</td>
+<td>Serielle Schnittstelle (16450)
+</td></tr>
+<tr>
+<td>0x00</td>
+<td>0x02</td>
+<td>Serielle Schnittstelle (16550)
+</td></tr>
+<tr>
+<td>0x00</td>
+<td>0x03</td>
+<td>Serielle Schnittstelle (16650)
+</td></tr>
+<tr>
+<td>0x00</td>
+<td>0x04</td>
+<td>Serielle Schnittstelle (16750)
+</td></tr>
+<tr>
+<td>0x00</td>
+<td>0x05</td>
+<td>Serielle Schnittstelle (16850)
+</td></tr>
+<tr>
+<td>0x00</td>
+<td>0x06</td>
+<td>Serielle Schnittstelle (16950)
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x00</td>
+<td>Parallelport (Standard)
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x01</td>
+<td>Parallelport (Bidirektional)
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x02</td>
+<td>Parallelport (ECP 1.0)
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x03</td>
+<td>Parallelport (IEEE 1284)
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0xFE</td>
+<td>IEEE-1284-Gerät, Target
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>0x00</td>
+<td>Multiport Serial Controller
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>0x00</td>
+<td>Standard-Modem
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>0x01</td>
+<td>Hayes-kompatibles Modem (16450)
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>0x00</td>
+<td>GPIB (IEEE488.1/2) Controller
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>0x02</td>
+<td>Hayes-kompatibles Modem (16550)
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>0x03</td>
+<td>Hayes-kompatibles Modem (16650)
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>0x04</td>
+<td>Hayes-kompatibles Modem (16750)
+</td></tr>
+<tr>
+<td>0x05</td>
+<td>0x00</td>
+<td>SmartCard
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>0x00</td>
+<td>Anderer Controller
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Class_0x08_-_System-Peripherie">Class 0x08 - System-Peripherie</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td>8259-<a href="../../pages/1465/index.html" title="Programmable Interrupt Controller"> PIC</a>
+</td></tr>
+<tr>
+<td>0x00</td>
+<td>0x01</td>
+<td>ISA-PIC
+</td></tr>
+<tr>
+<td>0x00</td>
+<td>0x02</td>
+<td>EISA-PIC
+</td></tr>
+<tr>
+<td>0x00</td>
+<td>0x10</td>
+<td>IO-<a href="../../pages/1584/index.html" title="Advanced Programmable Interrupt Controller"> APIC</a> (EISA)
+</td></tr>
+<tr>
+<td>0x00</td>
+<td>0x20</td>
+<td>IOx-APIC
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x00</td>
+<td>8237-DMA-Controller
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x01</td>
+<td>ISA-DMA-Controller
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x02</td>
+<td>EISA-DMA-Controller
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>0x00</td>
+<td>Standard-8254-Timer
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>0x01</td>
+<td>ISA-System-Timer
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>0x02</td>
+<td>EISA-System-Timer
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>0x00</td>
+<td>Standard <a href="../../pages/1715/index.html" title="Real Time Clock">Real Time Clock</a>
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>0x01</td>
+<td>ISA Real Time Clock
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>0x00</td>
+<td>PCI Hot Plug Controller
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>0x00</td>
+<td>Andere System-Peripherie
+</td></tr></tbody></table>
+<h3><span id="Class_0x09_-_Input-Geräte"></span><span class="mw-headline" id="Class_0x09_-_Input-Ger.C3.A4te">Class 0x09 - Input-Geräte</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td>Tastatur
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x00</td>
+<td>Digitizer (Stift)
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>0x00</td>
+<td>Maus
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>0x00</td>
+<td>Scanner
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>0x00</td>
+<td>Standard-<a href="../../pages/1674/index.html" title="Gameport">Gameport</a>
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>0x10</td>
+<td>Gameport
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>0x00</td>
+<td>Anderes Input-Gerät
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Class_0x0A_-_Docking-Stationen">Class 0x0A - Docking-Stationen</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td>Normale Docking-Station
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>0x00</td>
+<td>Andere Docking-Station
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Class_0x0B_-_Prozessoren">Class 0x0B - Prozessoren</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming-Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td>386
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x00</td>
+<td>486
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>0x00</td>
+<td>Pentium
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>0x00</td>
+<td>Alpha
+</td></tr>
+<tr>
+<td>0x20</td>
+<td>0x00</td>
+<td>PowerPC
+</td></tr>
+<tr>
+<td>0x30</td>
+<td>0x00</td>
+<td>MIPS
+</td></tr>
+<tr>
+<td>0x40</td>
+<td>0x00</td>
+<td>Coprozessor
+</td></tr>
+</tbody></table>
+<h3><span class="mw-headline" id="Class_0x0C_-_Serielle_Buscontroller">Class 0x0C - Serielle Buscontroller</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td>Firewire (IEEE 1394)
+</td></tr>
+<tr>
+<td>0x00</td>
+<td>0x10</td>
+<td>Firewire (OHCI)
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x00</td>
+<td>ACCESS-Bus
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>0x00</td>
+<td>SSA (Serial Storage Architecture)
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>0x00</td>
+<td><a href="../../pages/1690/index.html" title="Universal Serial Bus"> USB</a>-Host (UHCI)
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>0x10</td>
+<td>USB-Host (OHCI)
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>0x20</td>
+<td>USB-Host (EHCI)
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>0x30</td>
+<td>USB-Host (xHCI)
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>0x80</td>
+<td>USB-Host (kein HCI)
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>0xFE</td>
+<td>USB-Device
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>0x00</td>
+<td>Fibre Channel
+</td></tr>
+<tr>
+<td>0x05</td>
+<td>0x00</td>
+<td>SMB (System Management Bus)
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>0x00</td>
+<td>InfiniBand
+</td></tr>
+<tr>
+<td>0x07</td>
+<td>0x00</td>
+<td>IPMI SMIC Interface
+</td></tr>
+<tr>
+<td>0x07</td>
+<td>0x01</td>
+<td>IPMI Keyboard Style Interface
+</td></tr>
+<tr>
+<td>0x07</td>
+<td>0x02</td>
+<td>IPMI Block Transfer Device
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>0x00</td>
+<td>SERCOS Interface
+</td></tr>
+<tr>
+<td>0x09</td>
+<td>0x00</td>
+<td>CAN-Bus
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Class_0x0D_-_Wireless-Controller">Class 0x0D - Wireless-Controller</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td>iRDA
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x00</td>
+<td>Consumer Infrared
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>0x00</td>
+<td>Radio Frequency
+</td></tr>
+<tr>
+<td>0x11</td>
+<td>0x00</td>
+<td>Bluetooth
+</td></tr>
+<tr>
+<td>0x12</td>
+<td>0x00</td>
+<td>Broadband
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>0x00</td>
+<td>Anderer Wireless-Controller
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Class_0x0E_-_Intelligente_Controller">Class 0x0E - Intelligente Controller</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x??</td>
+<td>I²O-Architektur
+</td></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td>Message FIFO
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Class_0x0F_-_Satelliten-Kommunikations-Controller">Class 0x0F - Satelliten-Kommunikations-Controller</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x01</td>
+<td>0x00</td>
+<td>TV
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>0x00</td>
+<td>Audio
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>0x00</td>
+<td>Sprache
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>0x00</td>
+<td>Daten
+</td></tr></tbody></table>
+<h3><span id="Class_0x10_-_Encryption/Decryption-Controller"></span><span class="mw-headline" id="Class_0x10_-_Encryption.2FDecryption-Controller">Class 0x10 - Encryption/Decryption-Controller</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x01</td>
+<td>0x00</td>
+<td>Netzwerk
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>0x00</td>
+<td>Entertainment
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>0x00</td>
+<td>Anderer Controller
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Class_0x11_-_Datenerfassungs-_und_Signalprozessor-Controller">Class 0x11 - Datenerfassungs- und Signalprozessor-Controller</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Subclass</th>
+<th>Programming Interface</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0x00</td>
+<td>Digital Input/Output Module
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>0x00</td>
+<td>Zähler
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>0x00</td>
+<td>Synchronisation und Frequenzmessung
+</td></tr>
+<tr>
+<td>0x20</td>
+<td>0x00</td>
+<td>Management Card
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>0x00</td>
+<td>Anderer Controller
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://pci-ids.ucw.cz/" rel="nofollow">Linux PCI ID Repositorium</a> – Enthält viele Vendor- und die dazugehörigen Device-IDs</li>
+<li><a class="external text" href="http://www.pcidatabase.com/index.php" rel="nofollow">PCI Vendor and Device Lists</a> – Enthält ebenfalls eine große Liste Vendor- und Device-IDs</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170023
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.033 seconds
+Real time usage: 0.034 seconds
+Preprocessor visited node count: 241/1000000
+Preprocessor generated node count: 406/1000000
+Post‐expand include size: 551/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.995      1 -total
+ 46.28%    0.923     29 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Peripheral_Component_Interconnect&amp;oldid=9887</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1447/index.html" title="Kategorie:Hardware">Hardware</a></li><li><a href="../../pages/1769/index.html" title="Kategorie:Bus">Bus</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1626/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2192/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1626/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/PCI" hreflang="en" lang="en" title="PCI – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

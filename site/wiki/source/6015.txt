@@ -1,0 +1,46 @@
+{{Stub}}
+
+Die '''Machine-Specific Register'''s bzw. '''Model-Specific Register'''s ('''MSR''') sind Prozessorregister. Sie können im Gegensatz zu anderen Registern nur mit den Instruktionen ''rdmsr'' und ''wrmsr'' ([[x86]] und [[x86-64]]) angesprochen werden. Außerdem sind diese Register spezifisch für eine bestimmte Prozessorfamilie/-generation, d.h. sie müssen von folgenden Prozessoren nicht bzw. nicht genauso implementiert werden.
+
+== WRMSR/RDMSR ==
+Mit folgendem Code kann man auf die MSRs zugreifen:
+<c>uint64_t rdmsr(uint32_t msr)
+{
+   uint32_t lomsr, himsr;
+   uint64_t content;
+
+   __asm__ __volatile__ ("rdmsr":"=a"(lomsr),"=d"(himsr):"c"(msr));
+
+   content = himsr;
+   content <<= 32;
+   content |= lomsr;
+   return content;
+}
+
+void wrmsr(uint32_t msr, uint64_t value)
+{
+   uint32_t lomsr, himsr;
+
+   lomsr = value & 0xFFFFFFFF;
+   himsr = value >> 32;
+   __asm__ __volatile__ ("wrmsr"::"a"(lomsr),"c"(msr),"d"(himsr));
+}</c>
+
+== Auswahl einiger MSRs ==
+{| {{Prettytable}}
+|-
+! Nummer !! Name !! Inhalt
+|-
+| 0x174 || IA32_SYSENTER_CS || CS für [[sysenter]]
+|-
+| 0x175 || IA32_SYSENTER_ESP || ESP für sysenter
+|-
+| 0x176 || IA32_SYSENTER_EIP || EIP für sysenter
+|-
+| 0xC0000080 || IA32_EFER || Erweiterte Features. Beispiel: Bit 0 - Aktiviert syscall/sysret im 64-Bit-Modus
+|}
+
+== Weblinks ==
+* http://www.intel.com/Assets/PDF/manual/253669.pdf - "Intel Architectures Software Developer's Manual Volume 3B: System Programming Guide" - Anhang B
+
+[[Kategorie:Glossar]]

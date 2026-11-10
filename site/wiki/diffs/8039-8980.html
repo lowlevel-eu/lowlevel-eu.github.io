@@ -1,0 +1,41 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SurO — Änderungen 8039 → 8980</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>SurO — Änderungen 8039 → 8980</h1><nav><a href="../revisions/8039/index.html">Version 8039</a> · <a href="../revisions/8980/index.html">Version 8980</a> · <a href="../history/2233/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l28" >Zeile 28:</td>
+<td colspan="2" class="diff-lineno">Zeile 28:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* HyperEbenenProjektionsTreiber (Sowas wie Grafikfenster für Programme)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* HyperEbenenProjektionsTreiber (Sowas wie Grafikfenster für Programme)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* 1024x768x25 (8881 rgba) Grafik + süßer Fadenkreuzmauszeiger</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* 1024x768x25 (8881 rgba) Grafik + süßer Fadenkreuzmauszeiger</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* kleine C-Bibliothek &lt;surlib.c&gt; über Interrupt 35h</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">== Beispiel-Programm für die zugehörige C-Bibliothek==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;c&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">#include &quot;surlib.h&quot;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">void main(){</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> sur_HE_erstelle_std();					//Grafikfenster erstellen</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> sur_HE_clear(0x00330011);				//mit aRGB-Wert Füllen</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> sur_Eingabe_registriereTasten_AlifNum();		//Alphanumerische Tastatur anfordern</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> char cha[2]; cha[1]=0;					//Nullterminiertes Zeichen</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> sur_HE_male_cstring(&quot;Hallo&quot;,0x4040,0x0000ffff);	//schreibe &quot;Hallo&quot; in Türkis auf den Bildschirm</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> 							 //zweiter parameter ist die Position 0x400*y+x</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; sur_Eingabe_warteTaste(cha);				//auf einen Tastendruck warten</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; sur_wandle_deKey2ANSI(cha);				//deutschen Tastencode in Schriftzeichen umwandeln</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> sur_HE_male_cstring(&quot;Welt!&quot;,0x4070,0x00ffff00);	//schreibe &quot;Welt!&quot; in Gelb auf den Bildschirm</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; sur_HE_male_cstring(cha,0x8040,0x0000ff00);		//Gib das Zeichen von der Tastatur in Grün aus</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> sur_sys_prog_ende();					//Beende das Programm</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/c&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Kompiliert wird in ein Binärformat mit:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;pre&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">gcc sur_hello_world.c -o hello.x -m32 -nostdlib -O2 -emain -Wl,-Ttext,0 -Wl,--oformat,binary --std=gnu99</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/pre&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== ToDo ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== ToDo ==</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Aktuell wird daran gearbeitet, SMP zu integrieren.</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Aktuell wird daran gearbeitet, SMP zu integrieren</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">und das Bearbeiten von Dateien komfortabler zu machen</ins>.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Betriebssystem]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Betriebssystem]]</div></td></tr>
+</table></body></html>

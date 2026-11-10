@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Common Driver Interface – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Common_Driver_Interface rootpage-Common_Driver_Interface skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1622/index.html">Aktueller Artikel</a> · <a href="../../history/1622/index.html">Versionsgeschichte</a> · <a href="../../source/3865.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Common Driver Interface</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 12. Januar 2009, 12:30 Uhr von <a class="mw-userlink" href="../../pages/1460/index.html" title="Benutzer:FreakyPenguin"><bdi>FreakyPenguin</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Weblinks">→</a>‎<span dir="auto"><span class="autocomment">Weblinks</span></span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/3864-3865.html" title="Common Driver Interface">Unterschied</a>) <a href="../3864/index.html" title="Common Driver Interface">← Nächstältere Version</a> | <a href="../../pages/1622/index.html" title="Common Driver Interface">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../4624/index.html" title="Common Driver Interface">Nächstjüngere Version →</a> (<a href="../../diffs/3865-4624.html" title="Common Driver Interface">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Common Driver Interface (oder kurz CDI) ist ein Standard, der es ermöglichen soll betriebssystemunabhängige Treiber zu schreiben. Dies funktioniert mithilfe einer Bibliothek, die einmal für ein Betriebssystem implementiert werden muss. Dann können CDI-komforme Treiber einfach mit dieser Bibliothek kompiliert werden. Der CDI-Standard gibt lediglich vor, wie die Funktionsprototypen aussehen müssen, aber nicht wie diese implementiert werden, denn das ist ja von Betriebssystem zu Betriebssystem unterschiedlich.
+</p><p>Ein Link zur Dokumentation der Funktionsprototypen, Strukturen, Enumerationen, usw. ist in dem <a href="#Weblinks"> Absatz Weblinks</a> zu finden.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Module"><span class="tocnumber">1</span> <span class="toctext">Module</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Core"><span class="tocnumber">1.1</span> <span class="toctext">Core</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Net"><span class="tocnumber">1.2</span> <span class="toctext">Net</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#FS"><span class="tocnumber">1.3</span> <span class="toctext">FS</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Storage"><span class="tocnumber">1.4</span> <span class="toctext">Storage</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Aufbau_eines_typischen_Treibers"><span class="tocnumber">2</span> <span class="toctext">Aufbau eines typischen Treibers</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Betriebssysteme_welche_CDI_benutzen"><span class="tocnumber">3</span> <span class="toctext">Betriebssysteme welche CDI benutzen</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Weblinks"><span class="tocnumber">4</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Module">Module</span></h2>
+<p>CDI definiert in seinen Modulen Schnittstellen für unterschiedliche Geräteklassen. Derzeit existieren die folgenden Module:
+</p>
+<ul><li><b>core</b>: Kernfunktionalität von CDI</li>
+<li><b>net</b>: Netzwerk (vorhandene Treiber: rtl8139, sis900, pcnet, e1000)</li>
+<li><b>fs</b>: Dateisysteme (vorhandene Treiber: ext2, ramdisk)</li>
+<li><b>storage</b>: Massenspeicher (vorhandene Treiber: floppy, ata)</li></ul>
+<p>Ein Betriebssystem muss dabei nicht zwingend die Schnittstellen aller Module implementieren. Alle Treiber benutzen Funktionen aus <i>core</i>, aber es ist ohne weiteres möglich, z.B. neben <i>core</i> nur die Schnittstelle für Netzwerktreiber zu implementieren.
+</p>
+<h3><span class="mw-headline" id="Core">Core</span></h3>
+<p>Die Kernfunktionalität umfasst die folgenden Punkte:
+</p>
+<ul><li>Verwaltung der Treiber und Geräte</li>
+<li>Zugriff auf I/O-Ports</li>
+<li>Zugriff auf Physischen Speicher</li>
+<li>PCI</li>
+<li>Verkettete Listen</li></ul>
+<h3><span class="mw-headline" id="Net">Net</span></h3>
+<p>Ein Neztwerktreiber muss nur eine Funktion bereitstellen um Pakete über eine Karte zu versenden:
+</p>
+<ul><li><b>send_packet</b>(device, buffer, size)</li></ul>
+<p>Die Implementierung stellt dem Treiber eine Funktion zur Verfügung um empfangene Pakete abzuliefern.
+</p>
+<h3><span class="mw-headline" id="FS">FS</span></h3>
+<p>Das Interface für Dateisystemtreiber ist komplexer als bei den anderen Treibern. Hier müssen Funktionen für alle möglichen Dateioperationen zur Verfügung gestellt werden.
+</p><p>Um möglichst alle Dateisysteme unterstützen zu können, verfolgt CDI/FS ein etwas ungewöhnliches Konzept. Im Zentrum stehen dabei so genannte Ressourcen. Diese <b>Ressourcen können</b> Datei, Verzeichnis, Symlink, Spezialdatei oder alles gleichzeitig sein. Umgesetzt wird das mit den so genannten <b>Klassen</b>. Eine Ressource gehört zu mindestens einer Klasse (andernfalls ist sie nicht persistent). Diese Klassen beschreiben dann jeweils die verfügbaren Operationen. Es existieren momentan 4 verschiedene Klassen:
+</p>
+<ul><li><b>file</b>: Reguläre Datei</li>
+<li><b>dir</b>: Verzeichnis</li>
+<li><b>link</b>: Symbolische Verknüpfung (symlink)</li>
+<li><b>special</b>: Spezialdateien</li></ul>
+<p>Ein Treiber kann jeweils mehrere Klassen des selben Typs anbieten, in denen unterschiedliche Funktionen eingetragen sind.
+</p>
+<h3><span class="mw-headline" id="Storage">Storage</span></h3>
+<p>Die Schnittstelle für Massenspeicher-Treiber ist äusserst einfach definiert. Der Treiber muss die folgenden Funktionen bereitstellen:
+</p>
+<ul><li><b>read_blocks</b>(device, start_block, block_count, buffer)</li>
+<li><b>write_blocks</b>(device, start_block, block_count, buffer)</li></ul>
+<p>Diese beiden Funktionen werden von der Implementierung dazu Benutzt Sektoren zu lesen oder zu schreiben. Wieviele Sektoren ein Gerät hat, und wie gross diese sind, wird in der Device-Struktur festgelegt. Die Implementierung muss garantieren, dass die Funktion nur mit, für dieses Gerät sinnvollen, Parametern aufgerufen wird.
+</p>
+<h2><span class="mw-headline" id="Aufbau_eines_typischen_Treibers">Aufbau eines typischen Treibers</span></h2>
+<p>Zunächst eine Vorbemerkung: CDI wurde erstmals in tyndur implementiert, das nach wie vor das Referenzsystem für CDI darstellt. tyndur ist ein Mikrokernelsystem und aus diesem Grund liegt gelegentlich in Erklärungen die Annahme vor, dass ein Treiber ein eigenständiges Programm ist. CDI funktioniert aber auch mit einem monolithischen Kernel, aus der main-Funktion wird dann eine gewöhnliche Funktion, die zur Initialisierung des Treibers aufgerufen wird.
+</p><p>Sobald diese Funktion aufgerufen wird, registriert sie Datenstrukturen zur Beschreibung des Treibers bei CDI und führt die Initialisierung des Treibers durch. Im Allgemeinen werden dabei Geräte erkannt (z.B. auf dem PCI-Bus) und wiederum bei CDI registriert. Anschließend wird als letzte Aktion im Hauptprogramm die Funktion <i>cdi_run_drivers</i> aufgerufen, die bei einem Mikrokernelkonzept die Kontrolle an CDI übergibt und bei einem Monolithen im Allgemeinen leer ist und damit zum Kernel zurückkehrt, der die Treiberinitialisierung aufgerufen hat.
+</p><p>Der Treiber kommt ab diesem Zeitpunkt nur noch über Callbacks ins Spiel. Die Datenstrukturen zur Registrierung des Treibers enthalten Funktionspointer, die von CDI aufgerufen, wenn vom Treiber eine Aktion nötig ist. Das kann beispielsweise sein, wenn ein Interrupt für den Treiber eingetroffen ist oder wenn der Netzwerktreiber ein Ethernet-Paket versenden soll.
+</p>
+<h2><span class="mw-headline" id="Betriebssysteme_welche_CDI_benutzen">Betriebssysteme welche CDI benutzen</span></h2>
+<ul><li><a href="../../pages/1551/index.html" title="MeinOS">meinOS</a></li>
+<li><a href="../../pages/1788/index.html" title="PlanlOS">planlOS</a></li>
+<li><a class="mw-redirect" data-archive-original-href="../../pages/2146/index.html" href="../../pages/1796/index.html" title="Tyndur">tyndur</a></li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://lpt.tyndur.org/cdi" rel="nofollow">Aktuell-gehaltene Dokumentation der CDI-Header-Files von týndur</a></li>
+<li><a class="external text" href="http://git.tyndur.org/?p=tyndur.git;a=tree;f=src/modules/cdi" rel="nofollow">CDI-Treiber von týndur</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164949
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.003 seconds
+Real time usage: 0.004 seconds
+Preprocessor visited node count: 31/1000000
+Preprocessor generated node count: 36/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Common_Driver_Interface&amp;oldid=3865</a>“</div>
+<div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks"></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1622/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1622/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

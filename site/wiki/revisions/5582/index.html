@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Týndur/Entwicklung – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Týndur_Entwicklung rootpage-Týndur_Entwicklung skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2035/index.html">Aktueller Artikel</a> · <a href="../../history/2035/index.html">Versionsgeschichte</a> · <a href="../../source/5582.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Týndur/Entwicklung</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 12. August 2009, 09:11 Uhr von <a class="mw-userlink" href="../../pages/1865/index.html" title="Benutzer:Hartmut"><bdi>Hartmut</bdi></a> <span class="mw-usertoollinks">(<a class="mw-usertoollinks-talk" href="../../pages/2608/index.html" title="Benutzer Diskussion:Hartmut">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Quellen_beziehen">→</a>‎<span dir="auto"><span class="autocomment">Quellen beziehen</span></span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/5581-5582.html" title="Týndur/Entwicklung">Unterschied</a>) <a href="../5581/index.html" title="Týndur/Entwicklung">← Nächstältere Version</a> | <a href="../../pages/2035/index.html" title="Týndur/Entwicklung">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../5583/index.html" title="Týndur/Entwicklung">Nächstjüngere Version →</a> (<a href="../../diffs/5582-5583.html" title="Týndur/Entwicklung">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p><b>týndur</b> ist ein Community-Betriebssystem von der Community für die Community. Das heißt, jeder kann mitmachen. Ob man nun ein Programm für týndur schreiben oder portieren will, auf die Suche nach Bugs gehen möchte und selbige fixen will oder ob man Treiber entwickeln will: Jeder ist herzlich eingeladen.
+</p><p>Dieser Artikel soll die Entwicklung für týndur erklären und führt in die Benutzung von git ein, erläutert, wie man Patches an die Mailingliste sendet und wie man mit lbuilds umgeht.
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.C3.9Cberblick"><span class="tocnumber">1</span> <span class="toctext">Überblick</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Vorbereitungen"><span class="tocnumber">2</span> <span class="toctext">Vorbereitungen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Quellen_beziehen"><span class="tocnumber">2.1</span> <span class="toctext">Quellen beziehen</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Auf_der_Mailingliste_anmelden"><span class="tocnumber">2.2</span> <span class="toctext">Auf der Mailingliste anmelden</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Den_IRC-Channel_besuchen"><span class="tocnumber">2.3</span> <span class="toctext">Den IRC-Channel besuchen</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Mit_der_Entwicklung_beginnen"><span class="tocnumber">3</span> <span class="toctext">Mit der Entwicklung beginnen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Programme_schreiben"><span class="tocnumber">3.1</span> <span class="toctext">Programme schreiben</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Programme_portieren"><span class="tocnumber">3.2</span> <span class="toctext">Programme portieren</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Treiber_entwickeln"><span class="tocnumber">3.3</span> <span class="toctext">Treiber entwickeln</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Bugs_fixen"><span class="tocnumber">3.4</span> <span class="toctext">Bugs fixen</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Entwicklungsstand_ver.C3.B6ffentlichen"><span class="tocnumber">4</span> <span class="toctext">Entwicklungsstand veröffentlichen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Commit_erstellen"><span class="tocnumber">4.1</span> <span class="toctext">Commit erstellen</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Patch_senden"><span class="tocnumber">4.2</span> <span class="toctext">Patch senden</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Siehe_auch"><span class="tocnumber">5</span> <span class="toctext">Siehe auch</span></a></li>
+</ul>
+</div>
+<h2><span id="Überblick"></span><span class="mw-headline" id=".C3.9Cberblick">Überblick</span></h2>
+<p>Generell sieht der Entwicklungsvorgang so aus:
+</p>
+<ul><li>Repository clonen/updaten</li>
+<li>Bug fixen/Programm schreiben/Programm portieren/Treiber schreiben</li>
+<li>Testen</li>
+<li>Commit erstellen</li>
+<li>Patch erstellen</li>
+<li>An die Mailingliste schicken</li></ul>
+<p>An die Mailingliste geschickt wird nun vom Projektleiter <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">taljeth</a> bzw. <a href="../../pages/1460/index.html" title="Benutzer:FreakyPenguin">FreakyPenguin</a> entschieden, ob der Patch in das Repository kommt oder nicht. 
+</p><p>Ob ein Patch ins Repository kommt hängt davon ab, ob er sinnvoll ist und letzenendes funktioniert.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Vorbereitungen">Vorbereitungen</span></h2>
+<h3><span class="mw-headline" id="Quellen_beziehen">Quellen beziehen</span></h3>
+<p>Um für týndur zu entwickeln braucht man die aktuellsten Quellen. Diese bezieht man am besten direkt per <a href="../../pages/1889/index.html" title="Git">git</a> aus dem <a class="external text" href="http://git.tyndur.org" rel="nofollow">týndur-Repository</a>:
+</p><p><code>
+git clone <a class="external free archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">git://git.tyndur.org/tyndur.git</a>
+</code>
+</p><p>Je nach Internetverbindung dauert es ein paar Minuten, bis die ~5 MiB Quellcode heruntergeladen sind. 
+</p><p>Für lbuilds läuft es fast ähnlich:
+</p><p><code>
+git clone <a class="external free archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">git://git.tyndur.org/lbuilds.git</a>
+</code>
+</p>
+<h3><span class="mw-headline" id="Auf_der_Mailingliste_anmelden">Auf der Mailingliste anmelden</span></h3>
+<p>Die Mailingliste ist ein sehr wichtiges Informationsmedium in der tyńdur-Entwicklung. Dorthin werden alle Patches geschickt. Die Anmeldung ist natürlich kostenlos und die E-Mail-Adresse wird keiner Werbefirma o.ä. weitergegeben, auch bekommt man keine Mails über Potenz-steigernde Mittel. 
+</p><p>Einfach <a class="external text" href="http://list.tyndur.org" rel="nofollow">hier</a> auf der Mailingliste mit einer vorhandenen E-Mail-Adresse eintragen (<b>Nicht vergessen</b>  in der Bestätiguns-Email den Bestätigungs-Link anzuklicken!)
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Den_IRC-Channel_besuchen">Den IRC-Channel besuchen</span></h3>
+<p>Fast noch wichtiger als die Mailingliste selbst und die Anlaufstelle Nummer 1 ist der Channel zu týndur im euIRC. Dort sind viele aus der Community aktiv sowie die Projektleiter. Einfach mal in den Channel #lost reinschauen und ruhig Fragen stellen, sie werden sicher gern beantwortet.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Mit_der_Entwicklung_beginnen">Mit der Entwicklung beginnen</span></h2>
+<h3><span class="mw-headline" id="Programme_schreiben">Programme schreiben</span></h3>
+<p>Alle nativen týndur-Programme befinden sich im Verzeichnis src/modules/c (Windows-User denken sich die Slashes weg und ersetzen selbige druch Backslashes). Die Anzahl der Programme ist aktuell recht überschaubar. Ob man nun ein Programm extra für týndur entwickeln möchte oder ob portieren sinnvoller ist, hängt von der Art des Programms ab:
+</p><p>Es ist sicherlich sehr sinnvoll, ein Programm zur Festplattenpartionierung (siehe fdisk im c-Verzeichnis) selber zu schreiben, aber vielleicht nicht so sinnvoll, einen C-Compiler selber zu schreiben. Letzteres portiert man dann lieber.
+</p><p>Man kann ruhig im Forum oder im IRC nachfragen, welche Anwendungen denn gewünscht sind. Man kann auch z.B. die Komandozeilentools (in sh/cmds) erweitern oder neue schreiben.
+</p><p>Wenn man also ein neues Programm entwickelt, erstellt man einfach ein neues Verzeichnis in src/modules/c, am besten nach dem Namen des Programms (bsp. meinprog). In das Verzeichnis kopiert man sich eine Makefile.all aus einem anderen Programmverzeichnis und passt die Namen entsprechend an.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Programme_portieren">Programme portieren</span></h3>
+<p>Wenn es sich nicht lohnt, ein Programm selbst zu schreiben, so wird ein vorhandenes portiert. Es wurden schon wichtige Tools wie die binutils, der gcc und der fpc nach týndur portiert, weitere Anwendungen wie mutt (Mail-Client), Python etc. sind in Arbeit. Wenn man ins lbuild-Repo schaut, sieht man schon angefangene/portierte Anwendungen. Wenn hier eine fehlt oder man eine Anwendung portieren möchte, ist hier wieder die beste Anlaufstelle der IRC-Channel.
+</p><p>Generell ist die Portierung eines Programms nicht so aufwändig wie das Neuschreiben, allerdings dennoch mit einem gewissen Aufwand verbunden.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Treiber_entwickeln">Treiber entwickeln</span></h3>
+<p>týndur hat schon einige Treiber, darunter für die Tastatur, Maus, Diskettenlaufwerk, Festplatte und einige Dateisystemtreiber sowie auch zwei Netzwerkkartentreiber. Neue Treiber werden mithilfe vom <b>Common Driver Interface</b>, kurz <a class="mw-redirect" data-archive-original-href="../../pages/1625/index.html" href="../../pages/1622/index.html" title="CDI">CDI</a>, entwickelt, einer Schnittstelle, die das Programmieren von plattform-unabhänigen Treibern ermöglicht. So viele unterschiedliche Hardware es gibt, so viele unterschiedliche Treiber muss es geben. Hier wird allerdings dringend empfohlen, im IRC-Channel nachzufragen, ob nicht schon ein Community-Mitglied an einem Treiber arbeitet.
+</p><p>Wer also einen neuen Treiber entwickeln möchte, erstellt ein Verzeichnis in src/modules/cdi.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Bugs_fixen">Bugs fixen</span></h3>
+<p>Nobody's perfect, auch nicht die týndur-Entwickler. Deshalb schleichen sich Fehler ein und Bugs entstehen. Wer einen Bug findet, kann, nein, sollte ihn sogar fixen. Hier sei allerdings auf ausgiebiges Testen hingewiesen, denn allzuoft wird aus dem Bugfix ein zweiter Bug.
+</p><p>Auch sollte man überprüfen, ob der Bug nicht vielleicht doch eine Programmfunktion ist ;)
+</p><p><br/>
+</p>
+<h2><span id="Entwicklungsstand_veröffentlichen"></span><span class="mw-headline" id="Entwicklungsstand_ver.C3.B6ffentlichen">Entwicklungsstand veröffentlichen</span></h2>
+<p>Hat man nun ein Programm geschrieben oder portiert, einen Treiber entwickelt oder einen Bug gefixt, so möchte man natürlich, dass die Welt und speziell die anderen Entwickler etwas davon mitbekommen.
+</p>
+<h3><span class="mw-headline" id="Commit_erstellen">Commit erstellen</span></h3>
+<p>Nun muss erstmal ein Commit erstellt werden. Dazu nutzt man git add:
+</p><p><code>
+git add src/modules/c/meinprog/*
+</code>
+</p><p>Obiger Befehl fügt zum Beispiel ein entwickeltes Programm namens "meinprog" ins lokale Repository ein. Hat man alle geänderten Dateien ins lokale Repo gespeist, wird nun ein Commit erstellt:
+</p><p><code>
+git commit -s
+</code>
+</p><p>Nun öffnet sich der Standard-Editor (in der Regel vim). Nun kann man seinen Commit beschreiben. Dies sollte nach folgenden Regeln geschehen:
+</p>
+<ul><li>1. Zeile ist der E-Mail-Betreff</li>
+<li>2. Zeile leer lassen</li>
+<li>3. Zeile Kurze Erläuterung zum Patch</li>
+<li>Neuer Absatz</li>
+<li>Änderung angeben</li></ul>
+<p>Die Änderung wird nach folgendem Schema angegeben:
+</p>
+<ul><li>+ Für neue Funktion</li>
+<li>* Für Änderung</li>
+<li> ! Für Bugfix</li></ul>
+<p>Nun eine neue Zeile einfügen und speichern. Der Commit wurde nun erstellt.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Patch_senden">Patch senden</span></h3>
+<p>Nun muss der Patch an die Mailingliste ankommen. Dazu wird der Patch per format-patch erstellt:
+</p><p><code>
+git format-patch -1
+</code>
+</p><p>Das -1 gibt an, der wie vielte Patch einer Patch-Reihe das ist, also in dem Fall 1.
+</p><p>Jetzt wird der Patch an die Mailingliste gesendet:
+</p><p><code>
+git send-email 000x-name-des-patches.patch --smtp-server smtp.emailprovider.td --smtp-user username --smtp-pass password --to tyndur-devel@tyndur.org
+</code>
+</p><p>Zur Erläuterung:
+</p>
+<ul><li>000x-name-des-patches.patch ist der per git format-patch erstelle Patch. x steht dabei für den wievielten Patch, in unserem Fall 1, name-des-patches ist bei git commit angegebene Betreffzeile (Leerstellen wurden durch Bindestriche ersetzt)</li>
+<li>Bei --smtp-server musst der SMTP-Server des EMail-Providers angegeben werden</li>
+<li>Bei --smtp-user der Username</li>
+<li>Bei --smtp-pass das Passwort</li></ul>
+<p>Im nun folgendem Dialog wird gefragt, von woher die EMail kommen soll, sofern keine Änderung gewünscht ist einfach Enter drücken, dann wird nach der ID der Mail gefragt, hier eine 1 eintragen. Wenn alles geklappt hat ist der Patch nun auf der Mailingliste angekommen (sofern man nicht die Anmeldung auf selbiger vergessen hat).
+</p><p>Wenn nun von <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">taljeth</a> oder <a href="../../pages/1460/index.html" title="Benutzer:FreakyPenguin">FreakyPenguin</a> ein sogenanntes "Acked-by" an die Mailingliste gesendet wird, wurde der Patch akzeptiert und ladent im Repository.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a href="../../pages/1900/index.html" title="Týndur/Bochs">Týndur/Bochs</a></li>
+<li><a href="../../pages/1513/index.html" title="Týndur/Wunschliste">Týndur/Wunschliste</a></li>
+<li><a href="../../pages/2027/index.html" title="Týndur/Ressourcen">Týndur/Ressourcen</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170553
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.006 seconds
+Preprocessor visited node count: 55/1000000
+Preprocessor generated node count: 60/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Týndur/Entwicklung&amp;oldid=5582</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1795/index.html" title="Kategorie:Týndur">Týndur</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2035/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2503/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2035/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

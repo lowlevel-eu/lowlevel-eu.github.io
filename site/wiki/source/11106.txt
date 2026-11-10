@@ -1,0 +1,113 @@
+{{Infobox OS
+| Name = FruityOrange
+| Logo = [[Bild:FruityOrangeLogo.png]]
+| Version = 0.06
+| Entwickler = [[Benutzer:Micha.linuxfreak|Micha]]
+| Lizenz = [[Lizenz#GNU_General_Public_License|GNU General Public License]]
+| Kernel = [[Kernel#Monolithischer_Kernel|Monolithisch]]
+| API = nativ
+| Binaerformat = [[ELF]]
+| Sprache = [[C]] ([[Assembler]])
+| Plattform = [[x86|i386]]
+| IPC = ---
+| Homepage = https://github.com/michamimosa/FruityOrange<br/>https://code.google.com/p/fruityorange/
+}}
+FruityOrange ist ein Betriebssystem für den [[x86|i386]], welches [[GRUB]] als Bootloader benutzt.<br/>
+Ein fertiges Images gibts hier: [http://fruityorange.googlecode.com/files/FruityOrange_v0-06.iso]
+<br/><br/>
+== Features ==
+* Higherhalf-Kernel
+* printf, panic, debug
+* [[GDT]], [[Interrupt|Interrupts]], Dynamisches [[Syscall]]-interface
+* [[Physische Speicherverwaltung]], [[Paging]], [[Heap]]
+* [[Multitasking]], [[ELF]]32-loader
+* [[VFS]], Initiale Ramdisk
+=== Treiber ===
+* [[Textausgabe|CGA Grafik]] ;)
+* [[Keyboard_Controller|Tastatur (KBC)]]
+* [[PIT]]
+* [[CMOS|CMOS / RTC]]
+=== Programme ===
+* Concha - eine ganz kleine Shell
+* utils: ls, cat, cp
+
+== Screenshot ==
+https://a.fsdn.com/con/app/proj/fruityorange/screenshots/fruityorange_0.06.png
+
+== Syscalls ==
+Die Syscalls werden über den Interrupt 0x30 aufgerufen.
+[https://github.com/michamimosa/FruityOrange/blob/master/include/sys/syscalls.h]
+
+<div style="float:left; padding-left: 0%">
+{| {{prettytable}}
+!Nummer (in %eax)
+!Name
+|-
+|0
+|exit
+|-
+|1
+|putc
+|-
+|2
+|puts
+|-
+|3
+|getch
+|-
+|4
+|gets
+|-
+|5
+|time
+|-
+|6
+|usleep
+|-
+|7
+|alloc
+|-
+|8
+|free
+|-
+|9
+|open
+|}
+</div>
+<div style="float:left;padding-left: 5%">
+{| {{prettytable}}
+!Nummer (in %eax)
+!Name
+|-
+|10
+|close
+|-
+|11
+|read
+|-
+|12
+|write
+|-
+|13
+|seek
+|-
+|14
+|chdir
+|-
+|15
+|getcwd
+|-
+|16
+|fork
+|-
+|17
+|waitpid
+|-
+|18
+|exec
+|-
+|19
+|readdir
+|}
+</div>
+[[Category:Betriebssystem]]

@@ -1,0 +1,34 @@
+== Was noch fehlt ==
+#Tabelle erweitern!!!
+#Bild erstellen, so wie das in der Wikipedia: http://en.wikipedia.org/wiki/Stack_%28data_structure%29
+#Kurz den Stackfault erklären (int 11)
+
+--[[Benutzer:Bjork|Bjork]] 20:36, 21. Jan. 2010 (CET)
+
+== Stack-Befehle ==
+
+Ich finde die Tabelle ziemlich sinnlos, weil es jede Menge Befehle gibt, die Auswirkungen auf den Stack haben können &#150; ich habe mal exemplarisch enter/leave hinzugefügt, um das zu zeigen. Mir fallen nämlich gerade mal so ein:
+* push/pop
+* pushfd/popfd (pushf/popf)
+* pushfw/popfw
+* pushad/popad (pusha/popa)
+* pushaw/popaw
+* int/iret
+* far-call/retf
+* near-call/retn (call/ret)
+* enter/leave
+* far-jmp (auf Taskselektor)
+* sysenter/sysexit
+* syscall/sysret
+* theoretisch auch sub/add/mov (mit ESP/SS)
+* für 286/386 auch loadall
+
+Und das sind einfach zu viele für so eine Tabelle. --[[Benutzer:XanClic|XanClic]] 22:04, 21. Jan. 2010 (CET)
+
+::Ja, das sind relativ viele Befehle, aber im Grunde kann man doch schnell beschreiben, was sie auf den Stack genau pushen/popen.
+
+::Bespiel "int": pusht ss, esp (beide nur bei Ringwechsel),eflags, cs,eip
+
+::Nebenbei: pusha/popa und pushad/popad haben denselben Opcode.--[[Benutzer:Bjork|Bjork]] 18:16, 22. Jan. 2010 (CET)
+
+:::Den gleichen Opcode haben sie nur im PM ;-) &#150; Spaß beiseite, deshalb hab ich das ja immer in Klammern dahinter gesetzt, wenn ein Opcode gleich ist. Aber irgendwie finde ich das sinnlos, hier alle Stack-Befehle erklären zu wollen, da sollte man eher auf ein Assembler-Tutorial verweisen oder meinetwegen einen eigenen Artikel mit allen möglichen x86-Befehlen erstellen (oder zumindest einen zu x86-Stackbefehlen, denn ein Stack an sich ist ja nichts CPU-spezifisches). --[[Benutzer:XanClic|XanClic]] 19:22, 22. Jan. 2010 (CET)

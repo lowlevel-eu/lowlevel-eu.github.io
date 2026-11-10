@@ -1,0 +1,65 @@
+Was meinst du mit int86() Funktion, die kenne ich nicht. Ist das was selbst geschriebenes oder etwas offizielles? --[[Benutzer:PNoob|PNoob]] 12:35, 29. Dez. 2010 (CET)
+
+Es ist seltsam,wie ich zu dieser Funktion kam: Ich fuhr mit der U-Bahn, und dort lag ein altes Buch, C für PCs, 2.überarbeitete Auflage, die wurde 1998 gedruckt! Da gab es eine Funktion, im Kapitel 19(Hardwarenahe Programmierung), und dort, auf den Seiten 356 und 357 stand da, was die Funktion int86() so alles kann. Ich war fasziniert und habe es gleich ausprobiert. Vergeblich, die war schon längst veraltert. Deshalb muss ich mit Assembler programmieren(Das Assembler im Dev-C++), um z.B.:den Videomodus zu setzen(die Funktion int86() ist etwas auf diese legendäre ax, ah, ... basiert). Ob es wirklich geklappt hat, weiß ich nicht weil wenn ich die Datei öffne, dann eine Fehlermeldung kommt, (Die Problembericht senden Meldung). Aber vielleicht wenn ich das OS zu Ende gebracht habe und ich es dann auf Virtual PC es teste, kommt was raus. Aber was meinst du, soll ich lieber diese Videomodus Programmierung auf NASM programmieren oder weiter auf Dev-C++? --[[Benutzer:Quåko|Quåko]] 16:50, 29. Dez. 2010 (CET)
+
+Egal, ich werde es auf NASM machen. Dort fällt es mir etwas leichter.--[[Benutzer:Quåko|Quåko]] 16:55, 29. Dez. 2010 (CET)
+
+:Nette Geschichte :) Leider bringst du einige Dinge hier durcheiander:
+:*DevC++ ist eine Entwicklungsumgebung und NASM ein Assembler. Das sind beides KEINE Programmiersprachen.
+:*Wenn du von 'Assembler in DevC++' redest, meinst du wohl so etwas wie [[Inline-Assembler mit GCC|inline Assembler]].
+:*Die int86() Funktion, von der du sprichst, macht nichts anderes als einen Interrupt aufzurufen. Die könntest du dir sogar selbst programmieren, wenn du dich mit dem o.g. inline-Assembler ein wenig auskennst.
+:*Wenn ich dich richtig verstehe, dann möchtest du mit der in86() Funktion auf die Funktionen des BIOS zugreifen, um in einen bestimmten Videomodus zu springen. Dir sollte an dieser Stelle aber klar sein, dass das nur im 16 Bit Real Mode funktioniert!
+:*Das führt gleich zur nächsten Frage: Soll dein OS im [[Real Mode]] oder [[Protected Mode]] laufen?
+:*Und zu guter Letzt: Du wirst dein OS nicht mit DevC++ programmieren können! Die Sprache C (bzw. C++) ist zwar eine gute Wahl, aber deine Entwicklungsumgebung musst du dir selbst 'zusammenbauen'.
+:Ich hoffe das bringt ein wenig Licht ins Dunkel. --[[Benutzer:Bjork|Bjork]] 17:55, 29. Dez. 2010 (CET)
+
+du meinst, dass ich eine eigene biblothek baue. das weiß ich doch XD --[[Benutzer:Quåko|Quåko]] 18:12, 29. Dez. 2010 (CET)
+
+:Gemeint war eher, dass du selber Scripte und Konfigurationen zusammenstellen/schreiben musst, um dein System zu bauen. Eine IDE wird dir da zunächst nur im weg stehen. Siehe [[OS-Dev_für_Einsteiger]] bzw [[Teil_1_-_Entwicklungsumgebung]] --[[Benutzer:RedEagle|RedEagle]] 19:58, 29. Dez. 2010 (CET)
+
+okay, aber assembler darf ich immer noch benutzen, oder??
+
+:Du darfst verwenden was immer du willst, den das wichtigste am OS deven ist Spaß.--[[Benutzer:Tev|Tev]] 21:42, 29. Dez. 2010 (CET)
+: Klar Assembler kann st du benutzen bei Java und C# wirds da schon problematischer. aber am besten du ließt dier Das von Redeagle verlinkte Tutorial mal durch. das sollte sehr viele fragen klären. wenn du weitere Fragen hast, dann kannst du sie natürlich gerne stellen.--[[Benutzer:PNoob|PNoob]] 00:00, 30. Dez. 2010 (CET)
+
+ja, aber mit c++ habe ich immer so gemacht:
+
+
+<cpp>
+#ifndef _CONSOLE_HPP___
+#define _CONSOLE_HPP___
+#include <iostream>
+#include <windows.h>
+using namespace std;
+
+
+
+void qprintf(char *q){
+    char *videomem = (char)* 0xb8000;
+    int Colour=7+16*0; 
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),Colour); 
+    videomem++;
+    cout << q << endl;
+    videomem++;
+}
+
+.... 
+
+#endif
+
+///////////////////////////
+
+#include "console.hpp"
+
+int main(){
+    qprintf("hi");
+    return 0;
+}
+</cpp>
+
+Und dabei kam raus:
+
+hi
+
+also meisntu es so ungefähr mit eigenen skripten? darf ich die z.B.: iostream biblothek verwenden?
+:Nein, darfst du nicht (solange du Sie nicht portiert, d.h. für dein OS angepasst hast). Im Allgemeinen musst du jede Funktion/Klasse/Typ/Enum, die du benutzt selbst definieren und damit jede Header die du inkludieren möchtest selbst schreiben. Mit eigenen Skripten war gemeint, dass du z.B. eigene Makefiles oder Batchdateien erstellen musst, die den Compiler und Linker aufrufen, d.h. das machen, was eine IDE teilweise übernimmt. Der Grund dafür ist, dass man Compiler/Linker mit speziellen Flags aufrufen muss (siehe auch die [[:Kategorie:OS-Dev_für_Einsteiger | OS-Dev für Einsteiger Reihe]], Teil 4). Ich kann nur empfehlen erstmal diese Reihe versuchen durchzuarbeiten (nicht nur lesen, sondern auch wirklich nachvollziehen). --[[Benutzer:Bluecode|Bluecode]] 11:25, 30. Dez. 2010 (CET)

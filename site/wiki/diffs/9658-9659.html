@@ -1,0 +1,24 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Video Graphics Array — Änderungen 9658 → 9659</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Video Graphics Array — Änderungen 9658 → 9659</h1><nav><a href="../revisions/9658/index.html">Version 9658</a> · <a href="../revisions/9659/index.html">Version 9659</a> · <a href="../history/1516/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l39" >Zeile 39:</td>
+<td colspan="2" class="diff-lineno">Zeile 39:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>void setpixel(int x, int y, unsigned char color) {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>void setpixel(int x, int y, unsigned char color) {</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; offset <del class="diffchange diffchange-inline">= 320*y + x</del>;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; <ins class="diffchange diffchange-inline">int </ins>offset;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; if(x &lt;<del class="diffchange diffchange-inline">= </del>320) {</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; if(<ins class="diffchange diffchange-inline">0 &lt;= x &amp;&amp; </ins>x &lt; 320) {</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; &#160; if(y &lt;<del class="diffchange diffchange-inline">= </del>200) {</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; &#160; if(<ins class="diffchange diffchange-inline">0 &lt;= y &amp;&amp; </ins>y &lt; 200) {</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; &#160; &#160; offset = 320*y + x;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; VGA[offset] = color;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; VGA[offset] = color;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; }</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; }</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l47" >Zeile 47:</td>
+<td colspan="2" class="diff-lineno">Zeile 48:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/c&gt;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== Farben ====</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== Farben ====</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| {{prettytable}}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| {{prettytable}}</div></td></tr>
+</table></body></html>

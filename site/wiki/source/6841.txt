@@ -1,0 +1,7 @@
+== iret ==
+
+Ich finde es keine gute Idee, eine ISR komplett in C mitsamt ''leave'' und ''iret'' zu implementieren (für sowas nimmt man besser einen Assemblerstub, der die C-Funktion aufruft). Meinungen dazu? --[[Benutzer:XanClic|XanClic]] 21:20, 8. Jan. 2010 (CET)
+
+== RE: iret ==
+
+Da hast du Recht, aber um die Sache möglichst einfach zu halten, habe ich das hier mal mit dieser, ich gebe zu, unschönen "Pseudointerrupt" Version gemacht. In meinem eigenen Kernel habe ich das ganze auch so umgesetzt, wie du das vorschlägst.

@@ -1,0 +1,43 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VESA BIOS Extensions — Änderungen 8436 → 8439</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>VESA BIOS Extensions — Änderungen 8436 → 8439</h1><nav><a href="../revisions/8436/index.html">Version 8436</a> · <a href="../revisions/8439/index.html">Version 8439</a> · <a href="../history/2303/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l244" >Zeile 244:</td>
+<td colspan="2" class="diff-lineno">Zeile 244:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== VBE 3.0 ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== VBE 3.0 ==</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">//TODO</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">VBE 3.0 bietet nicht viele neue Funktionen an. Eine der wichtigsten ist die Unterstützung für [[Triple Buffering]], für die zwei neue Funktionen eingeführt wurden:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">ScheduleDisplayStart:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">*AX=4f07h</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">*BL=0</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">*BH=2</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">*ECX=Offset des ersten Pixels im [[LFB]]</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">GetDisplayStartStatus:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">*AX=4f07h</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">*BL=0</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">*BH=4</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">*liefert AX!=0, wenn das Bild im Buffer, der mit ''ScheduleDisplayStart'' gewählt wurde, auf dem Bildschirm abgebildet wurde.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Diese beiden Funktionen kann man natürlich auch für [[Double Buffering]] verwenden:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* Den ersten Buffer rendern</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* Ihn mit ''ScheduleDisplayStart'' auswählen</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* Während der erste Buffer auf dem Bildschirm erscheint, den zweiten rendern</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* Mit ''GetDisplayStatus'' darauf warten, dass der erste Buffer komplett auf dem Bildchirm gezeichnet wurde</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* Den zweiten Buffer mit ''ScheduleDisplayStart'' auswählen</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* Das Bild wieder im ersten Buffer rendern</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* Mit ''GetDisplayStatus'' darauf warten, dass der zweite Buffer komplett auf dem Bildchirm gezeichnet wurde</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* Den ersten Buffer mit ''ScheduleDisplayStart'' auswählen</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* usw.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">[[Double Buffering]] wäre auch schon mit VBE 2.0 möglich (siehe Funktion: 4F07h, 80h – Set Display Start During Vertical Retrace). Allerdings ist müsste man hier direkt auf die Grafikkarte zugreifen, um das Timing hinzukriegen.</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Weblinks ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Weblinks ==</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* http://www.phatcode.net/res/221/files/vbe20.pdf - VBE Spezifikation 2.0</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* http://www.petesqbsite.com/sections/tutorials/tuts/vbe3.pdf - VBE Spezifikation Version 3.0</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* http://www.petesqbsite.com/sections/tutorials/tuts/vbe3.pdf - VBE Spezifikation Version 3.0</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">* //TODO: Link für VBE 2.0 ( und VBE 1.0?)</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Glossar]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Glossar]]</div></td></tr>
+</table></body></html>

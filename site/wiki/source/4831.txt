@@ -1,0 +1,97 @@
+Das '''Task State Segment''' (kurz TSS) wird von der CPU benötigt, um bei einen Ringwechsel den richtigen [[Stack]] zu laden. Man kann das TSS auch benutzen, um Hardware-[[Multitasking]] zu realisieren. Dafür wird der TSS-Deskriptor mit einem Longjump angesprungen. Dabei werden auch andere Register (wie EIP) geladen. Um ein TSS für den Ringwechsel benutzen zu können, muss es vorher mit ''ltr <Selektor>'' geladen werden.
+
+== Aufbau - Task State Segment ==
+
+<center>
+{| {{prettytable}}
+! Offset || 31-16                || 0-15
+|-
+| 0x00   ||                      || Previous Task Link
+|-
+| 0x04   || colspan="2"| ESP0
+|-
+| 0x08   ||                      || SS0
+|-
+| 0x0C   || colspan="2"| ESP1
+|-
+| 0x10   ||                      || SS1
+|-
+| 0x14   || colspan="2"| ESP2
+|-
+| 0x18   ||                      || SS2
+|-
+| 0x1C   || colspan="2"| CR3
+|-
+| 0x20   || colspan="2"| EIP
+|-
+| 0x24   || colspan="2"| EFLAGS
+|-
+| 0x28   || colspan="2"| EAX
+|-
+| 0x2C   || colspan="2"| ECX
+|-
+| 0x30   || colspan="2"| EDX
+|-
+| 0x34   || colspan="2"| EBX
+|-
+| 0x38   || colspan="2"| ESP
+|-
+| 0x3C   || colspan="2"| EBP
+|-
+| 0x40   || colspan="2"| ESI
+|-
+| 0x44   || colspan="2"| EDI
+|-
+| 0x48   ||                      || ES
+|-
+| 0x4C   ||                      || CS
+|-
+| 0x50   ||                      || SS
+|-
+| 0x54   ||                      || DS
+|-
+| 0x58   ||                      || FS
+|-
+| 0x5C   ||                      || GS
+|-
+| 0x60   ||                      || LDT Segment Selektor
+|-
+| 0x64   || I/O Map Base Address ||
+|}
+</center>
+
+== Aufbau - TSS-Deskriptor ==
+
+<center>
+{| {{prettytable}}
+|+ Task State Segment Deskriptor (BITs) Teil 1
+|-
+! ''' 31 - 24''' || '''23''' || '''21 - 22''' || '''20''' || '''19 - 16''' || '''15''' || '''13 - 14''' || '''12''' || ''' 11 - 8''' || ''' 0 - 7 '''
+|-
+|Basisadresse 31-24
+|G
+|0
+|AVL
+|Größe 19-16
+|P
+|DPL
+|0
+|Type
+|Basisadresse 16-23
+|}
+
+{| {{prettytable}}
+|+ Task State Segment Deskriptor (BITs) Teil 2
+|-
+! '''31 - 24''' || '''16 - 0'''
+|-
+|Basisadresse 15 - 0
+|Größe 15 - 0
+|}
+</center>
+
+===Type = Deskriptor Typ===
+Hier muss als Wert 1001b eingetragen werden. Die hintere Null wird zusätzlich als Busy-Flag verwendet. Dies wird auf 1 gesetzt, sobald der Task in das System geladen ist und gestartet wurde. Tasks sind nicht redundant. Das heißt, sie dürfen sich nicht selbst aufrufen. Dies wird mit dem Busy-Flag verhindert.
+
+[[Kategorie:Glossar]]
+[[Kategorie:x86]]

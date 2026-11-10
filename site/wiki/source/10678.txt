@@ -1,0 +1,32 @@
+Da ich Vista benutze, habe ich leider keinen nativen Compiler, der [[ELF]]-Dateien ausspuckt. Da ich nicht dazu komme den [[Crosscompiler für Windows|Cross Compiler für LOST]] zu überarbeiten, halte ich hier mal ein paar Gedanken und Hinweise fest. Das hier ist kein Tutorial, sondern eine Sammlung von Ergänzungen zu den üblichen Tutorials wie zum Beispiel unsere [[Cross-Compiler]]-Bauanleitung oder das Tutorial [http://wiki.osdev.org/OS_Specific_Toolchain OS Specific Toolchain] von den Kollegen bei [http://wiki.osdev.org osdev.org].
+
+Ich hoffe ich kann mit diesen Tipps jemandem ein wenig Rumgefrickel ersparen. Für mich waren (und sind) die Lösungen für die ganzen Problemchen nicht unmittelbar durchschaubar, weil ich keine Ahnung von autoconf/configure/make habe.
+
+== Binutils ==
+Der aktuelle MinGW kommt mit texinfo 4.11. Das ist auf Grund eines [http://sourceware.org/bugzilla/show_bug.cgi?id=5021 Bugs] allerdings zu neu für binutils 2.18. Wer gerne mit Patches spielt und mit den autotools umgehen kann, der kann den entsprechenden Patch natürlich anwenden. Windoof-Nutzer wie meine Wenigkeit können nach dem ./configure auch einfach die im Build-Verzeichnis erzeugte Makefile nachbearbeiten und die Zeile suchen, die ungefähr so aussieht: 
+ MAKEINFO = /PATH_TO/JIDDEROS_CC_SRC/binutils-2.18/missing makeinfo
+und sie durch diese ersetzen:
+ MAKEINFO = makeinfo
+Wenn man tatsächlich kein makeinfo hat, kann man sich auch an der Datei /PATH_TO/JIDDEROS_CC_SRC/binutils-2.18/missing zu schaffen machen, und da nach ''makeinfo)'' suchen und dann da drunter das erste Vorkommen von ''test -f $file || exit 1'' löschen.
+
+== GCC ==
+Wenn man ''make'' (bzw. ''make all'') statt ''make all-gcc'' aufruft, gibt es Fehler wie "Link tests are not allowed after GCC_NO_EXECUTABLES". Um das zu lösen, darf man nochmal von vorne anfangen, d.h. beim ./configure und dann diesmal ''make all-gcc'' aufrufen.
+
+== Newlib ==
+Wenn man das [http://wiki.osdev.org/OS_Specific_Toolchain Tutorial auf osdev.org] befolgt, bekommt man einen Cross Compiler, der ohne Gefrickel (auf dem Target-System) ausführbare Programme erstellt dank libc, Headern, schönen Linker-Skripts, crt0, und so weiter. Das Erstellen der Syscall-Wrapper in der libc im Abschnitt [http://wiki.osdev.org/OS_Specific_Toolchain#newlib.2Flibc.2Fsys.2Fmyos newlib/libc/sys/myos] funktioniert bei mir allerdings nicht. Die MinGW-autotools machen Probleme und verstehen irgendwelche Makros nicht. Im Gegenzug verstehe ich deren Ausgabe nicht. 
+Workaround: Nicht die autotools benutzen, sondern fertige configure-Dateien. Zum Beispiel die in newlib/libc/sys/z8ksim. Damit das Gebastel schön einfach ist, hab ich anstelle die Schritte im Tutorial zu befolgen, einfach das gesamte Verzeichnis per Copy&Paste übernommen, in JIDDEROS umbenannt, und in der configure.in den Kommentar ebenfalls an mein OS angepasst. In die glue.c kam der Inhalt von [http://wiki.osdev.org/OS_Specific_Toolchain#syscalls.c syscalls.c], und crt0.c hab ich mit folgendem gefüllt:
+<c>extern int main();
+extern void exit(int);
+
+void _start()
+{
+	exit(main());
+}</c>
+
+
+== Libelf (und vielleicht auch andere Libraries) ==
+*config.sub wie [http://wiki.osdev.org/OS_Specific_Toolchain#config.sub im Tutorial beschrieben] um das Target ergänzen, wenn man sich ein eigenes ausgedacht hat (und nicht einfach für i386-elf oder so kompiliert.)
+
+*Warum auch immer kann man dem ./configure den Cross Compiler nicht korrekt verklickern. Meiner bockt darüber hinaus noch mit den Include-Pfaden rum, wenn man ihn einfach nur als gcc.exe (statt i586-pc-JIDDEROS-gcc.exe) aufruft. Pragmatisch wie ich bin, hab ich einfach gcc.exe und cc1.exe und deren Freunde (also die .exe-Dateien in deren Verzeichnissen) in das selbe Verzeichnis wie i586-pc-JIDDEROS-gcc.exe kopiert, und das natürlich in die PATH-Variable eingetragen.
+
+*Mein ./configure erkennt long long irgendwie nicht, welches allerdings für die Unterstützung von ELF64-Dateien notwendig ist. Ohne kompilierts auch gar nicht vernünftig. Ich hab mir deswegen die config.cache mit Wordpad gegriffen, in der Zeile ''ac_cv_sizeof_long_long=${ac_cv_sizeof_long_long=0}'' die 0 durch eine 8 ergänzt und ''libelf_cv_int64=${libelf_cv_int64=no}'' das "no" durch ein "long long" ersetzt. Dann noch mal ./configure laufen lassen, das sich nun leichtgläubig auf die config.cache verlässt.

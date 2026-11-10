@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Open Host Controller Interface – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Open_Host_Controller_Interface rootpage-Open_Host_Controller_Interface skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1575/index.html">Aktueller Artikel</a> · <a href="../../history/1575/index.html">Versionsgeschichte</a> · <a href="../../source/10070.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Open Host Controller Interface</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 21. August 2011, 15:02 Uhr von <a class="mw-userlink" href="../../pages/2155/index.html" title="Benutzer:Bjork"><bdi>Bjork</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Register, Interrupt-Transfers und Frameeinteilung hinzugefügt)</span></div><div id="mw-revision-nav">(<a href="../../diffs/10017-10070.html" title="Open Host Controller Interface">Unterschied</a>) <a href="../10017/index.html" title="Open Host Controller Interface">← Nächstältere Version</a> | <a href="../../pages/1575/index.html" title="Open Host Controller Interface">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../10075/index.html" title="Open Host Controller Interface">Nächstjüngere Version →</a> (<a href="../../diffs/10070-10075.html" title="Open Host Controller Interface">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Vorlage:Stub" style="margin-bottom:1em">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #f6f6f6; margin: 0 0em; padding: 0 0px; border: 1px solid #d6d6d6;" width="100%">
+<tbody><tr>
+<td>Diese Seite ist ein Artikel, welcher <b>mehr</b> haben könnte..<br/>
+<p>Wenn du mehr darüber weißt oder recherchieren willst, bist <b>du</b> aufgerufen, dies zu tun. Wenn du dir in einer Sache nicht sicher bist, dann stell es auf die Diskussionsseite.
+</p>
+</td></tr></tbody></table>
+</div>
+<div id="Template_Stub">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #D0D8FF; margin: 0 0em; padding: 0 0px; border: 1px solid #b8c0e8" width="100%">
+<tbody><tr>
+<td>Diese Seite oder Abschnitt ist zwar komplett, es wird aber folgende Verbesserungen gewünscht:<br/>
+<p><i></i>
+</p>
+<ul><li>Die Liste der Register vervollständigen (Spezifikation: Seite 137ff)</li>
+<li>Isochronous Transfers (Spezifikation: Seite 39ff und 48ff)</li>
+<li>Initialisierung des HCs</li></ul>
+<p><i></i>
+</p><p>Hilf Lowlevel, den Artikel zu verbessern.
+</p>
+</td></tr></tbody></table>
+</div>
+<p><br/>
+Das OHCI ist neben dem UHCI ein Interface für USB-1.x- und Firewire-Hostcontroller (HC). Zum Verständnis dieses Artikels ist die Kenntnis des <a class="mw-redirect" data-archive-original-href="../../pages/1689/index.html" href="../../pages/1690/index.html" title="USB">USB</a>-Protoklls Vorraussetzung.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Kommunikation_mit_dem_HC"><span class="tocnumber">1</span> <span class="toctext">Kommunikation mit dem HC</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Register"><span class="tocnumber">1.1</span> <span class="toctext">Register</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#Status-Register"><span class="tocnumber">1.1.1</span> <span class="toctext">Status-Register</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="#Zeiger-Register"><span class="tocnumber">1.1.2</span> <span class="toctext">Zeiger-Register</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Frame_Register"><span class="tocnumber">1.1.3</span> <span class="toctext">Frame Register</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Root-Hub-Register"><span class="tocnumber">1.1.4</span> <span class="toctext">Root-Hub-Register</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-7"><a href="#Host_Controller_Communications_Area_.28HCCA.29"><span class="tocnumber">1.2</span> <span class="toctext">Host Controller Communications Area (HCCA)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Transfers"><span class="tocnumber">2</span> <span class="toctext">Transfers</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Arten"><span class="tocnumber">2.1</span> <span class="toctext">Arten</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Einteilung_der_Frames"><span class="tocnumber">2.2</span> <span class="toctext">Einteilung der Frames</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Organisation_von_Transfers"><span class="tocnumber">2.3</span> <span class="toctext">Organisation von Transfers</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="#Organisation_von_nicht-periodischen_Transfers"><span class="tocnumber">2.3.1</span> <span class="toctext">Organisation von nicht-periodischen Transfers</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Organisation_von_Interrupt_Transfers"><span class="tocnumber">2.3.2</span> <span class="toctext">Organisation von Interrupt Transfers</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#Organisation_von_Isochronous_Transfers"><span class="tocnumber">2.3.3</span> <span class="toctext">Organisation von Isochronous Transfers</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#Initialisierung_des_HCs"><span class="tocnumber">3</span> <span class="toctext">Initialisierung des HCs</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#Weblinks"><span class="tocnumber">4</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Kommunikation_mit_dem_HC">Kommunikation mit dem HC</span></h2>
+<p>Die Kommunikation mit dem HC erfolgt über zwei Wege, zum einen über in den Arbeitsspeicher eingeblendete Register, zum anderen über einen gemeinsamen Speicherbereich im Arbeitsspeicher. Dieser Speicherbereich enthält zum einen die sogenannte Host Controller Communications Area (HCCA) und zum anderen verkettete Listen, die die Abfolge der zu erledigenden Transfers enthalten.
+<b>Hinweis:</b> Bei allen Angaben von Speicheradressen sind die <i>physikalischen</i> Adressen zu übergeben!
+</p>
+<h3><span class="mw-headline" id="Register">Register</span></h3>
+<p>Die Register sind in den Arbeitsspeicher eingeblendet. Ihre Adresse ist allerdings nicht fix. Da der HC aber in der Regel über einen PCI-Bus an die CPU angeschlossen ist, kann man von diesem die Adresse abrufen. Dafür durchläuft man die einzelnen Konfigurations-Adressräume nach einem Gerät mit der Class 0x0C (Serielle Buscontroller) und der Subclass 0x03. Das DWord an Offset 0x10 ist die Adresse der Register.
+Die angesprochenen Register sind alle 32 Bit breit (Offset in Klammern)
+</p>
+<h4><span class="mw-headline" id="Status-Register">Status-Register</span></h4>
+<ul><li><b>HcRevision</b> (0x00)</li></ul>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>Bit</th>
+<th style="padding:1px 5px;">31</th>
+<th style="padding:1px 5px;">30</th>
+<th style="padding:1px 5px;">29</th>
+<th style="padding:1px 5px;">28</th>
+<th style="padding:1px 5px;">27</th>
+<th style="padding:1px 5px;">26</th>
+<th style="padding:1px 5px;">25</th>
+<th style="padding:1px 5px;">24</th>
+<th style="padding:1px 5px;">23</th>
+<th style="padding:1px 5px;">22</th>
+<th style="padding:1px 5px;">21</th>
+<th style="padding:1px 5px;">20</th>
+<th style="padding:1px 5px;">19</th>
+<th style="padding:1px 5px;">18</th>
+<th style="padding:1px 5px;">17</th>
+<th style="padding:1px 5px;">16</th>
+<th style="padding:1px 5px;">15</th>
+<th style="padding:1px 5px;">14</th>
+<th style="padding:1px 5px;">13</th>
+<th style="padding:1px 5px;">12</th>
+<th style="padding:1px 5px;">11</th>
+<th style="padding:1px 5px;">10</th>
+<th style="padding:1px 5px;">9</th>
+<th style="padding:1px 5px;">8</th>
+<th style="padding:1px 5px;">7</th>
+<th style="padding:1px 5px;">6</th>
+<th style="padding:1px 5px;">5</th>
+<th style="padding:1px 5px;">4</th>
+<th style="padding:1px 5px;">3</th>
+<th style="padding:1px 5px;">2</th>
+<th style="padding:1px 5px;">1</th>
+<th style="padding:1px 5px;">0
+</th></tr>
+<tr align="center">
+<td>Bedeutung</td>
+<td colspan="24"><i>reserviert</i></td>
+<td colspan="8">REV
+</td></tr></tbody></table>
+<p><b>REV</b>: Version der OHCI-Spezifikation in <a class="mw-redirect" data-archive-original-href="../../pages/1590/index.html" href="../../pages/1589/index.html" title="BCD">BCD</a>. Hier sollte 0x10 stehen.
+</p>
+<ul><li><b>HcControl</b> (0x04)</li></ul>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>Bit</th>
+<th style="padding:1px 5px;">31</th>
+<th style="padding:1px 5px;">30</th>
+<th style="padding:1px 5px;">29</th>
+<th style="padding:1px 5px;">28</th>
+<th style="padding:1px 5px;">27</th>
+<th style="padding:1px 5px;">26</th>
+<th style="padding:1px 5px;">25</th>
+<th style="padding:1px 5px;">24</th>
+<th style="padding:1px 5px;">23</th>
+<th style="padding:1px 5px;">22</th>
+<th style="padding:1px 5px;">21</th>
+<th style="padding:1px 5px;">20</th>
+<th style="padding:1px 5px;">19</th>
+<th style="padding:1px 5px;">18</th>
+<th style="padding:1px 5px;">17</th>
+<th style="padding:1px 5px;">16</th>
+<th style="padding:1px 5px;">15</th>
+<th style="padding:1px 5px;">14</th>
+<th style="padding:1px 5px;">13</th>
+<th style="padding:1px 5px;">12</th>
+<th style="padding:1px 5px;">11</th>
+<th style="padding:1px 5px;">10</th>
+<th style="padding:1px 5px;">9</th>
+<th style="padding:1px 5px;">8</th>
+<th style="padding:1px 5px;">7</th>
+<th style="padding:1px 5px;">6</th>
+<th style="padding:1px 5px;">5</th>
+<th style="padding:1px 5px;">4</th>
+<th style="padding:1px 5px;">3</th>
+<th style="padding:1px 5px;">2</th>
+<th style="padding:1px 5px;">1</th>
+<th style="padding:1px 5px;">0
+</th></tr>
+<tr align="center">
+<td>Bedeutung</td>
+<td colspan="21"><i>reserviert</i></td>
+<td>RWE</td>
+<td>RWC</td>
+<td>IR</td>
+<td colspan="2">HCFS</td>
+<td>BLE</td>
+<td>CLE</td>
+<td>IE</td>
+<td>PLE</td>
+<td colspan="2">CBSR
+</td></tr></tbody></table>
+<p><b>CBSR</b> (ControlBulkServiceRatio): In einem Frame werden sowohl Transfers für Bulk-Endpunkte als auch für Control-Endpunkte durchgeführt. Hier wird spezifiziert, wie viele Control-Endpunkte auf einen Bulk-Endpunkt kommen: 00b = 1:1, 01b = 2:1, 10b = 3:1, 11b = 4:1
+</p><p><b>PLE</b> (PeriodicListEnable): Ist dieses Bit gesetzt, dann arbeitet der HC die Liste mit periodischen Transfers ab (-&gt; HcPeriodCurrentED)
+</p><p><b>IE</b> (IsochronousEnable): Ist dieses Bit gesetzt, dann führt der HC auch Isochronous Transfers in der Liste der periodischen Transfers aus
+</p><p><b>CLE</b> (ControlListEnable): Ist dieses Bit gesetzt, dann arbeitet der HC die Liste mit Control Transfers ab (-&gt;HcControlCurrentED)
+</p><p><b>BLE</b> (BulkListEnable): Ist dieses Bit gesetzt, dann arbeitet der HC die Liste mit Bulk Transfers ab (-&gt;HcBulkCurrentED)
+</p><p><b>HCFS</b> (HostControllerFunctionalState): Der Zustand, in den der HC den USB setzen soll: 00b=USB_RESET, 01b=USB_RESUME, 10b=USB_OPERATIONAL, 11b=USB_SUSPEND
+</p><p><b>IR</b> (InterruptRouting): Ist dieses Bit gesetzt, dann werden alle Interrupts vom <a href="../../pages/2189/index.html" title="SMI">SMI</a> behandelt. Ist es gelöscht, werden Interrupts vom Betriebssystem behandelt.
+</p><p><b>RWC</b> (RemoteWakeupConnected): Ist dieses Bit gesetzt, dann unterstützt der HC Remote Wakeup. Dieses Bit sollte nur gelesen werden.
+</p>
+<ul><li><b>HcCommandStatus</b> (0x08)</li></ul>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>Bit</th>
+<th style="padding:1px 5px;">31</th>
+<th style="padding:1px 5px;">30</th>
+<th style="padding:1px 5px;">29</th>
+<th style="padding:1px 5px;">28</th>
+<th style="padding:1px 5px;">27</th>
+<th style="padding:1px 5px;">26</th>
+<th style="padding:1px 5px;">25</th>
+<th style="padding:1px 5px;">24</th>
+<th style="padding:1px 5px;">23</th>
+<th style="padding:1px 5px;">22</th>
+<th style="padding:1px 5px;">21</th>
+<th style="padding:1px 5px;">20</th>
+<th style="padding:1px 5px;">19</th>
+<th style="padding:1px 5px;">18</th>
+<th style="padding:1px 5px;">17</th>
+<th style="padding:1px 5px;">16</th>
+<th style="padding:1px 5px;">15</th>
+<th style="padding:1px 5px;">14</th>
+<th style="padding:1px 5px;">13</th>
+<th style="padding:1px 5px;">12</th>
+<th style="padding:1px 5px;">11</th>
+<th style="padding:1px 5px;">10</th>
+<th style="padding:1px 5px;">9</th>
+<th style="padding:1px 5px;">8</th>
+<th style="padding:1px 5px;">7</th>
+<th style="padding:1px 5px;">6</th>
+<th style="padding:1px 5px;">5</th>
+<th style="padding:1px 5px;">4</th>
+<th style="padding:1px 5px;">3</th>
+<th style="padding:1px 5px;">2</th>
+<th style="padding:1px 5px;">1</th>
+<th style="padding:1px 5px;">0
+</th></tr>
+<tr align="center">
+<td>Bedeutung</td>
+<td colspan="14"><i>reserviert</i></td>
+<td colspan="2">SOC</td>
+<td colspan="12"><i>reserviert</i></td>
+<td>OCR</td>
+<td>BLF</td>
+<td>CLF</td>
+<td>HCR
+</td></tr></tbody></table>
+<p><b>HCR</b> (HostControllerReset): Beim Setzen dieses Bits führt der HC einen Reset durch. Nach Beendigung, die nicht länger als 10µs andauern darf, löscht der HC dieses Bit.
+</p><p><b>CLF</b> (ControlListFilled): Immer wenn ein neuer TD in die Liste der Control-Transfers eingefügt wird, muss dieses Bit gesetzt werden. Andernfalls arbeitet der HC die Liste nicht weiter ab.
+</p><p><b>BLF</b> (BulkListFilled): Immer wenn ein neuer TD in die Liste der Bulk-Transfers eingefügt wird, muss dieses Bit gesetzt werden. Andernfalls arbeitet der HC die Liste nicht weiter ab.
+</p><p><b>OCR</b> (OwnershipChangeRequest): Aus Kompatibilitätsgründen wird der HC vom <a class="mw-redirect" data-archive-original-href="../../pages/1632/index.html" href="../../pages/1616/index.html" title="BIOS">BIOS</a> so initialisiert, dass er vom <a href="../../pages/2189/index.html" title="SMI">SMI</a> gesteuert wird. Wenn das Betriebssystem nun die Steuerung des HC übernehmen will, dann setzt es dieses Bit. Wenn der HC die Kontrolle vom SMI auf das Betriebssystem übergeben hat, löscht er dieses Bit wieder.
+</p><p><b>SOC</b> (SchedulingOverrunCount): Wird bei Fehlern inkrementiert.
+</p>
+<ul><li><b>HcInterruptStatus</b> (0x0C)</li></ul>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>Bit</th>
+<th style="padding:1px 5px;">31</th>
+<th style="padding:1px 5px;">30</th>
+<th style="padding:1px 5px;">29</th>
+<th style="padding:1px 5px;">28</th>
+<th style="padding:1px 5px;">27</th>
+<th style="padding:1px 5px;">26</th>
+<th style="padding:1px 5px;">25</th>
+<th style="padding:1px 5px;">24</th>
+<th style="padding:1px 5px;">23</th>
+<th style="padding:1px 5px;">22</th>
+<th style="padding:1px 5px;">21</th>
+<th style="padding:1px 5px;">20</th>
+<th style="padding:1px 5px;">19</th>
+<th style="padding:1px 5px;">18</th>
+<th style="padding:1px 5px;">17</th>
+<th style="padding:1px 5px;">16</th>
+<th style="padding:1px 5px;">15</th>
+<th style="padding:1px 5px;">14</th>
+<th style="padding:1px 5px;">13</th>
+<th style="padding:1px 5px;">12</th>
+<th style="padding:1px 5px;">11</th>
+<th style="padding:1px 5px;">10</th>
+<th style="padding:1px 5px;">9</th>
+<th style="padding:1px 5px;">8</th>
+<th style="padding:1px 5px;">7</th>
+<th style="padding:1px 5px;">6</th>
+<th style="padding:1px 5px;">5</th>
+<th style="padding:1px 5px;">4</th>
+<th style="padding:1px 5px;">3</th>
+<th style="padding:1px 5px;">2</th>
+<th style="padding:1px 5px;">1</th>
+<th style="padding:1px 5px;">0
+</th></tr>
+<tr align="center">
+<td>Bedeutung</td>
+<td>0</td>
+<td>OC</td>
+<td colspan="23"><i>reserviert</i></td>
+<td>RHSC</td>
+<td>FNO</td>
+<td>UE</td>
+<td>RD</td>
+<td>SF</td>
+<td>WDH</td>
+<td>SO
+</td></tr></tbody></table>
+<p><b>SO</b> (SchedulingOverrun): Wird gesetzt, wenn ein Fehler auftritt.
+</p><p><b>WDH</b> (WritebackDoneHead): Ist dieses Bit gelöscht, dann übernimmt der HC den Wert von HcDoneHead in HccaDoneHead.
+</p><p><b>SF</b> (StartofFrame): Wird vom HC beim Anfang eines neuen Frames gesetzt.
+</p><p><b>RD</b> (ResumeDetected): Wird vom HC gesetzt, wenn ein Gerät den Zustand USBResume verlangt.
+</p><p><b>UE</b> (UnrecoverableError): Wenn der HC dieses Bit setzt, dann ist ein nicht behebbarer Fehler aufgetreten, der nur noch durch einen Reset des HCs aufgelöst werden kann.
+</p><p><b>FNO</b> (FrameNumberOverflow): Wenn Bit 15 von HcFmNumber seinen Wert ändert, wird dieses Bit vom HC gesetzt.
+</p><p><b>RHSC</b> (RootHubStatusChange): Wird vom HC gesetzt, wenn HcRhStatus oder HcRhPortStatus[] seinen Wert ändert.
+</p><p><b>OC</b> (OwnershipChange): Wird gesetzt, wenn ein OwnerchipChange durchgeführt wurde (-&gt;HcConnandStatus, OCR)
+</p>
+<ul><li><b>HcInterruptEnable</b> (0x10) und <b>HcInterruptDisable</b> (0x14)</li></ul>
+<p>Diese Register dienen dem Aktivieren bzw. Deaktiviern von Interrupts beim Ändern von Bits durch den HC in HcInterruptStauts. Das Schreiben einer 1 in eines der Register setzt das entsprechende Bit im Register und löscht es im anderen. Das Schreiben einer 0 ändert nichts.
+</p>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>Bit</th>
+<th style="padding:1px 5px;">31</th>
+<th style="padding:1px 5px;">30</th>
+<th style="padding:1px 5px;">29</th>
+<th style="padding:1px 5px;">28</th>
+<th style="padding:1px 5px;">27</th>
+<th style="padding:1px 5px;">26</th>
+<th style="padding:1px 5px;">25</th>
+<th style="padding:1px 5px;">24</th>
+<th style="padding:1px 5px;">23</th>
+<th style="padding:1px 5px;">22</th>
+<th style="padding:1px 5px;">21</th>
+<th style="padding:1px 5px;">20</th>
+<th style="padding:1px 5px;">19</th>
+<th style="padding:1px 5px;">18</th>
+<th style="padding:1px 5px;">17</th>
+<th style="padding:1px 5px;">16</th>
+<th style="padding:1px 5px;">15</th>
+<th style="padding:1px 5px;">14</th>
+<th style="padding:1px 5px;">13</th>
+<th style="padding:1px 5px;">12</th>
+<th style="padding:1px 5px;">11</th>
+<th style="padding:1px 5px;">10</th>
+<th style="padding:1px 5px;">9</th>
+<th style="padding:1px 5px;">8</th>
+<th style="padding:1px 5px;">7</th>
+<th style="padding:1px 5px;">6</th>
+<th style="padding:1px 5px;">5</th>
+<th style="padding:1px 5px;">4</th>
+<th style="padding:1px 5px;">3</th>
+<th style="padding:1px 5px;">2</th>
+<th style="padding:1px 5px;">1</th>
+<th style="padding:1px 5px;">0
+</th></tr>
+<tr align="center">
+<td>Bedeutung</td>
+<td>MIE/MID</td>
+<td>OC</td>
+<td colspan="23"><i>reserviert</i></td>
+<td>RHSC</td>
+<td>FNO</td>
+<td>UE</td>
+<td>RD</td>
+<td>SF</td>
+<td>WDH</td>
+<td>SO
+</td></tr></tbody></table>
+<p><b>MIE/MID</b> (MasterInterruptEnable/MasterInterruptDisable): Aktiviert/Deaktiviert alle Interrupts.
+</p>
+<hr/>
+<h4><span class="mw-headline" id="Zeiger-Register">Zeiger-Register</span></h4>
+<ul><li><b>HcHCCA</b> (0x18)</li></ul>
+<p>Enthält die Adresse der HCCA, die an einer 256 Byte Grenze ausgerichtet sein muss.
+</p>
+<ul><li><b>HcPeriodCurrentED</b> (0x1C)</li></ul>
+<p>Zeiger auf den aktuellen ED der periodischen Transfers
+</p>
+<ul><li><b>HcControlHeadED</b> (0x20) und <b>HcControlCurrentED</b> (0x24)</li></ul>
+<p>Zeiger auf den ersten bzw. aktuellen ED der Transfers in der Liste der Control-Transfers
+</p>
+<ul><li><b>HcBulkHeadED</b> (0x28) und <b>HcBulkCurrentED</b> (0x2C)</li></ul>
+<p>Zeiger auf den ersten bzw. aktuellen ED der Transfers in der Liste der Bulk-Transfers
+</p>
+<ul><li><b>HcDoneHead</b> (0x30)</li></ul>
+<p>Wenn der HC einen TD abgearbeitet hat, dann hängt er ihn an die Done-Liste an und schreibt dessen Adresse in der Liste in dieses Reigster. Wenn das WDH-Bit in HcInterruptStatus gelöscht ist, dann schreibt der HC diesen Wert in HccaDoneHead und setzt das WDH-Bit. Daher sollte das Betriebssystem diesen Wert nur aus HccaDoneHead lesen und dann das WDH-Bit löschen.
+</p>
+<hr/>
+<h4><span class="mw-headline" id="Frame_Register">Frame Register</span></h4>
+<ul><li><b>HcFmInterval</b> (0x34)</li></ul>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>Bit</th>
+<th style="padding:1px 5px;">31</th>
+<th style="padding:1px 5px;">30</th>
+<th style="padding:1px 5px;">29</th>
+<th style="padding:1px 5px;">28</th>
+<th style="padding:1px 5px;">27</th>
+<th style="padding:1px 5px;">26</th>
+<th style="padding:1px 5px;">25</th>
+<th style="padding:1px 5px;">24</th>
+<th style="padding:1px 5px;">23</th>
+<th style="padding:1px 5px;">22</th>
+<th style="padding:1px 5px;">21</th>
+<th style="padding:1px 5px;">20</th>
+<th style="padding:1px 5px;">19</th>
+<th style="padding:1px 5px;">18</th>
+<th style="padding:1px 5px;">17</th>
+<th style="padding:1px 5px;">16</th>
+<th style="padding:1px 5px;">15</th>
+<th style="padding:1px 5px;">14</th>
+<th style="padding:1px 5px;">13</th>
+<th style="padding:1px 5px;">12</th>
+<th style="padding:1px 5px;">11</th>
+<th style="padding:1px 5px;">10</th>
+<th style="padding:1px 5px;">9</th>
+<th style="padding:1px 5px;">8</th>
+<th style="padding:1px 5px;">7</th>
+<th style="padding:1px 5px;">6</th>
+<th style="padding:1px 5px;">5</th>
+<th style="padding:1px 5px;">4</th>
+<th style="padding:1px 5px;">3</th>
+<th style="padding:1px 5px;">2</th>
+<th style="padding:1px 5px;">1</th>
+<th style="padding:1px 5px;">0
+</th></tr>
+<tr align="center">
+<td>Bedeutung</td>
+<td>FIT</td>
+<td colspan="16">FSMPS</td>
+<td colspan="2"><i>reserviert</i></td>
+<td colspan="14">FI
+</td></tr></tbody></table>
+<p><b>FIT</b> (FrameIntervalToggle): Muss gesetzt werden, wenn in FI ein neuer Wert geschrieben wird.
+</p><p><b>FSMPS</b> (FSLargestDataPacket): Maximale Anzahl von Bits, die in einem Packet gesendet werden können.
+</p><p><b>FI</b> (FrameInterval): Länge eines Frames in Bits (Standart ist 11,999).
+</p>
+<ul><li><b>HcFmRemaining</b> (0x38)</li></ul>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>Bit</th>
+<th style="padding:1px 5px;">31</th>
+<th style="padding:1px 5px;">30</th>
+<th style="padding:1px 5px;">29</th>
+<th style="padding:1px 5px;">28</th>
+<th style="padding:1px 5px;">27</th>
+<th style="padding:1px 5px;">26</th>
+<th style="padding:1px 5px;">25</th>
+<th style="padding:1px 5px;">24</th>
+<th style="padding:1px 5px;">23</th>
+<th style="padding:1px 5px;">22</th>
+<th style="padding:1px 5px;">21</th>
+<th style="padding:1px 5px;">20</th>
+<th style="padding:1px 5px;">19</th>
+<th style="padding:1px 5px;">18</th>
+<th style="padding:1px 5px;">17</th>
+<th style="padding:1px 5px;">16</th>
+<th style="padding:1px 5px;">15</th>
+<th style="padding:1px 5px;">14</th>
+<th style="padding:1px 5px;">13</th>
+<th style="padding:1px 5px;">12</th>
+<th style="padding:1px 5px;">11</th>
+<th style="padding:1px 5px;">10</th>
+<th style="padding:1px 5px;">9</th>
+<th style="padding:1px 5px;">8</th>
+<th style="padding:1px 5px;">7</th>
+<th style="padding:1px 5px;">6</th>
+<th style="padding:1px 5px;">5</th>
+<th style="padding:1px 5px;">4</th>
+<th style="padding:1px 5px;">3</th>
+<th style="padding:1px 5px;">2</th>
+<th style="padding:1px 5px;">1</th>
+<th style="padding:1px 5px;">0
+</th></tr>
+<tr align="center">
+<td>Bedeutung</td>
+<td>FRT</td>
+<td colspan="17"><i>reserviert</i></td>
+<td colspan="14">FR
+</td></tr></tbody></table>
+<p><b>FR</b> (FrameRemaining): Anzahl der Bits, die in diesem Frame noch übertragen werden.
+</p><p><b>FRT</b> (FrameRemainingToggle): Dient dem HC zur Synchronisation zwischen FrameRemaining und FrameInterval.
+</p>
+<ul><li><b>HcFmNumber</b> (0x3C)</li></ul>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>Bit</th>
+<th style="padding:1px 5px;">31</th>
+<th style="padding:1px 5px;">30</th>
+<th style="padding:1px 5px;">29</th>
+<th style="padding:1px 5px;">28</th>
+<th style="padding:1px 5px;">27</th>
+<th style="padding:1px 5px;">26</th>
+<th style="padding:1px 5px;">25</th>
+<th style="padding:1px 5px;">24</th>
+<th style="padding:1px 5px;">23</th>
+<th style="padding:1px 5px;">22</th>
+<th style="padding:1px 5px;">21</th>
+<th style="padding:1px 5px;">20</th>
+<th style="padding:1px 5px;">19</th>
+<th style="padding:1px 5px;">18</th>
+<th style="padding:1px 5px;">17</th>
+<th style="padding:1px 5px;">16</th>
+<th style="padding:1px 5px;">15</th>
+<th style="padding:1px 5px;">14</th>
+<th style="padding:1px 5px;">13</th>
+<th style="padding:1px 5px;">12</th>
+<th style="padding:1px 5px;">11</th>
+<th style="padding:1px 5px;">10</th>
+<th style="padding:1px 5px;">9</th>
+<th style="padding:1px 5px;">8</th>
+<th style="padding:1px 5px;">7</th>
+<th style="padding:1px 5px;">6</th>
+<th style="padding:1px 5px;">5</th>
+<th style="padding:1px 5px;">4</th>
+<th style="padding:1px 5px;">3</th>
+<th style="padding:1px 5px;">2</th>
+<th style="padding:1px 5px;">1</th>
+<th style="padding:1px 5px;">0
+</th></tr>
+<tr align="center">
+<td>Bedeutung</td>
+<td colspan="16"><i>reserviert</i></td>
+<td colspan="16">FN
+</td></tr></tbody></table>
+<p><b>FN</b> (FrameNumber): Wird bei jedem neuen Frame inkrementiert und in HccaFrameNumber geschrieben. Nach dem Wert 0xFFFF gibt es einen Wraparound zum Wert 0x00.
+</p>
+<ul><li><b>HcPeriodicStart</b> (0x40)</li></ul>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>Bit</th>
+<th style="padding:1px 5px;">31</th>
+<th style="padding:1px 5px;">30</th>
+<th style="padding:1px 5px;">29</th>
+<th style="padding:1px 5px;">28</th>
+<th style="padding:1px 5px;">27</th>
+<th style="padding:1px 5px;">26</th>
+<th style="padding:1px 5px;">25</th>
+<th style="padding:1px 5px;">24</th>
+<th style="padding:1px 5px;">23</th>
+<th style="padding:1px 5px;">22</th>
+<th style="padding:1px 5px;">21</th>
+<th style="padding:1px 5px;">20</th>
+<th style="padding:1px 5px;">19</th>
+<th style="padding:1px 5px;">18</th>
+<th style="padding:1px 5px;">17</th>
+<th style="padding:1px 5px;">16</th>
+<th style="padding:1px 5px;">15</th>
+<th style="padding:1px 5px;">14</th>
+<th style="padding:1px 5px;">13</th>
+<th style="padding:1px 5px;">12</th>
+<th style="padding:1px 5px;">11</th>
+<th style="padding:1px 5px;">10</th>
+<th style="padding:1px 5px;">9</th>
+<th style="padding:1px 5px;">8</th>
+<th style="padding:1px 5px;">7</th>
+<th style="padding:1px 5px;">6</th>
+<th style="padding:1px 5px;">5</th>
+<th style="padding:1px 5px;">4</th>
+<th style="padding:1px 5px;">3</th>
+<th style="padding:1px 5px;">2</th>
+<th style="padding:1px 5px;">1</th>
+<th style="padding:1px 5px;">0
+</th></tr>
+<tr align="center">
+<td>Bedeutung</td>
+<td colspan="18"><i>reserviert</i></td>
+<td colspan="14">PS
+</td></tr></tbody></table>
+<p><b>PS</b> (PeriodicStart): Anzahl der Bits, die in einem Frame übertragen werden müssen, bis der HC Periodische Transfers ausführt.
+</p>
+<ul><li><b>HcLSThreshold</b> (0x44)</li></ul>
+<table class="prettytable">
+<tbody><tr align="center">
+<th>Bit</th>
+<th style="padding:1px 5px;">31</th>
+<th style="padding:1px 5px;">30</th>
+<th style="padding:1px 5px;">29</th>
+<th style="padding:1px 5px;">28</th>
+<th style="padding:1px 5px;">27</th>
+<th style="padding:1px 5px;">26</th>
+<th style="padding:1px 5px;">25</th>
+<th style="padding:1px 5px;">24</th>
+<th style="padding:1px 5px;">23</th>
+<th style="padding:1px 5px;">22</th>
+<th style="padding:1px 5px;">21</th>
+<th style="padding:1px 5px;">20</th>
+<th style="padding:1px 5px;">19</th>
+<th style="padding:1px 5px;">18</th>
+<th style="padding:1px 5px;">17</th>
+<th style="padding:1px 5px;">16</th>
+<th style="padding:1px 5px;">15</th>
+<th style="padding:1px 5px;">14</th>
+<th style="padding:1px 5px;">13</th>
+<th style="padding:1px 5px;">12</th>
+<th style="padding:1px 5px;">11</th>
+<th style="padding:1px 5px;">10</th>
+<th style="padding:1px 5px;">9</th>
+<th style="padding:1px 5px;">8</th>
+<th style="padding:1px 5px;">7</th>
+<th style="padding:1px 5px;">6</th>
+<th style="padding:1px 5px;">5</th>
+<th style="padding:1px 5px;">4</th>
+<th style="padding:1px 5px;">3</th>
+<th style="padding:1px 5px;">2</th>
+<th style="padding:1px 5px;">1</th>
+<th style="padding:1px 5px;">0
+</th></tr>
+<tr align="center">
+<td>Bedeutung</td>
+<td colspan="20"><i>reserviert</i></td>
+<td colspan="12">LST
+</td></tr></tbody></table>
+<p><b>LST</b> (LSThreshold): Anzahl der Bits, die in einem Frame mindestens noch übertragen werden, damit der HC noch einen LowSpeed-Transfer durchführt. Dieser Wert darf nur gelesen werden!
+</p>
+<hr/>
+<h4><span class="mw-headline" id="Root-Hub-Register">Root-Hub-Register</span></h4>
+<ul><li><b>HcRhDescriptorA</b> (0x48)</li>
+<li><b>HcRhDescriptorB</b> (0x4C)</li>
+<li><b>HcRhStatus</b> (0x50)</li>
+<li><b>HcRhPortStatus</b>[1] (0x54)</li></ul>
+<h3><span id="Host_Controller_Communications_Area_(HCCA)"></span><span class="mw-headline" id="Host_Controller_Communications_Area_.28HCCA.29">Host Controller Communications Area (HCCA)</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Feld</th>
+<th>Lesen</th>
+<th>Schreiben</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>128</td>
+<td>HccaInterrruptTable</td>
+<td>x</td>
+<td>-</td>
+<td>32 Zeiger auf Interrupt Transfers
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>2</td>
+<td>HccaFrameNumber</td>
+<td>-</td>
+<td>x</td>
+<td>Laufende Frame Nummer für periodische Transfers
+</td></tr>
+<tr>
+<td>0x82</td>
+<td>2</td>
+<td>HccaPad1</td>
+<td>-</td>
+<td>x</td>
+<td>Der HC setzt dieses Feld auf Null, wenn er HccaFrameNumber ändert.
+</td></tr>
+<tr>
+<td>0x84</td>
+<td>4</td>
+<td>HccaDoneHead</td>
+<td>-</td>
+<td>x</td>
+<td>Zeiger auf den ersten TD in der Done-Liste
+</td></tr>
+<tr>
+<td>0x88</td>
+<td>116</td>
+<td><i>reserviert</i></td>
+<td>x</td>
+<td>x</td>
+<td>
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Transfers">Transfers</span></h2>
+<h3><span class="mw-headline" id="Arten">Arten</span></h3>
+<p>Das OHCI teilt die vier Transferarten in zwei Gruppen ein: periodische und nicht-periodische.
+</p>
+<ul><li>Control Transfer: Nicht-periodischer Transfer mit geringen Datenmengen zur Konfguration von USB-Geräten</li>
+<li>Bulk Transfer: Nicht-periodischer Transfer mit hohen Datenmengen, die verlustfrei zwischen USB-Gerät und HC transferiert werden</li>
+<li>Interrupt Transfer: Periodischer Transfer mit gernigen Datenmengen, die in regelmäßigen Abständen beim USB-Gerät abgefragt werden</li>
+<li>Isochronous Transfers: Periodischer Transfer zur (meist verlustbehafteten) Übertragung von großen Datenmengen</li></ul>
+<h3><span class="mw-headline" id="Einteilung_der_Frames">Einteilung der Frames</span></h3>
+<p>Der HC teilt die einzelnen Frames in drei Abschnitte ein, in denen er die unterschiedlichen Transferlisten abarbeitet. Die Länge dieser Abschnitte wird über die Register HcPeriodicStart und das Feld ControlBulkServiceRatio (CBSR) in HcControl beeinflusst:
+</p>
+<ul><li>Vorm ersten Abschnitt sendet der HC ein StartOfFrame-Signal (SOF).</li>
+<li>Im ersten Abschnitt werden die nicht periodischen Transfers abgearbeitet. Wieviele Bulk- und Control-Transfers dies sind, wird mit dem CBSR-Feld beeinflusst.</li>
+<li>Wenn mehr Bits gesendet wurden, als in HcPeriodicStart vorgegeben sind, dann beginnt Abschnitt 2, in dem die periodischen Transfers abgearbeitet werden.</li>
+<li>Im dritten Abschnitt werden die verbleibenden Bits im Frame wieder mit nicht-periodischen Transfers gefüllt.</li></ul>
+<h3><span class="mw-headline" id="Organisation_von_Transfers">Organisation von Transfers</span></h3>
+<h4><span class="mw-headline" id="Organisation_von_nicht-periodischen_Transfers">Organisation von nicht-periodischen Transfers</span></h4>
+<p>Die Organisation der Datentransfers erfolgt über zwei Datenstrukturen, die über einfach verkettete Listen miteinander verknüpft sind. Die Datenstrukturen sind zum einen der Endpoint Descriptor (ED) und zum anderen der Transfer Descriptor (TD). Die EDs beschreiben genau einen Endpunkt einer Funktion (d.h. eines USB-Geräts). Die TDs beschreiben einen Transfer, der einem Endpunkt zugeordnet wird. Die EDs sind in einfach verketteten Listen organisiert. Von diesen Listen gibt es zwei für die nicht-periodischen, d.h. Bulk und Control Transfers. Die Zeiger auf die Anfänge dieser Listen sind in den Registern HcBulkHeadED sowie HcControlHeadED gespeichert. Jeder ED enthält wiederum einen Zeiger auf den Kopf einer verketteten Liste von TDs, die für diesen Endpunkt ausgeführt werden sollen.
+</p><p>//BILD
+</p><p>//Aufbau ED / TD
+</p><p>Es ist dabei Aufgabe des USB-Treibers diese Listen im Arbeitsspeicher anzulegen, wobei beide Deskriptoren an 16 Byte Grenzen im Arbeitsspeicher ausgerichtet sein müssen. Außerdem muss der Treiber die Felder HcBulkHeadED, HcControlHeadED sowie die Bits CLE/BLE im Feld HcControl entsprechend zu setzen.
+Es ist dann Aufgabe des HCs die Listen abzuarbeiten und die Felder HcBulkCurrentED und HcControlCurrentED zu setzen. Außerdem entfernt er die TDs und fügt sie in die sogenannte Done-Liste ein, auf die HcDoneHead zeigt.
+</p>
+<h4><span class="mw-headline" id="Organisation_von_Interrupt_Transfers">Organisation von Interrupt Transfers</span></h4>
+<p>Die Organisation von Interrupt Transfers funktioniert über 32 Interrupt-Transfer-Listen, die verkettete Listen von Interrupt EDs sind. Die Zeiger auf diese Listen liegen in der HCCA an Offset 0x00. In jedem Frame wird eine Interrupt-Transfer-Liste abgearbeitet. Dafür verwendet der HC den Zeiger aus der HccaInterrruptTable, dessen Index den unteren 5 Bits aus HccaFrameNumber besteht. Ein ED kann in mehreren Interrupt-Transfer-Listen auftachen, wodurch er entsprechend öfter abgearbeitet wird.
+</p>
+<h4><span class="mw-headline" id="Organisation_von_Isochronous_Transfers">Organisation von Isochronous Transfers</span></h4>
+<h2><span class="mw-headline" id="Initialisierung_des_HCs">Initialisierung des HCs</span></h2>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://h18000.www1.hp.com/productinfo/development/openhci.html" rel="nofollow">Open Host Controller Interface Specification V1.0a</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165929
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.018 seconds
+Real time usage: 0.019 seconds
+Preprocessor visited node count: 109/1000000
+Preprocessor generated node count: 206/1000000
+Post‐expand include size: 1207/2097152 bytes
+Template argument size: 157/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    2.472      1 -total
+ 32.76%    0.810      1 Vorlage:Stub
+ 28.28%    0.699      1 Vorlage:TODO
+ 21.97%    0.543     11 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Open_Host_Controller_Interface&amp;oldid=10070</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1618/index.html" title="Kategorie:Stub">Stub</a></li><li><a href="../../pages/1820/index.html" title="Kategorie:TODO">TODO</a></li><li><a href="../../pages/1447/index.html" title="Kategorie:Hardware">Hardware</a></li><li><a href="../../pages/2208/index.html" title="Kategorie:USB-Hostcontroller">USB-Hostcontroller</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1575/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1575/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/Open_Host_Controller_Interface" hreflang="en" lang="en" title="Open Host Controller Interface – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

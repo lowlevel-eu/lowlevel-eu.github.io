@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Common Driver Interface – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Common_Driver_Interface rootpage-Common_Driver_Interface skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1622/index.html">Aktueller Artikel</a> · <a href="../../history/1622/index.html">Versionsgeschichte</a> · <a href="../../source/5499.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Common Driver Interface</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 8. August 2009, 21:33 Uhr von <a class="mw-userlink" href="../../pages/1489/index.html" title="Benutzer:Bluecode"><bdi>Bluecode</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Rechtschreibung)</span></div><div id="mw-revision-nav">(<a href="../../diffs/5484-5499.html" title="Common Driver Interface">Unterschied</a>) <a href="../5484/index.html" title="Common Driver Interface">← Nächstältere Version</a> | <a href="../../pages/1622/index.html" title="Common Driver Interface">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../5559/index.html" title="Common Driver Interface">Nächstjüngere Version →</a> (<a href="../../diffs/5499-5559.html" title="Common Driver Interface">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p><b>Common Driver Interface</b> (oder kurz <b>CDI</b>) ist ein Standard, der vom Týndur-Team entwickelt wird, und der es ermöglichen soll, betriebssystemunabhängige Treiber zu schreiben. Dies funktioniert mithilfe einer Bibliothek, die einmal für ein Betriebssystem implementiert werden muss. Dann können CDI-komforme Treiber einfach mit dieser Bibliothek kompiliert werden. Der CDI-Standard gibt lediglich vor, wie die Funktionsprototypen aussehen müssen, aber nicht wie diese implementiert werden, denn das ist ja von Betriebssystem zu Betriebssystem unterschiedlich.
+</p><p>Ein Link zur Dokumentation der Funktionsprototypen, Strukturen, Enumerationen, usw. ist in dem <a href="#Weblinks"> Absatz Weblinks</a> zu finden.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Module"><span class="tocnumber">1</span> <span class="toctext">Module</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Core"><span class="tocnumber">1.1</span> <span class="toctext">Core</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Net"><span class="tocnumber">1.2</span> <span class="toctext">Net</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#FS"><span class="tocnumber">1.3</span> <span class="toctext">FS</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Storage"><span class="tocnumber">1.4</span> <span class="toctext">Storage</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Aufbau_eines_typischen_Treibers"><span class="tocnumber">2</span> <span class="toctext">Aufbau eines typischen Treibers</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Dinge.2C_die_ein_Betriebssystem_zur_Verf.C3.BCgung_stellen_muss"><span class="tocnumber">3</span> <span class="toctext">Dinge, die ein Betriebssystem zur Verfügung stellen muss</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#CDI.core"><span class="tocnumber">3.1</span> <span class="toctext">CDI.core</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#Datentypen"><span class="tocnumber">3.1.1</span> <span class="toctext">Datentypen</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Funktionen"><span class="tocnumber">3.1.2</span> <span class="toctext">Funktionen</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-11"><a href="#CDI.net"><span class="tocnumber">3.2</span> <span class="toctext">CDI.net</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="#Datentypen_2"><span class="tocnumber">3.2.1</span> <span class="toctext">Datentypen</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Funktionen_2"><span class="tocnumber">3.2.2</span> <span class="toctext">Funktionen</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Betriebssysteme.2C_welche_CDI_benutzen"><span class="tocnumber">4</span> <span class="toctext">Betriebssysteme, welche CDI benutzen</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Weblinks"><span class="tocnumber">5</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Module">Module</span></h2>
+<p>CDI definiert in seinen Modulen Schnittstellen für unterschiedliche Geräteklassen. Derzeit existieren die folgenden Module:
+</p>
+<ul><li><b>core</b>: Kernfunktionalität von CDI</li>
+<li><b>net</b>: Netzwerk (vorhandene Treiber: rtl8139, sis900, pcnet, e1000)</li>
+<li><b>fs</b>: Dateisysteme (vorhandene Treiber: ext2, ramdisk)</li>
+<li><b>storage</b>: Massenspeicher (vorhandene Treiber: floppy, ata)</li></ul>
+<p>Ein Betriebssystem muss dabei nicht zwingend die Schnittstellen aller Module implementieren. Alle Treiber benutzen Funktionen aus <i>core</i>, aber es ist ohne weiteres möglich, z.B. neben <i>core</i> nur die Schnittstelle für Netzwerktreiber zu implementieren.
+</p>
+<h3><span class="mw-headline" id="Core">Core</span></h3>
+<p>Die Kernfunktionalität umfasst die folgenden Punkte:
+</p>
+<ul><li>Verwaltung der Treiber und Geräte</li>
+<li>Zugriff auf I/O-Ports</li>
+<li>Zugriff auf Physischen Speicher</li>
+<li>PCI</li>
+<li>Verkettete Listen</li></ul>
+<h3><span class="mw-headline" id="Net">Net</span></h3>
+<p>Ein Neztwerktreiber muss nur eine Funktion bereitstellen um Pakete über eine Karte zu versenden:
+</p>
+<ul><li><b>send_packet</b>(device, buffer, size)</li></ul>
+<p>Die Implementierung stellt dem Treiber eine Funktion zur Verfügung um empfangene Pakete abzuliefern.
+</p>
+<h3><span class="mw-headline" id="FS">FS</span></h3>
+<p>Das Interface für Dateisystemtreiber ist komplexer als bei den anderen Treibern. Hier müssen Funktionen für alle möglichen Dateioperationen zur Verfügung gestellt werden.
+</p><p>Um möglichst alle Dateisysteme unterstützen zu können, verfolgt CDI/FS ein etwas ungewöhnliches Konzept. Im Zentrum stehen dabei so genannte Ressourcen. Diese <b>Ressourcen können</b> Datei, Verzeichnis, Symlink, Spezialdatei oder alles gleichzeitig sein. Umgesetzt wird das mit den so genannten <b>Klassen</b>. Eine Ressource gehört zu mindestens einer Klasse (andernfalls ist sie nicht persistent). Diese Klassen beschreiben dann jeweils die verfügbaren Operationen. Es existieren momentan 4 verschiedene Klassen:
+</p>
+<ul><li><b>file</b>: Reguläre Datei</li>
+<li><b>dir</b>: Verzeichnis</li>
+<li><b>link</b>: Symbolische Verknüpfung (symlink)</li>
+<li><b>special</b>: Spezialdateien</li></ul>
+<p>Ein Treiber kann jeweils mehrere Klassen des selben Typs anbieten, in denen unterschiedliche Funktionen eingetragen sind.
+</p>
+<h3><span class="mw-headline" id="Storage">Storage</span></h3>
+<p>Die Schnittstelle für Massenspeicher-Treiber ist äusserst einfach definiert. Der Treiber muss die folgenden Funktionen bereitstellen:
+</p>
+<ul><li><b>read_blocks</b>(device, start_block, block_count, buffer)</li>
+<li><b>write_blocks</b>(device, start_block, block_count, buffer)</li></ul>
+<p>Diese beiden Funktionen werden von der Implementierung dazu Benutzt Sektoren zu lesen oder zu schreiben. Wieviele Sektoren ein Gerät hat, und wie groß diese sind, wird in der Device-Struktur festgelegt. Die Implementierung muss garantieren, dass die Funktion nur mit, für dieses Gerät sinnvollen, Parametern aufgerufen wird.
+</p>
+<h2><span class="mw-headline" id="Aufbau_eines_typischen_Treibers">Aufbau eines typischen Treibers</span></h2>
+<p>Zunächst eine Vorbemerkung: CDI wurde erstmals in týndur implementiert, das nach wie vor das Referenzsystem für CDI darstellt. týndur ist ein Mikrokernelsystem und aus diesem Grund liegt gelegentlich in Erklärungen die Annahme vor, dass ein Treiber ein eigenständiges Programm ist. CDI funktioniert aber auch mit einem monolithischen Kernel, aus der main-Funktion wird dann eine gewöhnliche Funktion, die zur Initialisierung des Treibers aufgerufen wird.
+</p><p>Sobald diese Funktion aufgerufen wird, registriert sie Datenstrukturen zur Beschreibung des Treibers bei CDI und führt die Initialisierung des Treibers durch. Im Allgemeinen werden dabei Geräte erkannt (z.B. auf dem PCI-Bus) und wiederum bei CDI registriert. Anschließend wird als letzte Aktion im Hauptprogramm die Funktion <i>cdi_run_drivers</i> aufgerufen, die bei einem Mikrokernelkonzept die Kontrolle an CDI übergibt und bei einem Monolithen im Allgemeinen leer ist und damit zum Kernel zurückkehrt, der die Treiberinitialisierung aufgerufen hat.
+</p><p>Der Treiber kommt ab diesem Zeitpunkt nur noch über Callbacks ins Spiel. Die Datenstrukturen zur Registrierung des Treibers enthalten Funktionspointer, die von CDI aufgerufen, wenn vom Treiber eine Aktion nötig ist. Das kann beispielsweise sein, wenn ein Interrupt für den Treiber eingetroffen ist oder wenn der Netzwerktreiber ein Ethernet-Paket versenden soll.
+</p>
+<h2><span id="Dinge,_die_ein_Betriebssystem_zur_Verfügung_stellen_muss"></span><span class="mw-headline" id="Dinge.2C_die_ein_Betriebssystem_zur_Verf.C3.BCgung_stellen_muss">Dinge, die ein Betriebssystem zur Verfügung stellen muss</span></h2>
+<p>Hinweis: Der hier angegeben Inhalt der Strukturen ist nur ein Mindestmaß; Man darf beliebig viel in einer CDI-Struktur speichern, wenn das Betriebssystem mehr Informationen benötigt.
+</p>
+<h3><span class="mw-headline" id="CDI.core">CDI.core</span></h3>
+<h4><span class="mw-headline" id="Datentypen">Datentypen</span></h4>
+<p>&lt;c&gt;typedef enum
+{
+</p>
+<pre>   CDI_UNKNOWN = 0,
+   CDI_NETWORK = 1,
+   CDI_STORAGE = 2,
+   CDI_SCSI = 3,
+</pre>
+<p>} cdi_device_type_t;&lt;/c&gt;
+cdi_device_type_t gibt den Typ eines Gerätes bzw. eines Treibers an.
+&lt;c&gt;struct cdi_device
+{
+</p>
+<pre>   cdi_device_type_t type;
+   const char        *name;
+   struct cdi_driver *driver;
+</pre>
+<p>};&lt;/c&gt;
+Diese Struktur repräsentiert ein Gerät. "type" gibt den Typ an, "name" den Namen und "driver" einen Pointer zu einer Struktur, die den Gerätetreiber repräsentiert.
+&lt;c&gt;struct cdi_driver
+{
+</p>
+<pre>   cdi_device_type_t type;
+   const char        *name;
+   cdi_list_t        devices;
+   void (*init_device)(struct cdi_device *device);
+   void (*remove_device)(struct cdi_device *device);
+   void (*destroy)(struct cdi_driver *driver);
+</pre>
+<p>};&lt;/c&gt;
+Diese Struktur wiederum repräsentiert einen Gerätetreiber. "type" gibt den Typ an, "name" den Namen und "devices" ist eine Liste der registrierten Geräte. Die Funktion init_device() muss vom Betriebssystem aufgerufen werden, um ein Gerät zu initialisieren, remove_device() entfernt ein Gerät und destroy() deinitialisiert den Treiber.
+&lt;c&gt;struct cdi_pci_device
+{
+</p>
+<pre>   uint16_t bus;
+   uint16_t dev;
+   uint16_t function;
+   uint16_t vendor_id;
+   uint16_t device_id;
+   uint8_t  class_id;
+   uint8_t  subclass_id;
+   uint8_t  interface_id;
+   uint8_t  rev_id;
+   uint8_t  irq;
+   cdi_list_t resources;
+</pre>
+<p>};&lt;/c&gt;
+Mit dieser Struktur wird ein <a class="mw-redirect" data-archive-original-href="../../pages/1627/index.html" href="../../pages/1626/index.html" title="PCI">PCI</a>-Gerät beschrieben. "bus" ist der Bus, auf dem es sich befindet, "dev" das Gerät und "function" die Funktion. "vendor_id" gibt die Hersteller-ID an, "device_id" die Geräte-ID. Die Classcodes befinden sich in "class_id" (Base class), "subclass_id" (Subclass) und "interface_id" (Programming interface). "rev_id" enthält die Revisions-ID. In "irq" steht der IRQ, den das Gerät verwendet. "resources" ist eine Liste mit den I/O- und Speicherresourcen, ihre Elemente sind vom Typ "struct cdi_pci_resource".
+&lt;c&gt;typedef enum
+{
+</p>
+<pre>   CDI_PCI_MEMORY,
+   CDI_PCI_IOPORTS
+</pre>
+<p>} cdi_res_t;&lt;/c&gt;
+"cdi_res_t" gibt den Typ einer PCI-Resource an (I/O-Ports oder Speicherbereich).
+&lt;c&gt;struct cdi_pci_resource
+{
+</p>
+<pre>   cdi_res_t    type;
+   uintptr_t    start;
+   size_t       length;
+   unsigned int index;
+   void         *address;
+</pre>
+<p>};&lt;/c&gt;
+Informationen zu einer Resource eines PCI-Gerätes erhält man aus dieser Struktur. "type" gibt den Typ an (I/O-Ports oder Speicherbereich), "start" den Beginn, "length" die Länge, "index" den Index der Resource (0 ist die erste usw.) und "address" gibt bei Speicherbereichen ihre virtuelle Adresse an (vorher muss der Bereich mit cdi_pci_alloc_memory() reserviert worden sein).
+&lt;c&gt;typedef ??? cdi_list_t;&lt;/c&gt;
+"cdi_list_t" repräsentiert eine Linked-List. Dieser Datentyp muss ein Pointer sein, in týndur ist er ein Pointer auf eine Struktur mit den Elementen "anchor" (zeigt auf das erste Element der Liste) und "size" (Anzahl der Elemente in der Liste). Die Elemente der Liste wiederum müssen einen Pointer speichern können (der Wert des Elements) und sollten desweiteren einen Pointer auf das nächste Element enthalten (eine Linked-List eben).
+</p>
+<h4><span class="mw-headline" id="Funktionen">Funktionen</span></h4>
+<p>&lt;c&gt;void cdi_init(void);&lt;/c&gt;
+Initialisiert die CDI-Strukturen des Betriebssystems, muss vor Benutzung anderer CDI-Funktionen aufgerufen werden - wiederholte Aufrufe müssen ohne Effekt bleiben.
+&lt;c&gt;void cdi_run_drivers(void);&lt;/c&gt;
+Diese Funktion startet alle registrierten Treiber. Das Betriebssystem sollte alle registrierten Treiber durchgehen und bei allen für einen Treiber registrierten Geräten (Die Liste "(struct cdi_driver *)-&gt;devices") im Feld "driver" (in "struct cdi_device") den entsprechenden Treiber eintragen sowie, wenn "(struct cdi_driver *)-&gt;init_device" ungleich NULL ist, diese Funktion mit dem Gerät als Parameter aufrufen.
+&lt;c&gt;void cdi_driver_init(struct cdi_driver *driver);&lt;/c&gt;
+Initialisiert den angegebenen Treiber. Der Treiber hat bereits alle Felder in "driver" initialisiert, lediglich die "devices"-Liste muss vom Betriebssystem mittels cdi_list_create() erstellt werden.
+&lt;c&gt;void cdi_driver_destroy(struct cdi_driver *driver);&lt;/c&gt;
+Deinitialisiert den angegebenen Treiber. Ist der Funktionspointer "driver-&gt;remove_device" ungleich NULL, so sollte diese Funktion für alle registrierten Geräte (in der Liste "driver-&gt;devices") aufgerufen werden.
+&lt;c&gt;void cdi_driver_register(struct cdi_driver *driver);&lt;/c&gt;
+Registriert einen CDI-Treiber. Es bietet sich an, ihn in einer globalen Liste einzutragen und diese Liste dann beim cdi_run_drivers()-Aufruf abzuarbeiten.
+&lt;c&gt;void cdi_register_irq(uint8_t irq, void (*handler)(struct cdi_device*), struct cdi_device *device);&lt;/c&gt;
+Registriert eine ISR "handler" für den angegebenen IRQ "irq". Der ISR muss beim Aufruf das angegebene CDI-Gerät "device" als Parameter übergeben werden.
+&lt;c&gt;int cdi_wait_irq(uint8_t irq, uint32_t timeout);&lt;/c&gt;
+Wartet, bis der angegeben IRQ aufgetreten ist. "timeout" gibt die Zeit in Millisekunden an, die maximal gewartet werden soll. Ist der IRQ seit dem letzten cdi_reset_wait_irq() und vor "timeout" aufgetreten, wird 0 zurückgegeben, sonst -1.
+&lt;c&gt;int cdi_reset_wait_irq(uint8_t irq);&lt;/c&gt;
+Setzt den Status (aufgerufen oder nicht) des IRQs zurück.
+&lt;c&gt;int cdi_alloc_phys_mem(size_t size, void **vaddr, void **paddr);&lt;/c&gt;
+Reserviert physisch kontinuierlichen Speicher der Größe "size". Der Beginn wird in "**paddr" gespeichert, die virtuelle Adresse in "**vaddr". Bei Erfolg wird 0 zurückgegeben, sonst -1.
+&lt;c&gt;void *cdi_alloc_phys_addr(size_t size, uintptr_t paddr);&lt;/c&gt;
+Reserviert physisch kontinuierlichen Speicher der Größe "size" an der physischen Adresse "paddr". Bei Erfolg wird die virtuelle Adresse zurückgegeben, im Fehlerfall hingegen NULL.
+&lt;c&gt;int cdi_ioports_alloc(uint16_t start, uint16_t count);&lt;/c&gt;
+Reserviert "count" I/O-Ports ab dem Port "start". Bei Erfolg wird 0 zurückgegeben, im Fehlerfall -1.
+&lt;c&gt;int cdi_ioports_free(uint16_t start, uint16_t count);&lt;/c&gt;
+Gibt reservierte "count" I/O-Ports ab "start" wieder frei. Bei Erfolg ist der Rückgabewert 0, sonst -1.
+&lt;c&gt;void cdi_sleep_ms(uint32_t ms);&lt;/c&gt;
+Wartet "ms" Millisekunden.
+&lt;c&gt;void cdi_pci_get_all_devices(cdi_list_t list);&lt;/c&gt;
+Fügt alle vorhandenen PCI-Geräte in die Liste "list" ein.
+&lt;c&gt;void cdi_pci_device_destroy(struct cdi_pci_device *device);&lt;/c&gt;
+Gibt die Informationen zum PCI-Gerät frei.
+&lt;c&gt;void cdi_pci_alloc_ioports(struct cdi_pci_device *device);&lt;/c&gt;
+Reserviert die I/O-Ports des angegebenen PCI-Geräts.
+&lt;c&gt;void cdi_pci_free_ioports(struct cdi_pci_device *device);&lt;/c&gt;
+Gibt selbige Reservierung wieder frei.
+&lt;c&gt;void cdi_pci_alloc_memory(struct cdi_pci_device *device);&lt;/c&gt;
+Reserviert den Speicher des PCI-Geräts.
+&lt;c&gt;void cdi_pci_free_memory(struct cdi_pci_device *device);&lt;/c&gt;
+Gibt selbigen Speicher wieder frei.
+&lt;c&gt;uint8_t cdi_inb(uint16_t port)
+uint16_t cdi_inw(uint16_t port)
+uint32_t cdi_inl(uint16_t port)&lt;/c&gt;
+Liest ein Byte/Word/DWord vom angegeben I/O-Port ein und gibt es zurück
+&lt;c&gt;void cdi_outb(uint16_t port, uint8_t data)
+void cdi_outw(uint16_t port, uint16_t data)
+void cdi_outl(uint16_t port, uint32_t data)&lt;/c&gt;
+Gibt ein Byte/Word/DWord am angegebenen I/O-Port aus.
+&lt;c&gt;cdi_list_t cdi_list_create(void);&lt;/c&gt;
+Erstellt eine Linked-List (gibt NULL bei Fehler zurück).
+&lt;c&gt;void cdi_list_destroy(cdi_list_t list);&lt;/c&gt;
+Gibt eine Liste wieder frei.
+&lt;c&gt;cdi_list_t cdi_list_push(cdi_list_t list, void *value);&lt;/c&gt;
+Fügt ein Element am Anfang der Liste ein und gibt die Liste zurück (oder NULL bei Fehler).
+&lt;c&gt;void *cdi_list_pop(cdi_list_t list);&lt;/c&gt;
+Entfernt ein Element vom Anfang der Liste und gibt seinen Wert zurück (oder NULL bei Fehler).
+&lt;c&gt;size_t cdi_list_empty(cdi_list_t list);&lt;/c&gt;
+Gibt 1 zurück, wenn die Liste leer ist, sonst 0.
+&lt;c&gt;void *cdi_list_get(cdi_list_t list, size_t index);&lt;/c&gt;
+Gibt den Wert des Elements am Index "index" zurück (oder NULL bei Fehler).
+&lt;c&gt;cdi_list_t cdi_list_insert(cdi_list_t list, size_t index, void *value);&lt;/c&gt;
+Fügt ein Element in die Liste an der Position "index" ein und gibt die Liste zurück (oder NULL bei Fehler).
+&lt;c&gt;void *cdi_list_remove(cdi_list_t list, size_t index);&lt;/c&gt;
+Entfernt das Listenelement an der Stelle "index" und gibt seinen Wert zurück (oder NULL bei Fehler).
+&lt;c&gt;size_t cdi_list_size(cdi_list_t list);&lt;/c&gt;
+Gibt die Anzahl der Elemente in der Liste zurück.
+</p>
+<h3><span class="mw-headline" id="CDI.net">CDI.net</span></h3>
+<h4><span class="mw-headline" id="Datentypen_2">Datentypen</span></h4>
+<p>&lt;c&gt;struct cdi_net_device
+{
+</p>
+<pre>   struct cdi_device dev;
+   uint64_t          mac : 48;
+   int               number;
+   void (*send_packet)(struct cdi_net_device *device, void *data, size_t size);
+</pre>
+<p>};&lt;/c&gt;
+Diese Struktur beschreibt ein CDI.net-Gerät. "dev" ist eine Struktur, die das Gerät im Allgemeinen repräsentiert, "mac" gibt die MAC-Adresse an und "number" die Nummer der Netzwerkkarte. Mit der Funktion send_packet() können Pakete gesendet werden, wobei "device" ein Pointer auf diese Struktur ist, "data" ein Pointer auf die zu sendenden Daten, während "size" die Größe des Puffers "data" angibt. Wichtig: Man darf nicht erwarten, dass send_packet() reentrant (also gegen <a href="../../pages/2013/index.html" title="Race Condition">Race Conditions</a> abgesichert) ist! Das Betriebssystem muss somit selbst dafür Sorge tragen, dass diese Funktion immer nur von maximal einem einzigen Prozess durchlaufen wird.
+&lt;c&gt;struct cdi_net_driver
+{
+</p>
+<pre>   struct cdi_driver drv;
+</pre>
+<p>};&lt;/c&gt;
+Mit dieser Struktur werden CDI.net-Treiber beschrieben. Sie enthält lediglich die Struktur "struct cdi_driver", die den Treiber im Allgmeinen repräsentiert.
+</p>
+<h4><span class="mw-headline" id="Funktionen_2">Funktionen</span></h4>
+<p>&lt;c&gt;void cdi_net_driver_init(struct cdi_net_driver *driver);&lt;/c&gt;
+Diese Funktion wird aufgerufen, um einen CDI.net-Treiber "driver" zu initialisieren. Das Betriebssystem sollte "driver-&gt;drv.type" auf CDI_NETWORK setzen und anschließend "cdi_driver_init((struct cdi_driver *)driver)" aufrufen.
+&lt;c&gt;void cdi_net_driver_destroy(struct cdi_net_driver *driver);&lt;/c&gt;
+Diese Funktion wiederum deinitialisiert einen CDI.net-Treiber.
+&lt;c&gt;void cdi_net_device_init(struct cdi_net_device *device);&lt;/c&gt;
+Mit dieser Funktion werden CDI.net-Geräte (also Netzwerkkarten) initialisiert. Der Treiber hat alle vorgegebenen Felder in der "cdi_net_device"-Struktur "device" außer "number" bereits initialisiert. "number" muss vom Betriebssystem gesetzt werden.
+&lt;c&gt;void cdi_net_receive(struct cdi_net_device *device, void *buffer, size_t size);&lt;/c&gt;
+Diese Funktion wird vom CDI.net-Treiber aufgerufen, wenn Daten von einer Netzwerkkarte empfangen wurden. "device" gibt die Netzwerkkarte an, "buffer" ist ein Pointer zum empfangenen Paket und "size" enthält die Größe des Pakets.
+</p>
+<h2><span id="Betriebssysteme,_welche_CDI_benutzen"></span><span class="mw-headline" id="Betriebssysteme.2C_welche_CDI_benutzen">Betriebssysteme, welche CDI benutzen</span></h2>
+<ul><li><a href="../../pages/1551/index.html" title="MeinOS">meinOS</a></li>
+<li><a href="../../pages/1861/index.html" title="MyXomycota">MyXomycota</a></li>
+<li><a href="../../pages/1788/index.html" title="PlanlOS">planlOS</a></li>
+<li><a href="../../pages/1796/index.html" title="Týndur">týndur</a></li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://lpt.tyndur.org/cdi" rel="nofollow">Aktuell-gehaltene Dokumentation der CDI-Header-Files von týndur</a></li>
+<li><a class="external text" href="http://git.tyndur.org/?p=tyndur.git;a=tree;f=src/modules/cdi" rel="nofollow">CDI-Treiber von týndur</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164948
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.007 seconds
+Preprocessor visited node count: 59/1000000
+Preprocessor generated node count: 64/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Common_Driver_Interface&amp;oldid=5499</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1622/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1622/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

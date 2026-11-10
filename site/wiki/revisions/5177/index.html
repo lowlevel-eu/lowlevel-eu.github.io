@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Cross-Compiler – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Cross-Compiler rootpage-Cross-Compiler skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1628/index.html">Aktueller Artikel</a> · <a href="../../history/1628/index.html">Versionsgeschichte</a> · <a href="../../source/5177.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Cross-Compiler</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 6. August 2009, 12:26 Uhr von <a class="mw-userlink" href="../../pages/1860/index.html" title="Benutzer:XanClic"><bdi>XanClic</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Keine Links in Überschriften, OK)</span></div><div id="mw-revision-nav">(<a href="../../diffs/5163-5177.html" title="Cross-Compiler">Unterschied</a>) <a href="../5163/index.html" title="Cross-Compiler">← Nächstältere Version</a> | <a href="../../pages/1628/index.html" title="Cross-Compiler">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../6206/index.html" title="Cross-Compiler">Nächstjüngere Version →</a> (<a href="../../diffs/5177-6206.html" title="Cross-Compiler">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Ein Cross-Compiler ist ein <a href="../../pages/1923/index.html" title="Kategorie:Compiler"> Compiler</a>, der Objektdateien für eine andere Plattform (Zielplattform oder target) als die Verwendete (host) erzeugt. Die Zielplattform kann sich dabei sowohl beim <a href="../../pages/1479/index.html" title="Betriebssystem">Betriebssystem</a>, als auch beim verwendeten Prozessor unterscheiden. 
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Anforderungen"><span class="tocnumber">1</span> <span class="toctext">Anforderungen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Linux"><span class="tocnumber">1.1</span> <span class="toctext">Linux</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Windows"><span class="tocnumber">1.2</span> <span class="toctext">Windows</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Cygwin"><span class="tocnumber">1.2.1</span> <span class="toctext">Cygwin</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#mingw"><span class="tocnumber">1.2.2</span> <span class="toctext">mingw</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#binutils"><span class="tocnumber">2</span> <span class="toctext">binutils</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Konfigurieren"><span class="tocnumber">2.1</span> <span class="toctext">Konfigurieren</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Kompilieren"><span class="tocnumber">2.2</span> <span class="toctext">Kompilieren</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Installieren"><span class="tocnumber">2.3</span> <span class="toctext">Installieren</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#gcc"><span class="tocnumber">3</span> <span class="toctext">gcc</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Konfigurieren_2"><span class="tocnumber">3.1</span> <span class="toctext">Konfigurieren</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Kompilieren_2"><span class="tocnumber">3.2</span> <span class="toctext">Kompilieren</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Installieren_2"><span class="tocnumber">3.3</span> <span class="toctext">Installieren</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Benutzung"><span class="tocnumber">4</span> <span class="toctext">Benutzung</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Anforderungen">Anforderungen</span></h2>
+<p>Um einen Cross-Compiler zu bauen, werden die üblichen GNU-Tools benötigt. Dazu gehören binutils, <a href="../../pages/1805/index.html" title="GNU Compiler Collection"> gcc</a> und <a class="mw-redirect" data-archive-original-href="../../pages/1878/index.html" href="../../pages/1436/index.html" title="Make">make</a>. 
+</p>
+<h3><span class="mw-headline" id="Linux">Linux</span></h3>
+<p>Auf vielen <a href="../../pages/1641/index.html" title="Linux">Linux</a>-Distributionen sind diese Programme standardmäßig dabei. Wer eine Binärdistribution, wie zum Beispiel Ubuntu oder andere Debianderivate, einsetzt und noch keine Programme kompiliert hat, muss unter Umständen noch Entwicklungspakete installieren (bei Ubuntu/Debian libc6-dev und texinfo).
+</p>
+<h3><span class="mw-headline" id="Windows">Windows</span></h3>
+<p>Wer <a href="../../pages/1558/index.html" title="Windows">Windows</a> einsetzt, hat grundsätzlich zwei Möglichkeiten an diese Tools zu kommen. Entweder <a class="external text" href="http://www.cygwin.com/" rel="nofollow">Cygwin</a> (<a class="external text" href="http://www.cygwin.com/setup.exe" rel="nofollow">Direktlink zum Installer</a>) oder <a class="external text" href="http://www.mingw.org/" rel="nofollow">mingw</a>
+</p>
+<h4><span class="mw-headline" id="Cygwin">Cygwin</span></h4>
+<p>Die Installation von Cygwin gestaltet sich recht einfach. Bei der Installation müssen jedoch ein paar Dinge beachtet werden, das betrifft vor allem die Auswahl der richtigen Pakete. Für das Kompilieren eines Cross-gcc müssen die folgenden Pakete unbedingt installiert werden:
+</p>
+<ul><li>Devel -&gt; gcc4</li>
+<li>Devel -&gt; make</li>
+<li>Libs -&gt; libgmp-devel</li>
+<li>Libs -&gt; libmpfr-devel</li>
+<li>Web -&gt; wget</li></ul>
+<p>optional:
+</p>
+<ul><li>Devel -&gt; <a href="../../pages/1909/index.html" title="Netwide Assembler"> nasm</a></li></ul>
+<p>Nach der Installation müssen die Shellbefehle (siehe unten) in die Cygwin-<a href="../../pages/1864/index.html" title="Shell">Shell</a> eingegeben werden.
+</p>
+<h4><span class="mw-headline" id="mingw">mingw</span></h4>
+<p>TODO
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="binutils">binutils</span></h2>
+<p>Die GNU-binutils beinhalten unter anderem den <a href="../../pages/1932/index.html" title="Linker">Linker</a> ld, den <a href="../../pages/1514/index.html" title="Assembler">Assembler</a> as und viele weitere kleine Helfer wie ar, objdump oder objcopy. Da gcc auf diesen basiert, müssen diese vor dem gcc kompiliert werden. Diese sind streng genommen auch Bestandteil des Cross-Compilers, da sie auch für eine bestimmte Target- und Host-Plattform konfiguriert werden müssen.
+Jetzt aber zur eigentlichen Arbeit. Um die binutils zu kompilieren, muss zuerst der Quellcode heruntergeladen werden. Dieser kann von <a class="external free" href="http://ftp.gnu.org/gnu/binutils/" rel="nofollow">http://ftp.gnu.org/gnu/binutils/</a> bezogen werden. In diesem Artikel wird von der Version 2.19.1 ausgegangen:
+</p>
+<pre>$ wget <a class="external free" href="http://ftp.gnu.org/gnu/binutils/binutils-2.19.1.tar.bz2" rel="nofollow">http://ftp.gnu.org/gnu/binutils/binutils-2.19.1.tar.bz2</a>
+</pre>
+<p>Er müsste aber auch für jüngere und ältere Versionen funktionieren. Nach dem Herunterladen muss das Archiv entpackt werden:
+</p>
+<pre>$ tar -xjf binutils-2.19.1.tar.bz2
+</pre>
+<h3><span class="mw-headline" id="Konfigurieren">Konfigurieren</span></h3>
+<p>Der nächste Schritt ist das Konfigurieren. Die Dokumentation empfiehlt, binutils außerhalb des Quellverzeichnisses zu konfigurieren und zu kompilieren:
+</p>
+<pre>$ mkdir binutils-build
+$ cd binutils-build
+</pre>
+<p>Beim Konfigurieren muss auch das Verzeichnis festgelegt werden, in das die binutils installiert werden sollen. Hier wird jetzt <tt>/usr/local/crosstools</tt> benutzt. Folgender Befehl wird zum Konfigurieren beunutzt:
+</p>
+<pre>$ ../binutils-2.19.1/configure --prefix=/usr/local/crosstools --target=i386-elf --disable-nls
+</pre>
+<p>Als Zielplattform wird hier i386-elf benutzt, da dies wohl die Meistbenutzte im Zusammenhang mit Betriebssystementwicklung ist. Der letzte Schalter <tt>--disable-nls</tt> dient dazu, sämtliche Übersetzungen zu deaktivieren, da die meist mehr verwirren als nützen.
+</p>
+<h3><span class="mw-headline" id="Kompilieren">Kompilieren</span></h3>
+<p>Nach dem Konfigurieren ist der nächste Schritt das Kompilieren:
+</p>
+<pre>$ make all
+</pre>
+<p>Wer eine CPU mit mehreren Kernen benutzt, kann diesen Vorgang etwas beschleunigen, wenn er den Parameter -j3 benutzt. Dieser signalisiert make, dass maximal 3 Instanzen des Compilers zur selben Zeit laufen dürfen. Standardmässig wird hier 1 benutzt. Als Daumenregel wird oft Anzahl der Kerne + 1 empfohlen.
+</p>
+<h3><span class="mw-headline" id="Installieren">Installieren</span></h3>
+<p>Sobald das Kompilieren abgeschlossen ist, können die binutils installiert werden:
+</p>
+<pre>$ make install
+$ cd ..
+</pre>
+<h2><span class="mw-headline" id="gcc">gcc</span></h2>
+<p>Nachdem nun die binutils kompiliert und installiert wurden, kann mit gcc weitergefahren werden. Für das Konfigurieren von gcc müssen die Binutils in $PATH also der Umgebungsvariable, die die Verzeichnisse enthält, in denen nach ausführbaren Dateien gesucht werden soll, enthält, sein. Erreicht wird das durch:
+</p>
+<pre>$ export PATH="/usr/local/crosstools/bin:$PATH"
+</pre>
+<p>Wichtig ist hier, dass der eigene Pfad vor den originalen Pfaden steht, damit sicher die vorhin kompilierten binutils benutzt werden. Der Pfad /usr/local/crosstools muss auch hier wieder angepasst werden, wenn für den Präfix bei Binutils ein anderer benutzt wurde.
+Als nächstes muss der Quellcode von gcc heruntergeladen werden. Dieser kann von <a class="external free" href="http://ftp.gnu.org/gnu/gcc" rel="nofollow">http://ftp.gnu.org/gnu/gcc</a> bezogen werden. Während dem Schreiben dieses Artikels wurde die Version 4.4.0 benutzt. Aber auch hier gilt wieder, dass das auf andere Versionen übertragen werden kann.
+Das Archiv mit Namen gcc-core-&lt;VERSION&gt;.tar.bz2 muss auf jeden Fall heruntergeladen werden. Falls auch ein <a href="../../pages/1486/index.html" title="C++">C++</a> Compiler gewünscht wird, ist auch gcc-g++-&lt;VERSION&gt;.tar.bz2 notwendig. Nach dem Download des einen oder der beiden Archive müssen diese wieder entpackt werden:
+</p>
+<pre>$ wget <a class="external free" href="http://ftp.gnu.org/gnu/gcc/gcc-4.4.0/gcc-core-4.4.0.tar.bz2" rel="nofollow">http://ftp.gnu.org/gnu/gcc/gcc-4.4.0/gcc-core-4.4.0.tar.bz2</a>
+$ wget <a class="external free" href="http://ftp.gnu.org/gnu/gcc/gcc-4.4.0/gcc-g++-4.4.0.tar.bz2" rel="nofollow">http://ftp.gnu.org/gnu/gcc/gcc-4.4.0/gcc-g++-4.4.0.tar.bz2</a>
+$ tar -xjf gcc-core-4.4.0.tar.bz2
+$ tar -xjf gcc-g++-4.4.0.tar.bz2
+</pre>
+<h3><span class="mw-headline" id="Konfigurieren_2">Konfigurieren</span></h3>
+<p>Auch für gcc wird empfohlen, ihn ausserhalb des Quellverzeichnisses zu bauen:
+</p>
+<pre>$ mkdir gcc-build
+$ cd gcc-build
+$ ../gcc-4.4.0/configure --prefix=/usr/local/crosstools --target=i386-elf --disable-nls --without-headers --enable-languages=c,c++
+</pre>
+<p>Beim Konfigurieren von gcc muss unbedingt darauf geachtet werden, dass der selbe Präfix wie bei binutils benutzt wird. Sonst benutzt gcc später den falschen Assembler. Die drei ersten Konfigurationsoptionen haben wieder die selbe Bedeutung wie bei gcc und werden hier deshalb nicht noch mal erläutert. Der Schalter --without-headers teilt gcc mit, dass keine Libc Header installiert sind und er sie somit nicht benutzen darf, und die letzte Option --enable-languages legt die Sprachen fest, die der Compiler beherrschen soll. Wie vorhin schon gesagt, muss für den C++ Compiler das 2. Archiv auch heruntergeladen werden. Wenn der Compiler nur C kompilieren soll muss auch nur --enable-languages=c angegeben werden.
+</p>
+<h3><span class="mw-headline" id="Kompilieren_2">Kompilieren</span></h3>
+<p>Auch hier ist der nächste Schritt nach dem Konfigurieren wieder das Kompilieren. Dieser Prozess dauert je nach Prozessorleistung recht lange. Hier kann auch wie bei binutils die Option -j3 benutzt werden. Gestartet wird das Kompilieren folgendermaßen:
+</p>
+<pre>$ make all-gcc all-target-libgcc
+</pre>
+<h3><span class="mw-headline" id="Installieren_2">Installieren</span></h3>
+<p>Nachdem gcc fertig kompiliert ist, kann er installiert werden. Das geschieht mit diesem Befehl:
+</p>
+<pre>$ make install-gcc install-target-libgcc
+</pre>
+<h2><span class="mw-headline" id="Benutzung">Benutzung</span></h2>
+<p>Beim Kompilieren von Programmen mit dem neuen Crosscompiler muss daran gedacht werden, dass dieser nur zum Kompilieren und nicht zum Linken benutzt werden kann, denn dafür fehlt eine installierte Libc. Deshalb muss der gcc mit dem -c Flag aufgerufen wird, damit er nur den Präprozessor aufruft und den Quellcode kompiliert aber nicht linkt.
+Außerdem muss beachtet werden, dass der cross-kompilierte gcc nicht über das Kommando 'gcc' sondern über '/user/local/crosstools/bin/i386-elf-gcc' erreichbar ist. Dies gilt auch für g++ und alle Tools aus den binutils.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109165004
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.007 seconds
+Preprocessor visited node count: 64/1000000
+Preprocessor generated node count: 80/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 21/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Cross-Compiler&amp;oldid=5177</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1923/index.html" title="Kategorie:Compiler">Compiler</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1628/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1628/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

@@ -1,0 +1,8 @@
+{{Stub}}
+Der System Management Mode (SMM) ist ein Betriebsmodus der [[x86]]-Prozessoren, der Systemfunktionen wie das Energie Management verwaltet, um zum Beispiel den Computer in einen Ruhezustand zu versetzen. Er wurde mit Versionen der 386er- und 486er-Prozessoren für Laptops (i386SL bzw. i486SL) eingeführt und steht hinsichtlich der Privilegien der Betriebsmodi über dem [[Real Mode]] und dem [[Protected Mode]].
+
+== Wechsel in den SMM ==
+In den SMM kann nicht auf eine Art und Weise wie in den Protected Mode oder den Long Mode gesprungen werden. Die CPU wechselt in den SMM ausschließlich dann, wenn ein System Management Interrupt (SMI) über den SMI#-Pin ausgelöst wird. Das bedeutet, dass dies nicht nur für Anwendungen sondern auch für das Betriebssystem transparent geschieht; beide bekommen davon also nichts mit, ähnlich wie Programme nichts von [[Interrupt|Hardware Interrupts]] mitbekommen. Wenn ein SMI ausgelöst wird, wird zunächst der Zustand der CPU gespeichert, und dann ein spezieller Interrupt Handler ausgeführt. Dieser befindet sich in einem Adressraum, der in der Regel außerhalb des Zugriffs der anderen Betriebsmodi liegt. Der Rücksprung aus dem Interrupt Handler, geschieht über eine spezielle Instruktion, die analog zu IRET funktioniert.
+
+== Links ==
+[http://www.intel.com/products/processor/manuals/ Intels Manual, Volume 3B: System Programming Guide - System Management]

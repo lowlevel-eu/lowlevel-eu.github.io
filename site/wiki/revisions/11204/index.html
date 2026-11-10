@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>I/O Advanced Programmable Interrupt Controller – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-I_O_Advanced_Programmable_Interrupt_Controller rootpage-I_O_Advanced_Programmable_Interrupt_Controller skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1574/index.html">Aktueller Artikel</a> · <a href="../../history/1574/index.html">Versionsgeschichte</a> · <a href="../../source/11204.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">I/O Advanced Programmable Interrupt Controller</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 29. Mai 2014, 23:28 Uhr von <a class="mw-userlink" href="../../pages/2274/index.html" title="Benutzer:Ehenkes"><bdi>Ehenkes</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Setzen_der_Eintr.C3.A4ge_der_Redirection_Table">→</a>‎<span dir="auto"><span class="autocomment">Setzen der Einträge der Redirection Table</span></span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/11203-11204.html" title="I/O Advanced Programmable Interrupt Controller">Unterschied</a>) <a href="../11203/index.html" title="I/O Advanced Programmable Interrupt Controller">← Nächstältere Version</a> | Aktuelle Version (Unterschied) | Nächstjüngere Version → (Unterschied)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Der <b>I/O APIC</b> (= <b>I/O Advanced Programmable Interrupt Controller</b>) löst den <a class="mw-redirect" data-archive-original-href="../../pages/1466/index.html" href="../../pages/1465/index.html" title="PIC"> Programmable Interrupt Controller</a> in einem <a class="mw-redirect" data-archive-original-href="../../pages/1585/index.html" href="../../pages/1490/index.html" title="SMP">SMP</a>- bzw. <a class="mw-redirect" data-archive-original-href="../../pages/1772/index.html" href="../../pages/1529/index.html" title="NUMA">NUMA</a>-System ab. Da der PIC die <a class="mw-redirect" data-archive-original-href="../../pages/1667/index.html" href="../../pages/1465/index.html#IRQ_Tabelle" title="IRQ"> IRQs</a> ausschließlich an den BSP (= Bootstrap Processor) senden kann, ist in einem System mit mehreren Prozessoren ein I/O APIC notwendig. Darüber hinaus stellt der I/O APIC statt nur 16 IRQ-Leitungen wie der PIC normalerweise 24 IRQ-Leitungen zur Verfügung. Dies verringert die Anzahl der von mehreren Geräten gleichzeitig genutzten IRQs in Systemen mit sehr vielen Geräten. Außerdem ist die Programmierung des I/O APIC schneller, da sie nicht über I/O Ports, sondern über Speicherbereiche abläuft.
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Aufbau"><span class="tocnumber">1</span> <span class="toctext">Aufbau</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#memory-mapped_Register"><span class="tocnumber">1.1</span> <span class="toctext">memory-mapped Register</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Interne_Register"><span class="tocnumber">1.2</span> <span class="toctext">Interne Register</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#I.2FO_APIC_ID"><span class="tocnumber">1.2.1</span> <span class="toctext">I/O APIC ID</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#I.2FO_APIC_Version"><span class="tocnumber">1.2.2</span> <span class="toctext">I/O APIC Version</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#I.2FO_APIC_Arbitration_ID"><span class="tocnumber">1.2.3</span> <span class="toctext">I/O APIC Arbitration ID</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Redirection_Table"><span class="tocnumber">1.2.4</span> <span class="toctext"><i>Redirection Table</i></span></a>
+<ul>
+<li class="toclevel-4 tocsection-8"><a href="#Aufbau_eines_Eintrags"><span class="tocnumber">1.2.4.1</span> <span class="toctext">Aufbau eines Eintrags</span></a></li>
+<li class="toclevel-4 tocsection-9"><a href="#Destination"><span class="tocnumber">1.2.4.2</span> <span class="toctext"><i>Destination</i></span></a></li>
+<li class="toclevel-4 tocsection-10"><a href="#Delivery_Mode"><span class="tocnumber">1.2.4.3</span> <span class="toctext"><i>Delivery Mode</i></span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Programmierung"><span class="tocnumber">2</span> <span class="toctext">Programmierung</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Basisadresse_des_I.2FO_APIC"><span class="tocnumber">2.1</span> <span class="toctext">Basisadresse des I/O APIC</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Lesen.2FSchreiben_der_internen_Register"><span class="tocnumber">2.2</span> <span class="toctext">Lesen/Schreiben der internen Register</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Setzen_der_Eintr.C3.A4ge_der_Redirection_Table"><span class="tocnumber">2.3</span> <span class="toctext">Setzen der Einträge der <i>Redirection Table</i></span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#Weblinks"><span class="tocnumber">3</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Aufbau">Aufbau</span></h2>
+<h3><span class="mw-headline" id="memory-mapped_Register">memory-mapped Register</span></h3>
+<p>Die folgenden Register sind in den physischen Adressraum des Systems eingeblendet und dienen dazu auf die <a class="mw-redirect" data-archive-original-href="../../pages/1821/index.html#Interne_Register" href="../../pages/1574/index.html#Interne_Register" title="I/O APIC"> internen Register</a> zuzugreifen:
+</p><p><br/>
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset
+</th>
+<th>Abkürzung
+</th>
+<th>Beschreibung
+</th>
+<th>Zugriffsart
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>IOREGSEL</td>
+<td>I/O Register Select</td>
+<td>8Bit, lesend/schreibend
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>IOWIN</td>
+<td>I/O Window</td>
+<td>32Bit, lesend/schreibend
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Interne_Register">Interne Register</span></h3>
+<p>Die folgenden Register dienen der Konfiguration des I/O APIC:
+</p><p><br/>
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Index
+</th>
+<th>Abkürzung
+</th>
+<th>Beschreibung
+</th>
+<th>Zugriffsart
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>IOAPICID</td>
+<td>I/O APIC ID</td>
+<td>32Bit, lesend/schreibend
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>IOAPICVER</td>
+<td>I/O APIC Version</td>
+<td>32Bit, nur lesend
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>IOAPICARB</td>
+<td>I/O APIC Arbitration ID</td>
+<td>32Bit, nur lesend
+</td></tr>
+<tr>
+<td>0x10 - ?</td>
+<td>IOREDTBL[0-23]</td>
+<td><i>Redirection Table</i>-Eintrag 0-? (jeweils 64bit)</td>
+<td>32Bit, lesend/schreibend
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h4><span id="I/O_APIC_ID"></span><span class="mw-headline" id="I.2FO_APIC_ID">I/O APIC ID</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th>Bits
+</th>
+<th>Beschreibung
+</th>
+<th>Zugriffsart
+</th></tr>
+<tr>
+<td>28-31</td>
+<td>reserviert</td>
+<td>
+</td></tr>
+<tr>
+<td>24-27</td>
+<td>4Bit ID des I/O APIC</td>
+<td>lesend/schreibend
+</td></tr>
+<tr>
+<td>0-23</td>
+<td>reserviert</td>
+<td>
+</td></tr></tbody></table>
+<h4><span id="I/O_APIC_Version"></span><span class="mw-headline" id="I.2FO_APIC_Version">I/O APIC Version</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th>Bits
+</th>
+<th>Beschreibung
+</th>
+<th>Zugriffsart
+</th></tr>
+<tr>
+<td>24-31</td>
+<td>reserviert</td>
+<td>
+</td></tr>
+<tr>
+<td>16-23</td>
+<td>maximaler Index eines gültigen Eintrags in der <i>Redirection Table</i></td>
+<td>nur lesend
+</td></tr>
+<tr>
+<td>8-15</td>
+<td>reserviert</td>
+<td>
+</td></tr>
+<tr>
+<td>0-7</td>
+<td>I/O APIC Versionsnummer:<br/> 0x11 = 82093AA</td>
+<td>nur lesend
+</td></tr></tbody></table>
+<h4><span id="I/O_APIC_Arbitration_ID"></span><span class="mw-headline" id="I.2FO_APIC_Arbitration_ID">I/O APIC Arbitration ID</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th>Bits
+</th>
+<th>Beschreibung
+</th>
+<th>Zugriffsart
+</th></tr>
+<tr>
+<td>28-31</td>
+<td>reserviert</td>
+<td>
+</td></tr>
+<tr>
+<td>24-27</td>
+<td>4Bit Arbitration ID des I/O APIC</td>
+<td>lesend/schreibend
+</td></tr>
+<tr>
+<td>0-23</td>
+<td>reserviert</td>
+<td>
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="Redirection_Table"><i>Redirection Table</i></span></h4>
+<h5><span class="mw-headline" id="Aufbau_eines_Eintrags">Aufbau eines Eintrags</span></h5>
+<table class="prettytable">
+<tbody><tr>
+<th>Bits
+</th>
+<th>Abkürzung
+</th>
+<th>Name
+</th>
+<th>Beschreibung
+</th>
+<th>Zugriffsart
+</th></tr>
+<tr>
+<td>56-63</td>
+<td></td>
+<td>Destination</td>
+<td>gibt den/die empfangenden <a class="mw-redirect" data-archive-original-href="../../pages/1822/index.html" href="../../pages/1581/index.html" title="Local APIC">Local APIC</a>(s) an, Erklärung siehe <a class="mw-redirect" data-archive-original-href="../../pages/1821/index.html#Destination" href="../../pages/1574/index.html#Destination" title="I/O APIC"> <i>Destination</i>-Tabelle</a></td>
+<td>lesend/schreibend
+</td></tr>
+<tr>
+<td>17-55</td>
+<td></td>
+<td></td>
+<td>reserviert</td>
+<td>
+</td></tr>
+<tr>
+<td>16</td>
+<td></td>
+<td>Interrupt Mask</td>
+<td>Der Interrupt ist maskiert, falls der Wert 1 ist</td>
+<td>lesend/schreibend
+</td></tr>
+<tr>
+<td>15</td>
+<td></td>
+<td>Trigger Mode</td>
+<td>0b = edge sensitive<br/>1b = level sensitive</td>
+<td>lesend/schreibend
+</td></tr>
+<tr>
+<td>14</td>
+<td></td>
+<td>Remote IRR</td>
+<td>Dieses Bit ist nur gültig, wenn der <i>Trigger Mode</i> <i>edge</i> ist:<br/> 0b = EOI mit passendem Interruptvektor wurde gesendet<br/>1b = Interrupt wurde vom <a class="mw-redirect" data-archive-original-href="../../pages/1822/index.html" href="../../pages/1581/index.html" title="Local APIC">Local APIC</a> bzw. den Local APICs angenommen</td>
+<td>nur lesend
+</td></tr>
+<tr>
+<td>13</td>
+<td>INTPOL</td>
+<td>Interrupt Input Pin Polarity</td>
+<td>0b = high active<br/>1b = low active</td>
+<td>lesend/schreibend
+</td></tr>
+<tr>
+<td>12</td>
+<td>DELIVS</td>
+<td>Delivery Status</td>
+<td>Der Interrupt wird momentan ausgeliefert, falls der Wert 1 ist</td>
+<td>nur lesend
+</td></tr>
+<tr>
+<td>11</td>
+<td>DESTMOD</td>
+<td>Destination Mode</td>
+<td>Gibt an wie das Destination-Feld zur Adressierung der empfangenden <a class="mw-redirect" data-archive-original-href="../../pages/1822/index.html" href="../../pages/1581/index.html" title="Local APIC">Local APICs</a> interpretiert wird, siehe Destination-Feld</td>
+<td>lesend/schreiben
+</td></tr>
+<tr>
+<td>8-10
+</td>
+<td>DELMOD
+</td>
+<td>Delivery Mode
+</td>
+<td>Gibt an wie die empfangenden <a class="mw-redirect" data-archive-original-href="../../pages/1822/index.html" href="../../pages/1581/index.html" title="Local APIC">Local APICs</a> reagieren sollen, Erklärung siehe <a class="mw-redirect" data-archive-original-href="../../pages/1821/index.html#Delivery_Mode" href="../../pages/1574/index.html#Delivery_Mode" title="I/O APIC"> <i>Delivery Mode</i>-Tabelle</a></td>
+<td>lesend/schreibend
+</td></tr>
+<tr>
+<td>0-7</td>
+<td>INTVEC</td>
+<td>Interrupt Vector</td>
+<td>auszulösender Interruptvektor</td>
+<td>lesend/schreibend
+</td></tr></tbody></table>
+<h5><span class="mw-headline" id="Destination"><i>Destination</i></span></h5>
+<table class="prettytable">
+<tbody><tr>
+<th>Wert von DESTMOD
+</th>
+<th>Modus
+</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0</td>
+<td>Physical Mode</td>
+<td>Bits 56-59 enthalten eine APIC ID
+</td></tr>
+<tr>
+<td>1</td>
+<td>Logical Mode</td>
+<td>Bits 56-63 werden als Menge von Prozessoren interpretiert
+</td></tr></tbody></table>
+<h5><span class="mw-headline" id="Delivery_Mode"><i>Delivery Mode</i></span></h5>
+<table class="prettytable">
+<tbody><tr>
+<th>Wert
+</th>
+<th>Modus
+</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>000b</td>
+<td>Fixed</td>
+<td>Löst in den durch das <i>Destination</i>-Feld ausgewählten Prozessoren einen normalen Interrupt aus.
+</td></tr>
+<tr>
+<td>001b</td>
+<td>niedrigste Priorität</td>
+<td>Löst in dem Prozessor mit der momentan geringsten Priorität der durch das <i>Destination</i>-Feld ausgewählten Prozessoren einen normalen Interrupt aus.
+</td></tr>
+<tr>
+<td>010b</td>
+<td><a href="../../pages/2189/index.html" title="SMI">SMI</a></td>
+<td>Es wird allen durch das <i>Destination</i>-Feld ausgewählten Prozessoren ein SMI signalisiert. Dabei wird der Interruptvektor ignoriert, sollte aber aus Kompatibilitätsgründen auf 0 gesetzt werden. Der <i>Trigger Mode</i> muss <i>edge</i> sein.
+</td></tr>
+<tr>
+<td>011b</td>
+<td>reserviert</td>
+<td>
+</td></tr>
+<tr>
+<td>100b</td>
+<td><a class="mw-redirect" data-archive-original-href="../../pages/1595/index.html" href="../../pages/1594/index.html" title="NMI">NMI</a></td>
+<td>Es wird allen durch das <i>Destination</i>-Feld ausgewählten Prozessoren ein NMI signalisiert. Dabei wird der Interruptvektor ignoriert. Der <i>Trigger Mode</i> muss <i>edge</i> sein.
+</td></tr>
+<tr>
+<td>101b</td>
+<td>INIT</td>
+<td>
+</td></tr>
+<tr>
+<td>110b</td>
+<td>reserviert</td>
+<td>
+</td></tr>
+<tr>
+<td>111b</td>
+<td>ExtINT</td>
+<td>Analog zu <i>Fixed</i> wird ein normaler Interrupt ausgelöst. Der Interruptvektor kommt allerdings nicht vom I/O APIC sondern wird von einem externen Controller (z.B. des <a class="mw-redirect" data-archive-original-href="../../pages/1466/index.html" href="../../pages/1465/index.html" title="PIC">PIC</a>) geliefert. Der <i>Trigger Mode</i> muss <i>edge</i> sein.
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Programmierung">Programmierung</span></h2>
+<h3><span id="Basisadresse_des_I/O_APIC"></span><span class="mw-headline" id="Basisadresse_des_I.2FO_APIC">Basisadresse des I/O APIC</span></h3>
+<p>Die Basisadresse dieser Speicherbereiche kann im Allgemeinen über die <a href="../../pages/1490/index.html#Intel_Multiprocessor_Specification" title="Symmetrisches Multiprozessorsystem"> SMP</a>- bzw. die <a class="mw-redirect" data-archive-original-href="../../pages/1991/index.html" href="../../pages/1992/index.html" title="ACPI"> ACPI</a>-Tabellen ausgelesen werden. Bei einem PIIX3 Chipsatz beginnt der Speicherbereich bei 0xFEC00xy00 (x und y werden mit dem APICBASE Register im PIIX3 festgelegt).
+</p>
+<h3><span id="Lesen/Schreiben_der_internen_Register"></span><span class="mw-headline" id="Lesen.2FSchreiben_der_internen_Register">Lesen/Schreiben der internen Register</span></h3>
+<p>Der I/O APIC besitzt ein Indexregister (<i>I/O Register Select</i> bzw. <i>IOREGSEL</i>) und ein Datenregister (<i>I/O Window</i> bzw. <i>IOWIN</i>). Mit dem Indexregister wählt man ein <a class="mw-redirect" data-archive-original-href="../../pages/1821/index.html#Interne_Register" href="../../pages/1574/index.html#Interne_Register" title="I/O APIC"> internes Register</a> des I/O APIC aus und kann anschließend über das Datenregister das interne Register auslesen bzw. beschreiben.
+</p><p>Folgender Code kann dazu verwendet werden auf die internen Register zuzugreifen:
+&lt;c&gt;
+/* Offset der memory-mapped Register */
+</p>
+<ol><li>define IO_APIC_MMREG_IOREGSEL 0x00</li>
+<li>define IO_APIC_MMREG_IOWIN    0x10</li></ol>
+<p>/* Basisadresse, sollte vorher initialisiert werden */
+volatile uint8_t * io_apic_base;
+</p><p>/* Lesen eines internen Registers */
+uint32_t io_apic_read(uint8_t index)
+{
+</p>
+<pre> *(io_apic_base + IO_APIC_MMREG_IOREGSEL) = index;
+ return *(volatile uint32_t *)(io_apic_base + IO_APIC_MMREG_IOWIN);
+</pre>
+<p>}
+</p><p>/* Schreiben eines internen Registers */
+void io_apic_write(uint8_t index, uint32_t value)
+{
+</p>
+<pre> *(io_apic_base + IO_APIC_MMREG_IOREGSEL) = index;
+ *(volatile uint32_t *)(io_apic_base + IO_APIC_MMREG_IOWIN) = value;
+</pre>
+<p>}
+&lt;/c&gt;
+</p>
+<h3><span id="Setzen_der_Einträge_der_Redirection_Table"></span><span class="mw-headline" id="Setzen_der_Eintr.C3.A4ge_der_Redirection_Table">Setzen der Einträge der <i>Redirection Table</i></span></h3>
+<p>Die Einträge der <i>Redirection Table</i> werden basierend auf den Informationen, die die <a href="../../pages/1490/index.html#Intel_Multiprocessor_Specification" title="Symmetrisches Multiprozessorsystem"> SMP</a>-, die <a class="mw-redirect" data-archive-original-href="../../pages/1991/index.html" href="../../pages/1992/index.html" title="ACPI"> ACPI</a>-Tabellen und vor allem das PCI Device PCI-to-ISA Bridge enthalten, gesetzt. Bei PIIX3 und ICH7/9 findet man z.B. die Vektoren für die PCI Lines A-D (IOAPIC redir table: 16-19) am offset 60h. Bei ICH7/9 gibt es am offset 68h die Informationen für die Vektoren der PCI Lines E-H (IOAPIC redir table: 20-23). Man findet die PCI-to-(E)ISA Bridge via: 
+</p><p>&lt;c&gt;if ((PCIdev-&gt;classID == 0x06) &amp;&amp; (PCIdev-&gt;subclassID == 0x01 || PCIdev-&gt;subclassID == 0x02) &amp;&amp; (PCIdev-&gt;interfaceID == 0x00)) {/*...*/}&lt;/c&gt;
+</p><p>Die enthaltenen unsigned 8-Bit-Integer in den vier Bytes am PCI offset 60h bzw. 68h setzt man als jeweiligen Vektor für die IOAPIC Redirection Table Einträge 16-23. In Bochs findet man das P2I routing z.B. hier:
+</p><p>[P2I] PCI IRQ routing: PIRQA# set to 0x0b
+</p><p>[P2I] PCI IRQ routing: PIRQB# set to 0x09
+</p><p>[P2I] PCI IRQ routing: PIRQC# set to 0x0b
+</p><p>[P2I] PCI IRQ routing: PIRQD# set to 0x09
+</p><p>Die Tabellen-Einträge <b>0-15</b> (ISA-IRQ) sollte man <b>edge/high</b> setzen und die Einträge <b>16-23</b> (PCI Lines A-H) auf <b>level/low</b>.
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://www.intel.com/design/chipsets/datashts/290566.htm" rel="nofollow">Intel® 82093AA I/O Advanced Programmable Interrupt Controller (I/O APIC) Datasheet</a></li>
+<li><a class="external text" href="http://www.intel.com/design/chipsets/specupdt/290710.htm" rel="nofollow">Intel® 82093AA I/O Advanced Programmable Interrupt Controller (I/O APIC) Specification Update</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165408
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.010 seconds
+Real time usage: 0.011 seconds
+Preprocessor visited node count: 84/1000000
+Preprocessor generated node count: 130/1000000
+Post‐expand include size: 152/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.924      1 -total
+ 62.99%    0.582      8 Vorlage:Prettytable
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:1574-0!canonical and timestamp 20261109165407 and revision id 11204
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=I/O_Advanced_Programmable_Interrupt_Controller&amp;oldid=11204</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1447/index.html" title="Kategorie:Hardware">Hardware</a></li><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1574/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1574/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/IOAPIC" hreflang="en" lang="en" title="IOAPIC – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 29. Mai 2014 um 23:28 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

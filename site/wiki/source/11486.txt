@@ -1,0 +1,68 @@
+{{Vorlage:Sprache
+|Name = C
+|Inlineassembler = Ja
+|Compiler = [[GCC]], [[Clang]], icc, ...
+|Plattformen = Alle
+|Kernel = [[:Kategorie:OS-Dev für Einsteiger | Tutorialserie OS-Dev für Einsteiger]]
+|Homepage = [http://www.open-std.org/jtc1/sc22/wg14/ The C Standards Committee]
+}} 
+C ist eine bekannte, ältere Programmiersprache. Sie verfolgt das Ziel, bei vergleichbarer Ausführungsgeschwindigkeit plattformunabhängiger und abstrakter als [[Assembler]] zu sein. Direkte Weiterentwicklung von C ist [[C++]].
+
+== Geschichte ==
+
+C wurde 1971–1973 von Dennis Ritchie in den Bell Laboratories entwickelt, er stützte sich dabei auf die Programmiersprache B, die Ken Thompson in den Jahren 1969/70 geschrieben hatte. Ritchie schrieb auch den ersten Compiler für C. 1973 war die Sprache so weit ausgereift, dass man nun den Unix-Kernel in C neu schreiben konnte.
+
+== Kernelprogrammierung mit C ==
+Da man mit C sehr hardwarenah programmieren kann, eignet sich die Sprache zur Programmierung eines Kernels hervorragend. Es ist sogar die überwiegende Anzahl der Betriebssystemkernel in C geschrieben. Für Einsteiger gibt es die [[:Kategorie:OS-Dev für Einsteiger | Tutorialserie OS-Dev für Einsteiger]], welche beschreibt, wie man einen kleinen Kernel in C schreibt mithilfe des Bootloaders [[GRUB]] entwickelt. Für andere Bereiche ist C jedoch nicht sonderlich geeignet, um Beispiel für einen Bootsektor. Empfehlenswert ist – wie bei jeder anderen Sprache, die im Bereich der Kernelprogrammierung verwendet werden soll – ein Compiler, der Inlineassembler unterstützt. Hierfür eignet sich der [[GCC]].
+
+=== Assemblercode in C ===
+Während es möglich ist, den allergrößten Teil des Kernels in C zu schreiben, sind für einige wenige Aufgaben nach wie vor einige Zeilen Assemblercode notwendig. Es gibt dabei im Wesentlichen zwei Ansätze:
+
+* <p>'''Inline-Assembler''': Assemblercode wird direkt in den C-Code eingebettet. Die konkrete Syntax dafür unterscheidet sich von Compiler zu Compiler, im Allgemeinen wird der Assemblercode durch das Schlüsselwort ''asm'' eingeleitet. Ein Vorteil dieser Methode ist, dass ein direkter Zugriff auch auf lokale C-Variablen möglich ist. Sie eignet sich daher für sehr kleine Codestücke besonders gut.</p><p>Siehe auch [[Inline-Assembler mit GCC]]</p>
+* '''Externe Assemblerdatei''': Der Assemblercode wird in eine eigene Datei ausgelagert und vom C-Code als eigenständige Funktion aufgerufen. Die Übergabe von Parametern und des Rückgabewerts wird im Artikel [[Aufrufkonventionen]] beschrieben.
+
+=== ''volatile'' ===
+''volatile'' ist ein ''type-qualifier'' in C. Falls ein Typ T ''volatile''-qualifiziert ist, dann bedeutet das, dass sich der Wert einer Variable vom Typ T durch Instruktionen, die außerhalb der momentanen Befehlssequenz stehen (z.B. in einem [[Interrupt]]handler), verändern kann. Dazu folgender Beispielcode:
+<syntaxhighlight lang=c>
+// 1 falls next_char ein gültiges Zeichen enthält, 0 sonst
+int char_valid;
+
+// Falls gültig, das zuletzt von der Tastatur gelesene Zeichen,
+char next_char;
+
+// Wartet auf einen Tastendruck
+char get_char()
+{
+  // Auf den nächsten Tastendruck warten
+  while (char_valid == 0);
+
+  char_valid = 0;
+  return next_char;
+}
+</syntaxhighlight>
+Die Variable ''char_valid'' und ''next_char'' sollen außerdem in einem Interrupthandler entsprechend gesetzt werden. Bei dem obigen Code kann es nun sein, dass der Compiler "optimiert" hat, indem die while-Schleife wie folgt abgeändert wird:
+<syntaxhighlight lang=c>
+if (char_valid == 0)
+  while (1); // Endlosschleife
+</syntaxhighlight>
+Dies ist eine korrekte Optimierung da der Compiler bei ''char_valid'' - da es nicht ''volatile''-qualifiziert ist - annehmen darf, dass es nicht durch den Interrupthandler (oder irgendwelchen Code der nicht in get_char steht) verändert werden kann. Insofern reicht es aus einmal ''char_valid'' zu lesen. Mit dieser "Optimierung" liefert der Code natürlich nichtmehr das gewünschte Resultat. Um das zu korrigieren muss ''char_valid'' und ''next_char'' ''volatile''-qualifiziert werden.
+
+Aus analogem Grund sollte auch auf [[Hardware Abstraction Layer#Memory-mapped I/O | Memory-mapped I/O]]-Bereich nur über Zeiger auf ''volatile''-qualifizierte Datentypen zugegriffen werden.
+
+== Bekannte C-Compiler ==
+* gcc aus der [[GNU Compiler Collection]]
+* [[Clang]] aus dem LLVM Projekt
+* [http://bellard.org/tcc/ tcc] (Tiny C Compiler)
+* [http://dir.filewatcher.com/d/FreeBSD/4.2-release/i386/bcc-1995.03.12.tgz.79915.html bcc] ein 16Bit Compiler für Linux (im dev86-Paket enthalten)
+* Borland [http://dn.codegear.com/article/20841 Turbo C] für DOS (16 Bit/Real Mode)
+
+== siehe auch ==
+* Die [[:Kategorie:OS-Dev für Einsteiger | Tutorialserie OS-Dev für Einsteiger]] benutzt C als Programmiersprache der Wahl
+
+== Weblinks ==
+* [http://www.c-howto.de/ C-Tutorial]
+* [http://www.open-std.org/JTC1/SC22/WG14/www/docs/n1494.pdf Draft des nächsten C Standards (C1x)]
+* [http://www.unix.org/single_unix_specification/ Single UNIX Specification] und [http://www.opengroup.org/onlinepubs/9699919799/ POSIX]: auf dem C-Standard aufbauende Spezifikationen für unixoide Betriebssysteme
+
+[[Kategorie:Programmiersprache]]
+[[en:C]]

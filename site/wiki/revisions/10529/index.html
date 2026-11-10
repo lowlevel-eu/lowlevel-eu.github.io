@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Wiki-Crashkurs – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Wiki-Crashkurs rootpage-Wiki-Crashkurs skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2049/index.html">Aktueller Artikel</a> · <a href="../../history/2049/index.html">Versionsgeschichte</a> · <a href="../../source/10529.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Wiki-Crashkurs</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 20. März 2012, 10:39 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Taljeth</bdi></a> <span class="mw-usertoollinks">(<a class="mw-usertoollinks-talk" href="../../pages/1728/index.html" title="Benutzer Diskussion:Taljeth">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Code">→</a>‎<span dir="auto"><span class="autocomment">Code: </span> Ganz so viel Magie macht das Wiki doch nicht</span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/10527-10529.html" title="Wiki-Crashkurs">Unterschied</a>) <a href="../10527/index.html" title="Wiki-Crashkurs">← Nächstältere Version</a> | <a href="../../pages/2049/index.html" title="Wiki-Crashkurs">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../10539/index.html" title="Wiki-Crashkurs">Nächstjüngere Version →</a> (<a href="../../diffs/10529-10539.html" title="Wiki-Crashkurs">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Diese Seite fasst die wichtigsten Formatierungsbefehle, die man in diesem Wiki verwenden kann, zusammen. In erster Linie ist sie dafür gedacht eine schnelle Übersicht über die Gestaltungsmöglichkeiten zu liefern, und ist deswegen in einem relativ knappen Stil gehalten. Eine umfangreichere Dokumentation bietet die offizielle <a class="external text" href="http://www.mediawiki.org/wiki/Help:Contents/de">MediaWiki-Dokumentation</a>. 
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Text"><span class="tocnumber">1</span> <span class="toctext">Text</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.C3.9Cberschriften"><span class="tocnumber">2</span> <span class="toctext">Überschriften</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Inhaltsverzeichnis"><span class="tocnumber">2.1</span> <span class="toctext">Inhaltsverzeichnis</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Links"><span class="tocnumber">3</span> <span class="toctext">Links</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Listen"><span class="tocnumber">4</span> <span class="toctext">Listen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Nicht_nummeriert"><span class="tocnumber">4.1</span> <span class="toctext">Nicht nummeriert</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Nummeriert"><span class="tocnumber">4.2</span> <span class="toctext">Nummeriert</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Mehrere_Ebenen_.28kombiniert.29"><span class="tocnumber">4.3</span> <span class="toctext">Mehrere Ebenen (kombiniert)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Tabellen"><span class="tocnumber">5</span> <span class="toctext">Tabellen</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Code"><span class="tocnumber">6</span> <span class="toctext">Code</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Diskussionsf.C3.A4den"><span class="tocnumber">7</span> <span class="toctext">Diskussionsfäden</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Signatur"><span class="tocnumber">7.1</span> <span class="toctext">Signatur</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Wikiformatierung_unterdr.C3.BCcken"><span class="tocnumber">8</span> <span class="toctext">Wikiformatierung unterdrücken</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#HTML"><span class="tocnumber">9</span> <span class="toctext">HTML</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Siehe_auch"><span class="tocnumber">10</span> <span class="toctext">Siehe auch</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#Weblinks"><span class="tocnumber">11</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Text">Text</span></h2>
+<p>Um Text hervorzuheben, wird dieser von jeweils zwei oder drei Apostrophen (') vorne und hinten eingeschlossen.
+</p><p>Beispiel:
+''kursiv'' und '''fett''' wird zu <i>kursiv</i> bzw. <b>fett</b>
+</p>
+<h2><span id="Überschriften"></span><span class="mw-headline" id=".C3.9Cberschriften">Überschriften</span></h2>
+<p>Überschriften werden von jeweils zwei oder mehr Gleichheitszeichen (=) vorne und hinten eingeschlossen. Die Überschriften der obersten Ebene, werden von zwei Gleichheitszeichen umschlossen, und niedrigere Ebenen von mehr als zweien.
+</p><p>== Erste Überschriftsebene ==
+</p><p>=== Zweite Überschriftsebene ===
+</p><p>Überschriften, die von nur einem Gleichheitszeichen umschlossen sind, existieren zwar auch, werden aber in den Artikeln <b>nicht</b> benutzt, da diese eine Überschrift erster Ordnung darstellen und damit semantisch auf der selben Ebene wie die Artikelüberschrift ständen.
+</p><p>Vor einer Überschrift wird genau eine Zeile freigelassen.
+</p>
+<h3><span class="mw-headline" id="Inhaltsverzeichnis">Inhaltsverzeichnis</span></h3>
+<p>Wenn eine bestimmte Anzahl an Überschriften im Artikel vorhanden ist, generiert die MediaWiki-Software automatisch ein Inhaltsverzeichnis. Dieses wird vor der ersten Überschrift (also nach den einleitenden Absätzen) platziert. 
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li>[[Artikelname]] - Bsp: „Ein [[Interrupt]]“ wird zu: „Ein <a href="../../pages/1596/index.html" title="Interrupt">Interrupt</a>“</li>
+<li>[[Artikelname|Text im Artikel]] - Bsp: „Eine [[Interrupt|Unterbrechung]] macht Spaß“ wird zu: „Eine <a href="../../pages/1596/index.html" title="Interrupt">Unterbrechung</a> macht Spaß“</li>
+<li>[http://example.com externer Link] - Bsp: „Das [http://www.lowlevel.eu Lowlevel-Wiki] macht Spaß“ wird zu: „Das <a class="external text archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Lowlevel-Wiki</a> macht Spaß“</li>
+<li>[http://example.com] - Bsp: „Siehe [http://www.lowlevel.eu]“ wird zu: „Siehe <a class="external autonumber archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">[1]</a>“</li></ul>
+<h2><span class="mw-headline" id="Listen">Listen</span></h2>
+<h3><span class="mw-headline" id="Nicht_nummeriert">Nicht nummeriert</span></h3>
+<pre>* punkt x
+* punkt y
+* punkt z
+</pre>
+<p>wird zu:
+</p>
+<ul><li>punkt x</li>
+<li>punkt y</li>
+<li>punkt z</li></ul>
+<h3><span class="mw-headline" id="Nummeriert">Nummeriert</span></h3>
+<pre># punkt x
+# punkt y
+# punkt z
+</pre>
+<p>wird zu:
+</p>
+<ol><li>punkt x</li>
+<li>punkt y</li>
+<li>punkt z</li></ol>
+<h3><span id="Mehrere_Ebenen_(kombiniert)"></span><span class="mw-headline" id="Mehrere_Ebenen_.28kombiniert.29">Mehrere Ebenen (kombiniert)</span></h3>
+<pre>* foo
+*# unterfoo1
+*#* unterunterfoo
+*# unterfoo2
+* bar
+</pre>
+<p>wird zu:
+</p>
+<ul><li>foo
+<ol><li>unterfoo1
+<ul><li>unterunterfoo</li></ul></li>
+<li>unterfoo2</li></ol></li>
+<li>bar</li></ul>
+<h2><span class="mw-headline" id="Tabellen">Tabellen</span></h2>
+<p>Tabellen werden immer durch ein „{|“ begonnen und mit „|}“ beendet. Dazwischen definiert man dann die einzelnen Reihen. Die Inhalte einer Reihe werden wiederrum durch „|-“ voneinander abgegrenzt. Jede Zelle selbst wird auf im Code auf eine eigene Zeile geschrieben, die mit „|“ beginnen muss, um anzuzeigen, dass nun eine neue Zelle der aktuellen Reihe beginnt. Außerdem kann man eine Überschriftenzelle erzeugen, die aber statt mit „|“ mit „!“ beginnen muss.
+</p><p>Es empfiehlt sich in der ersten Zeile der Tabelle (nach dem „{|“) diese mit dem Attribut {{prettytable}} zu versehen, um den <a href="../../pages/1832/index.html" title="Designrichtlinien">Designrichtlinien</a> treu zu bleiben. Außerdem sieht es einfach besser aus. Mit dem Attribut width='??%' kann man zudem festlegen, über wieviel Prozent der Seite sich die Tabelle erstrecken soll.
+</p>
+<table width="100%">
+<caption>
+</caption>
+<tbody><tr>
+<th>Anzeige
+</th>
+<th>Code
+</th></tr>
+<tr>
+<td>
+<table class="prettytable">
+<tbody><tr>
+<th>Auto
+</th>
+<th>Fahrrad
+</th></tr>
+<tr>
+<td>Boot
+</td>
+<td>Bahn
+</td></tr>
+<tr>
+<td>Taxi
+</td>
+<td>Flugzeug
+</td></tr></tbody></table>
+</td>
+<td><pre> 
+{| {{prettytable}}
+!Auto
+!Fahrrad
+|-
+|Boot
+|Bahn
+|-
+|Taxi
+|Flugzeug 
+|}
+</pre>
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Code">Code</span></h2>
+<p>C-Code und Assembler-Code wird in &lt;c&gt;- bzw. &lt;asm&gt;-Tags gesetzt, um bunten Code zu erhalten. Eine Liste aller verfügbaren Sprachen befindet sich bei den <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Versionsinformationen</a>. In der folgenden Tabelle sind für ein paar Sprachen Beispiele, die die Verwendung illustrieren sollen, aufgelistet.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th width="10%">Sprache
+</th>
+<th width="45%">Beispiel
+</th>
+<th width="45%">Darstellung
+</th></tr>
+<tr>
+<td>C
+</td>
+<td>
+<pre>&lt;c&gt;#include &lt;stdio.h&gt;
+
+int main() {
+    int i = 1;
+    return i;
+}&lt;/c&gt;
+</pre>
+</td>
+<td>
+<p>&lt;c&gt;#include &lt;stdio.h&gt; 
+</p><p>int main() {
+</p>
+<pre>  int i = 1;
+  return i;
+</pre>
+<p>}&lt;/c&gt;
+</p>
+</td></tr>
+<tr>
+<td>Assembler
+</td>
+<td>
+<pre>&lt;asm&gt;mov eax, cr0
+or eax, 1
+mov cr0, eax&lt;/asm&gt;
+</pre>
+</td>
+<td>
+<p>&lt;asm&gt;mov eax, cr0
+or eax, 1
+mov cr0, eax&lt;/asm&gt;
+</p>
+</td></tr>
+<tr>
+<td>Andere Sprachen
+</td>
+<td>
+<pre>&lt;code&gt;REM Important
+ECHO Hello Batch&lt;/code&gt;
+</pre>
+</td>
+<td>
+<p><code>REM Important
+ECHO Hello Batch</code>
+</p>
+</td></tr></tbody></table>
+<p>Die selbe Formatierung wie mit dem &lt;code&gt;-Tag erhält man auch, wenn man ein Leerzeichen vor jede Zeile des Codes setzt.
+</p>
+<h2><span id="Diskussionsfäden"></span><span class="mw-headline" id="Diskussionsf.C3.A4den">Diskussionsfäden</span></h2>
+<p>Auf den Diskussionsseiten wird es schnell unübersichtlich, wenn nicht jeder Nutzer selbst dafür sorgt, dass seine Beiträge eingerückt werden. Um die Diskussion einigermaßen strukturiert zu halten, werden Antworten pro Ebene mit jeweils einem weiteren Doppelpunkt eingerückt. Zum Beispiel so:
+</p>
+<pre>Ich starte eine Diskussion. --~~~~
+: Also ich finde diese Diskussion verdient Antworten. --~~~~
+:: Ich bin eine Antwort. --~~~~
+::: Ich bin eine Antwort mit mehreren Absätzen.
+::: Dieser zweite Absatz darf im Beispiel nicht fehlen. --~~~~
+:: Ich bin auch wichtig. --~~~~
+</pre>
+<p>Und das Ergebnis sieht so aus:
+</p><p>Ich starte eine Diskussion. --Autor0 23:59, 31. Dez. 1899 (CEST) 
+</p>
+<dl><dd>Also ich finde diese Diskussion verdient Antworten. --Autor1 0:00, 1. Jan. 1900 (CEST)
+<dl><dd>Ich bin eine Antwort. --Autor2 10:10, 1. Jan. 1900 (CEST)
+<dl><dd>Ich bin eine Antwort mit mehreren Absätzen.</dd>
+<dd>Dieser zweite Absatz darf im Beispiel nicht fehlen. --Autor3 13:37, 1. Jan. 1900 (CEST)</dd></dl></dd>
+<dd>Ich bin auch wichtig. --Autor4 21:42, 1. Jan. 1900 (CEST)</dd></dl></dd></dl>
+<p>Wer einen ausführlichen Text verfasst, kann diesen auch durch das Einfügen von <tt>&lt;br&gt;</tt> in Absätze gliedern.
+</p><p><b>Tip:</b> Für längere Diskussionen empfiehlt es sich unser <a class="external text" href="../../../forum/index.html" rel="nofollow">Forum</a> zu nutzen.
+</p>
+<h3><span class="mw-headline" id="Signatur">Signatur</span></h3>
+<p>Kommentare in Diskussionsseiten sollen immer durch ein --~~~~ am Ende signiert werden. Die Wiki-Software fügt dann automatisch die/das richtige Uhrzeit/Datum sowie den Nutzernamen ein. Dies erleichtert erheblich den Überblick in Diskussionen zu behalten, wer was gesagt hat. Vor allem in längeren Diskussionen ist das sehr wichtig und da niemand im voraus weiss wie lang seine Diskussion mal werden wird soll das immer vom ersten Beitrag an konsequent durchgeführt werden.
+</p>
+<h2><span id="Wikiformatierung_unterdrücken"></span><span class="mw-headline" id="Wikiformatierung_unterdr.C3.BCcken">Wikiformatierung unterdrücken</span></h2>
+<p>Wenn man zum Beispiel Wikibefehle erklären will, oder eine Kollision mit den Befehlen von Mediawiki hat, kann man das &lt;nowiki&gt;-Tag benutzen, um zu verhindern, dass Mediawiki den enthaltenen Text formatiert.
+</p>
+<h2><span class="mw-headline" id="HTML">HTML</span></h2>
+<p>Die Verwendung von HTML ist möglichst zu vermeiden, und es sollten ausschließlich die eingebauten MediaWiki-Befehle (auch die, die hier nicht dokumentiert sind) verwendet werden. Man kann auch in der <a class="external text" href="http://meta.wikimedia.org/wiki/Help:Editing" rel="nofollow">MediaWiki-Dokumentation</a> nach Alternativen suchen, oder im <a href="../../pages/1463/index.html" title="IRC">IRC</a> nachfragen.
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a href="../../pages/1832/index.html" title="Designrichtlinien">Designrichtlinien</a></li>
+<li><a href="../../pages/2004/index.html" title="Wikiteam">Wikiteam</a></li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://www.mediawiki.org/wiki/Help:Contents/de">Mediawiki-Benutzerdokumentation</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170730
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.008 seconds
+Real time usage: 0.009 seconds
+Preprocessor visited node count: 377/1000000
+Preprocessor generated node count: 770/1000000
+Post‐expand include size: 38/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 701/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.653      1 -total
+ 81.31%    0.531      2 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Wiki-Crashkurs&amp;oldid=10529</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/2024/index.html" title="Kategorie:Internes">Internes</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2049/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2541/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2049/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

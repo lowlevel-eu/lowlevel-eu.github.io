@@ -1,0 +1,39 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Master Boot Record — Änderungen 1679 → 1734</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Master Boot Record — Änderungen 1679 → 1734</h1><nav><a href="../revisions/1679/index.html">Version 1679</a> · <a href="../revisions/1734/index.html">Version 1734</a> · <a href="../history/1431/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l1" >Zeile 1:</td>
+<td colspan="2" class="diff-lineno">Zeile 1:</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Der MBR (Master Boot Record) ist der erste Sektor einer Festplatte</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Der MBR (Master Boot Record) ist der erste Sektor einer Festplatte<ins class="diffchange diffchange-inline">. Die Aufgabe des MBR ist es</ins>, <ins class="diffchange diffchange-inline">die Partitionen zu definieren</ins>, <ins class="diffchange diffchange-inline">den [[Bootsektor]] einer bootbaren Pation zu laden und zu starten.</ins></div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">&lt;pre&gt;</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">LBA -&gt; 0x00000000</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">CHS -&gt; Cilinder: 0</del>, <del class="diffchange diffchange-inline">Head: 0</del>, <del class="diffchange diffchange-inline">Sector: 1</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">&lt;/pre&gt;</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">== Aufgabe ==</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Die Sektorennummer anhand der zwei Addressierungsmöglichkeiten:&#160; </ins></div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> LBA : 0x00000000</ins></div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">Die Aufgabe des MBR ist es</del>, <del class="diffchange diffchange-inline">die Partitionen zu definieren</del>, <del class="diffchange diffchange-inline">den [[Boot Record]] einer bootbaren Pation zu laden und zu starten.</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> CHS : Cilinder: 0</ins>, <ins class="diffchange diffchange-inline">Head: 0</ins>, <ins class="diffchange diffchange-inline">Sector: 1</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Aufbau ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Aufbau ==</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l16" >Zeile 16:</td>
+<td colspan="2" class="diff-lineno">Zeile 12:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 0x0000-0x01BD</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 0x0000-0x01BD</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| Code zum <del class="diffchange diffchange-inline">laden </del>der einer Partition</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>| Code zum <ins class="diffchange diffchange-inline">Laden </ins>der einer Partition</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 0x01BE-0x01FD</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 0x01BE-0x01FD</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| <del class="diffchange diffchange-inline">Paritions Tabelle</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>| <ins class="diffchange diffchange-inline">Partitionstabelle</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 0x01FE-0x01FF</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 0x01FE-0x01FF</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l25" >Zeile 25:</td>
+<td colspan="2" class="diff-lineno">Zeile 21:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>== <del class="diffchange diffchange-inline">Partitions Tabelle </del>==</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>== <ins class="diffchange diffchange-inline">Partitionstabelle </ins>==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Die <del class="diffchange diffchange-inline">Partitions Tabelle </del>besteht aus 4 Einträgen á <del class="diffchange diffchange-inline">16Byte </del>in folgendem Format:</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Die <ins class="diffchange diffchange-inline">Partitionstabelle </ins>besteht aus 4 Einträgen á <ins class="diffchange diffchange-inline">16 Byte </ins>in folgendem Format:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| border=&quot;1&quot; cellpadding=&quot;2&quot; cellspacing=&quot;0&quot;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| border=&quot;1&quot; cellpadding=&quot;2&quot; cellspacing=&quot;0&quot;</div></td></tr>
+</table></body></html>

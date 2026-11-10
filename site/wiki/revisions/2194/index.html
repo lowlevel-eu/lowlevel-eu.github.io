@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Textausgabe – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Textausgabe rootpage-Textausgabe skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1549/index.html">Aktueller Artikel</a> · <a href="../../history/1549/index.html">Versionsgeschichte</a> · <a href="../../source/2194.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Textausgabe</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 20. Oktober 2007, 22:18 Uhr von <a class="mw-userlink" href="../../pages/1550/index.html" title="Benutzer:Jgraef"><bdi>Jgraef</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Rechtschreibfehler)</span></div><div id="mw-revision-nav">(<a href="../../diffs/2183-2194.html" title="Textausgabe">Unterschied</a>) <a href="../2183/index.html" title="Textausgabe">← Nächstältere Version</a> | <a href="../../pages/1549/index.html" title="Textausgabe">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../2195/index.html" title="Textausgabe">Nächstjüngere Version →</a> (<a href="../../diffs/2194-2195.html" title="Textausgabe">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Vorwort"><span class="tocnumber">1</span> <span class="toctext">Vorwort</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Textspeicher"><span class="tocnumber">2</span> <span class="toctext">Textspeicher</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Schreiben_in_den_Textspeicher"><span class="tocnumber">3</span> <span class="toctext">Schreiben in den Textspeicher</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Attribut-Byte"><span class="tocnumber">4</span> <span class="toctext">Attribut-Byte</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Beispiel"><span class="tocnumber">5</span> <span class="toctext">Beispiel</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Bildschirm_scrollen"><span class="tocnumber">6</span> <span class="toctext">Bildschirm scrollen</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Cursor"><span class="tocnumber">7</span> <span class="toctext">Cursor</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Weblinks"><span class="tocnumber">8</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Vorwort">Vorwort</span></h2>
+<p>In diesem Artikel geht es nur darum wie im Textmode Schrift (und nur Schrift, keine Grafiken) auf dem Bildschirm ausgegeben werden kann. Normalerweise geht das über einen BIOS-Interrupt, aber man will ja auch im Protected Mode Text auf dem Bildschirm schreiben können.
+</p>
+<h2><span class="mw-headline" id="Textspeicher">Textspeicher</span></h2>
+<p>Zur Ausgabe von Text gibt es einen 4kB großen Speicher an der Adresse 0xB8000. Dieser Speicher kann linear angesprochen werden und benutzt 2 Byte pro Zeichen auf dem Bildschirm. Es gibt also 80 Spalten (Zeichen pro Zeile) und 25 Zeilen.
+</p>
+<h2><span class="mw-headline" id="Schreiben_in_den_Textspeicher">Schreiben in den Textspeicher</span></h2>
+<p>Um nun auf dem Bildschirm ein Zeichen zu haben, muss man erstmal das Offset ausrechnen, an dem das Zeichen steht. Da der Speicher linear ist geht das auch mit einer linearen Gleichung: o = z*80+s
+Wobei hier o das Offset ist, z die Zeile und s die Spalte. Wenn man in Mathe aufgepasst hat, sollte das kein Problem sein.
+</p><p>Nun war die Rede, dass 2 Bytes pro Zeichen verwendet werden. Also woher kommt das 2. Byte? Ganz einfach: In dem 2. Byte wird das Attribut, also eigentlich nur die Farbe gespeichert. Im ersten wird einfach nur das Zeichen gespeichert. Als Code wird <a class="external text" href="http://de.wikipedia.org/wiki/Codepage_437" rel="nofollow">Codepage 437</a> verwendet, welche nichts anderes als <a class="external text" href="http://de.wikipedia.org/wiki/ASCII" rel="nofollow">7bit-ASCII</a> plus noch ein paar Zeichen Erweiterung, ist.
+</p>
+<h2><span class="mw-headline" id="Attribut-Byte">Attribut-Byte</span></h2>
+<p>Das Attribute-Byte ist wie folgt gestaltet:
+</p><p>0xXY, Hierbei ist X die Hintergrundfarbe und Y die Vordergrundfarbe. Hier ist eine Tabelle aller Farben:
+</p>
+<table>
+<tbody><tr>
+<td>Wert</td>
+<td>Farbe</td>
+<td>Wert</td>
+<td>Farbe
+</td></tr>
+<tr>
+<td>0x0</td>
+<td>Schwarz</td>
+<td>0x8</td>
+<td>Dunkelgrau
+</td></tr>
+<tr>
+<td>0x1</td>
+<td>Blau</td>
+<td>0x9</td>
+<td>Hellblau
+</td></tr>
+<tr>
+<td>0x2</td>
+<td>Grün</td>
+<td>0xA</td>
+<td>Hellgrün
+</td></tr>
+<tr>
+<td>0x3</td>
+<td>Cyan</td>
+<td>0xB</td>
+<td>Hellcyan
+</td></tr>
+<tr>
+<td>0x4</td>
+<td>Rot</td>
+<td>0xC</td>
+<td>Hellrot
+</td></tr>
+<tr>
+<td>0x5</td>
+<td>Magenta</td>
+<td>0xD</td>
+<td>Hellmagenta
+</td></tr>
+<tr>
+<td>0x6</td>
+<td>Braun</td>
+<td>0xE</td>
+<td>Hellbraun
+</td></tr>
+<tr>
+<td>0x7</td>
+<td>Hellgrau</td>
+<td>0xF</td>
+<td>Weiß
+</td></tr></tbody></table>
+<p>Nebenbei bemerkt: Die Standardfarbe ist 0x07. Also Hellgrau auf Schwarz.
+</p>
+<h2><span class="mw-headline" id="Beispiel">Beispiel</span></h2>
+<p>Hier ein kleines Beispiel einer Funktion, die ein Zeichen (chr), in der Farbe color auf den Bildschirm, an die Position x,y schreiben soll. Hierbei werden Steuerzeichen nicht beachtet, bzw. als normales Zeichen auch ausgegeben (siehe <a class="external text" href="http://de.wikipedia.org/wiki/Codepage_437" rel="nofollow">Codepage 437</a>). 
+</p><p>&lt;c&gt;
+</p>
+<pre>void printchar(u8 chr,u8 color,u8 x,u8 y) {
+  u16 *off = (u16*)0xB8000;
+  // berechnen der Adresse
+  off += y*80+x;
+  // setzen des zeichens + attributebyte
+  *off = (((u16)color)&lt;&lt;8)|chr;
+}
+</pre>
+<p>&lt;/c&gt;
+</p><p>Nun folgt die Erklärung:
+Mit der 1. Zeile wird ein Pointer auf den Textspeicher erzeugt. Der Dateityp ist u16, also 2byte, damit wir das Zeichen und das Attributebyte gleichzeitig schreiben können (geht einfach schneller). Nun wird die Adresse ausgerechnet, mit der oben genannten Formel. Hätten wird vorhin u8 benutzt müssten wir jetzt noch mit 2 multiplizieren, da ja jedes Zeichen 2 Byte benutzt. Das Setzen des Zeichens machen wir, indem wir einfach das Attribute auf 16 Bit erweitern, dann eine Linksverschiebung von 8 Bit vornehmen und per logischen Oder mit dem Zeichenbyte verknüpfen.
+</p><p>Achtung: Das Attributebyte kommt zwar immer nach dem Zeichenbyte, aber wir benutzen hier ein Word und arbeiten ja auf einem <a class="external text" href="http://de.wikipedia.org/wiki/Byte-Reihenfolge" rel="nofollow">Little-Endian</a>-System)
+</p><p>Nochmal eine Veranschaulichung der Oder-Verknüpfung:
+</p>
+<pre>attr     char
+0x07     0x41
+&lt;&lt;8       "
+0x0700 | 0x41 = 0x0741
+</pre>
+<h2><span class="mw-headline" id="Bildschirm_scrollen">Bildschirm scrollen</span></h2>
+<p>Um den Bildschirm zu scrollen muss man einfach den ganzen Textspeicher ab der 2. Zeile zur 1. Zeile kopieren und die letzte Zeile löschen, also auf 0 oder irgendwas setzen. Wenn man eine memcpy- und eine memset-Funktion hat, geht das in ein paar Zeilen.
+</p>
+<h2><span class="mw-headline" id="Cursor">Cursor</span></h2>
+<p>Manchen wird schon aufgefallen sein, dass auf dem Bildschirm ein Understrich ist, wo keiner sein sollte. Also zumindestens wo keiner im Textspeicher ist. Das ist der Bildschirmcursor, der von BIOS zur Verfügung gestellt wird. Ich will nicht lange darauf eingehen, ich stelle nur eine Funktion zum Verschieben und zum "Löschen" des Cursors zur Verfügung. Ich selber benutze ihn nicht, da das Verschieben des Cursors wirklich lahm geht (<a class="external text" href="http://www.osdev.org/wiki/Text_Mode_Cursor" rel="nofollow">"Keep in mind that in/out to VGA Hardware is a slow operation"</a>), es ist aber jedem seine eigene Entscheidung.
+</p><p>Hier eine Funktion zum Verschieben des Cursors (dies kann auch mit Int 0x10,0x02 gemacht werden)
+</p><p>&lt;c&gt;
+</p>
+<pre>void displaycursor(u8 col,u8 row) {
+  u16 tmp;
+  tmp = row*VIDEOTEXT_WIDTH+col;
+  outb(0x3D4,14);
+  outb(0x3D5,tmp&gt;&gt;8);
+  outb(0x3D4,15);
+  outb(0x3D5,tmp);
+}
+</pre>
+<p>&lt;/c&gt;
+</p><p>Wenn man den Cursor vom Bildschirm weg haben möchte, muss man ihn z.B einfach in die 26. Zeile setzen (diese gibt es nämlich nicht). Das geht natürlich genau so wie in der eben genannten Funktion, aber dies hier ist die direkte Variante:
+</p><p>&lt;c&gt;
+</p>
+<pre>void removecursor() {
+  outb(0x3D4,14);
+  outb(0x3D5,0x07);
+  outb(0x3D4,15);
+  outb(0x3D5,0xD0);
+}
+</pre>
+<p>&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://www.osdev.org/wiki/Text_UI" rel="nofollow">Artikel aus der OSDevWiki</a></li>
+<li><a class="external text" href="http://osdever.net/bkerndev/Docs/printing.htm" rel="nofollow">"Printing to the Screen" Bran's Kernel Development Tutorial</a></li>
+<li><a class="external text" href="http://de.wikipedia.org/wiki/ASCII-Tabelle" rel="nofollow">ASCII-Tabelle</a></li>
+<li><a class="external text" href="http://de.wikipedia.org/wiki/Codepage_437" rel="nofollow">Codepage 437</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170527
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.004 seconds
+Real time usage: 0.004 seconds
+Preprocessor visited node count: 31/1000000
+Preprocessor generated node count: 36/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Textausgabe&amp;oldid=2194</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1549/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2335/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1549/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

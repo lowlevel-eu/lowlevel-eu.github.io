@@ -1,0 +1,111 @@
+Der Keyboard Controller (KBC) sitzt auf dem Mainboard und dient, wie der Name vermuten lässt, unter anderem der Tastaturansteuerung. Er hat jedoch noch viele weitere Funktionen.
+
+Funktionen des KBC:<br>
+-Ansteuerung der Tastatur<br>
+-Ansteuerung des PSAUX-Ports (z.B. PS/2-Maus)<br>
+-ein-/ausschalten der 21-Adressleitung (a20-Gate)<br>
+-CPU-Reset auslösen<br>
+-ein-/ausschalten des Systemlautsprechers<br>
+-Information ob das System eine Monochrom- oder Farbgrafikkarte benutzt<br>
+<br>
+
+Zur Komunikation mit dem KBC werden die Ports 0x60, 0x61 und 0x64 verwendet.<br>
+
+http://img241.imageshack.us/img241/5692/kbcnr6.png
+<br>
+Statusregister<br>
+
+{| border="1" cellpadding="0"
+!width="50"|BIT
+|Beschreibung
+|Wert
+|Beschreibung
+|-
+| rowspan=2 | 0 || rowspan=2 | Status des Ausgabepuffers (KBC -> CPU) || 0 || Ausgabepuffer leer
+|-
+|1 || Ausgabepuffer voll (es kann von Port 0x60 gelesen werden)
+
+|-
+| rowspan=2 | 1 || rowspan=2 | Status des Eingabepuffers (KBC <- CPU) || 0 || Eingabepuffer leer (es kann auf Port 0x60 oder 0x64 geschrieben werden)
+|-
+|1 || Eingabepuffer voll
+
+|-
+| rowspan=2 | 2 || rowspan=2 | Systemstatus? || 0 || Reset/Selbsttest wird gerade ausgeführt
+|-
+|1 || Selbsttest erfolgreich
+
+|-
+| rowspan=2 | 3 || rowspan=2 | zuletzt benutztes Port || 0 || 0x60
+|-
+|1 || 0x64? 0x61?
+
+|-
+| rowspan=2 | 4 || rowspan=2 | Tastatursperre || 0 || Tastatur gesperrt
+|-
+|1 || Tastatur nicht gesperrt
+
+|-
+| rowspan=2 | 5 || rowspan=2 | PSAUX? || 0 || ?
+|-
+|1 || ?
+
+|-
+| rowspan=2 | 6 || rowspan=2 | Timeout || 0 || kein Timeout
+|-
+|1 || Tastatur oder PSAUX-Gerät ragiert nicht?
+
+|-
+| rowspan=2 | 7 || rowspan=2 | Paritätsfehler || 0 || kein Fehler
+|-
+|1 || Beim letzten Senden/Empfangen trat ein Paritätsfehler auf
+
+|}
+<br>
+inputport
+
+{| border="1" cellpadding="0"
+!width="50"|BIT
+|Beschreibung
+|Wert
+|Beschreibung
+|-
+| rowspan=2 | 0 || rowspan=2 | Keyboard data in pin? || 0 || ?
+|-
+|1 || ?
+
+|-
+| rowspan=2 | 1 || rowspan=2 | PS/2 mouse in pin? || 0 || ?
+|-
+|1 || ?
+
+|-
+| rowspan=2 | 2 || rowspan=2 | Reserviert || || 
+|-
+| ||
+|-
+| rowspan=2 | 3 || rowspan=2 | Reserviert || || 
+|-
+| ||
+
+|-
+| rowspan=2 | 4 || rowspan=2 | Reserviert || || 
+|-
+| ||
+
+|-
+| rowspan=2 | 5 || rowspan=2 | Reserviert || || 
+|-
+| ||
+
+|-
+| rowspan=2 | 6 || rowspan=2 | Wether you have a color or mono screen || 0 || ?
+|-
+|1 || ?
+
+|-
+| rowspan=2 | 7 || rowspan=2 | Tastatursperre || 0 || Tastatursperre gesperrt
+|-
+|1 || Tastatursperre nicht gesperrt
+
+|}

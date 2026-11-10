@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Parallele Schnittstelle – Lowlevel</title>
+<link href="../../../assets/wiki/f138d3504f3e3790060d6ac1.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Parallele_Schnittstelle rootpage-Parallele_Schnittstelle skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1996/index.html">Aktueller Artikel</a> · <a href="../../history/1996/index.html">Versionsgeschichte</a> · <a href="../../source/11387.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Parallele Schnittstelle</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 4. September 2018, 10:48 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Taljeth</bdi></a> <span class="mw-usertoollinks">(<a class="mw-usertoollinks-talk" href="../../pages/1728/index.html" title="Benutzer Diskussion:Taljeth">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Assemblercode wieder in bunt)</span></div><div id="mw-revision-nav">(<a href="../../diffs/11386-11387.html" title="Parallele Schnittstelle">Unterschied</a>) <a href="../11386/index.html" title="Parallele Schnittstelle">← Nächstältere Version</a> | Aktuelle Version (Unterschied) | Nächstjüngere Version → (Unterschied)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Die <b>parallele Schnittstelle</b> ist eine Schnittstelle am PC zur Übertragung von Daten an Peripheriegeräte.
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Funktionsweise"><span class="tocnumber">1</span> <span class="toctext">Funktionsweise</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Spezielle_Funktionsweise_bei_Druckern"><span class="tocnumber">1.1</span> <span class="toctext">Spezielle Funktionsweise bei Druckern</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Register"><span class="tocnumber">2</span> <span class="toctext">Register</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Datenregister"><span class="tocnumber">2.1</span> <span class="toctext">Datenregister</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Statusregister"><span class="tocnumber">2.2</span> <span class="toctext">Statusregister</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Steuerregister"><span class="tocnumber">2.3</span> <span class="toctext">Steuerregister</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#IEEE_1284"><span class="tocnumber">3</span> <span class="toctext">IEEE 1284</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Compatible_Mode"><span class="tocnumber">3.1</span> <span class="toctext">Compatible Mode</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Nibble_Mode"><span class="tocnumber">3.2</span> <span class="toctext">Nibble Mode</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Byte_Mode"><span class="tocnumber">3.3</span> <span class="toctext">Byte Mode</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Enhanced_Parallel_Port_Mode"><span class="tocnumber">3.4</span> <span class="toctext">Enhanced Parallel Port Mode</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Enhanced_Capability_Mode"><span class="tocnumber">3.5</span> <span class="toctext">Enhanced Capability Mode</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Siehe_auch"><span class="tocnumber">4</span> <span class="toctext">Siehe auch</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Weblinks"><span class="tocnumber">5</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Funktionsweise">Funktionsweise</span></h2>
+<p>Die parallele Schnittstelle ist primär für die Übertragung von Daten an Peripheriegeräte gedacht und eignet sich nur gering für die bidirektionale Übertragung. Meistens wird an ihr ein Drucker angeschlossen, für den es einen besonderen 36-poligen Druckeranschluss (auch Centronics, nach dem ehemaligen Drucker-Hersteller benannt) gibt. Der parallele Anschluss an sich ist 25-polig und wird als <i>männlich</i> bezeichnet.
+</p><p>Die Bestätigung für die Datenannahme erfolgt von Peripherie-Seite mit dem sogenannten Handshake (ein, sehr vereinfacht ausgedrückt, beidseitiges Einverständnis zur Übertragung der Daten), und zwar nach dem 2-Wege- und 3-Wege-Verfahren (siehe dazu <a class="external autonumber" href="http://de.wikipedia.org/wiki/Drei-Wege-Handshake" rel="nofollow">[1]</a>).
+</p>
+<h3><span class="mw-headline" id="Spezielle_Funktionsweise_bei_Druckern">Spezielle Funktionsweise bei Druckern</span></h3>
+<p>Für Drucker wurde die Centronics-Buchse entwickelt. Diese hat andere Betriebsmodi und die Pins vom 25-poligen Stecker werden anders gemappt. Auch ist hier eine geringe bidirektionale Übertragung möglich. Nachfolgend eine Tabelle der möglichen Signale, die der PC an den Drucker und vice versa schicken kann:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Pin-Nr. (25-polig)</th>
+<th>Pin-Nr. (36-polig)</th>
+<th>Signal-Bezeichnung</th>
+<th>Transfer-Richtung</th>
+<th>Funktion/Bedeutung
+</th></tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>Strobe</td>
+<td>PC-&gt;Gerät</td>
+<td>Daten sind gültig (valid)
+</td></tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>D1</td>
+<td>PC-&gt;Gerät</td>
+<td>Datenbit 0
+</td></tr>
+<tr>
+<td>3</td>
+<td>3</td>
+<td>D2</td>
+<td>PC-&gt;Gerät</td>
+<td>Datenbit 1
+</td></tr>
+<tr>
+<td>4</td>
+<td>4</td>
+<td>D3</td>
+<td>PC-&gt;Gerät</td>
+<td>Datenbit 2
+</td></tr>
+<tr>
+<td>5</td>
+<td>5</td>
+<td>D4</td>
+<td>PC-&gt;Gerät</td>
+<td>Datenbit 3
+</td></tr>
+<tr>
+<td>6</td>
+<td>6</td>
+<td>D5</td>
+<td>PC-&gt;Gerät</td>
+<td>Datenbit 4
+</td></tr>
+<tr>
+<td>7</td>
+<td>7</td>
+<td>D6</td>
+<td>PC-&gt;Gerät</td>
+<td>Datenbit 5
+</td></tr>
+<tr>
+<td>8</td>
+<td>8</td>
+<td>D7</td>
+<td>PC-&gt;Gerät</td>
+<td>Datenbit 6
+</td></tr>
+<tr>
+<td>9</td>
+<td>9</td>
+<td>D8</td>
+<td>PC-&gt;Gerät</td>
+<td>Datenbit 7
+</td></tr>
+<tr>
+<td>10</td>
+<td>10</td>
+<td>Acknowledge</td>
+<td>Gerät-&gt;PC</td>
+<td>Daten wurden übernommen (Handshake)
+</td></tr>
+<tr>
+<td>11</td>
+<td>11</td>
+<td>Busy</td>
+<td>Gerät-&gt;PC</td>
+<td>Nicht empfangsbereit für neue Daten
+</td></tr>
+<tr>
+<td>12</td>
+<td>12</td>
+<td>Paper Error</td>
+<td>Gerät-&gt;PC</td>
+<td>Kein Papier
+</td></tr>
+<tr>
+<td>13</td>
+<td>13</td>
+<td>Select</td>
+<td>Gerät-&gt;PC</td>
+<td>Gerät ist online
+</td></tr>
+<tr>
+<td>14</td>
+<td>14</td>
+<td>Auto Feed</td>
+<td>PC-&gt;Gerät</td>
+<td>Bei jedem CR (carriage return) ein LF (line feed) hinzufügen
+</td></tr>
+<tr>
+<td>-</td>
+<td>15, 16</td>
+<td>GND oder NC</td>
+<td>-</td>
+<td>Masse oder nicht benutzt
+</td></tr>
+<tr>
+<td>-</td>
+<td>17</td>
+<td>Chassis-GND</td>
+<td>-</td>
+<td>Gehäuse-Masse
+</td></tr>
+<tr>
+<td>-</td>
+<td>18</td>
+<td>Extern +5V</td>
+<td>Gerät-&gt;PC</td>
+<td>+5V extern
+</td></tr>
+<tr>
+<td>19-25</td>
+<td>19-30</td>
+<td>GND</td>
+<td>-</td>
+<td>Einzelne Signal-Messleitungen
+</td></tr>
+<tr>
+<td>16</td>
+<td>31</td>
+<td>Reset oder Init</td>
+<td>PC-&gt;Gerät</td>
+<td>Geräte-Initialisierung
+</td></tr>
+<tr>
+<td>15</td>
+<td>32</td>
+<td>Error or Fault</td>
+<td>Gerät-&gt;PC</td>
+<td>Drucker-Störung
+</td></tr>
+<tr>
+<td>18</td>
+<td>33</td>
+<td>Extern GND oder NC</td>
+<td>Gerät-&gt;PC</td>
+<td>Masse oder nicht belegt
+</td></tr>
+<tr>
+<td>-</td>
+<td>34</td>
+<td>NC</td>
+<td>-</td>
+<td>Keine Verbindung
+</td></tr>
+<tr>
+<td>-</td>
+<td>35</td>
+<td>#5V oder NC</td>
+<td>-</td>
+<td>#5V oder nicht belegt
+</td></tr>
+<tr>
+<td>17</td>
+<td>36</td>
+<td>Select In</td>
+<td>PC-&gt;Gerät</td>
+<td>Online schalten
+</td></tr></tbody></table>
+<p>Somit ist es möglich, den Drucker über Ports anzusprechen und mit ihm zu kommunizieren.
+</p>
+<h2><span class="mw-headline" id="Register">Register</span></h2>
+<p>Das BIOS kennt bis zu vier parallele Schnittstellen (bei einigen nur zwei):
+</p>
+<ul><li>LPT1: 0x3BC</li>
+<li>LPT2: 0x378</li>
+<li>LPT3: 0x278</li>
+<li>LPT4: 0x2BC</li></ul>
+<p>Jede parallele Schnittstelle verfügt dabei über drei Register:
+</p>
+<ul><li>Basisregister, enspricht dem Datenregister</li>
+<li>Statusregister</li>
+<li>Steuerregister</li></ul>
+<p>Das Statusregister hat gegenüber der Basisadresse einen Offset von 1 und das Steuerregister einen Offset von 2.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Datenregister">Datenregister</span></h3>
+<p>In das Datenregister werden die zu sendenden Daten geschrieben. Wird eine Centronics-Schnittstelle verwendet, können Daten auch empfangen werden, welche sich dann ebenfalls im Datenregister befinden.
+</p><p>Die Datenregister sind D0 bis D7 und werden auf den Leitungen von D1 bis D8 übertragen.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Statusregister">Statusregister</span></h3>
+<p>Vom Statusregister aus kann nur gelesen werden. Dort wird der Zustand der Peripherie gespeichert.
+</p><p>Die Bits haben folgende Bedeutung:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Signal-Bezeichnung</th>
+<th>Info
+</th></tr>
+<tr>
+<td>0</td>
+<td>-</td>
+<td>unbenutzt
+</td></tr>
+<tr>
+<td>1</td>
+<td>-</td>
+<td>unbenutzt
+</td></tr>
+<tr>
+<td>2</td>
+<td>-</td>
+<td>unbenutzt
+</td></tr>
+<tr>
+<td>3</td>
+<td>/ERROR</td>
+<td>0 = Fehler
+</td></tr>
+<tr>
+<td>4</td>
+<td>SELECT</td>
+<td>1 = Drucker ist On-Line (Selected)
+</td></tr>
+<tr>
+<td>5</td>
+<td>PE</td>
+<td>1 = Drucker hat kein Papier mehr (Paper Error)
+</td></tr>
+<tr>
+<td>6</td>
+<td>/ACK</td>
+<td>0 = Drucker ist für nächstes Zeichen bereit (Acknowledge)
+</td></tr>
+<tr>
+<td>7</td>
+<td>/BUSY</td>
+<td>0 = Drucker ist beschäftigt
+</td></tr></tbody></table>
+<p>Nachfolgend ein kleines Programm, um die Bits zu testen:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="nf">mov</span> <span class="no">ah</span><span class="p">,</span> <span class="mi">02</span><span class="no">h</span>
+    <span class="nf">xor</span> <span class="no">dx</span><span class="p">,</span> <span class="no">dx</span>
+    <span class="nf">int</span> <span class="mi">17</span><span class="no">h</span>
+
+    <span class="nf">test</span> <span class="no">ah</span><span class="p">,</span> <span class="mi">10000000</span><span class="no">b</span> <span class="c">; Bit 7 -&gt; Drucker bereit?</span>
+    <span class="no">je</span> <span class="no">error</span>
+
+    <span class="nf">test</span> <span class="no">ah</span><span class="p">,</span> <span class="mi">00100000</span><span class="no">b</span> <span class="c">; Bit 5 -&gt; Kein Papier mehr?</span>
+    <span class="no">jne</span> <span class="no">error</span>
+
+<span class="nl">error:</span>
+    <span class="nf">jmp</span> <span class="no">error</span>
+</pre></div>
+<h3><span class="mw-headline" id="Steuerregister">Steuerregister</span></h3>
+<p>In das Steuerregister kann sowohl gelesen als auch geschrieben werden. Wird das 4. Bit gesetzt, wird ein Interrupt ausgelöst. Wird das 5. Bit gesetzt, ist eine Art bidirektionaler Übertragung möglich.
+</p><p><br/>
+Die Bits haben folgende Bedeutung:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Signal-Bezeichnung</th>
+<th>Info
+</th></tr>
+<tr>
+<td>0</td>
+<td>/STROBE</td>
+<td>0 = Daten liegen auf D0 - D7 an
+</td></tr>
+<tr>
+<td>1</td>
+<td>AUTO FEED</td>
+<td>1 = LF nach CR (auto linefeed)
+</td></tr>
+<tr>
+<td>2</td>
+<td>/INIT</td>
+<td>0 = Reset des Druckers herbeiführen
+</td></tr>
+<tr>
+<td>3</td>
+<td>SELECT IN</td>
+<td>1 = Drucker on-line schalten (Select Input)
+</td></tr>
+<tr>
+<td>4</td>
+<td>IRQ Enable</td>
+<td>1 = Interrupt auslösen, wenn /ACK auf 0 geht
+</td></tr>
+<tr>
+<td>5</td>
+<td>-</td>
+<td>unbenutzt
+</td></tr>
+<tr>
+<td>6</td>
+<td>-</td>
+<td>unbenutzt
+</td></tr>
+<tr>
+<td>7</td>
+<td>-</td>
+<td>unbenutzt
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="IEEE_1284">IEEE 1284</span></h2>
+<p>Da der Centronics-Stecker kein Standard war, implementierten viele Druckerhersteller ihre eigenen Funktionen und belegten die Datenleitungen nach eigenen Vorlieben. Dadurch wurden schnell Inkompatibilitäten erreicht. Seit dem Jahr 1994 wird die parallele Schnittstelle um Funktionen erweitert, die unter anderem die bidirektionale Übertragung einführt. Diese Funktionen werden unter der IEEE Norm 1284 standardisiert.
+</p><p>Unter anderem gibt es nun neue Modi zur Dateiübertragung.
+</p>
+<h3><span class="mw-headline" id="Compatible_Mode">Compatible Mode</span></h3>
+<p>Der Compatible Mode dient dazu, dass ältere Drucker an einer IEEE-1284-Schnitstelle benutzt werden können. Der Modus entspricht einer Centronics-Verbindung mit der oben genannten Registerbelegung.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Nibble_Mode">Nibble Mode</span></h3>
+<p>Beim Nibble Mode arbeitet die Schnittstelle mit einer Breite von 4 Bit (einem Halbbyte, auch Nibble). Die restlichen 4 Bit werden gebraucht, damit Daten vom Gerät zum PC zurückgeschickt werden können, es ist also eine Art bidirektionale Verbindung möglich.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Byte_Mode">Byte Mode</span></h3>
+<p>Der Byte Mode entspricht dem bidirektionalen Centronics Mode, der mit der damaligen PS/2-Architektur standardmäßig eingeführt wurde. Im Gegensatz zum obigen Nibble Mode werden die Daten hier byteweise über das Datenregister übertragen bzw. ausgetauscht. Dabei ist das Datenregister sowohl für die Sende- als auch die Empfangsdaten verantwortlich. Um die Übetragungsrichtung zu ändern, muss hier das fünfte Bit im Steuerregister dementsprechend gesetzt werden (gesetzt: Senden; gelöscht: Empfangen).
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Enhanced_Parallel_Port_Mode">Enhanced Parallel Port Mode</span></h3>
+<p>Dieser Modus ist von Intel, Xircom und Zenith entwickelt worden und wird am häufigsten implementiert. Hier können Daten sowie Adressen bidirektional ebenfalls übertragen werden und es können bis zu 256 Geräte (bei 8-Bit-Adressbus, in Form von Schaltungen) mit Hilfe eines Hubs verbunden, angesprochen und in einem Pool verwaltet werden. Allerdings kann auch ein Gerät die bis zu 256 Schaltungen erhalten, was besonders für Multifunktionsgeräte geeignet ist. Die Datenübertragungsrate beträgt 2 MB/s und es können bis zu 5 Meter überbrückt werden.
+</p><p>Die Daten werden in diesem Modus in bestimmten Zyklen übertragen.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Enhanced_Capability_Mode">Enhanced Capability Mode</span></h3>
+<p>Dieser Modus wurde von Microsoft und Hewlett-Packard (HP) entwickelt und verfügt über ähnliche Eigenschaften wie der EPP-Mode. Allerdings sind hier nur maximal 128 Schaltungen (also maximal 128 miteinander verbundene Geräte) möglich.
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a href="../../pages/1561/index.html" title="Serielle Schnittstelle">Serielle Schnittstelle</a></li>
+<li><a class="mw-redirect" data-archive-original-href="../../pages/2103/index.html" href="../../pages/2102/index.html" title="SCSI">SCSI - Ebenfalls eine parallele Schnittstelle</a></li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://de.wikipedia.org/wiki/IEEE_1284" rel="nofollow">IEEE-1284-Spezifikation</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170010
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.010 seconds
+Real time usage: 0.110 seconds
+Preprocessor visited node count: 74/1000000
+Preprocessor generated node count: 106/1000000
+Post‐expand include size: 57/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 1069/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  100.616      1 -total
+  0.62%    0.623      3 Vorlage:Prettytable
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:1996-0!canonical and timestamp 20261109170010 and revision id 11387
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Parallele_Schnittstelle&amp;oldid=11387</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1447/index.html" title="Kategorie:Hardware">Hardware</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1996/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1996/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 4. September 2018 um 10:48 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

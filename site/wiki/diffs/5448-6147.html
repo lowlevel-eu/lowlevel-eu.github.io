@@ -1,0 +1,100 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Paging Tutorial — Änderungen 5448 → 6147</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Paging Tutorial — Änderungen 5448 → 6147</h1><nav><a href="../revisions/5448/index.html">Version 5448</a> · <a href="../revisions/6147/index.html">Version 6147</a> · <a href="../history/1850/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l45" >Zeile 45:</td>
+<td colspan="2" class="diff-lineno">Zeile 45:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Und nun zum Hauptteil des Tutorials. Auch hier brauchen wir zuerst ein paar Konstanten:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Und nun zum Hauptteil des Tutorials. Auch hier brauchen wir zuerst ein paar Konstanten:</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; '// constants for all Paging-tables</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; '// constants for all Paging-tables</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; const Page_present = &amp;b1</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; const Page_present = &amp;b1</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l57" >Zeile 57:</td>
+<td colspan="2" class="diff-lineno">Zeile 58:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; '// constants only for the PageTable</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; '// constants only for the PageTable</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; const Page_noTLBupdate = &amp;b100000000</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; const Page_noTLBupdate = &amp;b100000000</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Die benutzen wir später um die Flags der Tabellen-Einträge zu setzen.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Die benutzen wir später um die Flags der Tabellen-Einträge zu setzen.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; dim shared PageDirectoryPTR as UINTEGER PTR = cast(UINTEGER PTR, 2*1024*1024 - 4*1024) '// The PageDirectory lies at 2MB-4kb</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; dim shared PageDirectoryPTR as UINTEGER PTR = cast(UINTEGER PTR, 2*1024*1024 - 4*1024) '// The PageDirectory lies at 2MB-4kb</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; dim shared PageTablesPTR as UINTEGER PTR = cast(UINTEGER PTR, 2*1024*1024)&#160; &#160; &#160; &#160; &#160; &#160;  '// The PageTables lie at 2MB</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; dim shared PageTablesPTR as UINTEGER PTR = cast(UINTEGER PTR, 2*1024*1024)&#160; &#160; &#160; &#160; &#160; &#160;  '// The PageTables lie at 2MB</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Hier setzen wir Pointer, wo die Tabellen später liegen. Warum ich das so mache? So kann ich festlegen, das die Tabellen 4kb-aligned sind, und muss mich nicht auf irgendwelche seltsamen Memory-Manager verlassen.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Hier setzen wir Pointer, wo die Tabellen später liegen. Warum ich das so mache? So kann ich festlegen, das die Tabellen 4kb-aligned sind, und muss mich nicht auf irgendwelche seltsamen Memory-Manager verlassen.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; sub Paging_initDirectory</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; sub Paging_initDirectory</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  dim counter as UINTEGER</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  dim counter as UINTEGER</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l74" >Zeile 74:</td>
+<td colspan="2" class="diff-lineno">Zeile 79:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  next</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  next</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; end sub</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; end sub</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wir setzen hier die Einträge des Page-Directory so, dass sie auf die Page-Tables verweisen. Man kann hier sehen, das wir zwei Flags setzen. Damit sorgen wie dafür, das wir auf diesen Speicherbereich schreiben dürfen, und wie sagen der CPU das der Speicherbereich im physischen Speicher liegt, also present ist.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wir setzen hier die Einträge des Page-Directory so, dass sie auf die Page-Tables verweisen. Man kann hier sehen, das wir zwei Flags setzen. Damit sorgen wie dafür, das wir auf diesen Speicherbereich schreiben dürfen, und wie sagen der CPU das der Speicherbereich im physischen Speicher liegt, also present ist.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; sub Paging_map4kb (vmem as UINTEGER, pmem as UINTEGER)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; sub Paging_map4kb (vmem as UINTEGER, pmem as UINTEGER)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  dim PDentry as UINTEGER</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  dim PDentry as UINTEGER</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l87" >Zeile 87:</td>
+<td colspan="2" class="diff-lineno">Zeile 94:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  *(PageTablesPTR+PTentry+PDentry*1024) = pmem OR Page_present OR Page_writeable</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  *(PageTablesPTR+PTentry+PDentry*1024) = pmem OR Page_present OR Page_writeable</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; end sub</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; end sub</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Das ist also unsere Routine, die einen 4kb Block in den virtuellen Speicher mappt. Wer oben aufgepasst hat, weiß auch, wie wir die Einträge der Tabellen berechnen:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Das ist also unsere Routine, die einen 4kb Block in den virtuellen Speicher mappt. Wer oben aufgepasst hat, weiß auch, wie wir die Einträge der Tabellen berechnen:</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l96" >Zeile 96:</td>
+<td colspan="2" class="diff-lineno">Zeile 104:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Auch hier setzen wir ein paar Bits.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Auch hier setzen wir ein paar Bits.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; sub Paging_mapPhysicalMemory (vstart as UINTEGER, pstart as UINTEGER, pend as UINTEGER)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; sub Paging_mapPhysicalMemory (vstart as UINTEGER, pstart as UINTEGER, pend as UINTEGER)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  dim vmemPTR as UINTEGER = vstart</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  dim vmemPTR as UINTEGER = vstart</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l106" >Zeile 106:</td>
+<td colspan="2" class="diff-lineno">Zeile 115:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  loop</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  loop</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; end sub</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; end sub</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Diese Routine mappt den Speicher von pstart bis pend an die virtuelle Adresse vstart. Sie ruft dabei in 4kb-Schritten unsere obige Routine auf. Damit können wir große Speicherbereiche schnell und einfach mappen.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Diese Routine mappt den Speicher von pstart bis pend an die virtuelle Adresse vstart. Sie ruft dabei in 4kb-Schritten unsere obige Routine auf. Damit können wir große Speicherbereiche schnell und einfach mappen.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; sub SetPageDirectoryAddress (address as UINTEGER PTR)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; sub SetPageDirectoryAddress (address as UINTEGER PTR)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  '// we set the address when we write it into cr3</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  '// we set the address when we write it into cr3</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l116" >Zeile 116:</td>
+<td colspan="2" class="diff-lineno">Zeile 127:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  END ASM</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  END ASM</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; end sub</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; end sub</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wir schreiben die Adresse zuerst in eax, und laden den Wert dann nach cr3, damit der Prozessor weiß wo unser Page-Directory liegt.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wir schreiben die Adresse zuerst in eax, und laden den Wert dann nach cr3, damit der Prozessor weiß wo unser Page-Directory liegt.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; sub Paging_activate</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; sub Paging_activate</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  '// we activate paging by enabling the last bit of cr0.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  '// we activate paging by enabling the last bit of cr0.</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l127" >Zeile 127:</td>
+<td colspan="2" class="diff-lineno">Zeile 140:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  END ASM</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  END ASM</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; end sub</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; end sub</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Hier holen wir den Inhalt von cr0 nach eax, setzen das Paging-Bit und schreiben den neuen Wert zurück. Und schon ist Paging aktiviert!</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Hier holen wir den Inhalt von cr0 nach eax, setzen das Paging-Bit und schreiben den neuen Wert zurück. Und schon ist Paging aktiviert!</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l134" >Zeile 134:</td>
+<td colspan="2" class="diff-lineno">Zeile 148:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Als Beispiel zeige ich hier einen Auszug aus meinem Kernel [[FROST]]:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Als Beispiel zeige ich hier einen Auszug aus meinem Kernel [[FROST]]:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; print &quot;Initializing page-directory...&quot;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; print &quot;Initializing page-directory...&quot;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; Paging_initDirectory</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; Paging_initDirectory</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l142" >Zeile 142:</td>
+<td colspan="2" class="diff-lineno">Zeile 157:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; print &quot;Enabling paging...&quot;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; print &quot;Enabling paging...&quot;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; Paging_activate</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; Paging_activate</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/freebasic&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Das ganze geschieht nach dem initialisieren der IDT und vor dem initialisieren von Multitasking.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Das ganze geschieht nach dem initialisieren der IDT und vor dem initialisieren von Multitasking.</div></td></tr>
+</table></body></html>

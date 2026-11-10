@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>ARM-OS-Dev Teil 9 – Paging – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-ARM-OS-Dev_Teil_9_–_Paging rootpage-ARM-OS-Dev_Teil_9_–_Paging skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2432/index.html">Aktueller Artikel</a> · <a href="../../history/2432/index.html">Versionsgeschichte</a> · <a href="../../source/9818.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">ARM-OS-Dev Teil 9 – Paging</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 28. Mai 2011, 17:24 Uhr von <a class="mw-userlink" href="../../pages/1860/index.html" title="Benutzer:XanClic"><bdi>XanClic</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Die Seite wurde neu angelegt: „{{Navigation |Zurück = <a href="../../pages/2427/index.html" title="ARM-OS-Dev Teil 8 – Ein erstes Programm">ARM-OS-Dev Teil 8 – Ein erstes Programm</a> }}  == Ziel == Zwar können wir nun ELF-Programme laden, doch das wird natürlich nicht mehr…“)</span></div><div id="mw-revision-nav">(Unterschied) ← Nächstältere Version | Aktuelle Version (Unterschied) | Nächstjüngere Version → (Unterschied)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><table style="width:100%; background-color: #D0D8FF; border: 1px solid #b8c0e8; text-align:center; margin-bottom: 10px;">
+<tbody><tr>
+<td style="width:33%; text-align:left;">« <a href="../../pages/2427/index.html" title="ARM-OS-Dev Teil 8 – Ein erstes Programm">ARM-OS-Dev Teil 8 – Ein erstes Programm</a></td>
+<td style="width:33%; text-align:center;"><b>Navigation</b></td>
+<td style="width:33%; text-align:right;"> </td>
+</tr>
+</tbody></table>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Ziel"><span class="tocnumber">1</span> <span class="toctext">Ziel</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Paging"><span class="tocnumber">2</span> <span class="toctext">Paging</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Translation_Table"><span class="tocnumber">2.1</span> <span class="toctext">Translation Table</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Domains"><span class="tocnumber">2.2</span> <span class="toctext">Domains</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Page_Tables"><span class="tocnumber">2.3</span> <span class="toctext">Page Tables</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#CP15"><span class="tocnumber">3</span> <span class="toctext">CP15</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Initialisierung"><span class="tocnumber">3.1</span> <span class="toctext">Initialisierung</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#TLB"><span class="tocnumber">3.2</span> <span class="toctext">TLB</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Aufteilung_des_Adressraums"><span class="tocnumber">4</span> <span class="toctext">Aufteilung des Adressraums</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Anlegen_des_Kernelcontexts"><span class="tocnumber">5</span> <span class="toctext">Anlegen des Kernelcontexts</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Weitere_Kontexte"><span class="tocnumber">6</span> <span class="toctext">Weitere Kontexte</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Tasks"><span class="tocnumber">7</span> <span class="toctext">Tasks</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Ergebnis"><span class="tocnumber">8</span> <span class="toctext">Ergebnis</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Weitere_Quellen"><span class="tocnumber">9</span> <span class="toctext">Weitere Quellen</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Ziel">Ziel</span></h2>
+<p>Zwar können wir nun ELF-Programme laden, doch das wird natürlich nicht mehr so toll funktionieren, wenn wir mehrere verschiedene auf einmal laden wollen und alle die gleiche Ladeadresse verwenden. Um diesem Problem zu begegnen, kann man den Pagingmechanismus verwenden: Jedes Programm erhält seinen eigenen virtuellen Adressraum, sodass es gar nicht mit anderen Programmen ins Gehege kommen kann, weil es auf deren Daten gar nicht zugreifen kann.
+</p>
+<h2><span class="mw-headline" id="Paging">Paging</span></h2>
+<p>Zur Einführung ist es sinnvoll, zunächst den <a href="../../pages/1496/index.html" title="Paging">Paging-Artikel</a> zu lesen, da dieser eine solche am Beispiel x86 liefert. Der auf ARM-Prozessoren verwendete Pagingmechanismus ist dem von x86 recht ähnlich, sodass es nach dem Verständnis des Artikels nicht schwerfallen sollte, auch das ARM-Paging nachzuvollziehen.
+</p><p>An dieser Stelle sei erwähnt, dass es zwei sich leicht voneinander unterscheidende Pagingmethoden auf ARM-Prozessoren gibt: Das VMSAv6-Paging, das mit ARMv6 eingeführt wurde, und ein nicht näher benanntes, welches davor in einigen ARMv5-CPUs implementiert war (daneben gibt es noch eine ganz andere Methode des Speicherschutzes, die sogenannte <i>Memory Protection Unit</i> (MPU, im Gegensatz zur MMU), welche hier aber nicht weiter betrachtet wird). Vom Prinzip her unterscheiden sich beide Varianten nicht. Unterschiede sind die, dass man vor VMSAv6 einzelne Teile einer Page verschieden schützen konnte und es 1-kB-Pages gab, während es in VMSAv6 globale Pages (s. x86-Paging) und die Möglichkeit gibt, Codeausführung je nach Page zu erlauben oder zu verbieten.
+</p><p>Da auch ARM gewissen Wert auf Abwärtskompatibilität legt, gibt es die vor-VMSAv6-Pagingvariante auch in VMSAv6, dort heißt sie „VMSAv6, subpages enabled“ (aufgrund der erwähnten Möglichkeit, Teile einer Page einzeln schützen zu lassen). Diese Variante sollte auf allen ARM-CPUs funktionieren, welche eine MMU besitzen, sodass diese hier verwendet wird.
+</p>
+<h3><span class="mw-headline" id="Translation_Table">Translation Table</span></h3>
+<p>Wenn die MMU der CPU versucht, eine virtuelle Adresse aufzulösen, nimmt sie die oberen zwölf Bit als Index eines Eintrags in der sogenannten <i>Translation Table</i>. Diese hat 4096 Einträge zu je vier Byte, ist also insgesamt 16 kB groß. Die unteren zwei Bit des Eintrags geben den Typ an: Bei 0b00 ist der Eintrag frei, beim Adresszugriff wird eine Abort-Exception ausgelöst. 0b01 ist ein Verweis auf eine weitere Tabelle (eine sogenannte <i>Coarse Page Table</i>), 0b10 ein Verweis auf eine Section (sozusagen eine 1-MB-Page); 0b11 ist als Typ reserviert (stand vor VMSAv6 für <i>Fine Page Tables</i>).
+</p><p>Ein Coarse-Page-Table-Verweis sieht folgendermaßen aus:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0 – 1</td>
+<td>Ist 0b01 (Typ des Eintrags).
+</td></tr>
+<tr>
+<td>2 – 4</td>
+<td>Sollte auf 0 gesetzt werden.
+</td></tr>
+<tr>
+<td>5 – 8</td>
+<td>Gibt die Domain an, der diese Page Table angehört (s. u.).
+</td></tr>
+<tr>
+<td>9</td>
+<td>Möglichst 0.
+</td></tr>
+<tr>
+<td>10 – 31</td>
+<td>Bits 10 bis 31 der Basisadresse der Page Table (muss an einer 1-kB-Grenze liegen).
+</td></tr></tbody></table>
+<p>Da hier im Tutorial keine Sections verwendet werden, ist es hier unnötig, den Aufbau eines Sectioneintrags darzulegen.
+</p>
+<h3><span class="mw-headline" id="Domains">Domains</span></h3>
+<p>Zusätzlich zur Möglichkeit, jeder einzelnen Page spezielle Zugriffsrechte zuzuordnen, bietet ARM auch sogenannte Domains. Eine Domain ist eine Gruppe verschiedener Speicherregionen, auf die man dadurch relativ schnell Zugriff verbieten oder erlauben kann, indem man einfach die Domainzugriffsrechte ändert. Wie man gesehen hat, erfolgt die Zuordnung von Speicher zu Domain in der Translation Table und kann nur für Pages (nicht für Sections) durchgeführt werden. Es gibt drei Zugriffsarten: Gar kein Zugriff, sodass bei Zugriff immer ein Abort ausgelöst wird; <i>Client</i>, hierbei werden die Zugriffsrechte, die in der Page Table angegeben sind, beachtet; <i>Server</i>, bei welcher jeder Zugriff erlaubt wird (wenn an der virtuellen Adresse eine Page vorhanden ist).
+</p><p>In diesem Tutorial werden wir Domains ignorieren, sodass alle 16 Domains, die es gibt, auf <i>Client</i> gestellt werden und alle Page Tables in die Domain 0 eingetragen werden (da aber alle <i>Client</i> sind, ist es auch egal, in welche Domain sie kommen).
+</p>
+<h3><span class="mw-headline" id="Page_Tables">Page Tables</span></h3>
+<p>Vor VMSAv6 gab es zwei Page-Table-Arten: Coarse und Fine Page Tables, erstere mit 256 Einträgen, letztere mit 1024. Mit VMSAv6 wurden letztere abgeschafft.
+</p><p>Hat die MMU also beim Zugriff auf die Translation Table festgestellt, dass auf eine Page Table verwiesen wird, so verwendet sie die Bits 12 bis 20 der virtuellen Adresse als Index in der angegebenen (Coarse) Page Table. Auch hier gibt es wieder 4-Byte-Einträge, deren niederwertigste zwei Bit den Typ des Eintrags angeben: 0b00 zeigt wieder einen unbenutzten Eintrag an, 0b01 steht für eine 64-kB-Page, 0b10 für eine 4-kB-Page mit Subpages und 0b11 für eine ohne.
+</p><p>Da hier nur 4-kB-Pages mit Subpages verwendet werden (ohne Gebrauch von den Subpages zu machen), sei auch hier nur der Aufbau dieses einen Eintragtyps dargestellt:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0 – 1</td>
+<td>Ist 0b10 (4-kB-Page mit Subpages).
+</td></tr>
+<tr>
+<td>2</td>
+<td>B-Bit: Bufferable
+</td></tr>
+<tr>
+<td>3</td>
+<td>C-Bit: Cachable
+</td></tr>
+<tr>
+<td>4 – 5</td>
+<td>Zugriffsrechte für das erste Kilobyte.
+</td></tr>
+<tr>
+<td>6 – 7</td>
+<td>Zugriffsrechte für das zweite Kilobyte.
+</td></tr>
+<tr>
+<td>8 – 9</td>
+<td>Zugriffsrechte für das dritte Kilobyte.
+</td></tr>
+<tr>
+<td>10 – 11</td>
+<td>Zugriffsrechte für das vierte Kilobyte.
+</td></tr>
+<tr>
+<td>12 – 31</td>
+<td>Bits 12 bis 31 der Basisadresse der Page (muss an einer 4-kB-Grenze liegen).
+</td></tr></tbody></table>
+<p>Wenn jemand die genaue Bedeutung von B- und C-Bit verstanden hat, möge er sie hier bitte eintragen. Soweit ich verstanden habe, sollte man beide für MMIO auf 0 und für normalen Speicher auf 1 setzen. Um sicher zu gehen, werden sie in diesem Tutorial einfach auf 0 gesetzt.
+</p><p>Für die Zugriffsrechte gilt:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Wert</th>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>0b00</td>
+<td>
+<ul><li>Bei gelöschtem R- und S-Bit: Kein Zugriff</li>
+<li>Bei gesetztem R-Bit (und gelöschtem S): Von allen Modi aus nur lesbar</li>
+<li>Bei gesetztem S-Bit (und gelöschtem R): Von privilegierten Modi aus lesbar, vom Usermodus kein Zugriff</li></ul>
+</td></tr>
+<tr>
+<td>0b01</td>
+<td>Vollzugriff für privilegierte Modi, keiner für Usermodus
+</td></tr>
+<tr>
+<td>0b10</td>
+<td>Vollzugriff für privilegierte Modi, vom Usermodus aus lesbar
+</td></tr>
+<tr>
+<td>0b11</td>
+<td>Vollzugriff für alle Modi
+</td></tr></tbody></table>
+<p>Privilegierte Modi sind alle nicht-Usermodi. Die Bits R und S befinden sich in einem Kontrollregister der MMU (die Namen stehen für <i>ROM Protection</i> respektive <i>System Protection</i>).
+</p>
+<h2><span class="mw-headline" id="CP15">CP15</span></h2>
+<p>Im Gegensatz zu x86-CPUs befindet sich die MMU aus Programmierersicht bei ARMs nicht direkt in der CPU (bei x86 können Kontrollregister wie CR0 oder CR3, die auch das Paging steuern, wie normale Register mit dem MOV-Befehl gesetzt werden), sondern in einem Koprozessor. Dieser Speicherverwaltungskoprozessor trägt den Namen CP15 (CP für Coprocessor), da seine ID, mit der er in den Koprozessorbefehlen angesprochen wird, 15 ist. Er übernimmt die Speicherverwaltung der CPU (und auch andere Aufgaben, er heißt offiziell <i>System Control Coprocessor</i>), das heißt, er kann entweder als MPU oder MMU agieren. Um den CP15 zu steuern, werden mit den Befehle MCR und MRC bestimmte Werte in seine Register geschrieben bzw. daraus gelesen.
+</p><p>MCR- und MRC-Befehle haben die folgende Form:
+</p>
+<pre>mcr/mrc &lt;cp&gt;, &lt;op1&gt;, &lt;rd&gt;, &lt;crn&gt;, &lt;crm&gt;, [op2]</pre>
+<p>Dabei ist <i>&lt;cp&gt;</i> die ID des Koprozessors (hier immer 15), <i>&lt;op1&gt;</i> ein koprozessorspezifischer Opcode (hier immer 0), <i>&lt;rd&gt;</i> das zu verwendende ARM-Register, <i>&lt;crn&gt;</i> das erste zu verwendende Koprozessorregister, <i>&lt;crm&gt;</i> das zweite und optional <i>[op2]</i> ein zweiter Opcode (wenn nicht angegeben, wird 0 verwendet).
+</p><p>Von uns für Interesse sind die CP15-Register 1 (<i>Control register</i>), 2 (<i>Translation table base</i>), 3 (<i>Domain access control</i>) und 8 (<i>TLB functions</i>). Wenn man Aborts behandeln möchte, werden auch 5 (<i>Fault status</i>) und 6 (<i>Fault address</i>) wichtig.
+</p>
+<h3><span class="mw-headline" id="Initialisierung">Initialisierung</span></h3>
+<p>Zuerst möchten wir alle Domains in den Client-Modus versetzen. Hierzu schreibt man den Wert 0x55555555 in das CP15-Register 3:
+&lt;c&gt;__asm__ __volatile__ ("mcr p15,0,%0,c3,c0" :: "r"(0x55555555));&lt;/c&gt;
+</p><p>Bevor man die MMU aktiviert, wird im ARM-Manual empfohlen, den Cache (zumindest temporär) zu deaktivieren, also tun wir das auch:
+&lt;c&gt;__asm__ __volatile__ ("mrc p15,0,r0,c1,c0;"
+</p>
+<pre>                     "bic r0,#0x0004;"
+                     "bic r0,#0x1000;"
+                     "mcr p15,0,r0,c1,c0" ::: "r0");&lt;/c&gt;
+</pre>
+<p>Wie man sieht, werden dazu im Control Register Bit 2 und 12 gelöscht (Daten- und Befehlscache deaktivieren).
+</p><p>Dann sollte eine Translation Table im Translation Table Base Register eingetragen werden:
+&lt;c&gt;__asm__ __volatile__ ("mcr p15,0,%0,c2,c0,0" :: "r"(translation_table));&lt;/c&gt;
+Wobei <i>translation_table</i> die physische Adresse einer Translation Table sein müsste. Dabei werden die unteren zwei Bit und die Bits 3 und 4 für Einstellungen zum Caching verwendet, die ich wieder der Einfachheit halber auf 0 gelassen habe (kein Caching) – sollte jemand eine sichere Einstellung mit Caching kennen, ist er frei, diese hier zu ergänzen.
+</p><p>Nachdem dies geschehen ist, kann man Bit 0 im Control Register setzen (MMU aktivieren) und Bit 23 löschen (Subpages aktivieren, quasi-vor-VMSAv6-Paging). Sofort anschließend sollte laut Manual ein sogenannter Prefetch Flush durchgeführt werden (was bei vernünftigem Mapping aber wohl unnötig sein dürfte), welcher erreicht wird, indem 0 ins CP15-Register 7 geschrieben wird, wobei als zweites CP15-Register 5 und als zweiter Opcode 4 angegeben wird.
+&lt;c&gt;__asm__ __volatile__ ("mrc p15,0,r0,c1,c0;"
+</p>
+<pre>                     "orr r0,#0x00000001;"
+                     "bic r0,#0x00800000;"
+                     "mcr p15,0,r0,c1,c0;"
+                     "mcr p15,0,%0,c7,c5,4" :: "r"(0) : "r0");&lt;/c&gt;
+</pre>
+<p>Jetzt könnte man den Cache (theoretisch) wieder aktivieren, indem man die Bits 2 und 12 im Control Register wieder setzt.
+</p>
+<h3><span class="mw-headline" id="TLB">TLB</span></h3>
+<p>Wie auch bei x86 gibt es einen TLB, der die Zuordnung von virtuellen zu physischen Adressen cachet. Und auch bei ARM muss man natürlich einzelne Einträge invalidieren, wenn die Zuordnung verändert wurde. Hierfür wird das CP15-Register 8 verwendet. Um einen einzelnen Eintrag zu invalidieren, verwendet man (mit <i>address</i> == virtuelle Adresse):
+&lt;c&gt;__asm__ __volatile__ ("mcr p15,0,%0,c8,c7,1" :: "r"(address));&lt;/c&gt;
+</p><p>Um den TLB komplett zu leeren (beim Wechsel der Translation Table notwendig), verwendet man im Gegensatz dazu als zweiten Opcode 0:
+&lt;c&gt;__asm__ __volatile__ ("mcr p15,0,%0,c8,c7,0" :: "r"(0));&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Aufteilung_des_Adressraums">Aufteilung des Adressraums</span></h2>
+<p>Nun ist es an der Zeit, ein paar Designfragen zu klären. Erstens: Soll der komplette Kernel in jeden Adressraum gemappt werden? Einfache Frage, einfache Antwort: Ja. Das ist einfacher und erspart uns jede Menge Kontextwechsel. Zweitens: Wie viel Platz soll der Kernel erhalten? Hier folgen wir der häufig genutzten 3-zu-1-GB-Aufteilung (3 GB für das Programm, 1 GB für den Kernel). Der Einfachheit halber erhält der Kernel das untere GB im Speicher (0x00000000 bis 0x3FFFFFFF) und das Programm die oberen 3 GB.
+</p><p>Damit sind also in jeder Translation Table die ersten 1024 Einträge gleich. Nun ist die Frage, wie man dafür sorgt, dass dies tatsächlich der Fall ist. Die einfachste Möglichkeit ist es, alle Kernel-Page-Tables gleich zu Beginn anzulegen und dann beim Anlegen eines neuen Kontexts in der entsprechenden Translation Table einzutragen – das ist auch genau das, was wir hier tun werden. 1024 Page Tables kosten 1 MB Speicher – das sollte zu verkraften sein. Wiederum der Einfachheit halber legen wir die konstant nach 0x00100000 (also hinter den gemappten Flashspeicher). Infolge dessen müssen wir natürlich die <i>pmm_init</i>-Funktion anpassen, da jetzt erst der Speicher ab 0x00200000 benutzbar ist.
+</p><p>Kommen wir zur Frage, wie der virtuelle Adressraum im Kernelbereich aufgeteilt wird. Die ist hier nicht ganz so kompliziert wie auf einem x86-Rechner, da wir fest mit 128 MB Speicher rechnen können. Also mappen wir einfach die ersten 128 MB physischen auf die ersten 128 MB virtuellen Speicher. Den Rest können wir dann für beliebige Dinge nutzen, wobei es sich empfiehlt, noch etwas Platz für MMIO freizuhalten, der physisch über 128 MB liegt (da wir bisher nur den Timer an 0x13000000 und die serielle Schnittstelle an 0x16000000 benutzen, können wir auch einfach die ersten 2 GB direkt mappen (0x00000000 bis 0x1FFFFFFF) und uns weiter keine Gedanken darum machen).
+</p>
+<h2><span class="mw-headline" id="Anlegen_des_Kernelcontexts">Anlegen des Kernelcontexts</span></h2>
+<p>Um Paging benutzen zu können, muss zunächst ein Kernelcontext angelegt werden. Dafür müssen 16 kB zusammenhängender physischer Speicher an einer 16-kB-Grenze als Translation Table reserviert werden. Die ersten 1024 Einträge erhalten Verweise auf die Kernel-Page-Tables (jede Page Table ist 1 kB groß), der Rest wird mit 0 gefüllt.
+&lt;c&gt;uint32_t *kernel_translation_table = (uint32_t *)pmm_alloc_16k();
+for (int i = 0; i &lt; 1024; i++)
+</p>
+<pre>   kernel_translation_table[i] = (0x00100000 + i * 1024) | 1;
+</pre>
+<p>memset(&amp;kernel_translation_table[1024], 0, 3072 * sizeof(uint32_t));&lt;/c&gt;
+</p><p>Nun wäre es auch nicht schlecht, die Page Tables zu initialisieren. Das geht zum Beispiel per:
+&lt;c&gt;uint32_t *kernel_page_tables = (uint32_t *)0x00100000;
+for (uintptr_t addr = 0; addr &lt; 128 * 1048576; addr += 4096)
+</p>
+<pre>   kernel_page_tables[addr &gt;&gt; 12] = addr | (0x55 &lt;&lt; 4) | 2;
+</pre>
+<p>memset(&amp;kernel_page_tables[(128 * 1048576) &gt;&gt; 10], 0, (((1024 - 128) * 1048576) &gt;&gt; 10) * sizeof(uint32_t));&lt;/c&gt;
+</p><p>Die Zugriffsrechte 0x55 (0b01010101) führen dazu, dass die Pages aus allen privilegierten Modi heraus gelesen und beschrieben werden können, man im Usermodus jedoch keinen Zugriff hat.
+</p><p>Danach kann man den CP15 wie oben beschrieben initialisieren.
+</p>
+<h2><span class="mw-headline" id="Weitere_Kontexte">Weitere Kontexte</span></h2>
+<p>Um weitere Kontexte anzulegen, muss man genauso wie beim Anlegen des Kernelcontexts vorgehen, außer dass man jetzt die ersten 1024 Einträge direkt per memcpy aus dem Kernelcontext herauskopieren kann. Um einen Kontext zu wechseln, muss man die neue Translation Table eintragen und dann den TLB komplett leeren.
+</p><p>Um eine virtuelle Adresse auf eine bestimmte physische zu mappen, muss ggf. eine Page Table angelegt werden (deren Adresse OR 1 dann in der Translation Table eingetragen wird), in welcher dann die physische Adresse an der passenden Stelle mit den entsprechenden Zugriffsrechten eingetragen wird. Möchte man z. B. physisch 0x12345000 nach virtuell 0x6A2A1000 mit Vollzugriff aus allen Modi mappen, dann passiert dies folgendermaßen:
+</p>
+<ul><li>Verwende 0x6A2A1000 &gt;&gt; 20 == 0x6A2 als Index in der Translation Table.</li>
+<li>Ist dort bereits eine Page Table eingetragen, verwende diese – ansonsten erstelle eine und trage sie ein.</li>
+<li>Verwende ((0x6A2A1000 &gt;&gt; 12) &amp; 0xFF) == 0xA1 als Index in der Page Table.</li>
+<li>Trage an dieser Stelle 0x12345000 | 0xFF0 | 2 ein (0xFF0 ist 0b11111111 &lt;&lt; 4, also Vollzugriff aus allen Modi für die gesamte Page; 2 zeigt eine 4-kB-Page an).</li></ul>
+<p>Um ein Mapping zu entfernen, muss man einfach 0 eintragen. In jedem Falle sollte man anschließend den entsprechenden TLB-Eintrag invalidieren.
+</p>
+<h2><span class="mw-headline" id="Tasks">Tasks</span></h2>
+<p>Auch das Taskmanagement müssen wir jetzt etwas verändern: Zunächst erhält jeder Task ein zusätzliches Attribut, und zwar seinen Kontext (bei uns reicht die Adresse der Translation Table, wenn wir kein Identity Mapping für den gesamten RAM hätten, müsste man sowohl die physische als auch die virtuelle Adresse speichern). Weiterhin müssen der IRQ- und der SVC-Stack in den Kernelcontext gemappt werden, ebenso wie die Taskstruktur selbst (wobei man sich das ebenfalls sparen kann, wieder wegen des Identity Mappings) – hierfür empfiehlt sich eine Funktion <i>vmm_alloc</i>, die ein <i>pmm_alloc</i> ausführt und die Adresse sofort mappt. Den Userstack allerdings müssen wir in den Userbereich (also die oberen 3 GB) legen, damit das Programm im Usermodus auch darauf zugreifen kann. Am besten kommt er ganz nach oben, das heißt, von 0xFFFFF000 bis 0xFFFFFFFF. Dazu muss man beim Initialisieren die Page an 0xFFFFF000 auf einen mit <i>pmm_alloc</i> reservierten Pageframe mappen und das User-R13 auf 0 setzen (beim ersten <i>push</i> wird es um vier verringert, bevor der Wert dann nach 0xFFFFFFFC gespeichert wird).
+</p><p>Beim Taskwechsel muss dann natürlich der Kontext wie beschrieben gewechselt werden.
+</p><p>Desweiteren können wir das Programm jetzt logischerweise nicht mehr nach 0x00200000 laden lassen, weil dort im virtuellen Adressraum der Kernel liegt. Stattdessen bietet sich 0x40000000 an. Weiterhin muss der ELF-Loader angepasst werden, sodass er nicht einfach nur die Daten in den Speicher kopiert, sondern die entsprechenden Adressen zuvor im Kontext des neuen Programms mappt.
+</p>
+<h2><span class="mw-headline" id="Ergebnis">Ergebnis</span></h2>
+<p>Wir sollten jetzt beliebig viele Programme laden können (solange sie in den Speicher passen), ohne, dass sie einander beeinflussen. Zudem ist jetzt auch der Kernel vor unberechtigten Zugriffen der Programme geschützt. Das nächste Ziel wäre es wohl, Aborts abzufangen, um darauf dementsprechend reagieren zu können (z. B. entweder das Programm mit einem Segfault beenden oder die entsprechenden Adressen mappen, was nützlich ist, wenn der Userstack dynamisch wachsen soll).
+</p>
+<h2><span class="mw-headline" id="Weitere_Quellen">Weitere Quellen</span></h2>
+<p>Das <i>ARM Architecture Reference Manual</i> (s. <a href="../../pages/2101/index.html#Weblinks" title="ARM">ARM – Weblinks</a>) beschreibt das VMSAv6-Paging in den Kapiteln <i>The System Control Coprocessor</i> und <i>Virtual Memory System Architecture</i> (VMSA).
+</p><p>Eine Beispielimplementierung des Tutorialkernels mit Paging kann man <a class="external text" href="https://gitorious.org/arm-os-dev/kernel/trees/8756adf6f8a5a97017fa11bab83b0885538ff386" rel="nofollow">hier</a> finden.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109164511
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.009 seconds
+Real time usage: 0.010 seconds
+Preprocessor visited node count: 90/1000000
+Preprocessor generated node count: 190/1000000
+Post‐expand include size: 473/2097152 bytes
+Template argument size: 90/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 87/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.583      1 -total
+ 54.32%    0.860      1 Vorlage:Navigation
+ 35.95%    0.569      3 Vorlage:Prettytable
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:2432-0!canonical and timestamp 20261109164511 and revision id 9818
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=ARM-OS-Dev_Teil_9_–_Paging&amp;oldid=9818</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1895/index.html" title="Kategorie:OS-Dev für Einsteiger">OS-Dev für Einsteiger</a></li><li><a href="../../pages/2100/index.html" title="Kategorie:ARM">ARM</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2432/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2432/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 28. Mai 2011 um 17:24 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

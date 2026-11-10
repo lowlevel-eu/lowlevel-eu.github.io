@@ -1,0 +1,53 @@
+Der '''Accelerated Graphics Port''' (kurz: '''AGP''') ist ein [[:Kategorie:Bus | Bus]] zum Anschluss von Grafikkarten. Die Schnittstelle basiert auf [[PCI]], bietet jedoch höhere Transferraten und eine Anbindung der Grafikkarte an den Speicher (GART) an. Mittlerweile wurde die Schnittstelle von PCI-Express abgelöst.
+
+== Registerstruktur ==
+Die relevanten Register liegen im PCI-Konfigurationsraum in einer Capability mit der ID 0x2. Aus dieser Struktur können die Eigenschaften der Karte ausgelesen und AGP aktiviert werden. Die Capability ist folgendermaßen formatiert (Die Benennung folgt der AGP-3.0-Spezifikation):
+
+{| {{Prettytable}}
+|- align="center"
+! Offset || Register-Name || 31 || 30 || 29 || 28 || 27 || 26 || 25 || 24 || 23 || 22 || 21 || 20 || 19 || 18 || 17 || 16 || 15 || 14 || 13 || 12 || 11 || 10 || 9 || 8 || 7 || 6 || 5 || 4 || 3 || 2 || 1 || 0
+|- align="center"
+| 0x00        || NCAPID || colspan="8" | Reserviert || colspan="4" | MAJOR || colspan="4" | MINOR || colspan="8" | NEXT_PTR  || colspan="8" | CAP_ID = 0x2
+|- align="center"
+| 0x04       || AGPSTAT || colspan="8" | RQ || colspan="8" | Reserviert || colspan="3" bgcolor="#4dc58e" | ARQSZ || colspan="3" bgcolor="#4dc58e" | CAL_Cycle || SBA || colspan="2" | Reserviert ||  bgcolor="#4dc58e"| htrans# || OVER4G || FW || bgcolor="#4dc58e"| AGP3.0_MODE || colspan="3" | RATE
+|- align="center"
+| 0x08       || AGP_CMD || colspan="8" | PRQ || colspan="8" | Reserviert || colspan="3" bgcolor="#4dc58e" | PARQSZ || colspan="3" bgcolor="#4dc58e" | PCAL_Cycle || SBA_ENABLE || AGP_ENABLE || colspan="2" | Reserviert || OVER4G || FW_ENABLE || Reserviert || colspan="3" | DRATE
+|- align="center"
+| 0x12       || ... || colspan="32" | Optionale Register...
+|}
+
+Die Register unterscheiden sich in ihrer Bedeutung für sog. Master- und Target-Geräte, sowie zwischen Versionen 2.0 und 3.0 der Spezifikation. Grün hinterlegte Felder sind nur in AGP 3.0 definiert. Nur auf einige dieser Unterschiede wird im Folgenden eingegangen.
+
+== Erkennung ==
+Grundsätzlich werden AGP-Gerate wie gewöhnliche PCI-Geräte enumeriert. Anhand der o.g. Capability können sie von normalen PCI-Geräten unterschieden werden. Im zweiten Schritt können dann anhand des Felder MAJOR zwischen den Spezifikationen 2.0 und 3.0 unterschieden werden. Allerdings bedeutet ein Wert von "3" als Major-Version nicht, dass die Karte im AGP-3.0-Modus läuft; dies wird zwischen Grafikkarte und Mainboard automatisch ausgehandelt. Wenn sich die Geräte auf AGP 3.0 geeinigt haben, ist AGP3.0_MODE gesetzt.
+
+== Aktivierung und Einstellungen ==
+Das Betriebssystem ist für die Aktivierung von AGP und die Auswahl eines geeigneten Transfermodus verantwortlich. Das [[BIOS]] übergibt die Karte mit abgeschaltetem AGP-Modus, sodass sie mit der Geschwindigkeit eines PCI-Gerätes läuft. AGP wird aktiviert, wenn im Register AGP_CMD das AGP_ENABLE-Bit gesetzt wird.
+
+Im AGP-2.0-Modus werden die Transfermodi 1x, 2x und 4x unterstützt, während im AGP-3.0-Modus die Modi 4x und 8x möglich sind. Die unterstützten Modi können anhand des RATE-Feldes erkannt werden und im DRATE-Feld ausgewählt werden (in letzterem darf nur genau ein Bit gesetzt sein):
+
+{| {{Prettytable}}
+|- align="center"
+! Bit || AGP 2.0 || AGP 3.0
+|- align="center"
+| 0 || 1x || 4x
+|- align="center"
+| 1 || 2x || 8x
+|- align="center"
+| 2 || 4x || Reserviert
+|}
+
+Weiterhin können Fast-Writes (FW, FW_ENABLE) und Side-Band-Adressing (SBA, SBA_ENABLE) aktiviert werden. Letzteres muss im AGP-3.0-Modus aktiviert werden.
+
+Im PRQ-Feld wird die Höchstzahl der Elemente Request-Queue festgelegt. Der Wert muss kleiner oder gleich der Angabe im Feld RQ sein. (P)ARQSZ gibt die optimale Größe asynchroner Requests an (2^(ARQSZ+4); 0 bedeuetet: keine Empfehlung). PCAL_Cycle muss für AGP-Targets auf das Minimum von CAL_Cycle von Master- und Target-Gerät gesetzt werden.
+
+'''Achtung:''' Die Angaben im AGPSTAT-Register geben nur Auskunft über die Funktionen, die von dem AGP-Gerät, d.h. der Grafikkarte unterstützt werden, und geben nicht an, ob auch das Mainboard mit diesen umgehen kann.
+
+== Weblinks ==
+* [http://www.playtool.com/pages/agpcompat/agp30.pdf Spezifikation AGP 3.0]
+* [http://www.motherboards.org/files/techspecs/agp20.pdf Spezifikation AGP 2.0]
+
+[[Kategorie:Hardware]]
+[[Kategorie:Bus]]
+
+[[en:AGP]]

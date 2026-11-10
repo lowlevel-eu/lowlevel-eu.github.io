@@ -1,0 +1,93 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>I/O Advanced Programmable Interrupt Controller — Änderungen 7132 → 7140</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>I/O Advanced Programmable Interrupt Controller — Änderungen 7132 → 7140</h1><nav><a href="../revisions/7132/index.html">Version 7132</a> · <a href="../revisions/7140/index.html">Version 7140</a> · <a href="../history/1574/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l86" >Zeile 86:</td>
+<td colspan="2" class="diff-lineno">Zeile 86:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>==== <del class="diffchange diffchange-inline">Eintrag der </del>''Redirection Table'' ====</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>==== ''Redirection Table'' <ins class="diffchange diffchange-inline">====</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">===== Aufbau eines Eintrags =</ins>====</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| {{prettytable}}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| {{prettytable}}</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l95" >Zeile 95:</td>
+<td colspan="2" class="diff-lineno">Zeile 97:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>! Zugriffsart</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>! Zugriffsart</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| 56-63 || || Destination || gibt die empfangende(n) [[Local APIC]](s) an<del class="diffchange diffchange-inline">:</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>| 56-63 || || Destination || gibt die empfangende(n) [[Local APIC]](s) an<ins class="diffchange diffchange-inline">, Erklärung siehe [[I/O </ins>APIC<ins class="diffchange diffchange-inline">#Destination </ins>| <ins class="diffchange diffchange-inline">''Destination''</ins>-<ins class="diffchange diffchange-inline">Tabelle]] </ins>|| lesend/schreibend</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">{| {{prettytable}}</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">! Wert von DESTMOD</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">! Modus</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">! Beschreibung</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 0 || Physical Mode || Bits 56-59 enthalten eine </del>APIC <del class="diffchange diffchange-inline">ID</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 1 || Logical Mode |</del>| <del class="diffchange diffchange-inline">Bits 56</del>-<del class="diffchange diffchange-inline">63 werden als Menge von Prozessoren interpretiert</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>|<del class="diffchange diffchange-inline">}</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| lesend/schreibend</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 17-55 || || || reserviert ||</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 17-55 || || || reserviert ||</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l115" >Zeile 115:</td>
+<td colspan="2" class="diff-lineno">Zeile 105:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 15 || || Trigger Mode || 0b = edge sensitive&lt;br&gt;1b = level sensitive || lesend/schreibend</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 15 || || Trigger Mode || 0b = edge sensitive&lt;br&gt;1b = level sensitive || lesend/schreibend</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| 14 || || Remote IRR || || nur lesend</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>| 14 || || Remote IRR || <ins class="diffchange diffchange-inline">Dieses Bit ist nur gültig, wenn der ''Trigger Mode'' ''edge'' ist:&lt;br&gt; 0b = EOI mit passendem Interruptvektor wurde gesendet&lt;br&gt;1b = Interrupt wurde von der [[Local APIC]] bzw. den Local APICs angenommen </ins>|| nur lesend</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 13 || INTPOL || Interrupt Input Pin Polarity || 0b = high active&lt;br&gt;1b = low active || lesend/schreibend</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 13 || INTPOL || Interrupt Input Pin Polarity || 0b = high active&lt;br&gt;1b = low active || lesend/schreibend</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l126" >Zeile 126:</td>
+<td colspan="2" class="diff-lineno">Zeile 116:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| DELMOD</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| DELMOD</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| Delivery Mode</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| Delivery Mode</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| Gibt an wie die empfangenden [[Local APIC]]s reagieren sollen<del class="diffchange diffchange-inline">:</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>| Gibt an wie die empfangenden [[Local APIC]]s reagieren sollen<ins class="diffchange diffchange-inline">, Erklärung siehe [[I/O APIC#Delivery Mode | ''Delivery Mode''-Tabelle]] || lesend/schreibend</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">| 0-7 || INTVEC || Interrupt Vector || auszulösender Interruptvektor || lesend/schreibend</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">|}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">===== ''Destination'' =====</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">{| {{prettytable}}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">! Wert von DESTMOD</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">! Modus</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">! Beschreibung</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">| 0 || Physical Mode || Bits 56-59 enthalten eine APIC ID</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">| 1 || Logical Mode || Bits 56-63 werden als Menge von Prozessoren interpretiert</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">|}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">===== ''Delivery Mode'' =====</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| {{prettytable}}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| {{prettytable}}</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l133" >Zeile 133:</td>
+<td colspan="2" class="diff-lineno">Zeile 140:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>! Beschreibung</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>! Beschreibung</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| 000b || Fixed ||</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>| 000b || Fixed || <ins class="diffchange diffchange-inline">Löst in den durch das ''Destination''-Feld ausgewählten Prozessoren einen normalen Interrupt aus.</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| 001b || niedrigste Priorität ||</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>| 001b || niedrigste Priorität || <ins class="diffchange diffchange-inline">Löst in dem Prozessor mit der momentan geringsten Priorität der durch das ''Destination''-Feld ausgewählten Prozessoren einen normalen Interrupt aus.</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| 010b || [[SMI]] ||</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>| 010b || [[SMI]] || <ins class="diffchange diffchange-inline">Es wird allen durch das ''Destination''-Feld ausgewählten Prozessoren ein SMI signalisiert. Dabei wird der Interruptvektor ignoriert, sollte aber aus Kompatibilitätsgründen auf 0 gesetzt werden. Der ''Trigger Mode'' muss ''edge'' sein.</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| 011b || reserviert</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>| 011b || reserviert <ins class="diffchange diffchange-inline">||</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| 100b || [[NMI]] ||</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>| 100b || [[NMI]] || <ins class="diffchange diffchange-inline">Es wird allen durch das ''Destination''-Feld ausgewählten Prozessoren ein NMI signalisiert. Dabei wird der Interruptvektor ignoriert. Der ''Trigger Mode'' muss ''edge'' sein.</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| 101b || INIT ||</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>| 101b || INIT || &#160;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| 110b || reserviert</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>| 110b || reserviert <ins class="diffchange diffchange-inline">||</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| 111b || ExtINT ||</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>| 111b || ExtINT || <ins class="diffchange diffchange-inline">Analog zu ''Fixed'' wird ein normaler Interrupt ausgelöst. Der Interruptvektor kommt allerdings nicht von der I/O APIC sondern wird von einem externen Controller (z.B. des [[PIC]]) geliefert. Der ''Trigger Mode'' muss ''edge'' sein.</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">| lesend/schreibend</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">| 0-7 || INTVEC || Interrupt Vector || auszulösender Interruptvektor || lesend/schreibend</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">|}</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Programmierung ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Programmierung ==</div></td></tr>
+</table></body></html>

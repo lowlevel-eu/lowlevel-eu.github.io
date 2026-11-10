@@ -1,0 +1,993 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="malloc() und free()" name="description"/>
+<title>malloc() und free()</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:28</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/2/index.html"><span>Lowlevel-Coding</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>malloc() und free()</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg20591"></a>
+<div class="nextlinks"><a href="../1797/index.html#msg20620">« vorheriges</a> <a href="../1793/index.html#msg20584">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] 
+				</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/189d991ca494d666273b9e8c.gif"/>
+<span id="author">Autor</span>
+						Thema: malloc() und free()  (Gelesen 27609 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">ReduX</a>
+</h4>
+<ul class="reset smalltext" id="msg_20591_extra_info">
+<li class="postcount">Beiträge: 19</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong> am:</strong> 01. May 2007, 20:50 »</div>
+<div class="posttile"><h5 id="subject_20591">
+<a href="index.html#msg20591" rel="nofollow">malloc() und free()</a>
+</h5></div>
+<div id="msg_20591_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20591">Hi,<br/>Ich bin noch neu im os programmieren habe aber vorher schon mit C und PHP gecodet.<br/>Ich habe es soweit geschafft das dass OS bootet und den C Kernel lädt so nun möchte ich mir aber größerer Funktionen anschauen wie z.B. das GUI Tutorial durcharbeiten dafür brauche ich aber die malloc() und free() befehle!<br/>Ich habe gelesen das ein Memory Manager diese Befehle verwaltet etc. nur weiß ich nicht wie man so einen Memory Manager erstellt habe zwar schon gelsesn wie er aufgebaut ist aber wie man ihn codet weiß ich nicht.<br/>Hat jemand einen link zu einem guten Tutorial für mich?<br/><br/>MFG ReduX</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20591">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20592"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FreakyPenguin</a>
+</h4>
+<ul class="reset smalltext" id="msg_20592_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 301</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://homes.cs.washington.edu/~antoinek/" target="_blank" title="toni.famkaufmann.info"><img alt="toni.famkaufmann.info" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #1 am:</strong> 01. May 2007, 21:23 »</div>
+<div class="posttile"><h5 id="subject_20592">
+<a href="index.html#msg20592" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20592_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20592">Erstmal Willkommen hier im Forum <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/><br/><br/>Die Speicherverwaltung im Kernel selbst verwaltet im allgemeinen nur Blöcke mit fester Grösse, in den meisten Fällen Pages. (Klar es gibt da auch komplexere Modelle, für den Anfang reicht das aber völlig) <em>malloc(...)</em>, <em>free(...)</em> und <em>realloc(...)</em> sind Bibliotheksfunktionen, die (meist per Syscalls) von der Speicherverwaltung im Kernel ganze Pages anfordern und sie sinnvoll verwalten und verteilen.<br/><br/><br/>So auf die schnelle fallen mir zwei gute Tutorials über den Aufbau einer Speicherverwaltung ein. Hier ein Link wo diverse Tutorials dazu aufgelistet sind. Ich würde dir erstmal die zwei von Tim Robinson empfehlen: <br/><a class="bbc_link" href="http://osdever.net/tutorials.php?cat=6&amp;sort=" target="_blank">http://osdever.net/tutorials.php?cat=6&amp;sort=</a></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20592">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20598"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">ReduX</a>
+</h4>
+<ul class="reset smalltext" id="msg_20598_extra_info">
+<li class="postcount">Beiträge: 19</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #2 am:</strong> 02. May 2007, 18:54 »</div>
+<div class="posttile"><h5 id="subject_20598">
+<a href="index.html#msg20598" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20598_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20598">HI,<br/>Danke für deine Antwort also berfor ich meinen Memory Manager nun baue brauch ich ja moch die Paging function in dem Tutorial steht ein asm Source Code dafür nun will ich ihn aber in C einbinden dzu habe ich volgendes gemacht:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">__asm__ ("<br/>[global _read_cr0]<br/>read_cr0:<br/><span style="white-space: pre;"> </span>mov eax, cr0<br/><span style="white-space: pre;"> </span>retn<br/><br/>[global _write_cr0]<br/>write_cr0:<br/><span style="white-space: pre;"> </span>push ebp<br/><span style="white-space: pre;"> </span>mov ebp, esp<br/><span style="white-space: pre;"> </span>mov eax, [ebp+8]<br/><span style="white-space: pre;"> </span>mov cr0,  eax<br/><span style="white-space: pre;"> </span>pop ebp<br/><span style="white-space: pre;"> </span>retn<br/><br/>[global _read_cr3]<br/>read_cr3:<br/><span style="white-space: pre;"> </span>mov eax, cr3<br/><span style="white-space: pre;"> </span>retn<br/><br/>[global _write_cr3]<br/>write_cr3:<br/><span style="white-space: pre;"> </span>push ebp<br/><span style="white-space: pre;"> </span>mov ebp, esp<br/><span style="white-space: pre;"> </span>mov eax, [ebp+8]<br/><span style="white-space: pre;"> </span>mov cr3, eax<br/><span style="white-space: pre;"> </span>pop ebp<br/><span style="white-space: pre;"> </span>retn");</code>CIh führe den Code direkt am Anfang in der Main function aus!<br/>Aber es kommen sehr viele Fehlrmeldungen habe von asm leider keinen plan<br/>Fehlermeldungen:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">main.c:6:10: warning: multi-line string literals are deprecated<br/>c:/djgpp/tmp/ccCTDQjd.s: Assembler messages:<br/>c:/djgpp/tmp/ccCTDQjd.s:14: Warning: rest of line ignored; first ignored charact<br/>er is `['<br/>c:/djgpp/tmp/ccCTDQjd.s:16: Error: too many memory references for `mov'<br/>c:/djgpp/tmp/ccCTDQjd.s:17: Error: no such instruction: `retn'<br/>c:/djgpp/tmp/ccCTDQjd.s:19: Warning: rest of line ignored; first ignored charact<br/>er is `['<br/>c:/djgpp/tmp/ccCTDQjd.s:22: Error: too many memory references for `mov'<br/>c:/djgpp/tmp/ccCTDQjd.s:23: Error: invalid char '[' beginning operand 2 `[ebp+8]<br/>'<br/>c:/djgpp/tmp/ccCTDQjd.s:24: Error: too many memory references for `mov'<br/>c:/djgpp/tmp/ccCTDQjd.s:26: Error: no such instruction: `retn'<br/>c:/djgpp/tmp/ccCTDQjd.s:28: Warning: rest of line ignored; first ignored charact<br/>er is `['<br/>c:/djgpp/tmp/ccCTDQjd.s:30: Error: too many memory references for `mov'<br/>c:/djgpp/tmp/ccCTDQjd.s:31: Error: no such instruction: `retn'<br/>c:/djgpp/tmp/ccCTDQjd.s:33: Warning: rest of line ignored; first ignored charact<br/>er is `['<br/>c:/djgpp/tmp/ccCTDQjd.s:36: Error: too many memory references for `mov'<br/>c:/djgpp/tmp/ccCTDQjd.s:37: Error: invalid char '[' beginning operand 2 `[ebp+8]<br/>'<br/>c:/djgpp/tmp/ccCTDQjd.s:38: Error: too many memory references for `mov'<br/>c:/djgpp/tmp/ccCTDQjd.s:40: Error: no such instruction: `retn'</code><br/>Was mache ich falsch?<br/><br/>MFG ReduX</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20598">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20599"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FreakyPenguin</a>
+</h4>
+<ul class="reset smalltext" id="msg_20599_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 301</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://homes.cs.washington.edu/~antoinek/" target="_blank" title="toni.famkaufmann.info"><img alt="toni.famkaufmann.info" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #3 am:</strong> 02. May 2007, 19:17 »</div>
+<div class="posttile"><h5 id="subject_20599">
+<a href="index.html#msg20599" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20599_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20599">Inline-ASM in GCC muss in der A&amp;T Syntax sein. Zusätzlich müssen noch ein paar weitere Dinge beachtet werden. Siehe dazu: <a class="bbc_link" href="http://lowlevel.brainsware.org/wiki/index.php/Inline-Assembler_mit_GCC" target="_blank">http://lowlevel.brainsware.org/wiki/index.php/Inline-Assembler_mit_GCC</a></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20599">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20600"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">ReduX</a>
+</h4>
+<ul class="reset smalltext" id="msg_20600_extra_info">
+<li class="postcount">Beiträge: 19</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #4 am:</strong> 02. May 2007, 21:21 »</div>
+<div class="posttile"><h5 id="subject_20600">
+<a href="index.html#msg20600" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20600_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20600">Hi,<br/>Danke für deine Hilfe!<br/>Habe den Code nun nach dem Artikel geänder bekomme aber immernoch fehler.  Hier der Code:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">__asm__ ("<br/>read_cr0:<br/>mov %eax, %cr0<br/>retn<br/><br/>write_cr0:<br/>push %ebp<br/>mov %ebp, %esp<br/>mov %eax, $ebp+8<br/>mov %cr0,  %eax<br/>pop %ebp<br/>retn<br/><br/>read_cr3:<br/>mov %eax, %cr3<br/>retn<br/><br/>write_cr3:<br/>push %ebp<br/>mov %ebp, %esp<br/>mov %eax, $ebp+8<br/>mov %cr3, %eax<br/>pop %ebp<br/>retn");</code><br/>Fehler:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">main.c:5:10: warning: multi-line string literals are deprecated<br/>c:/djgpp/tmp/cckn2Ntr.s: Assembler messages:<br/>c:/djgpp/tmp/cckn2Ntr.s:16: Error: no such instruction: `retn'<br/>c:/djgpp/tmp/cckn2Ntr.s:21: Error: suffix or operands invalid for `mov'<br/>c:/djgpp/tmp/cckn2Ntr.s:24: Error: no such instruction: `retn'<br/>c:/djgpp/tmp/cckn2Ntr.s:28: Error: no such instruction: `retn'<br/>c:/djgpp/tmp/cckn2Ntr.s:33: Error: suffix or operands invalid for `mov'<br/>c:/djgpp/tmp/cckn2Ntr.s:36: Error: no such instruction: `retn'</code><br/>MFG ReduX</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20600">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20601"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FreakyPenguin</a>
+</h4>
+<ul class="reset smalltext" id="msg_20601_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 301</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://homes.cs.washington.edu/~antoinek/" target="_blank" title="toni.famkaufmann.info"><img alt="toni.famkaufmann.info" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #5 am:</strong> 02. May 2007, 21:39 »</div>
+<div class="posttile"><h5 id="subject_20601">
+<a href="index.html#msg20601" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20601_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20601">Ich bin mir nicht ganz sicher, aber ich glaube, du kannst im Inline-ASM keine rets benutzen. Aber warum verpackst du das nicht einzeln in C-Funktionen. Dann kannst du sie auch einfach aus dem C-Code aufrufen. Sonst musst du noch mit dem Stack rumbasteln.<br/>Beispiel:<br/><br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">unsigned int read_cr0()<br/>{<br/>    unsigned int cr0;<br/>    __asm__("movl %%cr0, %0" : "=a" (cr0));<br/>   return cr0;<br/>}<br/></code><br/>Bist du dir sicher, dass du dir den Artikel genau angeschaut hast? Dort steht bestimmt auch, dass die Operanden vertauscht werden. Denn ein <em>mov %eax, %cr0</em> schreibt mit der A&amp;T-Syntax den Inhalt des eax-Registers in cr0.<br/><br/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20601">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20602"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_20602_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #6 am:</strong> 02. May 2007, 21:49 »</div>
+<div class="posttile"><h5 id="subject_20602">
+<a href="index.html#msg20602" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20602_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20602"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg20601">Zitat von: FreakyPenguin am 02. May 2007, 21:39</a></div></div><blockquote class="bbc_standard_quote">Ich bin mir nicht ganz sicher, aber ich glaube, du kannst im Inline-ASM keine rets benutzen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Doch. Aber dazu sollte man sie auch ret nennen, nicht retn. Unsauber ist es natürlich trotzdem.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20602">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_20602_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20606"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">ReduX</a>
+</h4>
+<ul class="reset smalltext" id="msg_20606_extra_info">
+<li class="postcount">Beiträge: 19</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #7 am:</strong> 03. May 2007, 13:52 »</div>
+<div class="posttile"><h5 id="subject_20606">
+<a href="index.html#msg20606" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20606_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20606">Hi,<br/>Danke für eure Antworten.<br/>Also ich habe es mal in C umgewandelt hier der Code:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">unsigned int read_cr0()<br/>{<br/>    unsigned int cr0;<br/>    __asm__("movl %%cr0, %0" : "=a" (cr0));<br/>   return cr0;<br/>}<br/><br/>unsigned int write_cr0()<br/>{<br/>    unsigned int cr0;<br/>    __asm__("push %%ebp" : "=a" (cr0));<br/>    __asm__("movl %%esp, %%ebp" : "=a" (cr0));<br/>    __asm__("movl %%ebp+8, %%eax" : "=a" (cr0));<br/>    __asm__("movl %%eax, %0" : "=a" (cr0));<br/>    __asm__("pop %%ebp" : "=a" (cr0));<br/>   return cr0;<br/>}<br/><br/>unsigned int read_cr3()<br/>{<br/>    unsigned int cr3;<br/>    __asm__("movl %%cr3, %0" : "=a" (cr3));<br/>   return cr3;<br/>}<br/><br/>unsigned int write_cr3()<br/>{<br/>    unsigned int cr3;<br/>    __asm__("push %%ebp" : "=a" (cr3));<br/>    __asm__("movl %%esp, %%ebp" : "=a" (cr3));<br/>    __asm__("movl %%ebp+8, %%eax" : "=a" (cr3));<br/>    __asm__("movl %%eax, %0" : "=a" (cr3));<br/>    __asm__("pop %%ebp" : "=a" (cr3));<br/>   return cr3;<br/>}</code><br/>Hab nurnoch Probleme das bei dem ebp + 8 der Fehler :<br/>Error: junk `+8' after register kommt. <br/>Ist der Code ansonsten korrekt? Nicht das ich später irgendwie hänge und es liegt daran!<br/>Noch eine Frage und zwar waurm macht man z.b. hier:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">    __asm__("movl %%eax, %0" : "=a" (cr3));</code>Bei dem mov ein l hintendrann? und warum schreibt mann %o anstatt %%cr3???<br/><br/>MFG ReduX</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20606">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20607"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_20607_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #8 am:</strong> 03. May 2007, 14:13 »</div>
+<div class="posttile"><h5 id="subject_20607">
+<a href="index.html#msg20607" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20607_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20607">Hast du Freakys Link (<a class="bbc_link" href="http://lowlevel.brainsware.org/wiki/index.php/Inline-Assembler_mit_GCC" target="_blank">http://lowlevel.brainsware.org/wiki/index.php/Inline-Assembler_mit_GCC</a>) eigentlich gelesen und verstanden? Eigentlich sollten dort die Antworten auf deine Fragen drinstehen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg20606">Zitat von: ReduX am 03. May 2007, 13:52</a></div></div><blockquote class="bbc_standard_quote">Hab nurnoch Probleme das bei dem ebp + 8 der Fehler :<br/>Error: junk `+8' after register kommt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>In AT&amp;T-Syntax schreibt sich das 8(%ebp).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Noch eine Frage und zwar waurm macht man z.b. hier:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">    __asm__("movl %%eax, %0" : "=a" (cr3));</code>Bei dem mov ein l hintendrann?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wie ich im Wiki geschrieben habe:<br/><div class="quoteheader"><div class="topslice_quote">Zitat von: Wiki</div></div><blockquote class="bbc_standard_quote">Die Operandengrößen sind im Mnemonic enthalten. Wird die Größe nicht angegeben, versucht der Assembler sie anhand der Operanden festzustellen.<br/><br/>movl $123, %eax<br/>movw $123, %ax<br/>movb $123, %al</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">und warum schreibt mann %o anstatt %%cr3???</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Macht man nicht. %%cr3 ist ein Zugriff auf das Register cr3, %0 auf die erste Variable in der Parameterliste. Das sind zwei völlig unterschiedliche Sachen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20607">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_20607_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20609"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">ReduX</a>
+</h4>
+<ul class="reset smalltext" id="msg_20609_extra_info">
+<li class="postcount">Beiträge: 19</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #9 am:</strong> 03. May 2007, 17:10 »</div>
+<div class="posttile"><h5 id="subject_20609">
+<a href="index.html#msg20609" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20609_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20609">Hi,<br/>Danke für deine Hilfe es funktioniert jetzt!<br/><br/>MFG ReduX</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20609">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20611"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FreakyPenguin</a>
+</h4>
+<ul class="reset smalltext" id="msg_20611_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 301</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://homes.cs.washington.edu/~antoinek/" target="_blank" title="toni.famkaufmann.info"><img alt="toni.famkaufmann.info" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #10 am:</strong> 03. May 2007, 18:24 »</div>
+<div class="posttile"><h5 id="subject_20611">
+<a href="index.html#msg20611" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20611_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20611"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg20606">Zitat von: ReduX am 03. May 2007, 13:52</a></div></div><blockquote class="bbc_standard_quote"><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">unsigned int write_cr0()<br/>{<br/>    unsigned int cr0;<br/>    __asm__("push %%ebp" : "=a" (cr0));<br/>    __asm__("movl %%esp, %%ebp" : "=a" (cr0));<br/>    __asm__("movl %%ebp+8, %%eax" : "=a" (cr0));<br/>    __asm__("movl %%eax, %0" : "=a" (cr0));<br/>    __asm__("pop %%ebp" : "=a" (cr0));<br/>   return cr0;<br/>}<br/><br/>unsigned int write_cr3()<br/>{<br/>    unsigned int cr3;<br/>    __asm__("push %%ebp" : "=a" (cr3));<br/>    __asm__("movl %%esp, %%ebp" : "=a" (cr3));<br/>    __asm__("movl %%ebp+8, %%eax" : "=a" (cr3));<br/>    __asm__("movl %%eax, %0" : "=a" (cr3));<br/>    __asm__("pop %%ebp" : "=a" (cr3));<br/>   return cr3;<br/>}</code></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/>Als ich mir vorhin den Code angeschaut habe, fragte ich mich, ob ich denn so schlimm übermüdet sei, oder ob da wirklich das steht, was ich gelesen habe <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/>.<br/><br/>Jedenfalls hat der Code in deinen Funktionen write_cr3 und write_cr0 nicht viel mit dem Funktionsnamen gemeinsam. Diese müssten doch mindestens ein Dword als Parameter haben, welches sie dann in die betreffenden Register schreiben.<br/><br/>Hier ein vorschlag dafür:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">void write_cr0(unsigned int cr0)<br/>{<br/>    __asm__("movl %0, %%cr0" : : "a" (cr0));<br/>}<br/></code></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20611">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20613"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">ReduX</a>
+</h4>
+<ul class="reset smalltext" id="msg_20613_extra_info">
+<li class="postcount">Beiträge: 19</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #11 am:</strong> 03. May 2007, 19:36 »</div>
+<div class="posttile"><h5 id="subject_20613">
+<a href="index.html#msg20613" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20613_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20613">HI,<br/>Ja da haste Recht der Code ist von Bona Fide OS Dev. aus nem Tutorial für Paging!<br/>Beim ausprobieren hab ich dann auch gemerkt das sie keine Parameter annahmen.<br/>Aber trozdem danke für deine Mühe!<br/><br/>Edit:<br/>Noch ne kleine Frage <br/>In dem Tutorial steht folgender Code zum ausführen:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">unsigned long *page_directory = (unsigned long *) 0x9C000;<br/>unsigned long *page_table = (unsigned long *) 0x9D000;<br/>unsigned long address=0;<br/>unsigned int i;<br/><br/>for(i=0; i&lt;1024; i++)<br/>{<br/><span style="white-space: pre;"> </span>page_table[i] = address | 3;<br/><span style="white-space: pre;"> </span>address = address + 4096;<br/>};<br/>page_directory[0] = page_table;<br/>page_directory[0] = page_directory[0] | 3;<br/>for(i=1; i&lt;1024; i++)<br/>{<br/><span style="white-space: pre;"> </span>page_directory[i] = 0 | 2;<br/><br/>};<br/><br/>write_cr3(page_directory);<br/>write_cr0(read_cr0() | 0x80000000);</code>Ich habe aber jetzt das Problem das bei write_cr0 ja zwei Prameter übergeben werden aber die Function kann ja nur einer entgegennehmen?!?<br/>Außerdem wir noch ein Fehler mit dem Ointer ausgegeben:<br/>main.c:48: warning: assignment makes integer from pointer without a cast<br/>main.c:56: warning: passing arg 1 of `write_cr3' makes integer from pointer with<br/>out a cast <br/><br/>MFG ReduX</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20613">
+								« <em>Letzte Änderung: 03. May 2007, 19:45 von ReduX</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20614"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FreakyPenguin</a>
+</h4>
+<ul class="reset smalltext" id="msg_20614_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 301</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://homes.cs.washington.edu/~antoinek/" target="_blank" title="toni.famkaufmann.info"><img alt="toni.famkaufmann.info" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #12 am:</strong> 03. May 2007, 20:00 »</div>
+<div class="posttile"><h5 id="subject_20614">
+<a href="index.html#msg20614" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20614_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20614">Ok, wie befürchtet muss ich dich erstmal wieder darauf hinweisen, dass es nicht sehr geschickt ist, einen Kernel in C schreiben zu wollen, wenn man es nicht fliessend spricht.<br/><br/>Wo werden denn da mehrere Parameter übergeben? Meinst du das?:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">write_cr0(read_cr0() | 0x80000000);</code><br/>Da ist ja kein Komma dazwischen, sondern nur ein Binär-Oder.<br/><br/>Bei der zweiten Warnung kannst du entweder die Funktions-Deklaration für write_cr3 ändern, so dass es einen Long-Pointer nimmt, oder beim aufruf casten:<br/><br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">write_cr3((unsigned int)page_directory);</code><br/>Auch für die 2. Warnung hilft ein einfacher cast:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">page_directory[0] = (unsigned int)page_table;</code></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20614">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20615"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">ReduX</a>
+</h4>
+<ul class="reset smalltext" id="msg_20615_extra_info">
+<li class="postcount">Beiträge: 19</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #13 am:</strong> 04. May 2007, 14:54 »</div>
+<div class="posttile"><h5 id="subject_20615">
+<a href="index.html#msg20615" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20615_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20615">Hi,<br/>Obwohl bei dem Befehl nur ein Binär Order und kein komma ist kommt trozdem immer der Fehler to few arguments for read_cr0 aber warum?<br/>Wenn ich das ganze aufteile und den read befehl erst mit der 0x... laufen lassen und dannach dann den write mit dem 0x... dann stürzt der Rechner bei booten ab!<br/><br/>MFG ReduX</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20615">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20616"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_20616_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #14 am:</strong> 04. May 2007, 19:26 »</div>
+<div class="posttile"><h5 id="subject_20616">
+<a href="index.html#msg20616" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20616_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20616">Zeig mal den momentanen Code, ich glaub du hast für read_cr0 uberflüssige Parameter in der Funktionsdefinition.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20616">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_20616_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20618"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">ReduX</a>
+</h4>
+<ul class="reset smalltext" id="msg_20618_extra_info">
+<li class="postcount">Beiträge: 19</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #15 am:</strong> 05. May 2007, 00:00 »</div>
+<div class="posttile"><h5 id="subject_20618">
+<a href="index.html#msg20618" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20618_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20618">Hi,<br/>Hier der gesamte Code der main.c:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">unsigned long *page_directory = (unsigned long *) 0x9C000;<br/>unsigned long *page_table = (unsigned long *) 0x9D000;<br/><br/>unsigned int read_cr0(unsigned int cr0)<br/>{<br/>    __asm__("movl %%cr0, %0" : "=a" (cr0));<br/>   return cr0;<br/>}<br/><br/>unsigned int write_cr0(unsigned int cr0)<br/>{<br/>    __asm__("push %%ebp" : "=a" (cr0));<br/>    __asm__("movl %%esp, %%ebp" : "=a" (cr0));<br/>    __asm__("movl 8(%%ebp), %%eax" : "=a" (cr0));<br/>    __asm__("movl %%eax, %0" : "=a" (cr0));<br/>    __asm__("pop %%ebp" : "=a" (cr0));<br/>   return cr0;<br/>}<br/><br/>unsigned int read_cr3(unsigned int cr3)<br/>{<br/>    __asm__("movl %%cr3, %0" : "=a" (cr3));<br/>   return cr3;<br/>}<br/><br/>unsigned int write_cr3(unsigned int cr3)<br/>{<br/>    __asm__("push %%ebp" : "=a" (cr3));<br/>    __asm__("movl %%esp, %%ebp" : "=a" (cr3));<br/>    __asm__("movl 8(%%ebp), %%eax" : "=a" (cr3));<br/>    __asm__("movl %%eax, %0" : "=a" (cr3));<br/>    __asm__("pop %%ebp" : "=a" (cr3));<br/>   return cr3;<br/>}<br/><br/>void main()<br/>{<br/><br/>unsigned long address=0;<br/>unsigned int i;<br/><br/>for(i=0; i&lt;1024; i++)<br/>{<br/><span style="white-space: pre;"> </span>page_table[i] = address | 3;<br/><span style="white-space: pre;"> </span>address = address + 4096;<br/>};<br/>page_directory[0] = (unsigned int)page_table;<br/>page_directory[0] = page_directory[0] | 3;<br/>for(i=1; i&lt;1024; i++)<br/>{<br/><span style="white-space: pre;"> </span>page_directory[i] = 0 | 2;<br/><br/>};<br/><br/>write_cr3((unsigned int)page_directory);<br/>write_cr0(read_cr0() | 0x80000000);<br/><br/><br/>  for(;;);<br/>}</code><br/>MFG ReduX </div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20618">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg20619"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_20619_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #16 am:</strong> 05. May 2007, 06:32 »</div>
+<div class="posttile"><h5 id="subject_20619">
+<a href="index.html#msg20619" rel="nofollow">Re: malloc() und free()</a>
+</h5></div>
+<div id="msg_20619_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_20619">so würde ich das machen:<br/><br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">unsigned int read_cr0()<br/>{<br/>    unsigned int cr0;<br/>    asm volatile ("movl %%cr0, %0" : "=a" (cr0));<br/>   return cr0;<br/>}<br/>void write_cr0(unsigned int cr0)<br/>{<br/>    asm volatile ("movl %0, %%cr0" : "=a" (cr0));<br/>}<br/>unsigned int read_cr3()<br/>{<br/>   unsigned int cr3;<br/>    asm volatile ("movl %%cr3, %0" : "=a" (cr3));<br/>   return cr3;<br/>}<br/>void write_cr3(unsigned int cr3)<br/>{<br/>     asm volatile("movl %0, %%cr3" : "=a" (cr3));<br/>}<br/></code><br/>Ich muss FreakyPenguin mal wieder Recht geben: Bitte lern Sprache XY zuerst gescheit und dann fang mit einem Kernel an. So hat das nämlich keinen Sinn. Du verdrehst ja die Basissachen wie Funktionsrückgabewerte und Funktionsargumente, kennst die Syntax nicht wirklich, etc...</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_20619">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_20619_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] 
+				</div></div>
+<div class="nextlinks_bottom"><a href="../1797/index.html#msg20620">« vorheriges</a> <a href="../1793/index.html#msg20584">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/2/index.html"><span>Lowlevel-Coding</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>malloc() und free()</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.008 Sekunden mit 31 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

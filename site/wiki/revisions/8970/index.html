@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Floppy Disk Controller – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Floppy_Disk_Controller rootpage-Floppy_Disk_Controller skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1443/index.html">Aktueller Artikel</a> · <a href="../../history/1443/index.html">Versionsgeschichte</a> · <a href="../../source/8970.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Floppy Disk Controller</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 21. November 2010, 21:09 Uhr von <a class="mw-userlink" href="../../pages/2674/index.html" title="Benutzerin:Littlefox"><bdi>Littlefox</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Schreib- /Lesekopf positionieren (fh) berichtigung berichtigt ... 00010000 -&gt; 00001111 (Fh))</span></div><div id="mw-revision-nav">(<a href="../../diffs/8969-8970.html" title="Floppy Disk Controller">Unterschied</a>) <a href="../8969/index.html" title="Floppy Disk Controller">← Nächstältere Version</a> | <a href="../../pages/1443/index.html" title="Floppy Disk Controller">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../9587/index.html" title="Floppy Disk Controller">Nächstjüngere Version →</a> (<a href="../../diffs/8970-9587.html" title="Floppy Disk Controller">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Template_Stub">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #D0D8FF; margin: 0 0em; padding: 0 0px; border: 1px solid #b8c0e8" width="100%">
+<tbody><tr>
+<td>Diese Seite oder Abschnitt ist zwar komplett, es wird aber folgende Verbesserungen gewünscht:<br/>
+<p><i></i>
+</p>
+<ul><li>Nach Rechtschreibfehlern suchen</li>
+<li>Nach inhaltlichen Fehlern suchen (vor allem bei Bitmasken verschreibt man sich leicht!)</li>
+<li>Verlinkungen innerhalb des Artikels einbauen.</li>
+<li>Beispielcode<i></i></li></ul>
+<p>Hilf Lowlevel, den Artikel zu verbessern.
+</p>
+</td></tr></tbody></table>
+</div>
+<p>Der Floppy Disk Controller (FDC) ist ein Chip, der ein bis vier Disketten-Laufwerke ansteuern kann. 
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Eigenschaften_und_Besonderheiten"><span class="tocnumber">1</span> <span class="toctext">Eigenschaften und Besonderheiten</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Verhalten_in_Emulatoren_und_echter_Hardware"><span class="tocnumber">2</span> <span class="toctext">Verhalten in Emulatoren und echter Hardware</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Register"><span class="tocnumber">3</span> <span class="toctext">Register</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#.C3.9Cbersicht"><span class="tocnumber">3.1</span> <span class="toctext">Übersicht</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Aufbau"><span class="tocnumber">3.2</span> <span class="toctext">Aufbau</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#MSR"><span class="tocnumber">3.2.1</span> <span class="toctext">MSR</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#DOR"><span class="tocnumber">3.2.2</span> <span class="toctext">DOR</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#DR"><span class="tocnumber">3.2.3</span> <span class="toctext">DR</span></a>
+<ul>
+<li class="toclevel-4 tocsection-9"><a href="#ST0"><span class="tocnumber">3.2.3.1</span> <span class="toctext">ST0</span></a></li>
+<li class="toclevel-4 tocsection-10"><a href="#ST1"><span class="tocnumber">3.2.3.2</span> <span class="toctext">ST1</span></a></li>
+<li class="toclevel-4 tocsection-11"><a href="#ST2"><span class="tocnumber">3.2.3.3</span> <span class="toctext">ST2</span></a></li>
+<li class="toclevel-4 tocsection-12"><a href="#ST3"><span class="tocnumber">3.2.3.4</span> <span class="toctext">ST3</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-13"><a href="#CCR"><span class="tocnumber">3.2.4</span> <span class="toctext">CCR</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Befehle"><span class="tocnumber">4</span> <span class="toctext">Befehle</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#Senden_von_Befehlen"><span class="tocnumber">4.1</span> <span class="toctext">Senden von Befehlen</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Allgemeine_Parameter"><span class="tocnumber">4.2</span> <span class="toctext">Allgemeine Parameter</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Technische_Laufwerksdaten_einstellen_.283h.29"><span class="tocnumber">4.3</span> <span class="toctext">Technische Laufwerksdaten einstellen (3h)</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Laufwerk_kalibrieren_.287h.29"><span class="tocnumber">4.4</span> <span class="toctext">Laufwerk kalibrieren (7h)</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#Laufwerksstatus_.C3.BCberpr.C3.BCfen_.284h.29"><span class="tocnumber">4.5</span> <span class="toctext">Laufwerksstatus überprüfen (4h)</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#Interrupt_Status_.C3.BCberpr.C3.BCfen_.288h.29"><span class="tocnumber">4.6</span> <span class="toctext">Interrupt Status überprüfen (8h)</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#Schreib-_.2FLesekopf_positionieren_.28fh.29"><span class="tocnumber">4.7</span> <span class="toctext">Schreib- /Lesekopf positionieren (fh)</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#Sektor_schreiben_.285h.29"><span class="tocnumber">4.8</span> <span class="toctext">Sektor schreiben (5h)</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="#Sektor_lesen_.286h.29"><span class="tocnumber">4.9</span> <span class="toctext">Sektor lesen (6h)</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="#Kompletten_Track_lesen_.282h.29"><span class="tocnumber">4.10</span> <span class="toctext">Kompletten Track lesen (2h)</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="#Andere"><span class="tocnumber">4.11</span> <span class="toctext">Andere</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-26"><a href="#Beispielcode"><span class="tocnumber">5</span> <span class="toctext">Beispielcode</span></a>
+<ul>
+<li class="toclevel-2 tocsection-27"><a href="#Erkennen_von_Diskettenlaufwerken"><span class="tocnumber">5.1</span> <span class="toctext">Erkennen von Diskettenlaufwerken</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="#Daten.2FBefehle_schreiben"><span class="tocnumber">5.2</span> <span class="toctext">Daten/Befehle schreiben</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="#Daten_lesen"><span class="tocnumber">5.3</span> <span class="toctext">Daten lesen</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="#Motor_starten.2Fanhalten"><span class="tocnumber">5.4</span> <span class="toctext">Motor starten/anhalten</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="#Laufwerk_kallibrieren"><span class="tocnumber">5.5</span> <span class="toctext">Laufwerk kallibrieren</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="#Schreib-.2FLesekopf_postionieren"><span class="tocnumber">5.6</span> <span class="toctext">Schreib-/Lesekopf postionieren</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="#Reset"><span class="tocnumber">5.7</span> <span class="toctext">Reset</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="#Sektoren_lesen.2Fschreiben"><span class="tocnumber">5.8</span> <span class="toctext">Sektoren lesen/schreiben</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-35"><a href="#Siehe_auch"><span class="tocnumber">6</span> <span class="toctext">Siehe auch</span></a></li>
+<li class="toclevel-1 tocsection-36"><a href="#Weblinks"><span class="tocnumber">7</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Eigenschaften_und_Besonderheiten">Eigenschaften und Besonderheiten</span></h2>
+<ul><li>Der FDC sendet <a class="mw-redirect" data-archive-original-href="../../pages/1667/index.html" href="../../pages/1465/index.html#IRQ_Tabelle" title="IRQ">IRQ</a> 6, wenn z.B. eine Lese- oder Schreiboperation beendet ist</li>
+<li>Der FDC kann über <a class="mw-redirect" data-archive-original-href="../../pages/1605/index.html" href="../../pages/1555/index.html" title="DMA">DMA</a> Daten direkt aus dem Speicher auf Diskette schreiben und anders herum. Dafür wird DMA Channel 2 verwendet</li>
+<li>Der FDC ist recht schlecht standardisiert, da verschiedene Hersteller unterschiedliche Funktionalitäten hinzugefügt haben.</li>
+<li>Bei allen Operationen, für die der Schreib-/Lesekopf bewegt werden muss, sollte eine Wartezeit eingehalten werden, bis die nächste Operation folgt, da insbesondere Disketten sehr langsame Zugriffszeiten besitzen. Bei Fehlen dieser Wartezeiten funktioniert der Treiber oft nur in Emulatoren, versagt aber auf echter Hardware!</li>
+<li>Der FDC kann nur Sektorangaben in <a class="mw-redirect" data-archive-original-href="../../pages/1441/index.html" href="../../pages/1440/index.html" title="CHS">CHS</a> verarbeiten</li>
+<li>Der FDC kann theoretisch bis zu vier Diskettenlaufwerke ansteuern, allerdings findet man heute wohl kein System mehr, welches mehr als zwei besitzt.</li>
+<li><b>Diskettenlaufwerke sind sehr fehleranfällig! Deshalb muss ein Befehl oftmals mehrmals gesendet werden, bevor er funktioniert. Großzügige Timeouts sind Pflicht in jedem Treiber für Diskettenlaufwerke.</b></li></ul>
+<h2><span class="mw-headline" id="Verhalten_in_Emulatoren_und_echter_Hardware">Verhalten in Emulatoren und echter Hardware</span></h2>
+<ul><li><a href="../../pages/1538/index.html" title="Bochs">Bochs</a> unterstützt nur die Übertragung der Daten via <a class="mw-redirect" data-archive-original-href="../../pages/1605/index.html" href="../../pages/1555/index.html" title="DMA">DMA</a>. Allerdings ist dies auch die sinnvollste Variante.</li>
+<li><a href="../../pages/1799/index.html" title="Microsoft Virtual PC">Microsoft Virtual PC</a> hat Probleme mit DMA, wenn das Auto Bit gesetzt ist. Damit der Code funktioniert, muss der DMA Transfer jedes Mal durch die CPU reinitialisiert werden.</li></ul>
+<h2><span class="mw-headline" id="Register">Register</span></h2>
+<h3><span id="Übersicht"></span><span class="mw-headline" id=".C3.9Cbersicht">Übersicht</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Name</th>
+<th>Port</th>
+<th>Beschreibung</th>
+<th>lesen/schreiben
+</th></tr>
+<tr>
+<td>SRA</td>
+<td>0x3F0</td>
+<td>Status Register A</td>
+<td>lesen
+</td></tr>
+<tr>
+<td>SRB</td>
+<td>0x3F1</td>
+<td>Status Register B</td>
+<td>lesen
+</td></tr>
+<tr>
+<td>DOR</td>
+<td>0x3F2</td>
+<td>Digital Output Register</td>
+<td>schreiben
+</td></tr>
+<tr>
+<td>TDR</td>
+<td>0x3F3</td>
+<td>Tape Drive Register</td>
+<td>lesen/schreiben
+</td></tr>
+<tr>
+<td>MSR</td>
+<td>0x3F4</td>
+<td>Main Status Register</td>
+<td>lesen
+</td></tr>
+<tr>
+<td>DRSR</td>
+<td>0x3F4</td>
+<td>Data Rate Select Register</td>
+<td>schreiben
+</td></tr>
+<tr>
+<td>DR</td>
+<td>0x3F5</td>
+<td>Data Register</td>
+<td>lesen/schreiben
+</td></tr>
+<tr>
+<td>DIR</td>
+<td>0x3F7</td>
+<td>Digital Input Register</td>
+<td>lesen
+</td></tr>
+<tr>
+<td>CCR</td>
+<td>0x3F7</td>
+<td>Configuration Control Register</td>
+<td>schreiben
+</td></tr>
+</tbody></table>
+<h3><span class="mw-headline" id="Aufbau">Aufbau</span></h3>
+<p>Wenn nichts dasteht, gilt das Flag bei gesetztem Bit.
+</p>
+<h4><span class="mw-headline" id="MSR">MSR</span></h4>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<th><b>Bit</b></th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0
+</th></tr>
+<tr>
+<td><b>Name</b></td>
+<td>MRQ</td>
+<td>DIO</td>
+<td>NDMA</td>
+<td>BUSY</td>
+<td>ACTD</td>
+<td>ACTC</td>
+<td>ACTB</td>
+<td>ACTA
+</td></tr>
+</tbody></table>
+<dl><dt>MRQ</dt>
+<dd>Status</dd>
+<dd>0: DR nicht bereit</dd>
+<dd>1: DR bereit</dd>
+<dt>DIO</dt>
+<dd>Daten I/O</dd>
+<dd>0: CPU -&gt; FDC (Daten schreiben)</dd>
+<dd>1: FDC -&gt; CPU (Daten lesen)</dd>
+<dt>NDMA</dt>
+<dd>DMA-Modus</dd>
+<dd>0: DMA-Modus aktiviert</dd>
+<dd>1: DMA-Modus deaktiviert</dd>
+<dt>BUSY</dt>
+<dd>BUSY (Befehl wird ausgeführt)</dd>
+<dd>0: nicht busy</dd>
+<dd>1: busy</dd>
+<dt>ACTD-ACTA</dt>
+<dd>Laufwerk D-A ist im Positionierungs-Modus</dd></dl>
+<h4><span class="mw-headline" id="DOR">DOR</span></h4>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<th><b>Bit</b></th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1 &amp;#150; 0
+</th></tr>
+<tr>
+<td><b>Name</b></td>
+<td>MOTD</td>
+<td>MOTC</td>
+<td>MOTB</td>
+<td>MOTA</td>
+<td>DMA</td>
+<td>RESET</td>
+<td>DRIVE
+</td></tr>
+</tbody></table>
+<dl><dt>MOTD-A</dt>
+<dd>Motorsteuerung</dd>
+<dd>0: Motor ausschalten</dd>
+<dd>1: Motor anschalten</dd>
+<dt>DMA</dt>
+<dd>DMA und IRQ</dd>
+<dd>0: deaktiviert</dd>
+<dd>1: aktiviert</dd>
+<dt>RESET</dt>
+<dd>Controller Reset</dd>
+<dd>0: Reset ausführen  (!!!)</dd>
+<dd>1: Controller aktiviert (Reset ausgeführt)</dd>
+<dt>DRIVE</dt>
+<dd>Laufwerk auswählen</dd>
+<dd>00: Drive 0</dd>
+<dd>01: Drive 1</dd>
+<dd>10: Drive 2</dd>
+<dd>11: Drive 3</dd></dl>
+<h4><span class="mw-headline" id="DR">DR</span></h4>
+<p>In das Data-Register werden die Befehle geschrieben, die jeweils aus mehreren Bytes bestehen.
+Nach manchen Befehlen werden die Status-Register im DR zurückgegeben.
+</p>
+<h5><span class="mw-headline" id="ST0">ST0</span></h5>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<th><b>Bit</b></th>
+<th>7 &amp;#150; 6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1 &amp;#150; 0
+</th></tr>
+<tr>
+<td><b>Name</b></td>
+<td>IC</td>
+<td>SE</td>
+<td>UC</td>
+<td>NR</td>
+<td>HD</td>
+<td>US
+</td></tr>
+</tbody></table>
+<dl><dt>IC</dt>
+<dd>Interrupt Code</dd>
+<dd>00: der Befehl wurde ohne Fehler ausgeführt</dd>
+<dd>01: der Befehl wurde gestartet, aber nicht richtig beendet</dd>
+<dd>10: invalid Command</dd>
+<dd>11: Controller war nicht bereit (Polling)</dd>
+<dt>SE</dt>
+<dd>Seek end</dd>
+<dd>der Controller hat einen Befehl mit inplizitem Seek erfolgreich ausgeführt</dd>
+<dt>UC</dt>
+<dd>unit check</dd>
+<dd>gesetzt bei Fehler</dd>
+<dt>NR</dt>
+<dd>drive not ready</dd>
+<dt>HD</dt>
+<dd>aktiver head</dd>
+<dd>0: Head 0</dd>
+<dd>1: Head 1</dd>
+<dt>US</dt>
+<dd>aktives Laufwerk</dd>
+<dd>00: A</dd>
+<dd>01: B</dd>
+<dd>10: C</dd>
+<dd>11: D</dd></dl>
+<h5><span class="mw-headline" id="ST1">ST1</span></h5>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<th><b>Bit</b></th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0
+</th></tr>
+<tr>
+<td><b>Name</b></td>
+<td>EN</td>
+<td>0</td>
+<td>DE</td>
+<td>TO</td>
+<td>0</td>
+<td>NDAT</td>
+<td>NW</td>
+<td>NID
+</td></tr>
+</tbody></table>
+<dl><dt>EN</dt>
+<dd>End of Cylinder</dd>
+<dd>gesetzt wenn die geforderte Sektoranzahl die Anzahl der Sektoren auf einer Spur überschreitet</dd>
+<dt>DE</dt>
+<dd>Data Error</dd>
+<dd>gesetzt bei einem Fehler im ID Addressfield oder im Datafield</dd>
+<dt>TO</dt>
+<dd>Time-out</dd>
+<dd>gesetzt wenn der FDC keine Signale von CPU oder DMA empfängt</dd>
+<dt>NDAT</dt>
+<dd>No Data</dd>
+<dd>gesetzt wenn bei einem read sektor Befehl der Sektor nicht gefunden wurde</dd>
+<dd>oder wenn der FDC nach einem read ID Befehl die ID nicht lesen konnte</dd>
+<dt>NW</dt>
+<dd>Not Writeable</dd>
+<dd>gesetzt wenn die Floppy schreibgeschützt ist</dd>
+<dt>NID</dt>
+<dd>No Address Mark</dd>
+<dd>gesetzt wenn die ID Address Mark nicht gefunden wurde</dd></dl>
+<h5><span class="mw-headline" id="ST2">ST2</span></h5>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<th><b>Bit</b></th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0
+</th></tr>
+<tr>
+<td><b>Name</b></td>
+<td>0</td>
+<td>DADM</td>
+<td>CRCE</td>
+<td>WCYL</td>
+<td>SEQ</td>
+<td>SERR</td>
+<td>BCYL</td>
+<td>NDAM
+</td></tr>
+</tbody></table>
+<dl><dt>DADM</dt>
+<dd>Deleted Address Mark</dd>
+<dd>Bei einem read Sector Befehl:</dd>
+<dd>eine gelöschte Data Address Mark wurde gefunden</dd>
+<dd>Bei einem read deleted Sector Befehl:</dd>
+<dd>eine gesetzte Data Address Mark wurde gefunden</dd>
+<dt>CRCE</dt>
+<dd>CRC error in data field</dd>
+<dt>WCYL</dt>
+<dd>wrong cylinder</dd>
+<dt>SEQ</dt>
+<dd>seek equal</dd>
+<dt>SERR</dt>
+<dd>seek  error</dd>
+<dt>BCYL</dt>
+<dd>bad cylinder</dd>
+<dt>NDAM</dt>
+<dd>not data address mark DAM</dd></dl>
+<h5><span class="mw-headline" id="ST3">ST3</span></h5>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<th><b>Bit</b></th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1 &amp;#150; 0
+</th></tr>
+<tr>
+<td><b>Name</b></td>
+<td>ESIG</td>
+<td>WPDR</td>
+<td>RDY</td>
+<td>TRKO</td>
+<td>DSDR</td>
+<td>HDDR</td>
+<td>DS
+</td></tr>
+</tbody></table>
+<dl><dt>ESIG</dt>
+<dd>Error</dd>
+<dd>gesetzt nach einem Fehler</dd>
+<dt>WPDR</dt>
+<dd>Write Protection</dd>
+<dd>gesetzt wenn die Disc schreibgeschützt ist</dd>
+<dt>RDY</dt>
+<dd>Ready</dd>
+<dd>gesetzt wenn die Drive ready ist</dd>
+<dt>TRKO</dt>
+<dd>Track 0</dd>
+<dd>der Head ist über Track 0 (?)</dd>
+<dt>DSDR</dt>
+<dd>Double sided drive</dd>
+<dd>gesetzt wenn die Floppy doppelseitig ist</dd>
+<dt>HDDR</dt>
+<dd>Head</dd>
+<dd>0: Head 0</dd>
+<dd>1: Head 1</dd>
+<dt>DS</dt>
+<dd>Drive select</dd>
+<dd>00: A</dd>
+<dd>01: B</dd>
+<dd>10: C</dd>
+<dd>11: D</dd></dl>
+<h4><span class="mw-headline" id="CCR">CCR</span></h4>
+<p>Im CCR sind nur die Funktionen der ersten zwei Bits definiert (Bit 0 und Bit 1):
+</p>
+<dl><dd>00 500 Kbps</dd>
+<dd>10 250 Kbps</dd>
+<dd>01 300 Kbps</dd>
+<dd>11 1 Mbps</dd></dl>
+<h2><span class="mw-headline" id="Befehle">Befehle</span></h2>
+<h3><span class="mw-headline" id="Senden_von_Befehlen">Senden von Befehlen</span></h3>
+<p>Das Senden von Befehlen erfolgt in drei Phasen:
+</p>
+<ul><li>Command-Phase: Der Befehl wird von der CPU an den FDC gesendet. Dafür werden die Daten wie weiter unten beschrieben in das Datenregister geschrieben. Vorher sollte getestet werden, ob dieses wirklich leer ist.</li>
+<li>Execution-Phase: Der Befehl wird vom FDC ausgeführt. Dabei sollte im Treiber eine Wartezeit eingehalten werden, da Diskettenlaufwerke sehr langsam sind. Bei einigen Befehlen wird die Execution-Phase zusätzlich durch das Senden eines IRQs beendet.</li>
+<li>Result-Phase: Bei einigen Befehlen liefert der FDC Daten zurück, z.B. ob der Befehl erfolgreich ausgeführt wurde. Diese müssen alle gelesen werden, damit erneut Befehle gesendet werden können.</li></ul>
+<h3><span class="mw-headline" id="Allgemeine_Parameter">Allgemeine Parameter</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Abkürzung
+</th>
+<th>Beschreibung
+</th>
+<th>Empfohlener Wert für 3,5"
+</th></tr>
+<tr>
+<td>MT
+</td>
+<td>Multitrack, Befehl wird auf beiden Seiten der Diskette ausgeführt
+</td>
+<td>
+</td></tr>
+<tr>
+<td>DTL
+</td>
+<td>Datenlänge
+</td>
+<td>0xFF
+</td></tr>
+<tr>
+<td>N
+</td>
+<td>Sekorengröße, wobei 0=128Byte, 1=256Byte, 2=512Byte, ...
+</td>
+<td>2
+</td></tr>
+<tr>
+<td>Gap3
+</td>
+<td>Abstand zwischen Sektoren
+</td>
+<td>27
+</td></tr>
+<tr>
+<td>MFM
+</td>
+<td>High Density (HD) Mode
+</td>
+<td>1
+</td></tr>
+<tr>
+<td>SK
+</td>
+<td>Skip Mode, als gelöscht markierte Daten werden automatisch übersprungen
+</td>
+<td>1
+</td></tr>
+<tr>
+<td>Drive, Cylinder, Head, Sektor
+</td>
+<td>Positionsangabe für einen bestimmten Sektor einer Diskette. Siehe <a class="mw-redirect" data-archive-original-href="../../pages/1441/index.html" href="../../pages/1440/index.html" title="CHS">CHS</a>
+</td>
+<td>
+</td></tr>
+<tr>
+<td>Trackgröße
+</td>
+<td>Anzahl der Sektoren, die auf einem Track („Ring“) liegen
+</td>
+<td>18 (pro Track und Seite)
+</td></tr></tbody></table>
+<h3><span id="Technische_Laufwerksdaten_einstellen_(3h)"></span><span class="mw-headline" id="Technische_Laufwerksdaten_einstellen_.283h.29">Technische Laufwerksdaten einstellen (3h)</span></h3>
+<p>Command Phase:
+</p>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<th>Bit:</th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0
+</th></tr>
+<tr>
+<td>#1:</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1
+</td></tr>
+<tr>
+<td>#2:</td>
+<td colspan="4">Step Rate</td>
+<td colspan="4">Head Unload Time
+</td></tr>
+<tr>
+<td>#3</td>
+<td colspan="7">Head Load Time</td>
+<td>Kein DMA
+</td></tr></tbody></table>
+<p>Result Phase:
+<i>keine</i>
+</p><p><br/>
+Anmerkungen:
+</p>
+<ul><li>Die benötigten Daten sollten vom BIOS abgefragt werden (siehe unten).</li>
+<li>Im DOR kann eingestellt werden, ob DMA/IRQ oder keins von beiden verwendet wird. Hier wird dann noch einmal explizit zwischen DMA (Bit gelöscht) und kein DMA (Bit gesetzt) entschieden.</li></ul>
+<h3><span id="Laufwerk_kalibrieren_(7h)"></span><span class="mw-headline" id="Laufwerk_kalibrieren_.287h.29">Laufwerk kalibrieren (7h)</span></h3>
+<p>Command Phase:
+</p>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<th>Bit:</th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0
+</th></tr>
+<tr>
+<td>#1:</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1
+</td></tr>
+<tr>
+<td>#2:</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>Head</td>
+<td colspan="2">Drive
+</td></tr></tbody></table>
+<p>Result Phase:
+<i>keine</i>
+</p><p><br/>
+Anmerkungen:
+</p>
+<ul><li>Nach der Kalibrierung wird ein IRQ6 gesendet</li>
+<li>Es kann passieren, dass der Befehl nicht funktioniert. Desshalb sollte mit "Interrput Status überprüfen" (8h) überprüft werden, ob Bit 4 in St0 gelöscht ist.</li>
+<li>Bei Disketten mit mehr als 80 Tracks muss dieser Befehl in jedem Fall mehrmals gesendet werden.</li></ul>
+<h3><span id="Laufwerksstatus_überprüfen_(4h)"></span><span class="mw-headline" id="Laufwerksstatus_.C3.BCberpr.C3.BCfen_.284h.29">Laufwerksstatus überprüfen (4h)</span></h3>
+<p>Command Phase:
+</p>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<th>Bit:</th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0
+</th></tr>
+<tr>
+<td>#1:</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0
+</td></tr>
+<tr>
+<td>#2:</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>Head</td>
+<td colspan="2">Drive
+</td></tr></tbody></table>
+<p>Result Phase:
+</p>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<td>ST3
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span id="Interrupt_Status_überprüfen_(8h)"></span><span class="mw-headline" id="Interrupt_Status_.C3.BCberpr.C3.BCfen_.288h.29">Interrupt Status überprüfen (8h)</span></h3>
+<p>Command Phase:
+</p>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<th>Bit:</th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0
+</th></tr>
+<tr>
+<td>#1:</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0
+</td></tr></tbody></table>
+<p>Result Phase:
+</p>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<td>#1:</td>
+<td>ST0
+</td></tr>
+<tr>
+<td>#2:</td>
+<td>Aktueller Zylinder
+</td></tr></tbody></table>
+<p>Anmerkungen:
+</p>
+<ul><li>Dieser Befehl sollte immer gesendet werden, wenn der FDC einen IRQ 6 gesendet hat.</li>
+<li>Er muss außerdem viermal (!) nach einem Reset des FDCs gesendet werden.</li>
+<li>Die Zylindernummer ist oftmals falsch und sollte ignoriert werden.</li></ul>
+<p><br/>
+</p>
+<h3><span id="Schreib-_/Lesekopf_positionieren_(fh)"></span><span class="mw-headline" id="Schreib-_.2FLesekopf_positionieren_.28fh.29">Schreib- /Lesekopf positionieren (fh)</span></h3>
+<p>Command Phase:
+</p>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<th>Bit:</th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0
+</th></tr>
+<tr>
+<td>#1:</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1
+</td></tr>
+<tr>
+<td>#2:</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>Head</td>
+<td colspan="2">Drive
+</td></tr>
+<tr>
+<td>#3:</td>
+<td colspan="8">Cylinder
+</td></tr></tbody></table>
+<p>Result Phase:
+<i>Keine</i>
+</p><p><br/>
+Anmerkungen:
+</p>
+<ul><li>Es kann passieren, dass der Befehl nicht funktioniert. Desshalb muss mit "Interrput Status überprüfen" (8h) überprüft werden, ob Bit 5 in St0 gesetzt ist.</li>
+<li>Nach Beendigung wird ein IRQ 6 gesendet.</li></ul>
+<h3><span id="Sektor_schreiben_(5h)"></span><span class="mw-headline" id="Sektor_schreiben_.285h.29">Sektor schreiben (5h)</span></h3>
+<p>Command Phase:
+</p>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<th>Bit:</th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0
+</th></tr>
+<tr>
+<td>#1:</td>
+<td>MT</td>
+<td>MFM</td>
+<td>SK</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1
+</td></tr>
+<tr>
+<td>#2:</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>Head</td>
+<td colspan="2">Drive
+</td></tr>
+<tr>
+<td>#3:</td>
+<td colspan="8">Cylinder
+</td></tr>
+<tr>
+<td>#4:</td>
+<td colspan="8">Head
+</td></tr>
+<tr>
+<td>#5:</td>
+<td colspan="8">Sektor
+</td></tr>
+<tr>
+<td>#6:</td>
+<td colspan="8">Sektorgröße N
+</td></tr>
+<tr>
+<td>#7:</td>
+<td colspan="8">Letzter zu schreibender Sektor (im aktuellen Cylinder)
+</td></tr>
+<tr>
+<td>#8:</td>
+<td colspan="8">GAP3
+</td></tr>
+<tr>
+<td>#9:</td>
+<td colspan="8">DTL
+</td></tr></tbody></table>
+<p>Result Phase:
+</p>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<td>#1:</td>
+<td>ST0
+</td></tr>
+<tr>
+<td>#2:</td>
+<td>ST1
+</td></tr>
+<tr>
+<td>#3:</td>
+<td>ST2
+</td></tr>
+<tr>
+<td>#4:</td>
+<td>Cylinder
+</td></tr>
+<tr>
+<td>#5:</td>
+<td>Head
+</td></tr>
+<tr>
+<td>#6:</td>
+<td>Sektor
+</td></tr>
+<tr>
+<td>#7:</td>
+<td>Sektorgröße N
+</td></tr></tbody></table>
+<p>Anmerkungen:
+</p>
+<ul><li>Nach dem Schreibvorgang wird ein IRQ 6 gesendet.</li></ul>
+<h3><span id="Sektor_lesen_(6h)"></span><span class="mw-headline" id="Sektor_lesen_.286h.29">Sektor lesen (6h)</span></h3>
+<p>Command Phase:
+</p>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<th>Bit:</th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0
+</th></tr>
+<tr>
+<td>#1:</td>
+<td>MT</td>
+<td>MFM</td>
+<td>SK</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0
+</td></tr>
+<tr>
+<td>#2:</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>Head</td>
+<td colspan="2">Drive
+</td></tr>
+<tr>
+<td>#3:</td>
+<td colspan="8">Cylinder
+</td></tr>
+<tr>
+<td>#4:</td>
+<td colspan="8">Head
+</td></tr>
+<tr>
+<td>#5:</td>
+<td colspan="8">Sektor
+</td></tr>
+<tr>
+<td>#6:</td>
+<td colspan="8">Sektorgröße N
+</td></tr>
+<tr>
+<td>#7:</td>
+<td colspan="8">Letzter zu lesender Sektor (im aktuellen Cylinder)
+</td></tr>
+<tr>
+<td>#8:</td>
+<td colspan="8">GAP3
+</td></tr>
+<tr>
+<td>#9:</td>
+<td colspan="8">DTL
+</td></tr></tbody></table>
+<p>Result Phase:
+</p>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<td>#1:</td>
+<td>ST0
+</td></tr>
+<tr>
+<td>#2:</td>
+<td>ST1
+</td></tr>
+<tr>
+<td>#3:</td>
+<td>ST2
+</td></tr>
+<tr>
+<td>#4:</td>
+<td>Cylinder
+</td></tr>
+<tr>
+<td>#5:</td>
+<td>Head
+</td></tr>
+<tr>
+<td>#6:</td>
+<td>Sektor
+</td></tr>
+<tr>
+<td>#7:</td>
+<td>Sektorgröße N
+</td></tr></tbody></table>
+<p>Anmerkungen:
+</p>
+<ul><li>Nach dem Lesevorgang wird ein IRQ 6 gesendet.</li></ul>
+<h3><span id="Kompletten_Track_lesen_(2h)"></span><span class="mw-headline" id="Kompletten_Track_lesen_.282h.29">Kompletten Track lesen (2h)</span></h3>
+<p>Command Phase:
+</p>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<th>Bit:</th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0
+</th></tr>
+<tr>
+<td>#1:</td>
+<td>0</td>
+<td>MFM</td>
+<td>SK</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0
+</td></tr>
+<tr>
+<td>#2:</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>Head</td>
+<td colspan="2">Drive
+</td></tr>
+<tr>
+<td>#3:</td>
+<td colspan="8">Cylinder
+</td></tr>
+<tr>
+<td>#4:</td>
+<td colspan="8">Head
+</td></tr>
+<tr>
+<td>#5:</td>
+<td colspan="8">0
+</td></tr>
+<tr>
+<td>#6:</td>
+<td colspan="8">Sektorgröße N
+</td></tr>
+<tr>
+<td>#7:</td>
+<td colspan="8">Track-Größe
+</td></tr>
+<tr>
+<td>#8:</td>
+<td colspan="8">GAP3
+</td></tr>
+<tr>
+<td>#9:</td>
+<td colspan="8">DTL
+</td></tr></tbody></table>
+<p>Result Phase:
+</p>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<td>#1:</td>
+<td>ST0
+</td></tr>
+<tr>
+<td>#2:</td>
+<td>ST1
+</td></tr>
+<tr>
+<td>#3:</td>
+<td>ST2
+</td></tr>
+<tr>
+<td>#4:</td>
+<td>Cylinder
+</td></tr>
+<tr>
+<td>#5:</td>
+<td>Head
+</td></tr>
+<tr>
+<td>#6:</td>
+<td>Sektor
+</td></tr>
+<tr>
+<td>#7:</td>
+<td>Sektorgröße N
+</td></tr></tbody></table>
+<p>Anmerkungen:
+</p>
+<ul><li>Dieser Befehl ließt alle Sektoren eines Tracks hintereinander ein</li>
+<li>Der Befehl funktioniert nur für eine Seite der Diskette, für beide Seiten muss der Befehl mehrmals gesendet werden</li>
+<li>Es ist immer schneller einen gesamten Track zu lesen anstatt einzeln jeden Sektor des Tracks.</li></ul>
+<h3><span class="mw-headline" id="Andere">Andere</span></h3>
+<p>Der FDC kennt noch weitere Befehle, auf die hier nicht weiter eingegangen wird. Diese sind:
+</p>
+<ul><li>Gelöschten Sektor lesen / schreiben</li>
+<li>Track formatieren</li>
+<li>Sektor ID einlesen</li></ul>
+<p>Darüber hinaus gibt es noch erweiterte Befehle. Man kann sich aber nicht darauf verlassen, dass der eingebaute FDC diese unterstützt:
+</p>
+<ul><li>Register Zusammenfassung</li>
+<li>Controller Version lesen</li>
+<li>Bestätigen</li>
+<li>Relatives Positionieren des Schreib-/Lesekopfes</li></ul>
+<h2><span class="mw-headline" id="Beispielcode">Beispielcode</span></h2>
+<h3><span class="mw-headline" id="Erkennen_von_Diskettenlaufwerken">Erkennen von Diskettenlaufwerken</span></h3>
+<p>Zum Erkennen von den an den Computer angeschlossenen Diskettenlaufwerken gibt es zwei Möglichkeiten:
+</p>
+<ul><li>Im Real Mode das BIOS fragen (in 0x13, ah=8), siehe dazu <a href="../../pages/1768/index.html" title="Interrupt 13h">Interrupt 13h</a></li>
+<li>Im <a href="../../pages/1562/index.html" title="CMOS">CMOS</a> nachschauen (Offset 0x10), hier sind allerdings keine technischen Daten abfragbar, sondern nur der Typ des Laufwerks</li></ul>
+<h3><span id="Daten/Befehle_schreiben"></span><span class="mw-headline" id="Daten.2FBefehle_schreiben">Daten/Befehle schreiben</span></h3>
+<p>Bevor man Daten bzw. Befehle ins Datenregister schreiben darf, muss man im MSR testen, ob das DIO-Bit gelöscht und das MRQ-Bit gesetzt ist. Erst dann ist das Datenregister leer und bereit Daten zu empfangen.
+&lt;c&gt;
+</p>
+<ol><li>define NO_ERROR       0</li>
+<li>define ERROR_TIMEOUT  1</li></ol>
+<p>uint8_t error = NO_ERROR;
+</p><p>void send_cmd(uint8_t cmd)
+{
+</p>
+<pre> send_data(cmd);
+</pre>
+<p>}
+</p><p>void send_data(uint8_t data)
+{
+</p>
+<pre> for (uint8_t timeout = 0; timeout &lt; 200; timeout++)
+ {
+   if ( (inb(MSR) &amp; (MSR_MASK_DATAREG | MSR_MASK_DIO2CPU)) == MSR_MASK_DATAREG)
+   {
+     outb(CMD, cmd);
+     error = NO_ERROR;
+     return;
+   }
+   sleep(5);  //5ms warten vor dem nächsten Versuch
+ }
+ error = ERROR_TIMEOUT;
+ return;
+</pre>
+<p>}
+&lt;/c&gt;
+</p>
+<h3><span class="mw-headline" id="Daten_lesen">Daten lesen</span></h3>
+<p>Ähnlich wie beim Senden von Daten müssen beim Lesen das MRQ-Bit und DIO-Bit gesetzt sein.
+</p><p>&lt;c&gt;
+uint8_t read_data()
+{
+</p>
+<pre> for(uint8_t timeout = 0; timeout &lt; 200; timeout++)
+ {
+   if( (inb(MSR) &amp; (MSR_MASK_DATAREG | MSR_MASK_DIO2CPU)) == (MSR_MASK_DATAREG | MSR_MASK_DIO2CPU))
+   {
+     error = NO_ERROR;
+     return inb(DATA);
+   }
+   sleep(5);
+ }
+ error = ERROR_TIMEOUT;
+ return 0;
+</pre>
+<p>}
+&lt;/c&gt;
+</p>
+<h3><span id="Motor_starten/anhalten"></span><span class="mw-headline" id="Motor_starten.2Fanhalten">Motor starten/anhalten</span></h3>
+<p>&lt;c&gt;
+void start_motor(uint8_t n)
+{
+</p>
+<pre> if (!drive_states[n].motor_on)
+ {
+   outb(DOR, n | (0x01&lt;&lt;(n+4)) | DOR_MASK_NRESET | DOR_MASK_DMA);
+ }
+</pre>
+<p>}
+</p><p>void stop_motor(uint8_t n)
+{
+</p>
+<pre> if (drive_states[n].motor_on)
+ {
+   outb(DOR, n | DOR_MASK_NRESET | DOR_MASK_DMA);
+ }
+</pre>
+<p>}
+&lt;/c&gt;
+</p>
+<h3><span class="mw-headline" id="Laufwerk_kallibrieren">Laufwerk kallibrieren</span></h3>
+<p>&lt;c&gt;
+void calibrate_drive(uint8_t drive)
+{
+...TODO
+&lt;/c&gt;
+</p>
+<h3><span id="Schreib-/Lesekopf_postionieren"></span><span class="mw-headline" id="Schreib-.2FLesekopf_postionieren">Schreib-/Lesekopf postionieren</span></h3>
+<p>&lt;c&gt;
+bool seek_head(uint8_t cyl, uint8_t head, uint8_t sector)
+{
+...TODO
+&lt;/c&gt;
+</p>
+<h3><span class="mw-headline" id="Reset">Reset</span></h3>
+<p>&lt;c&gt;
+void reset()
+{
+</p>
+<pre> outb(DOR, 0);
+ sleep(10);
+ outb(DOR, DOR_MASK_NRESET | DOR_MASK_DMA);
+ wait_irq();
+ for(int i = 0; i &lt; 4; i++)
+ {
+   check_interrupt_status();
+ }
+ outb(CCR, 0);
+</pre>
+<pre> /* TODO: zusätzlich sollten jetzt noch die Laufwerke kallibriert werden */
+</pre>
+<p>}
+&lt;/c&gt;
+</p>
+<h3><span id="Sektoren_lesen/schreiben"></span><span class="mw-headline" id="Sektoren_lesen.2Fschreiben">Sektoren lesen/schreiben</span></h3>
+<p>Die folgende Funktion nutzt Code aus dem <a class="mw-redirect" data-archive-original-href="../../pages/1605/index.html#Beispielcode" href="../../pages/1555/index.html" title="DMA — Der ursprüngliche Abschnitt ist in dieser Momentaufnahme nicht verfügbar; stattdessen wird der Artikel angezeigt.">DMA</a> Artikel:
+&lt;c&gt;
+</p>
+<ol><li>define CMD_WRITE_SECTOR	(0x05 | 0x40)</li>
+<li>define CMD_READ_SECTOR		(0x06 | 0x40)</li></ol>
+<p>bool transfer_sector(uint8_t drive, uint8_t cylinder, uint8_t head, uint8_t sector, bool write, void* buffer)
+{
+</p>
+<pre> select_drive(drive);   //TODO
+ start_motor(drive);    //TODO
+ seek_head(drive);      //TODO
+</pre>
+<pre> dma_begin_transfer(buffer, write);
+ for (int i = 0; i&lt;5; i++)
+ {
+   send_command(wrie ? CMD_WRIE_SECTOR : CMD_READ_SECTOR);
+   send_data(drive | head&lt;&lt;2);
+   send_data(cylinder);
+   send_data(head);
+   send_data(sector);
+   send_data(2);
+   send_data(18);
+   send_data(27);
+   send_data(0xFF);
+   wait_irq();
+   read_data();  //st0
+   read_data();  //st1
+   read_data();  //st2
+   read_data();  //cylinder
+   read_data();  //head
+   read_data();  //sector
+   read_data();  //Sektorgröße
+   if ( inb(MSR) &amp; 0xC0)
+   {
+     check_interrupt_status();
+     return true;
+   }
+ }
+ /* fünf Fehlversuche */
+ return false;
+</pre>
+<p>}
+&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<p><a href="../../pages/1768/index.html" title="Interrupt 13h">Interrupt 13h</a> - Disketten- und Festplattenzugriff
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="internal" href="../../../assets/wiki/91e8e488311e5c983976881d.pdf" title="82077AA FloppyControllerDatasheet.pdf"> 82077AA CHMOS Single-Chip Floppy Disk Controller Datasheet</a></li>
+<li><a class="external text" href="http://www.isdaman.com/alsos/hardware/fdc/floppy.htm" rel="nofollow">http://www.isdaman.com/alsos/hardware/fdc/floppy.htm</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165222
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.023 seconds
+Real time usage: 0.025 seconds
+Preprocessor visited node count: 213/1000000
+Preprocessor generated node count: 348/1000000
+Post‐expand include size: 938/2097152 bytes
+Template argument size: 183/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.914      1 -total
+ 30.87%    0.591      1 Vorlage:TODO
+ 29.05%    0.556     21 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Floppy_Disk_Controller&amp;oldid=8970</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1820/index.html" title="Kategorie:TODO">TODO</a></li><li><a href="../../pages/1447/index.html" title="Kategorie:Hardware">Hardware</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1443/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2236/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1443/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

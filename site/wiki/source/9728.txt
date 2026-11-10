@@ -1,0 +1,36 @@
+Ich habe in einigen Dokumentationen/Howtos gelesen das beim XT-System das Ein- und Ausschalten der Tastatur, dieser sagt, dass man den Scancode gelesen/empfangen hat. Wofür ist das gut? Braucht man das überhaupt?
+
+Dann Antworte ich mir mal selber -.-<br>
+Wenn ein Byte auf den Ausgabepuffer gelegen wird (Ausgabepuffer wird über Port 0x60 gelesen), dann behält der Ausgabepuffer diesen wert bis er überschrieben wird. Mit dem Ein- und Ausschalten des KB wird der Ausgabepuffer auf den wert 0 gesetzt.
+Es wurde also bei XT-Systemen benötigt wenn man die Tastaturabfrage mittels Polling realisierte. Bei aktuellen Systemen (ab AT) findet dieses keine Anwendung. [[Benutzer:Osbios|Osbios]] 18:18, 4. Nov 2007 (CET)
+
+== das/der port ==
+
+Heisst es <b>das</b> Port?
+Ich bin bis jetzt immer von <b>der</b> Port ausgegangen....
+
+OK, wurde überzeugt, jetz wirds in <b>der</b> port geändert ;)
+
+== 16-Bit ==
+
+Mir ist aufgefallen, dass bei den Adressen nur 16-Bit Adressen angeben werden. Normalerweise sollte man nicht diese beim Protected Mode verwenden, ein System stürzt dann eigentlich b.
+
+1. Von welchen 16bit Adressen redest du? Falls es die I/O Ports sind, das sind keine Speicheradressen, sondern eben I/O Portadressen und die sind nunmal 16bit. Ansonsten wüsste ich jetzt erstmal nicht was du meinst
+2. Wie kommst du darauf das irgendwas abstürzen sollte? Abgesehen davon sollte man wenn man eine realmode (also über Realmode Segment:Offset angegebene) Adresse gegeben hat klug genug sein diese sinnvoll in sein Protected-Mode Kernel einzubauen...
+--[[Benutzer:Bluecode|Bluecode]] 11:40, 6. Dez. 2008 (CET)
+
+==Neustrukturierung==
+Da ich gerade an meinem Tastaturtreiber arbeite, benutze ich den Artikel recht viel. Und da ist mir aufgefallen, dass der Artikel für mich recht durcheinander wirkt und nicht sehr klar verständlich ist. Wenn es anderen genauso geht, kann man den Artikel ja mal umstrukturieren. --[[Benutzer:Tev|Tev]] 22:31, 4. Okt. 2010 (CEST)
+
+== IRQ-Beispiel ==
+
+In dem Codebeispiel für den IRQ Handler sind für die E0 Codes alles true und false's vertauscht (also 0 und 1) wollt ich anmerken... --[[Benutzer:Markus111|Markus111]] 18:42, 13. Nov. 2010 (CET)
+
+== Beschreibung des CPU-Resets falsch? ==
+
+Im Abschnitt zum Outputport steht, dass das niederwertigste Bit für den CPU-Reset zutändig ist, was ich so verstehe, dass ein CPU-Reset ausgelöst wird, wenn man dieses Bit setzt. Unter "Beispiele zur Benutzung der KBC Funktionen" steht dann aber, dass der CPU-Reset ausgelöst wird, indem 0xFE in den Outputport geschrieben wird, wodurch dieses Bit dann ja als einziges ''nicht'' gesetzt ist (im Code steht zwar in den Kommentaren was vom Inputport, die Befehle setzen ja aber den Outputport). Ich habe beide Varianten ausprobiert, unter QEMU haben auch beide funktioniert, mit richtiger Hardware allerdings keine von beiden.
+Als ich dann beim Rumprobieren schließlich 0xFE als Befehl an den KBC gesendet habe (also über Port 0x64), hat es im Emulator und real funktioniert.
+
+Es scheint also so, als ob für den CPU-Reset nicht der Outputport zuständig wäre, sondern direkt der KBC über den Befehl 0xFE. In der Liste "KBC-Befehle" steht für 0xFx nur ein Fragezeichen, wenn das mit dem CPU-Reset stimmt, sollte das in der Liste also ergänzt werden. Würde ich auch machen, bin mir aber nicht wirklich sicher, ob's denn jetzt stimmt oder nicht... --[[Benutzer:Schwartz|Schwartz]] 22:35, 29. Apr. 2011 (CEST)
+
+Und Markus111 hat mit dem Fehler im IRQ-Handler-Code auch Recht... sollte das geändert werden, oder ist das ein copy&paste-Schutz? --[[Benutzer:Schwartz|Schwartz]] 22:37, 29. Apr. 2011 (CEST)

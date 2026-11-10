@@ -1,0 +1,26 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>C++-Kernel mit GRUB — Änderungen 11074 → 11133</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>C++-Kernel mit GRUB — Änderungen 11074 → 11133</h1><nav><a href="../revisions/11074/index.html">Version 11074</a> · <a href="../revisions/11133/index.html">Version 11133</a> · <a href="../history/2124/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l301" >Zeile 301:</td>
+<td colspan="2" class="diff-lineno">Zeile 301:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; start_ctors = .;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; start_ctors = .;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; &#160; *(.<del class="diffchange diffchange-inline">ctors</del>)</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; &#160; <ins class="diffchange diffchange-inline">KEEP(*( .init_array ));</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; &#160; KEEP(</ins>*(<ins class="diffchange diffchange-inline">SORT_BY_INIT_PRIORITY( .init_array</ins>.<ins class="diffchange diffchange-inline">* ))</ins>)<ins class="diffchange diffchange-inline">;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; end_ctors = .;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; end_ctors = .;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l312" >Zeile 312:</td>
+<td colspan="2" class="diff-lineno">Zeile 313:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; }</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; }</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; /DISCARD/ : { *(.<del class="diffchange diffchange-inline">dtors</del>) *(.comment) }</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; /DISCARD/ : { *(.<ins class="diffchange diffchange-inline">fini_array*</ins>) *(.comment) }</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/pre&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/pre&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Wir teilen dem Linker mit, dass wir die Labels start_ctors, end_ctors<del class="diffchange diffchange-inline">, start_dtors und end_dtors </del>in der Datei Startup.cpp haben und er diese beim Linken berücksichtigen soll. Außerdem wird die Liste der Destruktoren <del class="diffchange diffchange-inline">aus der </del>aus dem Kernel entfernt, da sie wie oben erklärt nicht verwendet werden.</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Wir teilen dem Linker mit, dass wir die Labels start_ctors, end_ctors in der Datei Startup.cpp haben und er diese beim Linken berücksichtigen soll. Außerdem wird die Liste der Destruktoren aus dem Kernel entfernt, da sie wie oben erklärt nicht verwendet werden.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Nur noch ein kurzer Aufruf von LD, und wir haben unseren fertigen Kernel:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Nur noch ein kurzer Aufruf von LD, und wir haben unseren fertigen Kernel:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+</table></body></html>

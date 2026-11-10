@@ -1,0 +1,19 @@
+Hier und da sind da noch echt harte Übersetzungen oder Formulierungen drin, die man vielleicht mal verbessern sollte. Ich versuch mal das aufzuzählen, was mir so spontan auffällt:
+* Erste Tabelle: Zu Recht ist das ein Fragezeichen beim Offset 0x0Bh. Die Zeile davor und danach versteh ich ehrlich gesagt auch nicht.
+* "In Objektdateien wird dieser normalerweise nicht verwendet, außer seine Größe zu erhöhen."
+* Ansonsten vielleicht noch ne kurze Einleitung an den Anfang und der Artikel ist ganz gut fürs Erste. Später können ja noch Beispiele dazu kommen oder so.
+--[[Benutzer:DarkThing|DarkThing]] 18:45, 9. Dez. 2008 (CET)
+Ich werde mich teilweise darum kümmern. Den Satz "In Objektdateien wird dieser normalerweise nicht verwendet, außer seine Größe zu erhöhen." ist für mich dagegen klar und unmissverständlich. Die englische Version ist: An object file can have an optional header, but generally this header has no function in an object file except to increase its size. 
+[[Benutzer:Be59|Be59]]
+-Ergänzung: Du kannst den Satz schreiben ;-)
+[[Benutzer:Be59|Be59]]
+
+Hi, den Satz mit der Größe hab ich mal leicht geändert. Die alte Version klang so, als sei da noch ein halbwegs guter Grund dahinter, die Größe zu erhöhen (könnte ja auch die maximale Größe der Datei gemeint sein oder so). Die neue Version ist zwar auch nicht wirklich optimal, aber zumindest für mich leichter verständlich ;) Btw, im englischen Satz steht auch "optional header", also optional und nicht optimal. Naja ich hoffe mal, das klingt jetzt nicht alles zu kritisierend :) --[[Benutzer:DarkThing|DarkThing]] 17:35, 10. Dez. 2008 (CET)
+
+Kritik ist erwünscht. Wir leben ja nicht in China. Danke aber.<br>
+[[Benutzer:Be59|Be59]]
+
+Der Punkt <b>PE Kennzeichnung</b> ist grundlegend falsch, denn diese befindet sich nicht grundlegend an 0x3c. Schuld daran ist, weil der (MS-)DOS-Header komplett überprungen wurde in der Annahme, die PE-Kennung befinde sich an einer fixen Position. Durch solche unbedachten Bequemlichkeiten entstehen Bugs, die sich als Sicherheitslücken erweisen können.
+Folgerichtig wäre es, ein PE/COFF-File erst auf den DOS-Header ("MZ"-Signatur) hin zu prüfen, dann den Offset für den PE-Header aus dem DOS-Header ermitteln, den PE-Header ("PE\0\0"-Signatur) hin zu prüfen und bla bla bla. Ich kann ja mal die Erkenntnis aus meinem Bootloader zusammentragen, wie dieser mit diesem Fileformat vorgeht.
+Wichtig ist auch zu erwähnen, das der PE-Header auf den DOS-Header aufbaut. Die Header-Baum-Struktur des PE/COFF sollte man daher schon kennen.
+Zugegeben, es ist in den Dokus irritierend erklärt ... Offset von Offset =)  -- [[Benutzer:ScollPi|ScollPi]] 12:24, 23. Apr. 2009 (CEST)

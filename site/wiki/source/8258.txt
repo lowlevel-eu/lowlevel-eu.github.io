@@ -1,0 +1,30 @@
+Die '''Heapverwaltung''' ist ein Teil der [[Speicherverwaltung]], der aufbauend auf der virtuellen Speicherverwaltung Funktionen zur Verwaltung dynamisch allozierten Speichers beliebiger Größe&nbsp;–&nbsp;dieser Speicher zusammengenommen wird dann auch als [[Heap]] bezeichnet&nbsp;–&nbsp;bereitstellt. In der C-Standardbibliothek sind damit die Funktionen malloc/free (und Konsorten) bzw. in der C++-Laufzeitumgebung new/delete gemeint. Gelegentlich werden die beiden Funktionen auch als Bestandteil der virtuellen Speicherverwaltung bezeichnet, da sie ebenfalls mit virtuellen Adressen arbeiten. Sie sind aber nicht mit [[Paging]]&nbsp;–&nbsp;d.&nbsp;h. dem, was in diesem Wiki als [[Speicherverwaltung#Virtuelle Speicherverwaltung | virtuelle Speicherverwaltung]] beschrieben wird&nbsp;–&nbsp;zu verwechseln.
+
+== Überblick ==
+Die oben genannten Funktionen werden sowohl im Userspace&nbsp;–&nbsp;als Teil der Standardbibliothek oder Laufzeitumgebung der verwendeten Programmiersprache&nbsp;–&nbsp;als auch im [[Kernel]] benötigt. Bei der Implementierung im Userspace werden dabei über [[Systemaufruf|Systemaufrufe]] die benötigten Funktionen der virtuellen Speicherverwaltung des Kernels&nbsp;–&nbsp;'''nicht''' der Heapverwaltung des Kernels, da der (Userspace-)Heap (normalerweise) vom Userspace selbst verwaltet wird&nbsp;–&nbsp;aufgerufen. Im Kernel wird direkt auf die virtuelle Speicherverwaltung zugegriffen.
+
+== Freispeicherliste ==
+
+Die einfachste Möglichkeit malloc() und free() zu implementieren ist eine (meist einfach verkettete) Liste aus freien Speicherbereichen zu verwalten. Während  malloc() wird dann diese Liste durchlaufen, um nach einem Speicherstück ausreichender Größe zu suchen. Diese Suche kann nach mehreren Strategien erfolgen:
+* Exact fit: Ein Speicherstück mit exakt der geforderten Größe wird gesucht
+* First fit: Das erstbeste, ausreichend große Speicherstück wird gesucht
+* Best fit: Das kleinste, gerade noch ausreichend große Speicherstück wird gesucht
+Falls eines gefunden wird, wird dieses aus der Liste entfernt und ein Zeiger auf den Speicherbereich zurückgegeben, ansonsten wird die virtuelle bzw. physische Speicherverwaltung aufgerufen, um neue Speicherseiten zu allozieren. Um Speicher zu sparen, ist es sinnvoll einen Speicherbereich, falls er viel zu groß – d.&nbsp;h. es muss noch Platz für eine weitere Header (siehe unten) und zumindest ein bisschen Speicher danach sein – ist, in zwei Teile zu splitten, wobei der erste zurückgegeben wird und der zweite der Freispeicherliste hinzugefügt wird.
+
+Bei einem free() wird der freizugebende Speicherbereich der Liste der freien Speicherbereiche einfach vorne hinzugefügt.
+
+Damit man für die Liste keinen eigenen Speicher allozieren muss, werden beim malloc bewusst einige Bytes mehr Speicher reserviert ('''vor''' dem anschließend benutzten Speicherbereich (genannt Header)), um die Größe und den next-Zeiger (und je nach Bedarf weitere Werte, wie z.&nbsp;B. Flags oder einen previous-Pointer) zu speichern.
+
+''Beispielimplementierung:'' [https://svn.lcube.de/dev34/pdclib/trunk/functions/stdlib/malloc.c Public-Domain C Library]
+
+== Buddy-Speicherverwaltung ==
+
+''siehe'' [http://de.wikipedia.org/wiki/Buddy-Speicherverwaltung Wikipedia: Buddy-Speicherverwaltung]
+
+== Andere Implementierung portieren ==
+Anstatt die benötigten Funktionen selbst zu implementieren, ist es natürlich auch möglich, bestehende Implementierungen zu portieren. Z.&nbsp;B. stehen folgende Implementierungen unter einer freien Lizenz:
+* [http://g.oswego.edu/dl/html/malloc.html Doug Lea's Malloc (dlmalloc)] ([[Lizenzen#Public_Domain |Public Domain]])
+* [http://www.hoard.org/ The HOARD Memory Allocator] ([[Lizenzen#General_Public_License |GPL]])
+
+== Weblinks ==
+* [http://www.osdever.net/tutorials/pdf/memory2.pdf Memory Management 2] von Tim Robinson

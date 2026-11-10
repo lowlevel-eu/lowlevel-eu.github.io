@@ -1,0 +1,51 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bootsektor — Änderungen 9039 → 9667</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Bootsektor — Änderungen 9039 → 9667</h1><nav><a href="../revisions/9039/index.html">Version 9039</a> · <a href="../revisions/9667/index.html">Version 9667</a> · <a href="../history/1475/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l6" >Zeile 6:</td>
+<td colspan="2" class="diff-lineno">Zeile 6:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* [[Eigener Bootloader]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* [[Eigener Bootloader]]</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* [[Ausgabe 1#Unser Bootloader | Ausgabe 1 (4.3 Unser Bootloader)]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* [[Ausgabe 1#Unser Bootloader | Ausgabe 1 (4.3 Unser Bootloader)]]</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">== die Anfängliche Umgebung ==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Das folgende gilt nur eingeschränkt für Bootfähige CD-ROMs, sondern nur für Datenträger, auf die über int13h zugegriffen werden kann. (USB-Sticks können Emuliert werden)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Zum Formatierungszeitpunkt ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;b&gt;Ist folgendes bekannt&lt;/b&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">(der Bootsektor wird in der Regel von einem Formatierungsprogramm angelegt)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Arte des Mediums, (Diskette, Fesplatten'''partition''',USB-Stick)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* falls Fesplatte, beginn der Partition (wird in der Regel auch vom MBR übergeben (ES:DI), jedoch sicher ist sicher)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* ob CHS- oder LBA- Zugriff nötig sein wird (nur ein Treiber - spart Platz)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Dateisystem</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Name und Zieladresse der zu Ladenden Datei </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Der Speicher zwischen 500h und 7c00h wird vorhanden und frei sein.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Laufwerkszugriff über int13h ist warscheinlich möglich</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Konsolenausgabe über int10h funktion 0Eh ist warscheinlich möglich</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;b&gt;folgendes jedoch NICHT, oder nicht verlässlich&lt;/b&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* welches Physische Laufwerk</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* exakte Position der zu ladenden Datei </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* welcher Prozessor (also keine exotischen Befehle verwenden)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* ob der Arbeitsspeicher zwischen 7e00h und A0000h vollständig vorhanden, und frei sein wird. (könnte theoritisch nur 32k haben (PC),irgendwo MUSS die EBDA sein, Prä-Boottreiben könnten vorhanden sein)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Art des Festplattenkontorollers (z.b. ATA oder SATA die sich leicht unterscheiden)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Details des Prozessorcaches (bei selbstmanipulierendem Code zu beachten)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Ob die zu ladende Datei vorhanden sein wird (könnte geslöscht sein)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Zum Bootzeitpunkt ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;b&gt;Beim Laden ist bekannt &lt;/b&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Physisches Laufwerk (steht in DL)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;b&gt; nach durchsuchen des Dateisystems wird bekannt&lt;/b&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* ob die zu ladende Datei vorhanden ist (ansonsten Fehlermeldung)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* wo sie beginnt</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;b&gt; im Bootsektor immer noch nicht bekannt ist folgendes &lt;/b&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* was für ein Prozessor vorhanden ist (das erfordert aufwändige tests der Flags)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* ob die Grafikarte überhaupt VGA-kompatibel ist (z.b. bei Laptops nicht sicher)-&gt; also Fehlermeldungen nur über int 10h, aber nicht den Grafikmodus wechseln und nicht direkt in den Bildschirmspeicher schreiben, bis der Bootloader das geprüft hat)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Category:Glossar]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Category:Glossar]]</div></td></tr>
+</table></body></html>

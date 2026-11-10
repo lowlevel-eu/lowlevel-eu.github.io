@@ -1,0 +1,44 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Eigener Bootloader — Änderungen 1593 → 1740</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Eigener Bootloader — Änderungen 1593 → 1740</h1><nav><a href="../revisions/1593/index.html">Version 1593</a> · <a href="../revisions/1740/index.html">Version 1740</a> · <a href="../history/1427/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l197" >Zeile 197:</td>
+<td colspan="2" class="diff-lineno">Zeile 197:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; nasm src/HelloWorld.asm -o bin/HelloWorld.bin -l bin/HelloWorld.lst</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; nasm src/HelloWorld.asm -o bin/HelloWorld.bin -l bin/HelloWorld.lst</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; nasm src/HelloWorld.asm -o img/HelloWorld.img -dIMAGE</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; nasm src/HelloWorld.asm -o img/HelloWorld.img -dIMAGE</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">====Der Test====</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Jetzt können wir das erstelle Image mit Bochs testen. Ich gehe einmal davon aus das ihr es schon installiert habt. Hier mal eine kleine bochsrc.txt:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> # small bochsrc.txt</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> # by muuh</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; &#160;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; &#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> ### Hier den Pfad anpassen für dein disk-image</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> floppya: 1_44=C:\NASM\HelloWorld.img, status=inserted</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> ####</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> romimage: file=$BXSHARE/BIOS-bochs-latest, address=0xf0000</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> cpu: count=1, ips=10000000, reset_on_triple_fault=1</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> megs: 32</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> vgaromimage: file=$BXSHARE/VGABIOS-lgpl-latest</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> vga: extension=vbe</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> boot: floppy</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> floppy_bootsig_check: disabled=0</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> log: bochsout.txt</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> panic: action=ask</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> error: action=report</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> info: action=report</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> debug: action=ignore</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> debugger_log: -</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> parport1: enabled=1, file=&quot;parport.out&quot;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> vga_update_interval: 300000</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> keyboard_serial_delay: 250</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> keyboard_paste_delay: 100000</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> private_colormap: enabled=0</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> keyboard_mapping: enabled=0, map=</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> i440fxsupport: enabled=1</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Einfach die Datei bochsrc.txt im Installationsordner von Bochs anlegen, Pfad zum erstellen Image anpassen, Bochs.exe starten und in dem Menü die Option 6 (Simulation) wählen.&#160; </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Nachwort==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Nachwort==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wenn alles gutgegangen ist haben wir jetzt ein Diskettenimage mit unserem HelloWorld Programm. Im nachvolgenden Teil 2 wollen wir diesen BootRecord so weit umbauen, und erweitern, das wir damit auch andere Programme von einem Datenträger laden und ausführen können.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wenn alles gutgegangen ist haben wir jetzt ein Diskettenimage mit unserem HelloWorld Programm. Im nachvolgenden Teil 2 wollen wir diesen BootRecord so weit umbauen, und erweitern, das wir damit auch andere Programme von einem Datenträger laden und ausführen können.</div></td></tr>
+</table></body></html>

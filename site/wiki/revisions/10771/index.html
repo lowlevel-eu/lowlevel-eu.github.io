@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Benutzer:Dimension/Kompaktes und leichtgewichtiges Kernel-malloc/free – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-2 ns-subject page-Benutzer_Dimension_Kompaktes_und_leichtgewichtiges_Kernel-malloc_free rootpage-Benutzer_Dimension skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2595/index.html">Aktueller Artikel</a> · <a href="../../history/2595/index.html">Versionsgeschichte</a> · <a href="../../source/10771.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Benutzer:Dimension/Kompaktes und leichtgewichtiges Kernel-malloc/free</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 2. September 2012, 17:59 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Dimension</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/10770-10771.html" title="Benutzer:Dimension/Kompaktes und leichtgewichtiges Kernel-malloc/free">Unterschied</a>) <a href="../10770/index.html" title="Benutzer:Dimension/Kompaktes und leichtgewichtiges Kernel-malloc/free">← Nächstältere Version</a> | Aktuelle Version (Unterschied) | Nächstjüngere Version → (Unterschied)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Template_Stub">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #D0D8FF; margin: 0 0em; padding: 0 0px; border: 1px solid #b8c0e8" width="100%">
+<tbody><tr>
+<td>Diese Seite oder Abschnitt ist zwar komplett, es wird aber folgende Verbesserungen gewünscht:<br/>
+<p><i> </i>
+</p><p>Hilf Lowlevel, den Artikel zu verbessern.
+</p>
+</td></tr></tbody></table>
+</div>
+<p><br/>
+Diese kompakte und leichtgewichtige Implementierung eines Kernel malloc/free ist aus meinem Treiber-Testkernel und soll der Lowlevel-Community nicht vorenthalten bleiben.
+</p><p><a class="external free" href="http://pastebin.com/JBcwaTpv" rel="nofollow">http://pastebin.com/JBcwaTpv</a>
+</p><p>Die Speicherverwaltung weist Speicherblöcke der Größe <i>Seitengröße &lt;&lt; n</i> direkt aus dem physischen Speicher zu. Die Seitengröße ist auf 4K festgelegt. In der Standardkonfiguration ist <i>MEMORY_PAGES = 8K</i>, es sind also insgesamt <i>8K * 4K = 32M</i> für malloc verfügbar. Die Verwaltungsdaten (hier Arrays mit Bitmaps) kommen extra in das data Segment. <i>MEMORY_MEMORY_START_P = 16M</i> bedeutet, dass der Speicherbereich erst ab 16M beginnt und bei <i>MEMORY_MEMORY_END_P = 16M + 32M = 48M</i> endet. Der Bereich darunter (ab 1M) ist also für die text, data und bss Segmente des Kernels
+</p><p>malloc() gibt einen Zeiger auf einen Bereich mit der kleinstmöglichen Speicherklasse zurück. Die Speicherklasse bestimmt die Größe des zugewiesenen Speicherbereichs folgendermaßen: <i>Größe = 1 &lt;&lt; Klasse</i>. Die kleinste Klasse ist <i>MEMORY_CLASS_START = 12</i>, da <i>1 &lt;&lt; 12 == MEMORY_PAGE_SIZE == 4K</i>. Die Anzahl unterschiedlicher Speicherklassen wird mit <i>MEMORY_SHIFT_LIMIT = 6</i> festgelegt. Die größte Klasse (inklusive) ist somit <i>MEMORY_CLASS_END = 12 + 6 = 18</i>.
+</p><p>Wie der Speicher mit <i>MEMORY_SHIFT_LIMIT = 2</i> und <i>MEMORY_PAGES = 8</i> aufgeteilt werden würde, zeigt folgendes Beispiel:
+</p><p><code>0x00000 +---+
+</code></p><code><pre>       |   | 16x Blöcke der Größe  4K = 64K
+       |   |
+       |   |
+       |   |
+</pre></code><code><p>0x10000 +---+
+</p></code><code><pre>       |   |  4x Blöcke der Größe  8K = 32K
+       |   |
+</pre></code><code><p>0x18000 +---+
+</p></code><code><pre>       |   |  2x Blöcke der Größe 16K = 32K
+       |   |
+</pre></code><code></code><p><code>0x20000 +---+</code>
+</p><p>Das Ganze hat dann noch einen Offset von <i>MEMORY_MEMORY_START_P</i>. Die letzte Klasse bekommt dabei einen Slot mehr, da der Platz nun nicht weiter aufgeteilt wird.
+</p><p>Die Referenzen auf printf(), print_str() und halt() müssen in der Umgebung des Kernels aufgelöst werden. Um die Bitmaps zu löschen, muss vor dem ersten malloc() mem_init() ausgeführt werden.
+</p><p>Das Laufzeitverhalten kann verbessert werden, indem freie Slots im Hintergrund gesucht werden. Die Speicherverwaltung weist keine externe Fragmentierung auf und ist weitestgehend robust implementiert, was aber durch Redundanz und/oder Asserts noch gesteigert werden kann.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Begriffe"><span class="tocnumber">1</span> <span class="toctext">Begriffe</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Aufbau"><span class="tocnumber">2</span> <span class="toctext">Aufbau</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Ablauf"><span class="tocnumber">3</span> <span class="toctext">Ablauf</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#malloc"><span class="tocnumber">3.1</span> <span class="toctext">malloc</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#free"><span class="tocnumber">3.2</span> <span class="toctext">free</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#realloc"><span class="tocnumber">3.3</span> <span class="toctext">realloc</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Aspekte"><span class="tocnumber">4</span> <span class="toctext">Aspekte</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Abh.C3.A4ngigkeiten"><span class="tocnumber">4.1</span> <span class="toctext">Abhängigkeiten</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Verhalten"><span class="tocnumber">5</span> <span class="toctext">Verhalten</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Optimierungen"><span class="tocnumber">5.1</span> <span class="toctext">Optimierungen</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Begriffe">Begriffe</span></h2>
+<h2><span class="mw-headline" id="Aufbau">Aufbau</span></h2>
+<h2><span class="mw-headline" id="Ablauf">Ablauf</span></h2>
+<h3><span class="mw-headline" id="malloc">malloc</span></h3>
+<h3><span class="mw-headline" id="free">free</span></h3>
+<h3><span class="mw-headline" id="realloc">realloc</span></h3>
+<h2><span class="mw-headline" id="Aspekte">Aspekte</span></h2>
+<h3><span id="Abhängigkeiten"></span><span class="mw-headline" id="Abh.C3.A4ngigkeiten">Abhängigkeiten</span></h3>
+<h2><span class="mw-headline" id="Verhalten">Verhalten</span></h2>
+<h3><span class="mw-headline" id="Optimierungen">Optimierungen</span></h3>
+<pre>test
+
+test
+
+</pre>
+<!-- 
+NewPP limit report
+Cached time: 20261109171155
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.005 seconds
+Real time usage: 0.006 seconds
+Preprocessor visited node count: 48/1000000
+Preprocessor generated node count: 94/1000000
+Post‐expand include size: 357/2097152 bytes
+Template argument size: 1/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 6/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.790      1 Vorlage:TODO
+100.00%    0.790      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:2595-0!canonical and timestamp 20261109171155 and revision id 10771
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Benutzer:Dimension/Kompaktes_und_leichtgewichtiges_Kernel-malloc/free&amp;oldid=10771</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1820/index.html" title="Kategorie:TODO">TODO</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-user"><a accesskey="c" href="../../pages/2595/index.html" title="Benutzerseite anzeigen [c]">Benutzerseite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2595/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-contributions"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Benutzerbeiträge</a></li><li id="t-log"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Logbücher</a></li><li id="t-userrights"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Benutzergruppen ansehen</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 2. September 2012 um 17:59 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

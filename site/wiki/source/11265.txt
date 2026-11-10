@@ -1,0 +1,36 @@
+Die Maus ist das wichtigste Eingabegerät bei einer [[GUI]]. Populär wurden sie als Eingabegerät des Apple Macintosh. Ursprünglich wurden Mäuse über die [[Serielle Schnittstelle]] angebunden; IBM führte schließlich mit dem [[PS/2-Maus]]-Anschluss eine neue Anschlusstechnik mit einem neuen Protokoll ein. Heutzutage werden Mäuse meist per [[USB]] mit dem Rechner verbunden.
+
+==Serielle Schnittstelle==
+{{stub}}
+
+==PS/2==
+
+Siehe Artikel [[PS/2-Maus]].
+
+==USB==
+
+Mäuse (und Tastaturen) für USB werden von der Spezifikation "Device Class Definition for Human Interface Devices (HID)" definiert. Version 1.11 der Spezifikation ermöglicht zwar umfassende gerätespezifische Funktionen, definiert allerdings auch ein sog. "Boot Interface" für Mäuse und Tastaturen; ein festgelegtes Protokoll für die Kommunikation mit Mäusen und Tastaturen, damit bereits das BIOS mit diesen kommunizieren kann, ohne dass ein umfangreicher Treiber notwendig wäre.
+
+Die Kommunikation mit der Maus läuft über den vom Gerät bereitgestellten Interrupt-Endpoint. Über diesen können Pakete von 3 oder mehr Bytes empfangen werden; die ersten drei Bytes sind dabei wie folgt standardisiert:
+{| {{prettytable}}
+! Byte
+! Beschreibung
+|-
+| 0
+| Button-Status. Bit 0: Linke Taste; Bit 1: Rechte Taste; Bit 2: Mittlere Taste.
+|-
+| 1
+| X-Verschiebung (von links nach rechts)
+|-
+| 2
+| Y-Verschiebung (von oben nach unten)
+|-
+| 3-N
+| Gerätespezifisch
+|}
+
+== Weblinks ==
+* [http://www.usb.org/developers/hidpage/ http://www.usb.org/developers/hidpage/ (USB-HID-Spezifikation und dazugehörende Dokumente)]
+
+
+[[Kategorie:Hardware]]

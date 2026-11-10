@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>I/O Ports – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-I_O_Ports rootpage-I_O_Ports skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1543/index.html">Aktueller Artikel</a> · <a href="../../history/1543/index.html">Versionsgeschichte</a> · <a href="../../source/7360.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">I/O Ports</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 12. März 2010, 15:50 Uhr von <a class="mw-userlink" href="../../pages/1489/index.html" title="Benutzer:Bluecode"><bdi>Bluecode</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/7226-7360.html" title="I/O Ports">Unterschied</a>) <a href="../7226/index.html" title="I/O Ports">← Nächstältere Version</a> | <a href="../../pages/1543/index.html" title="I/O Ports">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../7361/index.html" title="I/O Ports">Nächstjüngere Version →</a> (<a href="../../diffs/7360-7361.html" title="I/O Ports">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Als <a class="mw-selflink selflink">I/O Ports</a> werden die Schnittstellen zwischen <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">CPU</a> und Peripheriegeräten bezeichnet. Die Kommunikation erfolgt über spezielle Maschinenbefehle, wie zum Beispiel <i>in</i> und <i>out</i>. Jedem Gerät wird dabei ein Bereich des I/O-<a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Adressraums</a> zugeordnet, und Lese- bzw. Schreibzugriffe werden an das Gerät weitergeleitet. In diesem wiki werden als C-Funktionen <i>outb</i>, <i>outw</i> und entsprechende andere Varianten von in und out vorausgesetzt. Wie man diese Funktionen in C mit Hilfe von Inline-Assembler implementieren kann wird im Artikel <a href="../../pages/1472/index.html" title="Inline-Assembler mit GCC">Inline-Assembler mit GCC</a> für den <a class="mw-redirect" data-archive-original-href="../../pages/1846/index.html" href="../../pages/1805/index.html" title="GCC">GCC</a> teilweise erklärt.
+</p><p>Ergänzend zur Port I/O existiert <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Memory Mapped I/O</a>, bei dem die Geräte in den Adressraum des physischen Speichers eingeblendet werden. Das Gerät kann somit über normale Befehle zum Speicherzugriff angesteuert werden.
+</p>
+<h2><span class="mw-headline" id="Liste">Liste</span></h2>
+<p>Dies ist eine kleine Liste der Standard-I/O-Portbereiche eines <a href="../../pages/1749/index.html" title="X86">x86</a>/<a href="../../pages/1758/index.html" title="X86-64">x86-64</a>-Systems. Diese Liste nicht vollständig, da beispielsweise bei Geräten die über den <a class="mw-redirect" data-archive-original-href="../../pages/1627/index.html" href="../../pages/1626/index.html" title="PCI">PCI</a>-Bus angeschlossen sind, die I/O Ports und die physischen Speicherbereiche nicht fix sind, sondern ausgelesen und konfiguriert werden können. Hier sind also Geräte aufgelistet, die aus der Zeit des <a class="mw-redirect" data-archive-original-href="../../pages/1708/index.html" href="../../pages/1709/index.html" title="ISA">ISA</a>/<a class="mw-redirect" data-archive-original-href="../../pages/1707/index.html" href="../../pages/1709/index.html#Extended_Industry_Standard_Architecture" title="EISA">EISA</a>-Busses stammen, als die I/O-Portbereiche für viele Geräte standardisiert wurden, da es im Allgemeinen keine Möglichkeit gab, diese Bereiche zur Laufzeit auszulesen bzw. zu konfigurieren.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Begin
+</th>
+<th>Ende
+</th>
+<th>Gerät
+</th></tr>
+<tr>
+<td>0x000</td>
+<td>0x01F</td>
+<td><a href="../../pages/1555/index.html" title="Direct Memory Access"> DMA Controller</a> (8237A-5)
+</td></tr>
+<tr>
+<td>0x020</td>
+<td>0x021</td>
+<td><a href="../../pages/1465/index.html" title="Programmable Interrupt Controller">Programmable Interrupt Controller</a> (PIC)
+</td></tr>
+<tr>
+<td>0x040</td>
+<td>0x043</td>
+<td><a href="../../pages/1432/index.html" title="Programmable Interval Timer">Programmable Interval Timer</a> (PIT)
+</td></tr>
+<tr>
+<td>0x060</td>
+<td>0x060</td>
+<td><a href="../../pages/1468/index.html" title="Keyboard Controller"> Tastaturcontroller </a>
+</td></tr>
+<tr>
+<td>0x064</td>
+<td>0x064</td>
+<td><a href="../../pages/1468/index.html" title="Keyboard Controller"> Tastaturcontroller </a>
+</td></tr>
+<tr>
+<td>0x070</td>
+<td>0x071</td>
+<td><a href="../../pages/1562/index.html" title="CMOS">CMOS</a>
+</td></tr>
+<tr>
+<td>0x080</td>
+<td>0x083</td>
+<td><a href="../../pages/1555/index.html" title="Direct Memory Access"> DMA Controller</a> (8237A-5)
+</td></tr>
+<tr>
+<td>0x0A0</td>
+<td>0x0AF</td>
+<td><a class="mw-redirect" data-archive-original-href="../../pages/1466/index.html" href="../../pages/1465/index.html" title="PIC">PIC</a>
+</td></tr>
+<tr>
+<td>0x0C0</td>
+<td>0x0CF</td>
+<td><a href="../../pages/1555/index.html" title="Direct Memory Access"> DMA Controller</a> (8237A-5)
+</td></tr>
+<tr>
+<td>0x0F0</td>
+<td>0x0FF</td>
+<td><a class="mw-redirect" data-archive-original-href="../../pages/1663/index.html" href="../../pages/1601/index.html" title="Floating point unit"> Nummerischer Koprozessor</a> (FPU)
+</td></tr>
+<tr>
+<td>0x170</td>
+<td>0x177</td>
+<td>2. <a class="mw-redirect" data-archive-original-href="../../pages/1523/index.html" href="../../pages/1522/index.html" title="ATA"> Festplatten Controller</a>
+</td></tr>
+<tr>
+<td>0x1F0</td>
+<td>0x1F7</td>
+<td>1. <a class="mw-redirect" data-archive-original-href="../../pages/1523/index.html" href="../../pages/1522/index.html" title="ATA"> Festplatten Controller</a>
+</td></tr>
+<tr>
+<td>0x278</td>
+<td>0x27F</td>
+<td>2. Parallel Port (3. mit MDA)
+</td></tr>
+<tr>
+<td>0x2C0</td>
+<td>0x2DF</td>
+<td>2. EGA
+</td></tr>
+<tr>
+<td>0x2E8</td>
+<td>0x2EF</td>
+<td>4. <a class="mw-redirect" data-archive-original-href="../../pages/1565/index.html" href="../../pages/1561/index.html" title="Rs232">rs232</a> (COM-Port)
+</td></tr>
+<tr>
+<td>0x2F8</td>
+<td>0x2FF</td>
+<td>2. <a class="mw-redirect" data-archive-original-href="../../pages/1565/index.html" href="../../pages/1561/index.html" title="Rs232">rs232</a> (COM-Port)
+</td></tr>
+<tr>
+<td>0x370</td>
+<td>0x375</td>
+<td>2. <a href="../../pages/1443/index.html" title="Floppy Disk Controller"> Diskettenlaufwerk Controller</a>
+</td></tr>
+<tr>
+<td>0x376</td>
+<td>0x377</td>
+<td>2. <a class="mw-redirect" data-archive-original-href="../../pages/1523/index.html" href="../../pages/1522/index.html" title="ATA"> Festplatten Controller</a>
+</td></tr>
+<tr>
+<td>0x378</td>
+<td>0x37F</td>
+<td>1. Parallel Port
+</td></tr>
+<tr>
+<td>0x3B0</td>
+<td>0x3DF</td>
+<td><a href="../../pages/1516/index.html" title="Video Graphics Array">Video Graphics Array</a> (VGA)
+</td></tr>
+<tr>
+<td>0x3C0</td>
+<td>0x3CF</td>
+<td>1. EGA
+</td></tr>
+<tr>
+<td>0x3D0</td>
+<td>0x3DF</td>
+<td>CGA and EGA/VGA
+</td></tr>
+<tr>
+<td>0x3E8</td>
+<td>0x3EF</td>
+<td>3. <a class="mw-redirect" data-archive-original-href="../../pages/1565/index.html" href="../../pages/1561/index.html" title="Rs232">rs232</a> (COM-Port)
+</td></tr>
+<tr>
+<td>0x3F0</td>
+<td>0x3F5</td>
+<td>1. <a href="../../pages/1443/index.html" title="Floppy Disk Controller"> Diskettenlaufwerk Controller</a>
+</td></tr>
+<tr>
+<td>0x3F6</td>
+<td>0x3F7</td>
+<td>1. <a class="mw-redirect" data-archive-original-href="../../pages/1523/index.html" href="../../pages/1522/index.html" title="ATA"> Festplatten Controller</a>
+</td></tr>
+<tr>
+<td>0x3F8</td>
+<td>0x3FF</td>
+<td>1. <a class="mw-redirect" data-archive-original-href="../../pages/1565/index.html" href="../../pages/1561/index.html" title="Rs232">rs232</a> (COM-Port)
+</td></tr>
+<tr>
+<td>0xCF8</td>
+<td>0xCF8</td>
+<td><a class="mw-redirect" data-archive-original-href="../../pages/1627/index.html" href="../../pages/1626/index.html" title="PCI">PCI</a>
+</td></tr>
+<tr>
+<td>0xCFC</td>
+<td>0xCFC</td>
+<td><a class="mw-redirect" data-archive-original-href="../../pages/1627/index.html" href="../../pages/1626/index.html" title="PCI">PCI</a>
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li><i>Ralf Brown's Interrupt List</i> (RBIL) ist nicht nur eine Liste aller erdenklichen Software-Interrupts, sondern bietet auch eine sehr große (!) Liste mit Port-Nummern und entsprechenden Beschreibungen. Die Liste ist ist in 3 Dateien aufgeteilt (PORTS.A, PORTS.B und PORTS.C). Diese Dateien findet man in folgendem Zip-Archiv: <a class="external text" href="http://www.cs.cmu.edu/~ralf/interrupt-list/inter61d.zip" rel="nofollow">inter61d.zip</a></li></ul>
+<ul><li><a class="external text" href="http://mudlist.eorbit.net/~adam/pickey/ports.html" rel="nofollow">Eine Liste der Universität Magdeburg</a> (Letzte Aktualisierung 26.03.1995) Zwar veraltet, aber dafür recht übersichtlich.</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165415
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.005 seconds
+Real time usage: 0.006 seconds
+Preprocessor visited node count: 11/1000000
+Preprocessor generated node count: 22/1000000
+Post‐expand include size: 19/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.697      1 Vorlage:Prettytable
+100.00%    0.697      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=I/O_Ports&amp;oldid=7360</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1874/index.html" title="Kategorie:X86">X86</a></li><li><a href="../../pages/1913/index.html" title="Kategorie:X86-64">X86-64</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1543/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1543/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

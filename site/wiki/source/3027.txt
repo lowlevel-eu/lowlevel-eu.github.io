@@ -1,0 +1,68 @@
+Der Global Descriptor Table (auch GDT) ist eine i386 spezifische Struktur, welche Informationen über Speicherabschnitte enthält. 
+
+Der Ort der GDT wird mit dem Befehl [[lgdt]] mitgeteilt.
+
+==Struktur==
+Jeder Eintrag in den GDT besteht aus acht Bytes.
+{| {{Prettytable}}
+! Byte  || Name  ||  Bits
+|-
+| 0     || Limit || 0-7
+|-
+| 1     || Limit || 8-15
+|-
+| 2     || Base  || 0-7
+|-
+| 3     || Base  || 8-15
+|-
+| 4     || Base  || 16-23
+|-
+| 5     || Accessbyte || 0-7 (vollständig)
+|-
+| 6     || Flags  || 0-3 (vollständig)
+|-
+| 7     || Limit  || 16-19
+|-
+| 8     || Base   || 24-31
+|-
+|}
+
+{| {{Prettytable}}
+! Name  || Bedeutung
+|-
+| Limit      || Größe des Segments - 1 (entweder in Bytes oder in 4KiB-Einheiten - siehe Flags)
+|-
+| Base       || Die Addresse wo das Segment beginnt
+|-
+| Accessbyte || Zugriffsinformationen (Ring, executable, etc.)
+|-
+| Flags      || Definiert die Segmentgrößeneinheit und 16/32 Bit.
+|}
+
+Der Access-Byte:
+{| {{Prettytable}}
+! Bit   || Name|| Bedeutung
+|-
+| 0     || present bit    || Muss 1 für einen aktiven Eintrag sein
+|-
+| 1 u. 2|| Privilege      || Ring - von Ring 0 (Kernel Mode) zu Ring 3 (User Mode)
+|-
+| 3     || 1              || Ist 1
+|-
+| 4     || Executable bit || Bei 1 ist das Speichersegment ein Codesegment, bei 0 ein Datensegment
+|-
+| 5     || Direction bit/Conforming bit || Abhängig vom Executable bit
+|-
+| 6     || Readable bit/Writable bit    || Bei einem Codesegment ob lesen erlaubt ist, bei einem Datensegment ob schreiben erlaubt ist
+|-
+| 7     || Accessed bit     || Sollte 0 gesetzt werden, wird dann vom Prozessor bei Zugriff gesetzt.
+|}
+
+Die Flags:
+{| {{Prettytable}}
+! Bit   || Name|| Bedeutung
+|-
+| 0     || Granularity bit|| Bei 0 wird als Einheit bei Limit ein Byte benutzt, bei 1 stattdessen 4 KiB
+|-
+| 1     || Size bit       || 0 bedeuted 16 bit protected mode, bei 1 32 bit protected mode.
+|}

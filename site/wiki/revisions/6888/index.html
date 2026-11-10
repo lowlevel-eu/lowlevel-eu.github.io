@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Task State Segment – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Task_State_Segment rootpage-Task_State_Segment skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1599/index.html">Aktueller Artikel</a> · <a href="../../history/1599/index.html">Versionsgeschichte</a> · <a href="../../source/6888.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Task State Segment</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 12. Januar 2010, 11:51 Uhr von <a class="mw-userlink" href="../../pages/1860/index.html" title="Benutzer:XanClic"><bdi>XanClic</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Link gekürzt)</span></div><div id="mw-revision-nav">(<a href="../../diffs/6883-6888.html" title="Task State Segment">Unterschied</a>) <a href="../6883/index.html" title="Task State Segment">← Nächstältere Version</a> | <a href="../../pages/1599/index.html" title="Task State Segment">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../7772/index.html" title="Task State Segment">Nächstjüngere Version →</a> (<a href="../../diffs/6888-7772.html" title="Task State Segment">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Das <b>Task State Segment</b> (kurz TSS) wird von der CPU benötigt, um Informationen über einen Task zu speichern. Eigentlich vor allem für <a href="../../pages/2158/index.html" title="Hardware-Multitasking">Hardware-Multitasking</a> verwendet, benötigt man es jedoch auch für Software-Multitasking, um der CPU im Falle eines Ringwechsels von einem niedriger privilegierten <a href="../../pages/1990/index.html" title="Ring">Ring</a> in einen höheren einen Stack zu übergeben. Um ein TSS benutzen zu können, legt man einen entsprechenden Deskriptor in der GDT an, der darauf zeigt. Der Selektor dieses Deskriptors muss dann mit <i>ltr &lt;Selektor&gt;</i> ins Taskregister der CPU geladen werden.
+</p><p><br/>
+</p>
+<h3><span id="Aufbau_�_TSS-Deskriptor"></span><span class="mw-headline" id="Aufbau_.EF.BF.BD_TSS-Deskriptor">Aufbau &amp;#150; TSS-Deskriptor</span></h3>
+<table align="center" style="text-align:center">
+<caption>Task State Segment Deskriptor
+</caption>
+<tbody><tr>
+<td>
+<table class="prettytable" width="100%">
+<tbody><tr>
+<th>31-24</th>
+<th>23</th>
+<th>21-22</th>
+<th>20</th>
+<th>19-16</th>
+<th>15</th>
+<th>14-13</th>
+<th>12</th>
+<th>11-8</th>
+<th>7-0
+</th></tr>
+<tr>
+<td>Basisadresse 31-24
+</td>
+<td>G
+</td>
+<td>0
+</td>
+<td>AVL
+</td>
+<td>Limit 19-16
+</td>
+<td>P
+</td>
+<td>DPL
+</td>
+<td>0
+</td>
+<td>Type
+</td>
+<td>Basisadresse 16-23
+</td></tr></tbody></table>
+</td></tr>
+<tr>
+<td>
+<table class="prettytable" width="100%">
+<tbody><tr>
+<th>31-16</th>
+<th>15-0
+</th></tr>
+<tr>
+<td width="50%">Basisadresse 15-0
+</td>
+<td width="50%">Limit 15-0
+</td></tr></tbody></table>
+</td></tr></tbody></table>
+<ul><li><i>Type</i> &amp;#150; Deskriptor Typ &amp;#150; Hier muss als Wert 1001b eingetragen werden. Die hintere Null wird zusätzlich als Busy-Flag verwendet. Dies wird auf 1 gesetzt, sobald der Task in das System geladen ist und gestartet wurde. Tasks sind nicht redundant. Das heißt, sie dürfen sich nicht selbst aufrufen. Dies wird mit dem Busy-Flag verhindert.</li></ul>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Aufbau_TSS">Aufbau TSS</span></h2>
+<table class="prettytable" style="float:right; text-align:center">
+<caption>Aufbau &amp;#150; Task State Segment
+</caption>
+<tbody><tr>
+<th>Offset</th>
+<th>31-16</th>
+<th>0-15
+</th></tr>
+<tr>
+<td>0x00</td>
+<td align="center" style="background:lightgrey"></td>
+<td>Previous Task Link
+</td></tr>
+<tr>
+<td>0x04</td>
+<td colspan="2">ESP0
+</td></tr>
+<tr>
+<td>0x08</td>
+<td align="center" style="background:lightgrey"></td>
+<td>SS0
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td colspan="2">ESP1
+</td></tr>
+<tr>
+<td>0x10</td>
+<td align="center" style="background:lightgrey"></td>
+<td>SS1
+</td></tr>
+<tr>
+<td>0x14</td>
+<td colspan="2">ESP2
+</td></tr>
+<tr>
+<td>0x18</td>
+<td align="center" style="background:lightgrey"></td>
+<td>SS2
+</td></tr>
+<tr>
+<td>0x1C</td>
+<td colspan="2">CR3
+</td></tr>
+<tr>
+<td>0x20</td>
+<td colspan="2">EIP
+</td></tr>
+<tr>
+<td>0x24</td>
+<td colspan="2">EFLAGS
+</td></tr>
+<tr>
+<td>0x28</td>
+<td colspan="2">EAX
+</td></tr>
+<tr>
+<td>0x2C</td>
+<td colspan="2">ECX
+</td></tr>
+<tr>
+<td>0x30</td>
+<td colspan="2">EDX
+</td></tr>
+<tr>
+<td>0x34</td>
+<td colspan="2">EBX
+</td></tr>
+<tr>
+<td>0x38</td>
+<td colspan="2">ESP
+</td></tr>
+<tr>
+<td>0x3C</td>
+<td colspan="2">EBP
+</td></tr>
+<tr>
+<td>0x40</td>
+<td colspan="2">ESI
+</td></tr>
+<tr>
+<td>0x44</td>
+<td colspan="2">EDI
+</td></tr>
+<tr>
+<td>0x48</td>
+<td align="center" style="background:lightgrey"></td>
+<td>ES
+</td></tr>
+<tr>
+<td>0x4C</td>
+<td align="center" style="background:lightgrey"></td>
+<td>CS
+</td></tr>
+<tr>
+<td>0x50</td>
+<td align="center" style="background:lightgrey"></td>
+<td>SS
+</td></tr>
+<tr>
+<td>0x54</td>
+<td align="center" style="background:lightgrey"></td>
+<td>DS
+</td></tr>
+<tr>
+<td>0x58</td>
+<td align="center" style="background:lightgrey"></td>
+<td>FS
+</td></tr>
+<tr>
+<td>0x5C</td>
+<td align="center" style="background:lightgrey"></td>
+<td>GS
+</td></tr>
+<tr>
+<td>0x60</td>
+<td align="center" style="background:lightgrey"></td>
+<td>LDT Segment Selektor
+</td></tr>
+<tr>
+<td>0x64</td>
+<td>I/O Map Base Address</td>
+<td align="center" colspan="1" style="background:lightgrey">
+</td></tr></tbody></table>
+<p>Man kann die Felder des TSS in zwei Kategorien einteilen:
+</p>
+<ol><li><b>statische Felder</b> werden einmal mit Werten belegt und dann jeweils beim Taskwechsel von der CPU in die entsprechenden Register geladen, aber niemals automatisch verändert. Zu den statischen Feldern zählen IOMap Base Address, LDT Segment Selektor, CR3, ESP0-2 und SS0-2. Das CR3-Feld muss nicht initialisiert werden, wenn Paging nicht aktiv ist, ebenso der LDT Selektor, falls man keine LDTs verwendet. Mit der IOMap kann man bestimmte Ports maskieren, auf die der Task kein Zugriff haben soll. IOMap Base Address kann Null gesetzt werden, wenn man diese Funktion der CPU nicht nutzen möchte.</li>
+<li><b>dynamische Felder</b> müssen auch initalisiert werden, werden dann aber beim Taskwechsel von der CPU immer mit den entsprechenden geänderten Registerwerten belegt. Zu den dynamischen Feldern gehören EAX-EDX, CS-GS/SS, EFLAGS, ESI/EDI/EBP/ESP und Previous Task Link.</li></ol>
+<p>Auch wenn man Hardware-Multitasking nicht verwendet, muss mindestens ein TSS angelegt und dessen Selektor im Taskregister gespeichert worden sein. Denn die CPU lädt bei einem Ringwechsel einen neuen Stack damit weniger privilligierte Software nicht höher privilligierte Software durch einen Stackfault zum Absturtz bringt. Dafür lädt die CPU die Felder ss0 (bzw ss1 oder ss2) sowie esp0 (bzw. esp1 oder esp2) als neuen Stack. Ein Stackwechsel wird ausgeführt, wenn ein Programm die Kontrolle an ein anderes übergibt durch...
+</p>
+<ul><li>einen <a href="../../pages/1596/index.html" title="Interrupt">Interrupt</a></li>
+<li>eine <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Call Gate</a></li>
+<li>eine <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Task Gate</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170441
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.007 seconds
+Real time usage: 0.008 seconds
+Preprocessor visited node count: 36/1000000
+Preprocessor generated node count: 169/1000000
+Post‐expand include size: 655/2097152 bytes
+Template argument size: 2/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    2.652      1 -total
+ 60.59%    1.607     12 Vorlage:Csr
+ 22.22%    0.589      3 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Task_State_Segment&amp;oldid=6888</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li><li><a href="../../pages/1874/index.html" title="Kategorie:X86">X86</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1599/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1599/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

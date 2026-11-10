@@ -1,0 +1,52 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NerdyKernel — Änderungen 6801 → 6803</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>NerdyKernel — Änderungen 6801 → 6803</h1><nav><a href="../revisions/6801/index.html">Version 6801</a> · <a href="../revisions/6803/index.html">Version 6803</a> · <a href="../history/1816/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l12" >Zeile 12:</td>
+<td colspan="2" class="diff-lineno">Zeile 12:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| Homepage = In Planung</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| Homepage = In Planung</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}}</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">rizor-OS ist ein Projekt, dass eine möglichst generische API bieten soll.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Dadurch soll erreicht werden, dass man den Kernel möglichst schnell auf beliebige Plattformen portieren kann.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Außerdem soll der Kernel die Möglichkeit bieten ein reiner Hypervisor zu sein.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Das soll eine Virtualisierung mit möglichst wenig Aufwand ermöglichen, wodurch die VMs schneller werden.</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Entwickler ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Entwickler ==</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* [[Benutzer:rizor | rizor]]</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">== Kernel-Design ==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* normaler Kernel</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Der Kernel soll verschiedene&#160; Möglichkeiten der Kommunikation, der Speicherverwaltung und des Schedulings bieten.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">** Kommunikation</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">*** x86</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Die einzelnen Elemente (Syscalls, IPC, Module-Communication) bekommen ihre eigenen Trap-Gates.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Dadurch wird dem Kernel das Verwalten der einzelenen Elemente abgenommen.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Bei der Initialisierung wird den Syscalls standardmäßig die 0x80 als Interrupt-Nummer zugewiesen.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Die einzelnen IPC-Komponenten beantragen beim IDT-Manager eigene Interrupt-Gates an und registrieren eigene Handler.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Das gleiche mach auch die Module-Communication.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Wenn nun ein Task eine Nachricht abschicken möchte, fragt er über Syscalls die Interrupt-Nummer ab und löst dann den Interrupt aus.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Somit muss der Kernel nur einmal bemüht werden und der IPC-Request kann schneller abgearbeitet werden.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Außerdem kommunizieren die Tasks über ein extra Interface mit den Modules.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Dadurch wird der Overhead der normalen IPC minimiert.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">*** ARM</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Bei dieser Architektur läuft alles über Syscalls ab und dadurch wird der Aufwand des Kernels größer, was sich allerdings nicht vermeiden lässt.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Damit der Aufwand geringer ausfällt, werden die einzelnen Syscall-Handler in Hash-Tables gespeichert.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Dadurch kann der zutreffende Handler schneller aufgerufen werden.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">** Speicherverwaltung</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">*** physische Speicherverwaltung</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Hierbei gibt es mehrere Wahlmöglichkeiten zur Verwaltung.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Zum einen kann zwischen 4KiB- und 4MiB-Blöcken gewählt werden, dann kann man auch noch zwischen Bitmaps, Stacks und einer Mischung aus beiden wählen.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Bei der Mischung soll Performanz mit Minimierung des Speicheraufwands kombiniert werden.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">*** virtuelle Speicherverwaltung</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">**** i386</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Hierbei kann zwischen dem normalen Paging, PSE und PAE gewählt werden.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Welche Version benutzt werden soll, wird beim Compile-Vorgang definiert.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">**** ARM</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Die Speicherverwaltung wird je nach MMU definiert.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Hypervisor</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Betriebssystem]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Betriebssystem]]</div></td></tr>
+</table></body></html>

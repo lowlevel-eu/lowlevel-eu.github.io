@@ -1,0 +1,128 @@
+Ein '''Complementary Metal Oxide Semiconductor''' (= '''CMOS''') ist eigentlich ein elektronischer Baustein, aber im Bereich der Betriebssystemprogrammierung ist damit meistens der Batterie-gepufferte SRAM eines [[x86]]- bzw. [[x86-64]]-Computers gemeint. In diesem speichert das [[BIOS]] Informationen beispielsweise über die angeschlossene Hardware. Außerdem wird darin die momentane Uhrzeit und das Datum gespeichert und von einer Echtzeituhr aktualisiert.
+
+== Aufbau ==
+
+Im CMOS werden folgende jeweils 1Byte große Felder gespeichert:
+
+<br>
+<center>
+{| border="1" cellspacing="0"
+|-
+! Offset
+! Beschreibung
+|-
+| 0x00 || Sekunde (BCD)
+|-
+| 0x01 || Alarmsekunde (BCD)
+|-
+| 0x02 || Minute (BCD)
+|-
+| 0x03 || Alarmminute (BCD)
+|-
+| 0x04 || Stunde (BCD)
+|-
+| 0x05 || Alarmstunde (BCD)
+|-
+| 0x06 || Wochentag (BCD)
+|-
+| 0x07 || Tag des Monats (BCD)
+|-
+| 0x08 || Monat (BCD)
+|-
+| 0x09 || Jahr (letzten zwei Stellen) (BCD)
+|-
+| 0x0A || Statusregister A
+|-
+| 0x0B || Statusregister B
+|-
+| 0x0C || Statusregister C (schreibgeschützt)
+|-
+| 0x0D || Statusregister D (schreibgeschützt)
+|-
+| 0x0E || [[POST]]-Diagnosestatusbyte
+|-
+| 0x0F || Shutdown-Statusbyte
+|-
+| 0x10 || Typ der [[FDC | Diskettenlaufwerke]]
+|-
+| 0x12 || Typ der Festplattenlaufwerke
+|-http://de.wikipedia.org/wiki/Complementary_Metal_Oxide_Semiconductor
+| 0x13 || reserviert
+|-
+| 0x14 || Gerätebyte
+|-
+| 0x15 || Größe des Basisspeichers in kB (niederwertiges Byte)
+|-
+| 0x16 || Größe des Basisspeichers in kB (höherwertiges Byte)
+|-
+| 0x17 || Größe des Erweiterungsspeichers in kB (niederwertiges Byte)
+|-
+| 0x18 || Größe des Erweiterungsspeichers in kB (höherwertiges Byte)
+|-
+| 0x2E || CMOS-Prüfsumme (niederwertiges Byte)
+|-
+| 0x2F || CMOS-Prüfsumme (höherwertiges Byte)
+|-
+| 0x32 || Jahrhundert (BCD)
+|}
+</center>
+<br>
+
+=== 0x0A - Statusregister A ===
+<center>
+{| border="1" cellspacing="0"
+|-
+! Bit
+! Beschreibung
+|-
+| 7 || Zeit-Update-Zyklus (1 = Update läuft, Zeitangaben undefiniert)
+|-
+| 6-4 || Zeit-teiler (Standard = 010b = 32.768 kHz)
+|-
+| 3-0 || Auswahl-Bits für Interrupts
+             0000b = kein Interrupt
+             0011b = alle 122 Mikrosekunden (minimum)
+             0110b = 976.562 Mikrosekunden (Standard)
+             1111b = 500 Millisekunden
+|}
+</center>
+<br>
+
+
+=== 0x0B - Statusregister B ===
+<center>
+{| border="1" cellspacing="0"
+|-
+! Bit
+! Beschreibung
+|-
+| 7 || Zeit-Update (0 = normales Update, 1 = Update läuft)
+|-
+| 6 || Periodischer Interrupt (0 = deaktiviert (Standard), 1 = aktiviert)
+|-
+| 5 || Alarm Interrupt (0 = deaktiviert (Standard), 1 = aktiviert)
+|-
+| 4 || Update-Ende-Interrupt (0 = deaktiviert (Standard), 1 = aktiviert)
+|-
+| 3 || Rechtecks-Frequenz (0 = deaktiviert (Standard), 1 = aktiviert)
+|-
+| 2 || Daten Modus (0 = BCD, 1 = Binary)
+|-
+| 1 || 24/12 Stunden Wahl (0 = 24 Stunden (Standard), 1 = 12 Stunden)
+|-
+| 0 || Sommerzeit (0 = deaktiviert (Standard), 1 = aktiviert)
+|}
+</center>
+<br>
+
+== Programmierung ==
+
+Die Programmierung des CMOS ist denkbar einfach: Die fünf niederwertigen Bits des I/O Ports 0x70 dienen als Offset (siehe Tabelle). Durch Lesen bzw. Schreiben des I/O Ports 0x71 kann dann der Wert an diesem Offset gelesen bzw. geschrieben werden.
+
+== Weblinks ==
+* [http://de.wikipedia.org/wiki/Complementary_Metal_Oxide_Semiconductor Wikipedia: CMOS] (''deutsch'')
+* [http://www.nondot.org/sabre/os/files/MiscHW/RealtimeClockFAQ.txt Real Time Clock / CMOS Setup Reference] (''englisch'')
+* [http://www.bioscentral.com/misc/cmosmap.htm CMOS-Aufbau] (''englisch'')
+
+[[Category:Glossar]]
+[[Category:Hardware]]

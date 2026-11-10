@@ -1,0 +1,17 @@
+Die dargestellten Quelltexte von Kernel und Bootloader funktionieren auf meinem System (Pentium 4) erst, wenn ich den Reset des Diskettenlaufwerkes herausnehme
+<code>; Lade den Kernel vom Bootlaufwerk
+load:
+; Diskdrive reset (Interrupt 13h, 0)
+;mov ax, 0          ; Die gewünschte Funktion (reset)
+;mov dl, [bootdrv]  ; Dieses Laufwerk ist gewünscht
+;int 13h            ; Den Interrupt ausführen
+;jc load            ; Geht nicht? -> Noch mal!
+ 
+load1:
+mov ax,0x1000      ; ES:BX = 0x10000
+mov es,ax
+...</code>
+
+Nach dem Reset des Diskettenlaufwerkes muss dieses ggf. anders initialisiert werden. Ist ein Reset überhaupt notwendig?
+:Bei mir auf jeden fall ist der Reset nicht nötig.
+:Müsst ihr halt ausprobieren.

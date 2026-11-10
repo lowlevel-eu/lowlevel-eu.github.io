@@ -1,0 +1,13 @@
+Die Treiber sind unterhalb der [[HAL]] und ermöglichen den Zugriff auf die Hardware. Sie werden bei einem Hybrid- und Mikrokernel geladen, während sie bei einem Monolithischen Kernel schon im [[Kernel]] enthalten sind.
+
+== Treiber beim Mikrokernel ==
+Beim Mikrokernel sind jegliche Treiber in den Userspace ausgelagert. Diese können abstürzen ohne den Kernel mitzureißen und teilweise sogar einfach neugestartet werden. Hier ist es wichtig, den Artikel [[Interprozesskommunikation]] zu lesen. Zudem sollte darauf aufbauend eine Treiberschnittstelle vorhaden sein. Als (vereinfachtes) Diagramm würde ein Betriebsystem mit [[Mikrokernel]] so aussehen. '''Achtung, kein [[Exokernel]]'''
+
+http://be59.be.funpic.de/Lowlevel/Diagramm.png
+
+== Makrokernel ==
+Hier sind die Treiber direkt im [[Kernel]] einkompiliert. Ist ein Treiber fehlerhaft, stürzt immer dann der ganze [[Kernel]] ab. Als (vereinfachtes) Diagramm würde ein Betriebsystem mit Makrokernel so aussehen.
+
+http://be59.be.funpic.de/Lowlevel/Diagramm2.png
+
+[[Kategorie:Glossar]]

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Benutzer:Be59 – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-2 ns-subject page-Benutzer_Be59 rootpage-Benutzer_Be59 skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="index.html">Aktueller Artikel</a> · <a href="../../history/1746/index.html">Versionsgeschichte</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Benutzer:Be59</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Dieses Tutorial ist dafür da, die Grundlagen von Assembler beizubringen. Anders als circa 99,9 Periode aller Assemblertutorial werde ich
+grundsätzlich auf die nicht so bekannte AT&amp;T Syntax setzen.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Algemeines_zu_Assembler"><span class="tocnumber">1</span> <span class="toctext">Algemeines zu Assembler</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Wieso_es_Assembler_gibt"><span class="tocnumber">1.1</span> <span class="toctext">Wieso es Assembler gibt</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Bin.C3.A4r.2C_Dezimal_und_das_ber.C3.BCchtigte_Hexadezimal"><span class="tocnumber">1.2</span> <span class="toctext">Binär, Dezimal und das berüchtigte Hexadezimal</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Dezimal"><span class="tocnumber">1.2.1</span> <span class="toctext">Dezimal</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Bin.C3.A4r"><span class="tocnumber">1.2.2</span> <span class="toctext">Binär</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Hexadezimal"><span class="tocnumber">1.2.3</span> <span class="toctext">Hexadezimal</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Andere_Zahlensysteme"><span class="tocnumber">1.2.4</span> <span class="toctext">Andere Zahlensysteme</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="#Wieso_hier_Assembler_gebraucht_wird"><span class="tocnumber">1.3</span> <span class="toctext">Wieso hier Assembler gebraucht wird</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Register"><span class="tocnumber">1.4</span> <span class="toctext">Register</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Verschiedene_Syntaxe"><span class="tocnumber">1.5</span> <span class="toctext">Verschiedene Syntaxe</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Vorteile.2FNachteile_von_reinen_Assemblenbetriebsystem"><span class="tocnumber">1.6</span> <span class="toctext">Vorteile/Nachteile von reinen Assemblenbetriebsystem</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="#Vorteile"><span class="tocnumber">1.6.1</span> <span class="toctext">Vorteile</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Nachteile"><span class="tocnumber">1.6.2</span> <span class="toctext">Nachteile</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#Empfehlung.2C_wann_man_Assembler_haupts.C3.A4chlich_benutzen_sollte"><span class="tocnumber">1.6.3</span> <span class="toctext">Empfehlung, wann man Assembler hauptsächlich benutzen sollte</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#Siehe_auch"><span class="tocnumber">2</span> <span class="toctext">Siehe auch</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#Weblinks"><span class="tocnumber">3</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Algemeines_zu_Assembler">Algemeines zu Assembler</span></h2>
+<h3><span class="mw-headline" id="Wieso_es_Assembler_gibt">Wieso es Assembler gibt</span></h3>
+<p>Um das zu Erfahren, wieso es Assembler gibt, muss man sich die Geschichte der Informatik ansehen.
+Im <b>16</b>. Jahrhundert(Ja, im 16.) wurden Rechenmaschinen entwickelt, die leider nicht so schnell waren. Nachdem den zweiten Weltkrieg gab es dann langsam eine nächste Generationen von Rechenmaschinen, die universiell einsetzbar waren, die Computer. (Ein Magazin über Elektronik sagte 1946 mal, dass Computer der Zukunft 1,5 Tonnen wiegen werden. Heute witzeln wir darüber, aber es ist wahr geworden.) Erstmal rechneten diese
+Computer in Dezimalstellung(Einfach ausgedrückt sind das unsere Zahlen) Aber mit diesem zu Rechnen war lllllaaaaannnnnnnggggggggssssssssssaaaammmmm. Ab den Zuse Z3 gab es den ersten binären Computer. Binär ist eine Zahl, die mit Nullen und Einsen geschrieben wird. Jetzt kommen wir langsam zur eigentlichen Fragestellung? 00110101 konnte sich niemand merken, welcher Befehl dies war, oder würdest auswendig lerne, was 10011011 bedeutet. Das gab es schlaue Menschen, die diese Zahlenkolonnon durch Befehle, genannt Mmenokias, ersetzen.
+</p>
+<h3><span id="Binär,_Dezimal_und_das_berüchtigte_Hexadezimal"></span><span class="mw-headline" id="Bin.C3.A4r.2C_Dezimal_und_das_ber.C3.BCchtigte_Hexadezimal">Binär, Dezimal und das berüchtigte Hexadezimal</span></h3>
+<h4><span class="mw-headline" id="Dezimal">Dezimal</span></h4>
+<p>Dazu gibt es nicht viel zu sagen. Dezimal ist unser Zahlensystem, z.B. 23, 655555, 4594, 10.
+(Übrigens kommt dieses System aus Indien und wurde über Arabien zu uns gebracht.)
+</p>
+<h4><span id="Binär"></span><span class="mw-headline" id="Bin.C3.A4r">Binär</span></h4>
+<p>Binär rechnet jeder PC intern. Binär besteht nur aus den Ziffern 0 und 1, was wiederum für den PC einfach ist, 0 steht für Aus und 1 steht für
+An. Dies lernt ja man überall, aber für die Menschen, die Mathe zum Schlafen benutzen, ist das hier gedacht.
+<br/>
+Eine Zahl als Dezimal zu erfassen geht in Sekundenschnelle, aber beim binären muss man(ich) sehr lange rechnen. Hier kommt die Rechnung:
+10 = 1010b. 
+Die letzte Ziffer rechts steht für eins. Ist sie Eins, hat die Zahl ein Wert von Eins(Doof ausgedrückt, aber egal). Die zweite Ziffer von links
+steht für zwei. Die dritte Ziffer für Vier und die vierte Ziffer für Acht. So jetzt berechnen wir die Zahl 10 binärisch:
+</p>
+<pre>1 * 8 (1 = Die vierte Ziffer ist an, 8 bedeutet die vierte Ziffer) + 0 * 4 (3. Ziffer aus, bedeutet 4)<br/>
++ 1 * 2(2.Ziffer 1, bedeutet 2) + 1 * 0(1.Ziifer 0, bedeutet 1)
+</pre>
+<p>Ich hoffe, ihr habt es kapiert, sonst sieht in Wikipedia an.
+</p><p>In Assembler wird am einer binären Zahl immer noch ein b angehängt, Computer (und Menschen) wissen sonst, ob die Zahl dezimal oder binär ist.
+Ein wichtiger Artikel ist "Bitweiße Operation", man findet den Link in der Siehe auch - Sektion.
+</p>
+<h4><span class="mw-headline" id="Hexadezimal">Hexadezimal</span></h4>
+<p>Hexadezimal ist ein sehr wichtiges Stellenwertsystem in der Informatik, vielleicht das Wichtigste überhaupt. Man benutzt dieses System oft, da ein Char ein Wert bis maximal 256 haben kann, was in Hexadezimal ausgedrückt 0xFF ist. Wie man sieht, beginnen Hexadezimalezahlen mit 0x.
+(Ungebräuchlich ist ein h am Ende) Neben den bekannten Zahlen(1, 2, 3, 4, 5, 6, 7, 8, 9, 0) besteht das hex. Stellenwertsystem noch aus den Ziffern A(Wert = 10), B (=11), C(=12), D(=13), E(=14), F(=15).
+</p><p>Bei Wikipedia ist ein gutes Umrechnungsmöglichkeit. Wenn wir ausgehen, dass x die dezimale Zahl ist. Wir teilen x durch 16, den Rest nehmen als Hexadezimale Ziffer(z.B. Rest = 13 = 0xD) Diese Ziffer ist rechte Ziffer. Das Ergebnis dieser Division teilen wir wieder durch 16 und machen mit den Rest das gleiche, sie ist die nächstlinke Ziffer. Dies geht soweit, bist das Ergebnis 0 ist, dann wird der Rest nochmal benutzt.
+</p><p>Ein Beispiel:
+</p>
+<pre>1278 : 16 = 79 Rest: 14 (= E) (Nr:1278-(79*16)=14)
+ 79 : 16 =  4 Rest: 15 (= F) (Nr:79-(4*16)=15)
+  4 : 16 =  0 Rest:  4       (Nr:4-(0*16)=4)
+</pre>
+<p>Das Ergenis ist 0x4FE.
+</p><p>Bei nicht Verstanden verweise ich auf den Wikipediaartikel.
+</p>
+<h4><span class="mw-headline" id="Andere_Zahlensysteme">Andere Zahlensysteme</span></h4>
+<p>Es gibt noch andere Zahlensysteme, das oktale kann man als Beispiel nennen. Es hatte früher eine größere Bedeutung als heute, ich nenne es hier
+nur nebenbei. Additionssysteme(z.B. das römische Zahlensystem) haben keine Bedeutung in der Informatik, ich erwähns mal kurz :-P.
+</p>
+<h3><span class="mw-headline" id="Wieso_hier_Assembler_gebraucht_wird">Wieso hier Assembler gebraucht wird</span></h3>
+<p>Assembler braucht man für lowlevel-Programmierung. Bootloader, IDT und GDT sind nur einige Beispiele. Das heißt aber nicht, man muss überall
+Assembler einsetzen. Meiner Meinung sollte man Assembler möglichst wenig benutzen, denn das erhöht die Portablität.(Trotzdem sind Assemblerprogramme/betriebsysteme sehr schnell) Aus diesem Grund wird dieses Tutorial die AT&amp;T-Syntax benutzen, welches beim gcc zu Trage kommt.
+Damit empfehle ich eine Linux-Installation(bzw. ein Unix, zur Not geht auch Knoppix), die gcc dabei hat.
+</p>
+<h3><span class="mw-headline" id="Register">Register</span></h3>
+<p>Ein Prozessor hat verschiedene Möglichkeiten, Daten (temporal) zu speichern. Als erstes kommen die Register, dann die Prozessorcaches,
+dann der Arbeitspeicher und zuletzt die Festplatte(Die Festplatte speichert ohne Strom Daten). In Register sind die Daten sofort verfügbar,
+sind aber sehr klein.(32-Bit/64-Bit was eigentlich 0xFFFFFFFF/0xFFFFFFFFFFFFFFFF(=4294967295/&gt; 4503599627370495) ist). Zumindest kommen dann die Caches, sind etwas langsamer, aber noch sehr schnell ist, im Vergleich zur Festplatte. Da die Festplatte(Eigentlich alle Speichermedien) sehr langsam sind, hat man den Arbeitsspeicher eingeführt. Ihr sollt jetzt nicht denken, dass der Arbeitsspeicher sehr langsam ist und die Festplatte euch immerwieder die Chance gibt, ein Kaffee zu kochen. Also, die sind sehr schnell, früher waren eigentlich die Verbindungsstellen(Bus) der Flaschenhals. Heute nicht mehr.
+</p><p>Zurück zum eigentlichen Thema: Register sind sehr wichtig, wenn man in Assembler programmieren will. Z.B. sind hier die Werte, nachdem man den
+CPUID(sprich CPU ID)-Befehl ausgeführt hat.
+</p><p>Die x86 hat 23 dokumentierte Register, am häufigsten werden die Mehrzweckregister benutzt, weil (wer hätte es gedacht) am vielseitigsten einsetzbar sind. Ich hab hier dokumentiert hinzugefügt, weil es undokumentierte gibt. Ein Beispiel sind die neuen Prozessoren von Intel.
+Diese sollen kein A20-Gate mehr unterstüzten(Ja, ich setze mal euch auf den neusten Stand), ältere Intelprozessoren hatten mit ihm immer wieder Probleme. Nunja, das Problem schien aus der Welt geschaft... Gäbe es nicht undokumentierte Register. In einen davon lässt sich wieder den A20-Gate einschalten.
+</p><p>Meistens haben die Mehrzweckregister eine bestimme Aufgabe(Jedoch heißt das nicht, das sie nicht zweckentfremdet werden dürfen):
+</p>
+<ul><li>EAX ist das Register für Rückgabewerte von C und für die Arimethik zuständig</li>
+<li>EBX ist ein Register für indirekte Speicheroperationen</li>
+<li>ECX wird meistens als Zähler verwendet</li>
+<li>EDX ist unterstüzender Register für EAX bei zu großen Werten</li></ul>
+<h3><span class="mw-headline" id="Verschiedene_Syntaxe">Verschiedene Syntaxe</span></h3>
+<p>Am Anfang habe ich erwähnt, ich werde nur die AT&amp;T-Syntax verwenden. Logischerweiße gibt es andere Syntaxe.(Grund im nächsten Abschnitt) Eine vielbekanntere Syntax ist die Intelsyntax. So gut wie jedes Assemblertutorial(Ausser dieses;-P) setzt auf diese Syntax.
+</p>
+<h3><span id="Vorteile/Nachteile_von_reinen_Assemblenbetriebsystem"></span><span class="mw-headline" id="Vorteile.2FNachteile_von_reinen_Assemblenbetriebsystem">Vorteile/Nachteile von reinen Assemblenbetriebsystem</span></h3>
+<p>Obwohl ich zu den Typen gehöre, die Assembler möglichst wenig benutzen werden, schreibe ich die Vorteile/Nachteile hin.
+</p>
+<h4><span class="mw-headline" id="Vorteile">Vorteile</span></h4>
+<ul><li>Geschwindichkeit. Theoretisch. Mit Assemblererfahrung von mehreren Jahren. Hat man aber nicht. Trotzdem möglich</li></ul>
+<h4><span class="mw-headline" id="Nachteile">Nachteile</span></h4>
+<ul><li>Kaum portabel. Da bestimmt jeder in dieser Community(umbewusst) will, dass sein Betriebsystem von möglichst viel benutzt wird, ist ein reinrassiges Assemblerbetriebsystem kaum diesem Schritt nicht förderlich. Ich sollte jedoch auch erwähnen, dass in den Anfangstagen des ursprünglichen Magazin(Ja, richtig Lowlevel war ein Magazin) Assembler genutzt wurde. Aus diesem Grund gibt es sehr viele verschiedene Syntaxe, besser gesagt für jede Prozessorplattform hat eine eigene.(Z.B. Intel kompatible Prozessoren, PowerPC, SPARC und das sind die berühmtesten und aktuellste)</li></ul>
+<h4><span id="Empfehlung,_wann_man_Assembler_hauptsächlich_benutzen_sollte"></span><span class="mw-headline" id="Empfehlung.2C_wann_man_Assembler_haupts.C3.A4chlich_benutzen_sollte">Empfehlung, wann man Assembler hauptsächlich benutzen sollte</span></h4>
+<p>Eigentlich, wenn du ein Rechtsdrall hast und du ein reinrassiges Betriebsystem haben möchtest.
+Davon abgesehen in zeitkritischen Anwendungen und die Portabilität nicht weiter wichtig ist.
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<p><a href="../1757/index.html" title="Bitweise Operatoren">Bitweise Operatoren</a>
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<p><a class="external text" href="http://de.wikipedia.org/wiki/Computer" rel="nofollow">Für alle Computerhistoriker</a>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109171136
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.004 seconds
+Real time usage: 0.005 seconds
+Preprocessor visited node count: 63/1000000
+Preprocessor generated node count: 68/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:1746-0!canonical and timestamp 20261109171136 and revision id 4011
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="../../revisions/4011/index.html">http://wiki.localhost:8080/w/index.php?title=Benutzer:Be59&amp;oldid=4011</a>“</div>
+<div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks"></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-user"><a accesskey="c" href="index.html" title="Benutzerseite anzeigen [c]">Benutzerseite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1746/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-contributions"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Benutzerbeiträge</a></li><li id="t-log"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Logbücher</a></li><li id="t-userrights"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Benutzergruppen ansehen</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="../../revisions/4011/index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 9. Februar 2009 um 22:15 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

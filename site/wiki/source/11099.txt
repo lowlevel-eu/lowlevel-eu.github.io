@@ -1,0 +1,47 @@
+{{Infobox Software
+| Name = GNU Compiler Collection
+| Entwickler = [http://gcc.gnu.org/about.html Das GCC-Team]
+| Version = 4.8.0
+| Lizenz = GNU GPL
+| Plattform = Linux, Unix <br> (inoffiziell: Windows)
+| Homepage = [http://gcc.gnu.org/ gcc.gnu.org]
+}}
+Die '''GNU Compiler Collection''' ist eine Sammlung von Compilern. Unterstützt werden
+die [[:Kategorie:Programmiersprache|Sprachen]] [[C]], [[C++]], [[Java]], Objective-C, [[Fortran|Fortran 95]], Treelang und [[Ada]] und demnächst auch [[D]]. Zusätzlich werden
+die Plattformen [[x86]], [[x86-64|AMD64]] (x86_64), Alpha, [[ARM]], IA-64, PowerPC und viele weitere unterstützt.
+
+== GCC unter Windows ==
+Die GCC wird nicht direkt unterstützt, sondern nur durch die Portierung MinGW und die Arbeitsumgebung Cygwin.
+
+== GCC unter Linux ==
+Die GCC gehört zum Standardumfang jeder Linuxdistrubition.
+Aufgerufen wird sie im Terminal mit dem Befehl ''gcc [Zu kompilierende Datei]''.
+
+== Zusätzliche Parameter ==
+{| {{Prettytable}}
+! Parameter || Beschreibung 
+|-
+| -o || Name (und Typ) der Ausgabedatei. Bei .bin-Endung wird auch nur eine binäre Datei erstellt.
+|-
+| -c || Kein Linken des Quellcodes.
+|-
+| -O || Optimieren des Quellcodes. Grad kann von 0 – 3 angegeben werden.
+|-
+| -l || Bindet weitere Bibliotheken ein
+|-
+| -Wall || Aktiviert sinnvolle Warnungen.
+|-
+| -Werror || Behandelt alle Warnungen wie Fehler
+|-
+| -pedantic || Gibt alle Warnungen aus.
+|-
+| -fno-tree-loop-distribute-patterns || Deaktiviert die automatische Erkennung, ob ein bestimmter Codeabschnitt durch eine libc-Funktion wie memcpy oder memset ersetzt werden kann. Sollte für die eigene memcpy-, memset-, …-Implementierung gesetzt werden (in der eigenen libc oder im Kernel), da sonst potentiell eine Endlosrekursion erzeugt wird.
+|}
+
+== Siehe auch ==
+[[Inline-Assembler mit GCC]]
+== Weblinks ==
+* [http://gcc.gnu.org Website des GCC]
+* [http://www.tdragon.net/recentgcc/ TDM's GCC/mingw32 Builds] (experimentelle Builds von GCC 4.x für Windows)
+
+[[Kategorie:Compiler]]

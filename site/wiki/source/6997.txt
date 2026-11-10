@@ -1,0 +1,101 @@
+<b>IDT</b> steht für <b>I</b>nterrupt <b>D</b>escriptor <b>T</b>able. Sie wird im [[Protected Mode]] des x86 verwendet, um [[Interrupt]]s ihre [[ISR | Handler (ISRs)]] zuzuordnen. Die Einträge in der Tabelle heißen ''Interruptdeskriptoren''.
+
+== Aufbau ==
+Die IDT besteht aus einem Speicherbereich, in dem direkt aufeinanderfolgend die bis zu 256 Interruptdeskriptoren abgelegt sind (d.h. in Hochsprachen aus einem gepackten Array von 256 Deskriptoren). Für die Behandlung des Interrupt 0 wird der erste Eintrag der Tabelle benutzt, für Interrupt 1 der zweite usw.
+
+=== Descriptor ===
+{| {{Prettytable}}
+! Bits  || Name  ||  Beschreibung
+|-
+| 0-15     || Offset 0-15 ||Gibt das Offset des ISR innerhalb des Segments an. Wenn der entsprechende Interrupt auftritt, wird eip auf diesen Wert gesetzt.
+|-
+| 15-31     || Selector ||  Gibt den Selector des Codesegments an, in das beim Auftreten des Interrupts gewechselt werden soll. Im Allgemeinen ist dies das Kernel-Codesegment (Ring 0).
+|-
+| style="background:lightgrey" | 32-34 
+| style="background:lightgrey" | 000 / IST
+| style="background:lightgrey" | Gibt im LM den Index in die IST an, '''ansonsten 0'''! 
+|-
+| 35-39 || Reserviert || Wird ignoriert
+|-
+| 40-42     || Typ || Gibt die Art des Interrupts an
+|-
+| style="background:lightgrey" | 43
+| style="background:lightgrey" | D
+| style="background:lightgrey" | Gibt an, ob es sich um ein 32bit- (1) oder um ein 16bit-Segment (0) handelt. Im LM: Für 64-Bit LDT 0, '''ansonsten 1'''
+|-
+| 44     || 0 || 
+|-
+| 45-46     || DPL  || Gibt das Descriptor Privilege Level an, das man braucht um diesen Interrupt aufrufen zu dürfen.
+|-
+| 47     || P  || Gibt an, ob dieser Eintrag benutzt wird.
+|-
+| 48-63     || Offset 16-31   ||
+|-
+| style="background:lightgrey" | 64-95 
+| style="background:lightgrey" | Offset 32-63 
+| style="background:lightgrey" | (Nur im LM, '''ansonsten nicht vorhanden'''!)
+|-
+| style="background:lightgrey" | 96-127 
+| style="background:lightgrey" | Reserviert (0) 
+| style="background:lightgrey" | (Nur im LM, '''ansonsten nicht vorhanden'''!)
+|}
+
+=== Interrupt-Arten (Typ) ===
+{| {{Prettytable}}
+! Wert  || Bedeutung
+|-
+| 110b || '''Interrupt Gate''' - Beim Springen in den Interrupthandler wird eflags.if = 0 gesetzt, d.h. Hardwareinterrupts werden deaktiviert, solange der Handler läuft
+|-
+| 111b || '''Trap Gate''' - Beim Sprung in den Interrupthandler bleiben Hardwareinerrupts aktiviert
+|-
+| 101b || '''Task Gate''' - Beim Auftreten des Interrupts wird ein Hardware-Taskswitch durchgeführt. Der Selector zeigt in diesem Fall nicht auf ein Codesegment, sondern auf ein [[TSS]]. Das Offset bleibt unbenutzt.
+|}
+
+== Laden einer IDT ==
+Zum Laden einer IDT muss die Instruktion ''lidt &lt;p&gt;'' mit der Adresse einer 6 Bytes großen Datenstruktur aufgerufen werden. Die Datenstruktur sieht folgendermaßen aus:
+
+{| {{Prettytable}}
+!Offset || Bedeutung
+|-
+| 0-15    || Das Limit der IDT
+|-
+| 16-47 || Die Base der IDT
+|}
+
+Die Anfangsadresse (Basis) ist die [[lineare Adresse]] des ersten Eintrags in der IDT und das Limit ist die Größe der IDT verringert um 1.
+
+Damit kann eine IDT beispielsweise mit Code wie dem folgenden geladen werden:
+
+<c>static long long unsigned int idt[IDT_ENTRIES];
+ 
+// ...
+ 
+struct {
+    unsigned short int limit;
+    void* pointer;
+} __attribute__((packed)) idtp = {
+    .limit = IDT_ENTRIES * 8 - 1,
+    .pointer = idt,
+};
+asm volatile("lidt %0" : : "m" (idtp));</c>
+
+Oder in Assembler:
+<asm>lidt [idtr]
+
+...
+
+idtr:
+    dw IDT_ENTRIES * 8 - 1,
+    dd idt
+
+idt:
+    ...</asm>
+
+== Siehe auch ==
+* [[Interrupt]]
+* [[Exception]]
+* [[Programmable Interrupt Controller]]
+* [http://www.osdever.net/bkerndev/Docs/idt.htm Bran's Kernel-Development Tutorial ... IDT]
+
+[[Category:Glossar]]
+[[Kategorie:x86]]

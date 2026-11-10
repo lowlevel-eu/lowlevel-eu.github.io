@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Bochs Debugger – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Bochs_Debugger rootpage-Bochs_Debugger skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="index.html">Aktueller Artikel</a> · <a href="../../history/2163/index.html">Versionsgeschichte</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Bochs Debugger</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Der <a href="../1538/index.html" title="Bochs">bochsinterne</a> Debugger stellt eine nützliche Hilfe beim <a href="../1544/index.html" title="Debugging">Debuggen</a> eines Betriebssystems dar, weil er unter anderem Registerinhalte, Speicherinhalte oder auch disassemblierte Codestellen ausgeben kann.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Speicherinhalte_ausgeben_und_manipulieren"><span class="tocnumber">1</span> <span class="toctext">Speicherinhalte ausgeben und manipulieren</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Register_ausgeben_und_manipulieren"><span class="tocnumber">2</span> <span class="toctext">Register ausgeben und manipulieren</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Code_ausf.C3.BChren_und_ausgeben"><span class="tocnumber">3</span> <span class="toctext">Code ausführen und ausgeben</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Sonstiges"><span class="tocnumber">4</span> <span class="toctext">Sonstiges</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Weblinks"><span class="tocnumber">5</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Speicherinhalte_ausgeben_und_manipulieren">Speicherinhalte ausgeben und manipulieren</span></h2>
+<p>Um sich den Speicherinhalt an einer bestimmten Adresse ausgeben zu lassen, verwendet man einen der folgenden Befehle:
+</p>
+<pre>x /nuf virtuelle_Adresse
+xp /nuf physikalische_Adresse</pre>
+<p>n, u und f bestimmen dabei die Ausgabe genauer:
+</p>
+<ul><li>n steht für die Anzahl der auszugebenen Einheiten</li>
+<li>u für die Größe einer Einheit (b=1, h=2, w=4 und g=8 Bytes)</li>
+<li>f legt das Ausgabeformat fest (d=dezimal, x=hexadezimal und t=binär)</li></ul>
+<p>Wenn <a href="../1496/index.html" title="Paging">Paging</a> deaktiviert ist, dann bewirken beide Befehle dasselbe.
+</p><p>Möchte man geziehlt bestimmte Werte im Arbeitsspeicher verändern, nutzt man:
+</p>
+<pre>setpmem  physikalische_Adresse  Länge  Wert</pre>
+<p>Dadurch wird der Arbeitsspeicher von der physikalischen Adressen an soweit mit dem Wert gefüllt, wie die Länge angibt.
+</p><p>Zudem kann auch der Inhalt des <a href="../2165/index.html" title="Stack">Stacks</a> ausgegeben werden mit:
+</p>
+<pre>print-stack [Anzahl_Elemente]</pre>
+<p>Im <a href="../1665/index.html" title="Real Mode">Real Mode</a> werden dabei Words, im <a href="../1464/index.html" title="Protected Mode">Protected Mode</a> Dwords ausgegeben.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Register_ausgeben_und_manipulieren">Register ausgeben und manipulieren</span></h2>
+<table class="prettytable">
+<tbody><tr>
+<th>Befehl</th>
+<th>auszugebene Register
+</th></tr>
+<tr>
+<td>reg
+</td>
+<td>Alle <a href="../1881/index.html" title="Register">Register</a>
+</td></tr>
+<tr>
+<td>sreg
+</td>
+<td>Segment-Register
+</td></tr>
+<tr>
+<td>dreg
+</td>
+<td><a href="../1928/index.html" title="Debug Register">Debug-Register</a>
+</td></tr>
+<tr>
+<td>creg
+</td>
+<td><a href="../1610/index.html" title="Control Register">Control-Register</a>
+</td></tr>
+<tr>
+<td>info eflags
+</td>
+<td><a href="../1751/index.html" title="EFLAGS">EFLAGS</a>
+</td></tr>
+<tr>
+<td>fpu
+</td>
+<td><a class="mw-redirect" data-archive-original-href="../1615/index.html" href="../1601/index.html" title="FPU">FPU</a>-Register
+</td></tr></tbody></table>
+<p>Außerdem gibt es die Möglichkeit die allgemeinen Register zu verändern mit dem Befehl:
+</p>
+<pre>set Register = Wert</pre>
+<h2><span id="Code_ausführen_und_ausgeben"></span><span class="mw-headline" id="Code_ausf.C3.BChren_und_ausgeben">Code ausführen und ausgeben</span></h2>
+<p>Die Codeausführung kann man jederzeit mit Strg+C anhalten oder auch gezielt Breakpoints setzen:
+</p>
+<pre>vbreak segment:offset
+lbreak lineare_adresse</pre>
+<p>Auch gibt es die Möglichkeit Watchpoints an bestimmte Arbeitsspeicherstellen zu setzen. Wenn an diesen Stellen dann auf die Daten zugegriffen wird, wird die Codeausführung  unterbrochen:
+</p>
+<pre>watch r/w physikalische_Adresse</pre>
+<p>Mit r (lesen) und w (schreiben) wird bestimmt, bei welcher Art von Zugriff unterbrochen wird.
+</p><p><br/>
+Wird die Ausführung angehalten, dann gibt Bochs die aktuelle Codestelle automatisch disassembliert aus.
+Möchte man den Code dann weiterlaufen lassen, kann man entweder
+mit
+</p>
+<pre>cont</pre>
+<p>normal fortfahren oder mit
+</p>
+<pre>step [Anzahl_Schritte]</pre>
+<p>Einzelschritte ausführen lassen.
+</p>
+<h2><span class="mw-headline" id="Sonstiges">Sonstiges</span></h2>
+<ul><li>Mit „quit“ wird der Debugger beendet.</li>
+<li>Mit „help“ kann man sich die Liste der verfügbaren Befehle ausgeben.</li>
+<li>Mit „show int“ werden Interruptaufrufe ausgegeben.</li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external free" href="http://bochs.sourceforge.net/doc/docbook/user/internal-debugger.html" rel="nofollow">http://bochs.sourceforge.net/doc/docbook/user/internal-debugger.html</a> Liste aller verfügbaren Befehle (Englisch)</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164722
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.005 seconds
+Real time usage: 0.007 seconds
+Preprocessor visited node count: 95/1000000
+Preprocessor generated node count: 194/1000000
+Post‐expand include size: 19/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 335/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.856      1 Vorlage:Prettytable
+100.00%    0.856      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:2163-0!canonical and timestamp 20261109164722 and revision id 11439
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="../../revisions/11439/index.html">http://wiki.localhost:8080/w/index.php?title=Bochs_Debugger&amp;oldid=11439</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../1408/index.html" title="Kategorie:Emulator">Emulator</a></li><li><a href="../1924/index.html" title="Kategorie:Werkzeuge">Werkzeuge</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2163/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="../../revisions/11439/index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/Bochs#Bochs_debugging_facilities" hreflang="en" lang="en" title="Bochs – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 2. August 2020 um 22:53 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

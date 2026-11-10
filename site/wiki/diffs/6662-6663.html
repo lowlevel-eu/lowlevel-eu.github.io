@@ -1,0 +1,14 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ausgabe 8 — Änderungen 6662 → 6663</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Ausgabe 8 — Änderungen 6662 → 6663</h1><nav><a href="../revisions/6662/index.html">Version 6662</a> · <a href="../revisions/6663/index.html">Version 6663</a> · <a href="../history/1521/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l90" >Zeile 90:</td>
+<td colspan="2" class="diff-lineno">Zeile 90:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;asm&gt;InitPageDirectoryAndPageTables:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;asm&gt;InitPageDirectoryAndPageTables:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	xor eax,eax			; PageDirectory und 2 PageTables mit 0en füllen</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	xor eax,eax			; PageDirectory und 2 PageTables mit 0en füllen</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>	mov ecx,<del class="diffchange diffchange-inline">4024</del>*3			; 1024 double word ≙ 4KB</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>	mov ecx,<ins class="diffchange diffchange-inline">1024</ins>*3			; 1024 double word ≙ 4KB<ins class="diffchange diffchange-inline">, insgesamt 12kB</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	mov edi,0x8000</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	mov edi,0x8000</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	rep stosd&lt;/asm&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	rep stosd&lt;/asm&gt;</div></td></tr>
+</table></body></html>

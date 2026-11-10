@@ -1,0 +1,37 @@
+Der '''Kernel''', auch '''Betriebssystemkernel''' genannt, ist der zentraler Bestandteil und die Grundlage eines jeden [[Betriebssystem | Betriebssystems]]. Auf ihn bauen alle anderen Bestandteile des Betriebssystems wie Module, [[Treiber]] oder Anwendungen auf. Je nach Anwendungszweck wurden verschiedene Kernelarten mit individuellen Vor- und Nachteilen entwickelt. Ein bekannter Betriebssystemkernel ist der [[Linux|Linuxkernel]].
+
+== Aufgaben eines Kernels ==
+Ein Kernel hat meist folgenden Aufgaben:
+
+* Speicherverwaltung
+* Prozessverwaltung
+* Geräte- und Hardwareverwaltung (evt. mit Hilfe einer [[HAL]])
+* Schnittstelle für [[Treiber]] oder Anwendungsprogramme
+* [[Dateisystem]]verwaltung
+
+== Kernelarten ==
+Folgenden Kernelarten existieren:
+
+=== Monolithischer Kernel ===
+Als monolithischen Kernel bezeichnet man einen Betriebssystemkernel, der nicht nur die typischen Aufgaben eines solchen durchführt, sondern auch gleich [[Treiber]] für [[:Kategorie:Hardware | Hardware]] und andere Funktionen mit sich bringt.
+Dadurch müssen nicht erst [[Treiber]] oder Module nachgeladen werden und auch eine Schnittstelle ist nicht erforderlich, was einen deutlichen Geschwindigkeitsvorteil mit sich bringt. Jedoch ist ein solcher Kernel nicht nur unflexibler, sondern auch deutlich fehleranfälliger und abgestürzte Module können nicht ohne weiteres neu gestartet werden. Der [[Linux]]kernel ist ein Monolithischer Kernel.
+==== Diagramm zum Veranschaulichen ====
+Dieses Diagramm zeigt den groben Aufbau eines monolitschen Kernels.<br>
+http://be59.be.funpic.de/Lowlevel/makro_kelin.png
+
+=== Mikrokernel ===
+Der Mikrokernel steht im Gegensatz zum monolithischen Kernel, da bei ihm nur ein sehr kleiner Teil der Funktionalität wirklich im Kernelspace liegt. [[Treiber]], I/O und ähnliche Komponenten liegen als gesonderte Prozesse im Userspace und kommunizieren mit dem Kernel. Somit kann ein fehlerhafter [[Treiber]] nicht das ganze [[Betriebssystem]] zum Absturz bringen und einfach neu gestartet werden. Prominenter Verfechter dieser Kernelart ist u.a. Andrew S. Tanenbaum.
+==== Diagramm zum Veranschaulichen ====
+Dieses Diagramm zeigt den groben Aufbau eines Mikrokernels.<br>
+http://be59.be.funpic.de/Lowlevel/mikrokernel_klein.png
+=== [[Exokernel]] ===
+Der Exokernel ist eine Unterart des Mikrokernel. Bei ein Exokernel kann jedes Programm auf die Hardware zugreifen, da es keine [[HAL]] gibt. Da nicht jedes Programm Hardwarezugriff braucht, sind auch Bibliotheken da, die die Hardware abstrahieren.
+
+=== [[Makrokernel]] ===
+Der Makrokernel, auch Hybridkernel genannt, ist eine Verschmelzung zwischen einem monolithischem Kernel und Mikrokernel, die jedoch nicht genau definiert ist. Damit will man die Geschwindigkeitsvorteile eines monolithischen Kernels und die Stabilität und Flexibilität eines Mikrokernels kombinieren.
+Ab NT 3.1 bezeichnet man [[Windows]] als Hybridkernel.
+
+== Links ==
+[http://www.weihenstephan.org/~michaste/down/steil-l4.pdf Erklärung zum Mikro- und L4Kernel]
+[[Category:Glossar]]
+[[Kategorie:Betriebssystemkomponente]]

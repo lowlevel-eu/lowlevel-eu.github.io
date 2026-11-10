@@ -1,0 +1,48 @@
+Als '''Bootsektor''' oder auch '''Boot Record''' bezeichnet man den Sektor eines Datenträgers oder Laufwerks, der vom [[BIOS]] während des Bootprozesses eingelesen und ausgeführt wird. Aufgabe des Bootsektors ist es das [[Betriebssystem]] oder einen [[Bootloader]] zu laden. 
+
+Der Bootsektor ist in der Regel 512 Byte groß und endet mit der Magic Number '''0xAA55''', anhand welcher das [[BIOS]] den Sektor als gültigen Bootsektor erkennt. Bei Disketten befindet sich der Bootsektor im ersten Sektor des Datenträgers. Bei Festplatten im ersten Sektor der bootfähigen Partition des Datenträgers. Der erste Sektor einer Festplatte hingegen heißt [[Master Boot Record]].
+
+== siehe auch ==
+* [[Eigener Bootloader]]
+* [[Ausgabe 1#Unser Bootloader | Ausgabe 1 (4.3 Unser Bootloader)]]
+
+== die Anfängliche Umgebung ==
+Das folgende gilt nur eingeschränkt für Bootfähige CD-ROMs, sondern nur für Datenträger, auf die über int13h zugegriffen werden kann. (USB-Sticks können Emuliert werden)
+
+=== Zum Formatierungszeitpunkt ===
+<b>Ist folgendes bekannt</b>
+
+(der Bootsektor wird in der Regel von einem Formatierungsprogramm angelegt)
+* Arte des Mediums, (Diskette, Fesplatten'''partition''',USB-Stick)
+* falls Fesplatte, beginn der Partition (wird in der Regel auch vom MBR übergeben (ES:DI), jedoch sicher ist sicher)
+* ob CHS- oder LBA- Zugriff nötig sein wird (nur ein Treiber - spart Platz)
+* Dateisystem
+* Name und Zieladresse der zu Ladenden Datei 
+* Der Speicher zwischen 500h und 7c00h wird vorhanden und frei sein.
+* Laufwerkszugriff über int13h ist warscheinlich möglich
+* Konsolenausgabe über int10h funktion 0Eh ist warscheinlich möglich
+
+<b>folgendes jedoch NICHT, oder nicht verlässlich</b>
+* welches Physische Laufwerk
+* exakte Position der zu ladenden Datei 
+* welcher Prozessor (also keine exotischen Befehle verwenden)
+* ob der Arbeitsspeicher zwischen 7e00h und A0000h vollständig vorhanden, und frei sein wird. (könnte theoritisch nur 32k haben (PC),irgendwo MUSS die EBDA sein, Prä-Boottreiben könnten vorhanden sein)
+* Art des Festplattenkontorollers (z.b. ATA oder SATA die sich leicht unterscheiden)
+* Details des Prozessorcaches (bei selbstmanipulierendem Code zu beachten)
+* Ob die zu ladende Datei vorhanden sein wird (könnte geslöscht sein)
+
+=== Zum Bootzeitpunkt ===
+<b>Beim Laden ist bekannt </b>
+* Physisches Laufwerk (steht in DL)
+<b> nach durchsuchen des Dateisystems wird bekannt</b>
+* ob die zu ladende Datei vorhanden ist (ansonsten Fehlermeldung)
+* wo sie beginnt
+
+<b> im Bootsektor immer noch nicht bekannt ist folgendes </b>
+* was für ein Prozessor vorhanden ist (das erfordert aufwändige tests der Flags)
+* ob die Grafikarte überhaupt VGA-kompatibel ist (z.b. bei Laptops nicht sicher)-> also Fehlermeldungen nur über int 10h, aber nicht den Grafikmodus wechseln und nicht direkt in den Bildschirmspeicher schreiben, bis der Bootloader das geprüft hat)
+
+
+
+[[Category:Glossar]]
+[[en:Volume Boot Record]]

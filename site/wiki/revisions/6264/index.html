@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>C++ – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-C rootpage-C skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1486/index.html">Aktueller Artikel</a> · <a href="../../history/1486/index.html">Versionsgeschichte</a> · <a href="../../source/6264.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">C++</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 14. November 2009, 05:08 Uhr von <a class="mw-userlink" href="../../pages/1865/index.html" title="Benutzer:Hartmut"><bdi>Hartmut</bdi></a> <span class="mw-usertoollinks">(<a class="mw-usertoollinks-talk" href="../../pages/2608/index.html" title="Benutzer Diskussion:Hartmut">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Typo)</span></div><div id="mw-revision-nav">(<a href="../../diffs/5260-6264.html" title="C++">Unterschied</a>) <a href="../5260/index.html" title="C++">← Nächstältere Version</a> | <a href="../../pages/1486/index.html" title="C++">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../6396/index.html" title="C++">Nächstjüngere Version →</a> (<a href="../../diffs/6264-6396.html" title="C++">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="float:right; width:300px; padding-left:20px; padding-bottom: 20px; background-color:white">
+<div style="font-weight:normal; text-align:left; border:1px solid lightgray;">
+<table width="100%">
+<tbody><tr align="center" style="background:lightgray">
+<th colspan="2">Allgemeines
+</th></tr>
+<tr>
+<td>Name:</td>
+<td>C++
+</td></tr>
+<tr>
+<td>Inlineassembler:</td>
+<td>Ja
+</td></tr>
+<tr>
+<td>Compiler:</td>
+<td><a href="../../pages/1805/index.html" title="GNU Compiler Collection"> g++</a>, icc
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Spracheneigenschaften
+</th></tr>
+<tr>
+<td>Plattformen:</td>
+<td>Alle
+</td></tr>
+<tr>
+<td>Beispielkernel in der Sprache:</td>
+<td><a href="../../pages/2124/index.html" title="C++-Kernel mit GRUB">C++-Kernel mit GRUB</a>
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Homepage
+</th></tr>
+<tr>
+<td colspan="2"><center></center>
+</td></tr></tbody></table>
+</div>
+</div>
+<p><b>C++</b> wurde 1983 von Bjarne Stroustoup veröffentlicht, um C mit Sprachmitteln der objektorientierten Programmierung zu erweitern. Da C++ somit eine Weiterentwicklung von <a href="../../pages/1526/index.html" title="C">C</a> ist, sollte man sich auch den Wikiartikel über <a href="../../pages/1526/index.html" title="C">C</a> zu Gemüte führen.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.C3.9Cberblick"><span class="tocnumber">1</span> <span class="toctext">Überblick</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Startup-Code"><span class="tocnumber">2</span> <span class="toctext">Startup-Code</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#rein_virtuelle_Funktionen"><span class="tocnumber">3</span> <span class="toctext">rein virtuelle Funktionen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#g.2B.2B"><span class="tocnumber">3.1</span> <span class="toctext">g++</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#globale.2Fstatische_Objekte"><span class="tocnumber">4</span> <span class="toctext">globale/statische Objekte</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#g.2B.2B_2"><span class="tocnumber">4.1</span> <span class="toctext">g++</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Konstruktoren"><span class="tocnumber">4.1.1</span> <span class="toctext">Konstruktoren</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Destruktoren_.28ohne_--enable-_cxa_atexit_und_ohne_-fuse-cxa-atexit.29"><span class="tocnumber">4.1.2</span> <span class="toctext">Destruktoren (ohne --enable-__cxa_atexit und ohne -fuse-cxa-atexit)</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#Destruktoren_.28mit_--enable-_cxa_atexit_oder_mit_-fuse-cxa-atexit.29"><span class="tocnumber">4.1.3</span> <span class="toctext">Destruktoren (mit --enable-__cxa_atexit oder mit -fuse-cxa-atexit)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#new.2Fdelete"><span class="tocnumber">5</span> <span class="toctext">new/delete</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#RTTI"><span class="tocnumber">6</span> <span class="toctext">RTTI</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Exceptions"><span class="tocnumber">7</span> <span class="toctext">Exceptions</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Links"><span class="tocnumber">8</span> <span class="toctext">Links</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#C.2B.2B0x"><span class="tocnumber">8.1</span> <span class="toctext">C++0x</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2><span id="Überblick"></span><span class="mw-headline" id=".C3.9Cberblick">Überblick</span></h2>
+<p>Die meisten C++ Features sind ohne zusätzlichen Aufwand sofort verfügbar. Nur für die folgenden Features werden Hilfsfunktionen benötigt, welche der C++ Compiler von Haus aus nicht zur Verfügung stellt:
+</p>
+<ul><li><a href="../../pages/1486/index.html#Startup-Code" title="C++"> Startup-Code</a></li>
+<li><a href="../../pages/1486/index.html#rein_virtuelle_Funktionen" title="C++"> Rein virtuelle Funktionen</a></li>
+<li><a href="../../pages/1486/index.html#globale.2Fstatische_Objekte" title="C++"> globale/statische Objekte</a></li>
+<li><a href="../../pages/1486/index.html#new.2Fdelete" title="C++"> new/delete</a></li>
+<li><a href="../../pages/1486/index.html#RTTI" title="C++"> RTTI (= Runtime type information)</a></li>
+<li><a href="../../pages/1486/index.html#Exceptions" title="C++"> Exceptions</a></li></ul>
+<p>Da jeder Compilerhersteller eine eigene ABI (= Application Binary Interface) zur Verfügung stellt, sind auch die Funktionsnamen sowie auch der Funktionsumfang, von Compiler zu Compiler verschieden.
+</p>
+<h2><span class="mw-headline" id="Startup-Code">Startup-Code</span></h2>
+<p>Dieser Code wird ausgeführt, bevor die main-Funktion des Programmes/Kernels aufgerufen wird und muss zumindest die Kommandozeilenargumente, mit denen das Programm aufgerufen wurde, an die main-Funktion weiterreichen.
+</p>
+<h2><span class="mw-headline" id="rein_virtuelle_Funktionen">rein virtuelle Funktionen</span></h2>
+<p>Wenn eine Klasse eine rein virtuelle Funktion nicht implementiert hat und diese Funktion aufgerufen wird, wird zur Fehlerbehandlung eine Hilfsfunktion aufgerufen, welche im Normalfall das Programm beendet.
+</p>
+<h3><span id="g++"></span><span class="mw-headline" id="g.2B.2B">g++</span></h3>
+<p>&lt;cpp&gt;
+// Lizenz: public domain
+</p><p>extern "C" void __cxa_pure_virtual()
+{
+</p>
+<pre> // Fehlermeldung anzeigen
+ // Programm/Kernel beenden
+</pre>
+<p>}
+&lt;/cpp&gt;
+</p>
+<h2><span id="globale/statische_Objekte"></span><span class="mw-headline" id="globale.2Fstatische_Objekte">globale/statische Objekte</span></h2>
+<p>Da diese vor dem Eintritt in die main-Funktion initialisiert sein sollen, müssen auch Konstruktoren und Destruktoren aufgerufen werden.
+</p>
+<h3><span id="g++_2"></span><span class="mw-headline" id="g.2B.2B_2">g++</span></h3>
+<p>Die Konstruktion der globalen/statischen Objekte ist unter g++ immer gleich. Nur die Destruktion der Selben hängt von der Verwendung des configure-flags --enable-__cxa_atexit und vom Kommandozeilenparameter -fuse-cxa-atexit / -fno-use-cxa-atexit ab.
+</p>
+<h4><span class="mw-headline" id="Konstruktoren">Konstruktoren</span></h4>
+<p>G++ erstellt eine "ctors*" Sektion, welche ein Array aus Funktionszeigern ist. Diese Funktionszeiger zeigen jeweils auf einen Konstruktor. Man muss nun nur dieses Array durchgehen und alle Funktionen aufrufen und schon hat man alle globalen/statischen Objekte initialisiert.
+</p><p>&lt;cpp&gt;
+// Lizenz: public domain
+</p><p>// Im Linkerskript definiert
+uintptr_t start_ctors;
+uintptr_t end_ctors;
+</p><p>// Ruft die Konstruktoren für globale/statische Objekte auf
+void initialiseConstructors()
+{
+</p>
+<pre> uintptr_t *iterator = reinterpret_cast&lt;uintptr_t*&gt;(&amp;start_ctors);
+ while (iterator &lt; reinterpret_cast&lt;uintptr_t*&gt;(&amp;end_ctors))
+ {
+   void (*fp)(void) = reinterpret_cast&lt;void (*)(void)&gt;(*iterator);
+   fp();
+   iterator++;
+ }
+</pre>
+<p>}
+&lt;/cpp&gt;
+</p><p>Diese Funktion muss explizit aufgerufen werden bevor globale/statische Objekte verwendet werden. Dies kann beispielsweise im <a href="../../pages/1486/index.html#Startup-Code" title="C++"> Startup-Code</a> geschehen.
+</p>
+<h4><span id="Destruktoren_(ohne_--enable-_cxa_atexit_und_ohne_-fuse-cxa-atexit)"></span><span class="mw-headline" id="Destruktoren_.28ohne_--enable-_cxa_atexit_und_ohne_-fuse-cxa-atexit.29">Destruktoren (ohne --enable-__cxa_atexit und ohne -fuse-cxa-atexit)</span></h4>
+<p>G++ erstellt eine "dtors*" Sektion, analog zur "ctors*" Sektion und speicher dort wiederum ein Array aus Funktionszeigern. Diesmal zeigen diese Funktionszeiger aber auf Destruktoren.
+</p>
+<h4><span id="Destruktoren_(mit_--enable-_cxa_atexit_oder_mit_-fuse-cxa-atexit)"></span><span class="mw-headline" id="Destruktoren_.28mit_--enable-_cxa_atexit_oder_mit_-fuse-cxa-atexit.29">Destruktoren (mit --enable-__cxa_atexit oder mit -fuse-cxa-atexit)</span></h4>
+<p>Im Konstruktor eines globalen/statischen Objekts wird die folgende Funktion aufgerufen:
+</p><p>&lt;cpp&gt;
+</p>
+<pre>int __cxa_atexit(void (* f)(void *), void *p, void *d);
+</pre>
+<p>&lt;/cpp&gt;
+</p><p>f ist ein Funktionszeiger zu einem Destruktor, p der Parameter, der dem Destruktor übergeben werden soll und d ist das sog. "home DSO" (DSO = dynamic shared object).  Diese Funktion sollte alle drei Parameter speichern und bei Erfolg 0, andernfalls nicht 0 zurückgeben. Wenn der Kernel/das Programm dann beendet wird, sollte man die Funktion
+</p><p>&lt;cpp&gt;
+</p>
+<pre>void __cxa_finalize(void *d);
+</pre>
+<p>&lt;/cpp&gt;
+</p><p>mit d = 0 aufrufen, um alle mit __cxa_atexit registrierten Funktionen mit passenden Paramtern aufzurufen. Die registrierten Funktionen müssen in umgekehrter Reihenfolge aufgerugen werden.
+Außerdem muss man ein Symbol namens __dso_handle bereitstellen. Es wird allerdings nur die Adresse des Symbols verwendet um ein DSO zu identifizieren und um __cxa_atexit aufzurufen.
+</p><p>&lt;cpp&gt;
+// Lizenz: public domain
+</p><p>extern "C"
+{
+</p>
+<pre> int __cxa_atexit(void (*f)(void *), void *p, void *d);
+ void __cxa_finalize(void *d);
+</pre>
+<p>};
+</p><p>void *__dso_handle;
+</p><p>struct object
+{
+</p>
+<pre> void (*f)(void*);
+ void *p;
+ void *d;
+</pre>
+<p>} object[32] = {0};
+unsigned int iObject = 0;
+</p><p>int __cxa_atexit(void (*f)(void *), void *p, void *d)
+{
+</p>
+<pre> if (iObject &gt;= 32) return -1;
+ object[iObject].f = f;
+ object[iObject].p = p;
+ object[iObject].d = d;
+ ++iObject;
+ return 0;
+</pre>
+<p>}
+</p><p>/* NOTE: Zerstört momentan unabhängig von d alle Objekte */
+void __cxa_finalize(void *d)
+{
+</p>
+<pre> unsigned int i = iObject;
+ for (; i &gt; 0; --i)
+ {
+   --iObject;
+   object[iObject].f(object[iObject].p);
+ }
+</pre>
+<p>}
+&lt;/cpp&gt;
+</p>
+<h2><span id="new/delete"></span><span class="mw-headline" id="new.2Fdelete">new/delete</span></h2>
+<p>Um dynamisch Objekte mit new erstellen bzw. mit delete zerstören zu können muss man die vier Operatoren 
+</p>
+<ul><li>new</li>
+<li>new[]</li>
+<li>delete</li>
+<li>delete[]</li></ul>
+<p>implementieren.
+</p><p>Eine einfache Implementation ist z.B.:
+&lt;cpp&gt;
+void *operator new( size_t size )
+{
+</p>
+<pre> return kcalloc( size );
+</pre>
+<p>}
+</p><p>void *operator new[]( size_t  size )
+{
+</p>
+<pre> return kcalloc( size );
+</pre>
+<p>}
+</p><p>void operator delete( void *ojb )
+{
+</p>
+<pre> kfree( obj );
+</pre>
+<p>}
+</p><p>void operator delete[]( void *obj )
+{
+</p>
+<pre> kfree( obj );
+</pre>
+<p>}
+&lt;/cpp&gt;
+</p>
+<h2><span class="mw-headline" id="RTTI">RTTI</span></h2>
+<p>RTTI (Runtime Type Information) wird am besten innerhalb des Kernels komplett deaktiviert. Mit g++ geschieht dies mittels des Kommandozeilenparameter <i>-fno-rtti</i>.
+</p>
+<h2><span class="mw-headline" id="Exceptions">Exceptions</span></h2>
+<p>Exceptions sollten auch am besten innerhalb des Kernels deaktiviert werden. Mit g++ können Exceptions über den Kommandozeilenparameter <i>-fno-exceptions</i> deaktiviert werden.
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li><a class="external text" href="http://www.open-std.org/JTC1/SC22/WG21/docs/papers/2006/n2135.pdf" rel="nofollow">Draft des C++ Standards</a></li>
+<li><a class="external text" href="http://www.open-std.org/JTC1/SC22/WG21/docs/papers/2005/n1836.pdf" rel="nofollow">Draft des TR1 (=Technical Report 1)</a></li>
+<li><a class="external text" href="http://www.codesourcery.com/cxx-abi/abi.html" rel="nofollow">g++ ABI</a> (Nicht nur die ABI für Itanium, sondern auch für x86 und x86-64)</li>
+<li><a class="external text" href="http://www.codesourcery.com/cxx-abi/abi-eh.html" rel="nofollow">g++ ABI: Exception Handling</a> (Nicht nur die ABI für Itanium, sondern auch für x86 und x86-64)</li>
+<li><a class="external text" href="http://www.osdev.org/wiki/C_PlusPlus" rel="nofollow">OSDev.org wiki</a></li></ul>
+<h3><span id="C++0x"></span><span class="mw-headline" id="C.2B.2B0x">C++0x</span></h3>
+<ul><li><a class="external text" href="http://video.google.de/videoplay?docid=2768126766555555011&amp;q=c%2B%2B0x" rel="nofollow">New Features in the Next C++ Standard</a> (video)</li>
+<li><a class="external text" href="http://video.google.de/videoplay?docid=5262479012306588324&amp;q=c%2B%2B0x" rel="nofollow">Initialization Lists</a> (video)</li>
+<li><a class="external text" href="http://video.google.de/videoplay?docid=-1790714981047186825&amp;q=c%2B%2B0x" rel="nofollow">Concepts Extending C++ Templates For Generic Programming</a> (video)</li>
+<li><a class="external text" href="http://www.c-plusplus.de/forum/viewtopic-var-t-is-204654.html" rel="nofollow">C++09 (Teil 1) - Ein Überblick: Sprachfeatures</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164751
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.008 seconds
+Real time usage: 0.009 seconds
+Preprocessor visited node count: 78/1000000
+Preprocessor generated node count: 174/1000000
+Post‐expand include size: 718/2097152 bytes
+Template argument size: 70/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.782      1 Vorlage:Sprache
+100.00%    0.782      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=C%2B%2B&amp;oldid=6264</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1648/index.html" title="Kategorie:Programmiersprache">Programmiersprache</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1486/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1486/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

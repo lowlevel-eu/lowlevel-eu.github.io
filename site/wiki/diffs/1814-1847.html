@@ -1,0 +1,66 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ausgabe 1 — Änderungen 1814 → 1847</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Ausgabe 1 — Änderungen 1814 → 1847</h1><nav><a href="../revisions/1814/index.html">Version 1814</a> · <a href="../revisions/1847/index.html">Version 1847</a> · <a href="../history/1412/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l60" >Zeile 60:</td>
+<td colspan="2" class="diff-lineno">Zeile 60:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Zuerst einmal sucht das BIOS auf dem ersten Sektor von Diskette und Festplatte nach einer Bin&amp;auml;rdatei, die genau 512 Bytes (1 Sector) lang ist und am Ende das Wort 0x0AA55 enthält. Jetzt lädt das BIOS unseren Bootloader, wenn es ihn denn gefunden hat, an die Adresse 0x7C00. Damit alles so läuft, wie wir es uns gedacht haben, enth&amp;auml;lt die erste Zeile unseres Assemblercodes also den Code:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Zuerst einmal sucht das BIOS auf dem ersten Sektor von Diskette und Festplatte nach einer Bin&amp;auml;rdatei, die genau 512 Bytes (1 Sector) lang ist und am Ende das Wort 0x0AA55 enthält. Jetzt lädt das BIOS unseren Bootloader, wenn es ihn denn gefunden hat, an die Adresse 0x7C00. Damit alles so läuft, wie wir es uns gedacht haben, enth&amp;auml;lt die erste Zeile unseres Assemblercodes also den Code:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;asm&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; ORG 0x7C00</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; ORG 0x7C00</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/asm&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Diese Zeile regelt, dass all unsere Adressierungen richtig sind usw. Jetzt basteln wir einen Stack. Er sitzt an Adresse 0x9000. Den Stackpointer setzen wir auf null. Während wir das alles tun, sind übrigens keine Interrupts zugelassen. Nun schreiben wir die Information über das Bootlaufwerk aus DL in eine Variable, rufen die Funktion &quot;load&quot; auf und springen zum geladenen Programm, unserem Kernel rüber (das seht ihr im vollst&amp;auml;ndigen Code weiter unten).</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Diese Zeile regelt, dass all unsere Adressierungen richtig sind usw. Jetzt basteln wir einen Stack. Er sitzt an Adresse 0x9000. Den Stackpointer setzen wir auf null. Während wir das alles tun, sind übrigens keine Interrupts zugelassen. Nun schreiben wir die Information über das Bootlaufwerk aus DL in eine Variable, rufen die Funktion &quot;load&quot; auf und springen zum geladenen Programm, unserem Kernel rüber (das seht ihr im vollst&amp;auml;ndigen Code weiter unten).</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l66" >Zeile 66:</td>
+<td colspan="2" class="diff-lineno">Zeile 68:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Zum Schluss des Codes seht ihr noch folgende Zeilen:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Zum Schluss des Codes seht ihr noch folgende Zeilen:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;asm&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; times 512-($-$$)-2 db 0</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; times 512-($-$$)-2 db 0</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; dw 0x0AA55</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; dw 0x0AA55</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/asm&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Sie sind für die Länge von 512 Bytes und das Wort 0x0AA55 am Ende zuständig.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Sie sind für die Länge von 512 Bytes und das Wort 0x0AA55 am Ende zuständig.</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l75" >Zeile 75:</td>
+<td colspan="2" class="diff-lineno">Zeile 79:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Der Code am Stück</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Der Code am Stück</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;asm&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; org 0x7C00 ; Unsere Startadresse</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; org 0x7C00 ; Unsere Startadresse</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160;</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l155" >Zeile 155:</td>
+<td colspan="2" class="diff-lineno">Zeile 160:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; times 512-($-$$)-2 db 0&#160;  ; Dateilänge: 512 Bytes</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; times 512-($-$$)-2 db 0&#160;  ; Dateilänge: 512 Bytes</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; dw 0AA55h&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;  ; Bootsignatur</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; dw 0AA55h&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;  ; Bootsignatur</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/asm&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Ein kleiner Kernel zum Testen...&lt;br&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Ein kleiner Kernel zum Testen...&lt;br&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Nun kneten wir uns einen kleinen Kernel, damit unser Bootloader auch was zu laden hat.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Nun kneten wir uns einen kleinen Kernel, damit unser Bootloader auch was zu laden hat.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;asm&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; ; ---------------------------------------------------</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; ; ---------------------------------------------------</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; ; Unser Kernel</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; ; Unser Kernel</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l207" >Zeile 207:</td>
+<td colspan="2" class="diff-lineno">Zeile 214:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; dw 0000h</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; dw 0000h</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; dw 0FFFFh</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; dw 0FFFFh</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/asm&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Kompilieren und Testen&lt;br&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Kompilieren und Testen&lt;br&gt;</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l498" >Zeile 498:</td>
+<td colspan="2" class="diff-lineno">Zeile 506:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== CPU &gt;= 386 ===</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== CPU &gt;= 386 ===</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;asm&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; ; determine CPU type. Code from Freedows 98 ldr_asm.asm</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; ; determine CPU type. Code from Freedows 98 ldr_asm.asm</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; ; Copyright (C) 1997 Joachim Breitsprecher &#160;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; ; Copyright (C) 1997 Joachim Breitsprecher &#160;</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l524" >Zeile 524:</td>
+<td colspan="2" class="diff-lineno">Zeile 533:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; &#160; &#160;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; &#160; &#160;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; &#160; not_386:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; &#160; not_386:</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/asm&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== OS-Showcase: MenuetOS ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== OS-Showcase: MenuetOS ==</div></td></tr>
+</table></body></html>

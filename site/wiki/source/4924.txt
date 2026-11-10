@@ -1,0 +1,461 @@
+{{Stub}}
+
+==x86 CPU Register==
+===Übersicht===
+{| {{Prettytable}}
+! Bits  || Register
+|-
+| '''8''' || AL, BL, CL, DL, AH, BH, CH, DH
+|-
+| '''16''' || AX, BX, CX, DX, DI, SI, BP, SP, CS, DS, ES, FS, GS, SS
+|-
+| '''32''' || EAX, EBX, ECX, EDX, EDI, ESI, EBP, ESP, EIP, EFLAGS
+|-
+| '''128''' || XMM0, XMM1, XMM2, XMM3, XMM4, XMM5, XMM6, XMM7
+|}
+
+===Allzweckregister===
+{| {{Prettytable}}
+! colspan="4" align="center" | Bytes
+|-
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|- 
+| colspan="4" align="center" | E?X
+|-
+| colspan="2" style="background:lightgrey" | 
+| colspan="2" align="center" | ?X
+|-
+| colspan="2" style="background:lightgrey" | 
+| align="center" | ?H
+| align="center" | ?L
+|-
+| colspan="4" style="background:lightgrey" align="center" | ? = A, B, C, D
+|}
+
+Die Allzweckregister können, wie ihr Name schon andeutet eigentlich für fast jeden Zweck genutzt werden. Trotzdem gibt es einige gebräuchliche Nutzungen, zum Beispiel
+* '''EAX''' : Für Rechenoperatioen, als Rückgabewert in [[C]]
+* '''ECX''' : Als Zähler
+
+===Indexregister===
+{| {{Prettytable}}
+! colspan="4" align="center" | Bytes
+|-
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="4" align="center" | E?I
+|-
+| colspan="2" style="background:lightgrey" | 
+| colspan="2" align="center" | ?I
+|-
+| colspan="4" style="background:lightgrey" align="center" | ? = D, S
+|}
+
+Die Indexregister werden oft als Indexe in Datenbereichen verwendet. Dabei zeigt
+* '''ESI''' : Auf den Quelloperanden
+* '''EDI''' : Auf den Zieloperanden
+
+===Zeigerregister===
+{| {{Prettytable}}
+! colspan="4" align="center" | Bytes
+|-
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="4" align="center" | E?P
+|-
+| colspan="2" style="background:lightgrey" | 
+| colspan="2" align="center" | ?P
+|-
+| colspan="4" style="background:lightgrey" align="center" | ? = B, S
+|}
+
+Die Zeigerregister werden genutzt, um auf Stellen im Speicher zu zeigen.
+* '''ESP''' : Zeigt ''immer'' auf den aktuellen Stack
+* '''EBP''' : Wird meistens für Stackframes und lokale Variablen bei Funktionsaufrufen verwendet
+
+===Instruktionsregister===
+{| {{Prettytable}}
+! colspan="4" align="center" | Bytes
+|-
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="4" align="center" | EIP
+|-
+| colspan="2" style="background:lightgrey" | 
+| colspan="2" align="center" | IP
+|}
+
+Das Instruktionsregister '''EIP''' zeigt ''immer'' auf den nächsten auszuführenden Befehl. Es kann nicht direkt geändert werden, sondern nur über Funktion wie '''jmp''', '''call''' oder '''ret'''
+
+===Flagregister===
+{| {{Prettytable}}
+! colspan="4" align="center" | Bytes
+|-
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="4" align="center" | EFLAGS
+|}
+
+Das Flagregister '''EFLAGS''' speichert einige Konfigurationsmöglichkeiten und Systemzuständen, beispielweise, ob Interrupts gerade erlaubt sind oder ob ein Übertrag bei einer Addition stattfand.
+
+===Segmentregister===
+{| {{Prettytable}}
+! colspan="2" align="center" | Bytes
+|-
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="2" align="center" | ?S
+|-
+| colspan="2" style="background:lightgrey" align="center" | ? = C, D, E, F, G, S
+|}
+
+Die Segmentregister geben die Basisadresse des aktuellen Segments an. Dabei steht
+* '''CS''' für das ''Code-Segment''
+* '''DS''' für das ''Data-Segment''
+* '''SS''' für das ''Stack-Segment''
+''ES'', ''FS'' und ''GS'' sind zusätzliche Daten-Segmente.
+
+Die Segmentregister sind im [[Protected Mode]] auch für die Segmentierung mit Hilfe der [[GDT]] verantwortlich.
+
+
+==x86-64 CPU Register==
+===Übersicht===
+{| {{Prettytable}}
+! Bits || Register
+|-
+| '''8''' || AL, BL, CL, DL, DIL, SIL, BPL, SPL, R8L, R9L, R10L, R11L, R12L, R13L, R14L, R15L
+|-
+| '''16''' || AX, BX, CX, DX, DI, SI, BP, SP, CS, DS, ES, FS, GS, SS, R8W, R9W, R10W, R11W, R12W, R13W, R14W, R15W
+|-
+| '''32''' || EAX, EBX, ECX, EDX, EDI, ESI, EBP, ESP, EIP, EFLAGS, R8D, R9D, R10D, R11D, R12D, R13D, R14D, R15D
+|-
+| '''64''' || RAX, RBX, RCX, RDX, RDI, RSI, RBP, RSP, RIP, RFLAGS, R8, R9, R10, R11, R12, R13, R14, R15
+|-
+| '''128''' || XMM0, XMM1, XMM2, XMM3, XMM4, XMM5, XMM6, XMM7, XMM8, XMM9, XMM10, XMM11, XMM12, XMM13, XMM14, XMM15
+|}
+
+===Allzweckregister===
+{|
+
+|
+{| {{Prettytable}}
+! colspan="8" align="center" | Bytes
+|-
+! width="30pt" | 7 
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="8" align="center" | R?X
+|- 
+| colspan="4" style="background:lightgrey" |  
+| colspan="4" align="center" | E?X
+|-
+| colspan="6" style="background:lightgrey" | 
+| colspan="2" align="center" | ?X
+|-
+| colspan="6" style="background:lightgrey" | 
+| align="center" | ?H
+| align="center" | ?L
+|-
+| colspan="8" style="background:lightgrey" align="center" | ? = A, B, C, D
+|}
+
+|
+{| {{Prettytable}}
+! colspan="8" align="center" | Bytes
+|-
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="8" align="center" | R?
+|- 
+| colspan="4" style="background:lightgrey" |  
+| colspan="4" align="center" | R?D
+|-
+| colspan="6" style="background:lightgrey" | 
+| colspan="2" align="center" | R?W
+|-
+| colspan="7" style="background:lightgrey" |
+| align="center" | R?L
+|-
+| colspan="8" style="background:lightgrey" align="center" | ? = 8, 9, 10, 11, 12, 13, 14, 15
+|}
+
+|}
+'''Die ?H-Register sind nur in Funktion nutzbar, die KEINEN REX-Präfix benötigen!'''
+
+===Indexregister===
+{| {{Prettytable}}
+! colspan="8" align="center" | Bytes
+|-
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="8" align="center" | R?I
+|- 
+| colspan="4" style="background:lightgrey" |  
+| colspan="4" align="center" | E?I
+|-
+| colspan="6" style="background:lightgrey" | 
+| colspan="2" align="center" | ?I
+|-
+| colspan="7" style="background:lightgrey" |
+| align="center" | ?IL
+|-
+| colspan="8" style="background:lightgrey" align="center" | ? = D, S
+|}
+'''Die ?IL-Register sind nur in Funktion nutzbar, die einen REX-Präfix benötigen!'''
+
+===Zeigerregister===
+{| {{Prettytable}}
+! colspan="8" align="center" | Bytes
+|-
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="8" align="center" | R?P
+|- 
+| colspan="4" style="background:lightgrey" |  
+| colspan="4" align="center" | E?P
+|-
+| colspan="6" style="background:lightgrey" | 
+| colspan="2" align="center" | ?P
+|-
+| colspan="7" style="background:lightgrey" |
+| align="center" | ?PL*
+|-
+| colspan="8" style="background:lightgrey" align="center" | ? = B, S
+|}
+'''Die ?PL-Register sind nur in Funktion nutzbar, die einen REX-Präfix benötigen!'''
+
+===Instruktionsregister===
+{| {{Prettytable}}
+! colspan="8" align="center" | Bytes
+|-
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="8" align="center" | RIP
+|- 
+| colspan="4" style="background:lightgrey" |  
+| colspan="4" align="center" | EIP
+|-
+| colspan="6" style="background:lightgrey" | 
+| colspan="2" align="center" | IP
+|}
+
+===Flagregister===
+{| {{Prettytable}}
+! colspan="8" align="center" | Bytes
+|-
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="8" align="center" | RFLAGS
+|- 
+| colspan="4" style="background:lightgrey" |  
+| colspan="4" align="center" | EFLAGS
+|}
+
+===Segmentregister===
+{| {{Prettytable}}
+! colspan="2" align="center" | Bytes
+|-
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="2" align="center" | ?S
+|-
+| colspan="2" style="background:lightgrey" align="center" | ? = C, D, E, F, G, S
+|}
+
+===SSE-Register===
+{| {{Prettytable}}
+! colspan="16" align="center" | Bytes
+|-
+! width="30pt" | 15
+! width="30pt" | 14
+! width="30pt" | 13
+! width="30pt" | 12
+! width="30pt" | 11
+! width="30pt" | 10
+! width="30pt" | 9
+! width="30pt" | 8
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="16" align="center" | XMM?
+|-
+| colspan="16" style="background:lightgrey" align="center" | ? = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+|}
+
+===Floatingpointregister===
+{| {{Prettytable}}
+! colspan="10" align="center" | Bytes
+|-
+! width="30pt" | 9
+! width="30pt" | 8
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="10" align="center" | ST?
+|-
+| colspan="10" style="background:lightgrey" align="center" | ? = 0, 1, 2, 3, 4, 5, 6, 7
+|}
+
+{| {{Prettytable}}
+! colspan="16" align="center" | Bits
+|-
+! width="30pt" | 15
+! width="30pt" | 14
+! width="30pt" | 13
+! width="30pt" | 12
+! width="30pt" | 11
+! width="30pt" | 10
+! width="30pt" | 9
+! width="30pt" | 8
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="16" align="center" | Control Register
+|}
+
+
+{| {{Prettytable}}
+! colspan="16" align="center" | Bits
+|-
+! width="30pt" | 15
+! width="30pt" | 14
+! width="30pt" | 13
+! width="30pt" | 12
+! width="30pt" | 11
+! width="30pt" | 10
+! width="30pt" | 9
+! width="30pt" | 8
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="16" align="center" | Status Register
+|}
+
+
+{| {{Prettytable}}
+! colspan="16" align="center" | Bits
+|-
+! width="30pt" | 15
+! width="30pt" | 14
+! width="30pt" | 13
+! width="30pt" | 12
+! width="30pt" | 11
+! width="30pt" | 10
+! width="30pt" | 9
+! width="30pt" | 8
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="16" align="center" | Tag Register
+|}
+
+{| {{Prettytable}}
+! colspan="10" align="center" | Bits
+|-
+! width="30pt" | 9
+! width="30pt" | 8
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="10" align="center" | FOP
+|}
+
+== Siehe auch ==
+*[[Control Register]]
+
+
+[[Kategorie:x86]]
+[[Kategorie:x86-64]]

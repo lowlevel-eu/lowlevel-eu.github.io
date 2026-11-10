@@ -1,0 +1,1133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="SLAB-Allocator als Basis fuer kmalloc?" name="description"/>
+<title>SLAB-Allocator als Basis fuer kmalloc?</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:30</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>SLAB-Allocator als Basis fuer kmalloc?</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg32391"></a>
+<div class="nextlinks"><a href="../2770/index.html#msg32500">« vorheriges</a> <a href="../2185/offset-60.html#msg32143">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: <a class="navPages" href="index.html">1</a> <span style="font-weight: bold;"> ... </span><a class="navPages" href="offset-40.html">3</a> <a class="navPages" href="offset-60.html">4</a> [<strong>5</strong>] <a class="navPages" href="offset-100.html">6</a> <a class="navPages" href="offset-120.html">7</a>
+</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/0f01c9c83ac67395064654f9.gif"/>
+<span id="author">Autor</span>
+						Thema: SLAB-Allocator als Basis fuer kmalloc?  (Gelesen 227951 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32391_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #80 am:</strong> 31. May 2011, 11:11 »</div>
+<div class="posttile"><h5 id="subject_32391">
+<a href="offset-80.html#msg32391" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32391_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32391"><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Der typische Programmierer wird sich aber nur wenig Gedanken über die Bedürfnisse des von ihm getippten Codes machen so dass das OS mit nur sehr wenigen Informationen eine möglichst gute Automatik füttern muss. Ich persönlich bin auch ehrlich der Meinung das es nicht unbedingt Aufgabe des Programmierers ist sich darum zu kümmern wie das System dafür sorgt das sein Programm erwartungsgemäß läuft.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das mit dem Stack nimmt aber teilweise wirklich nicht mehr tragbare Ausmaße an. Wenn ich sehe das jemand versucht nen 16MB Array auf dem Stack zu allozieren (davon abgesehen, das der Compiler sowas gar nicht erst zulassen sollte) dann hört mein Verständnis dort auf.<br/>Der Stack ist für Parameter und lokale (kleine) Variablen da und nicht dafür jeden Scheiß da drauf zu speichern (z.B. durch lokale Variablen in der Main-Funktion).<br/>Wenn wir von einem Programm ausgehen, das nur einen Thread hat, sollte sich der Programmierer wirklich nicht darum kümmern müssen. Allerdings sollten ihm die OS Begrenzungen bekannt sein.<br/>Geht es aber um ein Multithreading Programm sollte der Programmierer sich schon Gedanken machen wieviel Stack er wirklich braucht, alleine schon weil virtueller Speicher unter 32bit irgendwann knapp wird.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Auf x86 wird man für TLS eher ein Register opfern und zwar ein Segment-Register (meist wohl FS oder GS, die selbst im Long-Mode noch gerade so genug vorhanden sind damit man damit TLS realisieren kann).<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Genauso habe ich das bei mir umgesetzt. Problem ist jetzt noch die Art der Umsetzung, mache ich ein statisches Segment, wo also zum Ladezeitpunkt die Größe bekannt sein muss und man einfach nen neuen logischen Adressraum hat oder mache ich es so, dass das Programm auch zur Laufzeit die Größe ändern kann, was aber schwierig wird, zwecks virtueller Adressen.<br/>Eine andere Variante (die ich irgendwo bevorzuge, aber die sich schlechter durch nen Compiler direkt umsetzen lässt) ist dass man jedem Thread (z.B.) 1024 Slots zur Verfügung stellt wo er Werte seiner Wahl drin speichern kann. Man würde dann z.B. sagen wenn man eine Freelist pro Thread hat, das man die Freelist im Slot 0 speichert und speicher die "0" in einer globalen Variable ab. Jeder Zugriff auf den Slot 0 würde dann den Thread lokalen Wert liefern.<br/><br/>Wesentlich schöner und einfacher für den Compiler/Programmierer ist natürlich ein abgetrennter Bereich wo das Segment dann hinzeigt. Da stellt sich mir dann aber die Frage wie man das umsetzt? Weil wo holt das OS den Speicher her um einen neuen Thread zu starten (er kann ja schlecht das malloc vom Programm nutzen) und was für Werte sollen da dann rein?<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Nein eigentlich nicht. Wenn Du das in SW machst dann ist diese Page komplett im Cache der aktuellen CPU und genau deswegen würde ich freie physische Pages auch CPU-lokal cachen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich habe mich auch länger nicht mit den verschiedenen Caches der CPUs beschäftigt, aber gibt es nen separaten Cache zum Lesen und Schreiben? Weil ansonsten ist ja ne Cacheline (heutzutage) 64byte groß und wenn du dann eine ganze Page nullst, verdrängst du ja andere Cacheeinträge (und das meinte ich mit Cachetrashing).</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32391">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32393"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32393_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #81 am:</strong> 31. May 2011, 13:02 »</div>
+<div class="posttile"><h5 id="subject_32393">
+<a href="offset-80.html#msg32393" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32393_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32393">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32391">Zitat von: FlashBurn am 31. May 2011, 11:11</a></div></div><blockquote class="bbc_standard_quote">Wenn ich sehe das jemand versucht nen 16MB Array auf dem Stack zu allozieren (davon abgesehen, das der Compiler sowas gar nicht erst zulassen sollte) dann hört mein Verständnis dort auf.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wo ist da Deiner Meinung nach das Problem? Wenn dieses Array nur innerhalb der Funktion benötigt wird dann ist der Stack IMHO genau der Ort wo es eben hingehört. Vor allem macht das die Funktion reentrant (im Gegensatz zu statischen Variablen) und schneller (kein Overhead für malloc/free).<br/>Wo genau würdest Du die Grenze den ziehen? Und vor allem mit welcher Begründung? Etwa weil der VMM in Deinem OS nicht so gut mit flexiblen Stacks umgehen kann? Die Programmiersprache C macht den Stack nutzbar (bei z.B. Java ist das nicht so) und es ist meiner Meinung nach Aufgabe von Compiler und OS jedes valide C-Programm auch auszuführen, wenn Du das nicht möchtest dann benutze eben eine andere Programmiersprache.<br/><br/>Eine flexible TLS-Größe stelle ich mir in einem Flat-Memory-System auch schwierig vor, Du wirst auf jeden Fall die maximale Größe hart begrenzen müssen und immer gleich den gesamten virtuellen Adressraum allozieren (so wie beim Stack auch). Ich schätze mal den Hinweis das ich dieses Problem bei meinen Segmenten grundsätzlich nicht habe und mir sogar ne Art malloc/free für den TLS vorstellen kann kann ich mir doch jetzt sicher sparen, oder? <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/>Um für neue Threads neuen TLS-Speicher anzulegen kann man natürlich nicht das malloc vom Prozess nehmen sondern das ist Aufgabe des OS.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32391">Zitat von: FlashBurn am 31. May 2011, 11:11</a></div></div><blockquote class="bbc_standard_quote">verdrängst du ja andere Cacheeinträge (und das meinte ich mit Cachetrashing).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ah, jetzt verstehe ich. Ja das ist ein Problem wenn man das Ausnullen per SW macht, bei einer HW-Lösung ist das nicht so. Dem kann man aber entgegenwirken indem man passende Cache-Flush-Befehle oder Write-Through-Befehle benutzt, damit wird erreicht das diese Cache-Lines aus dem Cache raus fliegen und in den echten RAM zurückgeschrieben werden. Ich kann Dir da jetzt keine konkreten Befehle nennen aber die gehören wimre zur SSE2-Befehlserweiterung dazu, die Manuals Deines CPU-Herstellers sollten da entsprechend Auskunft geben können. Damit ist natürlich CPU-lokales cachen von freien physischen Pages nicht mehr so interessant, aber wimre wolltest Du das doch eh nicht machen.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32393">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32393_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32396"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32396_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #82 am:</strong> 31. May 2011, 13:22 »</div>
+<div class="posttile"><h5 id="subject_32396">
+<a href="offset-80.html#msg32396" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32396_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32396"><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Wo ist da Deiner Meinung nach das Problem? Wenn dieses Array nur innerhalb der Funktion benötigt wird dann ist der Stack IMHO genau der Ort wo es eben hingehört. Vor allem macht das die Funktion reentrant (im Gegensatz zu statischen Variablen) und schneller (kein Overhead für malloc/free).<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Sorry, aber wer 16MB auf den Stack packt der hat eindeutig was falsch gemacht (ist natürlich meine eigene Meinung).<br/><br/>Wieso nicht das Array vom Heap holen und den Pointer in einer lokalen Variablen Speichern? Um mit 16MB zu arbeiten, braucht man eh ein wenig. Dann kommt noch hinzu das gerade solch eine Größe auf dem Stack liegend wesentlich langsamer sein wird als wenn man malloc/free benutzt! Denn erstmal sind die nicht aligned, dann kommt hinzu das unter den meisten OS die Pages per Pagefault gemappt und alloziert werden und das es auch oft Probleme gibt, wenn man mehr als eine Page über das momentane Ende des Stacks hinausschießt.<br/>Nutzt man malloc/free wird der Allocator bestimmt sofort die 16MB an das OS weiterleiten ohne in den eigenen Freelists zu gucken und bei der Größe könnte man sogar davon gebrauch machen mal die Portabilität außer acht zu lassen (wenn man Performance braucht) und das OS selber aufrufen, wo man dann auch sagen könnte das der Speicher sofort gemappt werden soll.<br/><br/>Ein weiteres Problem was ich daran sehe solche Stacks zuzulassen, stell dir mal ne rekursive Endlosschleife vor und da soll dann erst bei 16MB abgebrochen werden?<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Um für neue Threads neuen TLS-Speicher anzulegen kann man natürlich nicht das malloc vom Prozess nehmen sondern das ist Aufgabe des OS.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Und genau damit habe ich jetzt ein Problem. Ich gehe jetzt mal davon aus das der TLS 256byte pro Thread ist und da ich ja nicht noch ein eigenes malloc/free für den UserSpace implementieren möchte muss ich da jedes Mal eine ganze Page für nehmen. Ich kann mir irgendwie nicht vorstellen dass das so gelöst wurde (obwohl ich es "denen" durchaus zu traue <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> ).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Dem kann man aber entgegenwirken indem man passende Cache-Flush-Befehle oder Write-Through-Befehle benutzt, damit wird erreicht das diese Cache-Lines aus dem Cache raus fliegen und in den echten RAM zurückgeschrieben werden. Ich kann Dir da jetzt keine konkreten Befehle nennen aber die gehören wimre zur SSE2-Befehlserweiterung dazu<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wo dann also z.B. die guten alten Athlon XPs rausfliegen würden oder einen totalen Performance Einbruch (?) haben würden. Von daher gefällt mir das schon nicht.<br/><br/>Das ist jetzt zwar wieder so eine Sache mit den Zielen die man erreichen möchte, aber ich denke mal die meisten OS Dever (gerade in Europa) vergessen dass nicht alle so moderne Rechner haben wie wir (sicher wer probiert schon so ein Hobby OS aus oder nutzt es) und gerade die Athlon XPs sind doch noch sehr verbreitet.<br/>Bei meinem Vater auf Arbeit wird z.B. noch ein P3 mit Win2k eingesetzt und der ist für seine Aufgabe auch vollkommen ausreichend.<br/>Auch ist das wieder so ein Thema der Herausforderung, wenn man natürlich von der perfekten Hardware ausgeht kann man alles leicht implementieren. Man muss sich halt nur die nötigen "guten" Rahmenbedingungen schaffen. Das ist ein wenig wie in der Schulphysik, findet alles unter optimalen Bedingungen und unter Vernachlässigung vieler Dinge statt <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32396">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32397"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32397_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #83 am:</strong> 31. May 2011, 14:03 »</div>
+<div class="posttile"><h5 id="subject_32397">
+<a href="offset-80.html#msg32397" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32397_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32397">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32396">Zitat von: FlashBurn am 31. May 2011, 13:22</a></div></div><blockquote class="bbc_standard_quote">Sorry, aber wer 16MB auf den Stack packt der hat eindeutig was falsch gemacht</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Warum? Was?<br/>Wenn mein Programm einen virtuellen Adressraum von 2 GB bekommt (und im PC genug RAM drin steckt) warum darf ich mich als Programmierer nicht dafür entscheiden diesen Speicher für den Stack zu benutzen? Ich empfinde es eben als doof wenn ich als Programmierer auf etwas Rücksicht nehmen muss (z.B. Flat-Memory) das eigentlich Compiler und OS vor mir verstecken sollten (laut C-Standard).<br/>Speicher, der auf dem Stack am besten aufgehoben ist, vom Heap holen zu müssen kostet immer extra Performance. Der Stack ist eigentlich grundsätzlich schneller (wenn man im OS nichts falsch macht) als Heap. Auch auf dem Stack kann man (also der Compiler, wenn man das denn passend kommuniziert) Speicher passend ausrichten.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32396">Zitat von: FlashBurn am 31. May 2011, 13:22</a></div></div><blockquote class="bbc_standard_quote">(ist natürlich meine eigene Meinung)</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Die sei Dir auch absolut unbenommen, aber zumindest eine nachvollziehbare Begründung wäre schon nicht schlecht.<br/><br/>Ich freue mich jedenfalls schon darauf wenn VLA etwas mehr Verbreitung gefunden hat und dann viele erfrischend neue Probleme auftauchen. Falls ich bis dahin mit meinem Projekt was vorzeigbares auf die Füße bekommen hab kann ich dann immerhin sagen "mit der <em>richtigen</em> Speicherverwaltung wäre das nicht passiert". <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32396">Zitat von: FlashBurn am 31. May 2011, 13:22</a></div></div><blockquote class="bbc_standard_quote">und das es auch oft Probleme gibt, wenn man mehr als eine Page über das momentane Ende des Stacks hinausschießt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also das wäre definitiv ein Bug im OS. Solange der Pagefault innerhalb des gültigen Stack des aktuellen Threads passiert muss das eigentlich auch ordentlich funktionieren.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32396">Zitat von: FlashBurn am 31. May 2011, 13:22</a></div></div><blockquote class="bbc_standard_quote">Ich kann mir irgendwie nicht vorstellen dass das so gelöst wurde (obwohl ich es "denen" durchaus zu traue <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> ).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>"denen" ist es völlig egal wie Du das in Deinem OS realisierst, solange das Ergebnis konform zum C-Standard ist. Natürlich haben "die" sich sicher auch mal überlegt wie das machbar ist, es ist wohl ziemlich unwahrscheinlich das "die" etwas standardisieren das sich auf üblichen Plattformen (Paging-basiertes Flat-Memory ist ja eben üblich) nicht ordentlich umsetzen lässt.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32396">Zitat von: FlashBurn am 31. May 2011, 13:22</a></div></div><blockquote class="bbc_standard_quote">Das ist jetzt zwar wieder so eine Sache mit den Zielen die man erreichen möchte</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ganz recht. Wenn Du hohe Performance auch auf alten Systemen erreichen möchtest dann musst Du eben auf ein paar andere Features (wie z.B. das Ausnullen von Pages vor dem Recyceln) verzichten, wenn Du hingegen maximale Sicherheit auf aktuellen Systemen erreichen möchtest dann gehst Du da wieder anders ran. Eventuell kannst Du das ja hinter auswechselbaren Modulen verstecken.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32396">Zitat von: FlashBurn am 31. May 2011, 13:22</a></div></div><blockquote class="bbc_standard_quote">Man muss sich halt nur die nötigen "guten" Rahmenbedingungen schaffen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Darauf läuft es in der realen Praxis aber oft hinaus. Viele Probleme lassen sich mit vertretbaren Aufwand nicht <span class="bbc_u">korrekt</span> lösen also muss man da ein paar Kompromisse eingehen und/oder Tricks anwenden. Du deklarierst doch auch eine maximale Stack-Größe um einen praktisch realisierbaren VMM zu erreichen.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32397">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32397_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32398"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32398_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #84 am:</strong> 31. May 2011, 14:23 »</div>
+<div class="posttile"><h5 id="subject_32398">
+<a href="offset-80.html#msg32398" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32398_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32398">Um nochmal auf das 16MB Array auf dem Stack zurückzukommen. Folgende Situation, der Adressraum des Programms ist voll und du kannst deinen Stack nicht mehr weiter vergrößern und da kommst du jetzt mit den Array welches auf dem Stack anglegt wurde (und ich gehe jetzt mal davon aus, das der Compiler nichts eingebaut hat um zu überprüfen ob der Stack noch genügend Platz bietet) und fängst an das Array zu füllen (natürlich beim Index 0). Jetzt bist du aber nicht nur eine Page (und zwar die Guard-Page) über das Stackende hinaus gegangen sondern sogar 16MB und das kann dann auch das beste OS nicht mehr abfangen (dafür bräuchte man dann wieder Segmente <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> ) und du greifst auf Speicher zu auf den du das besser nicht machen solltest.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Ich freue mich jedenfalls schon darauf wenn VLA etwas mehr Verbreitung gefunden hat und dann viele erfrischend neue Probleme auftauchen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich würde da einfach ab einer bestimmten Grenze sagen, das man das auf dem Heap speichert. Das kann der Compiler ja so implementieren, da eh eine Funktion aufgerufen werden muss um Speicher vom Stack zu bekommen.<br/><br/>Was mir gerade noch einfällt, bei mir in der Uni hat man uns auch schön gezeigt, das es keine gute Idee ist VLAs auf dem Stack zu allozieren, weil das Programm da zeitiger flöten geht als wenn man den Heap benutzt. Im konkreten Fall ging es darum ob man VLAs benutzt oder einfach new.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Also das wäre definitiv ein Bug im OS. Solange der Pagefault innerhalb des gültigen Stack des aktuellen Threads passiert muss das eigentlich auch ordentlich funktionieren.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Siehe oben, das man da ab einer Gewissen Situation nichts mehr gegen machen kann.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Du deklarierst doch auch eine maximale Stack-Größe um einen praktisch realisierbaren VMM zu erreichen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Meinen VMM interessiert das mit dem Stack erstmal gar nicht (der weiß nicht mal das es sowas gibt), sondern ich erstelle einen ausreichend großen (was auch immer das ist) Bereich in dem die Pages durch Pagefaults gemappt werden (außer der ersten) und noch eine Guardpage.<br/><br/>Das machen übrigens Windows und Linux so, bei beiden hat der Stack eine genau definierte Größe. Unter Windows kann man das glaube ich sogar im EXE-Header einstellen. Ob er bei beiden zur Laufzeit vergrößet werden kann weiß ich nicht.<br/><br/>Der Punkt bleibt einfach, das man nicht davon ausgehen kann das ein Stack immer 16MB groß ist oder Platz für solche Objekte bietet.<br/><br/>Habe mich gerade mal in TLS im ELF eingelesen und es ist unter POSIX und Windows wirklich so, dass man sich nen Slot holt (der dann für alle Threads des Prozesses als used gilt) und dort einen Wert (natürlich nen Pointer) speichern kann. Was nun C/C++ betrifft, wird ein Slot immer pro Modul genutzt um alle TLS Variablen des Moduls dort abzuspeichern. Es wird also malloc/free des Programms genommen. Eigentlich auch klar da es eine Sprachbezogene Implementierung ist und keine Allgemeine.<br/><br/>Ich würde das dann wahrscheinlich so lösen, das jeder Thread genau eine Variable für sich speichern darf und dort kommt dann der Vektor für die Slots rein (weil das Problem ist, das der Vektor "unendlich" groß sein muss <img alt=":(" class="smiley" src="../../../assets/forum/dcabbf64f1b05637d3be6552.gif" title="Sad"/> ). Ich hätte es zwar gerne anders gelöst, aber da wird das mit der Größe des Vektors zu umständlich.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32398">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32399"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32399_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #85 am:</strong> 31. May 2011, 16:08 »</div>
+<div class="posttile"><h5 id="subject_32399">
+<a href="offset-80.html#msg32399" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32399_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32399">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32398">Zitat von: FlashBurn am 31. May 2011, 14:23</a></div></div><blockquote class="bbc_standard_quote">Jetzt bist du aber nicht nur eine Page (und zwar die Guard-Page) über das Stackende hinaus gegangen sondern sogar 16MB und das kann dann auch das beste OS nicht mehr abfangen (dafür bräuchte man dann wieder Segmente <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> ) und du greifst auf Speicher zu auf den du das besser nicht machen solltest.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Genau diese Art Szenario hab ich auch als Begründung für Segmente in meinem aller ersten Thread <a class="bbc_link" href="../2224/offset-20.html#msg25456" target="_blank">hier</a> im Forum benutzt. Genau das ist die Sorte Fehler die sich mit Flat-Memory grundsätzlich nicht lösen lässt und da wird VLA sicher noch viel Freude bringen. Ich vermute mal das die Compiler wieder damit anfangen werden vor jedem Allozieren auf dem Stack erst zu prüfen ob auf dem Stack noch ausreichend Platz ist, also Performance ist was anderes.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32398">Zitat von: FlashBurn am 31. May 2011, 14:23</a></div></div><blockquote class="bbc_standard_quote">Ich würde da einfach ab einer bestimmten Grenze sagen, das man das auf dem Heap speichert.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also zusätzlicher Code.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32398">Zitat von: FlashBurn am 31. May 2011, 14:23</a></div></div><blockquote class="bbc_standard_quote">da eh eine Funktion aufgerufen werden muss um Speicher vom Stack zu bekommen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Für was muss eine Funktion aufgerufen werden um Speicher auf dem Stack zu allozieren oder wieder frei zu geben? Das läuft auf eine simple Addition/Subtraktion mit dem Stack-Pointer hinaus, also einem einzelnen Assembler-Befehl. Erst das Prüfen auf ausreichend Platz macht üblicherweise eine kleine Funktion, ich hab so eine mal für den Watcom-Compiler implementiert.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32398">Zitat von: FlashBurn am 31. May 2011, 14:23</a></div></div><blockquote class="bbc_standard_quote">Was mir gerade noch einfällt, bei mir in der Uni hat man uns auch schön gezeigt, das es keine gute Idee ist VLAs auf dem Stack zu allozieren, weil das Programm da zeitiger flöten geht als wenn man den Heap benutzt. Im konkreten Fall ging es darum ob man VLAs benutzt oder einfach new.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Hast Du da nen Script o.ä.? Es würde mich mal sehr interessieren mit was für Argumenten und Szenarien da gearbeitet wurde.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32398">Zitat von: FlashBurn am 31. May 2011, 14:23</a></div></div><blockquote class="bbc_standard_quote">Der Punkt bleibt einfach, das man nicht davon ausgehen kann das ein Stack immer 16MB groß ist oder Platz für solche Objekte bietet.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja leider, und das trotz dessen das in einem heutigen PCs locker mal ein paar GB Speicher stecken. Ich empfinde das als beschämend.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32398">Zitat von: FlashBurn am 31. May 2011, 14:23</a></div></div><blockquote class="bbc_standard_quote">und es ist unter POSIX und Windows wirklich so, dass man sich nen Slot holt (der dann für alle Threads des Prozesses als used gilt) und dort einen Wert (natürlich nen Pointer) speichern kann....</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das erscheint mir irgendwie kompliziert und langsam, ein Haufen indirektes Zeug.<br/>Ich möchte einfach alle TLS-Variablen in einer extra Sektion sammeln und der Linker macht dann daraus ein spezielles Segment das dann vom OS (zur Laufzeit) für jeden Thread der auf seinen TLS schreibend zugreift einmal geklont wird (COW). Damit kann ich TLS sogar aus simplen Assembler-Programmen benutzen ohne irgendwelche Verrenkungen und zusätzliche Befehle, ganz so wie alle anderen statischen Variablen auch. Ich dachte eigentlich dass das auf x86 ähnlich gemacht wird, schließlich hat man dort ja Segmente.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32399">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32399_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32401"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_32401_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #86 am:</strong> 31. May 2011, 16:29 »</div>
+<div class="posttile"><h5 id="subject_32401">
+<a href="offset-80.html#msg32401" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32401_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32401"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32393">Zitat von: erik.vikinger am 31. May 2011, 13:02</a></div></div><blockquote class="bbc_standard_quote">Eine flexible TLS-Größe stelle ich mir in einem Flat-Memory-System auch schwierig vor, Du wirst auf jeden Fall die maximale Größe hart begrenzen müssen und immer gleich den gesamten virtuellen Adressraum allozieren (so wie beim Stack auch). Ich schätze mal den Hinweis das ich dieses Problem bei meinen Segmenten grundsätzlich nicht habe und mir sogar ne Art malloc/free für den TLS vorstellen kann kann ich mir doch jetzt sicher sparen, oder? <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dafür braucht man aber keine Segmente. Ein einziger Pointer als TLS reicht, um alles machen zu können, wenn man nicht die Threads voneinander abschotten will. Letztendlich ist ja in der Regel %fs auf x86_64 genau dieser eine Pointer und nicht mehr. Und in der Struktur, auf die er zeigt, kann man dann eine Freispeicherliste für das threadlokale malloc aufhängen, wenn man mag.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32401">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32401_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32402"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32402_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #87 am:</strong> 31. May 2011, 16:33 »</div>
+<div class="posttile"><h5 id="subject_32402">
+<a href="offset-80.html#msg32402" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32402_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32402"><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Für was muss eine Funktion aufgerufen werden um Speicher auf dem Stack zu allozieren oder wieder frei zu geben? Das läuft auf eine simple Addition/Subtraktion mit dem Stack-Pointer hinaus, also einem einzelnen Assembler-Befehl. Erst das Prüfen auf ausreichend Platz macht üblicherweise eine kleine Funktion, ich hab so eine mal für den Watcom-Compiler implementiert.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Genau für das Prüfen ob genügend Platz ist. Dafür wird bei VLAs eine Funktion aufgerufen und da kann ich dann auch gleich malloc aufrufen (muss dann ntürlich am Ende der Funktion auch noch free aufrufen). Der Unterschied sollte, je nach Größe mal auf dem Stack und mal auf dem Heap schneller sein. Deswegen sollte sowas auch der Programmierer entscheiden, der weiß am besten wie groß die Arrays am meisten sind.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Hast Du da nen Script o.ä.? Es würde mich mal sehr interessieren mit was für Argumenten und Szenarien da gearbeitet wurde.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nope, das war innerhalb einer Übung, eigentlich wollte der Prof da gar nicht drauf eingehen (insbesondere da er nicht dachte das jemand versucht ein solches VLA auf dem Stack anzulegen, aber Studenten haben noch jede Dummheit mitgenommen <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> ), aber hat dann in der Übung schön zeigen können, das ab einer gewissen Arraygröße auf dem Stack das Programm beendet wird (zwecks nicht genug Stack) und wenn man new (also den Heap) nutzt funktioniert das bis zu wesentlich größeren Größen.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Ja leider, und das trotz dessen das in einem heutigen PCs locker mal ein paar GB Speicher stecken. Ich empfinde das als beschämend.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nicht wirklich (unter 64bit ja). Denn denk an ALR (oder wie das doch gleich hieß). Irgendwo musst du da bei der Stackgröße ne Grenze ziehen und wenn dann noch mehrere Threads dazu kommen eh!<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Das erscheint mir irgendwie kompliziert und langsam, ein Haufen indirektes Zeug.<br/>Ich möchte einfach alle TLS-Variablen in einer extra Sektion sammeln und der Linker macht dann daraus ein spezielles Segment das dann vom OS (zur Laufzeit) für jeden Thread der auf seinen TLS schreibend zugreift einmal geklont wird (COW). Damit kann ich TLS sogar aus simplen Assembler-Programmen benutzen ohne irgendwelche Verrenkungen und zusätzliche Befehle, ganz so wie alle anderen statischen Variablen auch. Ich dachte eigentlich dass das auf x86 ähnlich gemacht wird, schließlich hat man dort ja Segmente.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Genauso hat man es dann auch gemacht in der ELF und C/C++ Implementierung. Da macht man sich das gs Register zu nutze und das beide Systeme es zulassen einen Wert zu speichern und den über "gs:0" anzusprechen. Es gibt da allerdings noch ein paar Sachen die mir nicht ganz einleuchten in dem "Werk", aber das kann ich dann lösen wenn ich das mal portiere.<br/><br/>Im Endeffekt ist es allgemein (weil es ja Platformübergreifend sein soll) so, das man ne Funktion aufruft (sowas wie tls_get_data(size_t mid, size_t offset)) und die Daten bekommt (oder die Adresse, bin mir da gerade nicht sicher), aber auf x86 wird das alles vereinfacht und kein call zu dieser Funktion gemacht, sondern mit dem gs Register gearbeitet.<br/><br/>Kannst du dir ja bei Gelegenheit mal angucken.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: taljeth</div></div><blockquote class="bbc_standard_quote">Dafür braucht man aber keine Segmente.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Und was ist deiner Meinung nach das fs Register <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32402">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32404"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32404_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #88 am:</strong> 31. May 2011, 17:18 »</div>
+<div class="posttile"><h5 id="subject_32404">
+<a href="offset-80.html#msg32404" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32404_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32404"><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32388">Zitat von: FlashBurn am 31. May 2011, 10:22</a></div></div><blockquote class="bbc_standard_quote">Der Treiber kann den gesamten Speicher auslesen, weil er halt Zugriff auf die Hardware hat und diese anweisen kann per DMA den gesamten Speicher auslesen. Das war das was ich meinte!</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Und das ist so nicht richtig: Nicht jede Hardware kann DMA und nicht jede Hardware kann die gerade per DMA gelesenen Daten auch wieder zurückschieben. Auch kann nicht jede Hardware so einen Durchsatz garantieren, den du für unbemerktes Memdumping möchtest, zumal währenddessen die Hardware wahrscheinlich ausgelastet ist. Außerdem ist der Treiber dann garantiert hardwarespezifisch - und ein gutes OS lässt nicht zwei Treiber auf die gleiche Hardware zugreifen, d.h. man müsste den <em>schon vorhandenen</em> Treiber manipulieren, statt einfach einen beliebigen Treiber zu injizieren.<br/><br/>Ein paar Treiber werden in der Lage sein, den Speicher halbwegs schnell mit Hilfe der Hardware zu dumpen, aber davor kannst du dich ohne IOMMU nicht schützen. Dennoch sollte ein Treiber nicht auf den gesamten Speicher zugreifen können; versucht er es dennoch, gibt es halt einen GPF.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32389">Zitat von: erik.vikinger am 31. May 2011, 10:31</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32387">Zitat von: Svenska am 31. May 2011, 01:22</a></div></div><blockquote class="bbc_alternate_quote">Performance ist was anderes</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Auch in einer IOMMU kann man einen TLB implementieren. [...]</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das bezog sich darauf, dass man, wenn man mit einer Hardware den Speicher ohne IOMMU auslesen möchte, die Daten halt zweimal mit DMA (oder DMA+PIO) durch langsame Subsysteme transportieren muss. Das ist nicht besonders performant.<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32404">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32405"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32405_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #89 am:</strong> 31. May 2011, 17:24 »</div>
+<div class="posttile"><h5 id="subject_32405">
+<a href="offset-80.html#msg32405" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32405_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32405"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Und das ist so nicht richtig: Nicht jede Hardware kann DMA und nicht jede Hardware kann die gerade per DMA gelesenen Daten auch wieder zurückschieben. <br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Es bleibt ja allgemein erstmal gültig, das es im speziellen dann Geräte gibt die etwas nicht können, änder ja nichts an der Tatsache das es Treiber gibt die es können.<br/>Die Geschwindigkeit spielt dann meine Meinung nach keine Rolle mehr, es muss ja nicht der gesamte Speicher ausgelesen werden, es reicht ja auch der nötige <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Dennoch sollte ein Treiber nicht auf den gesamten Speicher zugreifen können; versucht er es dennoch, gibt es halt einen GPF.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Was unter einem Mikrokernel klar sein sollte, aber in nem monolithen kannst du das nicht hinbekommen (nicht auf jeder Architektur und nicht ohne sehr sehr viel Aufwand).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Das bezog sich darauf, dass man, wenn man mit einer Hardware den Speicher ohne IOMMU auslesen möchte, die Daten halt zweimal mit DMA (oder DMA+PIO) durch langsame Subsysteme transportieren muss.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nicht unbedingt, wenn du den ausgelesenen Speicher einfach per Netzwerk rausschickst.<br/><br/>@taljeth<br/><br/>Du hast recht, man braucht dafür nicht unbedingt Segmente, aber dann ein freies Register, wo man nen Thread spezifischen Wert speichern kann. Was aber unter x86 (auch nicht im 64bit Modus) ratsam ist, da zu wenige Register bzw. auf bestimmte Register nicht aus dem UserMode zugegriffen werden kann (z.B. Debugging-Register die man ja für sowas missbrauchen könnte).</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32405">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32409"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_32409_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #90 am:</strong> 31. May 2011, 19:58 »</div>
+<div class="posttile"><h5 id="subject_32409">
+<a href="offset-80.html#msg32409" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32409_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32409"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32402">Zitat von: FlashBurn am 31. May 2011, 16:33</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: taljeth</div></div><blockquote class="bbc_alternate_quote">Dafür braucht man aber keine Segmente.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Und was ist deiner Meinung nach das fs Register <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Eine Segmentruine. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/>Letztendlich ist es auf x86_64 nicht wesentlich mehr als ein Register mit einem Pointer, den man für manche Adressierungsarten draufaddieren kann. Das ist eine relative bequeme Methode, aber dafür kann man genausogut andere Mechanismen hernehmen, z.B. ein Allzweckregister reservieren oder was Nicht-x86-Architekturen eben sonst machen, um TLS zu implementieren. Du meinst doch nicht, dass es TLS nur auf x86 gibt, oder?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32409">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32409_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32410"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_32410_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #91 am:</strong> 31. May 2011, 20:01 »</div>
+<div class="posttile"><h5 id="subject_32410">
+<a href="offset-80.html#msg32410" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32410_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32410"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32404">Zitat von: Svenska am 31. May 2011, 17:18</a></div></div><blockquote class="bbc_standard_quote">Das bezog sich darauf, dass man, wenn man mit einer Hardware den Speicher ohne IOMMU auslesen möchte, die Daten halt zweimal mit DMA (oder DMA+PIO) durch langsame Subsysteme transportieren muss. Das ist nicht besonders performant.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich habe es nicht konkret ausprobiert, aber der Datentransfer, den ich brauche, um Ring 0 zu kriegen, dürfte sich sehr in Grenzen halten. Und alles weitere kann ich dann ja wieder direkt im RAM machen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32410">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32410_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32411"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32411_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #92 am:</strong> 31. May 2011, 20:18 »</div>
+<div class="posttile"><h5 id="subject_32411">
+<a href="offset-80.html#msg32411" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32411_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32411"><div class="quoteheader"><div class="topslice_quote">Zitat von: taljeth</div></div><blockquote class="bbc_standard_quote">Letztendlich ist es auf x86_64 nicht wesentlich mehr als ein Register mit einem Pointer, den man für manche Adressierungsarten draufaddieren kann.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Auf der einen Seite ist es eigentlich egal, aber es werden dort keine Limit-Checks mehr durchgeführt?<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: taljeth</div></div><blockquote class="bbc_standard_quote">Du meinst doch nicht, dass es TLS nur auf x86 gibt, oder?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Die nehmen ein Allgemeinregister, aber das ist unter x86 nicht zu empfehlen. Gibt es eigentlich noch eine Architektur (die man Leistungsmäßig zumindestens mit nem ARM Cortex A8 vergleichen kann) die auch nur so wenig Register hat und keine Segment Register?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32411">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32412"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32412_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #93 am:</strong> 31. May 2011, 21:36 »</div>
+<div class="posttile"><h5 id="subject_32412">
+<a href="offset-80.html#msg32412" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32412_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32412">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32401">Zitat von: taljeth am 31. May 2011, 16:29</a></div></div><blockquote class="bbc_standard_quote">Dafür braucht man aber keine Segmente. Ein einziger Pointer als TLS reicht, um alles machen zu können, wenn man nicht die Threads voneinander abschotten will. Letztendlich ist ja in der Regel %fs auf x86_64 genau dieser eine Pointer und nicht mehr. Und in der Struktur, auf die er zeigt, kann man dann eine Freispeicherliste für das threadlokale malloc aufhängen, wenn man mag.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, es geht auch ohne Segmente, aber die volle Flexibilität und Performance die man mit Segmenten ohne irgendwelche Zusatzticks bieten kann wird man mit Flat-Memory trotzdem nicht hinbekommen (ob man diese Flexibilität auch tatsächlich benötigt ist jetzt mal unerheblich). Gerade dieser Mechanismus mit den Slots (den FlashBurn beschrieben hat) dürfte in irgendeiner Form zur Compilezeit begrenzt sein ansonsten wird das Modifizieren der Strukturen nur noch wesentlich komplizierter.<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32402">Zitat von: FlashBurn am 31. May 2011, 16:33</a></div></div><blockquote class="bbc_standard_quote">Genau für das Prüfen ob genügend Platz ist. Dafür wird bei VLAs eine Funktion aufgerufen</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Naja, kann man so machen, aber ob das die effizienteste Lösung ist möchte ich dennoch bezweifeln.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32402">Zitat von: FlashBurn am 31. May 2011, 16:33</a></div></div><blockquote class="bbc_standard_quote">und da kann ich dann auch gleich malloc aufrufen (muss dann ntürlich am Ende der Funktion auch noch free aufrufen). Der Unterschied sollte, je nach Größe mal auf dem Stack und mal auf dem Heap schneller sein.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also ich behaupte das Speicher allozieren auf dem Stack immer schneller ist, egal ob es sich um 4 Bytes oder um 1GByte handelt, es bleibt ne simple Addition/Subtraktion. Ich sehe auch nicht wie das überhaupt von der Größe beeinflusst werden könnte.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32402">Zitat von: FlashBurn am 31. May 2011, 16:33</a></div></div><blockquote class="bbc_standard_quote">Deswegen sollte sowas auch der Programmierer entscheiden, der weiß am besten wie groß die Arrays am meisten sind.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Gerade der Programmierer weiß oft am wenigsten wie groß der Workload später tatsächlich wird. Der kann höchstens ein paar Abschätzungen und Worst-Case-Betrachtungen durchführen oder eine optimale Workload-Größe für den Anwender empfehlen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32402">Zitat von: FlashBurn am 31. May 2011, 16:33</a></div></div><blockquote class="bbc_standard_quote">(insbesondere da er nicht dachte das jemand versucht ein solches VLA auf dem Stack anzulegen, aber Studenten haben noch jede Dummheit mitgenommen <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> )</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wieso nur betrachtest Du das allozieren von Speicher auf dem Stack als Dummheit? Ich vermisse da immer noch ein handfestes Argument.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32402">Zitat von: FlashBurn am 31. May 2011, 16:33</a></div></div><blockquote class="bbc_standard_quote">das ab einer gewissen Arraygröße auf dem Stack das Programm beendet wird (zwecks nicht genug Stack)</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Achso, es geht darum ob es überhaupt läuft. Du hattest heute Mittag von "da zeitiger flöten geht" geschrieben und da hatte ich vermutet das Du irgendein Laufzeitproblem o.ä. meinst.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32402">Zitat von: FlashBurn am 31. May 2011, 16:33</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_alternate_quote">Ja leider, und das trotz dessen das in einem heutigen PCs locker mal ein paar GB Speicher stecken. Ich empfinde das als beschämend.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nicht wirklich .....</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Doch, das ist beschämend. Völlig egal wie viel RAM wirklich im Rechner steckt, das es auf einer &gt;=32Bit-Plattform nicht möglich ist einfach mal 16 MByte oder auch 256 MByte auf dem Stack abzulegen ist einfach nur beschämend. Ich verstehe natürlich die technischen Zwänge hinter Flat-Memory die sowas eben unmöglich machen aber von außen betrachtet, ohne sich um die tatsächliche Realisierung der Speicherverwaltung zu kümmern, ist es einfach unverständlich warum ich als Programmierer den vorhandenen Speicher nicht so benutzen kann wie ich das gerne möchte.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32402">Zitat von: FlashBurn am 31. May 2011, 16:33</a></div></div><blockquote class="bbc_standard_quote">Im Endeffekt ist es allgemein (weil es ja Platformübergreifend sein soll) so, das man ne Funktion aufruft (sowas wie tls_get_data(size_t mid, size_t offset))</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich denke man wird eher ein Register opfern. Wenn 16 oder mehr Register vorhanden sind dürfte das eher verschmerzbar sein als ein teurer Funktionsaufruf (vor allem kann man dieses Register ja auch mal auf dem Stack sichern wenn im entsprechenden Code-Abschnitt kein TLS benutzt wird und gerade dieses eine Register fehlt). Das x86 dafür Segment-Register hat ist da eher ein nettes Zusatzfeature so das man wenigstens keines der normalen Register opfern muss.<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32404">Zitat von: Svenska am 31. May 2011, 17:18</a></div></div><blockquote class="bbc_standard_quote">Das bezog sich darauf, dass man, wenn man mit einer Hardware den Speicher ohne IOMMU auslesen möchte, die Daten halt zweimal mit DMA (oder DMA+PIO) durch langsame Subsysteme transportieren muss. Das ist nicht besonders performant.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wenn man den <span class="bbc_u">kompletten</span> RAM dumpen will wird das so oder so nicht besonders performant. Wohin möchtest Du denn den vorhandenen Speicher kopieren? Etwa in den vorhandenen Speicher? Nein, man wird eh den Speicherinhalt komplett irgendeiner Hardware übergeben müssen, und ob das nun der HDD-Controller oder der Ethernet-Controller ist spielt da IMHO keine so große Rolle mehr. Wenn es aber darum geht eigenen Code in den Kernel zu injizieren bzw. auf anderem Weg Ring-0-Rechte zu erlangen dann dürfte die erforderliche Datenmenge ziemlich klein sein, wenn man die Adressen genau kennt dürfte das mit weniger als ein paar KByte auskommen und das geht dann wirklich schnell genug.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32412">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32412_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32413"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Jidder</a>
+</h4>
+<ul class="reset smalltext" id="msg_32413_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 1 625</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #94 am:</strong> 31. May 2011, 21:38 »</div>
+<div class="posttile"><h5 id="subject_32413">
+<a href="offset-80.html#msg32413" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32413_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32413"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32412">Zitat von: erik.vikinger am 31. May 2011, 21:36</a></div></div><blockquote class="bbc_standard_quote">Völlig egal wie viel RAM wirklich im Rechner steckt, das es auf einer &gt;=32Bit-Plattform nicht möglich ist einfach mal 16 MByte oder auch 256 MByte auf dem Stack abzulegen ist einfach nur beschämend. Ich verstehe natürlich die technischen Zwänge hinter Flat-Memory die sowas eben unmöglich machen aber von außen betrachtet, ohne sich um die tatsächliche Realisierung der Speicherverwaltung zu kümmern, ist es einfach unverständlich warum ich als Programmierer den vorhandenen Speicher nicht so benutzen kann wie ich das gerne möchte.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Man kann doch den Stack-Pointer verändern?!?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32413">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32413_signature">Dieser Text wird unter jedem Beitrag angezeigt.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32414"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32414_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #95 am:</strong> 31. May 2011, 21:55 »</div>
+<div class="posttile"><h5 id="subject_32414">
+<a href="offset-80.html#msg32414" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32414_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32414"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32413">Zitat von: PorkChicken am 31. May 2011, 21:38</a></div></div><blockquote class="bbc_standard_quote">Man kann doch den Stack-Pointer verändern?!?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>ist anzunehmen, ja. Und was willst Du damit sagen?!?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32414">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32414_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32415"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32415_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #96 am:</strong> 31. May 2011, 21:55 »</div>
+<div class="posttile"><h5 id="subject_32415">
+<a href="offset-80.html#msg32415" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32415_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32415"><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Naja, kann man so machen, aber ob das die effizienteste Lösung ist möchte ich dennoch bezweifeln.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>So wie ich das verstanden hatte, ist das keine Sache von kann man machen, sondern muss man machen, es muss jede Page angefasst und zwar in der richtigen Reihenfolge, damit die Guardpage eine Page weiter gesetzt wird.<br/>Das Problem ist hier die Sicherheit, das man bestimmte Sachen verhindern möchte. Dazu kommt halt noch ALR, wo es dann sein kann das du zwar viel freien RAM hättest der Stack aber an einer Stelle ist wo er einfach nicht größer werden kann. Vorallem was willst du machen wenn der Speicher voll ist, dann bekommst du das da auch nicht drauf.<br/>Dann kommt noch hinzu wie der VMM aufgebaut ist, bei mir ist es z.B. nicht einfach mal möglich sich neuen Speicher zu holen in dem man einfach willkürlich auf eine Page zugreift und die dann gemappt wird, sondern der Speicher muss vom OS angefordert werden.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Wieso nur betrachtest Du das allozieren von Speicher auf dem Stack als Dummheit? Ich vermisse da immer noch ein handfestes Argument.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also erstmal sollte man wissen das der Stack begrenzt ist und wo diese Grenze ungefähr liegt und da sollte es klar sein, das ab einer Gewissen Größe kein Platz mehr auf dem Stack ist.<br/>Dazu kommt, das der Stack für mich für kleine überschaubare Sachen zuständig ist, aber ab einer gewissen Größe ist es nicht mehr nur kurzzeitig sondern länger und da fällt es dann auch nicht mehr ins Gewicht ob man malloc oder den Stack benutzt.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Achso, es geht darum ob es überhaupt läuft. Du hattest heute Mittag von "da zeitiger flöten geht" geschrieben und da hatte ich vermutet das Du irgendein Laufzeitproblem o.ä. meinst.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich weiß die Aufgabe nicht mehr genau, aber einer Funktion wurde die Größe übergeben und daraufhin hat man nen neues Array von Int Werten angelegt, was man dann damit gemacht hat, keine Ahnung mehr. Und wenn du das auf dem Stack machst, geht es relativ zeitig flöten, da du halt versuchst auf Speicher zuzugreifen, auf den du keine Rechte hast und machst du das über/malloc geht das wesentlich länger (größer).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Doch, das ist beschämend. Völlig egal wie viel RAM wirklich im Rechner steckt, das es auf einer &gt;=32Bit-Plattform nicht möglich ist einfach mal 16 MByte oder auch 256 MByte auf dem Stack abzulegen ist einfach nur beschämend.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wie gesagt, was machst du wenn du soviel Platz auf dem Stack nicht findest, aber sich woanders im Prozess eine Lücke findet die groß genug ist? Was machst du bei mehreren Threads die alle nen Stack brauchen und da willst du dann jedes Mal 256MB für den Stack (eigentlich ja sogar mehr) reservieren? Und wo packst du Libraries und den Heap hin?<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Ich denke man wird eher ein Register opfern.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ist ja richtig, aber auf x86 wird zum Bsp gs und auf x86-64 fs genommen, weil halt kein Register über ist und da man den Standard Platformunabhängig machen wollte hat man sich für die Funktionen entschieden. Das jede Platform diese Funktionen anders implementiert und diese dann vom Compiler geinlinet werden, das ist klar und dann läuft es genau auf solch ein Register hinaus.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: PorkChicken</div></div><blockquote class="bbc_standard_quote">Man kann doch den Stack-Pointer verändern?!?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das werde ich z.B. unter meinem OS nicht zulassen. Ich überprüfe jedes Mal wenn ein Syscall gemacht wird, ob der Stackpointer noch innerhalb des Stackbereichs liegt und wenn nicht dann gibts entweder nen Fehlercode oder der Prozess wird beendet.<br/>Das der Programmierer sich selbst um den Stack gekümmert hat, die Zeiten sind vorbei, vorallem umgeht er damit ja alle Sicherheits Maßnahmen vom OS (und darauf legt ihr ja immer wert <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> ).</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32415">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32416"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Jidder</a>
+</h4>
+<ul class="reset smalltext" id="msg_32416_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 1 625</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #97 am:</strong> 31. May 2011, 21:59 »</div>
+<div class="posttile"><h5 id="subject_32416">
+<a href="offset-80.html#msg32416" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32416_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32416">@Erik: Dass es sich nicht lohnt soviele Worte darüber zu verlieren, dass man angeblich nicht den vorhanden Speicher so nutzen kann wie man möchte.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32416">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32416_signature">Dieser Text wird unter jedem Beitrag angezeigt.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32417"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_32417_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #98 am:</strong> 31. May 2011, 22:33 »</div>
+<div class="posttile"><h5 id="subject_32417">
+<a href="offset-80.html#msg32417" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32417_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32417"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32415">Zitat von: FlashBurn am 31. May 2011, 21:55</a></div></div><blockquote class="bbc_standard_quote">Das werde ich z.B. unter meinem OS nicht zulassen. Ich überprüfe jedes Mal wenn ein Syscall gemacht wird, ob der Stackpointer noch innerhalb des Stackbereichs liegt und wenn nicht dann gibts entweder nen Fehlercode oder der Prozess wird beendet.<br/>Das der Programmierer sich selbst um den Stack gekümmert hat, die Zeiten sind vorbei, vorallem umgeht er damit ja alle Sicherheits Maßnahmen vom OS (und darauf legt ihr ja immer wert <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> ).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Welche Sicherheitsmaßnahmen umgeht man denn mit einem Stackwechsel? Und wenn das geht, heißt das nicht, dass diese Sicherheitsmaßnahmen schlicht und einfach nichts taugen?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32417">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32417_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32420"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32420_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #99 am:</strong> 01. June 2011, 10:04 »</div>
+<div class="posttile"><h5 id="subject_32420">
+<a href="offset-80.html#msg32420" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32420_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32420">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32415">Zitat von: FlashBurn am 31. May 2011, 21:55</a></div></div><blockquote class="bbc_standard_quote">es muss jede Page angefasst und zwar in der richtigen Reihenfolge</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Warum muss jede Page vom Stack in der richtigen Reihenfolge angefasst werden?<br/>Die Guard-Page ist IMHO immer die letzte Page (bei x86 die an der niedrigsten Adresse) vom maximal möglichen Stack und die wird prinzipiell nie gemappt und ein Zugriff führt immer zum Stack-Overflow-Kill.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32415">Zitat von: FlashBurn am 31. May 2011, 21:55</a></div></div><blockquote class="bbc_standard_quote">Vorallem was willst du machen wenn der Speicher voll ist, dann bekommst du das da auch nicht drauf.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wenn der Speicher voll ist ist eh zu spät aber wenn mein Programm in seinem virtuellen Adressraum noch knapp 2 GBytes frei hat dann sollte es eigentlich auch möglich sein mal 16 MBytes auf den Stack zu legen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32415">Zitat von: FlashBurn am 31. May 2011, 21:55</a></div></div><blockquote class="bbc_standard_quote">Dann kommt noch hinzu wie der VMM aufgebaut ist</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Der C-Standard interessiert sich nicht für den VMM, dort wird mir gesagt das ich alles mögliche als lokale Variable auf den Stack legen kann und fertig. Wie das dann konkret umgesetzt wird ist ein Implementierungsdetail. Meiner persönlichen Meinung nach ist es Aufgabe der Implementierung (was Compiler, libc, OS usw. mit einschließt) die Dinge die der C-Standard zusichert auch zur Verfügung zu stellen und gerade an der Stelle hat Flat-Memory eben eine Schwäche mit dem Stack. Mir ist klar warum diese Schwäche existiert und ich muss diese Schwäche auch in meinen Programmen berücksichtigen aber ich empfinde das eben als unpraktisch und nicht nachvollziehbar.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32415">Zitat von: FlashBurn am 31. May 2011, 21:55</a></div></div><blockquote class="bbc_standard_quote">und wo diese Grenze ungefähr liegt</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Warum sollte ich das als reiner C-Programmierer wissen? Mich interessieren doch nicht die spezifischen Eigenheiten der drunter liegenden Plattform, deswegen gibt es doch den Compiler (und die restliche Kette bis hin zum OS) damit diese Dinge vor mir verborgen werden und ich nur den C-Standard kennen muss.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32415">Zitat von: FlashBurn am 31. May 2011, 21:55</a></div></div><blockquote class="bbc_standard_quote">Dazu kommt, das der Stack für mich für kleine überschaubare Sachen zuständig ist</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Definiere "kleine". Wenn Du da eine Grenze ziehst dann musst Du die auch sauber begründen können. Der C-Standard zieht dort keine Grenze. Natürlich ist dem Programmierer bewusst das Speicher nicht unbegrenzt zur Verfügung steht aber warum soll der Stack eine "kleine" Grenze haben und der Heap nicht?<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32415">Zitat von: FlashBurn am 31. May 2011, 21:55</a></div></div><blockquote class="bbc_standard_quote">Wie gesagt, was machst du wenn du soviel Platz auf dem Stack nicht findest, aber sich woanders im Prozess eine Lücke findet die groß genug ist? Was machst du bei mehreren Threads die alle nen Stack brauchen und da willst du dann jedes Mal 256MB für den Stack (eigentlich ja sogar mehr) reservieren? Und wo packst du Libraries und den Heap hin?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Diese Dinge fallen allesamt in den Verantwortungsbereich der Implementierung und nicht des C-Programmierers.<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg32416">Zitat von: PorkChicken am 31. May 2011, 21:59</a></div></div><blockquote class="bbc_standard_quote">Dass es sich nicht lohnt soviele Worte darüber zu verlieren, dass man angeblich nicht den vorhanden Speicher so nutzen kann wie man möchte.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wenn Du das mit dem "angeblich" ernst meinst dann beweise mir das man mit <span class="bbc_u">reinen</span> ANSI-C-Mitteln 256 MBytes auf den Stack legen und benutzen kann! Auf Windows und Linux (und noch mindestens einer nicht-x86-32Bit-Plattform mit normalem/unmodifiziertem General-Purpose-OS), ohne zusätzliche (OS-spezifische) Librarys und ohne Compiler/Assembler/Linker/....-spezifische Tricks.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32420">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32420_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: <a class="navPages" href="index.html">1</a> <span style="font-weight: bold;"> ... </span><a class="navPages" href="offset-40.html">3</a> <a class="navPages" href="offset-60.html">4</a> [<strong>5</strong>] <a class="navPages" href="offset-100.html">6</a> <a class="navPages" href="offset-120.html">7</a>
+</div></div>
+<div class="nextlinks_bottom"><a href="../2770/index.html#msg32500">« vorheriges</a> <a href="../2185/offset-60.html#msg32143">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>SLAB-Allocator als Basis fuer kmalloc?</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.045 Sekunden mit 409 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

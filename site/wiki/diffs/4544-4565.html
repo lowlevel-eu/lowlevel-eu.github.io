@@ -1,0 +1,58 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MyXomycota — Änderungen 4544 → 4565</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>MyXomycota — Änderungen 4544 → 4565</h1><nav><a href="../revisions/4544/index.html">Version 4544</a> · <a href="../revisions/4565/index.html">Version 4565</a> · <a href="../history/1861/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l26" >Zeile 26:</td>
+<td colspan="2" class="diff-lineno">Zeile 26:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Zugriff auf Netzwerkfunktionen ===</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Zugriff auf Netzwerkfunktionen ===</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Noch gibt es kein offizielles Release mit Netzwerkfunktionalität, das soll im nächsten Release anders sein. Zugriff darauf erhält man dann mit den <del class="diffchange diffchange-inline">Spezialdateisystemen </del>ipfs <del class="diffchange diffchange-inline">und tcpfs. Diese werden unter </del>&quot;/net/ip&quot; <del class="diffchange diffchange-inline">bzw. </del>&quot;/net/tcp&quot; <del class="diffchange diffchange-inline">eingehängt.</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Noch gibt es kein offizielles Release mit Netzwerkfunktionalität, das soll im nächsten Release anders sein. Zugriff darauf erhält man dann mit <ins class="diffchange diffchange-inline">folgenden Spezialdateisystemen unter </ins>den <ins class="diffchange diffchange-inline">ebenfalls folgenden Mountpoints:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* &quot;</ins>ipfs<ins class="diffchange diffchange-inline">&quot; - </ins>&quot;/net/ip&quot;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* &quot;tcpfs&quot; - </ins>&quot;/net/tcp&quot;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* &quot;udpfs&quot; - &quot;/net/udp&quot;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== /net/ip ====</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== /net/ip ====</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l35" >Zeile 35:</td>
+<td colspan="2" class="diff-lineno">Zeile 39:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>ipcon = fopen(&quot;/net/ip/eth0:74.125.39.106&quot;, &quot;r+&quot;)&lt;/c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>ipcon = fopen(&quot;/net/ip/eth0:74.125.39.106&quot;, &quot;r+&quot;)&lt;/c&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Danach kann man einfach Daten empfangen (&quot;fread&quot;) und senden (&quot;fwrite&quot;) sowie die Verbindung wieder beenden (&quot;fclose&quot;).</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Danach kann man einfach Daten empfangen (&quot;fread&quot;) und senden (&quot;fwrite&quot;) sowie die Verbindung wieder beenden (&quot;fclose&quot;<ins class="diffchange diffchange-inline">). Zu beachten ist, dass nur ganze Pakete gesendet und empfangen werden können (ca. 1500 Bytes</ins>).</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== /net/tcp ====</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== /net/tcp ====</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l45" >Zeile 45:</td>
+<td colspan="2" class="diff-lineno">Zeile 49:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Hier kann man dann ebenso Daten empfangen (&quot;fread&quot;) und senden (&quot;fwrite&quot;) und natürlich auch die Verbindung beenden (&quot;fclose&quot;).</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Hier kann man dann ebenso Daten empfangen (&quot;fread&quot;) und senden (&quot;fwrite&quot;) und natürlich auch die Verbindung beenden (&quot;fclose&quot;).</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">==== Weitere /net-Dateisysteme ====</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* /net/udp - Verbindung ähnlich wie bei /net/tcp, es können aber nur ganze Pakete empfangen/gesendet werden</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Aktuelle Features ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Aktuelle Features ==</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l57" >Zeile 57:</td>
+<td colspan="2" class="diff-lineno">Zeile 65:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Wichtigste Programme ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Wichtigste Programme ==</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Im offiziellen Release (0.004-pa-0) ===</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* µsh: Die Shell</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* µsh: Die Shell</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l65" >Zeile 65:</td>
+<td colspan="2" class="diff-lineno">Zeile 75:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Brainfuck 0.1: Compiler</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Brainfuck 0.1: Compiler</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Maumau: Mau-Mau spielen, Regeln unter &quot;maumau --help&quot; oder &quot;/mnt/fda/home/Mau-Mau-Regeln.txt&quot;; benutzt die libmaumau-0.3 (#lost am 22. März 2009)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Maumau: Mau-Mau spielen, Regeln unter &quot;maumau --help&quot; oder &quot;/mnt/fda/home/Mau-Mau-Regeln.txt&quot;; benutzt die libmaumau-0.3 (#lost am 22. März 2009)</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Noch &quot;unter Verschluss&quot; ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* dig 0.001: Wandelt einen Hostnamen in eine IP-Adresse um</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* myxirc: Ein (einfacher) IRC-Client</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== TODO ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== TODO ==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* TODO-Liste abarbeiten</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Netzwerkfunktionen</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Netzwerkfunktionen</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* HD-Audio-Treiber</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* HD-Audio-Treiber</div></td></tr>
+</table></body></html>

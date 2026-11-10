@@ -1,0 +1,39 @@
+{{Vorlage:Infobox OS|
+Name = Windows|
+Entwickler = Microsoft|
+Version = NT 6.0 (= Vista) |
+Lizenz = Proprietär|
+Plattform = x86, x64 und Intel-MAC(BootCamp), ältere Versionen auch andere|
+API = WinAPI|
+Binaerformat =Portable Executable|
+Kernel = [[Makrokernel]]|
+Homepage = [http://www.microsoft.com/windows www.microsoft.com]|
+Sprache = Unbekannt, da nicht Open-Source(vermutlich [[C]])|
+IPC = Pipes, Shared Memory, RPC,...
+}}
+
+Windows ist ein kommerzielles Betriebssystem der Firma Microsoft, das auf einer sehr großen Anzahl von Privat-PCs zum Einsatz kommt. Es ist auf Bedienerfreundlichkeit ausgelegt. Als freie Alternative zu Windows gibt es [[ReactOS]] .
+== OS-Dev unter Windows ==
+=== Pro ===
+Für Leute, die noch nie mit Linux gearbeitet haben, ist der Einstieg sicher etwas schwerer, vor allem, wenn man gleich mit OS-Programmierung anfängt. Wer gewohnt ist, mit Windows zu arbeiten, der wird sich nicht bemühen, [[Bash]] oder Sonstiges zu lernen, wenn er mit *.bat Dateien vertraut ist. So wird es Windows-Leuten wohl einfacher fallen, ihr eigenes Betriebssystem zu entwickeln. Außerdem existieren die Programme, die benötigt werden (Compiler,...) mittlerweile auch schon für Windows und müssen nur mehr heruntergeladen werden. (Binutils, Crosscompiler, MingGW CygWin,...)
+
+=== Contra ===
+Das wohl größte Argument gegen Windows als Entwicklerplattform für Betriebssysteme ist wohl, dass viele Programme erst heruntergeladen werden müssen, damit man mit dem Programmieren anfangen kann. (gcc, make, ...) Außerdem fehlen Windows noch ein paar Kommandozeilen-Programme, welche die OS-Programmierung erleichtern. (dd, ...) Sicherlich ist auch der Funktionsumfang von Batch-Dateien eher gering, was aber in diesem Einsatzgebiet wohl eher nicht so wichtig ist.
+
+Es gab über dieses Thema eine Diskussion, siehe [[Diskussion:OS-Dev für Einsteiger]].
+== Design ==
+=== NT-Linie ===
+==== Kernel ====
+Über das Design von Windows ist relativ wenig bekannt, da von Microsoft relativ wenig Informationen über Schnittstellen etc. offenlegt. Deshalb ist man sich auch nicht wirklich einig, was den [[Kernel]] von Windows betrifft. Ursprünglich war Windows als [[Mikrokernel]] geplant, bis Windows NT 3.1 war das auch so. Allerdings wurden dann aus Geschwindigkeitsgründen Teile der [[GUI]] als Ring-0-Applikationen ausgeführt, genauso wie andere Teile (seit Vista werden die Grafiktreiber wieder als Ring-3 Prozesse angesehen). Deshalb entspricht Windows nicht mehr den Kriterien von [[Mikrokernel]]-Systemen. Daher wird Windows gemeinhin als [[Makrokernel]] betrachtet.
+
+==== API ====
+Bei der API wird unterschieden zwischen der "nativen NT-API", die teilweise undokumentiert ist (Syscalls, obwohl sich auch hier bereits einiges an Dokumentation z.B. in ReactOS findet), größtenteils durch das Treiberinterface (Windows WDK bzw. DDK) jedoch sogar gut dokumentiert ist, und der WinAPI (kernel32.dll, user32.dll, gdi32.dll). Seit .NET gibt es nun auch eine dritte, objektorientierte Schicht, die über diese APIs gelegt ist, nämlich das .NET Framework. Das.NET Framework war ursprünglich nur eine "Weiterleitung" an die WinAPI, wurde dann aber später erweitert und von der WinAPI getrennt, sodass es mittlerweile nur mehr sogenannter ''Managed Code ist'', der unter einer Laufzeitumgebung in einer virtuellen Maschine läuft, die den Bytecode übersetzt.
+
+== Siehe auch ==
+* [[Crosscompiler für Windows]]
+* [[ReactOS]]
+== Links ==
+* [http://msdn.microsoft.com/en-us/library/ms795146.aspx Windows NT-API für Treiber und Subsystems]
+* [http://www.rawol.com/?topic=77 Undocumented Windows 2000 Secrets]
+
+[[Kategorie:Betriebssystem]]

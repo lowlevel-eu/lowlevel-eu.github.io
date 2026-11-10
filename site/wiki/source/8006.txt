@@ -1,0 +1,6 @@
+== TSS ==
+
+Ich lade das TSS nur ein einziges Mal (<tt>ltr</tt>) und verändere beim Taskwechsel lediglich ESP0 und SS0 (eben das, was man für Software-Multitasking benötigt). Somit hatte ich bisher keinerlei Probleme mit dem busy-Flag. Sollte man hier vielleicht hinschreiben, dass das Problem so (evtl. viel einfacher) auch zu lösen ist? —[[Benutzer:XanClic|Clici McXan]] 15:29, 22. Jul. 2010 (CEST)
+:Das funktioniert auch?! Auch auf einer realen Maschine? Ich war immer der Meinung, dass die Änderungen im TSS erst wirksam werden, wenn man es mit ltr neu lädt, weil die CPU das Ding im Cache hat. Aber wenn es auch so funktioniert, dann ist ja im Grunde der ganze Abschnitt überflüssig... --[[Benutzer:Bjork|Bjork]] 16:05, 22. Jul. 2010 (CEST)
+::Ich habe es nie anders gemacht, und ich weiß, dass zumindest einige Versionen meiner Betriebssysteme auf echter Hardware laufen. ;-) —[[Benutzer:XanClic|Clici McXan]] 17:01, 22. Jul. 2010 (CEST)
+::Das TSS ist ja nicht irgendein Registerzustand, sondern ein Segment. Wenn man den Speicher in diesem Segment ändert, dann ist er eben ohne weitere Maßnahmen geändert. Du lädst ja auch nicht ds neu, nachdem du eine "normale" Variable geändert hat. ;-) --[[Benutzer:Taljeth|Taljeth]] 13:20, 25. Jul. 2010 (CEST)

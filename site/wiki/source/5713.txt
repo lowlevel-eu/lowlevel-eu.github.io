@@ -1,0 +1,107 @@
+Diese Seite fasst die wichtigsten Formatierungsbefehle, die man in diesem Wiki verwenden kann, zusammen. Dies ist keine Anleitung, wann welche Befehle zu verwenden sind.
+
+Eine umfangreichere Dokumentation bietet die offizielle MediaWiki-Dokumentation.
+
+TODO: Das kann alles einiges an Erklärungen vertragen.
+
+== Text ==
+TODO 
+
+<nowiki>''kursiv'' und '''fett'''</nowiki> wird zu ''kursiv'' und '''fett'''
+
+== Überschriften ==
+TODO
+
+<nowiki>== Erste Überschriftsebene ==</nowiki>
+
+<nowiki>=== Zweite Überschriftsebene ===</nowiki>
+
+== Links ==
+* <nowiki>[[Artikelname]]</nowiki> - Bsp: <nowiki>"Ein [[Interrupt]]"</nowiki> wird zu: "[[Interrupt]]"
+* <nowiki>[[artikelname|text im artikel]]</nowiki> - Bsp: <nowiki>"Eine [[Interrupt|Unterbrechung]] macht Spaß"</nowiki> wird zu: "Eine [[Interrupt|Unterbrechung]] macht Spaß"
+* <nowiki>[http://example.com externer linke]</nowiki> - Bsp: <nowiki>"Das [http://lowlevel.brainsware.org Lowlevel Wiki] macht Spaß"</nowiki> wird zu: "Das [http://lowlevel.brainsware.org Lowlevel Wiki] macht Spaß"
+* <nowiki>[http://example.com]</nowiki> - Bsp: "Siehe <nowiki>[http://lowlevel.brainsware.org]</nowiki>" wird zu: "Siehe [http://lowlevel.brainsware.org]"
+
+== Wikiformatierung unterdrücken ==
+Wenn man zum Beispiel Wikibefehle erklären will, oder einfach eine Kollision mit den Befehlen von Mediawiki hat, kann man das <nowiki><nowiki></nowiki>-Tag benutzen, um zu verhindern, dass Mediawiki den enthaltenen Text formatiert.
+
+== Listen ==
+=== Nicht nummeriert ===
+ * punkt x
+ * punkt y
+ * punkt z
+wird zu:
+* punkt x
+* punkt y
+* punkt z
+=== Nummeriert ===
+ # punkt x
+ # punkt y
+ # punkt z
+wird zu:
+# punkt x
+# punkt y
+# punkt z
+=== Mehrere Ebenen (kombiniert)===
+ * foo
+ *# unterfoo1
+ *#* unterunterfoo
+ *# unterfoo2
+ * bar
+wird zu:
+* foo
+*# unterfoo1
+*#* unterunterfoo
+*# unterfoo2
+* bar
+
+=== Diskussionsfäden ===
+Diskussionsfäden können mittels Listen ohne Auflistungszeichen relativ übersicht gestaltet werden. Zum Beispiel so:
+ : Also ich finde diese Diskussion verdient Antworten. <nowiki>--~~~~</nowiki>
+ :: Ich bin eine Antwort. <nowiki>--~~~~</nowiki>
+ ::: Ich bin eine mehrzeilige Antwort
+ ::: auf die Antwort. <nowiki>--~~~~</nowiki>
+ :: Ich bin auch wichtig. <nowiki>--~~~~</nowiki>
+Und das sieht so aus
+: Also ich finde diese Diskussion verdient Antworten. --Autor1 0:00, 1. Jan. 1900 (CEST) 
+:: Ich bin eine Antwort. --Autor2 10:10, 1. Jan. 1900 (CEST) 
+::: Ich bin eine mehrzeilige Antwort
+::: auf die Antwort. --Autor3 13:37, 1. Jan. 1900 (CEST) 
+:: Ich bin auch wichtig. --Autor4 21:42, 1. Jan. 1900 (CEST) 
+
+== Signatur ==
+Kommentare in Diskussionsseiten sollten immer durch ein <nowiki>--~~~~</nowiki> am Ende signiert werden.
+
+== Code ==
+=== In bestimmter Sprache ===
+C-Code und Assembler-Code wird in <nowiki><c></nowiki>- bzw. <nowiki><asm></nowiki>-Tags gesetzt, um bunten Code zu erhalten. 
+
+Bsp:
+ <nowiki><c>int main() {</nowiki>
+ <nowiki>    int i = 1;</nowiki>
+ <nowiki>}</c></nowiki>
+wird zu:
+<c>int main() {
+   int i = 1;
+}</c>
+
+Bsp:
+ <nowiki><asm>mov eax, cr0</nowiki>
+ <nowiki>or eax, 1</nowiki>
+ <nowiki>mov cr0, eax</asm></nowiki>
+wird zu:
+<asm>mov eax, cr0
+or al, 1
+mov cr0, eax</asm>
+=== In anderen Sprachen ===
+ <nowiki><code></nowiki>REM Important
+ ECHO Hello Batch<nowiki></code></nowiki>
+Wird zu
+<code>REM Important
+ECHO Hello Batch</code>
+Außerdem bekommt man diese schöne Code-Formatierung, wenn man einfach ein Leerzeichen vor jede Zeile des Codes setzt.
+
+== HTML ==
+Die Verwendung von HTML ist möglichst zu vermeiden. Man kann auch in der [http://meta.wikimedia.org/wiki/Help:Editing MediaWiki-Dokumentation] nach Alternativen suchen, oder im [[IRC]] nachfragen.
+
+[[Kategorie:Internes]]

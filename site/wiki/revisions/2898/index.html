@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Multiboot – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Multiboot rootpage-Multiboot skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1560/index.html">Aktueller Artikel</a> · <a href="../../history/1560/index.html">Versionsgeschichte</a> · <a href="../../source/2898.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Multiboot</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 6. April 2008, 16:02 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>MNemo</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#mbs_syms">→</a>‎<span dir="auto"><span class="autocomment">mbs_syms: </span> link angepasst</span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/2732-2898.html" title="Multiboot">Unterschied</a>) <a href="../2732/index.html" title="Multiboot">← Nächstältere Version</a> | <a href="../../pages/1560/index.html" title="Multiboot">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../2952/index.html" title="Multiboot">Nächstjüngere Version →</a> (<a href="../../diffs/2898-2952.html" title="Multiboot">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Multiboot ist ein Standard um Betriebssystemen eine einheitliche Startumgebung zu gewährleisten. Ein sehr bekannter Multiboot-Bootloader ist <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Grub</a>.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Ausgangsstatus"><span class="tocnumber">1</span> <span class="toctext">Ausgangsstatus</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Multiboot-Header"><span class="tocnumber">2</span> <span class="toctext">Multiboot-Header</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#mbh_magic"><span class="tocnumber">2.1</span> <span class="toctext">mbh_magic</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#mbh_flags"><span class="tocnumber">2.2</span> <span class="toctext">mbh_flags</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#mbh_checksum"><span class="tocnumber">2.3</span> <span class="toctext">mbh_checksum</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Multiboot-Structure"><span class="tocnumber">3</span> <span class="toctext">Multiboot-Structure</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#mbs_flags"><span class="tocnumber">3.1</span> <span class="toctext">mbs_flags</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#mbs_mem_lower"><span class="tocnumber">3.2</span> <span class="toctext">mbs_mem_lower</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#mbs_mem_upper"><span class="tocnumber">3.3</span> <span class="toctext">mbs_mem_upper</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#mbs_bootdevice"><span class="tocnumber">3.4</span> <span class="toctext">mbs_bootdevice</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#mbs_cmdline"><span class="tocnumber">3.5</span> <span class="toctext">mbs_cmdline</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#mbs_mods_count"><span class="tocnumber">3.6</span> <span class="toctext">mbs_mods_count</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#mbs_mods_addr"><span class="tocnumber">3.7</span> <span class="toctext">mbs_mods_addr</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#mbs_syms"><span class="tocnumber">3.8</span> <span class="toctext">mbs_syms</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#mbs_mmap_length"><span class="tocnumber">3.9</span> <span class="toctext">mbs_mmap_length</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#mbs_mmap_addr"><span class="tocnumber">3.10</span> <span class="toctext">mbs_mmap_addr</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#mbs_drives_length"><span class="tocnumber">3.11</span> <span class="toctext">mbs_drives_length</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#mbs_drives_addr"><span class="tocnumber">3.12</span> <span class="toctext">mbs_drives_addr</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#mbs_config_table"><span class="tocnumber">3.13</span> <span class="toctext">mbs_config_table</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#mbs_boot_loader_name"><span class="tocnumber">3.14</span> <span class="toctext">mbs_boot_loader_name</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#mbs_apm_table"><span class="tocnumber">3.15</span> <span class="toctext">mbs_apm_table</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-22"><a href="#Weblinks"><span class="tocnumber">4</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Ausgangsstatus">Ausgangsstatus</span></h2>
+<p>Unmittelbar nachdem die Kontrolle von Grub an den Kernel übergeben wurde, sind folgende Zustände festgesetzt:
+</p>
+<table border="1">
+<tbody><tr>
+<td>EAX</td>
+<td>Beinhaltet magicnumber 0x1BADB002
+</td></tr>
+<tr>
+<td>EBX</td>
+<td>Pointer zur Multiboot-Structure
+</td></tr>
+<tr>
+<td>CS</td>
+<td>Ein Codesegment mit der Basisadresse 0 und der Größe 0xFFFFFFFF
+</td></tr>
+<tr>
+<td>DS</td>
+<td>Ein Datensegment mit der Basisaddresse 0 und der Größe 0xFFFFFFFF
+</td></tr>
+<tr>
+<td>ES</td>
+<td>Ein Datensegment mit der Basisaddresse 0 und der Größe 0xFFFFFFFF
+</td></tr>
+<tr>
+<td>FS</td>
+<td>Ein Datensegment mit der Basisaddresse 0 und der Größe 0xFFFFFFFF
+</td></tr>
+<tr>
+<td>GS</td>
+<td>Ein Datensegment mit der Basisaddresse 0 und der Größe 0xFFFFFFFF
+</td></tr>
+<tr>
+<td>SS</td>
+<td>Ein Datensegment mit der Basisaddresse 0 und der Größe 0xFFFFFFFF
+</td></tr>
+<tr>
+<td>A20 Gate</td>
+<td>A20 Gate ist enabled
+</td></tr>
+<tr>
+<td>CR0</td>
+<td>Bit 31 (PG) ist zurückgesetzt. Bit 0 (PE) ist gesetzt. Alle anderen Bits sind undefiniert.
+</td></tr>
+<tr>
+<td>EFLAGS</td>
+<td>Bit 17 (VM) und Bit 9 (IF) ist zurückgesetzt. Alle anderen Bits sind undefiniert.
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Multiboot-Header">Multiboot-Header</span></h2>
+<p>Der Multiboot-Header sollte in den ersten 8192 Bytes des OS-Images liegen. Der Multiboot-Header sieht folgendermaßen aus:
+</p>
+<table border="1">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Inhalt</th>
+<th>Anwesend wenn mbh_flags[X] gesetzt
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>4</td>
+<td><a href="#mbh_magic"> mbh_magic</a></td>
+<td>immer
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>4</td>
+<td><a href="#mbh_flags"> mbh_flags</a></td>
+<td>immer
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>4</td>
+<td><a href="#mbh_checksum"> mbh_checksum</a></td>
+<td>immer
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td>4</td>
+<td>mbh_header_addr</td>
+<td>16
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>4</td>
+<td>mbh_load_addr</td>
+<td>16
+</td></tr>
+<tr>
+<td>0x14</td>
+<td>4</td>
+<td>mbh_load_end_addr</td>
+<td>16
+</td></tr>
+<tr>
+<td>0x18</td>
+<td>4</td>
+<td>mbh_bss_end_addr</td>
+<td>16
+</td></tr>
+<tr>
+<td>0x1C</td>
+<td>4</td>
+<td>mbh_entry_addr</td>
+<td>16
+</td></tr>
+<tr>
+<td>0x20</td>
+<td>4</td>
+<td>mbh_mode_type</td>
+<td>2
+</td></tr>
+<tr>
+<td>0x24</td>
+<td>4</td>
+<td>mbh_mode_width</td>
+<td>2
+</td></tr>
+<tr>
+<td>0x28</td>
+<td>4</td>
+<td>mbh_mode_height</td>
+<td>2
+</td></tr>
+<tr>
+<td>0x2C</td>
+<td>4</td>
+<td>mbh_mode_depth</td>
+<td>2
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="mbh_magic">mbh_magic</span></h3>
+<p>Dient Grub zum Finden des Multiboot-Headers. Muss 0x1BADB002 sein.
+</p>
+<h3><span class="mw-headline" id="mbh_flags">mbh_flags</span></h3>
+<p>Bits 0-15 sind Flags die umbedingt benötigt werden. Wenn der Bootloader eines dieser Flags nicht kennt, bricht er den Bootvorgang ab. Bits 16-31 sind optionale Flags. Es gibt die folgenden Flags
+</p>
+<table border="1">
+<tbody><tr>
+<th>Bit</th>
+<th>Auswirkung
+</th></tr>
+<tr>
+<td>0</td>
+<td>Module werden 4k-aligned geladen
+</td></tr>
+<tr>
+<td>1</td>
+<td>Ermittelt <a href="#mbs_mem_lower"> mbs_mem_lower</a> und <a href="#mbs_mem_upper"> mbs_mem_upper</a>. Wenn möglich auch <a href="#mbs_mmap_length"> mbs_mmap_length</a> und <a href="#mbs_mmap_addr"> mbs_mmap_addr</a>
+</td></tr>
+<tr>
+<td>16</td>
+<td>Informationen über das OS-Image werden aus den Feldern 0x0C-0x1C des Multiboot-Headers entnommen.
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="mbh_checksum">mbh_checksum</span></h3>
+<p>Ein u32-Wert der Zusammen mit <a href="#mbh_magic"> mbh_magic</a> und <a href="#mbh_flags"> mbh_flags</a> 0 ergeben soll. Man kann ihn so berechnen:
+</p>
+<pre>-(<a href="#mbh_magic">mbh_magic</a> + <a href="#mbh_flags">mbh_flags</a>)
+</pre>
+<h2><span class="mw-headline" id="Multiboot-Structure">Multiboot-Structure</span></h2>
+<p>Die Multiboot-Structure beinhaltet Informationen, die vom Bootloader verher ausgelesen wurden. Die Adresse der Multiboot-Structure ist unmittelbar nach dem Starten des Kernels in <i>EBX</i> gespeichert.
+</p>
+<table border="1">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Inhalt</th>
+<th>Anwesend wenn mbs_flags[X] gesetzt
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>4</td>
+<td><a href="#mbs_flags"> mbs_flags</a></td>
+<td>immer
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>4</td>
+<td><a href="#mbs_mem_lower"> mbs_mem_lower</a></td>
+<td>0
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>4</td>
+<td><a href="#mbs_mem_upper"> mbs_mem_upper</a></td>
+<td>0
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td>4</td>
+<td><a href="#mbs_bootdevice"> mbs_bootdevice</a></td>
+<td>1
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>4</td>
+<td><a href="#mbs_cmdline"> mbs_cmdline</a></td>
+<td>2
+</td></tr>
+<tr>
+<td>0x14</td>
+<td>4</td>
+<td><a href="#mbs_mods_count"> mbs_mods_count</a></td>
+<td>3
+</td></tr>
+<tr>
+<td>0x18</td>
+<td>4</td>
+<td><a href="#mbs_mods_addr"> mbs_mods_addr</a></td>
+<td>3
+</td></tr>
+<tr>
+<td>0x1C</td>
+<td>16</td>
+<td><a href="#mbs_syms"> mbs_syms</a></td>
+<td>4 oder 5
+</td></tr>
+<tr>
+<td>0x2C</td>
+<td>4</td>
+<td><a href="#mbs_mmap_length"> mbs_mmap_length</a></td>
+<td>6
+</td></tr>
+<tr>
+<td>0x30</td>
+<td>4</td>
+<td><a href="#mbs_mmap_addr"> mbs_mmap_addr</a></td>
+<td>6
+</td></tr>
+<tr>
+<td>0x34</td>
+<td>4</td>
+<td><a href="#mbs_drives_length"> mbs_drives_length </a></td>
+<td>7
+</td></tr>
+<tr>
+<td>0x38</td>
+<td>4</td>
+<td><a href="#mbs_drives_addr"> mbs_drives_addr </a></td>
+<td>7
+</td></tr>
+<tr>
+<td>0x3C</td>
+<td>4</td>
+<td><a href="#mbs_config_table"> mbs_config_table </a></td>
+<td>8
+</td></tr>
+<tr>
+<td>0x40</td>
+<td>4</td>
+<td><a href="#mbs_boot_loader_name"> mbs_boot_loader_name </a></td>
+<td>9
+</td></tr>
+<tr>
+<td>0x44</td>
+<td>4</td>
+<td><a href="#mbs_apm_table"> mbs_apm_table </a></td>
+<td>10
+</td></tr>
+<tr>
+<td>0x40</td>
+<td>4</td>
+<td>mbs_vbe_control_info</td>
+<td>11
+</td></tr>
+<tr>
+<td>0x40</td>
+<td>4</td>
+<td>mbs_vbe_mode_info</td>
+<td>11
+</td></tr>
+<tr>
+<td>0x40</td>
+<td>4</td>
+<td>mbs_vbe_mode</td>
+<td>11
+</td></tr>
+<tr>
+<td>0x40</td>
+<td>4</td>
+<td>mbs_vbe_interface_seg</td>
+<td>11
+</td></tr>
+<tr>
+<td>0x40</td>
+<td>4</td>
+<td>mbs_vbe_interface_off</td>
+<td>11
+</td></tr>
+<tr>
+<td>0x40</td>
+<td>4</td>
+<td>mbs_vbe_interface_len</td>
+<td>11
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="mbs_flags">mbs_flags</span></h3>
+<p>Gibt an welche Felder anwesend sind.
+</p>
+<h3><span class="mw-headline" id="mbs_mem_lower">mbs_mem_lower</span></h3>
+<p>Gibt die Größe des unteren Speichers in kB an.
+</p>
+<h3><span class="mw-headline" id="mbs_mem_upper">mbs_mem_upper</span></h3>
+<p>Gibt die Größe des höheren Speichers in kB an.
+</p>
+<h3><span class="mw-headline" id="mbs_bootdevice">mbs_bootdevice</span></h3>
+<p>Dieses Doubleword ist in 4 Bytes unterteilt. Das 1. Byte steht für die BIOS-Laufwerknummer. Byte 2-4 gibt die Partition und Subpartition an. Wenn ein Wert 0xFF ist, wird keine Partitionierung (auf diesem Level) benutzt.
+</p>
+<h3><span class="mw-headline" id="mbs_cmdline">mbs_cmdline</span></h3>
+<p>Pointer zu einem 0-terminated ASCII-String, der die Kommandos enthält, die an den Kernel übergeben wurden.
+</p>
+<h3><span class="mw-headline" id="mbs_mods_count">mbs_mods_count</span></h3>
+<p>Gibt an wie viele Module von Grub geladen wurden
+</p>
+<h3><span class="mw-headline" id="mbs_mods_addr">mbs_mods_addr</span></h3>
+<p>Pointer auf die erste Modulstruktur. Eine Modulstruktur sieht folgendermaßen aus:
+</p>
+<table border="1">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Name</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>4</td>
+<td>mod_start</td>
+<td>Adresse an der das Modul liegt
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>4</td>
+<td>mod_end</td>
+<td>Adresse an der das Modul endet
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>4</td>
+<td>string</td>
+<td>Pointer zu einem 0-term. ASCII-String, der den Namen des Moduls enthält
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td>4</td>
+<td>reserved</td>
+<td>Reserviert (0)
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="mbs_syms">mbs_syms</span></h3>
+<p>Wenn Bit 4 in <a href="#mbs_flags"> mbs_flags</a> gesetzt ist, liegt diese Struktur am Offset 0x1C und enthält Informationen zur Symboltabelle einer a.out-Datei.
+</p>
+<table border="1">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Name</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x1C</td>
+<td>4</td>
+<td>tabsize</td>
+<td>
+</td></tr>
+<tr>
+<td>0x20</td>
+<td>4</td>
+<td>strsize</td>
+<td>
+</td></tr>
+<tr>
+<td>0x24</td>
+<td>4</td>
+<td>addr</td>
+<td>Pointer zur Symboltabelle
+</td></tr>
+<tr>
+<td>0x28</td>
+<td>4</td>
+<td>reserved</td>
+<td>Reserviert (0)
+</td></tr></tbody></table>
+<p>Wenn Bit 5 in <a href="#mbs_flags"> mbs_flags</a> gesetzt ist, liegt diese Struktur am Offset 0x1C und enthält Informationen zur Symboltabelle einer <a class="mw-redirect" data-archive-original-href="../../pages/1650/index.html" href="../../pages/1528/index.html" title="ELF">ELF</a>-Datei.
+</p>
+<table border="1">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Name</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x1C</td>
+<td>4</td>
+<td>num</td>
+<td>Anzahl an Einträgen
+</td></tr>
+<tr>
+<td>0x20</td>
+<td>4</td>
+<td>size</td>
+<td>Größe eines Eintrags
+</td></tr>
+<tr>
+<td>0x24</td>
+<td>4</td>
+<td>addr</td>
+<td>Pointer zur Symboltabelle
+</td></tr>
+<tr>
+<td>0x28</td>
+<td>4</td>
+<td>shndx</td>
+<td>
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="mbs_mmap_length">mbs_mmap_length</span></h3>
+<p>Gibt die Länge der Memorymap an
+</p>
+<h3><span class="mw-headline" id="mbs_mmap_addr">mbs_mmap_addr</span></h3>
+<p>Pointer zur Memorymap. Ein Eintrag in der Memorymap sieht folgendermaßen aus:
+</p>
+<table border="1">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Name</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>-0x04</td>
+<td>4</td>
+<td>size</td>
+<td>Gibt die Größe des Eintrags an
+</td></tr>
+<tr>
+<td>0x00</td>
+<td>8</td>
+<td>BaseAddr</td>
+<td>Basisadresse des Speicherbereichs
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>8</td>
+<td>Length</td>
+<td>Länge des Speicherbereichs
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>4</td>
+<td>Type</td>
+<td>Typ des Speicherbereichs
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="mbs_drives_length">mbs_drives_length</span></h3>
+<p>Länge der Drives-Liste
+</p>
+<h3><span class="mw-headline" id="mbs_drives_addr">mbs_drives_addr</span></h3>
+<p>Pointer zur ersten Drive-Struktur. Eine Drive-Struktur sieht folgendermaßen aus:
+</p>
+<table border="1">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Name</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>4</td>
+<td>size</td>
+<td>Größe des dieser Drive-Struktur
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>4</td>
+<td>driver_number</td>
+<td>BIOS-Driver-Number
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>4</td>
+<td>drive_mode</td>
+<td>0 = <a class="mw-redirect" data-archive-original-href="../../pages/1441/index.html" href="../../pages/1440/index.html" title="CHS">CHS</a><br/> 1 = <a class="mw-redirect" data-archive-original-href="../../pages/1445/index.html" href="../../pages/1442/index.html" title="LBA">LBA</a>
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td>4</td>
+<td>drive_cylinders</td>
+<td>Anzahl an Zylinder, die das Gerät hat
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td>4</td>
+<td>drive_heads</td>
+<td>Anzahl an Köpfe, die das Gerät hat
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td>4</td>
+<td>drive_sectors</td>
+<td>Anzahl an Sektoren pro Spur, die das Gerät hat
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>size-0x10</td>
+<td>drive_ports</td>
+<td><a class="mw-redirect" data-archive-original-href="../../pages/1741/index.html" href="../../pages/1543/index.html" title="I/O-Ports">I/O-Ports</a>, die von diesem Gerät benutzt werden
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="mbs_config_table">mbs_config_table</span></h3>
+<p>Eine Tabelle, wie sie vom Get-Configuration-BIOS-Call zurück gegeben wird.
+</p>
+<h3><span class="mw-headline" id="mbs_boot_loader_name">mbs_boot_loader_name</span></h3>
+<p>Pointer zu einem 0-terminated ASCII-String, der den Namen des Bootloades darstellt.
+</p>
+<h3><span class="mw-headline" id="mbs_apm_table">mbs_apm_table</span></h3>
+<p>Pointer zur APM-Tabelle. Die APM-Tabelle sieht so aus:
+</p>
+<table border="1">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Name</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>2</td>
+<td>version</td>
+<td>Version
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>2</td>
+<td>cseg</td>
+<td>32bit Codesegment
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>2</td>
+<td>offset</td>
+<td>Offset des Entrypoints
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>2</td>
+<td>cseg_16</td>
+<td>16bit Codesegment
+</td></tr>
+<tr>
+<td>0x0A</td>
+<td>2</td>
+<td>dseg</td>
+<td>16bit Datensegment
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td>2</td>
+<td>flags</td>
+<td>Flags
+</td></tr>
+<tr>
+<td>0x0E</td>
+<td>2</td>
+<td>cseg_len</td>
+<td>Länge des 32bit Codesegments
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>2</td>
+<td>cseg_16_len</td>
+<td>Länge des 16bit Codesegments
+</td></tr>
+<tr>
+<td>0x12</td>
+<td>2</td>
+<td>dseg_len</td>
+<td>Länge des 16bit Datensegments
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external free" href="http://www.gnu.org/software/grub/manual/multiboot/multiboot.pdf" rel="nofollow">http://www.gnu.org/software/grub/manual/multiboot/multiboot.pdf</a></li>
+<li><a class="external free" href="http://www.uruk.org/orig-grub/boot-proposal.html" rel="nofollow">http://www.uruk.org/orig-grub/boot-proposal.html</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165757
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.012 seconds
+Real time usage: 0.013 seconds
+Preprocessor visited node count: 88/1000000
+Preprocessor generated node count: 94/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Multiboot&amp;oldid=2898</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1618/index.html" title="Kategorie:Stub">Stub</a></li><li><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Lizenz ungeklärt</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1560/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1560/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

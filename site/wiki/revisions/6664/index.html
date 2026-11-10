@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Kernel – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Kernel rootpage-Kernel skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1478/index.html">Aktueller Artikel</a> · <a href="../../history/1478/index.html">Versionsgeschichte</a> · <a href="../../source/6664.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Kernel</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 28. Dezember 2009, 17:41 Uhr von <a class="mw-userlink" href="../../pages/1860/index.html" title="Benutzer:XanClic"><bdi>XanClic</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Typo; RPCs sind bestimmt nicht so schnell wie Funktionspointer; Unvollständiger Satz entfernt)</span></div><div id="mw-revision-nav">(<a href="../../diffs/6658-6664.html" title="Kernel">Unterschied</a>) <a href="../6658/index.html" title="Kernel">← Nächstältere Version</a> | <a href="../../pages/1478/index.html" title="Kernel">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../6671/index.html" title="Kernel">Nächstjüngere Version →</a> (<a href="../../diffs/6664-6671.html" title="Kernel">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Der <b>Kernel</b>, auch <b>Betriebssystemkernel</b> genannt, ist der zentraler Bestandteil und die Grundlage eines jeden <a href="../../pages/1479/index.html" title="Betriebssystem"> Betriebssystems</a>. Auf ihn bauen alle anderen Bestandteile des Betriebssystems wie Module, <a href="../../pages/1669/index.html" title="Treiber">Treiber</a> oder Anwendungen auf. Je nach Anwendungszweck wurden verschiedene Kernelarten mit individuellen Vor- und Nachteilen entwickelt.
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Aufgaben_eines_Kernels"><span class="tocnumber">1</span> <span class="toctext">Aufgaben eines Kernels</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Kernelarten"><span class="tocnumber">2</span> <span class="toctext">Kernelarten</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Monolithischer_Kernel"><span class="tocnumber">2.1</span> <span class="toctext">Monolithischer Kernel</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Mikrokernel"><span class="tocnumber">2.2</span> <span class="toctext">Mikrokernel</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Exokernel"><span class="tocnumber">2.3</span> <span class="toctext">Exokernel</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Makrokernel"><span class="tocnumber">2.4</span> <span class="toctext">Makrokernel</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Links"><span class="tocnumber">3</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Aufgaben_eines_Kernels">Aufgaben eines Kernels</span></h2>
+<p>Ein Kernel hat grundsätzlich folgende Basisaufgaben:
+</p>
+<ul><li><a href="../../pages/1591/index.html" title="Speicherverwaltung">Speicherverwaltung</a></li>
+<li><a href="../../pages/1921/index.html" title="Prozessverwaltung">Prozessverwaltung</a></li>
+<li><a href="../../pages/1530/index.html" title="Interprozesskommunikation">Interprozesskommunikation</a></li>
+<li>Geräte- und Hardwareverwaltung</li>
+<li>Schnittstelle für <a href="../../pages/1669/index.html" title="Treiber">Treiber</a></li>
+<li><a href="../../pages/1629/index.html" title="Syscall">Syscalls</a> für Anwendungsprogramme</li>
+<li><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Scheduling</a></li></ul>
+<p>Architekturabhängige Teile dieser Aufgaben werden normalerweise in einem <a href="../../pages/1480/index.html" title="Hardware Abstraction Layer">Hardware Abstraction Layer</a> mit einer klar definierten Schnittstelle gekapselt, um die Wiederverwendbarkeit anderer Komponenten zu erhöhen. Dazu zählen teilweise schon (kleine) Treiber, wie z. B.  bei <a href="../../pages/1749/index.html" title="X86">x86</a> bzw. <a class="mw-redirect" data-archive-original-href="../../pages/1759/index.html" href="../../pages/1758/index.html" title="X64">x64</a> für die <a class="mw-redirect" data-archive-original-href="../../pages/1433/index.html" href="../../pages/1432/index.html" title="PIT">PIT</a>, <a class="mw-redirect" data-archive-original-href="../../pages/1466/index.html" href="../../pages/1465/index.html" title="PIC">PIC</a>, <a class="mw-redirect" data-archive-original-href="../../pages/1822/index.html" href="../../pages/1581/index.html" title="Local APIC">Local APIC</a> oder ähnlichem.
+</p><p>Je nach Kernelart kommt diesen Aufgaben mehr oder weniger Gewicht zu. Außerdem können z. B. folgende Aufgaben hinzukommen:
+</p>
+<ul><li><a href="../../pages/1548/index.html" title="Dateisystem">Dateisystemverwaltung</a></li>
+<li>ausgewählte weitere Treiber (z. B. Treiber zum Erkennen und Konfigurieren von <a class="mw-redirect" data-archive-original-href="../../pages/1627/index.html" href="../../pages/1626/index.html" title="PCI">PCI</a>-Geräten) oder alle Treiber</li></ul>
+<h2><span class="mw-headline" id="Kernelarten">Kernelarten</span></h2>
+<p>Folgende Kernelarten existieren:
+</p>
+<h3><span class="mw-headline" id="Monolithischer_Kernel">Monolithischer Kernel</span></h3>
+<p>Als monolithischen Kernel bezeichnet man einen Betriebssystemkernel, der nicht nur die typischen Aufgaben eines solchen durchführt, sondern auch gleich Treiber für alle <a href="../../pages/1447/index.html" title="Kategorie:Hardware"> Hardware</a>, das virtuelle Dateisystem, Dateisystemtreiber und vieles mehr enthält. Diese Treiber können entweder fest in den Kernel einkompiliert sein oder zur Laufzeit ladbar sein, laufen aber immer im Kernelmode. Das Treiberinterface besteht somit aus normalen Funktionsaufrufen, was zu einem deutlichen Geschwindigkeitsvorteil führt. Jedoch ist ein solcher Kernel nicht nur unflexibler, sondern auch deutlich fehleranfälliger und abgestürzte Module führen meist zu einem Absturz des gesamten Systems. Interprozesskommunikation spielt in einem solchen Kernel anfangs sicherlich erstmal eine untergeordnete Rolle, da die ges. Funktionalität direkt über den Kernel erreichbar ist.
+</p><p>Das folgende Diagramm zeigt den groben Aufbau eines monolithischen Kernels:
+</p><p><br/>
+</p>
+<center><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Datei:Makro kelin corr.png</a></center>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Mikrokernel">Mikrokernel</span></h3>
+<p>Bei einem Mikrokernel liegt im Gegensatz zum monolithischen Kernel nur die Implementierung der oben genannten Basisaufgaben im Kernelspace. <a href="../../pages/1669/index.html" title="Treiber">Treiber</a>, Dateisystemverwaltung (eventuell inklusive virtuellem Dateisystem) und ähnliche Komponenten liegen als gesonderte Prozesse im Userspace und kommunizieren mit dem Kernel über <a href="../../pages/1629/index.html" title="Syscall">Syscalls</a> bzw. mit anderen Prozessen über <a href="../../pages/1530/index.html" title="Interprozesskommunikation">Interprozesskommunikation</a>. Der Kernel verwaltet und verteilt also nur die Ressourcen, während die Userspaceprozesse sich um die konkrete Nutzung selbst kümmern. Somit kann ein fehlerhafter <a href="../../pages/1669/index.html" title="Treiber">Treiber</a> nicht das ganze <a href="../../pages/1479/index.html" title="Betriebssystem">Betriebssystem</a> zum Absturz bringen und eventuell neu gestartet werden. Letzteres funktioniert allerdings nur bei einem entsprechenden Design des Kernels, der Interprozesskommunikation und anderer Komponenten, da z. B. ein abstürzender Festplattentreiber, der die Betriebssystempartition verwaltet, nicht so ohne weiteres nachgeladen werden kann, sondern permanent im Speicher vorgehalten werden muss.
+</p><p>Prominenter Verfechter dieser Kernelart ist u.a. Andrew S. Tanenbaum, der dieses Prinip in <a href="../../pages/1910/index.html" title="Minix">Minix</a> verwendet.
+</p><p>Das folgende Diagramm zeigt den groben Aufbau eines Mikrokernels:
+</p><p><br/>
+</p>
+<center><img alt="mikrokernel_klein.png" src="http://be59.be.funpic.de/Lowlevel/mikrokernel_klein.png"/></center>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Exokernel"><a class="mw-redirect" data-archive-original-href="../../pages/1678/index.html" href="../../pages/1478/index.html#Exokernel" title="Exokernel">Exokernel</a></span></h3>
+<p>Der Exokernel ist eine Unterart des Mikrokernel. Bei ein Exokernel liegt die HAL in Biblitoheken, die vom Programm eingebunden werden können. Jedoch kann das Programm genau so gut selbst auf die Hardware zugreifen. Der Vorteil ist damit höhere Flexibilität für den Programmierer, und die bessere Möglichkeit, ein anderes System und dessen API durch eine spezielle Bibliothek zu emulieren.
+</p><p>Ein Beispiel für einen Exokernel ist das <a class="external text" href="http://pdos.csail.mit.edu/exo/" rel="nofollow">xok</a>-System vom MIT.
+</p>
+<h3><span class="mw-headline" id="Makrokernel"><a class="mw-redirect" data-archive-original-href="../../pages/1841/index.html" href="../../pages/1478/index.html#Makrokernel" title="Makrokernel">Makrokernel</a></span></h3>
+<p>Der Makrokernel, auch Hybridkernel genannt, ist eine Verschmelzung zwischen einem monolithischem Kernel und Mikrokernel, die jedoch nicht genau definiert ist. Damit will man die Geschwindigkeitsvorteile eines monolithischen Kernels und die Stabilität und Flexibilität eines Mikrokernels kombinieren.
+Ab NT 3.1 bezeichnet man <a href="../../pages/1558/index.html" title="Windows">Windows</a> als Hybridkernel.
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<p><a class="external text" href="http://www.weihenstephan.org/~michaste/down/steil-l4.pdf" rel="nofollow">Erklärung zum Mikro- und L4Kernel</a>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109165533
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.004 seconds
+Real time usage: 0.005 seconds
+Preprocessor visited node count: 27/1000000
+Preprocessor generated node count: 32/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Kernel&amp;oldid=6664</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten mit defekten Dateilinks</a></li><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li><li><a href="../../pages/1877/index.html" title="Kategorie:Betriebssystemkomponente">Betriebssystemkomponente</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1478/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2414/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1478/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

@@ -1,0 +1,11 @@
+Unter Kernelthread würde ich eher einen Thread verstehen, welcher im Kernelmode läuft und dort irgendwelche schedulbaren Aufgaben des Kernels oder irgendwelcher Kernelmodule übernimmt, also zB. das auf-Platte-schreiben aus dem Cache alle 10 Sekunden oder sowas übernimmt.
+--[[Benutzer:Bluecode|Bluecode]] 10:54, 9. Aug. 2009 (CEST)
+
+Auch unter Beachtung dieses nun drei Jahre alten Arguments von Bluecode verwendet der Artikel bisher dennoch die Konvention:
+* Kernelthreads = Threading wird vom Kernel verwaltet
+* Benutzerthreads = Threading wird von jedem Prozess im Userspace selbst verwaltet
+Ich finde den neuen Abschnitt daher mindestens verwirrend, da er mit dieser Konvention bricht. Außerdem verstehe ich den Sinn nicht wirklich – man will für normale Aufgaben keine Ring-0-Threads. Will man nicht. Und der angeführte Nachteil „Der Kernel soll die Hardware verwalten und hat daher (nahezu) freien Zugriff.“ ist der einzige Sinn, weshalb man sie doch benutzen will (s. Bluecode): Für Aufgaben, bei denen man absolut freien Hardwarezugriff braucht. Aber auch das ist wenigstens diskutabel, da Microkernel zeigen, wie man auch dem Userspace Hardwarezugriff erteilen kann.
+
+tl;dr: Imho ist der neue Abschnitt verwirrend und abgesehen davon erschließt sich mir der allgemeine Sinn von Ring-0-Threads nicht besonders. —[[Benutzer:XanClic|Clici McXan]] 18:34, 14. Sep. 2012 (CEST)
+
+:Dann finde ich die Bezeichnung Kernel-Thread an sich auch sehr verwirrend. Möglich, dass ich sie falsch verstanden habe. Eine Definition wäre dann aber auch nicht schlecht! --[[Benutzer:Roadrunner|Roadrunner]] 12:20, 15. Sep. 2012 (CEST)

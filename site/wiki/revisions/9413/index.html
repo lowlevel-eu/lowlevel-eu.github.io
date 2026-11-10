@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>PS/2-Maus Tutorial – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-PS_2-Maus_Tutorial rootpage-PS_2-Maus_Tutorial skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2390/index.html">Aktueller Artikel</a> · <a href="../../history/2390/index.html">Versionsgeschichte</a> · <a href="../../source/9413.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">PS/2-Maus Tutorial</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 4. Februar 2011, 06:58 Uhr von <a class="mw-userlink" href="../../pages/2378/index.html" title="Benutzer:Sfan"><bdi>Sfan</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Verwendung_des_Daten_Puffers">→</a>‎<span dir="auto"><span class="autocomment">Verwendung des Daten Puffers: </span>  Schreibfehler</span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/9411-9413.html" title="PS/2-Maus Tutorial">Unterschied</a>) <a href="../9411/index.html" title="PS/2-Maus Tutorial">← Nächstältere Version</a> | Aktuelle Version (Unterschied) | Nächstjüngere Version → (Unterschied)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="float:right; background-color:white; border:1px solid lightgray; margin: 10px; margin-right: 0px; margin-top: 0px;">
+<table style="border: 1px" width="100%">
+<tbody><tr align="center" style="background: lightgrey; padding: 1px">
+<th colspan="2">PS/2-Maus
+</th></tr>
+<tr align="center">
+<td colspan="2" style="border: 1px solid grey"><b>Schwierigkeit</b>:
+<p><a class="image" href="../../pages/2384/index.html"><img alt="Stern gold.gif" height="16" src="../../../assets/wiki/652977078229332fbbb5a74e.gif" width="16"/></a><a class="image" href="../../pages/2384/index.html"><img alt="Stern gold.gif" height="16" src="../../../assets/wiki/652977078229332fbbb5a74e.gif" width="16"/></a><a class="image" href="../../pages/2383/index.html"><img alt="Stern weiß.gif" height="16" src="../../../assets/wiki/018d909821fbb5b564905ce5.gif" width="16"/></a><a class="image" href="../../pages/2383/index.html"><img alt="Stern weiß.gif" height="16" src="../../../assets/wiki/018d909821fbb5b564905ce5.gif" width="16"/></a><a class="image" href="../../pages/2383/index.html"><img alt="Stern weiß.gif" height="16" src="../../../assets/wiki/018d909821fbb5b564905ce5.gif" width="16"/></a>
+</p>
+</td></tr>
+<tr>
+<td>Benötigtes Vorwissen:
+</td>
+<td><a class="mw-redirect" data-archive-original-href="../../pages/1667/index.html" href="../../pages/1465/index.html#IRQ_Tabelle" title="IRQ">IRQ</a>, <a class="mw-redirect" data-archive-original-href="../../pages/1466/index.html" href="../../pages/1465/index.html" title="PIC">PIC</a>, <a class="mw-redirect" data-archive-original-href="../../pages/1469/index.html" href="../../pages/1468/index.html" title="KBC">KBC</a>
+</td></tr>
+<tr>
+<td>Sprache:
+</td>
+<td>C
+</td></tr></tbody></table>
+</div>
+<p><br/>
+Die Maus ist neben der Tastatur eines der wichtigsten Eingabemittel. Über den Keyboard Controller kann das Betriebssystem mit ihr kommunizieren, der hierfür vorgeschriebene Ablauf ist im sogenannten PS/2-Protokoll beschrieben.
+</p><p>Dieses Tutorial geht nicht auf alle Aspekte der PS/2-Maus ein, sondern liefert nur einen Leitfaden zur Programmierung. Für Details siehe <a href="../../pages/1559/index.html" title="PS/2-Maus">PS/2-Maus</a>.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Der_Keyboard-Controller"><span class="tocnumber">1</span> <span class="toctext">Der Keyboard-Controller</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Das_Statusregister"><span class="tocnumber">2</span> <span class="toctext">Das Statusregister</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Verwendung_des_Daten_Puffers"><span class="tocnumber">3</span> <span class="toctext">Verwendung des Daten Puffers</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Befehle_des_Keyboard_Controllers"><span class="tocnumber">4</span> <span class="toctext">Befehle des Keyboard Controllers</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Maus_aktivieren_.280xA8.29_und_deaktiveren_.280xA7.29"><span class="tocnumber">4.1</span> <span class="toctext">Maus aktivieren (0xA8) und deaktiveren (0xA7)</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Command_Byte_lesen_.280x20.29"><span class="tocnumber">4.2</span> <span class="toctext">Command Byte lesen (0x20)</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Command_Byte_schreiben_.280x60.29"><span class="tocnumber">4.3</span> <span class="toctext">Command Byte schreiben (0x60)</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Befehl_an_die_Maus_senden_.280xD4.29"><span class="tocnumber">4.4</span> <span class="toctext">Befehl an die Maus senden (0xD4)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Initialisierung_der_Maus"><span class="tocnumber">5</span> <span class="toctext">Initialisierung der Maus</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Der_IRQ12"><span class="tocnumber">6</span> <span class="toctext">Der IRQ12</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Datenpakete"><span class="tocnumber">6.1</span> <span class="toctext">Datenpakete</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#IRQ_12_Handler"><span class="tocnumber">6.2</span> <span class="toctext">IRQ 12 Handler</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Weitere_Maus_Features"><span class="tocnumber">7</span> <span class="toctext">Weitere Maus Features</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#Scrollrad_und_.C3.A4hnliches"><span class="tocnumber">7.1</span> <span class="toctext">Scrollrad und ähnliches</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Nicht_lineare_Bewegung"><span class="tocnumber">7.2</span> <span class="toctext">Nicht lineare Bewegung</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Siehe_auch"><span class="tocnumber">8</span> <span class="toctext">Siehe auch</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Der_Keyboard-Controller">Der Keyboard-Controller</span></h2>
+<p>Der Keyboard Controller wurde entwickelt, um zwei Eingabegeräte zu steuern. Das erste ist die Tastatur, das zweite in der Regel die Maus. Die Tastatur sendet einen IRQ1, wenn sie Daten für die CPU hat, also wenn der Benutzer eine Taste gedrückt hat. Die Maus verwendet dafür den IRQ12. Die Maus selbst und das Senden des IRQ12 müssen aber erst durch den Keyboard Controller aktiviert werden.
+Der Keyboard Controller ist über die Ports 0x60 und 0x64 ansprechbar. Der Port 0x60 dient dabei als Datenpuffer, der Port 0x64 als Status- und Befehlsregister:
+</p>
+<ul><li>Lesen von 0x60 liefert den Inhalt des Output Puffers.</li>
+<li>Schreiben nach 0x60 schreibt Daten in den Input Puffer.</li>
+<li>Lesen von 0x64 liefert das Statusbyte des Keyboard Controllers.</li>
+<li>Schreiben nach 0x64 sendet einen Befehl an den Keyboard Controller.</li></ul>
+<h2><span class="mw-headline" id="Das_Statusregister">Das Statusregister</span></h2>
+<p>Das Statusregister kann jederzeit vom Port 0x64 gelesen werden. Hier sind die ersten beiden Bits wichtig:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>gelöscht (0)</th>
+<th>gesetzt (1)
+</th></tr>
+<tr>
+<td>0</td>
+<td>Es befinden sich keine Daten im Output Puffer.</td>
+<td>Es befinden sich Daten im Output Puffer, das Lesen vom Port 0x60 ist somit erlaubt.
+</td></tr>
+<tr>
+<td>1</td>
+<td>Der Input Puffer ist leer. Es dürfen Befehle über die Ports 0x60 und 0x64 gesendet werden.</td>
+<td>Es befinden sich noch Daten im Input Puffer. Der Keyboard Controller nimmt momentan keine Befehle an.
+</td></tr></tbody></table>
+<p>Die anderen Bits sind erst einmal irrelevant.
+</p>
+<h2><span class="mw-headline" id="Verwendung_des_Daten_Puffers">Verwendung des Daten Puffers</span></h2>
+<p>Einige der weiter unten aufgeführten Befehle erwarten zusätzliche Daten. Diese werden über den Input Puffer (Port 0x60) übergeben. Das Schreiben in den Input Puffer ist aber nur erlaubt, wenn Bit 1 im Statusregister gelöscht ist. Die folgende Funktion wartet darauf, dass das Bit 1 gelöscht ist und sendet dann die Daten:
+</p><p>&lt;c&gt;
+void kbc_write_inbuf(uint8_t data)
+{
+</p>
+<pre> uint32_t to = 255;
+ while ( inb(0x64) &amp; 0x02)
+ {
+   if (! (to--) )
+   {
+     kprintf(“mouse timeout!”);
+     return;
+   }
+ }
+ outb(0x60, data);
+</pre>
+<p>}
+&lt;/c&gt;
+</p><p>Andere Befehle des Keyboard Controllers liefern Daten zurück. Diese werden dann aus dem Output Puffer (Port 0x60) gelesen. Hier muss darauf gewartet werden, dass das Bit 0 im Statusregister gesetzt ist:
+</p><p>&lt;c&gt;
+uint8_t kbc_read_outbuf()
+{
+</p>
+<pre> uint32_t to = 255;
+ while ( ! (inb(0x64) &amp; 0x01) )
+ {
+   if (! (to--) )
+   {
+     kprintf(“mouse timeout!”);
+     return;
+   }
+ }
+ return inb(0x60);
+</pre>
+<p>}
+&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Befehle_des_Keyboard_Controllers">Befehle des Keyboard Controllers</span></h2>
+<p>Befehle an den Keyboard Controller werden zum Port 0x64 geschrieben. Auch hier muss vor dem Senden darauf gewartet werden, dass das Bit 1 des Statusregisters gelöscht ist:
+</p><p>&lt;c&gt;
+void kbc_send_cmd (uint8_t cmd)
+{
+</p>
+<pre> uint32_t to = 255;
+ uint8_t kbc_status = inb(KBC_STATUS);
+ while ( inb(0x64) &amp; 0x02)
+ {
+   if (! (to--) )
+   {
+      kprintf(“mouse timeout!”);
+      return;	
+   }
+   sleep(10);
+ }
+ outb (0x64, cmd);
+</pre>
+<p>}
+&lt;/c&gt;
+</p><p>Der Keyboard Controller kennt einige Befehle. Hier eine Auswahl der Befehle, die man zur Ansteuerung der Maus benötigt:		
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Wert</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0xA8</td>
+<td>Mause aktivieren
+</td></tr>
+<tr>
+<td>0xA7</td>
+<td>Maus deaktivieren
+</td></tr>
+<tr>
+<td>0x20</td>
+<td>Command Byte lesen
+</td></tr>
+<tr>
+<td>0x60</td>
+<td>Command Byte schreiben
+</td></tr>
+<tr>
+<td>0xD4</td>
+<td>sende den nächsten Befehl an die Maus anstatt zur Tastatur
+</td></tr></tbody></table>
+<h3><span id="Maus_aktivieren_(0xA8)_und_deaktiveren_(0xA7)"></span><span class="mw-headline" id="Maus_aktivieren_.280xA8.29_und_deaktiveren_.280xA7.29">Maus aktivieren (0xA8) und deaktiveren (0xA7)</span></h3>
+<p>Der Keyboard Controller kann zwei Eingabegeräte steuern. Standardmäßig ist aber nur das erste, nämlich die Tastatur, aktiviert. Mit diesem Befehl wird auch die das zweite Eingabegerät, nämlich die Maus aktiviert. Das kann natürlich auch wieder rückgängig gemacht werden.
+</p>
+<h3><span id="Command_Byte_lesen_(0x20)"></span><span class="mw-headline" id="Command_Byte_lesen_.280x20.29">Command Byte lesen (0x20)</span></h3>
+<p>Das Command Byte befindet sich im RAM des Keyboard Controllers. Es enthält ein für uns wichtiges Bit, nämlich Bit 1. Ist dieses gesetzt, dann sendet die Maus immer einen IRQ12, wenn es neue Daten für uns hat (also wenn der Benutzer die Maus bewegt hat). Zum Lesen des Command Bytes muss man zuerst den Befehl 0x20 an den Keyboard Controller senden, woraufhin dieser das Byte im Output Puffer (0x60) platziert.
+</p>
+<h3><span id="Command_Byte_schreiben_(0x60)"></span><span class="mw-headline" id="Command_Byte_schreiben_.280x60.29">Command Byte schreiben (0x60)</span></h3>
+<p>Zum Schreiben muss man zuerst den Befehl 0x60 an den Keyboard Controller senden und danach das Command Byte im Input Puffer platzieren.
+</p>
+<h3><span id="Befehl_an_die_Maus_senden_(0xD4)"></span><span class="mw-headline" id="Befehl_an_die_Maus_senden_.280xD4.29">Befehl an die Maus senden (0xD4)</span></h3>
+<p>Der Keyboard Controller steuert wie bereits erwähnt zwei Eingabegeräte.  Wenn man Daten im Inputpuffer platziert interpretiert der Keyboard Controller diese als Befehle an die Tastatur und leitet sie entsprechend weiter. Wenn man aber nun Befehle an die Maus senden möchte, dann muss man dieses vorher mit dem Befehl 0xD4 signalisieren:
+</p><p>&lt;c&gt;
+void mouse_send_cmd(uint8_t cmd)
+{
+</p>
+<pre> kbc_send_cmd(KBC_CMD_MOUSE);
+ kbc_write_inbuf(cmd);
+</pre>
+<p>}
+&lt;/c&gt;
+</p><p>Auch wenn ein Mausbefehl noch Daten erwartet, dann muss das Senden von Daten vorher mit dem Befehl 0xD4 signalisiert werden.
+Im PS/2-Protokoll sind u.a. folgende Befehle definiert, die die Maus „kennt“:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Befehl</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0xF4</td>
+<td>Teile der Maus mit, dass sie Daten an die CPU senden soll
+</td></tr>
+<tr>
+<td>0xF5</td>
+<td>Teile der Maus mit, dass sie keine Daten an die CPU senden soll
+</td></tr>
+<tr>
+<td>0xF6</td>
+<td>Setze Mauseinstellungen auf Standarteinstellungen zurück
+</td></tr></tbody></table>
+<p>Auf all diese Befehle antwortet die Maus, indem sie den Wert 0xFA (ACK – Acknowledge genannt) im Output Puffer platziert:
+</p><p>&lt;c&gt;
+uint8_t mouse_read_data()
+{
+</p>
+<pre> return kbc_read_outbuf();
+</pre>
+<p>}
+&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Initialisierung_der_Maus">Initialisierung der Maus</span></h2>
+<p>Folgende Funktion aktiviert die Maus so, dass sie immer einen IRQ12 auslöst, wenn der Benutzer die Maus bewegt hat:
+</p><p>&lt;c&gt;
+</p>
+<ol><li>define ACK 0xFA</li></ol>
+<p>void mouse_install()
+{
+</p>
+<pre> uint8_t command_byte;
+</pre>
+<pre> //leere den Daten Puffer
+ while ( inb(0x64) &amp; 0x01)
+ {
+   inb(0x60);
+ }
+</pre>
+<pre> //aktiviere die Maus beim Keyboard Controller
+ kbc_send_cmd(0xA8);
+</pre>
+<pre> //Bit 1 im Command Byte setzen
+ kbc_send_cmd(0x20);
+ cb = kbc_read_outbuf();
+ cb |= 0x02;
+ kbc_send_cmd(0x60);
+ kbc_write_inbuf(cb);
+</pre>
+<pre> //Standards setzen
+ mouse_send_cmd(0xF6)
+ if( mouse_read_data() != ACK)
+ {
+   kprintf(“mouse error!”);
+   return;
+ }
+</pre>
+<pre> //das Senden von Daten aktivieren
+ mous_send_cmd(0xF4);
+ if( mouse_read_data() != ACK)
+ {
+   kprintf(“mouse error!”);
+   return;
+ }
+ return;
+</pre>
+<p>} 
+&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Der_IRQ12">Der IRQ12</span></h2>
+<h3><span class="mw-headline" id="Datenpakete">Datenpakete</span></h3>
+<p>Die Maus sendet nun immer mehrere IRQ 12, wenn sie bewegt oder geklickt wurde. Im einfachsten Falle sendet sie drei IRQs, bei denen mit jedem IRQ nacheinander folgende Datenbytes im Output Puffer liegen:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Byte #</th>
+<th>Bit 7</th>
+<th>Bit 6</th>
+<th>Bit 5</th>
+<th>Bit 4</th>
+<th>Bit 3</th>
+<th>Bit 2</th>
+<th>Bit 1</th>
+<th>Bit 0
+</th></tr>
+<tr>
+<td>1</td>
+<td>Y Overflow</td>
+<td>X Overflow</td>
+<td>Y Sign</td>
+<td>X Sign</td>
+<td>Immer 1</td>
+<td>Mittlerer Button gedrückt</td>
+<td>Rechter Button gedrückt</td>
+<td>Linker Button gedrückt
+</td></tr>
+<tr>
+<td>2</td>
+<td align="center" colspan="8">Bewegung in X Richtung
+</td></tr>
+<tr>
+<td>3</td>
+<td align="center" colspan="8">Bewegung in Y Richtung
+</td></tr></tbody></table>
+<p>Beim Drücken der Maustasten sendet die Maus also drei Bytes, bei dem im ersten jeweils Bit 0, Bit 1 und Bit 2 entsprechend den Tasten gesetzt / gelöscht sind.
+Wenn die Maus dann zusätzlich noch bewegt wird, dann bekommen Byte 2 und Byte 3 sowie die Sign Bits im Byte 1 noch eine Bedeutung:
+</p>
+<ul><li>Wenn die Maus horizontal nach rechts bewegt wird, dann ist das Sign Bit gelöscht, Byte 2 gibt die Weite der Bewegung an.</li>
+<li>Wenn die Maus horizontal nach links bewegt wird, dann ist das Sign Bit gesetzt, Byte 2 ist das Zweierkomplement der Weite der Bewegung.</li>
+<li>Wenn die Maus vertikal nach oben bewegt wird, dann ist das Sign Bit gelöscht, Byte 3 gibt die Weite der Bewegung an.</li>
+<li>Wenn die Maus horizontal nach unten bewegt wird, dann ist das Sign Bit gesetzt, Byte 3 ist das Zweierkomplement der Weite der Bewegung.</li></ul>
+<p>Wenn im Byte 1 das X Overflow und/oder das Y Overflow Bit gesetzt ist, dann sollte das Paket verworfen werden.
+Das Bit 3 in Byte 1 ist immer gesetzt. Es kann dazu genutzt werden, um sicherzustellen, dass man bei der Reihenfolge der Daten nicht durcheinander kommt.
+</p>
+<h3><span class="mw-headline" id="IRQ_12_Handler">IRQ 12 Handler</span></h3>
+<p>Der Handler für den IRQ 12 wird dreimal aufgerufen, damit man alle drei Bytes der Maus hat. Im Handler muss man sich natürlich merken, bei welchem der Bytes man gerade ist. Der Handler kann also z.B. so aussehen:
+</p><p>&lt;c&gt;
+uint8_t cycle=1;
+uint8_t flags;
+int x_mov, y_mov;
+</p><p>void irq_12_handler()
+{
+</p>
+<pre> uint32_t val;
+ switch (cycle)
+ {
+   case 1:
+     flags = mouse_read_data();
+     if (! (flags &amp; 0x08) )	//teste, ob Bit 3 wirklich gesetzt ist
+     {
+       cycle = 1;		//wenn nicht, dann sind wir mit der Reihenfolge der Bytes durcheinander gekommen!
+     }
+     else
+     {
+       cycle = 2;
+     }
+     break;
+   case 2:
+     val = mouse_read_data();
+     val &amp;= (uint32_t )0xFF;		//es dürfen wirklich nur die ersten 8 Bits belegt sein!
+     if (flags &amp; 0x10)
+       x_mov = (val | 0xFFFFFF00);
+     else
+       x_mov = val;
+     cycle = 3;
+     break;
+   case 3:
+     val = inb(0x60);
+     val &amp;= (uint32_t )0xFF;
+     if (flags &amp; 0x20)
+       y_mov = - (val | 0xFFFFFF00);
+     else
+       y_mov = - (val);
+</pre>
+<p>		//auf overflow testen
+</p>
+<pre>     if ((flags &amp; 0x40) || (flags &amp; 0x80))
+       ;
+     else
+     {
+       update_mouse(flags, x_mov, y_mov);	//oder was auch immer du damit machen möchtest..
+     }
+     cycle = 1;
+     break;
+ }
+</pre>
+<p>}
+&lt;/c&gt;
+</p><p>Die Rechnerei in case 2 und case 3 dient nur dafür, das Zweierkomplement von neun Bits auf 32 zu erweitern. Diese Rechnung funktioniert (ich werde hier nicht erklären wie) aber nur wenn:
+</p>
+<ul><li>x_mov und y_mov wirklich Integerwerte (32 Bit!) sind</li>
+<li>die linke obere Ecke die kleinsten Koordinaten und die untere rechte die höchsten Koordinaten hat</li></ul>
+<p>Vergiss nicht, das EOI Signal an den PIC zu senden!
+</p>
+<h2><span class="mw-headline" id="Weitere_Maus_Features">Weitere Maus Features</span></h2>
+<h3><span id="Scrollrad_und_ähnliches"></span><span class="mw-headline" id="Scrollrad_und_.C3.A4hnliches">Scrollrad und ähnliches</span></h3>
+<p>//TODO
+</p>
+<h3><span class="mw-headline" id="Nicht_lineare_Bewegung">Nicht lineare Bewegung</span></h3>
+<p>//TODO
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a href="../../pages/1559/index.html" title="PS/2-Maus">PS/2-Maus</a> - Artikel mit allen Befehlen der Maus</li>
+<li><a href="../../pages/1468/index.html" title="Keyboard Controller">Keyboard Controller</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165952
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.012 seconds
+Real time usage: 0.014 seconds
+Preprocessor visited node count: 99/1000000
+Preprocessor generated node count: 262/1000000
+Post‐expand include size: 797/2097152 bytes
+Template argument size: 61/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.619      1 -total
+ 54.91%    0.889      1 Vorlage:Tutorial
+ 32.06%    0.519      4 Vorlage:Prettytable
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:2390-0!canonical and timestamp 20261109165952 and revision id 9413
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=PS/2-Maus_Tutorial&amp;oldid=9413</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2390/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2616/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2390/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 4. Februar 2011 um 06:58 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

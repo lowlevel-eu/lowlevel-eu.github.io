@@ -1,0 +1,29 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>File Allocation Table — Änderungen 8069 → 8306</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>File Allocation Table — Änderungen 8069 → 8306</h1><nav><a href="../revisions/8069/index.html">Version 8069</a> · <a href="../revisions/8306/index.html">Version 8306</a> · <a href="../history/1643/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l260" >Zeile 260:</td>
+<td colspan="2" class="diff-lineno">Zeile 260:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>VFAT (''Virtual File Allocation Table'') ist eine Erweiterung für [[FAT]]. Sie kommt seit [[Windows]] 95 zum Einsatz und wurde entwickelt, um lange Dateinamen nutzen zu können. Beim normalen [[FAT]] wird der Dateiname und die Erweiterung in der 8.3-Form angegeben. Bei längeren Namen benutzt VFAT einen Aliasnamen (z.&amp;nbsp;B.: xxxxxx~1.xxx), dessen Nummer hochgezählt wird. Der eigentliche Name wird über mehrere Verzeichniseinträge verteilt. Ältere Systeme sehen diese als ungültig an und ignorieren sie. Der Dateiname kann so bis zu 255 Zeichen enthalten.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>VFAT (''Virtual File Allocation Table'') ist eine Erweiterung für [[FAT]]. Sie kommt seit [[Windows]] 95 zum Einsatz und wurde entwickelt, um lange Dateinamen nutzen zu können. Beim normalen [[FAT]] wird der Dateiname und die Erweiterung in der 8.3-Form angegeben. Bei längeren Namen benutzt VFAT einen Aliasnamen (z.&amp;nbsp;B.: xxxxxx~1.xxx), dessen Nummer hochgezählt wird. Der eigentliche Name wird über mehrere Verzeichniseinträge verteilt. Ältere Systeme sehen diese als ungültig an und ignorieren sie. Der Dateiname kann so bis zu 255 Zeichen enthalten.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Außerdem werden auch das Erstelldatum und das Datum des letzten Zugriffs durch VFAT gespeichert.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Außerdem werden auch das Erstelldatum und das Datum des letzten Zugriffs durch VFAT gespeichert.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">== Dateikonventionen ==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Dateinamen dürfen maximal 255 Zeichen lang sein (FAT12 unterstützt nur 12 Zeichen (acht im Namen plus maximal drei für die Erweiterung plus dem &quot;.&quot; für die Trennung von Namen und Erweiterung). Des weiteren sind folgende Zeichen nicht erlaubt:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* &lt; </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* &gt; </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* ? </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* &quot; </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* : </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* | </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* \ </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* / </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* *</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Unter Windows ist außerdem zu beachten, dass keine Dateinamen mit einem Leerzeichen am Ende erstellt werden können.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Siehe auch ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Siehe auch ==</div></td></tr>
+</table></body></html>

@@ -1,0 +1,73 @@
+{{Infobox OS
+| Name = AiCOS
+| Version = n/a
+| Entwickler = [[Benutzer:ScollPi | ScollPi]]
+| Lizenz = n/a
+| Kernel = Modulares Kernel System (MKS)
+| API = n/a
+| Binaerformat = bisher RAW
+| Sprache = [[Assembler]], [[C]]/[[C++]]
+| IPC = Channels
+| Plattform = [[X86 | x86]] (später auch x64)
+| Homepage = In Planung
+}}
+
+AiCOS ist als ein [[Betriebssystem]] geplant, welches Anfangs für Aufgaben im Netzwerkbereich fungieren soll, unter anderem auch als Storage-System. AiCOS soll frisches Blut (über eine genauere Definition werde ich noch grübeln) in der Computertechnik bringen, unter anderem ein eigenes [[Dateisystem | FS]], eigenes Netzwerkprotokoll und eine eigene Programmiersprache ... wenn es klappt.
+
+
+
+= Entwicklungsumgebung =
+* Intel Core 2 Quad mit 4 GiB RAM
+* Microsoft [[Windows]] XP Pro
+* Microsoft Visual Studio 2008 Express
+* Mircosoft .NET Framework v3.5
+* Microsoft Windows-Debugger x86/x64 für Kernel-Debug
+* Microsoft Virtual PC 2007
+
+
+= Konzept =
+=== Bootsektor ===
+* Sollte die gängigsten [[Dateisystem | FS]] unterstützen, meist FAT für FDD, FAT32 für HDD und ISO9660 für CD.
+* Kann an jeder Adresse ausgeführt werden, akzeptiert aber zum Laden des Bootloader nur 0x00007C00.
+=== Bootloader ===
+* Kernel-Debug muss möglich sein.
+* Einrichten des MKS und laden bedingter Treiber.
+* Startup des MKS.
+=== Kernel ===
+* MKS = Modulares Kernel System, unterteilt in:
+** Managemant-Kernel, verwaltet RAM und koordiniert die anderen Kernels für CPU, IO und Subsysteme.
+** CPU-Kernel, jeder Kern hat seinen eigenen.
+** IO-Kernel.
+** Subsystem-Kernel, für weitere Treiber, Filter und und und ...
+
+
+= History =
+* 07.12.2008 Bootsektor für Raw-Floppy fertig.
+* 06.12.2008 Bootsektor-Programm, das den Inhalt der Register der CPU beim Einsprung in den Bootcode anzeigt.
+
+
+= Stand der Dinge =
+=== Fertig: ===
+* Bootsector für Floppy (Raw)
+
+
+=== In Arbeit: ===
+* Bootloader
+* Kernel-Debug-Unterstützung
+
+
+=== Geplant: ===
+* Bootsektor für CD
+
+
+= Meine OpenSource-Ecke =
+* '''Bootsektor-Programmierung'''
+** [http://aicos.amazing-fx.de/opensource/ShowReg_32.asm ShowReg_32.asm] :: Zeigt den Inhalt der CPU-Register beim Einprung in den Bootcode. [http://aicos.amazing-fx.de/images/screenshots/ShowReg_32.asm.gif Screenshot hier!]
+** [http://aicos.amazing-fx.de/downloads/All_Bootsector_Images.zip All_Bootsector_Images.zip] :: Alle Bootsektor-Beispiele als Raw-Image für die Floppy.
+
+
+= Ziele =
+Ein vollwertiges OS auf die Beine zu stellen, welches sich auch im Netzwerkbereich behaupten kann.
+
+
+[[Kategorie:Betriebssystem]]

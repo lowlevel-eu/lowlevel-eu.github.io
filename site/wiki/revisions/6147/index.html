@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Paging Tutorial – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Paging_Tutorial rootpage-Paging_Tutorial skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1850/index.html">Aktueller Artikel</a> · <a href="../../history/1850/index.html">Versionsgeschichte</a> · <a href="../../source/6147.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Paging Tutorial</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 31. Oktober 2009, 23:37 Uhr von <a class="mw-userlink" href="../../pages/1860/index.html" title="Benutzer:XanClic"><bdi>XanClic</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Syntax-Highlighting)</span></div><div id="mw-revision-nav">(<a href="../../diffs/5448-6147.html" title="Paging Tutorial">Unterschied</a>) <a href="../5448/index.html" title="Paging Tutorial">← Nächstältere Version</a> | <a href="../../pages/1850/index.html" title="Paging Tutorial">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../6877/index.html" title="Paging Tutorial">Nächstjüngere Version →</a> (<a href="../../diffs/6147-6877.html" title="Paging Tutorial">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Willkommen zu meinem zweiten Tutorial hier auf lowlevel. Diesmal geht es um <a href="../../pages/1496/index.html" title="Paging">Paging</a>, einem <a href="../../pages/1464/index.html" title="Protected Mode"> Protected-Mode</a> Feature, das mit dem 80386 eingeführt und im 80486 verbessert wurde.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Was_ist_Paging.3F"><span class="tocnumber">1</span> <span class="toctext">Was ist Paging?</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Einige_.C3.9Cberlegungen"><span class="tocnumber">2</span> <span class="toctext">Einige Überlegungen</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Der_Code"><span class="tocnumber">3</span> <span class="toctext">Der Code</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Ein_sehr_kleines_Beispiel"><span class="tocnumber">4</span> <span class="toctext">Ein sehr kleines Beispiel</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Abschlie.C3.9Fende_Worte"><span class="tocnumber">5</span> <span class="toctext">Abschließende Worte</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Links"><span class="tocnumber">6</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+<h2><span id="Was_ist_Paging?"></span><span class="mw-headline" id="Was_ist_Paging.3F">Was ist Paging?</span></h2>
+<p>Wenn ihr einen <a href="../../pages/1478/index.html" title="Kernel">Kernel</a> schreibt, habt ihr mit Sicherheit schon Einträge in der <a href="../../pages/1661/index.html" title="Global Descriptor Table"> GDT</a> gemacht. Dort konnte man Segmente festlegen, und hatte so schon ein wenig Speicherschutz. Allerdings hat das ganze auch noch einige Nachteile, weshalb schlaue Leute bei Intel Paging einführten. Bei Paging bekommen die Programme virtuellen Arbeitsspeicher (4 GB), der in 4kb-Blöcken mittels Tabellen verwaltet wird. Wenn Paging eingeschaltet wurde, kann jeder Task seinen eigenen Adressraum haben, und kann auch nur auf seinen eigenen zugreifen. Das interessante an Paging ist, dass der virtuelle Adressraum nicht komplett im physischen Speicher liegen muss, ungenutzte Teile können auf die Festplatte ausgelagert werden (swapping).
+</p><p>Die bereits erwähnten Tabellen heißen Page-Directory und Page-Table. Das Page-Directory enthält 1024 Einträge zu je 4 Byte (also 4kb), jeder Eintrag verweist auf eine Page-Table, die auch 1024 Einträge zu je 4 Byte hat (alle Page-Tables zusammen haben 4MB!). Die Einträge der Page-Table verweisen dann auf 4kb große Blöcke im physischen Speicher.
+</p><p>Eine virtuelle Adresse sieht zwar wie eine physische Adresse aus, lässt sich jedoch ein 3 Teile zerlegen:
+</p><p><b>10bit Page-Directory-Index, 10bit Page-Table-Index, 12bit offset</b>
+</p><p>Wir können daraus eine Formel ableiten, und daraus eine Funktion machen. Dieser Funktion geben wir eine virtuelle Adresse, und sie berechnet daraus die Einträge der Tabellen, die wir verändern müssen.
+</p><p>Ein Eintrag in den Tabellen sieht so aus:
+</p><p><b>20bit Adresse, 12bit Flags</b>
+</p><p>Die Adresse verweist entweder auf eine Tabelle (Einrag im Page-Directory) oder auf eine 4kb-Page (Eintrag in einer Page-Table).
+Die Flags geben z.B. an, wer auf diesen Speicherbereich zugreifen darf, oder ob dieser Speicherbereich überhaupt existiert.
+</p>
+<h2><span id="Einige_Überlegungen"></span><span class="mw-headline" id="Einige_.C3.9Cberlegungen">Einige Überlegungen</span></h2>
+<p>Auch beim Paging sollte man erst einmal genau darüber nachdenken, bevor man den Code schreibt.
+</p>
+<ul><li>Generelles
+<ul><li>Wir benötigen ein Page-Directory und 1024 Page-Tables, jede Tabelle ist 4kb groß. Daraus folgt: 4kb für das Page-Directory, 4MB für die Page-Tables</li></ul></li></ul>
+<ul><li>Page-Directory initialisieren
+<ul><li>Wir müssen die Einträge des Page-Directorys auf die Page-Tables verweisen lassen und die richtigen Flags setzen</li></ul></li></ul>
+<ul><li>4kb-Block (Page) mappen
+<ul><li>Eine Routine, die einen 4kb Block physischen Speicher in den virtuellen Speicherbreich mappt. Wir übergeben ihr eine physische Adresse (der 4kb Block) und eine virtuelle Adresse (wo der Block hin soll).</li></ul></li></ul>
+<ul><li>Speicherbereich mappen
+<ul><li>Eine Routine, die einen Bereich physichen Speicher in den virtuellen Adressraum mappt. Sie geht in 4kb Schritten vor und ruft unsere "4kb-Block-mappen"-Routine auf. Wir übergeben ihr drei Adressen: Wo der Block Speicher beginnt, wo er aufhört, und wo er in den virtuellen Adressraum hingemappt werden soll.</li></ul></li></ul>
+<ul><li>Page-Directory-Adresse setzen
+<ul><li>Eine sehr kleine Routine, die die Adresse des Page-Directory ins <a href="../../pages/1610/index.html" title="Control Register"> Register</a> cr3 einträgt, damit die CPU weiß, wo unser Page-Directory liegt</li></ul></li></ul>
+<ul><li>Paging aktivieren
+<ul><li>Die wohl wichtigste Routine. Wir setzen einfach nur das Paging-Bit im Register cr0 und fertig.</li></ul></li></ul>
+<h2><span class="mw-headline" id="Der_Code">Der Code</span></h2>
+<p>Und nun zum Hauptteil des Tutorials. Auch hier brauchen wir zuerst ein paar Konstanten:
+&lt;freebasic&gt;
+</p>
+<pre>'// constants for all Paging-tables
+const Page_present = &amp;b1
+const Page_writeable = &amp;b10
+const Page_noUsermodeAccess = &amp;b100
+const Page_noWriteThrough = &amp;b1000
+const Page_noCache = &amp;b10000
+
+'// constants only for the PageDirectory
+const Page_bigPage = &amp;b10000000
+
+'// constants only for the PageTable
+const Page_noTLBupdate = &amp;b100000000
+</pre>
+<p>&lt;/freebasic&gt;
+</p><p>Die benutzen wir später um die Flags der Tabellen-Einträge zu setzen.
+</p><p>&lt;freebasic&gt;
+</p>
+<pre>dim shared PageDirectoryPTR as UINTEGER PTR = cast(UINTEGER PTR, 2*1024*1024 - 4*1024) '// The PageDirectory lies at 2MB-4kb
+dim shared PageTablesPTR as UINTEGER PTR = cast(UINTEGER PTR, 2*1024*1024)             '// The PageTables lie at 2MB
+</pre>
+<p>&lt;/freebasic&gt;
+</p><p>Hier setzen wir Pointer, wo die Tabellen später liegen. Warum ich das so mache? So kann ich festlegen, das die Tabellen 4kb-aligned sind, und muss mich nicht auf irgendwelche seltsamen Memory-Manager verlassen.
+</p><p>&lt;freebasic&gt;
+</p>
+<pre>sub Paging_initDirectory
+    dim counter as UINTEGER
+    dim DirectoryPTR as UINTEGER PTR = PageDirectoryPTR
+    
+    for counter = cast(UINTEGER, PageTablesPTR) to cast(UINTEGER, PageTablesPTR)+4*1024*1024 step 4096
+        *DirectoryPTR = counter OR Page_present OR Page_writeable
+        DirectoryPTR += 1
+    next
+end sub
+</pre>
+<p>&lt;/freebasic&gt;
+</p><p>Wir setzen hier die Einträge des Page-Directory so, dass sie auf die Page-Tables verweisen. Man kann hier sehen, das wir zwei Flags setzen. Damit sorgen wie dafür, das wir auf diesen Speicherbereich schreiben dürfen, und wie sagen der CPU das der Speicherbereich im physischen Speicher liegt, also present ist.
+</p><p>&lt;freebasic&gt;
+</p>
+<pre>sub Paging_map4kb (vmem as UINTEGER, pmem as UINTEGER)
+    dim PDentry as UINTEGER
+    dim PTentry as UINTEGER
+    
+    PDentry = vmem shr 22
+    PTentry = (vmem shl 10) shr 22
+    
+    '// no error-checking here. hm.
+    *(PageTablesPTR+PTentry+PDentry*1024) = pmem OR Page_present OR Page_writeable
+end sub
+</pre>
+<p>&lt;/freebasic&gt;
+</p><p>Das ist also unsere Routine, die einen 4kb Block in den virtuellen Speicher mappt. Wer oben aufgepasst hat, weiß auch, wie wir die Einträge der Tabellen berechnen:
+</p><p>Wir schieben die Bits um 22 nach rechts, und übrig bleiben die linken 10bit, der Page-Directory-Eintrag.
+</p><p>Wir schieben die Bits um 10 nach links (Page-Directory-Eintrag-bits fallen weg) und das dann 22 bits nach rechts, übrig bleiben die mittleren 10bit, der Page-Table-Eintrag.
+</p><p>Auch hier setzen wir ein paar Bits.
+</p><p>&lt;freebasic&gt;
+</p>
+<pre>sub Paging_mapPhysicalMemory (vstart as UINTEGER, pstart as UINTEGER, pend as UINTEGER)
+    dim vmemPTR as UINTEGER = vstart
+    dim pmemPTR as UINTEGER = pstart
+    
+    do while pmemPTR &lt; pend
+        Paging_map4kb (vmemPTR, pmemPTR)
+        vmemPTR += 4096
+        pmemPTR += 4096
+    loop
+end sub
+</pre>
+<p>&lt;/freebasic&gt;
+</p><p>Diese Routine mappt den Speicher von pstart bis pend an die virtuelle Adresse vstart. Sie ruft dabei in 4kb-Schritten unsere obige Routine auf. Damit können wir große Speicherbereiche schnell und einfach mappen.
+</p><p>&lt;freebasic&gt;
+</p>
+<pre>sub SetPageDirectoryAddress (address as UINTEGER PTR)
+    '// we set the address when we write it into cr3
+    ASM
+        mov eax, [address]                                 '// get the address into eax
+        mov cr3, eax                                       '// get the value of eax into cr3
+    END ASM
+end sub
+</pre>
+<p>&lt;/freebasic&gt;
+</p><p>Wir schreiben die Adresse zuerst in eax, und laden den Wert dann nach cr3, damit der Prozessor weiß wo unser Page-Directory liegt.
+</p><p>&lt;freebasic&gt;
+</p>
+<pre>sub Paging_activate
+    '// we activate paging by enabling the last bit of cr0.
+    ASM
+        mov eax, cr0                                       '// get the value of cr0 into eax
+        or eax, &amp;b10000000000000000000000000000000         '// set the bit
+        mov cr0, eax                                       '// get the new value of eax into cr0
+    END ASM
+end sub
+</pre>
+<p>&lt;/freebasic&gt;
+</p><p>Hier holen wir den Inhalt von cr0 nach eax, setzen das Paging-Bit und schreiben den neuen Wert zurück. Und schon ist Paging aktiviert!
+</p>
+<h2><span class="mw-headline" id="Ein_sehr_kleines_Beispiel">Ein sehr kleines Beispiel</span></h2>
+<p>Als Beispiel zeige ich hier einen Auszug aus meinem Kernel <a href="../../pages/1754/index.html" title="FROST">FROST</a>:
+</p><p>&lt;freebasic&gt;
+</p>
+<pre>print "Initializing page-directory..."
+Paging_initDirectory
+print "Mapping 10MB physical memory..."
+Paging_mapPhysicalMemory (0, 0, 10*1024*1024)
+print "Setting page-directory address..."
+SetPageDirectoryAddress (PageDirectoryPTR)
+print "Enabling paging..."
+Paging_activate
+</pre>
+<p>&lt;/freebasic&gt;
+</p><p>Das ganze geschieht nach dem initialisieren der IDT und vor dem initialisieren von Multitasking.
+</p><p>Wir initialisieren das Page-Directory, mappen die ersten 10MB mit identity-mapping (virtuelle Adresse = physische Adresse), setzen die Page-Directory-Adresse und schalten Paging ein. Der Kernel merkt gar nicht, das er ab jetzt auf virtuellen Speicher zugreift, und läuft wunderbar weiter. Sollte er jedoch versuchen, auf Speicher oberhalb der 10MB zuzugreifen, wird Exception 14 ausgelöst (Page fault).
+</p><p>Und da ich hier Multitasking schon erwähnt habe: Es ist zu beachten, das wir für jeden Task eigene Tabellen anlegen, und für jeden Task das Register cr3 sichern!
+</p>
+<h2><span id="Abschließende_Worte"></span><span class="mw-headline" id="Abschlie.C3.9Fende_Worte">Abschließende Worte</span></h2>
+<p>Auch das hätten wir geschafft. Obwohl das Thema etwas verzwickt ist, hoffe ich, dass dieses Tutorial einen guten Einstieg bietet. Wenn noch Fragen offen sind, fragt im Forum oder wendet euch an Mr. Google ;)
+</p><p>Noch ein Hinweis: Der Code stammt aus meinem Kernel, den ihr hier finden könnt: <a class="external free" href="http://sourceforge.net/projects/frostkernel" rel="nofollow">http://sourceforge.net/projects/frostkernel</a>
+</p><p>Happy Coding,
+TheThing
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<p><a class="external text" href="http://www.fh-zwickau.de/doc/prmo/pmtutor/text/" rel="nofollow">Protected-Mode Tutorial der FH-Zwickau</a>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109170003
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.004 seconds
+Real time usage: 0.004 seconds
+Preprocessor visited node count: 23/1000000
+Preprocessor generated node count: 28/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Paging_Tutorial&amp;oldid=6147</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li><li><a href="../../pages/2023/index.html" title="Kategorie:Speicherverwaltung">Speicherverwaltung</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1850/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1850/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

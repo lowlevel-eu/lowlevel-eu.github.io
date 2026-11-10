@@ -1,0 +1,29 @@
+'''Cylinder Head Sector''' (Zylinder-Kopf-Sektor), oder auch '''CHS''', ist eine veraltete Methode zur Adressierung von Blöcken/Sektoren auf Festplatten und Disketten. Mit steigender Größe der Massenspeicher wurde die Handhabung per CHS limitiert, weshalb man heute [[Logical Block Addressing|LBA]] nutzt. Bei einigen Funktionen des [[BIOS]] werden die Sektoren allerdings noch nach dem CHS-System adressiert.
+
+Bei der Angabe des Sektors wird immer bei 1 begonnen. Der erste Sektor wird also mit Cylinder=0 Head=0 Sector=1 adressiert.
+
+==Umrechnung von CHS nach LBA==
+
+{| {{prettytable}}
+! Abkürzung || Bedeutung
+|-
+| mS || Anzahl der Sektoren pro Zylinder
+|-
+| mH || Anzahl der Köpfe
+|-
+| S || Sektor
+|-
+| H || Kopf
+|-
+| C || Zylinder
+|}
+<pre>
+LBA = (C*mH*mS) + (H*mS) + S - 1
+</pre>
+Die Anzahl der Zylinder ist dabei nicht entscheidend.
+
+== siehe auch ==
+* [[LBA]] - die neuere, lineare Adressierung der Sektoren
+
+[[Kategorie:Glossar]]
+[[Kategorie:Hardware]]

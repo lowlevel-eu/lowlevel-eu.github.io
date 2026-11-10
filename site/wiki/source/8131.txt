@@ -1,0 +1,41 @@
+{{Infobox OS
+| Name = PrettyOS
+| Entwickler = [[Benutzer:Ehenkes|ehenkes]]
+| Lizenz = 2-Klausel-BSD
+| Kernel = [[Monolithischer_Kernel|Monolith]]
+| API = Nativ
+| Binaerformat = [[ELF]] (Userprogramme)
+| Sprache = C, Assembler
+| IPC = -
+| Plattform = [[x86|i386]]
+| Homepage = [http://www.c-plusplus.de/forum/viewforum-var-f-is-62.html]
+| Tutorial = [http://www.henkessoft.de/OS_Dev/OS_Dev1.htm]
+}}
+PrettyOS ist das Betriebssystem der Projektgruppe OS-Development bei [http://www.c-plusplus.de/forum/viewforum-var-f-is-62.html]. Es entstand als Idee im März 2009, führte zu einem dreiteiligen Tutorial, das für Einstieger in die Materie beginnend beim ersten Boot-Vorgang gedacht war, und wird seit Mitte Oktober 2009 von interessierten Leuten diskutiert, umgebaut, gepflegt und erweitert. Zielsetzung ist es, verständlich zum Lernen und zum Experimentieren verwendbar zu sein. Als Arbeitsbasis ist PrettyOS bisher noch nicht ausgelegt, kann sich aber vielleicht noch in diese Richtung entwickeln. 
+
+== Ziel ==
+
+PrettyOS soll Einsteiger in die Betriebssystementwicklung dabei unterstützen, den gesamten Prozess des Bootens, Startens eines C-Kernels und einer Shell (C oder C++) an einem einfachen praktischen Beispiel zu verstehen. Als Entwicklungsumgebung soll sowohl Linux als auch MS Windows einsetzbar sein. Das Starten mittels GRUB soll ebenfalls möglich sein. Langfristig soll ein USB-Stick als Datenträger und Datenübertragung auch mittels Netzwerk unterstützt werden.
+
+== Genereller Aufbau ==
+
+PrettyOS besteht momentan aus den Bereichen Bootloader Stage 1, Bootloader Stage 2, Kernel und User-Space.
+Die beiden Bootloader sind in Assembler (NASM) geschrieben und verwenden bisher FAT12. BL1 (in Sektor 1) lädt BL2 (Datei boot2.sys). Dieser wiederum startet den bisher binären Kernel (ckernel.sys). 
+Der monolithische Kernel ist in der Programmiersprache C mit wenigen Teilen Assembler (Intel und AT&T Syntax) gehalten. Der User-Space dient bisher nur als Demonstration für die API (syscalls) und wurde ebenfalls in C geschrieben. Bisher ist nur eine rudimentäre Shell vorhanden. 
+
+=== Elemente des Kernels ===
+
+Der Kernel bietet bisher grundlegende Fähigkeiten wie Interrupt-Handling, Paging, Kernel-Heap, Multitasking, Multithreading, syscalls, virtual mode 86 und einige einfache Treiber. EHCI, Vesa Bios Extensions und FAT12/16/32 laufen ebenfalls.
+Er kann durch die beiden eigenen Bootloader aufgerufen werden (später evtl. auch mittels GRUB).  
+
+=== Elemente des Userspace ===
+
+Man verwendet die shell (program.elf) aus dem User-Space zum Testen der syscalls. Directory: ...\Source\user\user_program_c\.. 
+program.elf wird nach ...\Source\user\init_rd_img\.. kopiert und in initrd.dat eingebunden.
+Diese Datei kopiert man nach ...\Source\kernel\..
+Auf diese Weise wird program.elf letztendlich mittels incbin "initrd.dat" (im Assembler-Programm data.asm) im ELF-Format in den Kernel eingebunden.
+In ckernel.c wird diese Datei gefunden, ausgelesen und im User Mode gestartet.
+
+=== Weitere Entwicklung ===
+
+PrettyOS ist als erste Basis für Ideen der Projektgruppe gedacht und kann daher noch weitgehend umgebaut werden. Weitere Details und Links findet man hier: [http://www.c-plusplus.de/forum/viewforum-var-f-is-62.html].

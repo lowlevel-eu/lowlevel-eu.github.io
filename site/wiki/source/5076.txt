@@ -1,0 +1,13 @@
+Der Exokernel ist eine Unterart des [[Mikrokernel]]s. Bestimmende Eigenschaft dieser [[Kernel]]art ist die optionale [[HAL]], d. h. der Anwendungsprogrammierer kann entscheiden, ob er direkt auf die [[:Kategorie:Hardware|Hardware]] zugreift oder diese abstrahiert.
+
+== Motivation für den Exokernel ==
+Eine [[HAL]] kann unmöglich alle Anforderung einer Anwendung erfüllen. Trotzdem wird bei jedem traditionellen [[Betriebssystem]] versucht, alle Anforderungen zu erfüllen. Die [[HAL]] wird dadurch aufgebläht und träge. Die Idee des Exokernels ist, dass die Abstraktion der [[:Kategorie:Hardware|Hardware]] nicht auf [[Kernel]]ebene, sondern auf Anwendungsebene passiert.
+
+== Besonderheiten eines Exokernels ==
+Wie erwähnt, ist die HAL nicht zwingend, sondern optional. Ein Programm kann entscheiden, ob sie denn Hardwarezugriff braucht. Bei den meisten Programmen wird dies nicht nötig sein. Bei rechenintensiven oder systemverändernden Programmen wird dies jedoch nötig. Folgendes Diagramm veranschaulich dies.
+http://be59.be.funpic.de/Lowlevel/exokernel.png
+
+== Vorteile ==
+* Bessere Flexibilität für Benutzer: Ein Entwickler kann seine Anwendung besser optimieren.
+
+[[Kategorie:Glossar]]

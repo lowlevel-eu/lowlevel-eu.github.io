@@ -1,0 +1,37 @@
+{{Achtung|Text=Der Artikel wird zur Zeit bearbeitet. Bitte bearbeite diesen Artikel nicht! Es kann zu Darstellungsproblemen während des Betrachtens des Artikels kommen. [[Benutzer:SHyx0rmZ|SHyx0rmZ]] 12:14, 7. Aug. 2009 (CEST)}}
+
+Der '''Long Mode''' ist ein CPU-Modus neuerer CPUs, in dem erstmals 64-Bit-Allzweckregister zur Verfügung stehen. Wie auch beim [[Protected Mode]] starten Prozessoren, die diesen Modus unterstützen, aus Kompatibilitätsgründen zunächst im [[Real Mode]] mit deaktiviertem [[A20-Gate]].
+
+==Eigenschaften==
+* Address-/Registerbreite beträgt 64 Bit
+* Viele neue Register (z.B. R8-R15, CR8-CR15, ...)
+* ...
+
+==Wie überprüfe ich, ob die CPU den Long Mode unterstützt?==
+CPUs, die den Long Mode unterstützen, setzen bei einem Aufruf der [[CPUID#Funktion_0x8000_0001|CPUID Funktion 0x80000001]] das [[CPUID#EDX_-_Erweiterte_Featureflags|Long-Mode-Capable-Bit (Bit 29)]] im EDX-Register auf 1. Sicherheitshalber sollte man auch noch überprüfen, [[Physical Address Extension|Physical Address Extensions]] unterstützt werden.
+
+<asm>
+mov eax, 0x80000001
+cpuid                 ; CPUID Funktion 0x8000_0001 aufrufen
+and edx, 0x20000000   ; LM-Bit isolieren
+test edx, edx         ; Wenn EDX jetzt 0 ist, war das LM-Bit nicht gesetzt
+jz long_unsupported   ; Long Mode nicht unterstützt!
+
+mov eax, 0x00000001
+cpuid                 ; CPUID Funktion 0x0000_0001 aufrufen
+and edx, 0x00000040   ; PAE-Bit isolieren
+test edx, edx         ; Wenn EDX jetzt 0 ist, war das PAE-Bit nicht gesetzt
+jz long_unsupported   ; Long Mode nicht unterstützt!
+jmp long_supported    ; Long Mode unterstützt!
+</asm>
+
+==Wie schalte ich den Long Mode um?==
+Um in den Long Mode umschalten zu können, muss erst einmal der [[Protected Mode]] aktiviert werden ([[Long_Mode#Es_geht_auch_anders|Es geht auch anders]]). Eine weitere Voraussetzung ist, dass das '''[[Physical Address Extension]]'''-Bit (Bit 5) im [[Control_Register#CR4|CR4]] Register gesetzt und '''[[Paging]]''' aktiviert ist. Jetzt kann der Long Mode mit dem Setzen des LME-Bits (Bit 8) im '''MSR 0xC00000080''' aktiviert werden. Im eigentlichen Long Mode befindet man sich aber erst, wenn man in ein 64-Bit-Code-Segment wechselt, das im Vergleich zu den 32-Bit-Code-Segmenten in seinem Descriptor das L-Bit (Bit 21) im 2. DWord gesetzt hat.
+
+{{Achtung|Text=Das Paging funktioniert im Long Mode ein wenig anders als im Protected Mode. Siehe auch: [[Paging#Long_Mode|Paging im Long Mode]]}}
+
+==Links==
+*http://www.osdev.org/wiki/X86-64
+*http://www.sandpile.org/aa64/index.htm
+
+[[Kategorie:x86-64]]

@@ -1,0 +1,51 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Direct Memory Access — Änderungen 7357 → 8040</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Direct Memory Access — Änderungen 7357 → 8040</h1><nav><a href="../revisions/7357/index.html">Version 7357</a> · <a href="../revisions/8040/index.html">Version 8040</a> · <a href="../history/1555/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l1" >Zeile 1:</td>
+<td colspan="2" class="diff-lineno">Zeile 1:</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">{{TODO|Diesen Artikel erweitern}}</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Unter '''Direct Memory Access''' (abgekürzt '''DMA''') versteht man eine Methode, Daten von Peripheriegeräten zum Arbeitsspeicher und umgekehrt zu übertragen, ohne dafür die CPU benutzen zu müssen.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Unter '''Direct Memory Access''' (abgekürzt '''DMA''') versteht man eine Methode, Daten von Peripheriegeräten zum Arbeitsspeicher und umgekehrt zu übertragen, ohne dafür die CPU benutzen zu müssen.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l212" >Zeile 212:</td>
+<td colspan="2" class="diff-lineno">Zeile 211:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>=== <del class="diffchange diffchange-inline">Alles zusammensetzen: Vorbereiten einer Übertragung </del>===</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>=== <ins class="diffchange diffchange-inline">Beispielcode </ins>===</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">'''TODO'''</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Folgende Funktion bereitet eine Übertragung vor:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&lt;c&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">#define CHANNEL_ADRESS		0x04</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">#define CHANNEL_COUNTER		0x05</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">#define CHANNEL_PAGE		0x81</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>==<del class="diffchange diffchange-inline">= Beispiel ===</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">VOID dma_begin_transfer(VOID* buffer, WORD size, BOOL write)</ins></div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">'''TODO''': was mit dem Diskettenlaufwerk?</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">{</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; BYTE page&#160;  </ins>= <ins class="diffchange diffchange-inline">(DWORD) buffer &gt;&gt; 16;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; WORD offset </ins>= <ins class="diffchange diffchange-inline">(DWORD) buffer - (page&lt;&lt;16);</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; size--;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; mask_channel(2);</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; clear_flip_flop();</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; outb(CHANNEL_COUNTER, size);</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; outb(CHANNEL_COUNTER, size&gt;&gt;8);</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; clear_flip_flop();</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; outb(CHANNEL_ADRESS, offset &amp; 0xFF);</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; outb(CHANNEL_ADRESS, offset&gt;&gt;8);</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; outb(CHANNEL_PAGE,&#160; &#160; page);&#160; </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; if (write)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; &#160; outb(DMA_MODE, MODE_MASK_CHANNEL2 | MODE_MASK_TRANSFER_WRITE | MODE_MASK_MODE_SINGLE); // | MODE_MASK_AUTO);</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; else</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; &#160; outb(DMA_MODE, MODE_MASK_CHANNEL2 | MODE_MASK_TRANSFER_READ | MODE_MASK_MODE_SINGLE); // | MODE_MASK_AUTO);</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; unmask_channel(2);</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&lt;/c&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Glossar]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Glossar]]</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Hardware]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Hardware]]</div></td></tr>
+</table></body></html>

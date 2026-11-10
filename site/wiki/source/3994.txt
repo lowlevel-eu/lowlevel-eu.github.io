@@ -1,0 +1,33 @@
+Dieses Tutorial ist dafür da, die Grundlagen von Assembler beizubringen. Anders als circa 99,9 Periode aller Assemblertutorial werde ich
+grundsätzlich auf die nicht so bekannte AT&T Syntax setzen.
+== Algemeines zu Assembler ==
+=== Wieso es Assembler gibt ===
+Um das zu Erfahren, wieso es Assembler gibt, muss man sich die Geschichte der Informatik ansehen.
+Im '''16'''. Jahrhundert(Ja, im 16.) wurden Rechenmaschinen entwickelt, die leider nicht so schnell waren. Nachdem den zweiten Weltkrieg gab es dann langsam eine nächste Generationen von Rechenmaschinen, die universiell einsetzbar waren, die Computer. (Ein Magazin über Elektronik sagte 1946 mal, dass Computer der Zukunft 1,5 Tonnen wiegen werden. Heute witzeln wir darüber, aber es ist wahr geworden.) Erstmal rechneten diese
+Computer in Dezimalstellung(Einfach ausgedrückt sind das unsere Zahlen) Aber mit diesem zu Rechnen war lllllaaaaannnnnnnggggggggssssssssssaaaammmmm. Ab den Zuse Z3 gab es den ersten binären Computer. Binär ist eine Zahl, die mit Nullen und Einsen geschrieben wird. Jetzt kommen wir langsam zur eigentlichen Fragestellung? 00110101 konnte sich niemand merken, welcher Befehl dies war, oder würdest auswendig lerne, was 10011011 bedeutet. Das gab es schlaue Menschen, die diese Zahlenkolonnon durch Befehle, genannt Mmenokias, ersetzen.
+
+=== Binär, Dezimal und das berüchtigte Hexadezimal ===
+==== Dezimal ====
+Dazu gibt es nicht viel zu sagen. Dezimal ist unser Zahlensystem, z.B. 23, 655555, 4594, 10.
+(Übrigens kommt dieses System aus Indien und wurde über Arabien zu uns gebracht.)
+==== Binär ====
+Binär rechnet jeder PC intern. Binär besteht nur aus den Ziffern 0 und 1, was wiederum für den PC einfach ist, 0 steht für Aus und 1 steht für
+An. Dies lernt ja man überall, aber für die Menschen, die Mathe zum Schlafen benutzen, ist das hier gedacht.
+<br>
+Eine Zahl als Dezimal zu erfassen geht in Sekundenschnelle, aber beim binären muss man(ich) sehr lange rechnen. Hier kommt die Rechnung:
+10 = 1010b. 
+Die letzte Ziffer rechts steht für eins. Ist sie Eins, hat die Zahl ein Wert von Eins(Doof ausgedrückt, aber egal). Die zweite Ziffer von links
+steht für zwei. Die dritte Ziffer für Vier und die vierte Ziffer für Acht. So jetzt berechnen wir die Zahl 10 binärisch:
+
+ 1 * 8 (1 = Die vierte Ziffer ist an, 8 bedeutet die vierte Ziffer) + 0 * 4 (3. Ziffer aus, bedeutet 4)<br>
+ + 1 * 2(2.Ziffer 1, bedeutet 2) + 1 * 0(1.Ziifer 0, bedeutet 1)
+
+Ich hoffe, ihr habt es kapiert, sonst sieht in Wikipedia an.
+
+In Assembler wird am einer binären Zahl immer noch ein b angehängt, Computer (und Menschen) wissen sonst, ob die Zahl dezimal oder binär ist.
+Ein wichtiger Artikel ist "Bitweiße Operation", man findet den Link in der Siehe auch - Sektion.
+
+== Siehe auch ==
+[[Bitweise Operatoren]]
+== Weblinks ==
+[http://de.wikipedia.org/wiki/Computer Für alle Computerhistoriker]

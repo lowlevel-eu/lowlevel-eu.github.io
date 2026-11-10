@@ -1,0 +1,104 @@
+{{Hinweiss|Text=Ich kenne mich mit der PCnet-Karte nicht besonders aus. Ich habe diesen Artikel auf Basis des týndur-Treibers und der drei unten genannten Spezifikationen erstellt, da diese Seite schon sehr lange auf der TODO-Liste steht, sich jedoch niemand darum gekümmert hat.
+
+Wenn '''du''' dich mit dieser Netzwerkkarte einigermaßen auskennst, dann bist du '''jetzt''' aufgerufen, diesen Artikel zu erweitern und/oder zu korrigieren!}}
+
+Dieser Artikel beschäftigt sich mit der Programmierung der AMD-PCnet-FAST-III-Netzwerkkarte (Am79C973).
+
+== Einführung ==
+=== Vorwort ===
+Wenn ich hier von "Bytes" spreche, meine ich acht Bit große Einheiten. Zwei Bytes (16 Bit) sind ein Word und vier Bytes (32 Bit) ein DWord. Acht Bytes (64 Bit) sind ein QWord. Wenn ich keine Endianess explizit angebe, dann ist Little Endian gemeint.
+
+=== Grundlagen ===
+Wie beim [[RTL8139]]-Tutorial gilt auch hier: Euer Betriebssystem sollte bereits einen gewissen Stand aufweisen, um die Karte erkennen und bedienen zu können. Dies sind also [[Interrupt Service Routine|ISRs]] für [[IRQ|IRQs]], eine [[Speicherverwaltung]] und eine Möglichkeit, die [[I/O-Ports]] eines bestimmten (anhand von Vendor- und Device-ID) [[Peripheral Component Interconnect|PCI]]-Gerätes herauszufinden.
+
+Mögliche Emulatoren für PCnet sind sowohl [[QEMU]] als auch [[VirtualBox]]. Um die Karte unter QEMU zu benutzen, können zum Beispiel die folgenden Kommandozeilenoptionen angegeben werden:
+<pre>qemu -net user -net nic,model=pcnet</pre>
+Dadurch erstellt QEMU eine virtuelle PCnet-Karte. An der IP-Adresse 10.0.2.2 gibt es einen virtuellen Gateway ins Internet. Um mit VirtualBox die gleiche Konfiguration zu erreichen, muss die PCnet-FAST III (Am79C973) an NAT angeschlossen werden.
+
+Die Netzwerkkarte hat die PCI-Vendor-ID 0x1022 und die Geräte-ID 0x2000.
+
+=== Verwendete Resourcen ===
+* I/O-Ports: Es gibt einen I/O-Raum, der dazu dient, einige Register der Netzwerkkarte anzusprechen und die weiteren zu erreichen.
+* IRQ: Per IRQ wird der Treiber über eine Statusänderung der Netzwerkkarte informiert (zum Beispiel ist ein Paket eingetroffen oder wurde versendet)
+
+== Zugriff ==
+=== Grundlagen ===
+Die "direkt" erreichbaren Register (ein Portzugriff) sind nur ein kleiner Teil der gesamten Register der Karte. Neben ihnen gibt es noch die CSR (Control and Status Register) und die BCR (Bus Control Register). Um auf sie zuzugreifen, muss zuerst die Adresse des Registers in den 16-Bit-I/O-Port RAP (Register Address Port) geschrieben werden. Betrifft diese Adresse eines der CSR, so kann der Wert anschließend am 16-Bit-I/O-Port RDP (Register Data Port) ausgelesen oder verändert werden. Betrifft die Adresse eines der BCR, so handelt es sich nicht um den RDP, sondern um den BDP (BCR Data Port).
+
+=== Initialisierung ===
+1. IRQ und I/O-Ports vom PCI-Treiber holen und gegebenenfalls registrieren
+
+2. MAC-Adresse herausfinden; diese steht in drei 16-Bit-Registern ab 0x00 (APROM0, APROM2 und APROM4) in Little-Endian-Reihenfolge (also in APROM0 (0x00) die niederwertigsten 16 Bit und in APROM4 (0x04) die höchstwertigen 16 Bit).
+
+3. Die Karte zurücksetzen; es muss ein Word vom Resetregister (0x14) eingelesen werden, um einen Software-Reset durchzuführen. Anschließend empfiehlt es sich, zehn Millisekunden zu warten, bis der Reset beendet ist. Danach sollte das BCR20-Register auf 0x0102 gesetzt werden, dies verändert den Softwarestyle zu PCnet-PCI, dadurch werden 32-Bit- und nicht 16-Bit-Strukturen verwendet. Außerdem wird dadurch das SSIZE32-Bit gesetzt, auch dadurch werden 32-Bit-Strukturen aktiviert.
+
+4. Nun muss ein STOP-Reset ausgeführt werden. Dies wird erreicht, indem 0x04 nach CSR0 geschrieben wird.
+
+5. Puffer zum Senden und Empfangen initialisieren; beide müssen 2 kB groß und physisch kontinuierlich sein.
+
+6. Nun muss die Karte initialisiert werden. Dies geschieht mittels eines Initialization Block, der folgendermaßen aussieht:
+<c>typedef unsigned int uint;
+
+struct initialization_block
+{
+    uint16_t mode;
+    uint     reserved1 : 4;
+    uint     receive_length : 4;
+    uint     reserved2 : 4;
+    uint     transfer_length : 4;
+    uint64_t physical_address : 48;
+    uint16_t reserved3;
+    uint64_t logical_address;
+    uint32_t receive_descriptor;
+    uint32_t transmit_descriptor;
+} __attribute__((packed));</c>
+"reservedX"-Felder sind reserviert. "mode" ist 0x8000, wenn die Karte in den Promiscuous-Mode geschaltet werden soll (Alle Pakete empfangen, nicht nur Broadcasts und die für die eigene MAC-Adresse), sonst 0x0000. "receive_length" gibt die Anzahl der Empfangsdeskriptoren an, dazu später. "transfer_length" enthält im Gegensatz dazu die Anzahl der Sendedeskriptoren. Beide Werte können auf 3 gesetzt werden, dies entspricht jeweils acht Deskriptoren. "physical_address" enthält die MAC-Adresse der Karte. "logical_address" kann auf 0 gesetzt werden. "receive_descriptor" enthält die physische Adresse zu einem 2-kB-Puffer, "transmit_descriptor" zu einem anderen. Beide Puffer müssen physisch kontinuierlich sein und an 16-Bytes-Grenzen ausgerichtet.
+
+7. Jetzt müssen die Empfangs- und Sendedeskriptoren initialisiert werden. So ein Deskriptor sieht so aus:
+<c>struct descriptor
+{
+    uint32_t address;
+    uint32_t flags;
+    uint32_t flags2;
+    uint32_t avail;
+} __attribute__((packed));</c>
+"address" gibt die physische Adresse eines 2-kB-Puffers (physisch kontinuierlich) an, "flags" und "flags2" enthalten Flags (siehe unten), "avail" kann vom Benutzer (also von dir) frei verwendet werden.
+
+8. Wenn auch die Deskriptoren initialisiert sind, sollte der Initialization Block bei der Karte registriert werden. Hierzu werden die niederwertigen 16 Bits der physischen Adresse in das CSR1-Register und die höherwertigen in das CSR2-Register geschrieben.
+
+9. Danach muss 0x0041 nach CSR0 geschrieben werden. Das initialisiert die Karte und aktiviert Interrupts. Gleich darauf wird ein IRQ eintreffen. Die ISR sollte einfach den Wert von CSR0 nach CSR0 (sic!) schreiben, um den Interrupt anzunehmen.
+
+10. Wenn der Interrupt empfangen wurde, sollte der Inhalt von CSR4 mit 0xC00 ge-OR-t und wieder nach CSR4 geschrieben werden. Dadurch werden Pakete, die kleiner als 64 Bytes sind, automatisch auf diese größe vergrößert und einige relativ überflüssige Informationen von empfangenen Paketen entfernt.
+
+11. Jetzt ist die Initialisierung endlich abgeschlossen und die Karte darf in Betrieb genommen werden, indem 0x42 nach CSR0 geschrieben wird.
+
+=== Konstanten ===
+<c>//Die Werte, auf die RAP gesetzt werden muss, um dieses Register zu benutzen
+#define CSR0   0
+#define CSR1   1
+#define CSR2   2
+#define CSR3   3
+#define CSR4   4
+#define BCR20 20
+
+//16-Bit-I/O-Ports (bzw. Offsets zum Beginn des I/O-Raums)
+#define APROM0 0x00
+#define APROM2 0x02
+#define APROM4 0x04
+#define RDP    0x10
+#define RAP    0x12
+#define RESET  0x14
+#define BDP    0x16</c>
+
+== Siehe auch ==
+* [[Ethernet]]
+* [[Address Resolution Protocol]]
+* [[Internet Protocol]]
+
+== Weblinks ==
+* [http://www.amd.com/us-en/assets/content_type/white_papers_and_tech_docs/21510.pdf Umfangreiche Spezifikation für die Am79C973 (PCnet-FAST III) und Am79C975]
+* [http://www.amd.com/us-en/assets/content_type/DownloadableAssets/22351.pdf AMD-Hardware-Spezifikation]
+* [http://www.amd.com/us-en/assets/content_type/white_papers_and_tech_docs/21485_pt1.pdf Umfangreiche Spezifikation für die Am79C972 (PCnet-FAST+)] - sollte zur Am79C973 (PCnet-FAST III) kompatibel sein
+
+[[Kategorie:Tutorials]]
+[[Kategorie:Netzwerkkarte]]

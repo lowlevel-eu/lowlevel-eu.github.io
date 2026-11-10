@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Sather-Kernel mit GRUB – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Sather-Kernel_mit_GRUB rootpage-Sather-Kernel_mit_GRUB skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2174/index.html">Aktueller Artikel</a> · <a href="../../history/2174/index.html">Versionsgeschichte</a> · <a href="../../source/6999.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Sather-Kernel mit GRUB</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 1. Februar 2010, 18:09 Uhr von <a class="mw-userlink" href="../../pages/1860/index.html" title="Benutzer:XanClic"><bdi>XanClic</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Erstellt (FIXME: Copy &amp; Paste zu einfach))</span></div><div id="mw-revision-nav">(Unterschied) ← Nächstältere Version | <a href="../../pages/2174/index.html" title="Sather-Kernel mit GRUB">Aktuelle Version</a> (<a href="../../diffs/6999-7009.html" title="Sather-Kernel mit GRUB">Unterschied</a>) | <a href="../7009/index.html" title="Sather-Kernel mit GRUB">Nächstjüngere Version →</a> (<a href="../../diffs/6999-7009.html" title="Sather-Kernel mit GRUB">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Wie schon im Hauptartikel zu <a href="../../pages/2173/index.html" title="Sather">Sather</a> erwähnt, ist es im Allgemeinen nicht empfehlenswert, einen Kernel in Sather zu schreiben. Dennoch werden wir hier genau das tun. Als Compiler wird GNU Sather verwendet (s. Hauptartikel), als Assembler <a class="mw-redirect" data-archive-original-href="../../pages/2092/index.html" href="../../pages/2091/index.html" title="FASM">FASM</a> und außerdem noch verschiedene Standard-GNU-Tools (<a class="mw-redirect" data-archive-original-href="../../pages/1846/index.html" href="../../pages/1805/index.html" title="GCC">GCC</a>, Binutils, Make, ...).
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Dateien"><span class="tocnumber">1</span> <span class="toctext">Dateien</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#kernel.sa"><span class="tocnumber">1.1</span> <span class="toctext">kernel.sa</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#entry.asm"><span class="tocnumber">1.2</span> <span class="toctext">entry.asm</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#stub.c"><span class="tocnumber">1.3</span> <span class="toctext">stub.c</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Includes"><span class="tocnumber">1.4</span> <span class="toctext">Includes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Erstellung"><span class="tocnumber">2</span> <span class="toctext">Erstellung</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Zusammenfassung"><span class="tocnumber">3</span> <span class="toctext">Zusammenfassung</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Dateien">Dateien</span></h2>
+<h3><span class="mw-headline" id="kernel.sa">kernel.sa</span></h3>
+<p>Beginnen wir mit dem Einfachsten: Dem Sathercode. Dazu brauchen wir zuerst einmal die MAIN-Klasse, die sieht so aus:
+</p>
+<pre>class MAIN is
+    main is
+        io: STDIO := #STDIO;
+
+        io.clear;
+
+        io &lt; "Moin, Welt!\n";
+    end;
+end;</pre>
+<p>Wir erstellen also das Objekt io, das vom Typ STDIO ist. #STDIO ist ein Alias für STDIO::create, ruft also den Konstruktor auf, der ein Objekt dieses Typs zurückgibt, welches schlussendlich eben io zugewiesen wird.
+</p><p>Anschließend wird die Routine clear aufgerufen, welche später den Bildschirm löschen soll. io &lt; "Moin, Welt!\n"; ist ein Alias (Syntactic Sugar ist das Stichwort) für io.is_lt("Moin, Welt!\n");, hier wird somit die Routine is_lt aufgerufen und ihr der String "Moin, Welt!\n" übergeben. Den muss sie dann „nur“ noch ausgeben.
+</p><p>Jetzt wird es schon schwieriger &amp;#150; schreiben wir uns die Klasse STDIO. Die sieht in ihrer ganzen Pracht so aus:
+</p>
+<pre>class STDIO is
+    private attr x, y, flags: INT;
+
+    create: STDIO is
+        io: STDIO := new;
+        io.x := 0;
+        io.y := 0;
+        io.flags := 0x07;
+        return io;
+    end;
+
+    clear is
+        SYS::inlined_C("memset((void *)0xB8000, 0, 4000);");
+    end;
+
+    is_lt(s: STR) is
+        i: INT := 0;
+        c: CHAR := '\0';
+        addr: INT := 0xB8000 + (y * 80 + x) * 2;
+        tflags: INT := flags;
+
+        loop while!(i &lt; s.length);
+            c := s.char(i);
+            i := i + 1;
+
+            if c = '\n' then
+                x := 0;
+                y := y + 1;
+                if y &gt;= 25 then
+                    y := 24;
+                    SYS::inlined_C("memcpy((void *)0xB8000, (void *)0xB80A0, 3840);"
+                                   "memset((void *)0xB8F00, 0, 160);");
+                end;
+                addr := 0xB8000 + (y * 80 + x) * 2;
+            else
+                SYS::inlined_C("*((unsigned char *)#addr++) = #c;"
+                               "*((unsigned char *)#addr++) = #tflags");
+                x := x + 1;
+                if x &gt;= 80 then
+                    x := 0;
+                    y := y + 1;
+                    if y &gt;= 25 then
+                        y := 24;
+                        SYS::inlined_C("memcpy((void *)0xB8000, (void *)0xB80A0, 3840);"
+                                       "memset((void *)0xB8F00, 0, 160);");
+                        addr := 0xB8000 + (y * 80 + x) * 2;
+                    end;
+                end;
+            end;
+        end;
+    end;
+end;</pre>
+<p>Diese enthält die privaten Attribute (also nicht öffentlich verfügbar) x, y und flags. x enthält die aktuelle Spalte, y die Zeile und flags das Attributbyte. Als nächstes kommt die create-Routine (die per #STDIO aufgerufen wird). Sie erstellt ein neues Objekt des aktuellen Typs (welcher logischerweise STDIO ist), setzt x und y auf 0 und flags auf 7 (hellgrau auf weiß). Dann gibt sie dieses Objekt zurück.
+</p><p>Nun kommt die erste „sinnvolle“ Funktion, clear. Hier benutzen wir Inline-C, weil es wohl das einfachste ist, um einen Speicherbereich zu leeren. Besagtes passiert über die dem C-Programmierer bekannte memset-Funktion, die den Videospeicher mit 0 befüllt.
+</p><p>Als nächstes zu einer Routine mit kryptischem Namen, is_lt. Diese Bezeichnung stammt nicht von mir und ist eine Abkürzung für „is less than“, wird also bei einer „&lt;“-Operation ausgeführt (s. o.). Sie bekommt den Operanden übergeben, welcher in unserem Fall ein String sein soll. Nun werden alle Elemente (also Zeichen) des Strings durchgegangen, wenn es sich um ein \n handelt (LF), dann gehen wir auf die nächste Zeile (und verschieben den Bildschirminhalt nötigenfalls per Inline-C nach oben &amp;#150; obwohl ein memmove hier besser wäre, reicht aufgrund der Bufferpositionen auch ein vorwärts kopierendes memcpy). Ist es ein anderes Zeichen, dann geben wir das wieder mit Inline-C aus (und verschieben die aktuelle Ausgabeposition dementsprechend).
+</p><p>Das wäre es für die kernel.sa.
+</p>
+<h3><span class="mw-headline" id="entry.asm">entry.asm</span></h3>
+<p>Irgendwie müssen wir in den Kernel springen (und dabei auch gleich den Multibootheader definieren). Das geschieht hier. Eine entsprechende Assemblerdatei (für FASM) sieht so aus:
+&lt;asm&gt;format ELF
+use32
+</p><p>extrn main
+public _start
+</p><p>section '.multiboot'
+</p><p>MULTIBOOT_PAGE_ALIGN   = 00000000000000000000000000000001b
+MULTIBOOT_MEMORY_INFO  = 00000000000000000000000000000010b
+MULTIBOOT_HEADER_MAGIC = 0x1BADB002
+MULTIBOOT_HEADER_FLAGS = MULTIBOOT_PAGE_ALIGN+MULTIBOOT_MEMORY_INFO
+CHECKSUM               = -(MULTIBOOT_HEADER_MAGIC+MULTIBOOT_HEADER_FLAGS)
+</p><p>align 4
+dd MULTIBOOT_HEADER_MAGIC
+dd MULTIBOOT_HEADER_FLAGS
+dd CHECKSUM
+</p><p>section '.text' executable
+</p><p>_start:
+mov   esp,0x300000
+call  main
+hangman:
+cli
+hlt
+jmp   hangman&lt;/asm&gt;
+</p><p>In dieser ELF32 erstellen wir zwei Sektionen: Eine für den Multibootheader (wird später vom Linker an den Anfang der ELF geschoben) und eine für Code. Der Multibootheader sollte bekannt sein, der Code erstellt einfach einen Stack an der Adresse 0x300000 und ruft dann die main-Funktion auf (oben als extern (bzw. extrn) definiert). Wenn diese Funktion zurückkehrt, halten wir einfach die CPU an.
+</p>
+<h3><span class="mw-headline" id="stub.c">stub.c</span></h3>
+<p>Jetzt zum wirklich harten Teil: Der Runtime-Lib. Unsere wird das machen, was ihr Name bereits sagt: Stubs bereitstellen. Diese können natürlich optimiert werden, allerdings ist das vorerst zumindest nicht nötig. Da Sather nicht auf Kernelentwicklung ausgelegt ist, werden jede Menge POSIX-Funktionen benutzt.
+</p><p>&lt;c&gt;typedef unsigned long size_t;
+typedef signed long off_t;
+typedef unsigned char uint8_t;
+typedef unsigned long uintptr_t;
+typedef void (*sighandler_t)(int);
+</p>
+<ol><li>define NULL ((void *)0)</li></ol>
+<p>uintptr_t heap = 0x200000;
+</p><p>void *GC_malloc_atomic(size_t size)
+{
+</p>
+<pre>   uintptr_t oheap = heap;
+   heap += size;
+   return (void *)oheap;
+</pre>
+<p>}
+</p><p>off_t lseek(int fd, off_t offset, int whence)
+{
+</p>
+<pre>   fd = whence;
+   return offset;
+</pre>
+<p>}
+</p><p>int open()
+{
+</p>
+<pre>   static int fd = 3;
+</pre>
+<pre>   return fd++;
+</pre>
+<p>}
+</p><p>sighandler_t signal(int signum, sighandler_t handler)
+{
+</p>
+<pre>   signum = 0;
+   return handler;
+</pre>
+<p>}
+</p><p>char *getenv()
+{
+</p>
+<pre>   return NULL;
+</pre>
+<p>}
+</p><p>size_t fwrite(const void *ptr, size_t size, size_t nmemb, void *stream)
+{
+</p>
+<pre>   ptr = stream;
+   stream = (void *)size;
+   return nmemb;
+</pre>
+<p>}
+</p><p>int fflush()
+{
+</p>
+<pre>   return 0;
+</pre>
+<p>}
+</p><p>int _IO_getc()
+{
+</p>
+<pre>   return -1;
+</pre>
+<p>}
+</p><p>int getpid(void)
+{
+</p>
+<pre>   return 42;
+</pre>
+<p>}
+</p><p>int sprintf()
+{
+</p>
+<pre>   return 0;
+</pre>
+<p>}
+</p><p>int fork()
+{
+</p>
+<pre>   return 43;
+</pre>
+<p>}
+</p><p>int sleep()
+{
+</p>
+<pre>   return 0;
+</pre>
+<p>}
+</p><p>int system()
+{
+</p>
+<pre>   return 0;
+</pre>
+<p>}
+</p><p>void exit()
+{
+</p>
+<pre>   for (;;)
+       __asm__ __volatile__ ("cli;hlt");
+</pre>
+<p>}
+</p><p>int fprintf()
+{
+</p>
+<pre>   return 0;
+</pre>
+<p>}
+</p><p>void abort()
+{
+</p>
+<pre>   exit();
+</pre>
+<p>}
+</p><p>void *GC_malloc_atomic_ignore_off_page(size_t size)
+{
+</p>
+<pre>   uintptr_t oheap = heap;
+   heap += size;
+   return (void *)oheap;
+</pre>
+<p>}
+</p><p>void *memset(void *address, int val, size_t size)
+{
+</p>
+<pre>   uint8_t *buf = address;
+   int i;
+</pre>
+<pre>   for (i = 0; i &lt; size; i++)
+       buf[i] = val;
+</pre>
+<pre>   return address;
+</pre>
+<p>}
+</p><p>void *memcpy(void *dest, void *src, size_t size)
+{
+</p>
+<pre>   uint8_t *d = dest, *s = src;
+   int i;
+</pre>
+<pre>   for (i = 0; i &lt; size; i++)
+       d[i] = s[i];
+</pre>
+<pre>   return dest;
+</pre>
+<p>}
+</p><p>void *GC_malloc_ignore_off_page(size_t size)
+{
+</p>
+<pre>   uintptr_t oheap = heap;
+   heap += size;
+   return (void *)oheap;
+</pre>
+<p>}
+</p><p>void *GC_malloc(size_t size)
+{
+</p>
+<pre>   uintptr_t oheap = heap;
+   heap += size;
+   return (void *)oheap;
+</pre>
+<p>}
+</p><p>void *malloc(size_t size)
+{
+</p>
+<pre>   uintptr_t oheap = heap;
+   heap += size;
+   return (void *)oheap;
+</pre>
+<p>}
+</p><p>size_t strlen(const char *s)
+{
+</p>
+<pre>   size_t l = 0;
+</pre>
+<pre>   while (*(s++))
+       l++;
+</pre>
+<pre>   return l;
+</pre>
+<p>}
+</p><p>int close()
+{
+</p>
+<pre>   return 0;
+</pre>
+<p>}
+</p><p>int read()
+{
+</p>
+<pre>   return 0;
+</pre>
+<p>}
+</p><p>int setjmp()
+{
+</p>
+<pre>   return 0;
+</pre>
+<p>}
+</p><p>void longjmp()
+{
+}
+</p><p>int abs(int j)
+{
+</p>
+<pre>   return (j &lt; 0) ? -j : j;
+</pre>
+<p>}
+</p><p>int getchar(void)
+{
+</p>
+<pre>   return -1;
+</pre>
+<p>}&lt;/c&gt;
+</p><p>Diese Funktionen jetzt zu erklären, würde wohl zu langwierig, außerdem sollten sie ziemlich selbsterklärend sein (da es zum Großteil POSIX-Funktionen sind, die in entsprechenden Manpages erklärt werden &amp;#150; Funktionen, die mit GC beginnen, gehören zu dem vom Sathercompiler verwendeten Garbage Collector).
+</p>
+<h3><span class="mw-headline" id="Includes">Includes</span></h3>
+<p>Desweiteren werden jede Menge C-Header benötigt. Ein Archiv davon habe ich <a class="external text" href="http://xanclic.bplaced.net/sather-include.tar.bz2" rel="nofollow">hochgeladen</a>, auch hier wäre es müßig, diese zu erklären.
+</p>
+<h2><span class="mw-headline" id="Erstellung">Erstellung</span></h2>
+<p>Zuerst müssen kernel.sa, entry.asm und stub.c in ein Verzeichnis. Hier muss auch das Include-Archiv entpackt werden (so sollte ein Ordner namens „include“ erstellt werden). Nun nimmt man am besten vorgefertige Makefiles:
+</p>
+<pre>CS      = sacomp
+SAFLAGS = -O_fast -only_C
+OUT     = kernel
+IN      = kernel.sa
+RM      = -rm -f
+
+.PHONY: all clean $(OUT).code
+
+all: $(OUT)
+
+clean:
+        $(RM) -r $(OUT).code $(OUT)
+
+$(OUT): $(OUT).code
+        $(MAKE) -C $&lt; -f ../Makefile.fromc
+
+$(OUT).code: $(IN)
+        $(CS) $(SAFLAGS) $&lt; -o $(OUT)</pre>
+<p>muss als Makefile abgespeichert werden. Der Sathercompiler heißt sacomp und wird mit den Flags -O_fast (Optimieren) und -only_C (nur C-Code im Ordner kernel.code generieren und dann abbrechen, ohne diesen zu kompilieren) aufgerufen.
+</p><p>Die darin verwendete Makefile.fromc muss im gleichen Ordner liegen und enthält:
+</p>
+<pre>LD     = ld
+ASM    = fasm
+SHOME  = $(SATHER_HOME)
+CFLAGS = -I.  -O2  -I$(SHOME)/System/Common -nostdinc -I../include -ffreestanding -nodefaultlibs -nostartfiles -g2
+CC     = gcc
+HDR    = sather.h tags.h
+CS     = kernel
+OBJ    = $(patsubst %.c,%_c.o,$(wildcard *.c))
+RM     = -rm -f
+
+.PHONY: all clean
+
+all: ../$(CS)
+
+clean:
+        $(RM) *.o ../$(CS)
+
+../$(CS): $(OBJ) entry_asm.o stub.o runtime.o ../link.ld
+        $(LD) -e _start -T ../link.ld -o $@ $(OBJ) runtime.o entry_asm.o stub.o
+
+%_c.o: %.c $(HDR)
+        $(CC) $(CFLAGS) -c $&lt; -o $@
+
+runtime.o: $(SHOME)/System/Common/runtime.c $(HDR)
+        $(CC) $(CFLAGS) -c $(SHOME)/System/Common/runtime.c
+
+entry_asm.o: ../entry.asm
+        $(ASM) $&lt; $@
+
+stub.o: ../stub.c
+        $(CC) $(CFLAGS) -c $&lt; -o $@</pre>
+<p>Diese dient als Ersatz der Makefile, die normalerweise verwendet wird, um den erstellten C-Code zu kompilieren.
+</p><p>Als letztes fehlt noch das Linkerscript link.ld, diese kann z. B. so aufgebaut sein:
+</p>
+<pre>OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH("i386:i386")
+virtual = 0x00100000;
+physical = 0x00100000;
+
+SECTIONS
+{
+    .multiboot virtual : AT(physical)
+    {
+        multiboot = .;
+        *(.multiboot)
+        . = ALIGN(4);
+    }
+    .text : AT(physical + code - multiboot)
+    {
+        code = .;
+        *(.text)
+        . = ALIGN(4);
+    }
+    .data : AT(physical + data - multiboot)
+    {
+        data = .;
+        *(.data)
+        . = ALIGN(4);
+    }
+    .bss : AT(physical + bss - multiboot)
+    {
+        bss = .;
+        *(.bss)
+        *(COMMON)
+        . = ALIGN(4);
+    }
+}</pre>
+<p>Hier wird eine <a class="mw-redirect" data-archive-original-href="../../pages/2118/index.html" href="../../pages/1528/index.html" title="ELF32">ELF32</a>-Datei für <a href="../../pages/1749/index.html" title="X86">i386</a> erstellt und an die Adresse 0x100000 gelinkt. Die erste Sektion in der Datei ist .multiboot (damit der Multibootheader auf jeden Fall in den ersten 8 kB liegt, wie von der Spezifikation gefordert).
+</p><p><br/>
+</p><p>Nun sollte ein einfacher make-Aufruf genügen und ein ELF-Kernel namens „kernel“ wird erstellt. Diese kann dann entweder zusammen mit GRUB oder einfach per „qemu -kernel kernel“ verwendet werden.
+</p>
+<h2><span class="mw-headline" id="Zusammenfassung">Zusammenfassung</span></h2>
+<p>Ja, so erstellt man einen Kernel mit Sather. Hoffentlich habe ich euch genügend davon abgeschreckt, das weiter zu verfolgen, denn wenn ihr immer noch darauf brennt, könnte das ein Zeichen von Copy &amp; Paste sein. ;-)
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109170227
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.005 seconds
+Real time usage: 0.005 seconds
+Preprocessor visited node count: 72/1000000
+Preprocessor generated node count: 132/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 3390/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Sather-Kernel_mit_GRUB&amp;oldid=6999</a>“</div>
+<div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks"></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2174/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2174/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

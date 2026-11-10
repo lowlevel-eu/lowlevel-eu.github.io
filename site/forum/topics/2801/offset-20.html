@@ -1,0 +1,800 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="Emulation von fork/exec in der libc" name="description"/>
+<title>Emulation von fork/exec in der libc</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:30</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Emulation von fork/exec in der libc</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg32899"></a>
+<div class="nextlinks"><a href="../2807/offset-20.html#msg32987">« vorheriges</a> <a href="../2797/offset-20.html#msg32869">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: <a class="navPages" href="index.html">1</a> [<strong>2</strong>] 
+				</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/0f01c9c83ac67395064654f9.gif"/>
+<span id="author">Autor</span>
+						Thema: Emulation von fork/exec in der libc  (Gelesen 79170 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32899_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #20 am:</strong> 26. July 2011, 11:16 »</div>
+<div class="posttile"><h5 id="subject_32899">
+<a href="offset-20.html#msg32899" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32899_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32899">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32888">Zitat von: Svenska am 25. July 2011, 21:36</a></div></div><blockquote class="bbc_standard_quote">Erst danach.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ne ne, erst die Arbeit dann das Vergnügen! <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><br/>Das Problem ist IMHO ein psychologisches: wenn ich irgendwo erzähle/schreibe das in meiner CPU eine MMU drin ist dann denkt sicher der kundige Zuhörer/Leser "okay, kenne ich schon, ist also so wie überall anders auch". Es tritt einfach eine Assoziation ein die in meinem speziellen Fall nicht zielführend ist. Klar basiert mein Paging im wesentlichen auf den selben Mechanismen aber der Kontext ist einfach ein anderer. Ich denke ich muss diesem Ding einen anderen Namen geben um einfach auch die Unterschiede deutlich genug klarzustellen. Wenn ich mal irgendwann jemand anderem die Funktionsweise erklären will dann ist es einfach ungünstig wenn ich gegen unpassende Assoziationen ankämpfen muss also muss ich von vornherein diese Assoziationen unterbinden. In der von Intel ursprünglichen gedachten Namensbedeutung von MMU ist die Segmentierung eigentlich mit drin gewesen, im heutigen Sprachgebrauch bezieht sich MMU nur noch auf das Paging und eben die typische Flat-Memory-Methode dieses Paging zu benutzen. Es ist schon schwierig genug den Leuten zu erklären was dynamische Segmentierung ist, vor allem bei Leuten die Segmentierung noch aus dem x86-Real-Mode kennen (im x86-Protected-Mode hat kaum jemand überhaupt mal ernsthaft die Segmentierung benutzt also kennt sich damit auch keiner wirklich aus), ich will dieses Problem nicht auch noch beim Paging haben.<br/><br/>Ihr dürft mich gerne als trotziges kleines Kind abstempeln aber an dieser konkreten Stelle ist es einfach erforderlich das mein Paging unter einem anderen Namen firmiert als das sonst üblich ist. Ich hoffe ihr könnt das wenigstens so ein bisschen nachvollziehen.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32899">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32899_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32900"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_32900_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #21 am:</strong> 26. July 2011, 11:39 »</div>
+<div class="posttile"><h5 id="subject_32900">
+<a href="offset-20.html#msg32900" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32900_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32900">Entschuldige bitte die Direktheit, aber irgendwann muss man es halt doch mal sagen... Bist du Entwickler oder Marketing-Schaumschläger?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32900">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32900_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32901"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32901_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #22 am:</strong> 26. July 2011, 11:55 »</div>
+<div class="posttile"><h5 id="subject_32901">
+<a href="offset-20.html#msg32901" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32901_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32901">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32900">Zitat von: taljeth am 26. July 2011, 11:39</a></div></div><blockquote class="bbc_standard_quote">Bist du Entwickler oder Marketing-Schaumschläger?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Beides.<br/>Stellt das ein Problem dar? Bist Du für tyndur nicht auch beides?<br/><br/>Ich denke das ich mit der Vermittlung meines Projekts durchaus ein Kommunikationsproblem habe, ich hab das in den letzten Jahren bei vielen Leuten erlebt (auch hier in diesem Forum). Ich hoffe das es nachvollziehbar ist das ich dieses Problem gerne auf ein Minimum beschränken möchte.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32901">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32901_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32902"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_32902_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #23 am:</strong> 26. July 2011, 12:48 »</div>
+<div class="posttile"><h5 id="subject_32902">
+<a href="offset-20.html#msg32902" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32902_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32902">Ein Kommunikationsproblem kriegst du dann erst recht, wenn du Begriffe benutzt, die sonst keiner kennt. Bei einer MMU denkt jeder an Paging und es ist sofort klar, wovon du redest.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32902">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32902_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32903"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32903_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #24 am:</strong> 26. July 2011, 14:28 »</div>
+<div class="posttile"><h5 id="subject_32903">
+<a href="offset-20.html#msg32903" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32903_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32903">Hallo,<br/><br/><br/>bei der Beschreibung einer <span class="bbc_u">anders</span>artigen CPU/Plattform erwartet man doch auch neue Begriffe. Das Problem ist das wenn bekannte Begriffe kommen das ich dann gegen die damit verbundenen Assoziationen ankämpfen muss und bei neuen Begriffen erwartet der Zuhörer/Leser das er jetzt was neues zu hören/lesen bekommt. Die Art und Weise wie der einströmende Informationsfluss verarbeitet wird ist unterschiedlich, je nach dem ob der Empfänger bekannte Buzzwords findet oder nicht.<br/>Bei dem Buzzword MMU denken die Leute an mehr als nur an Paging, nämlich auch an die Art wie dieses Paging benutzt wird und genau das will ich vermeiden. Mag sein das sich das alles ein bisschen zu arg nach Marketing-Blödsinn anhört aber auch diesen Aspekt darf ich nicht vernachlässigen wenn ich mit meiner Idee irgendwann einmal an eine etwas größere Öffentlichkeit gehe als dieses Forum hier.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32903">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32903_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32912"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32912_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #25 am:</strong> 26. July 2011, 17:23 »</div>
+<div class="posttile"><h5 id="subject_32912">
+<a href="offset-20.html#msg32912" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32912_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32912">Hallo,<br/><br/>beim TETRA-Bündelfunksystem gibt es eine SDS. Sagt dir das was? Sicherlich nicht. Es musst aus Prinzip einen neuen Namen bekommen - schließlich muss sich der Begriff zwingend von der im GSM-Netz bekannten SMS unterscheiden.<br/><br/>Auch, wenn es effektiv dasselbe ist.<br/><br/>Bei andersartigem Architekturen erwarte ich effektiv <span class="bbc_u">keine</span> anderen Begriffe, sofern das möglich ist. Eine MMU ist etwas, was Paging macht. Deine CPU macht Paging, also ist effektiv eine MMU da drin. Ob die nun dynamisch das Page-Directory wechseln kann oder sonstige Einschränkungen hat, spielt keine Rolle. Es bleibt eine (beschränkte) MMU.<br/><br/>Und wenn du in deinen Marketingdokumenten groß die Segmentierung als Feature herausstellst und dazuschreibst, dass für beschränkte Anwendungsfälle auch eine MMU vorhanden ist, dann wird sicherlich niemand versuchen, damit FLATMEM zu implementieren.<br/><br/>Aber gut, ich rede gegen eine Wand.<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32912">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32920"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32920_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #26 am:</strong> 26. July 2011, 20:44 »</div>
+<div class="posttile"><h5 id="subject_32920">
+<a href="offset-20.html#msg32920" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32920_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32920">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32912">Zitat von: Svenska am 26. July 2011, 17:23</a></div></div><blockquote class="bbc_standard_quote">Aber gut, ich rede gegen eine Wand.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Warum das? Weil ich eine Entscheidung getroffen habe die Du anders treffen würdest?<br/><br/>Was würdest Du den sagen wie dieses Paging ist an das die Leute bei dem Begriff MMU denken? Schließt das die gesamte Spannweite aller möglichen Paging-Implementierungen von der primitivsten Art des MicroBlaze bis hin zur komplexesten Art des Itanium mit ein? Dafür wie man Paging realisiert gibt es ziemlich viele Möglichkeiten, meine ist eine davon, aber das was man üblicherweise damit macht, und wofür auch der Begriff M<strong>M</strong>U steht, ist auf allen existierenden CPUs und unter allen existierenden OSen ziemlich ähnlich (wenn wir mal die letzten 20 bis 30 Jahre zugrunde legen, ich weiß das es früher noch ein paar andere Wege gab aber die sind alle ausgestorben).<br/><br/>Ich kenne jetzt Eure Argumente die dagegen sprechen und Ihr kennt meine Argumente die dafür sprechen. Ich habe für mein Projekt eine Entscheidung getroffen die sicherlich suboptimal und eventuell zweifelhaft ist aber es ist trotzdem eine Entscheidung für mein Projekt.<br/>Wollt Ihr mir dabei helfen diese Entscheidung in die Tat umzusetzen?<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32920">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32920_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32923"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32923_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #27 am:</strong> 27. July 2011, 04:09 »</div>
+<div class="posttile"><h5 id="subject_32923">
+<a href="offset-20.html#msg32923" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32923_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32923"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32920">Zitat von: erik.vikinger am 26. July 2011, 20:44</a></div></div><blockquote class="bbc_standard_quote">Wollt Ihr mir dabei helfen diese Entscheidung in die Tat umzusetzen?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nein, da ich sie nicht für sinnvoll halte und (gut?) begründet habe. [Mir fällt halt keine bessere Bezeichnung als "MMU" ein.] Ich werde deine Entscheidung aber sowieso akzeptieren müssen. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32923">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32925"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32925_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #28 am:</strong> 27. July 2011, 09:51 »</div>
+<div class="posttile"><h5 id="subject_32925">
+<a href="offset-20.html#msg32925" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32925_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32925">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32923">Zitat von: Svenska am 27. July 2011, 04:09</a></div></div><blockquote class="bbc_standard_quote">Nein ....</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Okay, damit kann ich leben.<br/><br/>Mein Paging beschreibe ich dann im Off-Topic-Bereich, falls daran immer noch Interesse besteht.<br/>Aber nicht vor Samstag Abend, mein Sohn wird Samstag Vormittag in ein Ferienlager abgeschoben, ab da hab ich dann viel Zeit.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32925">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32925_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32928"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_32928_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #29 am:</strong> 27. July 2011, 10:26 »</div>
+<div class="posttile"><h5 id="subject_32928">
+<a href="offset-20.html#msg32928" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32928_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32928">Nur der Vollständigkeit halber: Meine Assoziation mit MMU ist "mappt (oft virtuell genannte) Adressen mit irgendeinem pageweise arbeitenden Übersetzungsmechanismus auf andere (oft physisch genannte) Adressen". Das trifft exakt, was du tust.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32928">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32928_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32950"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32950_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #30 am:</strong> 28. July 2011, 11:10 »</div>
+<div class="posttile"><h5 id="subject_32950">
+<a href="offset-20.html#msg32950" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32950_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32950">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32928">Zitat von: taljeth am 27. July 2011, 10:26</a></div></div><blockquote class="bbc_standard_quote">Meine Assoziation mit MMU ist ....</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, das ist genau das was mein Paging auch tun wird. Die Frage ist: woher stammt diese Meinung? Du hast vor etwas über 2 Jahren das erste mal mit mir darüber diskutiert und von daher kannst Du nicht behaupten das ich Deine Meinung nicht zumindest ein klein wenig beeinflusst habe. Nebst dessen das Du als OS-Dever für x86 zu diesem Thema auch schon mal ein bisschen mehr gesehen hast als die meisten anderen Programmierer. Für die ist die MMU einfach die Speicher<span class="bbc_u">verwaltung</span>seinheit, schon weil es aktuell auch kein OS gibt dass das anders macht.<br/><br/>Aber wir drehen uns hierbei wirklich im Kreis.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32950">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32950_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32953"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32953_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #31 am:</strong> 28. July 2011, 12:00 »</div>
+<div class="posttile"><h5 id="subject_32953">
+<a href="offset-20.html#msg32953" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32953_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32953">Für die Nicht-OS-Dever ist eine MMU eine dreibuchstabige Abkürzung...</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32953">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32956"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_32956_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #32 am:</strong> 28. July 2011, 13:13 »</div>
+<div class="posttile"><h5 id="subject_32956">
+<a href="offset-20.html#msg32956" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32956_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32956">Dem würde ich mich so anschließen. Ein normaler Programmierer hat keine Ahnung, was eine MMU ist und braucht davon auch keine Ahnung zu haben.<br/><br/>Und ich glaube ganz ehrlich nicht, dass du meine Assoziation beeinflusst hast, so stark habe ich mich mit deiner Architektur auch wieder nicht auseinandergesetzt... Ich habe mit x86 zu tun, habe auch mal ein kleines bisschen PPC gemacht und das war's dann auch schon.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32956">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32956_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: <a class="navPages" href="index.html">1</a> [<strong>2</strong>] 
+				</div></div>
+<div class="nextlinks_bottom"><a href="../2807/offset-20.html#msg32987">« vorheriges</a> <a href="../2797/offset-20.html#msg32869">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Emulation von fork/exec in der libc</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.007 Sekunden mit 31 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

@@ -1,0 +1,8 @@
+Ich fange hier mal eine Fragen- und Anregungensammlung an:
+* USBCMD.FGR: Wofür ist dieses Resumesignal denn genau gut, wann braucht man es?
+* Bei FLBASEADD "steht der Hostcontroller kann hier während des Benutzens der Liste den Offset des aktuellen Elements eintragen". ''Kann'' er setzen oder ''muss'' er es? Wenn er es nur kann, ist das Feld irgendwie nutzlos.
+* Was ist denn jetzt ein Frame genau? Eine Zeiteinheit (sieht bei SOFMOD so aus)? Aber wieso entspricht dann ein Eintrag in der Frameliste einem Frame? Wäre das nicht eher Information, was während eines Frames passieren soll? Ich finde das noch irgendwie verwirrend beschrieben.
+* Kann man im Abschnitt PORTSC noch irgendwie deutlich machen, dass es davon mehrere gibt? Ich wusste nämlich erst nicht, was ich unter "der Port" verstehen soll.
+* Bei den Datenstrukturen wäre es hilfreich, das nötige Alignment anzugeben. Dass das bei der Frameliste 4k sind, habe ich weiter oben aufgeschnappt. Was ist mit dem Rest? Von den Pointern her vermute ich 16 Byte. Bei QHLP/QELP willst du vermutlich sagen, dass es die oberen Bits der physischen Adresse sind, oder?
+* Transferdeskriptoren: NAK, ACK, SETUP, IN, OUT? Bahnhof! (Okay, nicht ganz, aber Begriffe erst verwenden, nachdem sie erklärt sind, wäre nett)
+Außerdem glaube ich, wäre es sinnvoll, erst die Datenstrukturen und damit das grundlegende Prinzip zu erklären, bevor man auf die einzelnen Register eingeht. --[[Benutzer:Taljeth|Taljeth]] 09:32, 2. Mär. 2010 (CET)

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Teil 7 - Physische Speicherverwaltung – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/f138d3504f3e3790060d6ac1.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Teil_7_-_Physische_Speicherverwaltung rootpage-Teil_7_-_Physische_Speicherverwaltung skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="index.html">Aktueller Artikel</a> · <a href="../../history/2094/index.html">Versionsgeschichte</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Teil 7 - Physische Speicherverwaltung</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><table style="width:100%; background-color: #D0D8FF; border: 1px solid #b8c0e8; text-align:center; margin-bottom: 10px;">
+<tbody><tr>
+<td style="width:33%; text-align:left;">« <a href="../1899/index.html" title="Teil 6 - Multitasking">Teil 6 - Multitasking</a></td>
+<td style="width:33%; text-align:center;"><b>Navigation</b></td>
+<td style="width:33%; text-align:right;"><a href="../2241/index.html" title="Teil 8 - Ein erstes Programm">Teil 8 - Ein erstes Programm</a> »</td>
+</tr>
+</tbody></table>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Ziel"><span class="tocnumber">1</span> <span class="toctext">Ziel</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Physische_Speicherverwaltung"><span class="tocnumber">2</span> <span class="toctext">Physische Speicherverwaltung</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Speicher_reservieren_und_freigeben"><span class="tocnumber">2.1</span> <span class="toctext">Speicher reservieren und freigeben</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Speicherverwaltung_initialisieren"><span class="tocnumber">2.2</span> <span class="toctext">Speicherverwaltung initialisieren</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Taskliste"><span class="tocnumber">3</span> <span class="toctext">Taskliste</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Ziel">Ziel</span></h2>
+<p>Wir haben mittlerweile zwei Kernelfunktionen, die als Tasks abwechselnd laufen und langweilige Dinge machen wie einen Buchstaben auszugeben. Jetzt wollen wir etwas weitergehen und beliebig viele Tasks langweilige Sachen machen lassen (solange uns der Speicher nicht ausgeht, jedenfalls).
+</p><p>Ich möchte hier auch gleich im Voraus erwähnen, dass wir langsam die Stellen hinter uns gebracht haben, wo wir entweder keine Wahl haben, wie es zu implementieren ist, oder wo es eine eindeutige Empfehlung gibt. Ab hier gibt es für die meisten Probleme mehrere gute Wege zum Ziel. Welche Wege man wählt, entscheidet am Ende, was für ein Kernel entsteht. Ich werde jeweils nur einen Weg beispielhaft ausführen, aber gelegentlich kurz auf andere Möglichkeiten hinweisen.
+</p>
+<h2><span class="mw-headline" id="Physische_Speicherverwaltung">Physische Speicherverwaltung</span></h2>
+<p>Fangen wir zunächst damit an, unseren Kernel von der Einschränkung zu befreien, dass er nur genau zwei Tasks ausführen kann. Eigentlich haben wir mit init_task schon eine ganz nette Schnittstelle, um neue Tasks zu erstellen - das einzige, was nicht so schön ist, ist dass wir den Task von Hand ins Array eintragen und ihm seine fest deklarierten Stacks geben müssen.
+</p><p>Für jeden Task im Voraus Speicher zu reservieren, ist zu unflexibel, also müssen die Variablen <i>stack_a</i>, <i>stack_b</i>, <i>user_stack_a</i> und <i>user_stack_b</i> weg. Die Funktion <i>init_task</i> braucht die entsprechenden Parameter jetzt auch nicht mehr, denn sie soll sich den benötigten Speicher jetzt selbst (und zwar zur Laufzeit) holen. Wir schreiben also ungefähr so etwas:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="k">struct</span> <span class="n">cpu_state</span><span class="o">*</span> <span class="nf">init_task</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">entry</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">stack</span> <span class="o">=</span> <span class="n">pmm_alloc</span><span class="p">();</span>
+    <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">user_stack</span> <span class="o">=</span> <span class="n">pmm_alloc</span><span class="p">();</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+<p>Den neuen Speicher muss uns die <a href="../1843/index.html" title="Physische Speicherverwaltung">physische Speicherverwaltung</a> (engl. <i>physical memory manager</i>, daher das <i>pmm</i>) zur Verfügung stellen. Die Aufgabe der Speicherverwaltung ist es - Überraschung - den vorhandenen Speicher zu verwalten, so dass zur Laufzeit neuer Speicher angefordert werden und auch wieder freigegeben werden kann. Man arbeitet an dieser Stelle üblicherweise mit Speicherblöcken einer festen Größe - auf x86 sind das üblicherweise 4 Kilobyte (was nicht völlig willkürlich ist: Wir werden später dazu kommen, dass das genau die Größe ist, mit der man für virtuellen Speicher auch arbeiten muss).
+</p><p>Bevor wir uns einer möglichen Implementierung widmen, möchte ich kurz die Funktionen aufzählen, die die Speicherverwaltung bieten muss. Der Artikel <a href="../1843/index.html" title="Physische Speicherverwaltung">Physische Speicherverwaltung</a> nennt einige Möglichkeiten, die Funktionen zu implementieren. Wer mag, kann hier gern eine andere Methode wählen und den nächsten Abschnitt nur überfliegen. Die Funktionen sind also:
+</p>
+<ul><li><i>pmm_init</i>: Inititalisiert die Speicherverwaltung. Alle Speicherbereiche, die beim Start des Systems frei sind, müssen als frei markiert werden, der Rest als belegt.</li>
+<li><i>pmm_alloc</i>: Reserviert eine bislang freie Seite (ein Speicherblock von 4k) und gibt ihre Startadresse zurück.</li>
+<li><i>pmm_free</i>: Gibt eine zuvor reservierte Seite wieder frei, damit sie von einem neuen <i>pmm_alloc</i> wieder benutzt werden kann.</li></ul>
+<h3><span class="mw-headline" id="Speicher_reservieren_und_freigeben">Speicher reservieren und freigeben</span></h3>
+<p>Eine relativ simple Art, den Speicher zu verwalten, ist eine Bitmap, daher benutzen wir sie hier als Beispiel. Die Idee ist ganz einfach, dass man für jede Seite (also für je 4k) ein Bit benutzt, das anzeigt, ob die Seite frei oder belegt ist. Man könnte die Datenstruktur also wie folgt definieren:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="cm">/*</span>
+<span class="cm"> * Der Einfachheit halber deklarieren wir die maximal benoetige Bitmapgroesse</span>
+<span class="cm"> * statisch (Wir brauchen 4 GB / 4 kB = 1M Bits; 1M Bits sind 1M/32 = 32k</span>
+<span class="cm"> * Eintraege fuer das Array)</span>
+<span class="cm"> *</span>
+<span class="cm"> * Willkuerliche Festlegung: 1 = Speicher frei, 0 = Speicher belegt</span>
+<span class="cm"> */</span>
+<span class="cp">#define BITMAP_SIZE 32768</span>
+<span class="k">static</span> <span class="kt">uint32_t</span> <span class="n">bitmap</span><span class="p">[</span><span class="n">BITMAP_SIZE</span><span class="p">];</span>
+</pre></div>
+<p>Wenn jetzt zum Beispiel bitmap[0] = 0xc wäre, würde das bedeuten, dass die Seiten 2 und 3 frei sind (von Null an gezählt; also der Speicherbererich von 8k bis 16k) während die Seiten 0, 1 und 4 bis 31 belegt sind. Beim Reservieren einer neuen Seite geht man jetzt das Array durch bis man ein gesetztes Bit, also eine freie Seite findet. Man löscht dann das Bit und gibt die gefundene Adresse zurück. Beim Freigeben wird das Bit entsprechend wieder gesetzt.
+</p><p>Da die Implementierung offensichtlich ist, möchte ich sie hier nicht direkt in Code ausführen. Da man die Bitoperationen außerhalb des OS-Dev nicht ganz so oft braucht, hier nochmal eine kleine Übersicht:
+</p>
+<pre>Angenommen x ist ein int und wir interessieren uns für ein Flag in Bit 5.
+Definieren wir also zunächst:
+
+    #define FLAG (1 &lt;&lt; 5)
+
+Wir können jetzt...
+
+    ...prüfen, ob das Bit gesetzt ist:  (x &amp; FLAG)
+    ...das Bit setzen:                  x |= FLAG
+    ...das Bit löschen:                 x &amp;= ~FLAG</pre>
+<h3><span class="mw-headline" id="Speicherverwaltung_initialisieren">Speicherverwaltung initialisieren</span></h3>
+<p>Eigentlich fehlt jetzt nur noch der Anfangszustand für die Speicherbitmap. Wir müssen dazu wissen, welche Speicherbereiche frei sind und wo wir besser nicht hinschreiben. Zum Glück weiß das BIOS das und GRUB gibt uns die entsprechende Information auch weiter. Wir ignorieren sie bisher nur.
+</p><p>Wenn unser Kernel gestartet ist, liegt im Register <i>ebx</i> ein Pointer auf die <a href="../1560/index.html#Multiboot-Structure" title="Multiboot">Multiboot Information Structure</a>. Der verlinkte Artikel enthält eine Tabelle über den Aufbau der Struktur, die wir am geschicktesten als C-struct deklarieren (zumindest bis zu den mmap-Feldern). Das Feld mbs_mmap_addr ist ein Pointer auf die gesuchten Daten und der Abschnitt <a href="../1560/index.html#mbs_mmap_addr" title="Multiboot">mbs_mmap_addr</a> enthält den Aufbau eines Eintrags der Memory Map.
+</p><p>Wir müssen also zunächst einmal zurück in die start.S und den Pointer weitergeben:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="err">//</span> <span class="nf">C-Code</span> <span class="no">aufrufen</span> <span class="no">und</span> <span class="no">Multiboot-Infostruktur</span> <span class="no">als</span> <span class="no">Parameter</span> <span class="no">uebergeben</span>
+<span class="nf">push</span> <span class="nv">%ebx</span>
+<span class="nf">call</span> <span class="no">init</span>
+</pre></div>
+<p>Und auch die init-Funktion gibt den Pointer einfach direkt weiter an pmm_init:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="k">struct</span> <span class="n">multiboot_info</span> <span class="o">*</span><span class="n">mb_info</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">pmm_init</span><span class="p">(</span><span class="n">mb_info</span><span class="p">);</span>
+    <span class="p">...</span>
+</pre></div>
+<p>pmm_init geht anschließend wie folgt vor:
+</p>
+<ol><li>Zunächst wird der gesamte Speicher als belegt angesehen</li>
+<li>Anschließend wird der Speicher freigegeben, der in der Memory Map als frei gekennzeichnet ist</li>
+<li>Weil das BIOS aber nichts vom Betriebssystem weiß, müssen nachher alle Speicherbereiche, die das OS benutzt gleich wieder als belegt gekennzeichnet werden (d.h. in erster Linie der komplette Kernel)</li></ol>
+<p>Widmen wir uns zunächst der Memory Map. Wir haben Basisadresse und Länge und können damit über alle Einträge laufen und die freien Bereiche (Typ 1) als frei markieren:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="k">struct</span> <span class="n">multiboot_mmap</span><span class="o">*</span> <span class="n">mmap</span> <span class="o">=</span> <span class="n">mb_info</span><span class="o">-&gt;</span><span class="n">mbs_mmap_addr</span><span class="p">;</span>
+<span class="k">struct</span> <span class="n">multiboot_mmap</span><span class="o">*</span> <span class="n">mmap_end</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+    <span class="p">((</span><span class="kt">uintptr_t</span><span class="p">)</span> <span class="n">mb_info</span><span class="o">-&gt;</span><span class="n">mbs_mmap_addr</span> <span class="o">+</span> <span class="n">mb_info</span><span class="o">-&gt;</span><span class="n">mbs_mmap_length</span><span class="p">);</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="n">mmap</span> <span class="o">&lt;</span> <span class="n">mmap_end</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">mmap</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Der Speicherbereich ist frei, entsprechend markieren</span>
+        <span class="kt">uintptr_t</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">mmap</span><span class="o">-&gt;</span><span class="n">base</span><span class="p">;</span>
+        <span class="kt">uintptr_t</span> <span class="n">end_addr</span> <span class="o">=</span> <span class="n">addr</span> <span class="o">+</span> <span class="n">mmap</span><span class="o">-&gt;</span><span class="n">length</span><span class="p">;</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="n">addr</span> <span class="o">&lt;</span> <span class="n">end_addr</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">pmm_free</span><span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span> <span class="n">addr</span><span class="p">);</span>
+            <span class="n">addr</span> <span class="o">+=</span> <span class="mh">0x1000</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">mmap</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Den vom OS benutzten Speicher als belegt zu markieren (z.B. die Multiboot-Infostruktur oder zusätzliche Multiboot-Module) ist einfach und braucht wohl keine weitere Erläuterung. Die einzige Stelle, die nicht offensichtlich sein dürfte, ist, wie man herausbekommt, wo der Kernel eigentlich anfängt und aufhört. Dazu sagen wir dem Linker im Linkerskript, er soll ein neues Symbol vor den ganzen Sektionen anlegen und ein weiteres nach den Sektionen:
+</p>
+<pre>...
+
+    . = 0x100000;
+
+    /* Symbol fuer den Kernelanfang definieren */
+    kernel_start = .;
+
+    /*
+     * Der Multiboot-Header muss zuerst kommen (in den ersten 8 kB).
+
+...
+
+        *(.bss)
+    }
+
+    /* Symbole fuer das Kernelende definieren (auf 4k aufrunden) */
+    . = ALIGN(4096);
+    kernel_end = .;
+}</pre>
+<p>In C können wir diese Symbole anschließend als extern-Variablen deklarieren. Da die Variable keinen Datentyp hat (es zeigt ja nur ein Symbol an diese Stelle, ohne dass dort Platz für irgendwelche Daten reserviert wäre), ist void die richtige Wahl (da dieses Nichts zudem so ziemlich unveränderlich ist, kann man gleich ein const void verwenden (sonst kann es passieren, dass der Compiler eine Warnung ausgibt)). Wir sind hinterher sowieso nur an der Adresse der Variablen interessiert:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="k">extern</span> <span class="k">const</span> <span class="kt">void</span> <span class="n">kernel_start</span><span class="p">;</span>
+<span class="k">extern</span> <span class="k">const</span> <span class="kt">void</span> <span class="n">kernel_end</span><span class="p">;</span>
+
+<span class="kt">uintptr_t</span> <span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uintptr_t</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">kernel_start</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">addr</span> <span class="o">&lt;</span> <span class="p">(</span><span class="kt">uintptr_t</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">kernel_end</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">pmm_mark_used</span><span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span> <span class="n">addr</span><span class="p">);</span>
+    <span class="n">addr</span> <span class="o">+=</span> <span class="mh">0x1000</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2><span class="mw-headline" id="Taskliste">Taskliste</span></h2>
+<p>Der Task muss jetzt aber immer noch von Hand ins task_states-Array geschrieben werden. Ein Array dazu noch, das besser kein Array wäre, denn wir wollen die Anzahl der Tasks ja nicht begrenzen. Es wäre also an der Zeit, eine verkettete Liste herzunehmen. Im Moment haben wir noch Task und Prozessorzustand gleichgesetzt, aber ein Task ist natürlich noch mehr. Daher wäre jetzt eine gute Gelegenheit, einen Task neu zu definieren:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="k">struct</span> <span class="n">task</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">cpu_state</span><span class="o">*</span>   <span class="n">cpu_state</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">task</span><span class="o">*</span>        <span class="n">next</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="k">struct</span> <span class="n">task</span><span class="o">*</span> <span class="n">first_task</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">task</span><span class="o">*</span> <span class="n">current_task</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</pre></div>
+<p>init_task muss jetzt statt nur dem Stack entsprechend auch eine Taskstruktur anlegen und zurückgeben (wobei sie strenggenommen gar nichts zurückgeben müsste, denn der Task wird jetzt gleich richtig überall eintragen. Aber irgendwann später können wir den Rückgabewert garantiert brauchen). Ändern wir also das Ende ab:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="cm">/*</span>
+<span class="cm">     * Neue Taskstruktur anlegen und in die Liste einhaengen</span>
+<span class="cm">     */</span>
+    <span class="k">struct</span> <span class="n">task</span><span class="o">*</span> <span class="n">task</span> <span class="o">=</span> <span class="n">pmm_alloc</span><span class="p">();</span>
+    <span class="n">task</span><span class="o">-&gt;</span><span class="n">cpu_state</span> <span class="o">=</span> <span class="n">state</span><span class="p">;</span>
+    <span class="n">task</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">first_task</span><span class="p">;</span>
+    <span class="n">first_task</span> <span class="o">=</span> <span class="n">task</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">task</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Der Scheduler muss jetzt statt den Arrayindex weiterzuzählen zum nächsten Listenelement weitergehen (current_task = current_task-&gt;next) und wenn das Ende erreicht ist (next also NULL ist), wieder beim ersten Task anfangen. Das Array task_states, num_tasks und das alte current_task mit dem Arrayindex sind jetzt unnötig geworden und können gelöscht werden. Einen neuen Task anzulegen bedeutet jetzt nur noch ein init_task mit dem passenden Einsprungpunkt aufzurufen.
+</p>
+<table style="width:100%; background-color: #D0D8FF; border: 1px solid #b8c0e8; text-align:center; margin-bottom: 10px;">
+<tbody><tr>
+<td style="width:33%; text-align:left;">« <a href="../1899/index.html" title="Teil 6 - Multitasking">Teil 6 - Multitasking</a></td>
+<td style="width:33%; text-align:center;"><b>Navigation</b></td>
+<td style="width:33%; text-align:right;"><a href="../2241/index.html" title="Teil 8 - Ein erstes Programm">Teil 8 - Ein erstes Programm</a> »</td>
+</tr>
+</tbody></table>
+<!-- 
+NewPP limit report
+Cached time: 20261109170510
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.015 seconds
+Real time usage: 0.796 seconds
+Preprocessor visited node count: 134/1000000
+Preprocessor generated node count: 360/1000000
+Post‐expand include size: 888/2097152 bytes
+Template argument size: 228/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 9258/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  787.222      1 -total
+  0.17%    1.319      2 Vorlage:Navigation
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:2094-0!canonical and timestamp 20261109170509 and revision id 11393
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="../../revisions/11393/index.html">http://wiki.localhost:8080/w/index.php?title=Teil_7_-_Physische_Speicherverwaltung&amp;oldid=11393</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../1895/index.html" title="Kategorie:OS-Dev für Einsteiger">OS-Dev für Einsteiger</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2094/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="../../revisions/11393/index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 4. September 2018 um 11:16 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

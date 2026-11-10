@@ -1,0 +1,4 @@
+Woher weiß ich eigentlich den Wert von EIP und ESP vor sysenter?
+--user94 20:43, 22. Jan. 2010 (CET)
+:ESP ist meistens das, was du auch im TSS für ESP0 eintragen würdest &#150; und EIP entspricht halt dem Einsprungspunkt im Kernel, bei Syscalls per Interrupt war das eben der Beginn der ISR. Oder meinst du EIP und ESP, wenn zum Programm zurückgekehrt werden soll? Dann macht man wohl am besten ein Label hinter das ''sysenter'' um EIP zu bekommen und ESP kann man ja einfach auslesen. --[[Benutzer:XanClic|XanClic]] 21:58, 22. Jan. 2010 (CET)
+:Ich meine letzteres. Aber dann muss das Programm ja irgendwie die Rücksprungadresse als Argument mitgeben, weil sie nicht gespeichert wird(beim Aufruf von sysenter). Oder hab ich da was falsch verstanden?--user94 15:53, 23. Jan. 2010 (CET)

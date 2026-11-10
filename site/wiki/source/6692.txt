@@ -1,0 +1,326 @@
+Die Programmierung eines [[Kernel|Kernels]] in [[C++]] unterscheidet sich in einigen Punkten von der mit [[C]]. Einen ausführlicheren Überblick zu den relevanten Unterschieden zu C gibt der Artikel [[C++]]. Dieses Tutorial arbeitet genau wie [[C-Kernel mit GRUB]] mit dem Bootloader [[GRUB]].
+
+
+== Kernel ==
+Wir werden mit [[GCC]] und [[NASM]] arbeiten. Es kann auch Windows verwendet werden, allerdings ist dazu etwas Vorarbeit in Bezug auf die Tools von Nöten, siehe dazu [[C-Kernel_mit_GRUB#Hinweis_f.C3.BCr_Windowsianer|C-Kernel mit GRUB]].
+
+=== Kernel.cpp ===
+Da wir ja schon mit C++ arbeiten, wäre auch etwas OOP angebracht. Deshalb erstellen wir ein Klasse namens Video, die wir in einen Header stecken. Dadurch ist unsere kernel.cpp sehr übersichtlich:
+<cpp>
+// Einbinden unseres Header
+#include "Video.h"
+#include "Multiboot.h"
+
+void main(const Multiboot& multiboot_structur,
+          uint32_t multiboot_magic)
+{
+  if (multiboot_magic != MULTIBOOT_MAGIC)
+  {
+    // Fehler!
+    screen << background(color::red) << color::white << "Fehler: Nicht von einem multibootfaehigem Bootloader geladen!";
+    return;
+  }
+
+  // Textausgabe
+  screen << background(color::white) << color::blue << "Willkommen im C++-TestKernel!";
+}
+</cpp>
+
+=== types.h ===
+
+Ein paar Typendefinitionen:
+
+<cpp>
+/* Garantiert, dass ein Typ nicht gepaddet wird und somit exakt die Größe seiner Member hat */
+#define PACKED __attribute__((packed))
+
+typedef unsigned char  uint8_t;
+typedef unsigned short uint16_t;
+typedef unsigned int   uint32_t;
+</cpp>
+
+=== Video.h ===
+
+Der Header ist dann doch etwas umfangreicher:
+
+<cpp>
+#ifndef VIDEO_H
+#define VIDEO_H
+
+#include "types.h"
+
+namespace color
+{
+  enum type
+  {
+    black         = 0x00,
+    blue          = 0x01,
+    green         = 0x02,
+    cyan          = 0x03,
+    red           = 0x04,
+    magenta       = 0x05,
+    brown         = 0x06,
+    light_gray    = 0x07,
+    dark_gray     = 0x08,
+    light_blue    = 0x09,
+    light_green   = 0x0A,
+    light_cyan    = 0x0B,
+    light_red     = 0x0C,
+    light_magenta = 0x0D,
+    yellow        = 0x0E,
+    white         = 0x0F
+  };
+}
+
+struct background
+{
+  inline background(color::type color)
+    : m_color(color){}
+
+  color::type m_color;
+};
+
+class Video
+{
+  public:
+    // Konstruktor
+    Video();
+
+    // Destruktor
+    ~Video();
+
+    // Leeren des Bildschirms, die Größe beträgt 80x25 Zeichen
+    void clear();
+
+    // Textausgabe
+    Video& operator << (const char* s);
+
+    // Vordergrundfarbe setzen
+    Video& operator << (color::type color);
+
+    // Hintergrundfarbe setzen
+    Video& operator << (const background& color);
+
+    // Ausgabe eines einzelnen Zeichens
+    void put(char c);
+
+  private:
+    // Zeiger auf den Videospeicher
+    uint16_t* m_videomem;
+
+    // Y-Position der Textausgabe, je volle Zeile +80
+    unsigned int m_off;
+
+    // X-Position der Textausgabe, ab Zeilenanfang
+    unsigned int m_pos;
+
+    // FB/BG-Farbe
+    uint16_t m_color;
+};
+
+// Globale Instanz der Video-Klasse, Definition in Video.cpp
+extern Video screen;
+
+#endif
+</cpp>
+
+=== Video.cpp ===
+
+Die Implementierung der in Video.h definierten Memberfunktionen kommt in eine eigene Quellcodedatei:
+
+<cpp>
+#include "Video.h"
+
+Video screen;
+
+Video::Video()
+  : m_videomem((uint16_t*) 0xb8000), m_off(0), m_pos(0), m_color(0x0700)
+{
+  //Bildschirm leeren
+  clear();
+}
+
+Video::~Video(){
+}
+
+void Video::clear(){
+  // Füllen des Bildschirms mit Leerzeichen
+  for(int i = 0;i < (80*25);i++)
+    m_videomem[i] = (unsigned char)' ' | m_color;
+
+  // Zurücksetzen der Textausgabe nach links oben
+  m_pos = 0;
+  m_off = 0;							
+}
+
+Video& Video::operator << (const char* s){
+  // Für jedes einzelne Zeichen wird put() aufgerufen
+  while (*s != '\0')
+    put(*s++);
+
+  return *this;
+}
+
+Video& Video::operator << (color::type color){
+  m_color = (static_cast<uint16_t>(color) << 8) | (m_color & 0xF000);
+  return *this;
+}
+
+Video& Video::operator << (const background& color){
+  m_color = (static_cast<uint16_t>(color.m_color) << 12) | (m_color & 0x0F00);
+  return *this;
+}
+
+void Video::put(char c){
+  // Wenn die Textausgabe den rechten...
+  if(m_pos >= 80){
+    m_pos = 0;
+    m_off += 80;
+  }
+
+  // ...oder den unteren Bildschirmrand erreicht, gibt es
+  // einen Umbruch bzw. es wird aufgeräumt.
+  if(m_off >= (80*25))
+    clear();
+
+  // Setzen des Zeichens und der Farbe in den Videospeicher
+  m_videomem[m_off + m_pos] = (uint16_t)c | m_color;
+  m_pos++;
+}
+</cpp>
+
+=== Multiboot.h ===
+
+Eine Header um die von [[GRUB]] an das Betriebssystem übergebene Multibootstruktur zu verwenden (siehe auch [[Multiboot]]):
+
+<cpp>
+#ifndef MULTIBOOT_H
+#define MULTIBOOT_H
+
+#include <types.h>
+
+#define MULTIBOOT_MAGIC 0x2BADB002
+
+struct Multiboot
+{
+  uint32_t flags;
+  uint32_t mem_lower;
+  uint32_t mem_upper;
+  uint32_t bootdevce;
+  uint32_t cmdline;
+  uint32_t module_count;
+  uint32_t module_address;
+  /* etc... */
+} PACKED;
+
+#endif
+</cpp>
+
+=== Startup.cpp ===
+
+Um die Konstruktoren bzw. die Destruktoren von globalen/statischen Objekten aufzurufen (siehe auch [[C++#globale.2Fstatische_Objekte|C++]]), wird die Funktion initialiseConstructors aus [[C++#Konstruktoren|C++]] benötigt. Diese wird später mit in den Kernel gelinkt und in der asmKernel.asm aufgerufen. Die Destruktoraufrufe von globalen/statischen Objekten werden absichtlich nicht aufgerufen, da es innerhalb des Kernels der Erfahrung von [[Benutzer:Bluecode | bluecode]] nach keinen Sinn macht bei (globalen/statischen!) Objekten den Destruktor zu verwenden. Falls man dies dennoch möchte kann man im Artikel [[C++#Destruktoren (ohne --enable-__cxa_atexit und ohne -fuse-cxa-atexit | C++]] einer der beiden relevanten Abschnitte implementieren.
+
+=== asmKernel.asm ===
+Auch bei C++ kommen wir nicht um ein wenig Assembler herum:
+
+<asm>
+ 
+global loader					; Unser Einsprungspunkt
+extern main					; main() aus Kernel.cpp
+extern initialiseConstructors			; aus Startup.cpp
+ 
+FLAGS    equ 0
+MAGIC    equ 0x1BADB002       	; Magicnumber - Erkennungsmerkmal für GRUB
+CHECKSUM equ -(MAGIC + FLAGS) 	; Checksum
+ 
+section .text
+align 4
+MultiBootHeader:
+  dd MAGIC       				; Magic number
+  dd FLAGS       				; Flags
+  dd CHECKSUM    				; Checksum
+ 
+loader:
+  mov esp,0x200000 				; Stack an die 2MB-Grenze platzieren
+  push eax         				; Multiboot-Magicnumber auf den Stack legen
+  push ebx         				; Adresse der Multiboot-Structure auf den Stack legen
+  call initialiseConstructors   		; Konstruktoren aufrufen
+  call main       				; main aufrufen
+
+stop:
+  jmp stop					; Endlosschleife nach Beendigung unseres Kernels
+ 
+</asm>
+
+== Kompilieren und Linken ==
+Die asmKernel.asm:
+
+ nasm -f elf -o asmKernel.o asmKernel.asm
+
+Video.cpp:
+
+ gcc -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wall -Wextra -pedantic-errors -c -o Video.o Video.cpp
+
+Kernel.cpp:
+
+ gcc -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wall -Wextra -pedantic-errors -c -o Kernel.o Kernel.cpp
+
+Startup.cpp:
+
+ gcc -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wall -Wextra -pedantic-errors -c -o Startup.o Startup.cpp
+
+
+Nun zu einer der wichtigsten Stellen, dem Linkvorgang:
+Wir müssen asmKernel.o, Startup.o, Video.o und Kernel.o zu einer kernel.bin linken, die dann von GRUB geladen werden kann.
+
+Unser Linkerscript (link.txt)
+<pre>
+ENTRY(loader)
+OUTPUT_FORMAT(elf32-i386)
+OUTPUT_ARCH(i386:i386)
+
+SECTIONS
+{
+  .text  0x0100000 :
+  {
+    *(.text)
+    *(.rodata)
+  }
+
+  .data  :
+  {
+    start_ctors = .;
+    *(.ctors)
+    end_ctors = .;
+
+    start_dtors = .;
+    *(.dtors)
+    end_dtors = .;
+
+    *(.data)
+  }
+
+  .bss  :
+  {
+    *(.bss)
+  }
+
+  /DISCARD/ : { *(.dtors) }
+}
+</pre>
+
+Wir teilen dem Linker mit, dass wir die Labels start_ctors, end_ctors, start_dtors und end_dtors in der Datei Startup.cpp haben und er diese beim Linken berücksichtigen soll. Außerdem wird die Liste der Destruktoren aus der aus dem Kernel entfernt, da sie wie oben erklärt nicht verwendet werden.
+Nur noch ein kurzer Aufruf von LD, und wir haben unseren fertigen Kernel:
+
+ ld -T link.txt -o kernel.bin asmKernel.o Startup.o Video.o Kernel.o
+
+Wie der Kernel nun mitsamt GRUB auf einer Diskette landet, kann im Artikel [[C-Kernel_mit_GRUB|C-Kernel mit GRUB]] nachgelesen werden. Hier verfährt man einfach analog.
+
+== Siehe auch ==
+* [[C-Kernel_mit_GRUB|C-Kernel mit GRUB]]
+* [[GRUB]]
+* [[C++]]
+* [[Multiboot]]
+* [[Linkerscript]]
+
+[[Kategorie:Tutorials]]

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>RedEagle-OperatingSystem – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-RedEagle-OperatingSystem rootpage-RedEagle-OperatingSystem skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2232/index.html">Aktueller Artikel</a> · <a href="../../history/2232/index.html">Versionsgeschichte</a> · <a href="../../source/11050.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">RedEagle-OperatingSystem</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 19. März 2013, 16:00 Uhr von <a class="mw-userlink" href="../../pages/2591/index.html" title="Benutzer:Roadrunner"><bdi>Roadrunner</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/10358-11050.html" title="RedEagle-OperatingSystem">Unterschied</a>) <a href="../10358/index.html" title="RedEagle-OperatingSystem">← Nächstältere Version</a> | Aktuelle Version (Unterschied) | Nächstjüngere Version → (Unterschied)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="float:right; width:300px; padding-left:20px; padding-bottom: 20px; background-color:white">
+<div style="font-weight:normal; text-align:left; border:1px solid lightgray;">
+<table width="100%">
+<tbody><tr align="center" style="background: lightgray;">
+<th colspan="2">RedEagle-OperatingSystem (Projektname)
+</th></tr>
+<tr align="center">
+<td colspan="2" style="padding: 0px;" width="100%">
+</td></tr>
+<tr>
+<td valign="top">Entwickler:</td>
+<td><a href="../../pages/1491/index.html" title="Benutzer:RedEagle">Benutzer:RedEagle</a>
+</td></tr>
+<tr>
+<td valign="top">Akt. Version:</td>
+<td>Betriebssystem: 1.00<br/>Kernel: 0.10.0
+</td></tr>
+<tr>
+<td valign="top"><a href="../../pages/1552/index.html" title="Lizenzen">Lizenz</a>:</td>
+<td><a class="external text" href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="nofollow">CC by-nc-sa 2.0</a> (GPL geplant)
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">OS-Eigenschaften
+</th></tr>
+<tr>
+<td valign="top">Plattform:</td>
+<td><a href="../../pages/1749/index.html" title="X86">i586</a>
+</td></tr>
+<tr>
+<td valign="top"><a href="../../pages/1478/index.html" title="Kernel">Kernelart</a>:</td>
+<td>Monolithisch
+</td></tr>
+<tr>
+<td valign="top"><a href="../../pages/1648/index.html" title="Kategorie:Programmiersprache">Sprache</a>:</td>
+<td><a href="../../pages/1526/index.html" title="C">C</a>, <a href="../../pages/1486/index.html" title="C++">C++</a>, <a href="../../pages/1514/index.html" title="Assembler">Assembler</a>
+</td></tr>
+<tr>
+<td valign="top">API:</td>
+<td>Nativ
+</td></tr>
+<tr>
+<td valign="top">Binärformat:</td>
+<td>Kernel: <a class="mw-redirect" data-archive-original-href="../../pages/1650/index.html" href="../../pages/1528/index.html" title="ELF">ELF</a>; Apps: <a class="mw-redirect" data-archive-original-href="../../pages/1650/index.html" href="../../pages/1528/index.html" title="ELF">ELF</a>
+</td></tr>
+<tr>
+<td valign="top"><a class="mw-redirect" data-archive-original-href="../../pages/1519/index.html" href="../../pages/1530/index.html" title="IPC">IPC-Methode</a>:</td>
+<td><a href="../../pages/1997/index.html" title="Pipe">pipes</a>
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Homepage
+</th></tr>
+<tr>
+<td colspan="2"><center><a class="external text" href="http://www.redeagle-operatingsystem.de.vu/" rel="nofollow">Projektseite</a><br/><a class="external text" href="http://www.youtube.com/1000Tode" rel="nofollow">YouTube-Channel</a></center>
+</td></tr></tbody></table>
+</div>
+</div>
+<p>RedEagle-OperatingSystem ist ein 32Bit OS dessen Hauptziel darin besteht einfach und unkompliziert auf lowlevel-ebene Programmieren zu können. Das System dient quasi nur als Unterstützung für den Programmierer und soll ihn nicht bevormunden.
+</p><p>Ziel ist es <b>nicht</b> ein sicheres und stabiles System zu schreiben. Diese Punkte werden frühstens in der Nächsten Generation berücksichtigt :)
+</p><p><br/>
+<b>Hinweis:</b> Das Projekt ist laut der <a class="external text" href="http://www.redeagle-operatingsystem.de.vu/" rel="nofollow">Projektwebsite</a> eingestellt worden.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Namens.C3.A4nderung"><span class="tocnumber">1</span> <span class="toctext">Namensänderung</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Bestandteile_des_Betriebssystems"><span class="tocnumber">2</span> <span class="toctext">Bestandteile des Betriebssystems</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Allgemeine_Features"><span class="tocnumber">3</span> <span class="toctext">Allgemeine Features</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Pipes"><span class="tocnumber">3.1</span> <span class="toctext">Pipes</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Programme"><span class="tocnumber">3.2</span> <span class="toctext">Programme</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#sonstige_Nennenswerte_Besonderheiten"><span class="tocnumber">4</span> <span class="toctext">sonstige Nennenswerte Besonderheiten</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Der_Bootloader"><span class="tocnumber">4.1</span> <span class="toctext">Der Bootloader</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Das_FT3fs_-_Dateisystem"><span class="tocnumber">4.2</span> <span class="toctext">Das FT3fs - Dateisystem</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Speichermanager"><span class="tocnumber">4.3</span> <span class="toctext">Speichermanager</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Pagemanager"><span class="tocnumber">4.4</span> <span class="toctext">Pagemanager</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Bifr.C3.B6st"><span class="tocnumber">4.5</span> <span class="toctext">Bifröst</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="#kernel-logs"><span class="tocnumber">4.5.1</span> <span class="toctext">kernel-logs</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2><span id="Namensänderung"></span><span class="mw-headline" id="Namens.C3.A4nderung">Namensänderung</span></h2>
+<p>Das gesamte Betriebssystem wird seit der Kernel-Version 0.10 Adversys genannt.<br/>
+Das Projekt heißt weiterhin RedEagle-OperatingSystem, und der Kernel weiterhin reos
+</p>
+<h2><span class="mw-headline" id="Bestandteile_des_Betriebssystems">Bestandteile des Betriebssystems</span></h2>
+<p>Adversys besteht (bisher) aus den folgenden Komponenten
+</p>
+<ul><li><b>reosboot</b>: Der Bootloader des Systems</li>
+<li><b>reos</b>: Der Kernel des Systems</li>
+<li><b>FT3fs</b>: Für das Betriebssystem entwickeltes Dateisystem</li>
+<li><b>Bifröst</b>: Schnittstelle zur Außenwelt per rs232</li></ul>
+<h2><span class="mw-headline" id="Allgemeine_Features">Allgemeine Features</span></h2>
+<ul><li>Monolithisch</li>
+<li>Arbeitet im PM</li>
+<li>Paging</li>
+<li>Multitasking</li>
+<li>Singeluser-system</li>
+<li>Pipes</li>
+<li>Ausführen von <a class="mw-redirect" data-archive-original-href="../../pages/1650/index.html" href="../../pages/1528/index.html" title="ELF">ELF</a>-Dateien</li>
+<li>alle Programme laufen in ring0</li>
+<li><a href="../../pages/2283/index.html" title="GDB">GDB</a> interface</li></ul>
+<h3><span class="mw-headline" id="Pipes">Pipes</span></h3>
+<p><b>Status:</b> Bereits vereinzelt erfolgreich im Einsatz, aber noch nicht 100% ausgereift.
+</p><p>Jedes Programm, jeder Thread hat 4.294.967.294 Ports. Diese Ports können unter den folgenden Bedingungen miteinander verknüpft werden:
+</p>
+<ul><li>Es können nur 2 Ports verknüpft werden</li>
+<li>Einer muss lesend sein, der andere schreibend</li></ul>
+<p>Werden 2 Ports verknüpft die noch nicht geöffnet wurden (wo also unklar ist, welcher lesender und welcher schreibender Natur ist) wird der 1. als schreibend, der 2. lesend geöffnet.
+&lt;c&gt;
+PID pid = CreateProcess(...); // Prozess erstellen
+</p><p>open(2, true);                //Port 2 zum schreiben öffnen
+link(MyPID(), 2, pid, 1);     //Port 2 mit Port 1 des neuen Prozesses verbinden
+&lt;/c&gt;
+</p>
+<h3><span class="mw-headline" id="Programme">Programme</span></h3>
+<p><b>Status:</b> Funktionsfähig, aber mangels Bibliotheken/Shell im Einsatz nicht allzu mächtig.
+</p><p>Programme liegen im <a class="mw-redirect" data-archive-original-href="../../pages/1650/index.html" href="../../pages/1528/index.html" title="ELF">ELF</a>-format vor. Die API ist über <i>int 0xFF</i> anwendbar.<br/>
+Programme können in C und Assembly geschrieben sein. Für C-Programme gib es eine entsprechende API-Bibliothek.<br/>
+Bislang gibt es abgesehen von der API keine weiteren Bibliotheken.
+</p><p>Alle Programme laufen in ring0, ihnen stehen also alle Befehle der CPU zur Verfügung und können beliebig auf Hardware zugreifen. So können Programme per <i>cli</i> auch den Taskswitch unterdrücken oder ggf die gesamte Kontrolle übernehmen. (REOS könnte also auch als Bootmanager verwendet werden)<br/>
+Da es sich um ein single-user-system handelt gibt es auch keine Einschränkung im Zugriff aus Dateien (währe bei ring0-programmen auch kein wirkliches Hindernis).
+</p><p>Greift ein Programm schreibend auf eine schreibgeschützte Datei zu, so fragt der Kernel den User, ob dieses Programm das trotz verbot darf oder nicht. - Ein Schreibschutz ist kein Verbot, sondern vielmehr die Aufforderung sich beim User zu melden bevor etwas verändert wird.<br/>
+<i>(bislang noch nicht implementiert)</i>
+</p>
+<h2><span class="mw-headline" id="sonstige_Nennenswerte_Besonderheiten">sonstige Nennenswerte Besonderheiten</span></h2>
+<p>Ich lege viel Wert darauf, wirklich alles selber zu schreiben. Ich möchte nicht nur ein Kernel schreiben sondern ein Betriebssystem :)<br/>
+Ich werde wohl bei einigen Tools wie einem Assembler ausnahmen machen, aber die Basis soll von Grund auf neu sein.<br/>
+</p><p><b>!! Nicht alle Ideen und Umsetzungen sind gut oder sinnvoll !!</b>
+</p>
+<h3><span class="mw-headline" id="Der_Bootloader">Der Bootloader</span></h3>
+<p>Bei dem Bootloader <i>reosboot</i> liegt der Fokus darauf den Kernel zu unterstützen und <b>niemals</b> im Weg zu stehen. Der bootloader ist quasi der Knecht der dem Kernel den weg bereitet.
+</p><p>Zu den besonderen Features von reosboot gehören die Folgenden Punkte
+</p>
+<ul><li>Bietet eine kleine API</li>
+<li>Stellt eine Verbindung zu einem entfernten PC per RS232 her</li>
+<li>Ist scripting-fähig</li>
+<li>Führt verschiedene kleine Tools aus (boot-app's)</li>
+<li>Arbeitet mit dem FT3fs-Dateisystem (mehr dazu weiter unten)</li>
+<li>3 Wege das A20-Gate zu enablen</li></ul>
+<p>Zu den Tools gehört unter anderem ein ramdisk-manager der folgende Features bietet:
+</p>
+<ul><li>laden einer Diskette in den RAM</li>
+<li>eine ramdisk auf Diskette schreiben</li>
+<li>Eine ramdisk per RS232 herunterladen und in den RAM schreiben</li></ul>
+<p>Ein weiteres tool namens <i>ldelf</i> lädt eine <a class="mw-redirect" data-archive-original-href="../../pages/1650/index.html" href="../../pages/1528/index.html" title="ELF">ELF</a>-Datei (den Kernel) in den Speicher. Diese kann dann mit einem weiteren Tool ausgeführt werden.
+</p><p><br/>
+Für die Entwicklung im Realmode wurden folgende Programme eingesetzt:
+</p>
+<ul><li>bcc - ein C-Compiler der Code für den <a href="../../pages/1665/index.html" title="Real Mode">Real Mode</a> erzeugt</li>
+<li>ld86 - Der Entsprechende Linker um eine <a href="../../pages/1665/index.html" title="Real Mode">Real Mode</a> - Anwendung zu erzeugen</li>
+<li>nasm - Ein universeller Assembler für alles :)</li></ul>
+<p><i>bcc</i> und <i>ld86</i> werden vom Paketmanager (opensuse &amp; Fedora) im Paket <i>dev86</i> bereit gestellt.
+</p>
+<h3><span class="mw-headline" id="Das_FT3fs_-_Dateisystem">Das FT3fs - Dateisystem</span></h3>
+<p>Das Dateisystem basiert auf einem Graph der in einer Datei gespeichert ist.<br/>
+Das Dateisystem ist also in Dateien gespeichert.
+</p><p>Die 1. Datei die geladen wird ist der Bootsektor (lässt sich nicht vermeiden :D)<br/>
+In dem Bootsektor ist neben einem äußerst minimalistischem FT3fs-Treiber ein Graph der die Dateien (Nodes) des eigentlichen Dateisystem enthält.<br/>
+Das Dateisystem ist in die folgenden Nodes zerlegt:
+</p>
+<ul><li>bootsector.bin: Der Bootsektor.</li>
+<li>reosboot.bin: Der Bootloader. (Optional, anderer Nodename möglich)</li>
+<li>secmap.dat: Enthält eine bytemap in der beschrieben ist, welche Sektoren belegt sind, und welche frei sind.</li>
+<li>nodes.dat: Hier liegt der Graph, der den Rest des Dateisystem's beschreibt.</li></ul>
+<p>Die Verteilung der Dateien auf dem Datenträger wird durch eine Liste von Sektor-nummern in der Datei-spezifischen Datenstruktur der Nodes beschrieben.<br/>
+Da das Dateisystem speziell auf mein Betriebssystem zugeschnitten ist werden keine unix-permissions unterstützt.
+</p>
+<h3><span class="mw-headline" id="Speichermanager">Speichermanager</span></h3>
+<p>Ist jetzt nicht direkt eine Besonderheit des Kernels, aber ich will dennoch mal beschreiben wie ich ihn realisiert habe.
+</p><p>Es gibt drei Listen die in dem Speichermanager genutzt werden.
+</p>
+<ol><li>Eine Liste, die freie Listenelemente enthält</li>
+<li>Eine Liste, die reservierten Speicher beschreibt</li>
+<li>und eine Liste, die freien Speicher beschreibt.</li></ol>
+<p>Da innerhalb des Speichermanagers nur ganze Pages reserviert werden könne um neue Listenelemente anzulegen wird direkt eine ganze reihe an Elementen gleichzeitig reserviert. Nämlich soviel, wie in einer Page platz finden. Diese Elemente werden zu einer Liste freier Elemente "verbunden".<br/>
+Wird freier Speicher angefordert wird in der Liste, die den freien Speicher beschreibt nach einem ausreichend großen Speicherbereich gesucht. Wird keiner gefunden werden entsprechend viele Pages vom Pagemanager angefordert. Der benötigte Speicher wird vom freien Speicher angezogen und durch ein neues Listenelement beschrieben welches in die Liste des Reservierten Speichers aufgenommen wird.<br/>
+Wird Speicher freigegeben wird das entsprechende Listenelement aus der Liste des reservierten Speicher in die liste des freien Speichers gegeben. Es wird geprüft ob dieser Speicherbereich an anderen freien Speicher angrenzt und verschmolzen werden kann. Falls ja, wird das überflüssige Listenelement wieder in die Liste der freien Elemente aufgenommen.
+</p>
+<h3><span class="mw-headline" id="Pagemanager">Pagemanager</span></h3>
+<p>Ein Pagemanager an sich ist ebenfalls nichts besonderes in einem x86-Kernel, aber naja… auch da hat jeder seine eigenen Vorstellungen wie man so etwas angeht :)
+</p><p>Beim Initialisieren werden die ersten 3 4MiB-Pages reserviert und an 0x00000000, 0x00400000, 0x00800000 gemapped. Für die ersten 12MiB ist die Vvrtuelle Adresse also gleich der Physikalischen.
+</p><p>Werden später Pages angefordert wird zunächst geprüft ob es mehr als 1024 Pages sind. Falls ja wird der Speicher in 4MiB-Pages reserviert. Wird also 5MiB angefordert werden 8MiB reserviert.<br/>
+Werden weniger als 1024 Pages angefordert werden entsprechend viele Pages reserviert und eine Pagetable gesucht, die genügend freie Plätze für den Speicher hat. Sind nicht ausreichend viele Plätze frei wird eine neue Pagetable angelegt.
+</p>
+<h3><span id="Bifröst"></span><span class="mw-headline" id="Bifr.C3.B6st">Bifröst</span></h3>
+<p>Bifröst bezeichnet einen Server und ein Übertragungsprotokoll dessen Aufgabe es ist, den Kernel zu unterstützen, bzw vom kernel stammende Informationen auszuwerten.<br/>
+Der bootloader und später der kernel verbinden sich per rs232 mit dem auf einem Linux-rechner laufenden Server.
+</p><p>Der Server bietet derzeit folgende Features:
+</p>
+<ul><li>Up/Download von Dateien</li>
+<li>Sektor-weiser lese/schreibzugriff auf image-files</li>
+<li>empfangen &amp; Anzeigen von log-informationen</li></ul>
+<h4><span class="mw-headline" id="kernel-logs">kernel-logs</span></h4>
+<p>Der Kernel schickt beständig Informationen über die rs232. Dafür verwendet er 3 verschiedene Übertragungsprotokolle:
+</p>
+<ol><li>Bifröst</li>
+<li>raw ascii</li>
+<li>ansi</li></ol>
+<p>Durch ein ping wird ermittelt ob der Bifröst-Server erreichbar ist (s.o.) - ist dies nicht der Fall werden die logs ASCII-Codiert übertragen. Das hat den Vorteil dass auf einer virtuellen Maschiene die log-daten einfach in ein Textfile geschrieben werden können um sie später auszuwerten.<br/>
+Im ANSI-Modus werden die Daten mit ANSI-Escape-Sequenzen coloriert. Somit kann man auch ohne Bifröst-Server die Daten mit einem 2. PC in Echtzeit farbig beobachten.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109170203
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.008 seconds
+Real time usage: 0.009 seconds
+Preprocessor visited node count: 86/1000000
+Preprocessor generated node count: 310/1000000
+Post‐expand include size: 1346/2097152 bytes
+Template argument size: 393/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.033      1 Vorlage:Infobox_OS
+100.00%    1.033      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:2232-0!canonical and timestamp 20261109170203 and revision id 11050
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=RedEagle-OperatingSystem&amp;oldid=11050</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1649/index.html" title="Kategorie:Betriebssystem">Betriebssystem</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2232/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2638/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2232/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 19. März 2013 um 16:00 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

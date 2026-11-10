@@ -1,0 +1,5 @@
+Syscalls werden verwendet um Programmen Zugriff auf Funktionen im [[Kernel]] zu gewährleisten.
+
+Meistens werden Syscalls mithilfe eines Software-[[Interrupt]]s realisiert. Der aufrufende Prozess füllt entweder die Syscall-Parameter in Arbeitsregister oder legt sie auf den Stack. Meistens wird der Syscall, den der Prozess aufrufen will über eine Nummer als Parameter übergeben. Dann ruft der Prozess einen Software-[[Interrupt]] auf, dieser hat normalerweise eine festgelegte Nummer, bei [[Linux]] ist das der [[Interrupt]] 0x80. Auf neueren CPUs besteht auch die Möglichkeit die Instruktion ''sysenter'' zu verwenden, so wie das bei [[Windows]] der Fall ist.
+
+Im Kernel wird dann ein Syscallhandler verwendet um die Funktion aufzulösen und die Parameter zu übergeben.

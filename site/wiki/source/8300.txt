@@ -1,0 +1,4 @@
+Der Punkt <b>PE Kennzeichnung</b> ist grundlegend falsch, denn diese befindet sich nicht grundlegend an 0x3c. Schuld daran ist, weil der (MS-)DOS-Header komplett überprungen wurde in der Annahme, die PE-Kennung befinde sich an einer fixen Position. Durch solche unbedachten Bequemlichkeiten entstehen Bugs, die sich als Sicherheitslücken erweisen können.
+Folgerichtig wäre es, ein PE/COFF-File erst auf den DOS-Header ("MZ"-Signatur) hin zu prüfen, dann den Offset für den PE-Header aus dem DOS-Header ermitteln, den PE-Header ("PE\0\0"-Signatur) hin zu prüfen und bla bla bla. Ich kann ja mal die Erkenntnis aus meinem Bootloader zusammentragen, wie dieser mit diesem Fileformat vorgeht.
+Wichtig ist auch zu erwähnen, das der PE-Header auf den DOS-Header aufbaut. Die Header-Baum-Struktur des PE/COFF sollte man daher schon kennen.
+Zugegeben, es ist in den Dokus irritierend erklärt ... Offset von Offset =)  -- [[Benutzer:ScollPi|ScollPi]] 12:24, 23. Apr. 2009 (CEST)

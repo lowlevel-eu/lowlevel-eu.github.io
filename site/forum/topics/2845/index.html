@@ -1,0 +1,1140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="Optimale Baumstrukturen fuer malloc/free" name="description"/>
+<title>Optimale Baumstrukturen fuer malloc/free</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:30</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Optimale Baumstrukturen fuer malloc/free</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg33372"></a>
+<div class="nextlinks"><a href="../2945/offset-20.html#msg34561">« vorheriges</a> <a href="../2948/offset-20.html#msg34516">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] <a class="navPages" href="offset-20.html">2</a>
+</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/0f01c9c83ac67395064654f9.gif"/>
+<span id="author">Autor</span>
+						Thema: Optimale Baumstrukturen fuer malloc/free  (Gelesen 74903 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_33372_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong> am:</strong> 02. September 2011, 23:11 »</div>
+<div class="posttile"><h5 id="subject_33372">
+<a href="index.html#msg33372" rel="nofollow">Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33372_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33372">Nabend zusammen,<br/><br/>ich arbeite gerade an einem neuen kmalloc, da ich bei meinem derzeitigen Kernel festgestellt habe, dass der Kernel dabei sehr viel zeit vertreiben muss.<br/><br/>Nun wollte ich einen balancierenden Baum verwenden allerdings habe ich dabei das Problem, dass ich bei identischen Knoten nicht fuer einen sortierten Baum garantieren kann, wodurch mir ja die ganzen Vorteile verloren gehen.<br/>Dann hatte ich die Idee, dass die freien Speicherbereiche mit identischer Groesse in einem einzigen Knoten abgelegt werden.<br/><br/>Wie habt ihr das Problem geloest?<br/>Ausserdem ueberlege ich mir die ganze Zeit, welche Baeume am besten fuer die Speicherverwaltung am besten sind.<br/>Habe leider nichts aufschlussreiches gefunden (AVL oder RB).<br/>Habt ihr damit Erfahrungen?<br/><br/>Gruesse,<br/>rizor</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33372">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33372_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33374"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33374_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #1 am:</strong> 03. September 2011, 12:52 »</div>
+<div class="posttile"><h5 id="subject_33374">
+<a href="index.html#msg33374" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33374_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33374">Warum hast du denn überhaupt identische Knoten (und kann man die nicht künstlich ordnen?)? Und nur weil es identische Knoten gibt, kann man doch trotzdem sortieren? Und die Balance beeinflusst das sowieso überhaupt nicht, insofern hast du immernoch log(n) für lookup nach einem Knoten. Die STL benutzt für std::map einen R&amp;B-Baum, falls das hilft.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33374">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33374_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33375"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_33375_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #2 am:</strong> 03. September 2011, 13:18 »</div>
+<div class="posttile"><h5 id="subject_33375">
+<a href="index.html#msg33375" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33375_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33375">Also mit identischen Knoten meinte ich Knoten, die die gleiche Speichergröße verwalten.<br/>Bei mir liegt vor jedem Speicherblock ein Header, der den Speicherbereich beschreibt. Der Baum wird anhand der Größen und der Adresse sortiert (zwei Bäume).<br/>Für die SPeichergröße kann es somit "identische Knoten" geben.<br/>Bei einem selbst balancierendem Baum kann es sein, dass ein identischer Knoten auf der Rechten Baumhälfte liegt. Dadurch kann ich den ganzen Weg nicht vereinfacht abarbeiten.<br/>Kann mir zumindest künstlich solch einen Baum aufbauen.<br/>Das ist derzeit mein Problem.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33375">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33375_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33376"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_33376_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #3 am:</strong> 03. September 2011, 13:55 »</div>
+<div class="posttile"><h5 id="subject_33376">
+<a href="index.html#msg33376" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33376_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33376">Hallo,<br/><br/><br/>dann nimm doch einfach die Adresse als zusätzliches Sortierkriterium. Wenn Du einen Speicherbereich mit einer bestimmten Größe suchst ist Dir doch sicher egal welcher es genau ist (solange die Größe passt) so das es keine Rolle spielt welchen Du als erstes im Baum findest und diesen einfach nimmst. Wenn Du einen bestimmten Speicherblock suchst kennst Du auch seine Adresse und nimmst eh den anderen Baum.<br/><br/>Ich vermute mal der Baum mit der Größe als Kriterium dient Dir fürs Allozieren von Speicher und der könnte sicher etwas kleiner und damit schneller sein wenn dort nur die freien Blöcke drin sind.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33376">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33376_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33377"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_33377_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #4 am:</strong> 03. September 2011, 14:15 »</div>
+<div class="posttile"><h5 id="subject_33377">
+<a href="index.html#msg33377" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33377_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33377"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33376">Zitat von: erik.vikinger am 03. September 2011, 13:55</a></div></div><blockquote class="bbc_standard_quote">dann nimm doch einfach die Adresse als zusätzliches Sortierkriterium. Wenn Du einen Speicherbereich mit einer bestimmten Größe suchst ist Dir doch sicher egal welcher es genau ist (solange die Größe passt) so das es keine Rolle spielt welchen Du als erstes im Baum findest und diesen einfach nimmst.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/>Wie sollte denn dann das Kriterium dafür aussehen? Dann müsste ich mir ja eine Funktion überlegen, die mir aus den Werten eindeutige Schlüssel generiert, oder?<br/>Mir fällt da auf die Schnelle kein Algorithmus ein.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33376">Zitat von: erik.vikinger am 03. September 2011, 13:55</a></div></div><blockquote class="bbc_standard_quote">Ich vermute mal der Baum mit der Größe als Kriterium dient Dir fürs Allozieren von Speicher und der könnte sicher etwas kleiner und damit schneller sein wenn dort nur die freien Blöcke drin sind.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Richtig, so woll es auch aussehen. Ich möchte den Baum so klein wie möglich halten.<br/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33377">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33377_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33381"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_33381_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #5 am:</strong> 03. September 2011, 19:08 »</div>
+<div class="posttile"><h5 id="subject_33381">
+<a href="index.html#msg33381" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33381_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33381">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33377">Zitat von: rizor am 03. September 2011, 14:15</a></div></div><blockquote class="bbc_standard_quote">Wie sollte denn dann das Kriterium dafür aussehen?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Eigentlich meinte ich das Du bei Gleichheit der Größe einfach die Adresse als nachgeordnetes Sortierkriterium nehmen kannst (also wenn die Größe gleich ist das dann die kleinere Adresse möglichst weit rechts im Baum landet, die Adressen können ja eigentlich nicht kollidieren). Aber vergiss das wieder, das ist nach etwas überlegen eigentlich völlig unnötiger Aufwand, es sollte meiner Meinung nach völlig egal sein wie die Elemente mit gleicher Größe im Baum verteilt sind.<br/><br/>Ich denke mal die kritische Operation ist das Hinzufügen von neuen Elementen in den Baum. Wenn Du dabei auf ein Element triffst das genau die selbe Größe repräsentiert kannst Du ja schauen ob mindestens eines seiner Kindelemente ebenfalls diese Größe hat, wenn das bei genau einem Zutrifft gehst Du dort weiter. Wenn dieses Element nur ein oder gar keine Kinder hat dann nimmst Du einen beliebigen freien Platz. Wenn das Element nur Kinder mit anderen Größen hat dann musst Du eben an einer beliebigen Seite die Verbindung unterbrechen und einfügen so als wäre das neue Element zwischen dem aktuellem Element und dem betreffenden Kindelement einzuordnen. Wenn beide Kindelemente ebenfalls diese Größe haben kannst Du wieder zu einer beliebigen Seite weiter gehen. Wenn Du irgendwo einfügst musst Du natürlich den Baum wieder ausgleichen, falls das erforderlich wird, dabei sollte die Sortierung keine Rolle spielen da diese IMHO bei den Ausgleichsoperationen nicht gestört wird.<br/><br/>Ob es wirklich besser ist bei Übereinstimmung weiter nach unten zu gehen anstatt möglichst weit oben einzuhängen/zu entfernen kann ich nicht beurteilen, eventuell ist es besser möglichst dicht an der Wurzel zu ändern damit die eventuell folgende Ausgleichsoperation einen möglichst kurzen Weg bis zur Wurzel hat. Diese Frage können andere hoffentlich besser beantworten.<br/><br/>Jedes mal wo ich oben "beliebig" geschrieben hab meine ich auch beliebig oder besser zufällig, ein Kernel der sich nicht deterministisch verhält ist eventuell weniger anfällig gegen gezielte Attacken. In meinem Kernel möchte ich möglichst viele Dinge vom Zufall abhängig machen aber nicht die Speicherverwaltung, bei Flat-Memory ist das aber eher egal so das es IMHO nichts macht wenn auch die Speicherverwaltung etwas Zufall mit einbringt.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33381">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33381_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33383"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_33383_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #6 am:</strong> 03. September 2011, 19:54 »</div>
+<div class="posttile"><h5 id="subject_33383">
+<a href="index.html#msg33383" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33383_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33383">Das Verfahren, das du beschrieben hast ist aber nicht gut für das Suchen.<br/>Die Idee hatte ich auch, aber durch die Balancierungen weiß ich nicht mehr, wo ich nachschauen muss um ein passendes Element zu finden.<br/>Das ist mein größtes Problem.<br/>Es kann dann durchaus passieren, dass der Baum am Ende alles andere als sortiert ist.<br/>Ich weiß nicht, wie ich das lösen soll, es sei denn, ich nehme einen nicht balancierten Baum. Der ist mir allerdings nicht performant genug.<br/>Wie wird das Problem denn von anderen Speicherverwaltungen gelöst?<br/>Habe leider keine Artikel oder Paper dazu gefunden.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33383">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33383_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33385"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33385_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #7 am:</strong> 04. September 2011, 00:43 »</div>
+<div class="posttile"><h5 id="subject_33385">
+<a href="index.html#msg33385" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33385_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33385"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33377">Zitat von: rizor am 03. September 2011, 14:15</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33376">Zitat von: erik.vikinger am 03. September 2011, 13:55</a></div></div><blockquote class="bbc_alternate_quote">dann nimm doch einfach die Adresse als zusätzliches Sortierkriterium. Wenn Du einen Speicherbereich mit einer bestimmten Größe suchst ist Dir doch sicher egal welcher es genau ist (solange die Größe passt) so das es keine Rolle spielt welchen Du als erstes im Baum findest und diesen einfach nimmst.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Man sortiert halt das Paar (Größe, Adresse) wie folgt (Die Standardordnung die man so auf Paaren einführt): p1 &lt; p2 gdw. (p1.größe &lt; p2.größe oder (p1.größe == p2.größe und p1.adresse &lt; p2.adresse)). Dann hast du sofort eine totale Ordnung und eindeutige Schlüssel, wobei der Schlüssel jetzt natürlich das Tupel (Größe, Adresse) ist. Wenn du nur nach der Größe suchst, kannst du das natürlich auch weiterhin genauso wie normal machen (Indem man nur nach Größe sucht). Aber jetzt kannst du auch einen Lookup auf einen eindeutig identifizierten Knoten machen (falls du aus deinem "Adressen-Baum" was gelöscht hast und die Änderung jetzt auch in dem "Größe-Baum" machen willst).<br/>Ich seh damit ehrlichgesagt überhaupt kein Problem... Ich sehe sogar nichtmal das Problem ohne die eindeutige Identifikation der Knoten (wenn man zB Zeiger von einem Baum in den anderen hat, falls das das Problem ist, welches du siehst? Oder wann genau wird es denn relevant, dass man exakt in einem konkreten Knoten landet im "Größe-Baum" und nicht nur an einem "der größer/kleiner/gleich groß ist wie"?)<br/><br/>Sidenote: Für was brauchst du denn den "Adressen-Baum"?<br/><br/>erik: Dich könnten dann randomisierte Suchbäume interessieren. Ist aber nur "an guten Tagen" balanciert <img alt=":-D" class="smiley" src="../../../assets/forum/40e5b6b3635b5359f55907e5.gif" title="grin"/> </div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33385">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33385_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33386"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_33386_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #8 am:</strong> 04. September 2011, 01:10 »</div>
+<div class="posttile"><h5 id="subject_33386">
+<a href="index.html#msg33386" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33386_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33386"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33385">Zitat von: bluecode am 04. September 2011, 00:43</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33377">Zitat von: rizor am 03. September 2011, 14:15</a></div></div><blockquote class="bbc_alternate_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33376">Zitat von: erik.vikinger am 03. September 2011, 13:55</a></div></div><blockquote class="bbc_standard_quote">dann nimm doch einfach die Adresse als zusätzliches Sortierkriterium. Wenn Du einen Speicherbereich mit einer bestimmten Größe suchst ist Dir doch sicher egal welcher es genau ist (solange die Größe passt) so das es keine Rolle spielt welchen Du als erstes im Baum findest und diesen einfach nimmst.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Man sortiert halt das Paar (Größe, Adresse) wie folgt (Die Standardordnung die man so auf Paaren einführt): p1 &lt; p2 gdw. (p1.größe &lt; p2.größe oder (p1.größe == p2.größe und p1.adresse &lt; p2.adresse)). Dann hast du sofort eine totale Ordnung und eindeutige Schlüssel, wobei der Schlüssel jetzt natürlich das Tupel (Größe, Adresse) ist. Wenn du nur nach der Größe suchst, kannst du das natürlich auch weiterhin genauso wie normal machen (Indem man nur nach Größe sucht). Aber jetzt kannst du auch einen Lookup auf einen eindeutig identifizierten Knoten machen (falls du aus deinem "Adressen-Baum" was gelöscht hast und die Änderung jetzt auch in dem "Größe-Baum" machen willst).<br/>Ich seh damit ehrlichgesagt überhaupt kein Problem... Ich sehe sogar nichtmal das Problem ohne die eindeutige Identifikation der Knoten (wenn man zB Zeiger von einem Baum in den anderen hat, falls das das Problem ist, welches du siehst? Oder wann genau wird es denn relevant, dass man exakt in einem konkreten Knoten landet im "Größe-Baum" und nicht nur an einem "der größer/kleiner/gleich groß ist wie"?)<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/>Der Aufbau des Baumes ist ja auch nicht mein Problem. Das Problem habe ich nur bei den Rotationen.<br/>Da geht mir dann die Sortierung verloren (Knoten1 == Knoten2 -&gt; Knoten1 links von Knoten 2). Es kann passieren, dass nach der Rotation Knoten2 rechts von Knoten1 liegt (rechts-rotation), wobei er eigentlich links davon liegen müsste.<br/>Somit müsste ich ja beide Kindknoten untersuchen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33385">Zitat von: bluecode am 04. September 2011, 00:43</a></div></div><blockquote class="bbc_standard_quote">Sidenote: Für was brauchst du denn den "Adressen-Baum"?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Für ein möglichst schnelles shrinken/mergen von Knoten.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33386">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33386_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33387"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33387_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #9 am:</strong> 04. September 2011, 07:41 »</div>
+<div class="posttile"><h5 id="subject_33387">
+<a href="index.html#msg33387" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33387_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33387"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33386">Zitat von: rizor am 04. September 2011, 01:10</a></div></div><blockquote class="bbc_standard_quote">Der Aufbau des Baumes ist ja auch nicht mein Problem. Das Problem habe ich nur bei den Rotationen. Da geht mir dann die Sortierung verloren (Knoten1 == Knoten2 -&gt; Knoten1 links von Knoten 2). Es kann passieren, dass nach der Rotation Knoten2 rechts von Knoten1 liegt (rechts-rotation), wobei er eigentlich links davon liegen müsste. Somit müsste ich ja beide Kindknoten untersuchen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich glaube du bist hier wieder etwas verwirrt: Die inorder eines Baumes ist das aufzählen der knoten (beginnend bei der Wurzel) indem man rekursiv sein linkes Kind aufzählt, dann sich selbst nennt, dann rekursiv sein rechtes Kind. Ein Baum ist jetzt Inorder-sortiert, wenn die entstehende Folge nach einer beliebigen Ordnung &lt; sortiert ist. Wenn du dir jetzt anschaust was die zwei Arten von (Basis)rotationen machen, dann wirst du feststellen, dass keine dabei die Inorder verändert. Insofern verändert sich auch nicht die Sortierung.<br/>Was du für das eigentliche Problem hälst ist also, die Navigierung im Baum, denn normalerweise hat man &lt;= des aktuellen Knotens im linken Teilbaum und &gt; im rechten. Die Frage ist jetzt aber, ob man das in deinem Fall wirklich braucht und da sehe ich nicht warum. Insofern müsstest du mir ein Szenario zeigen, bei dem es nicht ausreicht zu wissen, dass links &lt;= ist und rechts &gt;=, weil für alles was ich sehen kann reicht beim Allozieren von Speicher die Suche nach &gt;= und beim Freigeben ist es dann egal wohin man navigiert, man darf ja auf beiden Seiten einfügen (solange die Größen gleich sind).<br/>Das einzige Szenario, das ich sehen kann, ist - wie oben bereits angesprochen - dass du in dem "Adress-Baum" was gefunden hast und löschen willst und die Änderung dann in dem "Größe-Baum" nachziehen willst. Das Problem kann man aber durch Zeiger jedes Knotens im "Adress-Baum" zu dem entsprechenden Knoten des "Größe-Baums" lösen, denn dann braucht man nichtmehr im anderen Baum suchen (nach was auch? Der Baum hat schließlich keine eindeutigen Identifikationen, da macht "ich will _genau_den_ Knoten mit Größe 5 löschen" einfach keinen Sinn), sondern kann die Abkürzung über den Zeiger nehmen.<br/>Die andere Art das zu Lösen ist wie gesagt die Identifikationen wie oben beschrieben eindeutig zu machen.<br/><br/>edit: Ich kann übrigens - wie immer - nur dazu raten dir zu überlegen welche Operationen du unterstützen willst (Ein/Ausgabe genau spezifizieren) und dann zu schauen ob das mit dem geplanten Baum geht. Wo es nicht geht muss man halt eventuell den Baum aufbohren, die Sortierung ändern... zB rede ich von den Operationen (im "Größe-Baum"):<br/>* (size, address) allocate(size) (geht ohne Probleme unter der sinnvollen Annahme, dass alle Knoten der Größe &gt;= size akzeptabel sind [und nicht genau ein spezieller])<br/>* void free(size, address)<br/>* entweder void remove_from_tree(size, address) (falls man die Ordnung so wie oben ändert) oder void remove_from_tree(node_t*) (falls man Zeiger von einem Baum in den anderen hat), um wie oben beschrieben Änderungen aus dem anderen Baum nachzuziehen</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33387">
+								« <em>Letzte Änderung: 04. September 2011, 07:51 von bluecode</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33387_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33389"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_33389_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #10 am:</strong> 04. September 2011, 15:05 »</div>
+<div class="posttile"><h5 id="subject_33389">
+<a href="index.html#msg33389" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33389_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33389">Wieso verändert die Rotation nicht die inorder, wenn man identische Schlüssel zulässt?<br/><br/>Füge einfach mal dreimal den Schlüssel 1 ein.<br/>Nach einer einfachen Rechtsrotation erhalte ich folgenden Baum:<br/>     1<br/>   /   \<br/> 1      1<br/><br/>Somit ist das Kriterium &lt;= hinfällig für den linken Teilbaum, oder?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33389">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33389_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33391"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_33391_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #11 am:</strong> 04. September 2011, 15:49 »</div>
+<div class="posttile"><h5 id="subject_33391">
+<a href="index.html#msg33391" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33391_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33391">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33385">Zitat von: bluecode am 04. September 2011, 00:43</a></div></div><blockquote class="bbc_standard_quote">erik: Dich könnten dann randomisierte Suchbäume interessieren. Ist aber nur "an guten Tagen" balanciert <img alt=":-D" class="smiley" src="../../../assets/forum/40e5b6b3635b5359f55907e5.gif" title="grin"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich denke Du weißt ganz genau was ich meine. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><br/>Wenn die relativen Positionen der Elemente mit gleicher Größe (im Größe-Baum) egal ist bleibt aber noch die Frage ob man möglichst dicht oder möglichst fern der Wurzel einfügen/entfernen sollte.<br/><br/><br/>Beim Suchen im Größe-Baum sucht man IMHO bevorzugt nach == und nur als zweite Wahl nach &gt;=, man will damit "best fit" umsetzen. Eben deswegen bin ich ja auch der Meinung das man bei gleicher Größe keine zusätzliche Ordnung benötigt sondern alle Elemente mit gleicher Größe eine beliebige relative Position zueinander im Baum haben dürfen.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33391">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33391_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33392"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_33392_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #12 am:</strong> 04. September 2011, 16:11 »</div>
+<div class="posttile"><h5 id="subject_33392">
+<a href="index.html#msg33392" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33392_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33392">Ist es denn garantiert, dass ich trotzdem uch nach dem entfernen eines Knoten trotzdem einen bestimmten Knoten finden kann?<br/>Also z.B. bei einer zweiten Allokation mit der selben Größe.<br/>Oder kann es passieren, dass mir auch Knoten "verloren" gehen?<br/><br/>Mirfällt zwar kein Szenario ein, das mir Knoten "verbirgt", aber ich bin mir nicht hundertprozentig sicher.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33392">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33392_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33394"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33394_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #13 am:</strong> 04. September 2011, 17:19 »</div>
+<div class="posttile"><h5 id="subject_33394">
+<a href="index.html#msg33394" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33394_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33394"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33389">Zitat von: rizor am 04. September 2011, 15:05</a></div></div><blockquote class="bbc_standard_quote">Somit ist das Kriterium &lt;= hinfällig für den linken Teilbaum, oder?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Welches? Die Inorder ist 1-1-1 (Knoten links - Knoten mitte - Knoten rechts). Und das ist für meine Begriffe sortiert (wobei ich wohl &lt;= hätte sagen sollen nicht &lt;). Im linken Teilbaum ist immer alles &lt;= und im rechten alles &gt;=.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Ist es denn garantiert, dass ich trotzdem uch nach dem entfernen eines Knoten trotzdem einen bestimmten Knoten finden kann? Also z.B. bei einer zweiten Allokation mit der selben Größe. Oder kann es passieren, dass mir auch Knoten "verloren" gehen?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich versteh ehrlich gesagt nicht, was du damit meinst... seit wann verliert ein Baum Knoten? Wenn der Herbst kommt? Die einzige sinnvolle Antwort die mir darauf einfällt ist, dass du immer einen Baum bekommst (zumindest bei AVL), bei dem im linken Teilbaum eines Knotens alles &lt;= ist und im rechten alles &gt;=. Die einzige Frage die sich stellt ist jetzt, reicht mir das als Information wenn ich von oben komme aus oder nicht um das zu finden was man will? Und das reicht wohl, um Speicher zu allozieren...<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_alternate_quote">erik: Dich könnten dann randomisierte Suchbäume interessieren. Ist aber nur "an guten Tagen" balanciert grin</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich denke Du weißt ganz genau was ich meine. Wink</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das war nicht nur als Scherz gemeint. Randomisierte Suchbäume (das ist eine konkrete Baumart, nicht irgendwas undefiniertes) haben sehr schicke Eigenschaften im Durchschnitt (über alle Eingabefolgen) und eine relativ kleine Standardabweichung von diesem Durchschnitt.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33394">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33394_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33395"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_33395_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #14 am:</strong> 04. September 2011, 22:09 »</div>
+<div class="posttile"><h5 id="subject_33395">
+<a href="index.html#msg33395" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33395_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33395">Da ich endlich wieder ins Forum kann, will ich auch mal meinen Senf dazu beitragen.<br/><br/>Ich benutze für etwas ähnliches genau 2 AVL Bäume. In einem wird alles nach der Größe sortiert (malloc()) und in dem anderen, alles nach der Adresse (free()).<br/>Um das von dir beschriebene Problem zu umgehen, besteht jede Node aus dem Baum mit der Größe aus einer Liste wo alle Objekte drin sind, die die gleiche Größe haben. Damit ist der Baum auch so klein wie möglich. Das kann im worst-case schonmal richtig was ausmachen. Stellt euch einfach vor ihr habt verdammt viele Elemente drin und weil ihr keine Listen verwendet, müsst ihr den Baum erst "ewig" durchsuchen obwohl ihr eigentlich nur 2 oder 3 verschiedene Größen habt.<br/><br/>Ob nun AVL oder RB ist so eine Sache, kommt immer auf das Anwendungsgebiet drauf an. Ich nutze das obige z.B. für meinen VMM, damit ich Blöcke innerhalb des Adressraumes finden kann und auch wieder mergen kann.<br/>Für genau diesen Fall gibt es ein Paper wo man mehrere Bäume miteinander verglichen hat (AVL, RB, Splay und Binary) und rausgekommen ist, das es auf die Anwendung ankommt, aber sich RB und AVL nicht wirklich viel nehmen. Allerdings waren die Splay-Trees sehr interessant, da sie meistens nicht schlechter als RB und AVL waren, aber wenn sie besser waren dann deutlich.<br/>Ob das allerdings heute noch gilt, wenn man von ALRS (oder wie auch immer das hieß -&gt; erik) ausgeht, denke ich eher nicht.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33395">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33396"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33396_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #15 am:</strong> 04. September 2011, 22:21 »</div>
+<div class="posttile"><h5 id="subject_33396">
+<a href="index.html#msg33396" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33396_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33396"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33395">Zitat von: FlashBurn am 04. September 2011, 22:09</a></div></div><blockquote class="bbc_standard_quote">Um das von dir beschriebene Problem zu umgehen, besteht jede Node aus dem Baum mit der Größe aus einer Liste wo alle Objekte drin sind, die die gleiche Größe haben.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Die Idee kam mir zwar auch, ich hatte aber den Performancevorteil nicht gesehen. Klingt ansonsten sinnvoll.<br/>Die einzige Frage ist nur, wie löscht du aus dem anderen Baum dann was (wenn es in dem einen gerade gelöscht wurde und man die Änderungen nachziehen muss)? Links von einem in den anderen Baum? Oder taucht das Problem garnicht auf (würde mich irgendwie verwundern).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Allerdings waren die Splay-Trees sehr interessant, da sie meistens nicht schlechter als RB und AVL waren, aber wenn sie besser waren dann deutlich.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wenn auf bestimmte Dinge häufig zugegriffen wird (und das dann nicht sofort gelöscht wird, was hier wohl sehr oft vorkommt) sind die bestimmt geschickt, aber ansonsten ist der Overhead alles jedes Mal hochzusplayen wahrscheinlich nicht gering. Aber aus theoretischer Sicht ist ziemlich witzig, dass die "triviale" Regel für einen Splayschritt zu irgendwas sinnvollem führt. Achso, man sollte auch darauf hinweißen, dass das eine Datenstruktur ist die von Amortisierung (d.h. über eine Operationenfolge hat man durchschnittlich O(logn) pro Operation) lebt und worst-case trotzdem O(n) ist (aber halt selten vorkommt). Das macht es für real-time vielleicht auch nicht so sinnvoll.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33396">
+								« <em>Letzte Änderung: 04. September 2011, 22:23 von bluecode</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33396_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33398"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_33398_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #16 am:</strong> 04. September 2011, 22:35 »</div>
+<div class="posttile"><h5 id="subject_33398">
+<a href="index.html#msg33398" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33398_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33398"><div class="quoteheader"><div class="topslice_quote">Zitat von: bluecode</div></div><blockquote class="bbc_standard_quote">Die einzige Frage ist nur, wie löscht du aus dem anderen Baum dann was<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Suchen <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/>Deswegen nehme ich auch lieber den AVL Baum, da ich doch öfter suchen muss. Es lässt sich jetzt natürlich diskutieren ob der Vorteil (schnelles mergen und schnellens finden von Blöcken) den Nachteil (zusätzliches Suchen in dem anderen Baum) überwiegt (wäre ich sehr interessiert daran).</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33398">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33399"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33399_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #17 am:</strong> 04. September 2011, 22:42 »</div>
+<div class="posttile"><h5 id="subject_33399">
+<a href="index.html#msg33399" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33399_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33399">Kommt das nicht auch andersrum vor (also was aus dem "Größe-Baum" entfernen, dass schon aus dem "Adress-Baum" gelöscht wurde)? Dann ist durch eine verkettete Liste suchen aber doof.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33399">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33399_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33401"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_33401_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #18 am:</strong> 04. September 2011, 22:55 »</div>
+<div class="posttile"><h5 id="subject_33401">
+<a href="index.html#msg33401" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33401_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33401"><div class="quoteheader"><div class="topslice_quote">Zitat von: bluecode</div></div><blockquote class="bbc_standard_quote">Dann ist durch eine verkettete Liste suchen aber doof.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Gutes Argument!<br/><br/>An den worst-case habe ich noch gar nicht gedacht, aber das könnte man lösen, in dem man in der Node (von dem Baum mit der Größe) einen Baum mit allen Objekten, gleicher Größe, der Adresse nach speichert. Das dürfte dann das Optimum sein, aber ob es auch bei der Performance hilft weiß ich nicht.<br/><br/>Ich habe gerade mal nachgeschaut und das Problem habe ich bei mir durch Speicherverschwendung gelöst <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Jedes Objekt, was in den Bäumen gespeichert wird, hat auch immer 2 Pointer (prev und next) mit drin, weil das Objekt zwar in 2 Bäumen gespeichert wird, aber nur max. in einer Liste. So ist das Entfernen aus der Liste immer O(1).<br/><br/>Welche Variante jetzt besser ist weiß ich nicht.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33401">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33402"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_33402_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #19 am:</strong> 04. September 2011, 23:42 »</div>
+<div class="posttile"><h5 id="subject_33402">
+<a href="index.html#msg33402" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33402_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33402"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33395">Zitat von: FlashBurn am 04. September 2011, 22:09</a></div></div><blockquote class="bbc_standard_quote">Da ich endlich wieder ins Forum kann, will ich auch mal meinen Senf dazu beitragen.<br/><br/>Ich benutze für etwas ähnliches genau 2 AVL Bäume. In einem wird alles nach der Größe sortiert (malloc()) und in dem anderen, alles nach der Adresse (free()).<br/>Um das von dir beschriebene Problem zu umgehen, besteht jede Node aus dem Baum mit der Größe aus einer Liste wo alle Objekte drin sind, die die gleiche Größe haben. Damit ist der Baum auch so klein wie möglich. Das kann im worst-case schonmal richtig was ausmachen. Stellt euch einfach vor ihr habt verdammt viele Elemente drin und weil ihr keine Listen verwendet, müsst ihr den Baum erst "ewig" durchsuchen obwohl ihr eigentlich nur 2 oder 3 verschiedene Größen habt.<br/><br/>Ob nun AVL oder RB ist so eine Sache, kommt immer auf das Anwendungsgebiet drauf an. Ich nutze das obige z.B. für meinen VMM, damit ich Blöcke innerhalb des Adressraumes finden kann und auch wieder mergen kann.<br/>Für genau diesen Fall gibt es ein Paper wo man mehrere Bäume miteinander verglichen hat (AVL, RB, Splay und Binary) und rausgekommen ist, das es auf die Anwendung ankommt, aber sich RB und AVL nicht wirklich viel nehmen. Allerdings waren die Splay-Trees sehr interessant, da sie meistens nicht schlechter als RB und AVL waren, aber wenn sie besser waren dann deutlich.<br/>Ob das allerdings heute noch gilt, wenn man von ALRS (oder wie auch immer das hieß -&gt; erik) ausgeht, denke ich eher nicht.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Genau die Idee hatte ich auch schon.<br/>Ich habe mir nun auch noch überlegt, ob ich es vllt noch lock-free schaffe.<br/>Dabei ist mir halt leider aufgefallen, dass es ein Patent gibt, dass einen lock-free Baum beschreibt...<br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33396">Zitat von: bluecode am 04. September 2011, 22:21</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg33395">Zitat von: FlashBurn am 04. September 2011, 22:09</a></div></div><blockquote class="bbc_alternate_quote">Um das von dir beschriebene Problem zu umgehen, besteht jede Node aus dem Baum mit der Größe aus einer Liste wo alle Objekte drin sind, die die gleiche Größe haben.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Die Idee kam mir zwar auch, ich hatte aber den Performancevorteil nicht gesehen. Klingt ansonsten sinnvoll.<br/>Die einzige Frage ist nur, wie löscht du aus dem anderen Baum dann was (wenn es in dem einen gerade gelöscht wurde und man die Änderungen nachziehen muss)? Links von einem in den anderen Baum? Oder taucht das Problem garnicht auf (würde mich irgendwie verwundern).<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das Problem taucht natürlich auf, aber man kann das ja durch direkte Links lösen.<br/>Dadurch erspart man sich sogar das Suchen, da du ja weißt, wo du löschen musst.<br/><br/>Darum habe ich mir überlegt als Header einen Baum orientiert anhand von Adressen zu verwenden und dann woanders den Baum anhand von Größen habe möchte.<br/>Das Problem daran ist halt, dass wenn ich häufiger malloc als free verwende, dass mir bei der Idee die Cache-Lokalität verloren gehen kann.<br/>Vermutlich müsste der Kernel mal Statistiken über die Allokationsgrößen führen.<br/>Dadurch könnte man ermitteln, ob man darunter noch einen Cache legen kann, der in konstanter Zeit speicher allozieren kann und man somit den Cache ausnutzen kann.<br/>Also im Prinzip ein SLAB-Allocator mit variablen Speicherbereichen.<br/>Das dürfte aber vermutlich nur mit einem Mikrokernel gehen, oder?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33402">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33402_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] <a class="navPages" href="offset-20.html">2</a>
+</div></div>
+<div class="nextlinks_bottom"><a href="../2945/offset-20.html#msg34561">« vorheriges</a> <a href="../2948/offset-20.html#msg34516">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Optimale Baumstrukturen fuer malloc/free</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.016 Sekunden mit 59 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

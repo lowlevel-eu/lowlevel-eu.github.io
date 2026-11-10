@@ -1,0 +1,1122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content='Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"' name="description"/>
+<title>Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:30</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg32753"></a>
+<div class="nextlinks"><a href="../2801/offset-20.html#msg32956">« vorheriges</a> <a href="../2755/index.html#msg32807">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] <a class="navPages" href="offset-20.html">2</a>
+</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/0f01c9c83ac67395064654f9.gif"/>
+<span id="author">Autor</span>
+						Thema: Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"  (Gelesen 67655 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32753_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong> am:</strong> 13. July 2011, 21:11 »</div>
+<div class="posttile"><h5 id="subject_32753">
+<a href="index.html#msg32753" rel="nofollow">Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32753_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32753">Ich wollte mal eure Meinung zu einer Idee eines Sicherheitskonzeptes was das Dateisystem betrifft hören. Das ist allerdings noch nicht vollständig und vollkommen durchdacht bzw. hat noch Probleme.<br/><br/>Also es geht mir darum den Zugriff der Programme zu beschränken. Die erste Frage die aufkommt, darf ein Programm alle Dateien lesen? Oder ist es schlimm wenn es alle Dateien lesen kann?<br/><br/>Ich dachte mir es so, das ein Programm nur schreibzugriff auf einen Ordner /home/user/appdata/app/ hat. Somit hätte man Sachen wie eventuelle Konfigurationsdateien oder meinet wegen Savegames und sowas immer an einem genau bekannten Ort und das auch noch pro User.<br/>Allerdings muss ich ja auch davon ausgehen, das es Programme gibt wo man diese Daten zentral und nicht pro User haben möchte oder sogar beides.<br/>Dafür dachte ich an einen Ordner /home/shared/app/.<br/>Will ein Programm in irgendeinen anderen Ordner schreiben, muss es die Rechte anfordern, was wie sudo oder UAC wäre (je nachdem ob GUI oder TUI).<br/>Soweit so gut. Jetzt will man aber nicht für jeden Ordner diese Rechte anfordern müssen. Also dachte ich mir das ich noch einen Order habe /home/user/data/ was den "Eigene Dateien" Ordner unter Windows entsprechen würde und dort kann sich der User bzw. die Programme nach herzenslust austoben.<br/>Ich will den User/die Programme nicht direkt in den /home/user/ Ordner schreiben lassen, weil ja dann der appdata Ordner nicht mehr geschützt wäre, bzw. für diesen Ordner (und eventuell andere Ordner) extra Regeln gelten müssten. So halte ich mir auch offen, noch andere Ordner wie appdata einzuführen.<br/><br/>Dadurch wäre erstmal sichergestellt das irgendwelche Programmdateien nicht ausversehen oder mit absicht (ohne Wissen des Users) geändert werden können.<br/><br/>Allerdings muss bei der Anforderung von Rechten auch unterschieden werden ob z.B. Dateien geschrieben (kopieren/ändern/löschen) werden oder ob ein Programm installiert wird. Denn bei letzterem wäre es eher unschön wenn man jede einzelne Datei als User genehmigen müsste.<br/><br/>Dazu dann auch gleich eine Frage. Wie macht man das am dümmsten mit den Libraries? Ich meine ich würde die schon irgendwie zentral haben wollen. Was ich so lösen würde, das man sich für jede Library registrieren müsste und das OS einen Zähler pro Library mitführt und wenn keine Anwendung die Library mehr benötigt (der Zähler also 0 ist) würde die Library gelöscht werden.<br/>Allerdings kommt dann noch das Problem wie man das mit einer neueren Version der Library macht? Einfach überschreiben und davon ausgehen, wenn der User dem Installationsprogramm vertraut, dann wird das schon eine Library sein, die in Ordnung ist?<br/>Speziell mit systemkritischen Libraries stelle ich mir das schwer vor. Wie will man da vor gehen?<br/>Auch würde damit nur eine Möglichkeit geschaffen werden, Libraries zentral zu organisieren, aber die Apps könnten ihre Libraries ja trotzdem in ihrem Installationverzeichnis packen (womit man dann das Windowsproblem hätte). Das könnte man auch verhindern, indem man es explizit unterbindet und Libraries nur in dem zentralen Verzeichnis gesucht werden. Das wiederrum wäre auch nicht so toll, wenn ich da an Spiele denke, die bestimmte Sachen in Libraries auslagern. Was also machen?<br/><br/>Wie sicher auffällt, ist das ein Mix aus Unix- und Windowskonzepten. Ich mag das mit der zentralen Verwaltung der Anwendungsdaten unter Windows und finde den relativ starren (keine Ahnung ob das wirklich so ist, aber so würde ich es machen) Aufbau vom Wurzelverzeichnis ("/") unter Unix gut.<br/>Mir ist klar dass das mit den Laufwerksbuchstaben nicht so das wahre ist und werde deshalb sowas wie unter Unix machen.<br/><br/>Vllt kennt ja jemand mal einen Link wo die Ordnerstruktur für Unix gut beschrieben wird, damit ich mir mal angucken kann wie die aussieht um mir ne Inspiration zu holen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32753">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32754"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Sannaj</a>
+</h4>
+<ul class="reset smalltext" id="msg_32754_extra_info">
+<li class="postcount">Beiträge: 103</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #1 am:</strong> 13. July 2011, 22:11 »</div>
+<div class="posttile"><h5 id="subject_32754">
+<a href="index.html#msg32754" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32754_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32754">Naja, es gibt schon Situationen wo ein Leseverbot sinvoll ist. z.b. soll nur der root die Dateien lesen können, welche das Passwort enthalten. Wenn du ein echtes Netzwerk aufbaust, braucht auch nicht jeder alle Dateien lesen zu können.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32754">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32756"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32756_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #2 am:</strong> 14. July 2011, 04:41 »</div>
+<div class="posttile"><h5 id="subject_32756">
+<a href="index.html#msg32756" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32756_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32756">Hallo,<br/><br/>warum übernimmst du nicht einfach das Unix-Konzept, d.h. read-write-execute für user-group-others? <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/><br/><br/>In /home/user sollte meiner Meinung nach der Nutzer "user" tun und lassen können, was er möchte (einschließlich /home/user/appdata). Wenn du Dateien für alle Nutzer gemeinsam an einer zentralen Stelle halten möchtest (statt /home/shared/* wäre vielleicht /etc/* geeignet, um das Unix-Konzept aufzugreifen), dann könntest du eine Benutzergruppe "von-UAC-authorisiert" definieren, die dorthin schreiben darf. Dein UAC würde die Aktion dann mit den Rechten dieser Gruppe stattfinden lassen, d.h. Schreibzugriff ist erlaubt.<br/><br/>Benötigte Libraries von jedem Programm registrieren zu lassen und automatisch zu löschen halte ich für eine äußerst schlechte Idee, denn ich kann ja auch Programme kompilieren und in meinem Homeverzeichnis umhertragen, die vielleicht doch auf Systembibliotheken basieren und nicht registriert sind (z.B. weil ich keine Rechte für die Registrierung habe). Überschreiben von Libraries ist im Übrigen auch großer Mist, da brauchst du dir nur die CTL3D.DLL von Windows 3.x anschauen - die gibt es in verschiedensten, inkompatiblen Fassungen und viele Installationsprogramme installieren die dann stupide nach \Windows\System. Das geht nur, wenn du Binärkompatiblität garantieren kannst; das kannst du nicht, wenn die Libs nicht von dir sind.<br/><br/>Du könntest natürlich den Weg des (zugegeben relativ schmutzigen Hacks) LD_LIBRARY_PATH gehen: Eine Anwendung sucht ihre Libs nur in den Pfaden, die in einer Umgebungsvariablen stehen (standardmäßig ausschließlich die systemweit installierten Libs). Ein Programm, welches Libs aus dem Programmverzeichnis benötigt, überschreibt dann die Umgebungsvariable (hängt z.B. vorne das Programmverzeichnis an). Du wirst nicht alle Anwendungen gleichermaßen glücklich bekommen.<br/><br/>Was du für Linux suchst, ist der FHS (Filesystem Hierarchy Standard, z.B. <a class="bbc_link" href="http://de.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" target="_blank">hier</a>). Allerdings wird inzwischen überlegt, /usr abzuschaffen; unter üblichen Linuxdistributionen wird eh alles durch die Paketverwaltung administriert, eine Trennung zwischen /bin und /usr/bin ist dort nicht mehr besonders sinnvoll.<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32756">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32758"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32758_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #3 am:</strong> 14. July 2011, 11:34 »</div>
+<div class="posttile"><h5 id="subject_32758">
+<a href="index.html#msg32758" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32758_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32758"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">warum übernimmst du nicht einfach das Unix-Konzept, d.h. read-write-execute für user-group-others?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Vllt weil ich es nicht wirklich kenne, da ich mich damit noch nie beschäftigt habe <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">In /home/user sollte meiner Meinung nach der Nutzer "user" tun und lassen können, was er möchte (einschließlich /home/user/appdata).<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Würde ich an sich auch sagen, nur leider heißt "user" in dem Fall Programme. Allerdings kann man das ja durch Umgebungsvariablen lösen. Der Gedanke dahinter war, das ein Programm z.B. seine variablen Daten unter "$APPDATA/foobar.conf" speichert. Da stellt sich dann die Frage wie und wer legt den Namen für $APPDATA fest?<br/><br/>Ich finde die Idee der Eigenen Dateien, Eigene Dokumente usw. gar nicht so verkehrt. Deswegen würde ich halt auch schon ein paar Ordner vordefinieren, aber eigentlich hast du schon recht, dass jeder "user" in seinem home Verzeichnis machen darf was er will. Das mit dem /home/user/appdata/app/ Verzeichnis kann ich da ja trotzdem unterbringen.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Überschreiben von Libraries ist im Übrigen auch großer Mist<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich weiß, aber wie will man das Problem lösen? Ich meine ich gehe erstmal davon aus das ich kein Repository habe, wo alle Libraries gemanagt werden könnten. Das man System-Libraries (also alle Libraries die das System mitbringt) könnte man ja an einem anderen Ort speichern, als die Libraries der Programme.<br/><br/>Als Bsp. nenne ich jetzt einfach mal die SDL. Da gibt es ja ab und zu auch mal neuere Versionen und wie willst du das da handeln? Soll jede App ihre eigene SDL-Version mitbringen und nutzen? Das finde ich nämlich wiederum unschön (wird aber unter Windows auch verdammt oft gemacht, auch mit ganz anderen Libraries), das wiederspricht auch dem Konzept der shared libraries.<br/>Ich würde da irgendwie die Versionsinformationen für nutzen wollen. Sprich ich würde zwar die SDL in den Versionen 1.2 und 1.3 zulassen, aber die 1.2.14 würde die Version 1.2.13 erstetzen und alle Programme würden dann diese Version nutzen. Allerdings hat auch dieses Vorgehen Probleme, nämlich das nicht alle Libraries einem einheitlichem Standard folgen was die Versionierung betrifft.<br/>Ich könnte mir jetzt vorstellen das man das so lösen könnte das die Version irgendwie in der Datei gespeichert sein muss (PE hat da ja was für, aber gibt es da auch was bei ELF? ansonsten würde ich dafür ne extra Sektion reinpacken) und auch im Dateinamen, dort aber nur die wichtigsten, sprich um bei SDL zu bleiben, ich hätte 2 Dateien, libsdl.so.1.2 und libsdl.so.1.3, aber alles was dahinter kommt, z.B. Version 1.2.13 oder 1.2.14, kann dann genutzt werden um ein eventuelles Update zu machen.<br/><br/>Könnte das funktionieren? (In meinem Kopf tut es das, aber die Realität will nicht immer so wie mein Kopf <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> )<br/><br/>Also die komplette Ordnerstruktur von Unix werde ich so nicht nutzen, aber die ein oder andere Sache schon. Man sieht halt deutlich (nur meine bescheidene Meinung) das Unix eher Kommandozeilenorientiert ist und Windows eher grafik orientiert ist. Denn sowas wie nen Programm-Verzeichnis möchte ich auch haben. Macht z.B. die Installation/Deinstallation von Programmen deutlich einfacher und gerade viele grafische Programme bestehen halt nicht nur aus der ausführbaren Datei und die will ich nicht alle in einem Verzeichnis haben. Natürlich könnte man über symlinks die Hauptdateien in ein Verzeichnis packen, aber dann könnte man wieder nicht 2 verschiedene Versionen eines Programms gleichzeitig haben (da müsste man dann wieder die Version irgendwie an den symlink mit ranhängen).<br/>Ich würde da also zw. Kommandozeile und grafik unterscheiden wollen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32758">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32760"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32760_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #4 am:</strong> 14. July 2011, 13:11 »</div>
+<div class="posttile"><h5 id="subject_32760">
+<a href="index.html#msg32760" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32760_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32760">Hallo,<br/><br/><br/>Du hast noch /tmp vergessen. Auch sowas ist sehr wichtig. Eventuell wäre es geschickt wenn man für jeden Prozess dort ein individuelles Unterverzeichnis einrichtet auf das nur der Prozess selber freien Zugriff hat, aber es muss auch möglich sein das die temporären Dateien direkt in /tmp liegen damit darauf mehrere Prozesse zugreifen können.<br/><br/>Was mir persönlich sehr wichtig wäre ist das auf die (globalen) Verzeichnisse mit den Programmen nur ganz bestimmte Programme Schreibzugriff haben, es sollte also einen Zwang geben das nur die Paketverwaltung Programme installieren/updaten/deinstallieren kann. Das Programme die Möglichkeit haben ihr eigenes Executable zu ändern ist IMHO eine ziemlich große Sicherheitslücke und individuelle Setup-Programme sind einfach ein Schrottkonzept aus dem letzten Jahrtausend.<br/>Selbstkompilierte Programme kommen ins entsprechende User-Verzeichnis und sind dort erst mal für das restliche System ungefährlich.<br/><br/>Das Unix-Konzept mit user-group-others finde ich eigentlich recht gut aber read-write-execute finde ich persönlich ziemlichen Scheiß. Zum einen werden da die Flags je nach dem ob Datei oder Verzeichnis umgedeutet was einige Probleme mit sich bringen kann und zum anderen fehlen Dinge wie Append (bei einer Logdatei wäre es nicht schlecht wenn nur bestimmte User diese löschen oder überschreiben dürften aber jeder was Anhängen kann). Was mir im Unix-Konzept auch fehlt ist das Vererben von Rechten über Verzeichnisse hinweg, das ist etwas was in Windows schon recht brauchbar implementiert ist. Ich hoffe das hierfür btrfs endlich mal bessere Features bringen wird.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32760">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32760_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32761"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32761_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #5 am:</strong> 14. July 2011, 15:33 »</div>
+<div class="posttile"><h5 id="subject_32761">
+<a href="index.html#msg32761" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32761_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32761"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32758">Zitat von: FlashBurn am 14. July 2011, 11:34</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">warum übernimmst du nicht einfach das Unix-Konzept, d.h. read-write-execute für user-group-others?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Vllt weil ich es nicht wirklich kenne, da ich mich damit noch nie beschäftigt habe <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Mach mal, das Konzept ist ziemlich durchdacht und einfach. Wenn du es kennst, kannst du es immernoch ablehnen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32758">Zitat von: FlashBurn am 14. July 2011, 11:34</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">In /home/user sollte meiner Meinung nach der Nutzer "user" tun und lassen können, was er möchte (einschließlich /home/user/appdata).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Würde ich an sich auch sagen, nur leider heißt "user" in dem Fall Programme.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Systemweit installierte Programme haben in Homeverzeichnis nichts zu suchen, dafür gibt es unter Unix Ordner wie /usr/bin (Binaries), /usr/share (Hilfsdateien, z.B. Dokumentation), /etc (systemweite Einstellungen) und so. Selbstkompilate fallen aus der Betrachtung komplett aus.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32758">Zitat von: FlashBurn am 14. July 2011, 11:34</a></div></div><blockquote class="bbc_standard_quote">Allerdings kann man das ja durch Umgebungsvariablen lösen. Der Gedanke dahinter war, das ein Programm z.B. seine variablen Daten unter "$APPDATA/foobar.conf" speichert. Da stellt sich dann die Frage wie und wer legt den Namen für $APPDATA fest?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Du denkst zu sehr Windows. <img alt=":-)" class="smiley" src="../../../assets/forum/3bd230edbfa99cc1552b7785.gif" title="smiley"/> Unter Unix nennt man das nicht $APPDATA, sondern $HOME und Anwendungen speichern alles dorthin. Wo genau hängt vom Programm und vom verwendeten Toolkit ab.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32758">Zitat von: FlashBurn am 14. July 2011, 11:34</a></div></div><blockquote class="bbc_standard_quote">Ich finde die Idee der Eigenen Dateien, Eigene Dokumente usw. gar nicht so verkehrt. Deswegen würde ich halt auch schon ein paar Ordner vordefinieren, aber eigentlich hast du schon recht, dass jeder "user" in seinem home Verzeichnis machen darf was er will. Das mit dem /home/user/appdata/app/ Verzeichnis kann ich da ja trotzdem unterbringen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also /home/user/ ist unter Unix mit "Eigene Dateien" gleichzusetzen, ob du darunter noch ein paar andere Verzeichnisse wie "Downloads", "Music" usw definierst, bleibt dir überlassen. (Das sollte aber auch jeder Nutzer für sich entscheiden können, ob er das auch so will oder nicht.)<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32758">Zitat von: FlashBurn am 14. July 2011, 11:34</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">Überschreiben von Libraries ist im Übrigen auch großer Mist</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das man System-Libraries (also alle Libraries die das System mitbringt) könnte man ja an einem anderen Ort speichern, als die Libraries der Programme.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Naja, installiere doch alle gemeinsam genutzten Bibliotheken systemweit in einen Pfad und wenn ein Programm eine spezielle Version benutzt, kann es ja immernoch $LD_LIBRARY_PATH überschreiben und die eigene nehmen. Ansonsten sollte jedes Programm <em>immer</em> die vom System bereitgestellte Lib benutzen, da dort z.B. Sicherheitsfixes integriert wurden oder so.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32758">Zitat von: FlashBurn am 14. July 2011, 11:34</a></div></div><blockquote class="bbc_standard_quote">Als Bsp. nenne ich jetzt einfach mal die SDL. Da gibt es ja ab und zu auch mal neuere Versionen und wie willst du das da handeln?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Auch da hat Unix wieder ein nettes Konzept, es nennt sich symbolische Links. <img alt=":-)" class="smiley" src="../../../assets/forum/3bd230edbfa99cc1552b7785.gif" title="smiley"/> Die Datei selbst heißt /usr/lib/libSDL-1.2.so.0.11.3 (bzw. /lib/libc-2.11.2.so), hat also im Dateinamen ihre Version; diese Lib kann ein Programm benutzen, wenn es exakt diese Version braucht. Außerdem gibt es noch verschiedene Symlinks darauf (/usr/lib/libSDL.so und /usr/lib/libSDL-1.2.so.0 bzw. /lib/libc.so.6).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32758">Zitat von: FlashBurn am 14. July 2011, 11:34</a></div></div><blockquote class="bbc_standard_quote">Ich würde da irgendwie die Versionsinformationen für nutzen wollen. Sprich ich würde zwar die SDL in den Versionen 1.2 und 1.3 zulassen, aber die 1.2.14 würde die Version 1.2.13 erstetzen und alle Programme würden dann diese Version nutzen. Allerdings hat auch dieses Vorgehen Probleme, nämlich das nicht alle Libraries einem einheitlichem Standard folgen was die Versionierung betrifft.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Für die Programme wichtig ist die Binärkompatiblität. Um mit Updates klarzukommen, verweisen Programme also nicht auf die /usr/lib/libSDL-1.2.so.0.11.3 (/lib/libc-2.11.2.so), sondern auf die /usr/lib/libSDL-1.2.so.0 (/lib/libc.so.6). Die Ziffer hinter der Dateiendung gibt die Major-Version an, d.h. wenn sich die ändert, ist die neue Lib nicht mehr zur alten Lib kompatibel.<br/><br/>So kannst du systemweit mehrere verschiedene inkompatible Versionen einer Lib bereithalten (z.B. /lib/libc.so.5 für eine alte Variante und die aktuelle /lib/libc.so.6), du kannst transparent Updates einspielen (den Symlink umhängen auf die neue Version) und Anwendungen haben die Freiheit, eine bestimmte Version anzufordern.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32758">Zitat von: FlashBurn am 14. July 2011, 11:34</a></div></div><blockquote class="bbc_standard_quote">Denn sowas wie nen Programm-Verzeichnis möchte ich auch haben. Macht z.B. die Installation/Deinstallation von Programmen deutlich einfacher und gerade viele grafische Programme bestehen halt nicht nur aus der ausführbaren Datei und die will ich nicht alle in einem Verzeichnis haben.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dann schau dir mal das MacOS-Prinzip an: Anwendungen sind dort einfach Ordner mit einer vorgegebenen Struktur, wo das Binary und alle benötigten Hilfsdateien drin sind plus ein paar Metainformationen. Insbesondere erscheinen solche Ordner in der Oberfläche als ausführbare Dateien und sind in sich abgeschlossen (es gibt neben diesem Ordner keine weiteren Bestandteile im System). Die Installation ist also eine Kopie an den Zielort, die Deinstallation das Löschen; es wird nichts registriert; das Programm selbst speichert seine Anwendungsdaten aber trotzdem in $HOME. Finde ich ein sehr gutes Konzept.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32758">Zitat von: FlashBurn am 14. July 2011, 11:34</a></div></div><blockquote class="bbc_standard_quote">Natürlich könnte man über symlinks die Hauptdateien in ein Verzeichnis packen, aber dann könnte man wieder nicht 2 verschiedene Versionen eines Programms gleichzeitig haben (da müsste man dann wieder die Version irgendwie an den symlink mit ranhängen).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Alle ausführbaren Dateien an einen Ort zu packen hat einen Vorteil, nämlich dass man mit $PATH arbeiten kann, du also bei Verknüpfungen und so keine vollen Pfadangaben machen brauchst. Die musst du nämlich anpassen, wann immer du das Programm dann verschiebst (oder die Festplatte woandershin mountest). Ob du das brauchst oder möchtest, musst du selbst entscheiden, beides hat Vor- und Nachteile.<br/><br/>Die Idee mit den Symlinks auf die jeweiligen Programme hat einen gewaltigen Vorteil: Du kannst eine neue Programmversion installieren und in aller Ruhe testen, bevor du die systemweite Verknüpfung änderst (bei kritischen Programmen wie "ls" oder "explorer.exe" kann das durchaus wichtig sein).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32758">Zitat von: FlashBurn am 14. July 2011, 11:34</a></div></div><blockquote class="bbc_standard_quote">Ich würde da also zw. Kommandozeile und grafik unterscheiden wollen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das halte ich nicht unbedingt für sinnvoll. Anwendung ist Anwendung, entweder man geht den klassischen Unix-Weg und verteilt die Bestandteile der Anwendung im System (/usr/bin, /usr/lib, /usr/share, /etc, ...) oder den MacOS-Weg und betrachtet Anwendungen als Bundle, wo alles drin ist.<br/><br/>Den Windows-Weg, wo du Bibliotheken ins Windows-Systemverzeichnis installierst (ok, inzwischen nicht mehr - außer bei Microsoft-Programmen), die Anwendung in einen eigenen Ordner, die Anwendungsdaten quer über die Platte verteilt und alles in der Registry brav notiert, damit das System auch alles findet - den Weg halte ich für komplett falsch. Wenn du einen Sinn für Setup-Programme siehst, ist dein Konzept kaputt. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/><br/><br/>Meine 2ct.<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32761">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32762"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32762_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #6 am:</strong> 14. July 2011, 16:14 »</div>
+<div class="posttile"><h5 id="subject_32762">
+<a href="index.html#msg32762" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32762_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32762"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Du denkst zu sehr Windows. smiley Unter Unix nennt man das nicht $APPDATA, sondern $HOME und Anwendungen speichern alles dorthin. Wo genau hängt vom Programm und vom verwendeten Toolkit ab.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Jap, ich finde diese Konzept des appdata Ordners gut. Ich möchte nicht dass das Programm entscheidet wo es seine Daten hinspeichert, sondern dass das Teil des Konzeptes ist. Damit dürfte auch das Umziehen auf eine neue Platte und sowas viel einfacher werden. Was ich halt bräuchte wäre, dass mir jemand eindeutige Nachteile nennen kann, für die mir keine Lösung einfällt oder für die es zu Umständlich damit wird.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">ob du darunter noch ein paar andere Verzeichnisse wie "Downloads", "Music" usw definierst, bleibt dir überlassen. (Das sollte aber auch jeder Nutzer für sich entscheiden können, ob er das auch so will oder nicht.)<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Naja, ich würde bestimmte Standard-Ordner schon definieren wollen. Damit will ich erreichen das Programme (z.B. nen Office-Programm) einen Einsprungpunkt in das Dateisystem haben, wo wahrscheinlich die meisten ihre Sachen speichern werden. Natürlich könnte man das auch einfach so machen, das man nen Symlink definiert (sowas macht Windows ja auch) und der Nutzer kann festlegen wo der Symlink hinführen soll.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Ansonsten sollte jedes Programm immer die vom System bereitgestellte Lib benutzen, da dort z.B. Sicherheitsfixes integriert wurden oder so.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Davon kannst du ausgehen wenn du ein Repository hast, aber nicht bei nem Hobby OS oder z.B. Windows. Also muss ich das irgendwie anders lösen.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Die Datei selbst heißt /usr/lib/libSDL-1.2.so.0.11.3 (bzw. /lib/libc-2.11.2.so), hat also im Dateinamen ihre Version; diese Lib kann ein Programm benutzen, wenn es exakt diese Version braucht. Außerdem gibt es noch verschiedene Symlinks darauf (/usr/lib/libSDL.so und /usr/lib/libSDL-1.2.so.0 bzw. /lib/libc.so.6).<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist ja auch erstmal alles gut und schön, aber das führt doch dazu das man irgendwann so ziemlich alle Versionen auf dem System hat die es von jeder Library gibt. Das ist halt unschön und das muss man irgendwie managen. Unter Linux macht das nen Paketmanager, sowas habe ich noch nicht geplant.<br/>Auch würde ich einfach vorschreiben, das wenn sich das Interface (ABI) nicht geändert hat, immer die neuste Version genommen wird. Des Weiteren würde ich weder libSDL.so haben wollen, noch das ein Programm die genaue Version anfordern kann, also z.B. libSDL-1.2.so.0.11.3.<br/>Damit kann ich erstens vermeiden, das es Probleme gibt mit dem Interface und zweitens das ich zuviele Versionen ein und derselben Library habe.<br/><br/>Auf das Problem des managen der Libraries komme ich später noch zurück.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Dann schau dir mal das MacOS-Prinzip an: Anwendungen sind dort einfach Ordner mit einer vorgegebenen Struktur, wo das Binary und alle benötigten Hilfsdateien drin sind plus ein paar Metainformationen. Insbesondere erscheinen solche Ordner in der Oberfläche als ausführbare Dateien und sind in sich abgeschlossen (es gibt neben diesem Ordner keine weiteren Bestandteile im System). Die Installation ist also eine Kopie an den Zielort, die Deinstallation das Löschen; es wird nichts registriert; das Programm selbst speichert seine Anwendungsdaten aber trotzdem in $HOME. Finde ich ein sehr gutes Konzept.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wieder was gelernt und genau sowas schwebt mir auch vor.<br/><br/>Jetzt komm ich dann auch zum Managen der Libraries. Ich würde den Programmordner von einer Art Library-Manager beobachten lassen und jedes Mal wenn ein Programm installiert wird, wird in eine Art Datenbank (oder sowas) die mitgebrachten/benötigten Libraries eingetragen und wenn ein Programm gelöscht/Deinstalliert wird, wird in der Datenbank nachgeguckt, ob es noch andere Programme gibt, die irgendeine Library die das zu deinstallierende Programm braucht, auch brauchen. Ansonsten können diese gelöscht werden.<br/><br/>Das würde auch soweit funktionieren, nur nicht mit Programmen die ich nicht installiert/in das entsprechende Verzeichnis kopiert habe.<br/>Dafür würde ich sagen entweder müssen die Libraries dann im selben Ordner sein wie das Programm oder aber im Unterordner /lib des Programms.<br/>Ich würde dann wahrscheinlich sogar soweit gehen, das man den Pfad wo nach den Libraries gesucht wird, nicht ändern kann, sondern der ist fest vorgegeben.<br/>Was ein Programm aber nicht daran hindert, eine Library einfach zur Laufzeit nachzuladen. Das sollte wiederrum von überall möglich sein (wo das Programm drauf zugriff hat).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Alle ausführbaren Dateien an einen Ort zu packen hat einen Vorteil, nämlich dass man mit $PATH arbeiten kann, du also bei Verknüpfungen und so keine vollen Pfadangaben machen brauchst. Die musst du nämlich anpassen, wann immer du das Programm dann verschiebst (oder die Festplatte woandershin mountest). Ob du das brauchst oder möchtest, musst du selbst entscheiden, beides hat Vor- und Nachteile.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Deswegen will ich ja so einen "Programme" Ordner, damit alle Programme an einem Ort sind, aber nicht so dass auch alle Dateien in einem Ordnern sind. Das kann man mit Kommandozeilentools machen aber nicht mit Grafikprogrammen.<br/><br/>Ich glaube da würde ich dann wieder den Unix-Weg aufgreifen und zw. vom System mitgebrachte Tools und vom User nachinstallierte Tools unterscheiden.<br/>Da könnte man sogar soweit gehen, das es im /home/user Verzeichnis einen Unterordner /bin gibt, wo die Tools des jeweiligen Users drin sind. Bzw. den Ordner /home/shared/bin für Tools die nicht vom System stammen, aber auf die alle User zugreifen können sollen.<br/><br/>Und ja ich möchte diesen shared Ordner haben, das soll alles unter dem /home Verzeichnis sein, weil es für mich einfach nur ein User ist, nur halt einer auf den alle Zugriff haben.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Wenn du einen Sinn für Setup-Programme siehst, ist dein Konzept kaputt.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dann müsste der Unix-Weg ja auch kaputt sein und der MacOS-Weg ist dann viel zu uneffektiv. Denn ich denke da an die Libraries, unter Unix hast du das Problem der Dependencies (und dafür hast du nen Paketmanager, für mich nichts anderes als nen Setup-Programm) und unter MacOS (wenn ich es richtig verstanden habe) bringt jedes Programm seine eigene Libraries mit und man hätte so keine Vorteile wenn man eine Library mal updatet, sondern das müsste man für alle Libraries in jedem Programm Ordner machen und dann kann man nicht mal davon ausgehen, das die alle gleich benannt sind. Das würde ich kaputt nennen!<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Du hast noch /tmp vergessen. Auch sowas ist sehr wichtig. Eventuell wäre es geschickt wenn man für jeden Prozess dort ein individuelles Unterverzeichnis einrichtet auf das nur der Prozess selber freien Zugriff hat, aber es muss auch möglich sein das die temporären Dateien direkt in /tmp liegen damit darauf mehrere Prozesse zugreifen können.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das würde ich wieder genauso wie mit dem /home Verzeichnis machen wollen, sprich /tmp/app und /tmp/shared. Damit hätte ich dann das gleiche Konzept nochmal verwendet und es wäre schön getrennt.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Was mir persönlich sehr wichtig wäre ist das auf die (globalen) Verzeichnisse mit den Programmen nur ganz bestimmte Programme Schreibzugriff haben, es sollte also einen Zwang geben das nur die Paketverwaltung Programme installieren/updaten/deinstallieren kann. Das Programme die Möglichkeit haben ihr eigenes Executable zu ändern ist IMHO eine ziemlich große Sicherheitslücke und individuelle Setup-Programme sind einfach ein Schrottkonzept aus dem letzten Jahrtausend.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Sprich man würde nen Art Paketmanager haben, der halt auch nen Überblick über die Libraries hat (ich weiß, ich nerve mit den Libraries, aber die sind nunmal nicht so einfach zu handeln). Man würde also das Konzept von MacOS (jedes Programm in einem Ordner mit bestimmten Vorgaben) mit den oben genannten Dingen verbinden. Da könnte ich dann sogar einfach .tar.foo (wobei foo irgendein Komprimierverfahren wäre) als Paketformat nehmen und da ist ne vorgegebene Ordnerstruktur drin. Damit muss man nichts neues erfinden.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32762">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32763"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32763_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #7 am:</strong> 14. July 2011, 17:31 »</div>
+<div class="posttile"><h5 id="subject_32763">
+<a href="index.html#msg32763" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32763_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32763">Hallo,<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32762">Zitat von: FlashBurn am 14. July 2011, 16:14</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">Du denkst zu sehr Windows. <img alt=":)" class="smiley" src="../../../assets/forum/3bd230edbfa99cc1552b7785.gif" title="Smiley"/> Unter Unix nennt man das nicht $APPDATA, sondern $HOME und Anwendungen speichern alles dorthin. Wo genau hängt vom Programm und vom verwendeten Toolkit ab.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Jap, ich finde diese Konzept des appdata Ordners gut. Ich möchte nicht dass das Programm entscheidet wo es seine Daten hinspeichert, sondern dass das Teil des Konzeptes ist.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Naja, Programme dürfen an sich erstmal nur nach $HOME speichern, das heißt, dass dein Appdata dort auch liegt. Wenn du ein vernünftiges Konzept anbietest, werden Programme das auch nutzen - du kannst sie aber nicht dazu zwingen, ihre Daten dort abzulegen. Du könntest einfach $HOME/AppData/anwendungsname/ als "best practice" festlegen, oder - was unter Unix praktiziert wird - $HOME/.anwendungsname. Inzwischen gibt es da viel zu viel Wildwuchs (~/.local, ~/.config, ~/.dbus, ~/.gconf, ~/.gconfd, ...), von daher ist eine feste Schnittstelle zu begrüßen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32762">Zitat von: FlashBurn am 14. July 2011, 16:14</a></div></div><blockquote class="bbc_standard_quote">Damit dürfte auch das Umziehen auf eine neue Platte und sowas viel einfacher werden. Was ich halt bräuchte wäre, dass mir jemand eindeutige Nachteile nennen kann, für die mir keine Lösung einfällt oder für die es zu Umständlich damit wird.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Bitte keine Registrierung. Jedes Programm soll nach Möglichkeit in dem Format abspeichern dürfen, was ihm am besten gefällt und nicht auf "key=value" oder XML-Datensätze beschränkt sein. Ansonsten ziehst du ein Linux-System um, indem du $HOME auf die neue Festplatte kopierst.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32762">Zitat von: FlashBurn am 14. July 2011, 16:14</a></div></div><blockquote class="bbc_standard_quote">Naja, ich würde bestimmte Standard-Ordner schon definieren wollen. Damit will ich erreichen das Programme (z.B. nen Office-Programm) einen Einsprungpunkt in das Dateisystem haben, wo wahrscheinlich die meisten ihre Sachen speichern werden.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, ist sinnvoll. Aber wenn ich die Ordner lösche, dann möchte ich auch, dass die weg sind und nicht bei jedem Login neu erzeugt werden.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32762">Zitat von: FlashBurn am 14. July 2011, 16:14</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">Ansonsten sollte jedes Programm immer die vom System bereitgestellte Lib benutzen, da dort z.B. Sicherheitsfixes integriert wurden oder so.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Davon kannst du ausgehen wenn du ein Repository hast, aber nicht bei nem Hobby OS oder z.B. Windows. Also muss ich das irgendwie anders lösen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wieso? Wenn du ein Programm auf dein OS portierst, dann musst du ohnehin die benutzten Libs portieren. Die kannst du dann aber auch gleich systemweit installieren und von anderen Programmen mitbenutzen lassen. Jedem Programm seine eigene libSDL zu geben ist jedenfalls Mist.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32762">Zitat von: FlashBurn am 14. July 2011, 16:14</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">Die Datei selbst heißt /usr/lib/libSDL-1.2.so.0.11.3 (bzw. /lib/libc-2.11.2.so), hat also im Dateinamen ihre Version; diese Lib kann ein Programm benutzen, wenn es exakt diese Version braucht. Außerdem gibt es noch verschiedene Symlinks darauf (/usr/lib/libSDL.so und /usr/lib/libSDL-1.2.so.0 bzw. /lib/libc.so.6).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist ja auch erstmal alles gut und schön, aber das führt doch dazu das man irgendwann so ziemlich alle Versionen auf dem System hat die es von jeder Library gibt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nö. Es gibt ja für die meisten Programme keine Notwendigkeit, zwingend eine bestimmte Bibliotheksversion zu benutzen - die Nachfolgeversionen sind fast immer kompatibel.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32762">Zitat von: FlashBurn am 14. July 2011, 16:14</a></div></div><blockquote class="bbc_standard_quote">Das ist halt unschön und das muss man irgendwie managen. Unter Linux macht das nen Paketmanager, sowas habe ich noch nicht geplant.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also möchtest du doch das Windows-Konzept der Setup-Programme (pro Anwendung) weiterführen. Das finde ich kaputt; stabil lässt sich das nämlich nur machen, wenn alle Programme ihre Bibliotheken ins Anwendungsverzeichnis (Bundle) stopfen und damit von Updates ausgeschlossen sind - siehe MacOS. Alles andere wird über kurz oder lang dein Systemverzeichnis zerschießen, weil Setupprogramme historisch gesehen immer der letzte Dreck sind.<br/><br/>Der Windows-Installer hat eher was mit Paketverwaltung von Linux zu tun als mit dem InstallShield, der bei Anwendungen früher dabei war. So schlecht kann das Konzept also nicht sein.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32762">Zitat von: FlashBurn am 14. July 2011, 16:14</a></div></div><blockquote class="bbc_standard_quote">Auch würde ich einfach vorschreiben, das wenn sich das Interface (ABI) nicht geändert hat, immer die neuste Version genommen wird. Des Weiteren würde ich weder libSDL.so haben wollen, noch das ein Programm die genaue Version anfordern kann, also z.B. libSDL-1.2.so.0.11.3.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Darum verweist die /lib/libc.so.6 immer auf die aktuelle Version der C-Bibliothek mit der ABI-Version 6. Wenn der Loader erstmal ein "ls" auf den Lib-Ordner machen muss, um die aktuelle Version rauszufinden, dann ist das umständlich und kaputt.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32762">Zitat von: FlashBurn am 14. July 2011, 16:14</a></div></div><blockquote class="bbc_standard_quote">Damit kann ich erstens vermeiden, das es Probleme gibt mit dem Interface und zweitens das ich zuviele Versionen ein und derselben Library habe.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wenn die neue Version der Lib funktioniert und du den Symlink /lib/libc.so.6 -&gt; /lib/libc-2.11.2.so korrekt gesetzt hast, kannst du die alte Version einfach löschen. Fertig.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32762">Zitat von: FlashBurn am 14. July 2011, 16:14</a></div></div><blockquote class="bbc_standard_quote">Jetzt komm ich dann auch zum Managen der Libraries. Ich würde den Programmordner von einer Art Library-Manager beobachten lassen und jedes Mal wenn ein Programm installiert wird, wird in eine Art Datenbank (oder sowas) die mitgebrachten/benötigten Libraries eingetragen und wenn ein Programm gelöscht/Deinstalliert wird, wird in der Datenbank nachgeguckt, ob es noch andere Programme gibt, die irgendeine Library die das zu deinstallierende Programm braucht, auch brauchen. Ansonsten können diese gelöscht werden.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist kaputt. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/> Stell dir mal vor, ein Programm baut jetzt ganz viele Dateien, die alle aussehen wie Libraries, aber keine sind (sondern z.B. Texturen). Dann fängt dein Library-Manager an, in die Datenbank tausende von Texturen einzutragen, die da garnicht hingehören. Außerdem zerfällt dein Gesamtsystem zu staub, wenn die Datenbank mal kaputt geht.<br/><br/>Das ist das Konzept der Windows-Registrierdatenbank. Ich mag es nicht. Wenn du es willst - deine Sache.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32762">Zitat von: FlashBurn am 14. July 2011, 16:14</a></div></div><blockquote class="bbc_standard_quote">Ich würde dann wahrscheinlich sogar soweit gehen, das man den Pfad wo nach den Libraries gesucht wird, nicht ändern kann, sondern der ist fest vorgegeben.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Würde ich nicht tun. Verschenkt unglaubliche Flexibilität.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32762">Zitat von: FlashBurn am 14. July 2011, 16:14</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">Alle ausführbaren Dateien an einen Ort zu packen hat einen Vorteil, nämlich dass man mit $PATH arbeiten kann, du also bei Verknüpfungen und so keine vollen Pfadangaben machen brauchst.[...]</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Deswegen will ich ja so einen "Programme" Ordner, damit alle Programme an einem Ort sind, aber nicht so dass auch alle Dateien in einem Ordnern sind. Das kann man mit Kommandozeilentools machen aber nicht mit Grafikprogrammen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Du kannst $PATH aber schlecht sagen "und alle Unterordner auch bitte". Das wird beim Suchen zu langsam. Entweder du tust alle Binaries in einen gemeinsamen Ordner oder du tust jedes Binary in den Anwendungsordner. Im letzten Fall musst du an jeder Stelle den vollen Pfad angeben (oder jedes einzelne Programm zu $PATH explizit hinzufügen, was wieder andere Probleme nach sich zieht).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32762">Zitat von: FlashBurn am 14. July 2011, 16:14</a></div></div><blockquote class="bbc_standard_quote">Und ja ich möchte diesen shared Ordner haben, das soll alles unter dem /home Verzeichnis sein, weil es für mich einfach nur ein User ist, nur halt einer auf den alle Zugriff haben.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Du trennst also zwischen "können alle nutzen, gehört zum System", "können alle nutzen, gehört nicht zum System" und "kann nur einer nutzen, gehört ihm". Naja, musst du wissen. Ich finde das nicht besonders gut.<br/><br/>Insbesondere gehören ausschließlich Nutzerdaten nach /home, sonst nichts. "shared" ist kein Nutzer, sondern eine Nutzergruppe.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32762">Zitat von: FlashBurn am 14. July 2011, 16:14</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">Wenn du einen Sinn für Setup-Programme siehst, ist dein Konzept kaputt.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dann müsste der Unix-Weg ja auch kaputt sein und der MacOS-Weg ist dann viel zu uneffektiv. Denn ich denke da an die Libraries, unter Unix hast du das Problem der Dependencies (und dafür hast du nen Paketmanager, für mich nichts anderes als nen Setup-Programm) und unter MacOS (wenn ich es richtig verstanden habe) bringt jedes Programm seine eigene Libraries mit und man hätte so keine Vorteile wenn man eine Library mal updatet, sondern das müsste man für alle Libraries in jedem Programm Ordner machen und dann kann man nicht mal davon ausgehen, das die alle gleich benannt sind. Das würde ich kaputt nennen!</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Paketverwaltung != Setup-Programm. Erstere ist nämlich auch für das Auflösen von Abhängigkeiten, Updates und so zuständig und außerdem in der Lage, die Integrität des Systems sicherzustellen. Ein Setup-Programm kopiert nur die benötigten Daten an einen Ort und kümmert sich nicht weiter um das System. Anders ausgedrückt: Die Paketverwaltung ist Teil des Betriebssystems, das Setup-Programm ist Teil der Anwendung.<br/><br/>Der MacOS-Weg ist wirklich so, dass jedes Programm alle Libs mitbringt, die das Basisbetriebssystem nicht hat. Nur so kannst du vollständig unabhängige Programmbundles haben, die immer und überall funktionieren (endnutzerfreundlich).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32762">Zitat von: FlashBurn am 14. July 2011, 16:14</a></div></div><blockquote class="bbc_standard_quote">Sprich man würde nen Art Paketmanager haben, der halt auch nen Überblick über die Libraries hat (ich weiß, ich nerve mit den Libraries, aber die sind nunmal nicht so einfach zu handeln). Man würde also das Konzept von MacOS (jedes Programm in einem Ordner mit bestimmten Vorgaben) mit den oben genannten Dingen verbinden.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das kann man nicht verbinden: Entweder, du hast alles, was zu einem Programm gehört in einem Ordner (dem Bundle), oder du installierst die Bestandteile des Programms (Libs, Binaries, Doku, ...) in verschiedene Ordner im System. Eine Mischung davon gibt es nicht. Das ist dann auch kein Bundle mehr, sondern ein Paket, welches installiert werden muss.<br/><br/>Eine zentrale Datenbank, die in die innere Struktur der Anwendungen reinpfuscht ist jedenfalls nicht besonders hilfreich. Was machst du denn bei Library-Updates? Einfach in jedem Programm die Lib ersetzen?<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32762">Zitat von: FlashBurn am 14. July 2011, 16:14</a></div></div><blockquote class="bbc_standard_quote">Da könnte ich dann sogar einfach .tar.foo (wobei foo irgendein Komprimierverfahren wäre) als Paketformat nehmen und da ist ne vorgegebene Ordnerstruktur drin. Damit muss man nichts neues erfinden.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Du könntest in dem Moment auch gleich DEB oder RPM benutzen... und hättest schlagartig ein Paketmanagementsystem als Lösung für dein Problem gefunden. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/><br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32763">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32764"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32764_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #8 am:</strong> 14. July 2011, 19:54 »</div>
+<div class="posttile"><h5 id="subject_32764">
+<a href="index.html#msg32764" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32764_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32764"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Wenn du ein vernünftiges Konzept anbietest, werden Programme das auch nutzen - du kannst sie aber nicht dazu zwingen, ihre Daten dort abzulegen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wieso kann ich sie nicht zwingen <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/>Ich will einfach vermeiden, das es Programme gibt, die ein an sich vernünftiges Konzept zerstören, weil der Programmierer der Meinung war, ach brauch ich nicht.<br/>Das gleiche gilt für die Libraries, wenn du die Programme zu bestimmten Dingen zwingst kannst du bestimmte Sachen vermeiden.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Bitte keine Registrierung. Jedes Programm soll nach Möglichkeit in dem Format abspeichern dürfen, was ihm am besten gefällt und nicht auf "key=value" oder XML-Datensätze beschränkt sein. Ansonsten ziehst du ein Linux-System um, indem du $HOME auf die neue Festplatte kopierst.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich hatte mir das genauso vorgestellt, das man einfach nur das home-Verzeichnis kopieren müsste. Allerdings fällt mir dabei auf, dass dann am besten auch alle Libs (die nicht vom System kommen) dort mit drin sein sollten.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Ja, ist sinnvoll. Aber wenn ich die Ordner lösche, dann möchte ich auch, dass die weg sind und nicht bei jedem Login neu erzeugt werden.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Hmm, das kann ich so nicht einfach stehen lassen. Denn dann kommt es zu Problemen, wenn du bestimmte Standarddialoge hast und die Ordner sind mit einmal nicht mehr da. Also wäre es halt am besten wenn man diese Ordner erstmal erstellt, aber dem Nutzer die Möglichkeit gibt, sie auf andere Ordner verweisen zu lassen. Nur dann kann der Ordner auch gelöscht werden.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Wieso? Wenn du ein Programm auf dein OS portierst, dann musst du ohnehin die benutzten Libs portieren. Die kannst du dann aber auch gleich systemweit installieren und von anderen Programmen mitbenutzen lassen. Jedem Programm seine eigene libSDL zu geben ist jedenfalls Mist.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Gut, jetzt portiere aber nicht nur ich Programme, sondern andere schreiben auch Programme und das habe ich dann nicht mehr unter Kontrolle. Ich will ja auch nicht das jeder seine eigene libSDL nutzt, sondern wenn schon eine vorhanden ist wird die genutzt, bzw. wenn die die das Programm bzw. Paket mitbringt neuer ist, wird diese "installiert".<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Nö. Es gibt ja für die meisten Programme keine Notwendigkeit, zwingend eine bestimmte Bibliotheksversion zu benutzen - die Nachfolgeversionen sind fast immer kompatibel.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich meinte das ich nicht zulassen möchte das ein Programm ganz genau eine Version anfordern kann (z.B. libSDL 1.2.13 soll nicht gehen, nur libSDL 1.2). Hoffe du verstehst jetzt was ich meinte.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Also möchtest du doch das Windows-Konzept der Setup-Programme (pro Anwendung) weiterführen. Das finde ich kaputt; stabil lässt sich das nämlich nur machen, wenn alle Programme ihre Bibliotheken ins Anwendungsverzeichnis (Bundle) stopfen und damit von Updates ausgeschlossen sind - siehe MacOS. Alles andere wird über kurz oder lang dein Systemverzeichnis zerschießen, weil Setupprogramme historisch gesehen immer der letzte Dreck sind.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Von Setup-Programm war doch nie die Rede. Ich würde sowas wie nen Paketmanager haben wollen. Deswegen ja auch die .tar.foo Dateien=Pakete. Aber in dem Paket sollen ruhig alle benötigten Libraries mit drin sein, aber "installiert" werden diese nur sofern nicht vorhanden bzw. die vorhandenen werden geupdatet.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Darum verweist die /lib/libc.so.6 immer auf die aktuelle Version der C-Bibliothek mit der ABI-Version 6. Wenn der Loader erstmal ein "ls" auf den Lib-Ordner machen muss, um die aktuelle Version rauszufinden, dann ist das umständlich und kaputt.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Aber warum muss /lib/libc.so.6 auf die neueste Version verweisen, wieso kann sie es nicht einfach sein? Ich sehe das nur als doppelt gemoppelt. Wenn ich eh immer nur einer /lib/libc.so.6 haben kann, brauche ich doch keinen Verweis. Das ist was ich ausdrücken wollte.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Stell dir mal vor, ein Programm baut jetzt ganz viele Dateien, die alle aussehen wie Libraries, aber keine sind (sondern z.B. Texturen). Dann fängt dein Library-Manager an, in die Datenbank tausende von Texturen einzutragen, die da garnicht hingehören. Außerdem zerfällt dein Gesamtsystem zu staub, wenn die Datenbank mal kaputt geht.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Deswegen ja die Pakete mit vorgegebener Ordnerstruktur und natürlich kann man ne Library von einer Textur unterscheiden. Ich würde da schon prüfen ob das wirklich ne ELF-Library ist, ansonsten wird das einfach ignoriert bzw. würde ich da auch so weit gehen, das Paket als fehlerhaft (weil außer Libraries keine anderen Dateien in diesem speziellen Ordner zu sein haben) zu melden und gar nicht erst "installieren" lassen.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Würde ich nicht tun. Verschenkt unglaubliche Flexibilität.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wieso? Das sehe ich irgendwie nicht.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Du kannst $PATH aber schlecht sagen "und alle Unterordner auch bitte". Das wird beim Suchen zu langsam. Entweder du tust alle Binaries in einen gemeinsamen Ordner oder du tust jedes Binary in den Anwendungsordner. Im letzten Fall musst du an jeder Stelle den vollen Pfad angeben (oder jedes einzelne Programm zu $PATH explizit hinzufügen, was wieder andere Probleme nach sich zieht).<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Genau deswegen will ich Kommandozeilen Programme von grafischen trennen! Ich lege ganz einfach fest, ein grafisches Programm wird nicht über die Kommandozeile gestartet, sondern grafisch über nen Link und wer es doch über die Kommandozeile machen will, muss halt den entsprechenden Ordner suchen, fertig!<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Du trennst also zwischen "können alle nutzen, gehört zum System", "können alle nutzen, gehört nicht zum System" und "kann nur einer nutzen, gehört ihm". Naja, musst du wissen. Ich finde das nicht besonders gut.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wieso nicht? Obwohl mir spontan eine Sache einfällt die man so nicht regeln kann, nämlich das unterschiedliche Nutzer Zugriff auf unterschiedliche Programme haben. Bei meiner momentanen Idee würde es passieren das man Programme doppelt installieren muss, weil 2 Benutzer zugriff haben sollen, aber ein anderer nicht.<br/>Und mir fällt auf, das ich das nur für die Kommandozeilentools erdacht habe und nicht auch zusätzlich für die grafischen. Das müsste man also doch über ne vernünftige Rechteverwaltung machen. Das wiederrum erfordert das ich nen anderes Dateisystem als FAT einsetzen muss.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Das kann man nicht verbinden: Entweder, du hast alles, was zu einem Programm gehört in einem Ordner (dem Bundle), oder du installierst die Bestandteile des Programms (Libs, Binaries, Doku, ...) in verschiedene Ordner im System. Eine Mischung davon gibt es nicht. Das ist dann auch kein Bundle mehr, sondern ein Paket, welches installiert werden muss.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wie gesagt ich würde Paket und Setup mischen. Du hast ein Paket, welches auf den ersten Blich aussieht wie so ein Bundle für MacOS, aber der Paketmanager, würde das Paket so installieren, das die Libs in das System integriert werden. Also sind in dem Programmordner der später auf der HDD landet keine Libs mehr drin, sondern die sind im entsprechenden Ordner.<br/><br/>Wie gesagt ich kann und will mir nicht den Luxus eines Repositories leisten (und das aus mehreren Gründen nicht).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Du könntest in dem Moment auch gleich DEB oder RPM benutzen... und hättest schlagartig ein Paketmanagementsystem als Lösung für dein Problem gefunden<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da stellt sich mir dann wieder die Frage, wenn die so toll sind, wieso gibt es dann so viele unterschiedliche und warum durften dir ihr eigenes Bier brauen und ich nicht <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/>Zumal, ich schreibe mein eigenes OS, da fällt dann ein eigenes Paketmanagementsystem auch nicht mehr auf <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32764">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32765"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32765_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #9 am:</strong> 14. July 2011, 21:24 »</div>
+<div class="posttile"><h5 id="subject_32765">
+<a href="index.html#msg32765" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32765_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32765"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32764">Zitat von: FlashBurn am 14. July 2011, 19:54</a></div></div><blockquote class="bbc_standard_quote">Ich will einfach vermeiden, das es Programme gibt, die ein an sich vernünftiges Konzept zerstören, weil der Programmierer der Meinung war, ach brauch ich nicht.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Gut, dann mach es wie Apple und erzeuge eine Whitelist erlaubter Applikationen für dein Betriebssystem.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32764">Zitat von: FlashBurn am 14. July 2011, 19:54</a></div></div><blockquote class="bbc_standard_quote">Ich hatte mir das genauso vorgestellt, das man einfach nur das home-Verzeichnis kopieren müsste. Allerdings fällt mir dabei auf, dass dann am besten auch alle Libs (die nicht vom System kommen) dort mit drin sein sollten.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>*facepalm*<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32764">Zitat von: FlashBurn am 14. July 2011, 19:54</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">Ja, ist sinnvoll. Aber wenn ich die Ordner lösche, dann möchte ich auch, dass die weg sind und nicht bei jedem Login neu erzeugt werden.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Hmm, das kann ich so nicht einfach stehen lassen. Denn dann kommt es zu Problemen, wenn du bestimmte Standarddialoge hast und die Ordner sind mit einmal nicht mehr da.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wo ist das Problem? Ich sehe da keins. Es sei denn natürlich, dass der Standarddialog abstürzt, aber das ist Pfusch am Bau.<br/><br/>Ich will meine eigene Organisation und mir von niemandem reinreden lassen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32764">Zitat von: FlashBurn am 14. July 2011, 19:54</a></div></div><blockquote class="bbc_standard_quote">Gut, jetzt portiere aber nicht nur ich Programme, sondern andere schreiben auch Programme und das habe ich dann nicht mehr unter Kontrolle. Ich will ja auch nicht das jeder seine eigene libSDL nutzt, sondern wenn schon eine vorhanden ist wird die genutzt, bzw. wenn die die das Programm bzw. Paket mitbringt neuer ist, wird diese "installiert".</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wenn jedes Programm seine eigenen Libs mitbringen "muss" (du willst ja die nicht systemweit installieren), dann sind diese Programme auch nur gegen diese bestimmten Libs getestet. Diese <em>nachträglich</em> einfach so zu ersetzen ist definitiv nicht im Sinne des Erfinders.<br/><br/>Außerdem installierst du dann ein Programm, welches eine abgespeckte dummy-libSDL benutzt (z.B. nur für Sound) und - weils den Entwickler nicht interessiert hat - mit Version 9.99 der libSDL geliefert wird... dein Library-Manager integriert die dann ins System (weil sie ja neuer ist) und schwupps, sind alle auf SDL basierenden Programme kaputt. Wunderbar. Und jetzt finde im System mal die spezielle libSDL, die kaputt ist.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32764">Zitat von: FlashBurn am 14. July 2011, 19:54</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">Nö. Es gibt ja für die meisten Programme keine Notwendigkeit, zwingend eine bestimmte Bibliotheksversion zu benutzen - die Nachfolgeversionen sind fast immer kompatibel.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich meinte das ich nicht zulassen möchte das ein Programm ganz genau eine Version anfordern kann (z.B. libSDL 1.2.13 soll nicht gehen, nur libSDL 1.2). Hoffe du verstehst jetzt was ich meinte.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Es mag Gründe für exakte Versionsstände geben. Als Beispiel führe ich mal Zertifizierungen oder digitale Signaturen an. Das im Voraus zu verbieten ist falsch.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32764">Zitat von: FlashBurn am 14. July 2011, 19:54</a></div></div><blockquote class="bbc_standard_quote">Aber in dem Paket sollen ruhig alle benötigten Libraries mit drin sein, aber "installiert" werden diese nur sofern nicht vorhanden bzw. die vorhandenen werden geupdatet.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also willst du auf jegliche Form von Abhängigkeitsmanagement verzichten und dafür jedem Paket erlauben, potentiell dein System zu zerschießen. Tolle Wurst.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32764">Zitat von: FlashBurn am 14. July 2011, 19:54</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">Darum verweist die /lib/libc.so.6 immer auf die aktuelle Version der C-Bibliothek mit der ABI-Version 6. Wenn der Loader erstmal ein "ls" auf den Lib-Ordner machen muss, um die aktuelle Version rauszufinden, dann ist das umständlich und kaputt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Aber warum muss /lib/libc.so.6 auf die neueste Version verweisen, wieso kann sie es nicht einfach sein? Ich sehe das nur als doppelt gemoppelt. Wenn ich eh immer nur einer /lib/libc.so.6 haben kann, brauche ich doch keinen Verweis. Das ist was ich ausdrücken wollte.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Sicher kannst du deine C-Bibliothek auch "libc.so.6" nennen, allerdings kannst du dann nicht mehr mehrere Versionen parallel installiert haben und wärst zu rolling updates gezwungen (keine Versionsstände mehr). Schließlich könnte &lt;zertifiziertes Programm hier&gt; ja explizit die libc-2.11.6.so anfordern dürfen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32764">Zitat von: FlashBurn am 14. July 2011, 19:54</a></div></div><blockquote class="bbc_standard_quote">Genau deswegen will ich Kommandozeilen Programme von grafischen trennen! Ich lege ganz einfach fest, ein grafisches Programm wird nicht über die Kommandozeile gestartet, sondern grafisch über nen Link und wer es doch über die Kommandozeile machen will, muss halt den entsprechenden Ordner suchen, fertig!</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also ich finde den Gedanken, dass grafische Programme auch stdin/stdout benutzen dürfen, schon garnicht so schlecht... alle grafischen Unixprogramme sind auch Kommandozeilenprogramme - und sei es für Debugausgaben. Da ne willkürliche Grenze zu ziehen ist doof; außerdem kann ein Programm ja auch beides sein. Beispielsweise REGEDIT von Win95 (läuft unter DOS, aber auch grafisch), oder dein Netzwerkverwaltungstool (ist die grafische Oberfläche aktiv -&gt; grafisch, fehlt die grafische Oberfläche -&gt; textbasiert, wurden Parameter übergeben -&gt; nichtinteraktiv). Der Übergang ist fließend und ihn im Betriebssystem einzumauern falsch.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32764">Zitat von: FlashBurn am 14. July 2011, 19:54</a></div></div><blockquote class="bbc_standard_quote">Wie gesagt ich kann und will mir nicht den Luxus eines Repositories leisten (und das aus mehreren Gründen nicht).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Einverstanden. Das macht dann jemand anders. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/> Solange du selbst dran rumwerkelst und der fast einzige Nutzer bist, sind alle diese Konzepte eh hinfällig.<br/><br/>Komische Vorstellungen hast du.<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32765">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32766"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32766_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #10 am:</strong> 14. July 2011, 21:37 »</div>
+<div class="posttile"><h5 id="subject_32766">
+<a href="index.html#msg32766" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32766_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32766">Hallo,<br/><br/><br/>FlashBurn, Du solltest Dich eventuell von dem Gedanken trennen das eine Library ein Teil des Programms ist sondern das als eigenständiges Paket betrachten von dem das Programm abhängig ist. Zu der Abhängigkeit darf dann natürlich noch die gewünschte Version der Library gehören. Wenn man das mit einer guten Paketverwaltung verknüpft kommt ein brauchbares System bei raus und Du wirst immer zuverlässig vor der Library/DLL-Hölle bewahrt.<br/><br/>Ein anderes Problem sind fest eingelickte Libraries, im Endeffekt kannst Du nicht zuverlässig verhindern das die Programme eigene Libraries mitbringen.<br/><br/>Das Du überhaupt Executables in /home haben willst betrachte ich persönlich als Fehler.<br/>Wenn ein Programm nur von einer bestimmte Teil-Menge an Usern benutzt werden soll dann bekommt es als Owner root und als Gruppe eine in der auch alle User drin sind die das Programm benutzen dürfen. Du solltest Dich wirklich mal mit user-group-others beschäftigen.<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32764">Zitat von: FlashBurn am 14. July 2011, 19:54</a></div></div><blockquote class="bbc_standard_quote">Da stellt sich mir dann wieder die Frage, wenn die so toll sind, wieso gibt es dann so viele unterschiedliche</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist in der Tat eine berechtigte Frage. Die Antwort würde mich auch sehr interessieren.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32764">Zitat von: FlashBurn am 14. July 2011, 19:54</a></div></div><blockquote class="bbc_standard_quote">und warum durften dir ihr eigenes Bier brauen und ich nicht <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Vielleicht haben die eine passende Lizenz oder passende Erfahrung. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32764">Zitat von: FlashBurn am 14. July 2011, 19:54</a></div></div><blockquote class="bbc_standard_quote">Zumal, ich schreibe mein eigenes OS, da fällt dann ein eigenes Paketmanagementsystem auch nicht mehr auf <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also der Unterschied zwischen einem OS und einer Paketverwaltung ist doch ziemlich erheblich.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32766">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32766_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32767"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32767_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #11 am:</strong> 14. July 2011, 22:52 »</div>
+<div class="posttile"><h5 id="subject_32767">
+<a href="index.html#msg32767" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32767_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32767"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Wo ist das Problem? Ich sehe da keins. Es sei denn natürlich, dass der Standarddialog abstürzt, aber das ist Pfusch am Bau.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Der soll nicht abstürzen, aber wenn ich einen Standarddialog designe und verwende, dann möchte ich da auch immer z.B. "Eigene Dokumente" auswählen können, wo auch immer dieses Verzeichnis liegt. Hauptsache es ist eins vorhanden das dafür bekannt ist, dass dort die Dokumente gespeichert werden sollen.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Ich will meine eigene Organisation und mir von niemandem reinreden lassen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dann ist aber Unix nicht das richtige für dich <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Denn da gibt es (wie auf jedem OS, gehe ich einfach mal von aus) immer bestimmte Sachen die an einen bestimmten Ort müssen.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Wenn jedes Programm seine eigenen Libs mitbringen "muss" (du willst ja die nicht systemweit installieren), dann sind diese Programme auch nur gegen diese bestimmten Libs getestet. Diese nachträglich einfach so zu ersetzen ist definitiv nicht im Sinne des Erfinders.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also ersten sollte es kein Problem sein, wenn sich das Interface einer Lib nicht ändert, das eine neuere Version verwendet wird (Bugfixing und sowas) und du hast noch immer nicht verstanden was ich vorhabe.<br/><br/>Also ein Programm besteht erstmal aus einem Paket (welches man sich z.B. runterladen könnte), welches wieder ein einfaches .tar.foo Archive ist. In diesem Archive ist das Programm, so wie es nachher auf die HDD soll und ein extra Ordner mit allen Libs die das Programm benötigt. Es wird nur der Ordner mit dem Programm samt der Daten auf die HDD kopiert, nicht die Libs! Die Libs werden nur kopiert so fern noch nicht vorhanden oder neuer als im System vorhanden.<br/>So hat halt nicht jedes Programm seine eigenen Libs, sondern die sind systemweit verfügbar. Der Grund ist einfach, das ich kein Repository habe, wo ich die Libs drin haben könnte (und zwecks Offline Installation, wie wird das eigentlich unter Linux gemacht?).<br/><br/>Hat man ein Repository ist es auch kein Problem die Libs von den Programmen gesondert zu liefern und zu behandeln.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Es mag Gründe für exakte Versionsstände geben. Als Beispiel führe ich mal Zertifizierungen oder digitale Signaturen an.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also läuft es ja doch darauf hinaus das ich alle Versionen einer Lib habe. Denn so wie du es jetzt beschreibst, kann es durchaus sein, das ich 13 Programme habe und jedes benötigt eine andere Version der libSDL.so.1.2. Genau das will ich aber vermeiden.<br/>Gibt es dafür ein praktisches Bsp, wo sowas schonmal verwendet wurde/wird?<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Also willst du auf jegliche Form von Abhängigkeitsmanagement verzichten und dafür jedem Paket erlauben, potentiell dein System zu zerschießen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also erstmal was hintert mich daran mir das System unter Linux zu zerschiessen, in dem ich eine solche Library per Hand installiere?<br/>Was verstehst du genau unter Abhängigkeitsmanagement?<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Sicher kannst du deine C-Bibliothek auch "libc.so.6" nennen, allerdings kannst du dann nicht mehr mehrere Versionen parallel installiert haben<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich kann dann nicht mehr mehrere Versionen mit dem gleichen Interface installiert haben und warum ist das so schlimm? Bzw. versuche ich ja genau das zu vermeiden. Dann kann man doch gleich jedem Programm seine eigenen Libs mitgeben, wenn die eh alle genau eine Version wollen.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Also ich finde den Gedanken, dass grafische Programme auch stdin/stdout benutzen dürfen, schon garnicht so schlecht... alle grafischen Unixprogramme sind auch Kommandozeilenprogramme - und sei es für Debugausgaben. Da ne willkürliche Grenze zu ziehen ist doof; außerdem kann ein Programm ja auch beides sein. Beispielsweise REGEDIT von Win95 (läuft unter DOS, aber auch grafisch), oder dein Netzwerkverwaltungstool (ist die grafische Oberfläche aktiv -&gt; grafisch, fehlt die grafische Oberfläche -&gt; textbasiert, wurden Parameter übergeben -&gt; nichtinteraktiv). Der Übergang ist fließend und ihn im Betriebssystem einzumauern falsch.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist ein typisches Unix Konzept, noch dazu eins mit dem ich mich noch nie anfreunden konnte. Es gibt immer das eigentliche Programm, welches ein Kommandozeilentool ist und die grafische Oberfläche ist dann nochmal ein Programm, welches nur mit dem Kommandozeilentool kommuniziert.<br/>Zumal das ja trotzdem mit meinem Konzept funktionieren würde. Wäre halt nur ein wenig Sinnlos.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Komische Vorstellungen hast du.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das kann man über alle Genies sagen  <img alt=":-D" class="smiley" src="../../../assets/forum/40e5b6b3635b5359f55907e5.gif" title="grin"/><br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">FlashBurn, Du solltest Dich eventuell von dem Gedanken trennen das eine Library ein Teil des Programms ist sondern das als eigenständiges Paket betrachten von dem das Programm abhängig ist. Zu der Abhängigkeit darf dann natürlich noch die gewünschte Version der Library gehören. Wenn man das mit einer guten Paketverwaltung verknüpft kommt ein brauchbares System bei raus und Du wirst immer zuverlässig vor der Library/DLL-Hölle bewahrt.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also erstmal mag ich die Bezeichnung DLL-Hölle nicht und hier sollten das eigentlich alle besser wissen, dass das nix mit den DLLs ansich zu tun hat, sondern ein Problem von Windows ist.<br/>DLLs sind doch im Endeffekt nichts anderes als ELF-shared objects. Zumal DLLs vor Vista und vor mehr als 2GB RAM durchaus ihre Vorteile gegenüber ELF-shared objects unter x86 hatten.<br/><br/>Ich würde das ganz gerne so betrachten, aber wo kommen die Libs dann her, wenn nicht mit aus dem Paket von dem Programm? Und wie löst man Offline-Installationen?<br/><br/>Im Endeffekt ist es doch so, dass man unter Linux ein Programm, samt Libs, das nicht in einem Repository ist, per Hand installieren muss bzw. mit nem Skript und das ist dann auch nichts anderes als ein Setup.<br/><br/>Und nochmal, ein Repository ist aus mehreren Gründen nicht möglich.<br/><br/>Edit::<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Solange du selbst dran rumwerkelst und der fast einzige Nutzer bist, sind alle diese Konzepte eh hinfällig.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wenn es danach geht, brauche ich gar kein Management und auch keine Sicherheitsfeatures!</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32767">
+								« <em>Letzte Änderung: 14. July 2011, 22:54 von FlashBurn</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32776"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32776_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #12 am:</strong> 15. July 2011, 02:37 »</div>
+<div class="posttile"><h5 id="subject_32776">
+<a href="index.html#msg32776" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32776_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32776"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote">aber wenn ich einen Standarddialog designe und verwende, dann möchte ich da auch immer z.B. "Eigene Dokumente" auswählen können, wo auch immer dieses Verzeichnis liegt. Hauptsache es ist eins vorhanden das dafür bekannt ist, dass dort die Dokumente gespeichert werden sollen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wow, du legst die Designkriterien aber sehr hoch an. Das kannst du (a) sowieso nicht umsetzen und (b) nutzt deine Standarddialoge am Ende eh keiner, sondern die von GTK und Qt...<br/><br/>Löse dich von der Vorstellung, dem Programmierer seine Verhaltensweisen vorschreiben zu wollen. Es geht nicht: Entweder du hast am Ende ein geschlossenes System (Apple) oder jemand baut einfach Alternativen (Firefox für Windows).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">Ich will meine eigene Organisation und mir von niemandem reinreden lassen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dann ist aber Unix nicht das richtige für dich <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Denn da gibt es (wie auf jedem OS, gehe ich einfach mal von aus) immer bestimmte Sachen die an einen bestimmten Ort müssen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Mein Homelaufwerk ist mir, der Rest ist dem System seins. Ich kann logischerweise nur meine eigenen Dinge organisieren. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote">Also ein Programm besteht erstmal aus einem Paket (welches man sich z.B. runterladen könnte), welches wieder ein einfaches .tar.foo Archive ist. In diesem Archive ist das Programm, so wie es nachher auf die HDD soll und ein extra Ordner mit allen Libs die das Programm benötigt. Es wird nur der Ordner mit dem Programm samt der Daten auf die HDD kopiert, nicht die Libs! Die Libs werden nur kopiert so fern noch nicht vorhanden oder neuer als im System vorhanden.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist meiner Meinung nach schon ein großer Fehler: Zu jedem Programm gehört also eine Menge Datenmüll, der im Zweifelsfall noch nichtmal installiert wird. Damit blähst du die Pakete unglaublich auf, denn jedes Utility für eine KTaskleiste muss eine komplette Qt- und KDE-Laufzeitumgebung mitbringen, die du dann nicht installierst, weil schon vorhanden. Oder du installierst ein unglaublich neues Utility und das aktualisiert dir sämtliche Bestandteile deines Systems, was du u.U. nicht wünschst.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote">So hat halt nicht jedes Programm seine eigenen Libs, sondern die sind systemweit verfügbar. Der Grund ist einfach, das ich kein Repository habe, wo ich die Libs drin haben könnte (und zwecks Offline Installation, wie wird das eigentlich unter Linux gemacht?).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja klar und die Installation eines klitzekleinen Programms mit vielen Abhängigkeiten führt zu extrem großen Paketen und kann große Veränderungen im System bedeuten. Die Vorteile kannst du auch anders haben, ohne die Nachteile. Die Abneigung gegen ein Repository verstehe ich zwar nicht, aber das ist deine Entscheidung.<br/><br/>Unter Debian kannst du deb-Pakete auch per Hand installieren ("dpkg -i"), allerdings hast du dann keine automatische Abhängigkeitsauflösung. Es hindert dich allerdings auch niemand dran, alle benötigten Debs auf eine CD zu brennen (oder eine Diskette zu kopieren) und von dort dann die Abhängigkeiten automatisch zu installieren... du bist nicht ans Internet gebunden.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">Es mag Gründe für exakte Versionsstände geben. Als Beispiel führe ich mal Zertifizierungen oder digitale Signaturen an.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also läuft es ja doch darauf hinaus das ich alle Versionen einer Lib habe. Denn so wie du es jetzt beschreibst, kann es durchaus sein, das ich 13 Programme habe und jedes benötigt eine andere Version der libSDL.so.1.2. Genau das will ich aber vermeiden.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Die <em>Möglichkeit</em> ist gegeben. Es gibt nahezu keine Programme, die davon Gebrauch machen oder daran auch nur denken sollten. Du willst es im Übrigen nicht vermeiden, du willst es verbieten.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote">Gibt es dafür ein praktisches Bsp, wo sowas schonmal verwendet wurde/wird?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Updates auf Produktivsystemen mit Uptimegarantie einerseits (bzw. ich weiß von mehreren Fällen, dass jedes Programm seinen eigenen Satz OpenSSH-Bibliotheken bekommen hat), zum anderen hast du dann neben dem "allgemeinen" Versionsstand vielleicht noch einen zweiten Satz "zertifizierter" Bibliotheken für zertifizierte Anwendungen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">Also willst du auf jegliche Form von Abhängigkeitsmanagement verzichten und dafür jedem Paket erlauben, potentiell dein System zu zerschießen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also erstmal was hintert mich daran mir das System unter Linux zu zerschiessen, in dem ich eine solche Library per Hand installiere?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Es gibt einen Unterschied zwischen "die Installation von xyz hat mir das System zerstört" und "ich habe jetzt mit Gewalt gegen den Willen meiner Paketverwaltung diese Bibliothek installiert und jetzt geht mein System nicht mehr".<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote">Was verstehst du genau unter Abhängigkeitsmanagement?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Welche Bibliotheken werden in welchen Versionen (exakt-major, mindest-minorversion) von einem bestimmten Programm benötigt. Also das, was eine gute Paketverwaltung tut.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote">Das ist ein typisches Unix Konzept, noch dazu eins mit dem ich mich noch nie anfreunden konnte. Es gibt immer das eigentliche Programm, welches ein Kommandozeilentool ist und die grafische Oberfläche ist dann nochmal ein Programm, welches nur mit dem Kommandozeilentool kommuniziert.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das meinte ich gerade <em>nicht</em>, sondern das Beispiel REGEDIT (Windows) war absichtlich gewählt, um den fließenden Übergang darzustellen. Mit Frontends und Backends hat das nichts zu tun (im Gegensatz zu SCANDISK.EXE, welches unter DOS verwendet wurde und unter Windows SCANDSKW.EXE gestartet hat, war REGEDIT.EXE ein Windows-Programm, welches im DOS-Stub ein vollwertiges DOS-Programm war).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">Komische Vorstellungen hast du.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das kann man über alle Genies sagen  <img alt=":-D" class="smiley" src="../../../assets/forum/40e5b6b3635b5359f55907e5.gif" title="grin"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Kaputtheit als Genie zu bezeichnen ist aber doch ein bisschen anmaßend. <img alt=":-D" class="smiley" src="../../../assets/forum/40e5b6b3635b5359f55907e5.gif" title="grin"/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote">Also erstmal mag ich die Bezeichnung DLL-Hölle nicht und hier sollten das eigentlich alle besser wissen, dass das nix mit den DLLs ansich zu tun hat, sondern ein Problem von Windows ist.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Du weißt aber schon, dass DLLs ausschließlich unter Windows verwendet werden? Von daher passt der Begriff DLL-Hölle schon (eine Shared Object Hölle wäre mir jedenfalls neu).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote">Ich würde das ganz gerne so betrachten, aber wo kommen die Libs dann her, wenn nicht mit aus dem Paket von dem Programm? Und wie löst man Offline-Installationen?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wo kommt die WING.DLL denn her, wenn nicht von den Windows-Lemmingen? Na aus dem WinG-Paket natürlich. Wo kommt denn die MSVBVM60.DLL her, wenn nicht aus meiner Anwendung? Na aus dem VB6 Runtime Paket natürlich... auch Windows-Anwendungen haben Voraussetzungen und die musst du erfüllt haben. Inzwischen bringt Windows mehrere weitere komplette Runtimes mit (.net in verschiedenen, inkompatiblen Versionen) und ansonsten gibt es noch "Windows Update".<br/><br/>Die meisten Programme linken alle systemfremden Bibliotheken statisch ein und wenn das mal doch nicht so der Fall ist (mir fällt da WinUAE ein), dann werden die ganzen Bibliotheken (z.B. GLIB.DLL, GTK.DLL, ZLIB.DLL, ...) ins Anwendungsverzeichnis dazugelegt. Das willst du nicht.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote">Im Endeffekt ist es doch so, dass man unter Linux ein Programm, samt Libs, das nicht in einem Repository ist, per Hand installieren muss bzw. mit nem Skript und das ist dann auch nichts anderes als ein Setup.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist Quatsch. Mal abgesehen davon ist die eigentliche Software-Verteilung von Unix <em>nicht</em> das Binärformat, sondern Quelltext (gucke dir mal die FreeBSD Ports oder pkgsrc an, oder wenn es Linux sein muss, die Gentoo-Rezepte). Verteilung von Binärpaketen ist eine nette Geste der Distributionen.<br/><br/>Die paar Male, wo ich ein Binärpaket nicht aus dem Distributionsrepository installiert habe, war das entweder ein extern gepflegtes Repository (wie Debian-Multimedia) oder es war eine DEB, die ausschließlich von Paketen abhängt, die es im Repository gibt (wie OpenTTD).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote">Und nochmal, ein Repository ist aus mehreren Gründen nicht möglich.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Sag doch mal. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">Solange du selbst dran rumwerkelst und der fast einzige Nutzer bist, sind alle diese Konzepte eh hinfällig.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wenn es danach geht, brauche ich gar kein Management und auch keine Sicherheitsfeatures!</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Richtig.<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32776">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32777"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32777_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #13 am:</strong> 15. July 2011, 08:50 »</div>
+<div class="posttile"><h5 id="subject_32777">
+<a href="index.html#msg32777" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32777_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32777">Also ein Repository heißt für mich, ich müsste irgendwo im Internet eins haben und ich müsste es pflegen und das geht beides nicht.<br/>Ich kann mich nicht um alle Libs kümmern und genauso wenig kann ich nen Server im Internet unterhalten.<br/><br/>Du (svenska) hast mir jetzt auch nur ein Bsp (OpenTTD) genannt, was nicht im Repository war, aber die nötigen Libs schon. Ich will aber mal wissen was ist, wenn du davon ausgehst, das beides Programm und Libs nicht im Repository sind. Was ist dann?<br/><br/>Dann sagst du das die meisten Anwendungen eh in Sourceform verteilt werden bzw. dass das mit den binären Paketen ein nettes Angebot der Distributionen ist. Ich will das aber nicht vorraussetzen. Open-Source mag ja gut und schön sein, aber warum sollte ich mich Closed-Source verschließen bzw. es schwieriger machen sowas auf meinem System auszuführen?<br/><br/>Selbst wenn man dann alle Libs in einzelne Pakete packt, müsste der User sie zur Not alle runterladen. Dazu muss er wissen welche benötigt werden und ganz ehrlich, das ist für mich ein großer Rückschritt. Da finde ich dann die Windowsvariante mit den MSI´s besser.<br/><br/>Ich sehe da erstmal kein Problem, wenn grundsätzlich davon ausgegangen wird, dass die ganzen Libs nicht vorhanden sind.<br/><br/>Was dein Bsp. mit QT oder KDE betrifft, da handelt es sich dann um eine ganze Laufzeitumgebung, nicht um einzelne verschiedene Libs. Das ein Programm z.B. QT vorraussetzt und diese Laufzeitumgebung dann vorhanden sein muss ist für mich was anderes. Genauso wie Java und .net. Sowas kann wirklich extra zum Programm heruntergeladen werden bzw. muss es dann für bestimmte Sachen auch.<br/><br/>Wie gesagt Open-Source schön und gut, aber ich will mich auch nicht dem Verschließen, das es andere Quellen gibt, die nicht in ein Repository aufgenommen werden dürfen/können.<br/><br/>Und das wir uns nicht falsch verstehen, ich mag Repositories, sind verdammt bequem, aber funktionieren meiner Meinung nach nur unter Linux/Open-Source unter Windows wirst du sowas aus vielen Gründen nicht hinbekommen.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Die Möglichkeit ist gegeben. Es gibt nahezu keine Programme, die davon Gebrauch machen oder daran auch nur denken sollten. Du willst es im Übrigen nicht vermeiden, du willst es verbieten.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>So, es nutzt also keiner und ich soll es trotzdem zur Verfügung stellen? Wieso? Schonmal was von Altlasten gehört, die sollte man auch irgendwann über Bord werfen und genau das möchte ich an der Stelle tun <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32777">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32778"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_32778_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #14 am:</strong> 15. July 2011, 09:19 »</div>
+<div class="posttile"><h5 id="subject_32778">
+<a href="index.html#msg32778" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32778_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32778"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32767">Zitat von: FlashBurn am 14. July 2011, 22:52</a></div></div><blockquote class="bbc_standard_quote">Also ein Programm besteht erstmal aus einem Paket (welches man sich z.B. runterladen könnte), welches wieder ein einfaches .tar.foo Archive ist. In diesem Archive ist das Programm, so wie es nachher auf die HDD soll und ein extra Ordner mit allen Libs die das Programm benötigt. Es wird nur der Ordner mit dem Programm samt der Daten auf die HDD kopiert, nicht die Libs! Die Libs werden nur kopiert so fern noch nicht vorhanden oder neuer als im System vorhanden.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Was ist, wenn ein Programm Abhängigkeiten auf Sachen hat, die der Hersteller des Programms zum Beispiel lizenzrechtlich gar nicht mitliefern darf?<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">So hat halt nicht jedes Programm seine eigenen Libs, sondern die sind systemweit verfügbar. Der Grund ist einfach, das ich kein Repository habe, wo ich die Libs drin haben könnte (und zwecks Offline Installation, wie wird das eigentlich unter Linux gemacht?).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Du musst dich mal von der Vorstellung trennen, dass ein Repository irgendwas mit Internet zu tun hat. Das kann genauso gut auf der lokalen Platte oder auf einer CD liegen. Ich hab hier noch einen Satz mit 7 CDs für Debian Woody rumstehen - von damals, als es noch kein Internet gab. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/>Schwieriger wird es natürlich, wenn die Abhängigkeit auf etwas ist, was beim System nicht dabei ist und man deswegen nicht unbedingt erwarten kann, dass es jeder installiert hat. Einfach alles mitliefern geht vielleicht, wenn das Programm auf CD ausgeliefert wird und sowieso viel Platz frei ist. Dann kannst du wieder die CD als Repository einbinden. Für einen Download würde es mich ziemlich ankotzen, für ein kleines Tool mit 50 kB Python-Code jedesmal die komplette Python-Runtime mitrunterladen zu müssen, obwohl sie nicht installiert wird.<br/><br/>Man kann natürlich auch die Microsoft-Variante wählen: Der Benutzer hat die Abhängigkeiten bitteschön von Hand aufzulösen. Ich hatte im Studium mal sehr viel Spaß damit, auf einer relativ frischen Windows-Installation BizTalk zu installieren. Der Installer sagt dir immer genau eine Abhängigkeit, die du als nächstes installieren musst (sprich: in meinem Fall zur CD-Ausleihstelle rennen, weil das ja alles nicht frei runterzuladen ist) und erst wenn du die erfüllt hast, bekommst du die nächste präsentiert. Ein paar Abhängigkeiten gibt es natürlich auch im Internet runterzuladen, aber auch das geht nicht automatisch, sondern du musst die Abhängigkeit manuell erfüllen. Der Graus, aber sowas kommt halt raus, wenn man keine Paketverwaltung hat...</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32778">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32778_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32779"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32779_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #15 am:</strong> 15. July 2011, 10:44 »</div>
+<div class="posttile"><h5 id="subject_32779">
+<a href="index.html#msg32779" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32779_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32779">Hallo,<br/><br/><br/>Warum sollte man in ein Repository keine Closed-Source-Programme packen können? Wenn Hersteller XY ein eigenes Programm verticken will kann er das doch mit einem eigenen Repository anbieten und falls diese Programme Geld kosten kann man die Verbindung immer noch mit passender Kryptographie absichern damit nur Leute ran kommen die auch ordnungsgemäß bezahlt haben. Das hätte für den Kunden den Vorteil das er automagisch auch mit Bugfixes versorgt werden würde. Und bei zertifizierten Programmen kann der Hersteller eben auch die zertifizierten Versionen bestimmter Libraries mit ins Repository packen oder er verlässt sich darauf das die über das zum OS gehörende Main-Repository (oder über das Repository vom Library-Hersteller falls das was spezielles ist) verfügbar sind. All das, bis auf die automatischen Bugfixes, funktioniert auch genauso gut wenn das Repository nicht im Internet sondern auf CD/DVD/USB-Stick/sonstwas geliefert wird. Der entscheidende Punkt ist das auf dem System des Endanwenders eine vernünftige Paketverwaltung alle Fäden in der Hand hält und dafür sorgt das alle Abhängigkeiten korrekt bedient werden und es keine vagabundierenden Executables/Libraries auf dem System gibt (von selbstkompilierten Dingen mal abgesehen). Ein weiterer Vorteil ist das nur diese Paketverwaltung Executables/Librarys (außerhalb des User-Directory) installieren/ändern/entfernen kann und damit alle Programme gegen Viren usw. vorerst immun sind (klar es gibt dann noch Makro-Viren u.ä. aber die Executables/Libraries bleiben sauber und Viren können nur im User-Verzeichnis existieren).<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32779">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32779_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32780"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32780_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #16 am:</strong> 15. July 2011, 12:18 »</div>
+<div class="posttile"><h5 id="subject_32780">
+<a href="index.html#msg32780" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32780_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32780"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32777">Zitat von: FlashBurn am 15. July 2011, 08:50</a></div></div><blockquote class="bbc_standard_quote">Also ein Repository heißt für mich, ich müsste irgendwo im Internet eins haben und ich müsste es pflegen und das geht beides nicht.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Repository hat nichts mit Internet zu tun, das darf genauso auch ein lokaler Ordner mit deinen tar.foo-Paketen sein.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32777">Zitat von: FlashBurn am 15. July 2011, 08:50</a></div></div><blockquote class="bbc_standard_quote">Du (svenska) hast mir jetzt auch nur ein Bsp (OpenTTD) genannt, was nicht im Repository war, aber die nötigen Libs schon. Ich will aber mal wissen was ist, wenn du davon ausgehst, das beides Programm und Libs nicht im Repository sind. Was ist dann?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dann handelt es sich in der Regel um äußerst spezielle Libs, die dann ebenfalls zum Programm gehören und entweder nur von diesem Programm verwendet werden (dann wären die im gleichen Paket wie das Programm) oder vielleicht "noch" nicht offiziell im Repo drin sind, dann wäre das ein zweites Paket, zu erhalten an gleicher Stelle. Da mache ich mir keine Sorgen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32777">Zitat von: FlashBurn am 15. July 2011, 08:50</a></div></div><blockquote class="bbc_standard_quote">Dann sagst du das die meisten Anwendungen eh in Sourceform verteilt werden bzw. dass das mit den binären Paketen ein nettes Angebot der Distributionen ist. Ich will das aber nicht vorraussetzen. Open-Source mag ja gut und schön sein, aber warum sollte ich mich Closed-Source verschließen bzw. es schwieriger machen sowas auf meinem System auszuführen?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Sollst du doch garnicht. Closed-Source-Software stellt aber in den seltensten Fällen Libs bereit, die man systemweit für andere Programme nutzbar installieren möchte... da stellt sich das Problem nicht (Closed-Source-Software linkt sowas in der Regel statisch ein).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32777">Zitat von: FlashBurn am 15. July 2011, 08:50</a></div></div><blockquote class="bbc_standard_quote">Ich sehe da erstmal kein Problem, wenn grundsätzlich davon ausgegangen wird, dass die ganzen Libs nicht vorhanden sind.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nach einer Neuinstallation nicht, normalerweise wird aber die Mehrheit der Libs schon vorhanden sein. Zumindest ist das meine Erfahrung, wenn ich bei mir mal Software nachinstalliere...<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32777">Zitat von: FlashBurn am 15. July 2011, 08:50</a></div></div><blockquote class="bbc_standard_quote">Was dein Bsp. mit QT oder KDE betrifft, da handelt es sich dann um eine ganze Laufzeitumgebung, nicht um einzelne verschiedene Libs.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Was ist der Unterschied zwischen einer Laufzeitumgebung und einer (recht langen) Liste von (bestimmten) Bibliotheken? Da gibt es keinen. Willkürlich einen zu setzen bringts aber auch nicht. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/><br/><br/>Außerdem heißt "Qt" ja nicht, dass alle Libs davon vorhanden sind, viele Programme sind auch mit einer Teilmenge zufrieden. Wie das mit .net funktioniert, weiß ich nicht - bei Java gehören noch ein paar Hilfsprogramme ins Paket.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32777">Zitat von: FlashBurn am 15. July 2011, 08:50</a></div></div><blockquote class="bbc_standard_quote">Wie gesagt Open-Source schön und gut, aber ich will mich auch nicht dem Verschließen, das es andere Quellen gibt, die nicht in ein Repository aufgenommen werden dürfen/können.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Was hindert einen Hersteller von Closed-Source-Software, sein eigenes - vom OS-Hersteller getrenntes - Repository aufzumachen? (Repository im Sinne von "hier die tar.foo zum Download".)<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32777">Zitat von: FlashBurn am 15. July 2011, 08:50</a></div></div><blockquote class="bbc_standard_quote">Und das wir uns nicht falsch verstehen, ich mag Repositories, sind verdammt bequem, aber funktionieren meiner Meinung nach nur unter Linux/Open-Source unter Windows wirst du sowas aus vielen Gründen nicht hinbekommen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wenn du Windows nachprogrammieren möchtest, ... Ich habe mich jetzt schon länger mit Linux befasst und finde die Konzepte dahinter oft wesentlich angenehmer als die von Windows. Sicher, es gibt Ausnahmen, aber viele Dinge sind einfach bequemer und schlüssiger. Wenn du jetzt die Windows-Konzepte übernehmen möchtest (weil du nichts anderes kennst), dann betrachte ich das als Rückschritt - daher meine Ablehnung.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32777">Zitat von: FlashBurn am 15. July 2011, 08:50</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_alternate_quote">Die Möglichkeit ist gegeben. Es gibt nahezu keine Programme, die davon Gebrauch machen oder daran auch nur denken sollten. Du willst es im Übrigen nicht vermeiden, du willst es verbieten.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>So, es nutzt also keiner und ich soll es trotzdem zur Verfügung stellen? Wieso? Schonmal was von Altlasten gehört, die sollte man auch irgendwann über Bord werfen und genau das möchte ich an der Stelle tun <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Flexibilität als Altlast zu bezeichnen finde ich vermessen.<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32780">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32781"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Sannaj</a>
+</h4>
+<ul class="reset smalltext" id="msg_32781_extra_info">
+<li class="postcount">Beiträge: 103</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #17 am:</strong> 15. July 2011, 15:40 »</div>
+<div class="posttile"><h5 id="subject_32781">
+<a href="index.html#msg32781" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32781_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32781">Ich prsönich finde, das auch das aktuelle Linuxsystem (dpkg/apt-basierende Ditros) gut, allerdings bemängle ich:<br/>1. Es gibt keine Möglichkeit Programme außerhalb von Respos vernünftig dem apt-system zuzufügen.<br/>2. dpkg verteilt die Packete munter über die Programmordner<br/>3. Programme speichern ihre Benutzerdaten direkt in das ~ - Verzeichniss, was dazu führt, das dieser in Speicherdialogen (die versteckte Daten anzeigen) überquillt.<br/><br/>Also ich präfferiere folgendes System:<br/><br/>Das Grunddatensysstem entspricht dem von FHS, mit folgenden Erweiterungen. Inerhalb jedes Benutzerordners gibt es das Unterverzeichnis, ~/appdata welches die Programmdaten enthält. Auch gibt es einen Ordner /dae, welcher alle Server und Daemonen enthält, die notwendig sind, ein mikrokernelbasierendes System in Stand zu halten. Statt es /usr - Verzeichniss gibt es das neue /ear (Extended Application Reecurces) Verzeichniss ersetzt. Diese enthält die Ordner:<br/>/ear/run/bin - Enthält kleine ein-Datei-Programme die nicht in /bin oder /sbin passen<br/>/ear/run - Executionsdescriptor (Datei, die ihren Aufruf an das eigentliche Programm weiterleitet.)<br/>/ear/proc - Enthält die Programmdaten (Fungiert so ähnlich wie eigene Dateien unter Win)<br/>/ear/games - Optional, selbe wie /ear/proc, aber für Spiele.<br/>/ear/lib - Programmunabhängige Bibliotheken, die nicht in /lib oder /ear/proc passen<br/>/ear/inc - Programmheader zu den Bibliotheken. (in Unterordnern nach Programmiersprache.)<br/>/ear/local - Programme die ohne Hilfe der Packetverwaltung installiert worden sind.<br/>/ear/local/old<br/>/ear/etc - Sonstiges<br/><br/>/ear/proc und /ear/lib bestehen hierbei aus Unterordnern. Diese folgen dem Schema &lt;name&gt;-&lt;version&gt;. Innerhalb dieser Ordner ist eine Struktur vorgegeben (alle Ordern optional):<br/>./bin - Selbst ausführbare Dateien. (Also nicht bei Bibliotheken)<br/>./share - Lizenztexte und co. (Geläufige Lizenzen können auch als Symlink auf /ear/etc/licences/&lt;name&gt; eingebunden sein.)<br/>./src - Quellcode<br/>Es dürfen auch noch weitere Dateien und Unterordner vorhanden sein.<br/><br/>Wie genau die Executionsdescriptoren in /ear/run umgesetzt werden, ist noch nicht genau festgelegt. Möglich wären Symlinks, Shellscripts (im schlimmsten Fall) oder auch Logdateien, wobei man hierfür Systemunterstürzung bräuchte.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32781">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32782"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32782_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #18 am:</strong> 15. July 2011, 18:05 »</div>
+<div class="posttile"><h5 id="subject_32782">
+<a href="index.html#msg32782" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32782_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32782"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32781">Zitat von: Sannaj am 15. July 2011, 15:40</a></div></div><blockquote class="bbc_standard_quote">1. Es gibt keine Möglichkeit Programme außerhalb von Respos vernünftig dem apt-system zuzufügen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Doch, und zwar der gesamte Baum unterhalb von /usr/local (der unterliegt nicht der Paketverwaltung). Beispielsweise liegt /usr/local/bin in $PATH und /usr/local/lib wird ebenfalls beachtet.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32781">Zitat von: Sannaj am 15. July 2011, 15:40</a></div></div><blockquote class="bbc_standard_quote">2. dpkg verteilt die Packete munter über die Programmordner</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Lässt sich leicht sagen, wenn es keinen Programmordner gibt. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/> Der FHS verteilt Programme inhaltlich (Konfigurationen nach /etc, Binaries nach /usr/bin, Manpages nach /usr/share/man, ...) und nicht nach Programmen sortiert.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32781">Zitat von: Sannaj am 15. July 2011, 15:40</a></div></div><blockquote class="bbc_standard_quote">3. Programme speichern ihre Benutzerdaten direkt in das ~ - Verzeichniss, was dazu führt, das dieser in Speicherdialogen (die versteckte Daten anzeigen) überquillt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Richtig, allerdings wird mit ~/.local und ~/.config versucht, da wieder ein bisschen Übersicht reinzubringen.<br/><br/>Ansonsten habe ich an deinem System zu bemängeln, dass die Suche nach z.B. einer Lib dazu führt, dass sämtliche Verzeichnisse unterhalb von /ear/lib/* vom Loader durchsucht werden müssen und dass es prinzipiell mehrere gleichnahmige Dateien geben kann.<br/><br/>Wenn du /ear/proc/ als "eigene Dateien" betrachtest, verkennst du, dass dieser Ordner irgendwo unter /home liegen sollte - weil er nutzerspezifisch ist.<br/><br/>Eine Mischung ist meiner Meinung nach nicht sinnvoll. Dann kann man lieber /app/programmname/* haben und jedes Programm darf seinen Programmeordner frei gestalten (und sonst nur nach /home/$USER/AppData/programmname schreiben).<br/><br/>Mehr denke ich darüber jetzt aber auch nicht nach. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/><br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32782">
+								« <em>Letzte Änderung: 15. July 2011, 18:07 von Svenska</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32783"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Sannaj</a>
+</h4>
+<ul class="reset smalltext" id="msg_32783_extra_info">
+<li class="postcount">Beiträge: 103</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #19 am:</strong> 15. July 2011, 20:23 »</div>
+<div class="posttile"><h5 id="subject_32783">
+<a href="index.html#msg32783" rel="nofollow">Re:Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</a>
+</h5></div>
+<div id="msg_32783_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32783"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32782">Zitat von: Svenska am 15. July 2011, 18:05</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32781">Zitat von: Sannaj am 15. July 2011, 15:40</a></div></div><blockquote class="bbc_alternate_quote">1. Es gibt keine Möglichkeit Programme außerhalb von Respos vernünftig dem apt-system zuzufügen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Doch, und zwar der gesamte Baum unterhalb von /usr/local (der unterliegt nicht der Paketverwaltung). Beispielsweise liegt /usr/local/bin in $PATH und /usr/local/lib wird ebenfalls beachtet.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/>Ich hab nicht behauptet, das man nicht auch Programme selber installieren kann. Dazu ist /usr/local und /opt ja da. Was ich kritisiert habe, das man das an apt vorbeimachen muss. (Ich stell mir ne Methode vor, bei der man eine Metadatei an apt übergibt, das dann unter zuhilfenahme der in der Respo und der in der Metadatei enthaltenen Pakete das Programm samt allen Abhängigkeiten installiert.)<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32782">Zitat von: Svenska am 15. July 2011, 18:05</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32781">Zitat von: Sannaj am 15. July 2011, 15:40</a></div></div><blockquote class="bbc_alternate_quote">3. Programme speichern ihre Benutzerdaten direkt in das ~ - Verzeichniss, was dazu führt, das dieser in Speicherdialogen (die versteckte Daten anzeigen) überquillt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Richtig, allerdings wird mit ~/.local und ~/.config versucht, da wieder ein bisschen Übersicht reinzubringen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/>Schön wär's. Leider liegt bei mir  immer noch von scheinbar jedem Programm ein Unterordner direkt im Homeverzeichniss.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32782">Zitat von: Svenska am 15. July 2011, 18:05</a></div></div><blockquote class="bbc_standard_quote">Ansonsten habe ich an deinem System zu bemängeln, dass die Suche nach z.B. einer Lib dazu führt, dass sämtliche Verzeichnisse unterhalb von /ear/lib/* vom Loader durchsucht werden müssen und dass es prinzipiell mehrere gleichnahmige Dateien geben kann.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/>Wieso ich hab doch deshalb extra diese &lt;name&gt;-&lt;version&gt; Form eingeführt. Der Libname sollte halt in den Include-Header Dateinen gescheit vermerkt werden.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32782">Zitat von: Svenska am 15. July 2011, 18:05</a></div></div><blockquote class="bbc_standard_quote">Wenn du /ear/proc/ als "eigene Dateien" betrachtest, verkennst du, dass dieser Ordner irgendwo unter /home liegen sollte - weil er nutzerspezifisch ist.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/>Da hab ich mich vertippt. Ich meinte C:/Programme nicht ./Eigene Dateien.<br/><br/>Alles in Allem Danke ich dir aber für deine konstruktive Kritik. Ich versuche halt nur, das Ein-Programm = Ein-Ordner-System (welches ich persönlich bevorzuge) mit den Ansprüchen, die bei Linux vorherrschen (Gemeinsame Bibliotheken, Einfache Nutzung über's Shell, etc.) zu verbinden.<br/><br/>Deine letzte Bemerkung halte ich für nützlich. Vielleicht ist es besser /usr doch nicht abzuschaffen und dafür die zusätzlichen Ordner /app mit den Unterverzeichnissen. /app/proc für proc für Programme und /app/run für die Executivdeskriptoren einzuführen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32783">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] <a class="navPages" href="offset-20.html">2</a>
+</div></div>
+<div class="nextlinks_bottom"><a href="../2801/offset-20.html#msg32956">« vorheriges</a> <a href="../2755/index.html#msg32807">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Sicherheitskonzept VFS/Aufbau Wurzelverzeichnis "/"</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.075 Sekunden mit 773 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

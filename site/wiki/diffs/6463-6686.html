@@ -1,0 +1,96 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>C++-Kernel mit GRUB — Änderungen 6463 → 6686</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>C++-Kernel mit GRUB — Änderungen 6463 → 6686</h1><nav><a href="../revisions/6463/index.html">Version 6463</a> · <a href="../revisions/6686/index.html">Version 6686</a> · <a href="../history/2124/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l12" >Zeile 12:</td>
+<td colspan="2" class="diff-lineno">Zeile 12:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>void main() {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>void main() {</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; // Textausgabe</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; // Textausgabe</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; screen &lt;&lt; &quot;Willkommen im C++-TestKernel!&quot;;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; screen <ins class="diffchange diffchange-inline">&lt;&lt; color::blue </ins>&lt;&lt; &quot;Willkommen im C++-TestKernel!&quot;;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/cpp&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/cpp&gt;</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l23" >Zeile 23:</td>
+<td colspan="2" class="diff-lineno">Zeile 23:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#ifndef VIDEO_H</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#ifndef VIDEO_H</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#define VIDEO_H</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#define VIDEO_H</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">namespace color</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">{</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; enum type</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; {</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; /* siehe [[Textausgabe]] */</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; black&#160; &#160; &#160; &#160;  = 0x00,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; blue&#160; &#160; &#160; &#160; &#160; = 0x01,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; green&#160; &#160; &#160; &#160;  = 0x02,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; cyan&#160; &#160; &#160; &#160; &#160; = 0x03,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; red&#160; &#160; &#160; &#160; &#160;  = 0x04,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; magenta&#160; &#160; &#160;  = 0x05,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; brown&#160; &#160; &#160; &#160;  = 0x06,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; light_gray&#160; &#160; = 0x07,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; dark_gray&#160; &#160;  = 0x08,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; light_blue&#160; &#160; = 0x09,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; light_green&#160;  = 0x0A,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; light_cyan&#160; &#160; = 0x0B,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; light_red&#160; &#160;  = 0x0C,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; light_magenta = 0x0D,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; yellow&#160; &#160; &#160; &#160; = 0x0E,</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; white&#160; &#160; &#160; &#160;  = 0x0F</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; };</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">}</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>class Video</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>class Video</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l38" >Zeile 38:</td>
+<td colspan="2" class="diff-lineno">Zeile 62:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; // Textausgabe</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; // Textausgabe</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; Video&amp; operator &lt;&lt; (const char* s);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; Video&amp; operator &lt;&lt; (const char* s);</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; // Vordergrund</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; Video&amp; operator &lt;&lt; (color::type color);</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; // Ausgabe eines einzelnen Zeichens</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; // Ausgabe eines einzelnen Zeichens</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; void put(char c);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; void put(char c);</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">&#160; &#160; // Setzen der FG/BG-Farben</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">&#160; &#160; void color(int color);</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; private:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; private:</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l74" >Zeile 74:</td>
+<td colspan="2" class="diff-lineno">Zeile 98:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Video screen;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Video screen;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Video::Video()<del class="diffchange diffchange-inline">{</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Video::Video()</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">&#160; // Setzen der Farbe auf Schwarz auf Hellgrau</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; <ins class="diffchange diffchange-inline">: </ins>pos<ins class="diffchange diffchange-inline">(</ins>0<ins class="diffchange diffchange-inline">), </ins>off<ins class="diffchange diffchange-inline">(</ins>0<ins class="diffchange diffchange-inline">), screen_color(0), </ins>videomem<ins class="diffchange diffchange-inline">(</ins>(unsigned short*) 0xb8000<ins class="diffchange diffchange-inline">)</ins></div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">&#160; screen_color = 0x7000;</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">{</ins></div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; *this &lt;&lt; color::light_gray</ins>;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">&#160; // Setzen der Textausgabe auf links oben.</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; pos <del class="diffchange diffchange-inline">= </del>0<del class="diffchange diffchange-inline">;</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">&#160; </del>off <del class="diffchange diffchange-inline">= </del>0<del class="diffchange diffchange-inline">;</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">&#160; // Startadresse des Videospeichers</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">&#160; </del>videomem <del class="diffchange diffchange-inline">= </del>(unsigned short*) 0xb8000;</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; //Bildschirm leeren</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; //Bildschirm leeren</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l107" >Zeile 107:</td>
+<td colspan="2" class="diff-lineno">Zeile 125:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; put(*s++);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; put(*s++);</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; return *this;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Video&amp; Video::operator &lt;&lt; (color::type color){</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; screen_color = (color &lt;&lt; 12) | (screen_color &amp; 0x0F00);</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; return *this;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; return *this;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l125" >Zeile 125:</td>
+<td colspan="2" class="diff-lineno">Zeile 148:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; videomem[off + pos] = (unsigned char)c | screen_color;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; videomem[off + pos] = (unsigned char)c | screen_color;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; pos++;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; pos++;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">}</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange"></del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">void Video::color(int color){</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">&#160; screen_color = color;</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/cpp&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/cpp&gt;</div></td></tr>
+</table></body></html>

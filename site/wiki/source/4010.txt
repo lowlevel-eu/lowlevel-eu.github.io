@@ -1,0 +1,77 @@
+Dieses Tutorial ist dafür da, die Grundlagen von Assembler beizubringen. Anders als circa 99,9 Periode aller Assemblertutorial werde ich
+grundsätzlich auf die nicht so bekannte AT&T Syntax setzen.
+== Algemeines zu Assembler ==
+=== Wieso es Assembler gibt ===
+Um das zu Erfahren, wieso es Assembler gibt, muss man sich die Geschichte der Informatik ansehen.
+Im '''16'''. Jahrhundert(Ja, im 16.) wurden Rechenmaschinen entwickelt, die leider nicht so schnell waren. Nachdem den zweiten Weltkrieg gab es dann langsam eine nächste Generationen von Rechenmaschinen, die universiell einsetzbar waren, die Computer. (Ein Magazin über Elektronik sagte 1946 mal, dass Computer der Zukunft 1,5 Tonnen wiegen werden. Heute witzeln wir darüber, aber es ist wahr geworden.) Erstmal rechneten diese
+Computer in Dezimalstellung(Einfach ausgedrückt sind das unsere Zahlen) Aber mit diesem zu Rechnen war lllllaaaaannnnnnnggggggggssssssssssaaaammmmm. Ab den Zuse Z3 gab es den ersten binären Computer. Binär ist eine Zahl, die mit Nullen und Einsen geschrieben wird. Jetzt kommen wir langsam zur eigentlichen Fragestellung? 00110101 konnte sich niemand merken, welcher Befehl dies war, oder würdest auswendig lerne, was 10011011 bedeutet. Das gab es schlaue Menschen, die diese Zahlenkolonnon durch Befehle, genannt Mmenokias, ersetzen.
+
+=== Binär, Dezimal und das berüchtigte Hexadezimal ===
+==== Dezimal ====
+Dazu gibt es nicht viel zu sagen. Dezimal ist unser Zahlensystem, z.B. 23, 655555, 4594, 10.
+(Übrigens kommt dieses System aus Indien und wurde über Arabien zu uns gebracht.)
+==== Binär ====
+Binär rechnet jeder PC intern. Binär besteht nur aus den Ziffern 0 und 1, was wiederum für den PC einfach ist, 0 steht für Aus und 1 steht für
+An. Dies lernt ja man überall, aber für die Menschen, die Mathe zum Schlafen benutzen, ist das hier gedacht.
+<br>
+Eine Zahl als Dezimal zu erfassen geht in Sekundenschnelle, aber beim binären muss man(ich) sehr lange rechnen. Hier kommt die Rechnung:
+10 = 1010b. 
+Die letzte Ziffer rechts steht für eins. Ist sie Eins, hat die Zahl ein Wert von Eins(Doof ausgedrückt, aber egal). Die zweite Ziffer von links
+steht für zwei. Die dritte Ziffer für Vier und die vierte Ziffer für Acht. So jetzt berechnen wir die Zahl 10 binärisch:
+
+ 1 * 8 (1 = Die vierte Ziffer ist an, 8 bedeutet die vierte Ziffer) + 0 * 4 (3. Ziffer aus, bedeutet 4)<br>
+ + 1 * 2(2.Ziffer 1, bedeutet 2) + 1 * 0(1.Ziifer 0, bedeutet 1)
+
+Ich hoffe, ihr habt es kapiert, sonst sieht in Wikipedia an.
+
+In Assembler wird am einer binären Zahl immer noch ein b angehängt, Computer (und Menschen) wissen sonst, ob die Zahl dezimal oder binär ist.
+Ein wichtiger Artikel ist "Bitweiße Operation", man findet den Link in der Siehe auch - Sektion.
+==== Hexadezimal ====
+Hexadezimal ist ein sehr wichtiges Stellenwertsystem in der Informatik, vielleicht das Wichtigste überhaupt. Man benutzt dieses System oft, da ein Char ein Wert bis maximal 256 haben kann, was in Hexadezimal ausgedrückt 0xFF ist. Wie man sieht, beginnen Hexadezimalezahlen mit 0x.
+(Ungebräuchlich ist ein h am Ende) Neben den bekannten Zahlen(1, 2, 3, 4, 5, 6, 7, 8, 9, 0) besteht das hex. Stellenwertsystem noch aus den Ziffern A(Wert = 10), B (=11), C(=12), D(=13), E(=14), F(=15).
+
+Bei Wikipedia ist ein gutes Umrechnungsmöglichkeit. Wenn wir ausgehen, dass x die dezimale Zahl ist. Wir teilen x durch 16, den Rest nehmen als Hexadezimale Ziffer(z.B. Rest = 13 = 0xD) Diese Ziffer ist rechte Ziffer. Das Ergebnis dieser Division teilen wir wieder durch 16 und machen mit den Rest das gleiche, sie ist die nächstlinke Ziffer. Dies geht soweit, bist das Ergebnis 0 ist, dann wird der Rest nochmal benutzt.
+
+Ein Beispiel:
+ 1278 : 16 = 79 Rest: 14 (= E) (Nr:1278-(79*16)=14)
+  79 : 16 =  4 Rest: 15 (= F) (Nr:79-(4*16)=15)
+   4 : 16 =  0 Rest:  4       (Nr:4-(0*16)=4)
+Das Ergenis ist 0x4FE.
+
+Bei nicht Verstanden verweise ich auf den Wikipediaartikel.
+==== Andere Zahlensysteme ====
+Es gibt noch andere Zahlensysteme, das oktale kann man als Beispiel nennen. Es hatte früher eine größere Bedeutung als heute, ich nenne es hier
+nur nebenbei. Additionssysteme(z.B. das römische Zahlensystem) haben keine Bedeutung in der Informatik, ich erwähns mal kurz :-P.
+=== Wieso hier Assembler gebraucht wird ===
+Assembler braucht man für lowlevel-Programmierung. Bootloader, IDT und GDT sind nur einige Beispiele. Das heißt aber nicht, man muss überall
+Assembler einsetzen. Meiner Meinung sollte man Assembler möglichst wenig benutzen, denn das erhöht die Portablität.(Trotzdem sind Assemblerprogramme/betriebsysteme sehr schnell) Aus diesem Grund wird dieses Tutorial die AT&T-Syntax benutzen, welches beim gcc zu Trage kommt.
+Damit empfehle ich eine Linux-Installation(bzw. ein Unix, zur Not geht auch Knoppix), die gcc dabei hat.
+=== Register ===
+Ein Prozessor hat verschiedene Möglichkeiten, Daten (temporal) zu speichern. Als erstes kommen die Register, dann die Prozessorcaches,
+dann der Arbeitspeicher und zuletzt die Festplatte(Die Festplatte speichert ohne Strom Daten). In Register sind die Daten sofort verfügbar,
+sind aber sehr klein.(32-Bit/64-Bit was eigentlich 0xFFFFFFFF/0xFFFFFFFFFFFFFFFF(=4294967295/> 4503599627370495) ist). Zumindest kommen dann die Caches, sind etwas langsamer, aber noch sehr schnell ist, im Vergleich zur Festplatte. Da die Festplatte(Eigentlich alle Speichermedien) sehr langsam sind, hat man den Arbeitsspeicher eingeführt. Ihr sollt jetzt nicht denken, dass der Arbeitsspeicher sehr langsam ist und die Festplatte euch immerwieder die Chance gibt, ein Kaffee zu kochen. Also, die sind sehr schnell, früher waren eigentlich die Verbindungsstellen(Bus) der Flaschenhals. Heute nicht mehr.
+
+Zurück zum eigentlichen Thema: Register sind sehr wichtig, wenn man in Assembler programmieren will. Z.B. sind hier die Werte, nachdem man den
+CPUID(sprich CPU ID)-Befehl ausgeführt hat.
+
+Die x86 hat 23 dokumentierte Register, am häufigsten werden die Mehrzweckregister benutzt, weil (wer hätte es gedacht) am vielseitigsten einsetzbar sind. Ich hab hier dokumentiert hinzugefügt, weil es undokumentierte gibt. Ein Beispiel sind die neuen Prozessoren von Intel.
+Diese sollen kein A20-Gate mehr unterstüzten(Ja, ich setze mal euch auf den neusten Stand), ältere Intelprozessoren hatten mit ihm immer wieder Probleme. Nunja, das Problem schien aus der Welt geschaft... Gäbe es nicht undokumentierte Register. In einen davon lässt sich wieder den A20-Gate einschalten.
+
+Meistens haben die Mehrzweckregister eine bestimme Aufgabe(Jedoch heißt das nicht, das sie nicht zweckentfremdet werden dürfen):
+* EAX ist das Register für Rückgabewerte von C und für die Arimethik zuständig
+* EBX ist ein Register für indirekte Speicheroperationen
+* ECX wird meistens als Zähler verwendet
+* EDX ist unterstüzender Register für EAX bei zu großen Werten
+=== Verschiedene Syntaxe ===
+Am Anfang habe ich erwähnt, ich werde nur die AT&T-Syntax verwenden. Logischerweiße gibt es andere Syntaxe.(Grund im nächsten Abschnitt) Eine vielbekanntere Syntax ist die Intelsyntax. So gut wie jedes Assemblertutorial(Ausser dieses;-P) setzt auf diese Syntax.
+=== Vorteile/Nachteile von reinen Assemblenbetriebsystem ===
+Obwohl ich zu den Typen gehöre, die Assembler möglichst wenig benutzen werden, schreibe ich die Vorteile/Nachteile hin.
+==== Vorteile ====
+* Geschwindichkeit. Theoretisch. Mit Assemblererfahrung von mehreren Jahren. Hat man aber nicht. Trotzdem möglich
+==== Nachteile ====
+* Kaum portabel. Da bestimmt jeder in dieser Community(umbewusst) will, dass sein Betriebsystem von möglichst viel benutzt wird, ist ein reinrassiges Assemblerbetriebsystem kaum diesem Schritt nicht förderlich. Ich sollte jedoch auch erwähnen, dass in den Anfangstagen des ursprünglichen Magazin(Ja, richtig Lowlevel war ein Magazin) Assembler genutzt wurde. Aus diesem Grund gibt es sehr viele verschiedene Syntaxe, besser gesagt für jede Prozessorplattform hat eine eigene.(Z.B. Intel kompatible Prozessoren, PowerPC, SPARC und das sind die berühmtesten und aktuellsten)
+
+== Siehe auch ==
+[[Bitweise Operatoren]]
+== Weblinks ==
+[http://de.wikipedia.org/wiki/Computer Für alle Computerhistoriker]

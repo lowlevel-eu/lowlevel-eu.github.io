@@ -1,0 +1,116 @@
+{{Infobox Software
+| Name = GRand Unified Bootloader 2
+| Entwickler = -
+| Version = 1.98
+| Lizenz = GNU GPL Version 3
+| Plattform = Unix
+| Homepage = [http://www.gnu.org/software/grub/grub.html http://www.gnu.org/software/grub/grub.html]
+}}
+
+Der '''GR'''and '''U'''nified '''B'''ootloader2 ('''GRUB2''') ist ein kompletter rewrite von GRUB legacy und ist wie sein vorgänger ein [[Multiboot]]-konformer [[Bootloader]].
+
+
+=== Funktionen ===
+* Liest [[ext2]], [[ext3]], UFS, UFS2, ReiserFS, [[FAT]], NTFS, [[ISO9660]], JFS, Minix, FFS, XFS, ext4 
+* Auswahlmenü um verschiedene Betriebssysteme zu laden.
+* Bootet von Disketten, Festplatten, CDs, DVDs und Flashdisks.
+* Beinhaltet eine Shell
+* Kann mit einem Passwort gesichert werden
+* Kann von einem TFTP-Server booten
+* Scripting-Support mit Lua
+* Grafische Benutzerschittstelle (nicht mit einer klassischen GUI bzw. einem Desktop zu verwechseln!)
+* Dynamisches Laden von Module auch während der Laufzeit
+* Unterstützung neuer Architekturen
+* Internationalisierung
+* Modulares und objektorientiertes Framework für Dateisysteme etc.
+* Cross-Plattform-Installation
+
+== CD-Image erstellen ==
+
+=== Linux ===
+
+wenn du GRUB2 installiert hast, dann must du nur folgendes auf der komandozeile eingeben:
+<code>
+grub-mkrescue --output=GRUB2.iso /boot/grub
+</code>
+Danach sollte in dem Ordner, von dem du aus diesen Befehl ausgeführt hat eine GRUB2.iso liegen. Diese must du nur noch mit deinem Kernel, modulen und der GRUB.cfg(die neue konfigurationsdatei änlich der grub.lst)
+
+=== Windows ===
+
+Unter Windows gibt es noch keine möglichkeit ein CD-Image von GRUB2 zu erstellen. am besten nimmst du ein fertiges.
+Dafür ist das ändern sehr leicht. Lade dir [http://www.chip.de/downloads/UltraISO_14293961.html UltraISO] herunter(ist Shareware und bis 300MB begrenzt aber das dauert wohl ne Zeit bis euer OS so groß ist)Wenn UltraISO heruntergeladen und installiert ist solltest du die in einem Ordner alle nötigen Dateien sammeln. Das GRUB2.iso image, die grub.cfg und deinen kernel bzw. zusätzliche module.
+Das sollte dann so ausehen:
+[[Datei:GRUB2-1.PNG]]
+
+Die grub.cfg sollte folgenden inhalt haben:
+<code>
+set timeout=15
+set default=0
+ 
+menuentry "_OS_"
+{
+   multiboot /boot/kernel.elf   
+   boot                         
+}
+</code>
+Wenn das der Fall ist. dann starte UltraISO und klicke auf den button :Weiterhin testen...
+Klicke oben link auf Datei->Öffnen
+navigiere in deinen Ordner wo die GRUB2.iso liegt und öffne diese dann.
+Dann sollte dein Fenster so ausehen:
+Navigire unten links in der Verzeichnissstruktur zu deinem Ordner mit der grub.cfg und deiner Kernel.elf. rechts unten sollte dannn der Inhalt angezeigt werden.
+
+[[Datei:GRUB2-2.PNG]]
+
+Kernel ins Image bringen:
+klicke oben links auf den ordner boot und klicke unten rechts auf die Kernel.elf. Klicke auf den makierten Button.
+
+[[Datei:GRUB2-3.PNG]]
+
+grub.cfg ins Image bringen:
+klicke oben links auf das Plus neben dem Rrdner boot und klicke auf den Ordner Grub. Klicke unten rechts auf die grub.cfg. Klicke auf den makierten Button.
+
+[[Datei:GRUB2-3.PNG]]
+
+Nun klicke auf Datei->speichern
+
+Jetzt kannst du dieses image benutzen um im Emulator oder auf echter Hardware zu booten.
+Achtung: bitte beachte das du jedesmal deinen kernel neu ins ISO intigrieren must, wenn du etwas daran verändert hast.
+== grub.cfg ==
+
+Die grub.cfg Datei ist die neue konfigurationsdatei von GRUB2 sie ist das äquivalent zur grublst von GRUB legacy.
+Hir ein Beispiel.
+<code>
+set timeout=15
+set default=0 # Set the default menu entry
+ 
+menuentry "_OS_"
+{
+   multiboot /boot/kernel.elf   
+   boot                         
+}
+</code>
+Diese konfigurationsdatei würde die Kerneldatei Kernel.elf aus dem order boot laden und danach ausführen.
+
+=== wichtige Befehle =
+
+{| {{prettytable}}
+!Befehl
+!Beschreibung
+|-
+|multiboot /pfad/zum/kernel/dein-kernel.datei
+| Lädt deinen Kernel in den Speicher. um in danach auszuführen.
+|-
+|boot
+| Startet dein zuvor mit dem Befehl multiboot geladenen Kernel.
+|}
+
+== Siehe auch ==
+* [GRUB]
+
+
+
+== Weblinks ==
+* [http://de.wikipedia.org/wiki/GRUB Wikipedia:GRUB]
+
+[[Kategorie:Glossar]]
+[[Kategorie:Software]]

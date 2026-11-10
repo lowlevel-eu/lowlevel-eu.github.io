@@ -1,0 +1,46 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Textausgabe — Änderungen 2152 → 2165</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Textausgabe — Änderungen 2152 → 2165</h1><nav><a href="../revisions/2152/index.html">Version 2152</a> · <a href="../revisions/2165/index.html">Version 2165</a> · <a href="../history/1549/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l42" >Zeile 42:</td>
+<td colspan="2" class="diff-lineno">Zeile 42:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Hier ein kleines Beispiel einer Funktion, die ein Zeichen (chr), in der Farbe color auf den Bildschirm, an die Position x,y schreiben soll. Hierbei werden Steuerzeichen nicht beachtet, bzw. als normales Zeichen auch ausgegeben (siehe [http://de.wikipedia.org/wiki/Codepage_437 Codepage 437]). &#160;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Hier ein kleines Beispiel einer Funktion, die ein Zeichen (chr), in der Farbe color auf den Bildschirm, an die Position x,y schreiben soll. Hierbei werden Steuerzeichen nicht beachtet, bzw. als normales Zeichen auch ausgegeben (siehe [http://de.wikipedia.org/wiki/Codepage_437 Codepage 437]). &#160;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;c&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; void printchar(u8 chr,u8 color,u8 x,u8 y) {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; void printchar(u8 chr,u8 color,u8 x,u8 y) {</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  u16 *off = (u16*)0xB8000;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  u16 *off = (u16*)0xB8000;</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l49" >Zeile 49:</td>
+<td colspan="2" class="diff-lineno">Zeile 50:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  *off = (((u16)color)&lt;&lt;8)|chr;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  *off = (((u16)color)&lt;&lt;8)|chr;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; }</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; }</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/c&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Nun folgt die Erklärung:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Nun folgt die Erklärung:</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l70" >Zeile 70:</td>
+<td colspan="2" class="diff-lineno">Zeile 72:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Hier eine Funktion zum Verschieben des Cursors (dies kann auch mit Int 0x10,0x02 gemacht werden)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Hier eine Funktion zum Verschieben des Cursors (dies kann auch mit Int 0x10,0x02 gemacht werden)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;c&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; void displaycursor(u8 col,u8 row) {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; void displaycursor(u8 col,u8 row) {</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  u16 tmp;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  u16 tmp;</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l78" >Zeile 78:</td>
+<td colspan="2" class="diff-lineno">Zeile 81:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  outb(0x3D5,tmp);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  outb(0x3D5,tmp);</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; }</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; }</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/c&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wenn man den Cursor vom Bildschirm weg haben möchte, muss man ihn z.B einfach in die 26. Zeile setzen (diese gibt es nämlich nicht). Das geht natürlich genau so wie in der eben genannten Funktion, aber dies hier ist die direkte Variante:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wenn man den Cursor vom Bildschirm weg haben möchte, muss man ihn z.B einfach in die 26. Zeile setzen (diese gibt es nämlich nicht). Das geht natürlich genau so wie in der eben genannten Funktion, aber dies hier ist die direkte Variante:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;c&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; void removecursor() {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; void removecursor() {</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  outb(0x3D4,14);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  outb(0x3D4,14);</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l87" >Zeile 87:</td>
+<td colspan="2" class="diff-lineno">Zeile 92:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  outb(0x3D5,0x07);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  outb(0x3D5,0x07);</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; }</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; }</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/c&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Weblinks==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Weblinks==</div></td></tr>
+</table></body></html>

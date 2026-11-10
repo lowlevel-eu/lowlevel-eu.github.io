@@ -1,0 +1,25 @@
+meinOS ist ein [[Ausgabe_2#Der_Microkernel | Microkernel]]-Betriebssystem für x86-Systeme. Es wird von [[Benutzer:Jgraef | jgraef]] entwickelt.
+
+== Entwicklung ==
+meinOS ist noch in einer sehr frühen Entwicklungsphase, es wird aber schon fast komplettes Memorymanagement, Taskmanagement und IPC unterstützt. Da meinOS ein [[Ausgabe_2#Der_Microkernel | Microkernel]] ist und noch keine Programme für es entwickelt wurden, gibt es auch noch überhaupt keine Treiber.
+
+== Komplett ==
+* Memorymanagement (Speicherzuweisungs-Routinen nicht komplett)
+* Taskmanagement (Routine zum erzeugen eines neuen Tasks und Dispatcher nicht komplett)
+* IPC (Jeder Prozess hat für jeden Anderen 1 Byte Buffer; asynchrones IPC; Zuteilung über Ports)
+* (Kernel-)Timer (100Hz) - zeitversetztes Aufrufen von Funktionen (z.B für Beep)
+* (Kernel-)Textausgabe - die meisten Steuerzeichen werden unterstützt.
+
+== Planung ==
+* Init-Task (Initialisierung aller Treiber und des login-Programms)
+* Filesystem
+* devfs (FS-Treiber für /dev)
+* Console-Treiber (Keyboard und Textdisplay)
+* Floppy-Treiber
+* FAT12-Treiber
+* eventuell pipefs (Für Named Pipes ohne "richtiges" FS, dass Named Pipes unterstützt)
+
+Wie man sieht, ist noch eine Menge zu tun.
+
+== Links ==
+* [http://wonsheimlan.wo.funpic.de/meinos/ meinOS-Website]

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Paging – Lowlevel</title>
+<link href="../../../assets/wiki/f138d3504f3e3790060d6ac1.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Paging rootpage-Paging skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1496/index.html">Aktueller Artikel</a> · <a href="../../history/1496/index.html">Versionsgeschichte</a> · <a href="../../source/11514.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Paging</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 8. September 2020, 16:37 Uhr von <a class="mw-userlink" href="../../pages/2674/index.html" title="Benutzerin:Littlefox"><bdi>Littlefox</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Uhm. Einmal alles? PAE dazu, Long Mode großteils nach PAE gepackt, in Long Mode erwähnt dass es auf PAE aufbaut, ...)</span></div><div id="mw-revision-nav">(<a href="../../diffs/11373-11514.html" title="Paging">Unterschied</a>) <a href="../11373/index.html" title="Paging">← Nächstältere Version</a> | Aktuelle Version (Unterschied) | Nächstjüngere Version → (Unterschied)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Das <b>Paging</b> ist ein Mechanismus, der auf vielen Architekturen zum Einsatz kommt, um virtuellen Speicher zur Verfügung zu stellen. Virtueller Speicher bedeutet, dass auf dem Prozessor ausgeführte Programme nicht mehr direkt mit Speicheradressen arbeiten, die sich direkt auf den physisch als Hardware vorhandenen RAM beziehen, sondern eine Abstraktionsschicht eingeführt wird.
+</p><p>Durch den Einsatz von virtuellem Speicher werden Programme unabhängig davon, an welcher physischen Speicheradresse sie laufen. Dadurch kann vor allem das Problem der Speicherfragmentierung gelöst werden, da Speicherbereiche nicht mehr physisch zusammenhängend sein müssen, um Programmen zusammenhängend zu erscheinen.
+</p><p>Durch das Paging lassen sich außerdem weitere Features, wie z. B. <a href="../../pages/2012/index.html" title="Swapping">Swapping</a>, leichter implementieren. Auch ist durch Paging Speicherschutz gewährleistet, da jeder Prozess einen eigenen virtuellen Adressraum (<i>Speicherkontext</i>) zugeordnet bekommen kann und somit von den anderen Prozessen abgeschirmt ist.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Funktionsweise"><span class="tocnumber">1</span> <span class="toctext">Funktionsweise</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#In_physischen_Speicher_schreiben"><span class="tocnumber">2</span> <span class="toctext">In physischen Speicher schreiben</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Paging_im_x86_Protected_Mode"><span class="tocnumber">3</span> <span class="toctext">Paging im x86 Protected Mode</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Einschalten_des_Paging-Mechanismus"><span class="tocnumber">3.1</span> <span class="toctext">Einschalten des Paging-Mechanismus</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Aufbau_Page_Directory_.28PD.29"><span class="tocnumber">3.2</span> <span class="toctext">Aufbau Page Directory (PD)</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Aufbau_Page_Table_.28PT.29"><span class="tocnumber">3.3</span> <span class="toctext">Aufbau Page Table (PT)</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Translation_Lookaside_Buffer"><span class="tocnumber">3.4</span> <span class="toctext">Translation Lookaside Buffer</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Speicher_mappen"><span class="tocnumber">3.5</span> <span class="toctext">Speicher mappen</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Page_Address_Extension_.28PAE.29"><span class="tocnumber">3.6</span> <span class="toctext">Page Address Extension (PAE)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#Aufbau_Page_Directory_Pointer_.28PDP.29"><span class="tocnumber">3.6.1</span> <span class="toctext">Aufbau Page Directory Pointer (PDP)</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Aufbau_Page_Directory_.28PD.29_2"><span class="tocnumber">3.6.2</span> <span class="toctext">Aufbau Page Directory (PD)</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Aufbau_Page_Table_.28PT.29_2"><span class="tocnumber">3.6.3</span> <span class="toctext">Aufbau Page Table (PT)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Paging_im_x86_Long_Mode"><span class="tocnumber">4</span> <span class="toctext">Paging im x86 Long Mode</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#PMLx_Tabellen"><span class="tocnumber">4.1</span> <span class="toctext">PMLx Tabellen</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#Weiterf.C3.BChrende_Artikel"><span class="tocnumber">5</span> <span class="toctext">Weiterführende Artikel</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#Links"><span class="tocnumber">6</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Funktionsweise">Funktionsweise</span></h2>
+<p>Der virtuelle Speicher wird zunächst in gleich große Blöcke, so genannte Pages (Seiten), unterteilt. In den meisten Architekturen sind dies Blöcke zu je vier Kilobytes, manche bieten auch verschiedene Größen an. Einen Speicherkontext kann man sich vereinfacht als eine riesige Tabelle vorstellen, die jedem virtuellen Block einen gleich großen Block irgendwo im physischen Speicher zuweist. Diesen physischen Speicherblock nennt man auch <i>Page Frame</i> (dt. Seitenrahmen, oder seltener auch Seitenkachel).
+</p><p>Die folgende Tabelle dient als (von den Zahlen her völlig sinnfreie) Veranschaulichung dieser Übersetzung. Wenn das Programm jetzt auf die Speicheradresse 0x1234 zugreift, wird in Wirklichkeit auf die physische Adresse 0x3234 zugegriffen. Es muss nicht jede virtuelle Adresse <i>gemappt</i> (d. h. einer physischen Adresse zugewiesen) sein &amp;#150; der virtuelle Adressraum ist im Allgemeinen auch größer als der installierte physische Speicher (auf i386 beispielsweise 4 GB). Wird auf eine nicht gemappte Adresse zugegriffen, z. B. 0x25a2 im Beispiel, wird eine Exception (x86: <a href="../../pages/1824/index.html#Page_Fault" title="Exception">Page Fault</a>) ausgelöst.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Virtuell</th>
+<th>Physisch
+</th></tr>
+<tr>
+<td>0x0000 bis 0x0fff</td>
+<td>0xa000
+</td></tr>
+<tr>
+<td>0x1000 bis 0x1fff</td>
+<td>0x3000
+</td></tr>
+<tr>
+<td>0x2000 bis 0x2fff</td>
+<td>--
+</td></tr>
+<tr>
+<td>...</td>
+<td>...
+</td></tr></tbody></table>
+<p>In der Praxis handelt es sich dabei nicht um eine einzige riesige Tabelle, die wie erwähnt zu großen Teilen ohnehin leer bleiben und Speicher verschwenden würde. Stattdessen benutzt man ein zwei- oder mehrstufiges System.
+</p>
+<h2><span class="mw-headline" id="In_physischen_Speicher_schreiben">In physischen Speicher schreiben</span></h2>
+<p>Wenn nun Paging eingeschaltet ist, kann man nicht mehr in den physischen Speicher schreiben. Wenn man nicht viel physischen Speicher hat, oder 64 Bit benutzt und deswegen der virtuelle Adressraum groß genug ist, kann man den gesamten physischen Speicher in den virtuellen mappen.
+</p><p>Es besteht aber auch die Möglichkeit, Zugriff auf den gesamten physischen Speicher zu haben, ohne dass man ihn direkt mappt. Erstmal braucht man eine Möglichkeit das Page Directory und die Page Tables noch zu ändern nachdem Paging eingeschaltet wurde. Wenn man dies kann, kann man sich einfach immer die gerade gebrauchte physische Page auf eine festgelegte virtuelle Page mappen und voilà. Um nun Zugriff auf das Page Directory und die Page Tables zu haben, kann man einfach z. B. als letzte Page Table das Page Directory selbst eintragen. Das Page Directory wird dann als Page Table interpretiert und alle Page Tables als Pages in den Speicher gemappt. Somit enthalten die letzten 4 MB des virtuellen Speichers die Page Tables, wobei die letzten 4 kB das Page Directory enthalten.
+</p>
+<h2><span class="mw-headline" id="Paging_im_x86_Protected_Mode">Paging im x86 Protected Mode</span></h2>
+<p>Beim i386 bildet ein <i>Page Directory</i> (PD) einen Speicherkontext ab. Dabei handelt es sich um eine Tabelle, die virtuellen Speicherblöcken von 4 MB Größe die physische Adresse einer <i>Page Table</i> (PT) zuweist oder den Speicherbereich als frei markiert.
+</p><p>Die Page Table ist anschließend dafür zuständig, innerhalb „ihrer“ 4 MB die Zuordnung der einzelnen 4K-Pages vorzunehmen. Beim Zugriff auf die Adresse 0x456789 wird also zunächst festgestellt, dass die Page-Table für den Bereich 4 bis 8 MB zuständig ist (0x400000 sind 4 MB), und ihre Adresse im Page Directory nachgeschlagen. Anschließend wird innerhalb der Page Table nachgeschlagen, was die physische Adresse für die Bytes 0x56000 bis 0x56fff dieses 4-MB-Blocks ist. Angenommen, die Page Table ordnet diesen die physische Adresse 0xabcde000 zu, dann liegt der gesuchte Speicher an 0xabcde789.
+</p><p>Wie die CPU aus einer virtuellen die zugeordnete physische Adresse berechnet, soll folgende Grafik zeigen:
+<a class="image" href="../../pages/2247/index.html"><img alt="Paging funktionsweise.jpg" height="367" src="../../../assets/wiki/f078d52a8338c5a7dce0ff50.jpg" width="774"/></a>
+</p><p>Das Berechnen erfolgt folgendermaßen:
+</p>
+<ol><li>Page Directory suchen, anhand der Adresse in CR3</li>
+<li>im Page Directory den Eintrag suchen, dessen Index in Bit 22-31 der virtuellen Adresse steht</li>
+<li>dieser Eintrag zeigt auf eine Page Table</li>
+<li>in dieser Page Table den Eintrag suchen, dessen Index in Bit 12-21 der virtuellen Adresse steht</li>
+<li>dieser Eintrag wiederum zeigt auf eine Page</li>
+<li>in dieser Page die gesuchten Daten suchen, deren Offset innerhalb dieser Page in den Bits 0-11 in der virtuellen Adresse steht</li></ol>
+<p>(<i>Hinweis:</i> Bei Schritt 3 kann der Eintrag auch direkt auf einen 4MB Bereich ("Large Page") zeigen, siehe hierzu <a href="../../pages/1999/index.html" title="Page Size Extension">Page Size Extension</a>)
+</p>
+<h3><span class="mw-headline" id="Einschalten_des_Paging-Mechanismus">Einschalten des Paging-Mechanismus</span></h3>
+<p>Zum Einschalten des Paging-Mechanismus auf der x86-Architektur muss man Bit-31 im CR0-Register setzen. Davor muss aber ein gültiges Page-Directory angelegt und dessen physische Adresse im CR3-Register abgelegt worden sein.
+</p>
+<h3><span id="Aufbau_Page_Directory_(PD)"></span><span class="mw-headline" id="Aufbau_Page_Directory_.28PD.29">Aufbau Page Directory (PD)</span></h3>
+<p>Ein Page-Directory (PD) enthält 1024 Einträge à vier Byte. Ein PD-Eintrag kann jeweils auf eine Page-Table zeigen. PDs (wie auch PTs) müssen immer 4k-aligned sein, d. h. sie füllen genau eine Page aus.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0</td>
+<td>Gibt an, ob die Page momentan im Speicher liegt. Ist das Bit gelöscht (Page nicht im Speicher), dann sind alle anderen Bits für das Betriebssystem frei verfügbar und können z. B. für Swapping genutzt werden.
+</td></tr>
+<tr>
+<td>1</td>
+<td>Wenn dieses Bit gesetzt ist, kann die Page beschrieben werden. Ansonsten kann die Page nur gelesen werden.
+</td></tr>
+<tr>
+<td>2</td>
+<td>Wenn dieses Bit gesetzt ist, darf jeder auf die Page zugreifen. Ansonsten nur Ring 0.
+</td></tr>
+<tr>
+<td>3</td>
+<td>Wenn dieses Bit gesetzt ist, wird Write-Through-Caching benutzt.
+</td></tr>
+<tr>
+<td>4</td>
+<td>Wenn dieses Bit gesetzt ist, wird für die Page kein Cache benutzt.
+</td></tr>
+<tr>
+<td>5</td>
+<td>Wird von der CPU gesetzt, wenn die Page Table benutzt wurde. Dieses Bit wird allerdings nicht von der CPU zurückgesetzt.
+</td></tr>
+<tr>
+<td>6</td>
+<td>Wird ignoriert, falls 4-kB-Page, andernfalls wird es von der CPU bei einem Schreibzugriff auf die Page gesetzt
+</td></tr>
+<tr>
+<td>7</td>
+<td>Gibt die Größe der Page an. 0 steht für 4 kB, 1 für 4 MB (oder 2 MB bei Verwendung von PAE). Das S-Bit ist wirkungslos, wenn nicht im <a class="mw-redirect" data-archive-original-href="../../pages/1612/index.html" href="../../pages/1610/index.html" title="Steuerregister">Steuerregister</a> CR4 das PSE-Bit (4-MB-Pages) oder PAE-Bit (2-MB-Pages) gesetzt ist.
+</td></tr>
+<tr>
+<td>8</td>
+<td>Wird ignoriert, falls 4-kB-Page, andernfalls hat es die gleiche Bedeutung wie Bit G in Page-Table-Einträgen (s. u.).
+</td></tr>
+<tr>
+<td>9 &amp;#150; 11</td>
+<td>Diese Bits sind frei verfügbar. Sie können z. B. genutzt werden um Pages zu markieren, die zwar im Speicher liegen, aber auch schon auf einen Swapmedium existieren, so dass sie ohne weiteres geswappt werden können, und/oder um Pages zu markieren, die nicht ausgelagert werden dürfen.
+</td></tr>
+<tr>
+<td>12 &amp;#150; 31</td>
+<td>Bits 12 &amp;#150; 31 eines Zeigers zu einer Pagetable oder zur Page, wenn keine Bit 7 gesetzt ist. In letzterem Falle muss der Zeiger entsprechend ausgerichtet sein. Bit 12 ist dann das (höchste) <a href="../../pages/2662/index.html" title="PAT">PAT</a>-Bit.
+</td></tr></tbody></table>
+<h3><span id="Aufbau_Page_Table_(PT)"></span><span class="mw-headline" id="Aufbau_Page_Table_.28PT.29">Aufbau Page Table (PT)</span></h3>
+<p>Eine Page Table enthält 1024 Einträge à vier Byte. Jeder Eintrag zeigt auf eine physische Page. Page Tables müssen 4k-aligned sein und füllen somit eine ganze Page.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0</td>
+<td>Gibt an ob die Page momentan im Speicher liegt. Ist das Bit gelöscht (Page nicht im Speicher), dann sind alle anderen Bits für das Betriebssystem frei verfügbar und können z. B. für Swapping genutzt werden.
+</td></tr>
+<tr>
+<td>1</td>
+<td>Wenn dieses Bit gesetzt ist, kann die Page beschrieben werden. Ansonsten kann die Page nur gelesen werden.
+</td></tr>
+<tr>
+<td>2</td>
+<td>Wenn dieses Bit gesetzt ist, darf jeder auf die Page zugreifen. Ansonsten nur Ring 0.
+</td></tr>
+<tr>
+<td>3</td>
+<td>Wenn dieses Bit gesetzt ist, wird Write-Through-Caching benutzt.
+</td></tr>
+<tr>
+<td>4</td>
+<td>Wenn dieses Bit gesetzt ist, wird für die Page kein Cache benutzt.
+</td></tr>
+<tr>
+<td>5</td>
+<td>Wird von der CPU gesetzt, wenn die Page benutzt wurde. Dieses Bit wird allerdings nicht von der CPU zurückgesetzt.
+</td></tr>
+<tr>
+<td>6</td>
+<td>Dieses Bit wird von der CPU gesetzt, wenn auf die Page geschrieben wurde. Dieses Bit wird nicht von der CPU zurückgesetzt.
+</td></tr>
+<tr>
+<td>7</td>
+<td>Das (höchste) <a href="../../pages/2662/index.html" title="PAT">PAT</a>-Bit.
+</td></tr>
+<tr>
+<td>8</td>
+<td>Wenn G gesetzt ist, wird der TLB (s. u.) für diese Page nicht erneuert, nachdem CR3 neu gesetzt wurde. Diese Flag ist also praktisch für Pages, die in jedem Adressraum gleich gemappt sind (z. B. Kernel)
+</td></tr>
+<tr>
+<td>9 &amp;#150; 11</td>
+<td>Diese Bits sind frei verfügbar. Sie können z. B. genutzt werden um Pages zu markieren, die zwar im Speicher liegen, aber auch schon auf einen Swapmedium existieren, so dass sie ohne weiteres geswappt werden können, und/oder um Pages zu markieren, die nicht ausgelagert werden dürfen.
+</td></tr>
+<tr>
+<td>12 &amp;#150; 31</td>
+<td>12 &amp;#150; 31 der physischen Adresse eines Pageframes
+</td></tr></tbody></table>
+<p>Wer genau hinsieht, bemerkt vermutlich, dass die Struktur von PD und PT quasi identisch ist, einzelne Felder nur andere Bedeutungen haben. Die Umsetzung im Quellcode kann also gleich sein (das selbe C-struct bspw.).
+</p>
+<h3><span class="mw-headline" id="Translation_Lookaside_Buffer">Translation Lookaside Buffer</span></h3>
+<p>Der Prozessor benutzt für das Auflösen der virtuellen Adressen eine Art Cache für die zuletzt benutzten Pages, den sogenannten <i>Translation Lookaside Buffer</i> oder TLB. Für den Programmierer spielt dieser TLB dann eine Rolle, wenn das Mapping einer Page geändert wird, aber der Prozessor möglicherweise noch die alte physische Adresse im TLB behalten hat.
+</p><p>Daher ist zu beachten, dass bei einer Änderung des Page Directory oder einer Page Table der TLB <i>invalidiert</i> werden muss (d. h. der entsprechende Eintrag wird aus dem TLB gelöscht). Versäumt man diese Invalidierung, äußert sich das im Allgemeinen erst später durch völlig unerwartete Ereignisse. Diese Fehler sind extrem schwer zu debuggen, da scheinbar auf die richtige Speicheradresse zugegriffen wird, aber in Wirklichkeit mit falschen Werten gearbeitet wird.
+</p><p>Man invalidiert den TLB mit „invlpg &lt;address&gt;“. Wobei &lt;address&gt; eine virtuelle Adresse innerhalb der von der Änderung betroffenen Page ist. invlpg ist ab dem 486 vorhanden. Beim Neuladen des <a class="mw-redirect" data-archive-original-href="../../pages/1612/index.html" href="../../pages/1610/index.html" title="Steuerregister">Steuerregisters</a> CR3 wird der TLB ebenfalls komplett geleert (Achtung, das geht natürlich auf die Performance).
+</p>
+<h3><span class="mw-headline" id="Speicher_mappen">Speicher mappen</span></h3>
+<p>Um eine beliebige virtuelle Adresse auf eine beliebige physische Adresse zu mappen, muss man erst den richtigen Eintrag im Page Directory und in der Page Table berechnen, um schließlich die physische Page (mit den passenden Flags) in der Page Table eintragen zu können. Es wird immer von virtuell nach physisch zugeordnet, d. h. wenn man 0xB8000 (phys.) auf 0x12345000 (virt.) mappen will, muss man erst den Page-Directory- und Page-Table-Eintrag von 0x12345000 berechnen. Das geht am besten so:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">virtuelle_adresse</span> <span class="o">=</span> <span class="mh">0x12345000</span><span class="p">;</span>
+<span class="n">pd_eintrag</span> <span class="o">=</span>  <span class="n">virtuelle_adresse</span> <span class="o">&gt;&gt;</span> <span class="mi">22</span>           <span class="p">(</span><span class="o">=</span> <span class="mh">0x48</span><span class="p">)</span>
+<span class="n">pt_eintrag</span> <span class="o">=</span> <span class="p">(</span><span class="n">virtuelle_adresse</span> <span class="o">&gt;&gt;</span> <span class="mi">12</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1024</span>   <span class="p">(</span><span class="o">=</span> <span class="mh">0x345</span><span class="p">)</span>
+</pre></div>
+<p>Zuerst wird die Adresse der Page Table (im eben berechneten <i>PD Eintrag</i> schauen). <b>Achtung:</b> Es handelt sich hier um die physische Adresse.
+Mit der Adresse der Page Table kann man jetzt in den <i>PT Eintrag</i> die physische Adresse eintragen, die passenden Flags setzen und schon ist die Page gemappt.
+</p>
+<h3><span id="Page_Address_Extension_(PAE)"></span><span class="mw-headline" id="Page_Address_Extension_.28PAE.29">Page Address Extension (PAE)</span></h3>
+<p>In aktuellen x86 CPUs (seit dem Pentium Pro / Pentium II) gibt es auch noch eine Erweiterung für Paging im Protected Mode: die Page Address Extensions. Diese erlauben den Zugriff auf mehr physischen Speicher, indem die Einträge in PD und PT auf jeweils 8 Byte (64 bit) erweitert werden. Damit die Tabellen trotzdem nur jeweils 4KB groß sind, wurde die Anzahl an Einträgen halbiert. Da das nun auch den virtuellen Adressraum verkleinern würde, wurde eine weitere Ebene eingefügt: die <i>Page Directory Pointer</i> (PDP) Tabelle. Diese zeigt auf die einzelnen <i>Page Directory</i> Tabellen, die ja wiederum auf die einzelnen <i>Page Table</i>s zeigen.
+</p><p>Der Aufbau der PDP Tabelle entspricht weitestgehend dem Aufbau der PD Tabelle, es gibt aber nur 4 Einträge (also 2 Bit der virtuellen Adresse). Zusammen mit jeweils 512 Einträgen (je 9 Bit der virtuellen Adresse) der nun kleineren PDs und PTs kommen wir so trotzdem auf 20 Bit der virtuellen Adresse.
+</p>
+<h4><span id="Aufbau_Page_Directory_Pointer_(PDP)"></span><span class="mw-headline" id="Aufbau_Page_Directory_Pointer_.28PDP.29">Aufbau Page Directory Pointer (PDP)</span></h4>
+<p>Ein PDP enthält 512 Eintrage à acht Byte. Ein PDP-Eintrag kann jeweils auf ein Page Directory zeigen.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Funktion
+</th></tr>
+<tr>
+<td>0</td>
+<td>Gibt an, ob die Page momentan im Speicher liegt. Ist das Bit gelöscht (Page nicht im Speicher), dann sind alle anderen Bits für das Betriebssystem frei verfügbar und können z. B. für Swapping genutzt werden.
+</td></tr>
+<tr>
+<td>1</td>
+<td>Wenn dieses Bit gesetzt ist, kann die Page beschrieben werden. Ansonsten kann die Page nur gelesen werden.
+</td></tr>
+<tr>
+<td>2</td>
+<td>Wenn dieses Bit gesetzt ist, darf jeder auf die Page zugreifen. Ansonsten nur Ring 0.
+</td></tr>
+<tr>
+<td>3</td>
+<td>Wenn dieses Bit gesetzt ist, wird Write-Through-Caching benutzt.
+</td></tr>
+<tr>
+<td>4</td>
+<td>Wenn dieses Bit gesetzt ist, wird für die Page kein Cache benutzt.
+</td></tr>
+<tr>
+<td>5</td>
+<td>Wird von der CPU gesetzt, wenn die Page-Directory Pointer Table benutzt wurde. Dieses Bit wird allerdings nicht von der CPU zurückgesetzt.
+</td></tr>
+<tr>
+<td>6</td>
+<td>Wird ignoriert und sollte 0 sein.
+</td></tr>
+<tr>
+<td>7</td>
+<td>Muss 0 sein, wenn 2-MiB-Pages oder 4-KiB-Pages verwendet werden, muss 1 sein, wenn 1-GiB-Pages verwendet werden.
+</td></tr>
+<tr>
+<td>8</td>
+<td>Wenn CR4.PGE und Bit 7 auf 1 gesetzt sind, gibt das Bit an, ob die Page global ist (Nicht durch Instruktionen wie mov cr3 geflusht wird). Muss ansonsten 0 sein.
+</td></tr>
+<tr>
+<td>9-11</td>
+<td>Diese Bits sind frei verfügbar. Sie können z. B. genutzt werden um Pages zu markieren, die zwar im Speicher liegen, aber auch schon auf einen Swapmedium existieren, so dass sie ohne weiteres geswappt werden können, und/oder um Pages zu markieren, die nicht ausgelagert werden dürfen.
+</td></tr>
+<tr>
+<td>12-51</td>
+<td>Gibt die physische Adresse der Page-Directory Table an. Gibt die physische Adresse der Page Table an. Besteht alternativ aus der physischen Adresse der Page (Bits 30 – 51), dem höchsten PAT-Bit (Bit 12, sollte 0 sein wenn nicht benötigt) und reservierten Bits (Bit 13 – 29), wenn 1-GiB-Pages verwendet werden.
+</td></tr>
+<tr>
+<td>52-62</td>
+<td>Diese Bits sind frei verfügbar.
+</td></tr>
+<tr>
+<td>63</td>
+<td>Wenn EFER.NXE auf 1 gesetzt ist gibt dieses Bit an, ob das Ausführen von Code in der Page erlaubt ist (0) oder nicht (1). Wenn EFER.NXE auf 0 gesetzt ist und das Bit auf 1 gesetzt ist wird ein Pagefault ausgelöst.
+</td></tr></tbody></table>
+<h4><span id="Aufbau_Page_Directory_(PD)_2"></span><span class="mw-headline" id="Aufbau_Page_Directory_.28PD.29_2">Aufbau Page Directory (PD)</span></h4>
+<p>Ein Page Directory enthält 512 Eintrage à acht Byte. Ein PD-Eintrag kann jeweils auf eine Page Table zeigen.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Funktion
+</th></tr>
+<tr>
+<td>0</td>
+<td>Gibt an, ob die Page momentan im Speicher liegt. Ist das Bit gelöscht (Page nicht im Speicher), dann sind alle anderen Bits für das Betriebssystem frei verfügbar und können z. B. für Swapping genutzt werden.
+</td></tr>
+<tr>
+<td>1</td>
+<td>Wenn dieses Bit gesetzt ist, kann die Page beschrieben werden. Ansonsten kann die Page nur gelesen werden.
+</td></tr>
+<tr>
+<td>2</td>
+<td>Wenn dieses Bit gesetzt ist, darf jeder auf die Page zugreifen. Ansonsten nur Ring 0.
+</td></tr>
+<tr>
+<td>3</td>
+<td>Wenn dieses Bit gesetzt ist, wird Write-Through-Caching benutzt.
+</td></tr>
+<tr>
+<td>4</td>
+<td>Wenn dieses Bit gesetzt ist, wird für die Page kein Cache benutzt.
+</td></tr>
+<tr>
+<td>5</td>
+<td>Wird von der CPU gesetzt, wenn die Page-Directory Table benutzt wurde. Dieses Bit wird allerdings nicht von der CPU zurückgesetzt.
+</td></tr>
+<tr>
+<td>6</td>
+<td>Wird ignoriert und sollte 0 sein.
+</td></tr>
+<tr>
+<td>7</td>
+<td>Muss 0 sein, wenn 1-GiB-Pages oder 4-KiB-Pages verwendet werden, muss 1 sein, wenn 2-MiB-Pages verwendet werden.
+</td></tr>
+<tr>
+<td>8</td>
+<td>Wenn CR4.PGE und Bit 7 auf 1 gesetzt sind, gibt das Bit an, ob die Page global ist (Nicht durch Instruktionen wie mov cr3 geflusht wird). Muss ansonsten 0 sein.
+</td></tr>
+<tr>
+<td>9-11</td>
+<td>Diese Bits sind frei verfügbar. Sie können z. B. genutzt werden um Pages zu markieren, die zwar im Speicher liegen, aber auch schon auf einen Swapmedium existieren, so dass sie ohne weiteres geswappt werden können, und/oder um Pages zu markieren, die nicht ausgelagert werden dürfen.
+</td></tr>
+<tr>
+<td>12-51</td>
+<td>Gibt die physische Adresse der Page Table an. Besteht alternativ aus der physischen Adresse der Page (Bits 21 – 51), dem höchsten PAT-Bit (Bit 12, sollte 0 sein wenn nicht benötigt) und reservierten Bits (Bit 13 – 20), wenn 2-MiB-Pages verwendet werden.
+</td></tr>
+<tr>
+<td>52-62</td>
+<td>Diese Bits sind frei verfügbar.
+</td></tr>
+<tr>
+<td>63</td>
+<td>Wenn EFER.NXE auf 1 gesetzt ist gibt dieses Bit an, ob das Ausführen von Code in der Page erlaubt ist (0) oder nicht (1). Wenn EFER.NXE auf 0 gesetzt ist und das Bit auf 1 gesetzt ist wird ein Pagefault ausgelöst.
+</td></tr></tbody></table>
+<h4><span id="Aufbau_Page_Table_(PT)_2"></span><span class="mw-headline" id="Aufbau_Page_Table_.28PT.29_2">Aufbau Page Table (PT)</span></h4>
+<p>Eine Page Table enthält 512 Eintrage à acht Byte. Ein PT-Eintrag kann jeweils auf eine Page zeigen.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Funktion
+</th></tr>
+<tr>
+<td>0</td>
+<td>Gibt an, ob die Page momentan im Speicher liegt. Ist das Bit gelöscht (Page nicht im Speicher), dann sind alle anderen Bits für das Betriebssystem frei verfügbar und können z. B. für Swapping genutzt werden.
+</td></tr>
+<tr>
+<td>1</td>
+<td>Wenn dieses Bit gesetzt ist, kann die Page beschrieben werden. Ansonsten kann die Page nur gelesen werden.
+</td></tr>
+<tr>
+<td>2</td>
+<td>Wenn dieses Bit gesetzt ist, darf jeder auf die Page zugreifen. Ansonsten nur Ring 0.
+</td></tr>
+<tr>
+<td>3</td>
+<td>Wenn dieses Bit gesetzt ist, wird Write-Through-Caching benutzt.
+</td></tr>
+<tr>
+<td>4</td>
+<td>Wenn dieses Bit gesetzt ist, wird für die Page kein Cache benutzt.
+</td></tr>
+<tr>
+<td>5</td>
+<td>Wird von der CPU gesetzt, wenn die Page Table benutzt wurde. Dieses Bit wird allerdings nicht von der CPU zurückgesetzt.
+</td></tr>
+<tr>
+<td>6</td>
+<td>Wird ignoriert und sollte 0 sein.
+</td></tr>
+<tr>
+<td>7</td>
+<td>Höchstes PAT-Bit. Sollte 0 sein wenn nicht benötigt.
+</td></tr>
+<tr>
+<td>8</td>
+<td>Wenn CR4.PGE und Bit 7 auf 1 gesetzt sind, gibt das Bit an, ob die Page global ist (Nicht durch Instruktionen wie mov cr3 geflusht wird). Muss ansonsten 0 sein.
+</td></tr>
+<tr>
+<td>9-11</td>
+<td>Diese Bits sind frei verfügbar. Sie können z. B. genutzt werden um Pages zu markieren, die zwar im Speicher liegen, aber auch schon auf einen Swapmedium existieren, so dass sie ohne weiteres geswappt werden können, und/oder um Pages zu markieren, die nicht ausgelagert werden dürfen.
+</td></tr>
+<tr>
+<td>12-51</td>
+<td>Gibt die physische Adresse der Page an wenn 4-KiB-Pages verwendet werden.
+</td></tr>
+<tr>
+<td>52-62</td>
+<td>Diese Bits sind frei verfügbar.
+</td></tr>
+<tr>
+<td>63</td>
+<td>Wenn EFER.NXE auf 1 gesetzt ist gibt dieses Bit an, ob das Ausführen von Code in der Page erlaubt ist (0) oder nicht (1). Wenn EFER.NXE auf 0 gesetzt ist und das Bit auf 1 gesetzt ist wird ein Pagefault ausgelöst.
+</td></tr></tbody></table>
+<p>Auch mit aktiviertem PAE sehen die einzelnen Tabellen quasi komplett identisch aus, der einzige Unterschied ist die Interpretierung mancher Felder. Auch hier kann also die Implementierung im Quellcode auf die gleiche Datenstruktur zurückgreifen, beispielsweise ein <a href="../../pages/1526/index.html" title="C">C</a>-struct <i>PagingEntry</i> und ein typedef von <i>PagingTable</i> auf <code>PagingEntry[512]</code> (siehe LF OS unten in den Links).
+</p>
+<h2><span class="mw-headline" id="Paging_im_x86_Long_Mode">Paging im x86 Long Mode</span></h2>
+<p>Das Paging im Long Mode gestaltet sich etwas schwieriger als das Paging im Protected Mode, setzt aber auf dem PAE Paging im Protected Mode auf. Aufbauend auf PAE wurden folgende Dinge geändert:
+</p>
+<ul><li>die PDP Tabelle enthält nun die vollen 512 Einträge, also 9 Bit der virtuellen Adresse (statt bisher 4 Einträge/2 Bit) -&gt; wir kommen nun auf 39 Bit virtuellen Adressraum (3*9 Bits durch die Ebenen + 12 Bit Offset innerhalb der Page), also 512 GB nutzbaren Virtuellen Speicher.</li>
+<li>vor der PDP wurde eine weitere Ebene eingefügt, die Page-Map Level 4 Tabelle (PML4) - ab hier werden die Ebenen einfach durchnummeriert. Noch eine Ebene mehr, also nun 48 Bit virtueller Adressraum -&gt; 256 TB.</li></ul>
+<p>Das ist aber nur die erste Ausbaustufe von amd64. Über eine bestimmte <a href="../../pages/1739/index.html" title="CPUID">CPUID</a> lässt sich die Anzahl der unterstützten virtuellen Adressbits abrufen, woraus sich die Anzahl der Mapping-Ebenen ableiten lässt (&lt;39 -&gt; 3 Ebenen, &lt;48 -&gt; 4 Ebenen, &lt;57 -&gt; 5 Ebenen, ...).
+</p>
+<h3><span class="mw-headline" id="PMLx_Tabellen">PMLx Tabellen</span></h3>
+<p>Der Aufbau der PMLx (PML4, PML5, ..) ist zum Glück immer gleich und sogar wieder sehr ähnlich zu Page Directory und Page Table: 512 Einträge mit jeweils 8 Byte. Ein Eintrag zeigt jeweils auf die Ebene darunter, PML5 Einträge also auf PML4s, PML4-Einträge also auf PDPs.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Funktion
+</th></tr>
+<tr>
+<td>0</td>
+<td>Gibt an, ob die Page momentan im Speicher liegt. Ist das Bit gelöscht (Page nicht im Speicher), dann sind alle anderen Bits für das Betriebssystem frei verfügbar und können z. B. für Swapping genutzt werden.
+</td></tr>
+<tr>
+<td>1</td>
+<td>Wenn dieses Bit gesetzt ist, kann die Page beschrieben werden. Ansonsten kann die Page nur gelesen werden.
+</td></tr>
+<tr>
+<td>2</td>
+<td>Wenn dieses Bit gesetzt ist, darf jeder auf die Page zugreifen. Ansonsten nur Ring 0.
+</td></tr>
+<tr>
+<td>3</td>
+<td>Wenn dieses Bit gesetzt ist, wird Write-Through-Caching benutzt.
+</td></tr>
+<tr>
+<td>4</td>
+<td>Wenn dieses Bit gesetzt ist, wird für die Page kein Cache benutzt.
+</td></tr>
+<tr>
+<td>5</td>
+<td>Wird von der CPU gesetzt, wenn die Page-Map Level-4 Table benutzt wurde. Dieses Bit wird allerdings nicht von der CPU zurückgesetzt.
+</td></tr>
+<tr>
+<td>6</td>
+<td>Wird ignoriert und sollte 0 sein.
+</td></tr>
+<tr>
+<td>7-8</td>
+<td>Muss 0 sein.
+</td></tr>
+<tr>
+<td>9-11</td>
+<td>Diese Bits sind frei verfügbar. Sie können z. B. genutzt werden um Pages zu markieren, die zwar im Speicher liegen, aber auch schon auf einen Swapmedium existieren, so dass sie ohne weiteres geswappt werden können, und/oder um Pages zu markieren, die nicht ausgelagert werden dürfen.
+</td></tr>
+<tr>
+<td>12-51</td>
+<td>Gibt die physische Adresse der Page-Directory Pointer Table an.
+</td></tr>
+<tr>
+<td>52-62</td>
+<td>Diese Bits sind frei verfügbar.
+</td></tr>
+<tr>
+<td>63</td>
+<td>Wenn EFER.NXE auf 1 gesetzt ist gibt dieses Bit an, ob das Ausführen von Code in der Page erlaubt ist (0) oder nicht (1). Wenn EFER.NXE auf 0 gesetzt ist und das Bit auf 1 gesetzt ist wird ein Pagefault ausgelöst.
+</td></tr></tbody></table>
+<p>Die PDPs, PDs und PTs entsprechen denen des Protected Mode mit aktiviertem PAE (weswegen im Long Mode auch immer PAE aktiviert ist).
+</p><p><br/>
+</p>
+<h2><span id="Weiterführende_Artikel"></span><span class="mw-headline" id="Weiterf.C3.BChrende_Artikel">Weiterführende Artikel</span></h2>
+<ul><li><a href="../../pages/1850/index.html" title="Paging Tutorial">Paging Tutorial</a></li></ul>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li><a class="external text" href="http://www.homix-online.de/Tutorials/32PMode-Paging.php" rel="nofollow">Paging-Tutorial</a></li>
+<li><a class="external text" href="http://www.fh-zwickau.de/doc/prmo/pmtutor/text/p_spez1.htm" rel="nofollow">Paging im PM-Tutorial der FH Zwickau</a></li>
+<li><a href="../../pages/1521/index.html#Paging" title="Ausgabe 8">Ausgabe 8</a></li>
+<li><a class="external free" href="http://osdever.net/tutorials/pdf/basic_paging.pdf" rel="nofollow">http://osdever.net/tutorials/pdf/basic_paging.pdf</a></li>
+<li><a class="external free" href="https://littlefox.narf.press/lf-os_amd64/vm_8c.html#structvm__table__entry" rel="nofollow">https://littlefox.narf.press/lf-os_amd64/vm_8c.html#structvm__table__entry</a> - Gemeinsame Datenstruktur für alle Paging-Ebenen (LF OS)</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165955
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.017 seconds
+Real time usage: 0.116 seconds
+Preprocessor visited node count: 94/1000000
+Preprocessor generated node count: 146/1000000
+Post‐expand include size: 133/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 892/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  100.197      1 -total
+  0.81%    0.813      7 Vorlage:Prettytable
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:1496-0!canonical and timestamp 20261109165955 and revision id 11514
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Paging&amp;oldid=11514</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li><li><a href="../../pages/1874/index.html" title="Kategorie:X86">X86</a></li><li><a href="../../pages/2023/index.html" title="Kategorie:Speicherverwaltung">Speicherverwaltung</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1496/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/1720/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1496/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/Paging" hreflang="en" lang="en" title="Paging – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 8. September 2020 um 16:37 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

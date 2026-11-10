@@ -1,0 +1,58 @@
+==Vorbemerkungen==
+
+Man benötigt zum Folgen der Anleitung nur einen Rechner, auf dem GRUB 2 installiert ist.
+
+==Erste Schritte==
+
+Im Folgenden gehe ich davon aus, dass ihr Linux verwendet, das Arbeitsverzeichnis ist /tmp/grubimage/.
+
+
+==Durchführung==
+Zuerst lädt man sich ein Image mit GRUB Legacy herunter, z.&nbsp;B. hier: [http://download.tyndur.org/releases/0.2/ http://download.tyndur.org/releases/0.2/].
+Ich habe tyndur-0.2.1-gothmog-floppy.img.bz2 genommen. Dieses Image entpackt man nun ins Arbeitsverzeichnis und mountet es anschließend:
+<bash>mkdir mnt
+sudo mount -oloop 0.2.1-gothmog-floppy.img mnt
+cd mnt</bash>
+Jetzt müssen alle Dateien und Ordner aus /boot/grub und seinem Inhalt gelöscht werden. Danach verändert man den Inhalt der Datei menu.lst folgendermaßen:
+ timeout=0
+ 
+ title GRUB 2
+ kernel /boot/grub2/core.img
+ boot
+Als nächstes legt man unter boot ein Verzeichnis grub2 an und führt dann folgende Befehle aus, um die core.img für GRUB 2 zu erhalten:
+<bash>cd /usr/lib/grub/i386-pc
+grub-mkimage -p /boot/grub2 -o /tmp/grubimage/mnt/boot/grub2 *.mod</bash>
+Erklärung:
+{| {{prettytable}}
+!Option
+!Erklärung
+|-
+| -p /boot/grub2
+|Der Pfad auf dem Image, in welchem GRUB später nach der grub.cfg sucht, wenn dieser nicht angegeben wird /boot/grub
+|-
+| -o ...
+|Die Ausgabedatei, standardmäßig stdout
+|-
+|*.mod
+|Die Module, die eingefügt werden, folgende müssen mindestens vorhanden sein: fat sh multiboot ls ext2 configfile extcmd biosdisk (Zumindest hat mit diesen bei mir alles funktioniert)
+|}
+
+Nun erstellt man noch eine grub.cfg mit folgendem Inhalt unter /boot/grub2 auf dem Image ein:
+ set timeout=10
+ set default=0
+ 
+ menuentry "OS-Name"
+ {
+     multiboot /pfad/zu/kernel/kernel/datei
+     boot    
+ }
+Anschließend kopiert man den Kernel und die dazugehörigen Dateien auf das Image und unmountet es:
+<bash>sudo umount mnt</bash>
+Das Image ist danach fertig.
+
+==Test==
+
+Testen kann man das Image z.&nbsp;B. mit qemu:
+<bash>qemu -fda 0.2.1-gothmog-floppy.img</bash>
+
+[[Kategorie:Tutorials]]

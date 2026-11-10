@@ -1,0 +1,70 @@
+Ein '''Symmetrisches Multiprozessorsystem''' (='''SMP''') ist ein System mit einem oder mehreren identischen Prozessoren. Im Gegensatz zu [[NUMA]]-Systemen sind alle Prozessoren auf gleiche Art & Weise mit dem Hauptspeicher verbunden, d.h. es gibt für keinen Prozessor einen von der Geschwindigkeit her bevorzugten/benachteiligten Speicherbereich im Hauptspeicher.
+
+== Intel Multiprocessor Specification ==
+
+Die ''Intel Multiprocessor Specification'' ist ein Standard für [[x86]]- und [[Long Mode|x86-64]]-basierte, symmetrische Multiprozessorsysteme und ist abwärtskompatibel mit existierenden [[x86]]- und [[x86-64]]-Uniprozessorsystemen. Die Spezifikation beschreibt einerseits die Anforderungen an die Hardware und das [[BIOS]] und andererseits die Schritte die notwendig sind, um mit einem [[Betriebssystem]] den Geschwindigkeitsvorteil mehrerer Prozessoren nutzbar zu machen.
+
+=== Floating Pointer Structure ===
+
+Der erste Schritt dahingehend ist das Auffinden der ''Floating Pointer Structure''. Diese Struktur wird vom BIOS erstellt und falls sie existiert ist dieses System zur ''Intel Multiprocessor Specification'' kompatibel. 
+
+==== Aufbau ====
+Die ''Floating Pointer Structure'' liegt an einer 16-Byte Grenze im Speicher und sieht folgendermaßen aus:
+
+<br>
+<center>http://lowlevel.brainsware.org/wiki/images/SMPFloatingPointer.png</center>
+<center>''Floating Pointer Structure''</center>
+<br>
+
+{|
+|-
+! Feld
+! Beschreibung
+|-
+| ''Signatur''
+| Die Signatur enthält die nicht nullterminierte ASCII-Zeichenkette "_MP_"
+|-
+| ''physikalische Adresse''
+| Enthält die physikalische Adresse der [[SMP#Configuration Table | Configuration Table]] oder 0x00000000, falls dieses System einer der [[SMP#Default Configuration | Default Configurations]] entspricht.
+|-
+| ''Länge''
+| Die Größe der Struktur in 16-Byte großen Abschnitten.
+|-
+| ''Revision''
+| Die Revision der Intel Multiprocessor Specification. Der Wert 0x01 steht für die Version 1.1 und 0x04 für Version 1.4.
+|-
+| ''Checksum''
+| siehe [[SMP#Auffinden der Struktur | Auffinden der Struktur]]
+|-
+| ''Featurebyte 0''
+| Der Wert 0x00 gibt an, dass eine [[SMP#Configuration Table | Configuration Table]] vorhanden ist. Jeder andere Wert steht für eine der [[SMP#Default Configuration | Default Configurations]].
+|-
+| ''Featurebyte 1''
+| Bit 0-6: reserviert <br> Bit 7 (IMCRP): Falls dieses Bit gesetzt ist, ist das ''IMCR'' präsent und der ''PIC Mode'' implementiert. Andernfalls ist der ''Virtual Wire Mode'' implementiert.
+|-
+| ''Featurebyte 2-4
+| reserviert
+|}
+
+==== Auffinden der Struktur ====
+Die ''Floating Pointer Structure'' wird anhand der 4 Signaturbytes und der Checksumme identifiziert. Die Prüfsumme wird berechnet indem man alle Bytes (inklusive des Feldes ''Checksum'') der Struktur aufaddiert. Das Ergebnis dieser Berechnung muss 0x00 sein. Die Struktur befindet sich in mindestens einem der folgenden Speicherbereiche:
+* In dem ersten Kilobyte der [[Extended BIOS Data Area]]
+* In dem letzten Kilobyte des Hauptspeichers unterhalb der 1MB Marke (Die Größe des Basisspeichers steht an Offset 0x13 in der [[BIOS Data Area]]), wenn die Addresse der Extended BIOS Data Area nicht definiert ist
+* Im Adressraum des BIOS ROM (0xF0000 - 0xFFFFF)
+Die Speicherbereiche sind in exakt dieser Reihenfolge zu durchsuchen.
+
+=== Configuration Table ===
+
+=== Default Configuration ===
+
+== siehe auch ==
+* [[APIC]]
+* [[I/O APIC]]
+* [[Local APIC]]
+
+== Weblinks ==
+* [http://www.intel.com/design/pentium/datashts/242016.htm Intel Multiprocessor Specification]
+* Kapitel 7 von [http://www.intel.com/design/processor/manuals/253668.pdf Intel® 64 and IA-32 Architectures Software Developer’s Manual]
+
+[[Kategorie:Glossar]]
+[[Kategorie:Tutorials]]

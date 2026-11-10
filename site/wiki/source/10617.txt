@@ -1,0 +1,16 @@
+== vmm_alloc ==
+Ich finde das Tutorial wirklich gut, allerdings ist mir noch nicht ganz klar, wie die Funktion vmm_alloc aussehen sollte. Es wäre nett, wenn man das etwas detaillierter beschreiben würde. --[[Benutzer:Dennis95|Dennis95]] 17:21, 15. Jun. 2012 (CEST)
+:Es ist nicht ganz einfach, das alles so zu beschreiben, dass es direkt verständlich ist, ohne gleich fertigen Code zu liefern. Von letzterem hättest du (und jeder andere Leser - ich will dir auch nichts unterstellen) nichts, denn die Speicherverwaltung musst du wirklich verstanden haben, wenn du zu irgendeinem Ziel kommen willst. Ich bin mir nicht sicher, ob ich es besser formulieren kann als im Artikel (''wobei vmm_alloc eine Funktion ist, die physischen Speicher reserviert und ihn gleich auch noch mappt, und anschließend die virtuelle Adresse zurückgibt''), aber ich kann mal dieselbe Aussage in Code ausdrücken, falls das hilfreicher ist (Achtung, ungetestet, nicht zum Kopieren, sondern zum Verstehen gedacht). --[[Benutzer:Taljeth|Taljeth]] 14:36, 18. Jun. 2012 (CEST)
+
+<c>uintptr_t vmm_alloc(struct vmm_context *ctx, size_t num_pages)
+{
+    /* Page Tables nach genug noch unbenutzten Einträgen am Stück durchsuchen */
+    uintptr_t vaddr = vmm_find_free_area(ctx, num_pages);
+    
+    /* Neu allozierte physische Pages an diese Stellen mappen */
+    for (i = 0; i < num_pages; i++) {
+        vmm_map_page(ctx, vaddr + i * PAGE_SIZE, pmm_alloc());
+    }
+
+    return vaddr;
+}</c>

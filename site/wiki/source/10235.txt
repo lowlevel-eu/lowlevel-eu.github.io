@@ -1,0 +1,22 @@
+== hlt ==
+
+Ist nach einem
+
+cli
+hlt
+
+eigentlich noch eine Schleife notwendig? Eigentlich müsste der Prozessor ja schön tief schlafen, sonst wäre er kaputt ...
+
+:[[NMI|NMIs]] werden von der CPU auch bei gelöschtem Interruptflag behandelt. Deshalb zumindest theoretisch ja. Ob praktisch ein NMI auftreten kann, musst du wissen, weil solche Interrupts in der Praxis, soweit ich weiß, nur dann passieren, wenn man den APIC entsprechend eingestellt hat (dass bei bestimmten Interrupts ein NMI ausgelöst wird) oder eine andere CPU einen IPI als NMI sendet. Aber so richtig weiß ich das nicht. ;-) —[[Benutzer:XanClic|Clici McXan]] 10:07, 15. Jul. 2011 (CEST)
+::Aha, OK danke für die Erklärung :)
+
+Was anderes zu dem Deaktivieren der Interrupts: Hat das jemand mal getestet? Ich kann mir vorstellen, dass das Multitasking aus den folgenden Teilen dann nicht mehr funktioniert. --[[Benutzer:Jidder|Jidder]] 15:03, 17. Jul. 2011 (CEST)
+: oh, das könnte natürlich sein o.O ich werde das jetzt mal testen und die Ergebnisse hier rein schreiben -[[Benutzer:Littlefox|Littlefox]] 22:49, 17. Jul. 2011 (CEST)
+:: Das scheint wirklich auswirkugnen zu haben ... Hab den Code auf GIT genommen (Version vor Paging) und vorher mit nachher verglichen. Vorher hab ich eine Exception 13 bekommen, danach nicht mehr. Der Prozessor war auch angehalten.
+:: Vorschlag: cli raus? Dann spart man wenigstens die Wärem zwischen den Interrupts :) -[[Benutzer:Littlefox|Littlefox]] 23:24, 17. Jul. 2011 (CEST)
+
+== Variable Parameterliste ==
+
+Wie genau wird die variable Parameterliste benutzt? Ich habe schon erfahrung mit C, nur nicht mit der Linux Standard Libreary...
+: Beispiele gibts viele, wenn du mal nach den Schlüsselwörtern googelst. Im Tutorialkernel, wird das so verwendet: [http://git.tyndur.org/?p=tutorial.git;a=blob;f=kernel/console.c;h=ca0df425bf25d71efef3687d6624dab3711d7f1f;hb=HEAD#l86] va_list ap; ist die Liste der Argumente, die zunächst mit va_start initialisiert wird. Anschließend werden die Argumente nacheinander mit va_arg ausgelesen. Der Datentyp der Argumente wird anhands des Formatstrings (%s, %d, ...) erkannt. --[[Benutzer:Jidder|Jidder]] 18:26, 15. Nov. 2011 (CET)
+: Das hat übrigens nichts mit Linux zu tun, sondern ist Bestandteil der offiziellen C-Standardbibliothek. --[[Benutzer:Taljeth|Taljeth]] 23:02, 15. Nov. 2011 (CET)

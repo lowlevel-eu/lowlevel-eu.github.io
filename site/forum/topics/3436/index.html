@@ -1,0 +1,1096 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="Speicherverwaltung: vmm_alloc - Richtige Umsetzung?" name="description"/>
+<title>Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:31</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/2/index.html"><span>Lowlevel-Coding</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg39346"></a>
+<div class="nextlinks"><a href="../3438/index.html#msg39372">« vorheriges</a> <a href="../3432/index.html#msg39325">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] 
+				</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/189d991ca494d666273b9e8c.gif"/>
+<span id="author">Autor</span>
+						Thema: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?  (Gelesen 38666 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Tele</a>
+</h4>
+<ul class="reset smalltext" id="msg_39346_extra_info">
+<li class="postcount">Beiträge: 13</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong> am:</strong> 26. November 2015, 14:47 »</div>
+<div class="posttile"><h5 id="subject_39346">
+<a href="index.html#msg39346" rel="nofollow">Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39346_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39346">Hallo Forum!<br/><br/>Ich beschäftige mich gerade mit der Paging-Implementierung und bin nun bei der Implementierung von vmm_alloc().<br/>Ich halte mich an das hier im Wiki gestellte Tutorial, daher die Namensgleicheiten was Funktionen, Variablen, etc. angeht.<br/>Hauptsächlich geht es mir um die Berechnung einer freien virtuellen Adresse.<br/>Hierzu habe ich folgende Funktion <em>get_free_page</em>, welche mir für einen gegebenen context die erste nicht belegte virtuelle Adresse zurückliefert.<br/>Mit dieser kann ich dann ein map_page() machen, mit vorher alloziierter physischer Page.<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">static uintptr_t get_free_page(struct vmm_context_t* context) {<br/><span style="white-space: pre;"> </span>uint32_t* page_table;<br/><span style="white-space: pre;"> </span>uint32_t page;<br/><span style="white-space: pre;"> </span>int i;<br/><span style="white-space: pre;"> </span>int j;<br/><br/><span style="white-space: pre;"> </span>// loop page tables in context<br/><span style="white-space: pre;"> </span>for (i = 0; i &lt; 1024; i++) {<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>page_table = context-&gt;pagedir[i];<br/><br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>// used page table<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>if (*page_table &amp; VMM_USED) {<br/><br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>// loop pages<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>for (j = 0; j &lt; 1024; j++) {<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>page = page_table[j];<br/><br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>// check if page is used<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>if (page == 0) {<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>return (i &lt;&lt; 22) + ((j &lt;&lt; 12));<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>}<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>}<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>}<br/><span style="white-space: pre;"> </span>}<br/><br/><span style="white-space: pre;"> </span>return NULL;<br/>}<br/></code>Ist das soweit richtig oder ist mein Grundgedanke schon falsch?<br/>Eine weitere Frage:<br/>Nachdem ich mir eine physische Page alloziert habe und diese ausgebe, ist diese 0x1000. Das entspräche doch den ersten 4KB im RAM, oder?<br/>Wenn dem so ist, funktioniert mein pmm-mapping auch nicht, denn da sollte zumindest Kernel + Multiboot + Videobuffer gemappt sein, also eine Adresse &gt; 0x1000 rauskommen.<br/>Oder liege ich hier auch falsch?<br/>Ich hoffe jemand kann Licht in mein Dunkel bringen <img alt=":-)" class="smiley" src="../../../assets/forum/3bd230edbfa99cc1552b7785.gif" title="smiley"/><br/><br/>Viele Grüße,<br/><br/>Der Tele</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39346">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39346_signature">I'm in love with /dev/null</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39347"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_39347_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #1 am:</strong> 26. November 2015, 15:05 »</div>
+<div class="posttile"><h5 id="subject_39347">
+<a href="index.html#msg39347" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39347_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39347">Dein Ansatz ist im Prinzip richtig, der Code aber im Detail falsch. Insbesondere musst du dir klar werden, wie ein Page-Directory-Eintrag aussieht: Das ist in den höherwertigen Bits die physische (!) Adresse einer Page Table und in den unteren Bits Flags. Bevor du den Eintrag also als Pointer benutzen kannst, musst du die Flags herausfiltern, und falls du kein 1:1-Mapping für alle Page Tables hast, die Adresse in eine virtuelle Adresse übersetzen.<br/><br/>Du solltest dir auch bewusst sein, dass *page_table den ersten Eintrag in der PT zurückgibt. Ich weiß nicht, was VMM_USED genau ist, aber vermute, du wolltest stattdessen ein Flag im PDE prüfen - vermutlich das Present Bit, aber dann wäre VMM_PRESENT ein besserer Name.<br/><br/>Zu den physischen Adressen: Der Tutorialkernel ist an 1 MB gelinkt, der Videospeicher geht von 0xa0000 bis 0xbffff. Der erste physische Page kann also durchaus noch frei sein.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39347">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39347_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39348"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Tele</a>
+</h4>
+<ul class="reset smalltext" id="msg_39348_extra_info">
+<li class="postcount">Beiträge: 13</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #2 am:</strong> 26. November 2015, 15:17 »</div>
+<div class="posttile"><h5 id="subject_39348">
+<a href="index.html#msg39348" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39348_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39348">Vielen Dank für deine Antwort!<br/><br/>Was meinst du mit 1:1-Mapping?<br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39347">Zitat von: kevin am 26. November 2015, 15:05</a></div></div><blockquote class="bbc_standard_quote">falls du kein 1:1-Mapping für alle Page Tables hast, die Adresse in eine virtuelle Adresse übersetzen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Hab ich im Tutorial etwas überlesen?<br/>Ja genau, mit VMM_USED ist das Present Bit gemeint.<br/>Wenn ich die Flags herausfiltern möchte, reicht es, diese mit '&amp;' zu clearen, damit der Pointer funktioniert?<br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39347">Zitat von: kevin am 26. November 2015, 15:05</a></div></div><blockquote class="bbc_standard_quote">Du solltest dir auch bewusst sein, dass *page_table den ersten Eintrag in der PT zurückgibt<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Oh, die Dereferenzierung da macht auch wenig Sinn. Das wäre dann aber die erste Page der Page Table?<br/><br/>EDIT:<br/><br/>Ich habe mir alles nochmal durchgelesen und etwas gefixed. Mein <em>get_free_page</em> sieht jetzt so aus:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">static uintptr_t get_free_page(struct vmm_context_t* context) {<br/><span style="white-space: pre;"> </span>uint32_t* page_table;<br/><span style="white-space: pre;"> </span>uint32_t page;<br/><span style="white-space: pre;"> </span>int i;<br/><span style="white-space: pre;"> </span>int j;<br/><br/><span style="white-space: pre;"> </span>// loop page tables in context<br/><span style="white-space: pre;"> </span>for (i = 0; i &lt; 1024; i++) {<br/><br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>// used page table<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>if (context-&gt;pagedir[i] &amp; VMM_USED) {<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>page_table = (uint32_t *)(context-&gt;pagedir[i] &amp; ~0xFFF);<br/><br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>// loop pages<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>for (j = 0; j &lt; 1024; j++) {<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>page = page_table[j];<br/><br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>// check if page is used<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>if (page == 0) {<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>uintptr_t ret_addr = (i &lt;&lt; 22) + ((j &lt;&lt; 12));<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>if (ret_addr != NULL) {<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>return ret_addr;<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>} <br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>}<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>}<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>}<br/><span style="white-space: pre;"> </span>}<br/><br/><span style="white-space: pre;"> </span>return NULL;<br/>}<br/></code><br/>In meiner <em>vmm_init</em> mappe ich Kernel und Videobuffer und alloziiere nach dem Setzen des cr0-Registers einen Int-Pointer.<br/>Da ich nach dem Bootvorgang eine "5" ausgegeben bekomme, sollte dies ja heißen, dass Paging erfolgreich die Adresse übersetzt hat, oder?<br/>Wenn ich mir die Adressen mal anschaue, sind dies im Moment 1:1 Übersetzungen, sollte dann also richtig sein?<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">void vmm_init(void) {<br/><span style="white-space: pre;"> </span>uint32_t cr0;<br/><span style="white-space: pre;"> </span>kernel_context = create_context();<br/><br/><span style="white-space: pre;"> </span>// map kernel<br/><span style="white-space: pre;"> </span>map_page_range(kernel_context, KERNEL_START, KERNEL_START, KERNEL_END, 1);<br/><br/><span style="white-space: pre;"> </span>// map video buffer<br/><span style="white-space: pre;"> </span>map_page_range(kernel_context, 0xb8000, 0xb8000, (0xb8000 + (2 * 25 * 80)), 1);<br/><br/><br/><span style="white-space: pre;"> </span>vmm_activate_memory_context(kernel_context);<br/><br/><span style="white-space: pre;"> </span>// set bit 31 in register cr0 to enable paging<br/><span style="white-space: pre;"> </span>asm volatile("mov %%cr0, %0" : "=r" (cr0));<br/><span style="white-space: pre;"> </span>cr0 |= (1 &lt;&lt; 31);<br/><span style="white-space: pre;"> </span>asm volatile("mov %0, %%cr0" : : "r" (cr0));<br/><br/><span style="white-space: pre;"> </span>int* test = (int *)vmm_alloc(kernel_context, sizeof(int));<br/><span style="white-space: pre;"> </span>*test = 5;<br/><br/><span style="white-space: pre;"> </span>printf("%d\n", *test);<br/>}<br/></code></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39348">
+								« <em>Letzte Änderung: 26. November 2015, 16:25 von Tele</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39348_signature">I'm in love with /dev/null</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39349"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_39349_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #3 am:</strong> 26. November 2015, 22:49 »</div>
+<div class="posttile"><h5 id="subject_39349">
+<a href="index.html#msg39349" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39349_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39349">Du kannst im Qemu-Monitor mit "info tlb" und "info mem" nachschauen, wie deine Page Tables interpretiert werden. Das ist sehr hilfreich, um sowas schnell nachzuprüfen.<br/><br/>Später wird das Thema VMM eher eine Politikfrage. Wenn deine Routinen stehen, kannst du dich mal mit den Vor- und Nachteilen eines "higher-half kernels" befassen und damit, wie man am besten mit Pagefaults umgeht, bzw. wie man sie sinnvoll einsetzt.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39349">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39350"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Tele</a>
+</h4>
+<ul class="reset smalltext" id="msg_39350_extra_info">
+<li class="postcount">Beiträge: 13</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #4 am:</strong> 27. November 2015, 09:17 »</div>
+<div class="posttile"><h5 id="subject_39350">
+<a href="index.html#msg39350" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39350_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39350">Vielen Dank für die Tipps, das mit Qemu ist wirklich sehr hilfreich.<br/>Ich habe auch gleich einen Fehler, zumindest passt mein Mapping noch nicht zu 100%.<br/>Ich habe die Multiboot-Struktur gemappt, beim Zugriff bekomme ich allerdings einen PageFault.<br/>info mem gibt mir auch nur<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">00000000000b8000-000000000025c000 00000000001a4000 urw<br/></code>aus und das sieht mir nach Videobuffer aus. Aber da sind doch 0x1a4000 viel zu viel?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39350">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39350_signature">I'm in love with /dev/null</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39351"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_39351_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #5 am:</strong> 27. November 2015, 11:24 »</div>
+<div class="posttile"><h5 id="subject_39351">
+<a href="index.html#msg39351" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39351_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39351"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39348">Zitat von: Tele am 26. November 2015, 15:17</a></div></div><blockquote class="bbc_standard_quote">Was meinst du mit 1:1-Mapping?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>1:1-Mapping (oder Identity-Mapping)  bedeutet, dass du eine bestimmte virtuelle Adresse auf genau dieselbe physische Adresse gemappt hast. Normalerweise ist das nicht der Fall, und deswegen kannst du sobald Paging mal aktiviert ist nicht direkt den PDE als Pointer benutzen. Das PD enthält die physische Adresse der Page Table, aber Speicherzugriffe in deinem Code benutzen virtuelle Adressen.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Wenn ich die Flags herausfiltern möchte, reicht es, diese mit '&amp;' zu clearen, damit der Pointer funktioniert?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, genau das.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Oh, die Dereferenzierung da macht auch wenig Sinn. Das wäre dann aber die erste Page der Page Table?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Der Page-Table-Eintrag, der die erste Page beschreibt, um genau zu sein. (Vielleicht meintest du das, aber es war nicht ganz eindeutig.)</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39351">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39351_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39352"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Tele</a>
+</h4>
+<ul class="reset smalltext" id="msg_39352_extra_info">
+<li class="postcount">Beiträge: 13</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #6 am:</strong> 27. November 2015, 13:03 »</div>
+<div class="posttile"><h5 id="subject_39352">
+<a href="index.html#msg39352" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39352_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39352">Vielen Dank für die Antwort  <img alt=":-)" class="smiley" src="../../../assets/forum/3bd230edbfa99cc1552b7785.gif" title="smiley"/><br/><br/>Mir ist eine Thematik aber noch nicht klar:<br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Für das Mappen eines Page Directory und allen zugehörigen Page Tables gibt es einen Trick: Wenn ein Eintrag eines Page Directory wieder auf ein Page Directory (z.B. sich selbst) zeigt, dann wird dieses Page Directory an dieser Stelle als Page Table verwendet. Dadurch werden alle enthaltenen Page Tables hintereinander in den virtuellen Speicher gemappt. Dieser Trick wird oft für das aktuelle Page Directory benutzt, d.h. ein bestimmter Eintrag in jedem PD zeigt wieder auf das PD selbst. <br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das verstehe ich nicht. Ich muss alle benutzen Page Directory Einträge mappen, damit die CPU bei Übersetzung der Adressen die dazugehörige Page Table findet?<br/>Klingt logisch. Mit "ein Page Directory Eintrag" ist doch die Adresse einer Page Table gemeint? Muss ich dann nicht auch alle Pages innerhalb einer Table mappen?<br/><br/>Ein anderes Thema: Um nach aktiviertem Paging auf das Page Directory zugreifen zu können, brauche ich die virtuelle Adresse des Page Directorys.<br/>Mappe ich dazu einfach die virtuelle Adresse des Page Directory auf die Physische?<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">kernel_context-&gt;pagedir_virt = get_free_page(kernel_context);<br/>map_page(kernel_context, kernel_context-&gt;pagedir_virt, kernel_context-&gt;pagedir_phys);<br/></code><br/>Wie man merkt, komme ich beim Thema Paging echt durcheinander..<br/><br/>Der Tele</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39352">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39352_signature">I'm in love with /dev/null</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39353"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_39353_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #7 am:</strong> 27. November 2015, 13:51 »</div>
+<div class="posttile"><h5 id="subject_39353">
+<a href="index.html#msg39353" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39353_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39353"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39352">Zitat von: Tele am 27. November 2015, 13:03</a></div></div><blockquote class="bbc_standard_quote">Das verstehe ich nicht. Ich muss alle benutzen Page Directory Einträge mappen, damit die CPU bei Übersetzung der Adressen die dazugehörige Page Table findet?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nein, das würde zu einem Henne-Ei-Problem führen, wenn du auf eine Page Table zugreifen willst. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Deswegen stehen in cr3, den PDEs und PTEs immer physische, nicht virtuelle Adressen. Zum Auflösen der Adressen greift die CPU einfach direkt auf den physischen Speicher zu.<br/><br/>Das Mapping brauchst du dann, wenn du in deinem Code nochmal auf irgendwelche Pagingstrukturen zugreifen willst (z.B. um eine neu allozierte Page zu mappen), denn dein Code benutzt immer virtuelle Adressen.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Mit "ein Page Directory Eintrag" ist doch die Adresse einer Page Table gemeint? Muss ich dann nicht auch alle Pages innerhalb einer Table mappen?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ein PDE ist die Adresse einer Page Table plus Flags (eigentlich ja "oder Flags", aber das klingt verwirrend <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/>).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Ein anderes Thema: Um nach aktiviertem Paging auf das Page Directory zugreifen zu können, brauche ich die virtuelle Adresse des Page Directorys.<br/>Mappe ich dazu einfach die virtuelle Adresse des Page Directory auf die Physische?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Du musst es auf jeden Fall irgendwohin mappen, ja. Die virtuelle Adresse kannst du dir frei aussuchen. Wenn du (wie im zitierten Wikiartikel beschrieben), ein PDE aufs PD zeigen lässt, hast du das PD damit automatisch auch gemappt. Du musst dir dann halt ausrechnen, wo das PD damit landet.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Wie man merkt, komme ich beim Thema Paging echt durcheinander..</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Mach dir keine Sorgen, das ist normal. Paging ist super, um sich Knoten ins Hirn zu denken, bis man es mal kapiert hat. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39353">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39353_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39354"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Krendor</a>
+</h4>
+<ul class="reset smalltext" id="msg_39354_extra_info">
+<li class="postcount">Beiträge: 19</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #8 am:</strong> 27. November 2015, 14:08 »</div>
+<div class="posttile"><h5 id="subject_39354">
+<a href="index.html#msg39354" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39354_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39354"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39353">Zitat von: kevin am 27. November 2015, 13:51</a></div></div><blockquote class="bbc_standard_quote">Mach dir keine Sorgen, das ist normal. Paging ist super, um sich Knoten ins Hirn zu denken, bis man es mal kapiert hat. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Oh ja, das kann ich nur bestätigen. Aber wenn man mal richtig dahinter gestiegen ist, merkt man auch, dass man oftmals gar nicht mehr so kompliziert denken muss. <img alt=":-D" class="smiley" src="../../../assets/forum/40e5b6b3635b5359f55907e5.gif" title="grin"/><br/>Ich habe aber auch an meiner Methode zum mappen einer Page zu knabbern gehabt. Dafür prüft sie jetzt, ob die Page schon gemappt ist, reagiert auf 4KB wie auch auf 4MB Pages, allokiert eine neue physische Page und sogar eine neue PageTable, wenn sie denn benötigt wird.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39354">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39355"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Tele</a>
+</h4>
+<ul class="reset smalltext" id="msg_39355_extra_info">
+<li class="postcount">Beiträge: 13</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #9 am:</strong> 30. November 2015, 15:16 »</div>
+<div class="posttile"><h5 id="subject_39355">
+<a href="index.html#msg39355" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39355_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39355">Vielen Dank für Eure Antworten!<br/><br/>Ich habe mich am Wochenende nochmal damit beschäftigt und da leider mein Mapping immer noch kaputt war, hab ich testweise mal die ersten 4MB komplett gemappt.<br/>ich weis, unschön ist aber zum Testen.<br/>Leider bekomme ich eine General Protection immer wenn einer meiner Userspace Tasks irgendwas machen möchte. Ohne jetzt wieder mit viel Code zu kommen:<br/>Kann man (pauschal) sagen woher eine General Protection kommt? Ein Page Fault ist es ja nicht, also stimmt was anderes nicht.<br/>Oder sind die Möglichkeiten eines Fehlers da zu groß?<br/>Wenn meine Tasks nur aus <div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">while(1);</code> bestehen, läufts <img alt=":-P" class="smiley" src="../../../assets/forum/7d770ef9789e478248a64dfd.gif" title="tongue"/> Aber sobald etwas wie <div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">puts</code> verwendet wird, knallt es. Und zwar beim Code wo der Parameter auf den Stack kommt.<br/><br/>LG,<br/><br/>Der Tele</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39355">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39355_signature">I'm in love with /dev/null</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39356"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">OsDevNewbie</a>
+</h4>
+<ul class="reset smalltext" id="msg_39356_extra_info">
+<li class="postcount">Beiträge: 282</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://gurgel100.github.io/Kernel" target="_blank" title="YourOS Kernel"><img alt="YourOS Kernel" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #10 am:</strong> 30. November 2015, 19:28 »</div>
+<div class="posttile"><h5 id="subject_39356">
+<a href="index.html#msg39356" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39356_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39356">Naja ein General Protection Fault kann viele Ursachen haben. Was auf jeden Fall schon mal helfen würde wäre der Errorcode, den die CPU auf den Stack schreibt.<br/>Was ich allerdings bei dir Vermute ist, dass du das Limit und/oder die Basis der Stacksegmentsregister falsch gesetzt hast.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39356">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39356_signature">Viele Grüsse<br/>OsDevNewbie<br/><hr/>Ein Computer ohne Betriebsystem ist nicht mehr wert als ein Haufen Schrott.<br/>Ein Computer ist eine Maschine, die einem Lebewesen das kostbarste klaut, was sie selber nicht hat:<br/><strong>DIE ZEIT DES LEBENS</strong></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39357"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Tele</a>
+</h4>
+<ul class="reset smalltext" id="msg_39357_extra_info">
+<li class="postcount">Beiträge: 13</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #11 am:</strong> 01. December 2015, 19:29 »</div>
+<div class="posttile"><h5 id="subject_39357">
+<a href="index.html#msg39357" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39357_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39357">Ich muss einen Schritt zurück gehen.<br/>Die Exception hat sich als doch als Page Fault herausgestellt, ich vermute eine General Protection vorher durch veraltete Object-Dateien und Code-Reste.<br/>Die Fehlerbeschreibung bleibt aber die Selbe.<br/>Der Errorcode des Page Faults jedenfalls ist 0x7, also denke ich die ersten Bit's 0-2 sind gesetzt?<br/>Das wäre dann ja<br/><ul class="bbc_list" style="list-style-type: decimal;"><li>Nicht durch eine aktive Page, Bit 0 ist ja gesetzt</li><li>Ein Schreibzugriff</li><li>Task im Usermode</li></ul>Kann ich zumindest bestätigen, auch Bit 1 mit Schreibzugriff scheint korrekt zu sein, der Instruction Pointer des Tasks zeigt auf <div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">push 0x41</code>das wäre ja der Parameter meines <div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">putchar('A')</code>Das macht der Task nämlich.<br/>cr2 zeigt auf <div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">0x402fe4</code> was jedenfalls laut qemu's info mem gemappt sein sollte:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">0000000000000000-0000000000400000 0000000000400000 urw<br/>0000000000400000-0000000000407000 0000000000007000 -rw<br/></code><br/>LG,<br/><br/>Der Tele</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39357">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39357_signature">I'm in love with /dev/null</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39358"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_39358_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #12 am:</strong> 01. December 2015, 20:58 »</div>
+<div class="posttile"><h5 id="subject_39358">
+<a href="index.html#msg39358" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39358_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39358">Bit 0 gesetzt heißt Berechtigungsfehler. Vermutlich willst du aus dem Userspace in Code springen, der nur für den Kernel gemappt ist.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39358">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39358_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39359"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Tele</a>
+</h4>
+<ul class="reset smalltext" id="msg_39359_extra_info">
+<li class="postcount">Beiträge: 13</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #13 am:</strong> 01. December 2015, 21:56 »</div>
+<div class="posttile"><h5 id="subject_39359">
+<a href="index.html#msg39359" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39359_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39359">Ah vielen Dank!<br/>Das war zumindest der Fehler. Der Errorcode hat sich so jetzt von 0x7 auf 0x5 verringert <img alt=":-)" class="smiley" src="../../../assets/forum/3bd230edbfa99cc1552b7785.gif" title="smiley"/><br/>Bleibt noch das gesetzte 2'te Bit, welches sagt, dass das Programm Usermode-Rechte hat. Nun gut stimmt ja auch. Das Bit sollte also richtig sein.<br/>Was sagt mir aber in diesem Falle der PageFault aus? Ein richtiger Errorcode ist das ja nicht mehr..</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39359">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39359_signature">I'm in love with /dev/null</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39360"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_39360_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #14 am:</strong> 01. December 2015, 22:12 »</div>
+<div class="posttile"><h5 id="subject_39360">
+<a href="index.html#msg39360" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39360_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39360">Bit 0 ist immer noch gesetzt. Nur war es vorher ein Schreibzugriff, für den die Rechte gefehlt haben, jetzt ist es ein Lesezugriff.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39360">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39360_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39361"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Tele</a>
+</h4>
+<ul class="reset smalltext" id="msg_39361_extra_info">
+<li class="postcount">Beiträge: 13</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #15 am:</strong> 02. December 2015, 09:26 »</div>
+<div class="posttile"><h5 id="subject_39361">
+<a href="index.html#msg39361" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39361_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39361">Dann verstehe ich den Wikiartikel <a class="bbc_link" href="../../../wiki/pages/1824/index.html#Page_Fault" target="_blank">http://www.lowlevel.eu/wiki/Exception#Page_Fault</a> falsch.<br/>Dort steht zu Bit 0 <div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Wenn gelöscht, dann wurde der Fault durch eine nicht aktive Page ausgelös</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da es gesetzt ist, dachte ich es handelt sich um eine aktive Page = kein Fehler?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39361">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39361_signature">I'm in love with /dev/null</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39362"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">OsDevNewbie</a>
+</h4>
+<ul class="reset smalltext" id="msg_39362_extra_info">
+<li class="postcount">Beiträge: 282</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://gurgel100.github.io/Kernel" target="_blank" title="YourOS Kernel"><img alt="YourOS Kernel" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #16 am:</strong> 02. December 2015, 12:04 »</div>
+<div class="posttile"><h5 id="subject_39362">
+<a href="index.html#msg39362" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39362_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39362">Bit 0 sagt aus, dass die Page aktiv ist, denn das Bit ist gesetzt. Allerdings ist mir aufgefallen, dass dein Programm versucht auf eine virtuelle Adresse zuzugreifen, auf welche der Userspace keine Berechtigungen hat (das Userflag in der Pagetable ist nicht gesetzt). Vielleicht solltest du da mal schauen, ob du den Stack des Programms richtig initialisierst.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39362">
+								« <em>Letzte Änderung: 02. December 2015, 12:14 von OsDevNewbie</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39362_signature">Viele Grüsse<br/>OsDevNewbie<br/><hr/>Ein Computer ohne Betriebsystem ist nicht mehr wert als ein Haufen Schrott.<br/>Ein Computer ist eine Maschine, die einem Lebewesen das kostbarste klaut, was sie selber nicht hat:<br/><strong>DIE ZEIT DES LEBENS</strong></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39363"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_39363_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #17 am:</strong> 02. December 2015, 12:16 »</div>
+<div class="posttile"><h5 id="subject_39363">
+<a href="index.html#msg39363" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39363_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39363">Wenn ihr mal für zwei Sekunden nachdenkt, aus welchen Gründen eine Page noch nicht zugreifbar sein kann, wenn das Present-Bit nicht das Problem ist? Genau, entweder greift Userspace auf eine Kernelpage zu oder es wird auf eine schreibgeschützte Seite geschrieben. Oder anders gesagt: Ein Berechtigungsproblem.<br/><br/>Oder wenn ihr es mir immer noch nicht glaubt, lest das Intel-Manual: "The P flag indicates whether the exception was due to a not-present page (0) or to either an access rights violation or the use of a reserved bit (1)."<br/><br/>Edit: Aha, OsDevNewbie hat seinen Text doch noch angepasst. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39363">
+								« <em>Letzte Änderung: 02. December 2015, 12:19 von kevin</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39363_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39364"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Tele</a>
+</h4>
+<ul class="reset smalltext" id="msg_39364_extra_info">
+<li class="postcount">Beiträge: 13</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #18 am:</strong> 02. December 2015, 19:39 »</div>
+<div class="posttile"><h5 id="subject_39364">
+<a href="index.html#msg39364" rel="nofollow">Re: Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</a>
+</h5></div>
+<div id="msg_39364_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39364">Es lag an meiner eigenen Schusseligkeit. Wie ihr schon geschrieben habt, waren meine Flags für vmm_alloc falsch gesetzt und so wurden die Task-Stacks<br/>falsch alloziert. Dadurch kam der Zugriff auf eine Kernel-Page, welche ja für den Usertask gedacht war <img alt=":-P" class="smiley" src="../../../assets/forum/7d770ef9789e478248a64dfd.gif" title="tongue"/><br/><br/>Paging funktioniert zumindest (vorerst..), jetzt gehts an den Scheduler!<br/><br/>Ich danke für Eure Hilfe!<br/><br/>Der Tele</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39364">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39364_signature">I'm in love with /dev/null</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] 
+				</div></div>
+<div class="nextlinks_bottom"><a href="../3438/index.html#msg39372">« vorheriges</a> <a href="../3432/index.html#msg39325">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/2/index.html"><span>Lowlevel-Coding</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Speicherverwaltung: vmm_alloc - Richtige Umsetzung?</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.008 Sekunden mit 31 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

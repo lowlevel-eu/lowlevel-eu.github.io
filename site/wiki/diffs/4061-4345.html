@@ -1,0 +1,40 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Control Register — Änderungen 4061 → 4345</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Control Register — Änderungen 4061 → 4345</h1><nav><a href="../revisions/4061/index.html">Version 4061</a> · <a href="../revisions/4345/index.html">Version 4345</a> · <a href="../history/1610/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l1" >Zeile 1:</td>
+<td colspan="2" class="diff-lineno">Zeile 1:</td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Die Control Register sind spezielle Register der Intel Architektur (x86 und x86-64), die den Betriebsmodus und einige Eigenschaften der CPU festlegen.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==CR0==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==CR0==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l54" >Zeile 54:</td>
+<td colspan="2" class="diff-lineno">Zeile 56:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==CR2==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==CR2==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Enthält noch einem Page-Fault die lineare Adresse, die den Fehler verursacht hat.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Enthält noch einem Page-Fault die lineare Adresse, die den Fehler verursacht hat.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==CR3==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==CR3==</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Das CR3-Register enthält primär die Adresse des Page Directorys, sowie 2 Flags, die das interne Caching innerhalb der CPU (nicht im TLB) steuern. Wenn [[Physical Address Extension]] (PAE) aktiviert ist, wird die Adresse des Page Directorys ersetzt durch die um 7 Bits größere Adresse zur Page-Directory Pointer Table.</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| border=1</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| border=1</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>!Bit</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>!Bit</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>!Funktion</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>!Funktion</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">!Funktion mit aktivierter [[PAE]]</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| Bit 0-2</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| Bit 0-2</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| ''Reserviert''</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>| <ins class="diffchange diffchange-inline">colspan=&quot;2&quot; |&#160; </ins>''Reserviert''</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| Bit 3</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| Bit 3</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| '''PWT''' ''Page-level Writes Transparant''</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">| colspan=&quot;2&quot; </ins>| '''PWT''' ''Page-level Writes Transparant''</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| Bit 4</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| Bit 4</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| '''PCD''' ''Page-level Cache Disable''</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">| colspan=&quot;2&quot; </ins>| '''PCD''' ''Page-level Cache Disable''</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| Bit 5-11</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| Bit 5-11</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| ''Reserviert''</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| ''Reserviert''</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| rowspan=&quot;2&quot; | '''Page-Directory-Pointer-Table Base'''</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Basis-Adresse der PDPT</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| Bit 12-31</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| Bit 12-31</div></td></tr>
+</table></body></html>

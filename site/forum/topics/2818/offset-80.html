@@ -1,0 +1,1144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="Locking innerhalb des Kernels" name="description"/>
+<title>Locking innerhalb des Kernels</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:30</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Locking innerhalb des Kernels</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg33222"></a>
+<div class="nextlinks"><a href="../2858/index.html#msg33599">« vorheriges</a> <a href="../2846/index.html#msg33411">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: <a class="navPages" href="index.html">1</a> <span style="font-weight: bold;"> ... </span><a class="navPages" href="offset-40.html">3</a> <a class="navPages" href="offset-60.html">4</a> [<strong>5</strong>] <a class="navPages" href="offset-100.html">6</a>
+</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/0f01c9c83ac67395064654f9.gif"/>
+<span id="author">Autor</span>
+						Thema: Locking innerhalb des Kernels  (Gelesen 189820 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_33222_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #80 am:</strong> 16. August 2011, 17:40 »</div>
+<div class="posttile"><h5 id="subject_33222">
+<a href="offset-80.html#msg33222" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33222_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33222">@svenska<br/><br/>Die Arbeiten die du aufgezählt hast, sind ja alles Arbeiten wo die Locks überhaupt nicht interessieren <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Um es mal überspitzt zu sagen, bei den Arbeiten kann mir die Performance des OS scheiß egal sein, aber spätestens beim Kompilieren + Video (siehe Linux <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> ) ist es dann nicht mehr (ich weiß das es in dem Fall der Scheduler war).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Im reinen Userspace musst du für einen Mutex nicht durch den Kernel, wenn er in der C-Bibliothek (auch Userspace) korrekt implementiert ist.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wie das? Ein Mutex ist doch praktisch ne Semaphore mit nem Counter von 1, oder? Und sowas kann man nur eigentlich nur sinnvoll im Kernel machen, weil du einen Lock brauchst um Queue und Counter zu schützen und du willst ja Threads in die Queue packen und dann schlafen legen (spätestens da musst du in den Kernel).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Ich glaube, du überschätzt da den Einfluss ganz gewaltig.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Sehr wahrscheinlich <img alt=":D" class="smiley" src="../../../assets/forum/57bf2c2855c7eae0a902bed6.gif" title="Cheesy"/><br/><br/>Aber was ist dann z.B. mit Interrupts, die würden ja dann auch blockiert werden, nur weil irgend ein Thread was im Kernel macht, oder? Muss nicht auch die Video-Ausgabe irgendwann in den Kernel (also 24 mal in der Sekunde)?<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: svenska</div></div><blockquote class="bbc_standard_quote">Warum soll ich einen langsamen O(n)-Algorithmus nehmen, wenn doch mein O(n^3)-Algorithmus für reale Werte von n viel, viel schneller ist?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Die Einstellung gefällt mir, sehe ich nämlich genauso <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/>Um zu verdeutlichen das O() nichts über die Laufzeit aussagt, sage ich immer auch ein O(n^3)-Algo kann schneller sein als ein O(1)-Algo!</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33222">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33223"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_33223_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #81 am:</strong> 16. August 2011, 18:06 »</div>
+<div class="posttile"><h5 id="subject_33223">
+<a href="offset-80.html#msg33223" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33223_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33223">Hallo,<br/><br/><br/>@ Svenska + FlashBurn :<br/>Das mit den Locks müsste man einfach mal anhand einer konkreten Aufgabenstellung benchmarken aber solange das keiner vernünftig macht können wir hier noch lange theoretisch streiten. Der Nachteil von Locks wird dadurch bestimmt wie viele Interessenten gleichzeitig da ran wollen und für wie lange die es normalerweise halten (für beides muss man den Worst-Case genauso wie den Average-Case analysieren). Ersteres kann man z.B. mit feiner verteilten Locks erheblich reduzieren und am Zweiten kann man mit algorithmischen bzw. technischen Tricks arbeiten. Bei beidem hat man IMHO viel Potential so das Locks noch längst nicht zum alten Eisen gehören.<br/>Einen zuverlässigen Lock kann man auf allen aktuellen CPUs auch nur allein im User-Mode bauen (egal wie dämlich der Scheduler auch sein mag) aber wenn dann noch Features wie schlafen lassen der Threads dazu kommen soll benötigt man eben die Hilfe des Kernels. Auch performt so ein reiner User-Mode-Lock nicht besonders gut wenn der Scheduler nicht mitspielt bzw. nicht zur Mitarbeit gezwungen werden kann (z.B. über das IE-Flag).<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg33221">Zitat von: bluecode am 16. August 2011, 17:32</a></div></div><blockquote class="bbc_standard_quote">Wie das? LL Lädt doch nur die Speicherzelle in der Tailpointer drinsteht und nicht den Knoten (bzw. dessen next-Zeiger) und garantiert mir, mich beim SC (auf &amp;Tail) zu warnen, wenn sich da was verändert hat? Wie schließt das aus, dass zwei den gleichen Tail lesen und dann weitermachen und das Tail-&gt;next kaputtmachen?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Bei einem herkömmlichen LL hast Du recht aber normalerweise weiß das LL doch ob es die Hardware-Überwachung erfolgreich einrichten konnte oder nicht nur meldet dies eben nicht an den CPU-Kern weiter und genau an der Stelle möchte ich ansetzen indem mein LL-Befehl ebenso ein Flag nur dann setzt wenn es erfolgreich war. Das bedeutet das hier bereits beim LL erkennbar ist ob der Hardware-Lock mir gehört oder nicht, deswegen ja auch das while zum spinnen (inklusive PAUSE zum Last und Strom sparen).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg33221">Zitat von: bluecode am 16. August 2011, 17:32</a></div></div><blockquote class="bbc_standard_quote">Mir scheint, dass ich dann LL/SC nicht verstehe, wenn das korrekt sein soll <img alt=":?" class="smiley" src="../../../assets/forum/a4beef0807c51186279e2aac.gif" title="huh"/> Soweit ich weiß tut das nur auf eine Speicherzelle, und &amp;Tail und Tail-&gt;next sind aber zwei verschiedene.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nein, ich denke ich hab nicht deutlich genug auf meinen kleinen Zusatztrick hingewiesen.<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg33217">Zitat von: Svenska am 16. August 2011, 15:01</a></div></div><blockquote class="bbc_standard_quote">Laufwerke sind dank NCQ und modernen COW-Dateisystemen durchaus parallel ansprechbar.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wie lange predige ich das nun schon? Und wie viele nehmen das ernst? <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/>Moderne Hardware ist hochgradig parallelisierbar und das trifft nicht nur auf AHCI-SATA-Controller sondern auch auf viele andere zu.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33223">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33223_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33224"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33224_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #82 am:</strong> 16. August 2011, 18:09 »</div>
+<div class="posttile"><h5 id="subject_33224">
+<a href="offset-80.html#msg33224" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33224_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33224"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33223">Zitat von: erik.vikinger am 16. August 2011, 18:06</a></div></div><blockquote class="bbc_standard_quote">Nein, ich denke ich hab nicht deutlich genug auf meinen kleinen Zusatztrick hingewiesen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Worin genau besteht der Trick? Ein Lock für den ges. Speicher? Das ist dann äquivalent zu einem Spinlock der alles lockt... das saugt bestimmt Performance. Ansonsten versteh ich immernoch nicht, welche Semantik dein LL bzw. dein SC hat und warum niemand anders eine nicht ge'LL'te Speicherzelle überschreiben kann.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33224">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33224_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33225"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_33225_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #83 am:</strong> 16. August 2011, 18:24 »</div>
+<div class="posttile"><h5 id="subject_33225">
+<a href="offset-80.html#msg33225" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33225_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33225">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33224">Zitat von: bluecode am 16. August 2011, 18:09</a></div></div><blockquote class="bbc_standard_quote">Ansonsten versteh ich immernoch nicht, welche Semantik dein LL bzw. dein SC hat und warum niemand anders eine nicht ge'LL'te Speicherzelle überschreiben kann.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Jeder kann eine ge'LL'te Speicherzelle normal lesen und auch überschreiben (beim Überschrieben würde dann das SC fehlschlagen aber das Lesen hat keinen Effekt) aber niemand kann eine solche Zelle ebenfalls mit einem LL erfolgreich locken weil die Hardware ja schon einen Lock für diese Zelle kennt. Mein Trick besteht darin das dieses Erfolgreich/Nicht-Erfolgreich der SW mitgeteilt wird (der Returnwert der im while ausgewertet wird) die drauf passend reagieren kann.<br/>Wie viele solcher Locks es parallel geben kann hängt davon ab was der Memory-Controller kann (es kann also passieren das LL fehlschlägt obwohl die gewünschte Zelle nicht gelockt ist und das nur weil das Limit des Memory-Controllers an gleichzeitigen Locks erschöpft ist, in den ersten ARMv6-Implementierungen war dieses Limit auch 1 was für ein Single-CPU-System ja schon mal reicht aber heutige ARM-SoCs können da meines Wissens nach mehr). Der Nachteil vom klassischen LL ist der das dieser Fehlschlag nicht für die Software sichtbar ist so das die immer erst beim SC merkt ob sie erfolgreich war und daher immer probieren muss anstatt das System (und die Stromrechnung) mit spinnen (und Pausen) zu entlasten.<br/><br/>Ich hoffe ich habe mich jetzt deutlich genug ausgedrückt, wenn nicht dann Bitte noch mal fragen.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33225">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33225_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33226"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33226_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #84 am:</strong> 16. August 2011, 18:30 »</div>
+<div class="posttile"><h5 id="subject_33226">
+<a href="offset-80.html#msg33226" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33226_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33226">D.h. in dem Fall (bzw. in jedem von Interesse?) ist es äquivalent zu einem Spinlock? Dann ist es aber nicht sehr interessant, weil es genausoviel Parallelität bietet wie ebendieser.<br/>Mir scheint das auch nicht wirklich irgendwas mit LL/SC zu tun zu haben: Soweit ich weiß können mehrere ein LL auf die gleiche Zelle machen und der der zuerst schreibt hat halt dann gewonnen. Das ist ein ganz anderes Konzept imho.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33226">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33226_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33227"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_33227_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #85 am:</strong> 16. August 2011, 19:07 »</div>
+<div class="posttile"><h5 id="subject_33227">
+<a href="offset-80.html#msg33227" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33227_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33227">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33226">Zitat von: bluecode am 16. August 2011, 18:30</a></div></div><blockquote class="bbc_standard_quote">D.h. in dem Fall (bzw. in jedem von Interesse?) ist es äquivalent zu einem Spinlock?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, eigentlich immer, nur das hier für den Lock nicht ein bestimmter Wert steht sondern das man eine ganz normale Variable mit beliebigen Inhalt benutzen kann (in meinem Beispiel die Variable Tail die ein Pointer ist der nie ungültig ist, das spart mindestens die zusätzlichen Speicherzugriffe für eine dedizierte Lock-Variable) und auch das ABA-Problem zuverlässig ausgeschlossen ist (beim Schreiben wird nicht der Inhalt verglichen sondern nur der SC-Schreibvorgang ansich beendet den Lock in der Hardware).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33226">Zitat von: bluecode am 16. August 2011, 18:30</a></div></div><blockquote class="bbc_standard_quote">Dann ist es aber nicht sehr interessant, weil es genausoviel Parallelität bietet wie ebendieser.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Aber dafür oft schneller verarbeitet werden kann als z.B. eine Lösung mit CAS, mit meinem Zusatztrick ist das sogar immer schneller als CAS bzw. zumindest schonender weil gespinnt werden kann.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33226">Zitat von: bluecode am 16. August 2011, 18:30</a></div></div><blockquote class="bbc_standard_quote">Mir scheint das auch nicht wirklich irgendwas mit LL/SC zu tun zu haben: Soweit ich weiß können mehrere ein LL auf die gleiche Zelle machen und der der zuerst schreibt hat halt dann gewonnen. Das ist ein ganz anderes Konzept imho.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nein, auch ein normales LL richtet einen Lock in der Hardware ein (der CPU-Kern bekommt darauf eine Art Tocken als zusätzliche Antwort des LL den er dann beim SC wieder mitliefern muss damit der Lock-Mechanismus im Memory-Controller auch erkennt ob der SC vom richtigen CPU-Kern kommt, das dürfte einer der Gründe sein warum auf keiner CPU LL/SC verschachtelbar ist) und der dessen LL zuerst vom Memory-Controller verarbeitet wird (der Memory-Controller muss zwangsläufig serialisieren) hat gewonnen. Dieser Lock wird nur von einem SC aufgehoben wenn das SC von der richtigen CPU kommt (und nur dieses SC meldet auch Erfolgreich zurück wogegen alle anderen SCs verworfen werden (also den Speicher nicht verändern) und auch ein Nicht-Erfolgreich zurückmelden) oder von einem normalen Schreibzugriff (egal von welcher CPU). Wenn so ein Lock von einem normalen Schreibbefehl zerstört wird ist das doof weil dann gar keiner gewonnen hat, daher möchte ich das so ein normaler Schreibzugriff immer mit einer Exception endet damit der Programmierer hier keine unerlaubten Dinge anstellen kann (es gibt IMHO auch keinen Grund eine solche Variable die als Lock benutzt wird mit anderen Speicherzugriffsbefehlen als LL und SC zu bearbeiten).<br/><br/>Ich weiß das Du Dich nicht für die Hardware interessierst aber vielleicht solltest Du Dir mal die AXI-Spezifikation (kann man bei ARM irgendwo runterladen) durchlesen um zu sehen wie bei diesen speziellen Befehlen die Kommunikation zwischen CPU und Memory-Controller abläuft. Wimre gibt es in den ARM-CPU-Manuals auch eine gute Beschreibung dieser Befehle und wie diese intern arbeiten.<br/><br/>In dem Hazard-Pointer-Dokument von diesem Michael wird auch angemeckert das keine CPU einen VL-Befehl anbietet, dieser würde nur prüfen ob es auf einer bestimmten Speicherzelle momentan einen Lock gibt und ermöglicht so eine Art vorgelagerte Schleife zum spinnen. Das wäre dann immerhin schon mal ein kleiner Vorgeschmack auf einen LL-Befehl der eine Erfolgreich-Meldung bietet und könnte zumindest dabei Helfen die System-Last (und den Energiebedarf) zu senken.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33227">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33227_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33228"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33228_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #86 am:</strong> 16. August 2011, 19:27 »</div>
+<div class="posttile"><h5 id="subject_33228">
+<a href="offset-80.html#msg33228" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33228_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33228"><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">ABA-Problem zuverlässig ausgeschlossen ist (beim Schreiben wird nicht der Inhalt verglichen sondern nur der SC-Schreibvorgang ansich beendet den Lock in der Hardware).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ABA-Problem hat man doch erst wenn überhaupt jemand parallel schreiben darf, wenn das niemand darf (weil er auch vorher ein LL macht, per Algorithmus) kommt das Problem auch nicht auf. Insofern "vermeidet" es das ABA-Problem genauso wie ein Spinlock das tut und zwar dadurch, dass man die Parallelität einschränkt.<br/><br/>edit: Wobei, vielleicht wäre es sinnvoll zu sehen wie du ein Dequeue machst, falls da doch kein LL auf die selbe Speicherstelle zuerst kommt, könnte es interessanter werden.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33227">Zitat von: erik.vikinger am 16. August 2011, 19:07</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33226">Zitat von: bluecode am 16. August 2011, 18:30</a></div></div><blockquote class="bbc_alternate_quote">Dann ist es aber nicht sehr interessant, weil es genausoviel Parallelität bietet wie ebendieser.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Aber dafür oft schneller verarbeitet werden kann als z.B. eine Lösung mit CAS, mit meinem Zusatztrick ist das sogar immer schneller als CAS bzw. zumindest schonender weil gespinnt werden kann.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wieso kann man bei CAS denn nicht spinnen?<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33226">Zitat von: bluecode am 16. August 2011, 18:30</a></div></div><blockquote class="bbc_standard_quote">Nein, auch ein normales LL richtet einen Lock in der Hardware ein</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Gut, dann ist LL/SC nicht wirklich interessant, weil es die Parallelität genauso wie ein Spinlock einschränkt. Bietet also "intellektuell" nichts neues, nur einen "schickeren Spinlock". Wobei das nicht so abwertend sein soll, wie es da steht. Was ich damit meine ist, dass mein Interessengebiet eher Algorithmik &amp; Datenstrukturen ist und aus der Warte gesehen ist das halt nichts Neues, sondern lässt sich unter (natürlich performancerelevantes) "Implementierungsdetail" abhacken.<br/>edit: Zumindest wenn es sich effektiv nicht anders als ein Spinlock nutzen lässt. Ich schließe hier halt von dem Beispiel oben auf die Allgemeinheit.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33228">
+								« <em>Letzte Änderung: 16. August 2011, 19:32 von bluecode</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33228_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33229"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_33229_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #87 am:</strong> 16. August 2011, 20:32 »</div>
+<div class="posttile"><h5 id="subject_33229">
+<a href="offset-80.html#msg33229" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33229_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33229">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33228">Zitat von: bluecode am 16. August 2011, 19:27</a></div></div><blockquote class="bbc_standard_quote">Insofern "vermeidet" es das ABA-Problem genauso wie ein Spinlock das tut und zwar dadurch, dass man die Parallelität einschränkt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ist richtig, aber das klassische LL/SC und auch CAS erlauben effektiv auch nicht mehr Parallelität weil ja nur einer wirklich vorwärts kommt (eben der der zum Schluss erfährt ob er gewonnen hat).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33228">Zitat von: bluecode am 16. August 2011, 19:27</a></div></div><blockquote class="bbc_standard_quote">edit: Wobei, vielleicht wäre es sinnvoll zu sehen wie du ein Dequeue machst, falls da doch kein LL auf die selbe Speicherstelle zuerst kommt, könnte es interessanter werden.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Gerne, aber da müsstest Du Bitte etwas deutlicher beschreiben was Du genau möchtest.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33228">Zitat von: bluecode am 16. August 2011, 19:27</a></div></div><blockquote class="bbc_standard_quote">Wieso kann man bei CAS denn nicht spinnen?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das hat Du doch selber erklärt und korrekt begründet, man muss immer neu versuchen (also intensiv arbeiten) bis man tatsächlich erfolgreich ist. Für mich bedeutet spinnen das man wartet und nicht arbeitet.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33228">Zitat von: bluecode am 16. August 2011, 19:27</a></div></div><blockquote class="bbc_standard_quote">Bietet also "intellektuell" nichts neues, nur einen "schickeren Spinlock"....</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Im wesentlichen hast Du Recht, ja.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33228">Zitat von: bluecode am 16. August 2011, 19:27</a></div></div><blockquote class="bbc_standard_quote">edit: Zumindest wenn es sich effektiv nicht anders als ein Spinlock nutzen lässt. Ich schließe hier halt von dem Beispiel oben auf die Allgemeinheit.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich bin schon der Meinung das man mit LL/SC auch etwas über den simplen Spin-Lock hinaus gehen kann, deswegen möchte ich ja auch immer noch wissen was Du für Ideen mit mehreren LL/SC-Pärchen kennst.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33229">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33229_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33230"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33230_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #88 am:</strong> 16. August 2011, 21:42 »</div>
+<div class="posttile"><h5 id="subject_33230">
+<a href="offset-80.html#msg33230" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33230_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33230"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33229">Zitat von: erik.vikinger am 16. August 2011, 20:32</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33228">Zitat von: bluecode am 16. August 2011, 19:27</a></div></div><blockquote class="bbc_alternate_quote">edit: Wobei, vielleicht wäre es sinnvoll zu sehen wie du ein Dequeue machst, falls da doch kein LL auf die selbe Speicherstelle zuerst kommt, könnte es interessanter werden.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Gerne, aber da müsstest Du Bitte etwas deutlicher beschreiben was Du genau möchtest.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Naja, bisher war das nur ein Enqueue, ich möchte aber auch manchmal was aus einer Queue rausholen <img alt=":wink:" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/> <br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33228">Zitat von: bluecode am 16. August 2011, 19:27</a></div></div><blockquote class="bbc_alternate_quote">Wieso kann man bei CAS denn nicht spinnen?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das hat Du doch selber erklärt und korrekt begründet, man muss immer neu versuchen (also intensiv arbeiten) bis man tatsächlich erfolgreich ist. Für mich bedeutet spinnen das man wartet und nicht arbeitet.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><strong>Muss</strong> man nicht, ich sehe nur nicht den Sinn dahinter, denn sobald ich die Änderung sehe (das CAS fehlschlägt), ist der andere bereits fertig und ich hab eine Chance, wenn ich es sofort wieder versuche.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33228">Zitat von: bluecode am 16. August 2011, 19:27</a></div></div><blockquote class="bbc_alternate_quote">edit: Zumindest wenn es sich effektiv nicht anders als ein Spinlock nutzen lässt. Ich schließe hier halt von dem Beispiel oben auf die Allgemeinheit.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich bin schon der Meinung das man mit LL/SC auch etwas über den simplen Spin-Lock hinaus gehen kann, deswegen möchte ich ja auch immer noch wissen was Du für Ideen mit mehreren LL/SC-Pärchen kennst.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da ich wohl falsch verstanden habe, was LL/SC macht (mir ist irgendwie schleierhaft, was das in der Form soll), ist das irgendwie schwierig. Alle Algorithmen die ich kenne verwenden nativ natürlich CAS. Und wenn du die so komplett umschreibst, dass sie effektiv einen Spinlock drumrumbauen, dann ist das irgendwie wenig sinnvoll...</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33230">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33230_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33231"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_33231_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #89 am:</strong> 16. August 2011, 23:57 »</div>
+<div class="posttile"><h5 id="subject_33231">
+<a href="offset-80.html#msg33231" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33231_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33231">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33230">Zitat von: bluecode am 16. August 2011, 21:42</a></div></div><blockquote class="bbc_standard_quote">Naja, bisher war das nur ein Enqueue, ich möchte aber auch manchmal was aus einer Queue rausholen <img alt=":wink:" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nichts leichter als das. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/>Ich verwende noch mal den selben Code und hänge nur das Dequeue dran, eigentlich müsste man da noch prüfen ob die Queue überhaupt etwas enthält usw. aber fürs grobe Verständnis des Prinzips sollte es reichen :<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">struct Node<br/>{<br/>  T value;<br/>  Node* next;<br/>};<br/><br/>// global<br/>// einfach verkettete Liste die bei Head anfängt<br/>Node* Tail;<br/>Node* Head;<br/><br/>void Enqueue(T value)<br/>{<br/>  Node* NewNode = new Node();<br/>  NewNode-&gt;value = value;  NewNode-&gt;next = null;<br/><br/>  Node* LocalTail;<br/><br/>  IRQ_Disable();<br/><br/>  // probieren bis Tail mir gehört :<br/>  while ( LL(&amp;Tail,&amp;LocalTail) != true ) { IRQ_Enable(); Pause(); IRQ_Disable(); }<br/><br/>  if (LocalTail-&gt;next != null)<br/>   { PANIC(); }<br/><br/>  // anhängen :<br/>  LocalTail-&gt;next = NewNode;<br/><br/>  // Tail weitersetzen :<br/>  if ( CS(&amp;Tail,NewNode) != true )<br/>   { PANIC(); }<br/><br/>  IRQ_Enable();<br/>}<br/><br/>T Dequeue(void)<br/>{<br/>  Node* OldNode;<br/><br/>  IRQ_Disable();<br/><br/>  // probieren bis Head mir gehört :<br/>  while ( LL(&amp;Head,&amp;OldNode) != true ) { IRQ_Enable(); Pause(); IRQ_Disable(); }<br/><br/>  // Head weitersetzen :<br/>  if ( CS(&amp;Head,OldNode-&gt;next) != true )<br/>   { PANIC(); }<br/><br/>  IRQ_Enable();<br/><br/>  // Value extrahieren :<br/>  T value = OldNode-&gt;value;<br/><br/>  // Node freigeben :<br/>  delete(OldNode);<br/><br/>  // Value abliefern :<br/>  return value;<br/>}</code>Ich hoffe das ist einigermaßen verständlich. Das Prüfen auf PANIC könnte man auch einfach weg lassen aber ich las es mal drin um zu zeigen wie der Zustand der einzelnen Variablen sein sollte.<br/>Das ist übrigens so nicht mit dem normalen LL/SC-Pärchen machbar, jenes fällt eher in die CAS-Methodik, mein Beispiel-Code hier funktioniert nur wenn LL auch Erfolgreich/Nicht-Erfolgreich an die Software melden kann. Auf jeden Fall sollte man deutlich erkennen wie enorm kurz der gelockte Code jeweils ist, klar scaliert das nicht unbedingt perfekt (in Richtung mehr CPUs) aber wenn jemand einen Lock-Freien-Algorithmus kennt der bei irgendeiner Anzahl an parallelen Versuchen besser performt dann würde ich den gerne mal sehen.<br/>Bluecodes Code von Heute Morgen ist auf vergleichbarer Hardware auf jeden Fall langsamer. Für die einzelnen Threads selber geht es nicht schneller weil ja trotzdem nur einer nach dem anderen zum Zug kommen kann (die Variante ist zwar lock-free aber nicht wait-free) und jeder Versuch an sich erzeugt schon eine recht hohe Last (immer 3 atomic_read und gelegentlich 1 CAS + 2 oder 3 bedingte Verzweigungen pro Schleifendurchlauf). Ich behaupte einfach mal das diese Variante bei absolut keiner Anzahl an parallelen Interessenten (2 bis &amp;infin;) schneller ist als meine Variante (noch nicht einmal gleich schnell, selbst wenn ich die Pause weg lassen würde).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33230">Zitat von: bluecode am 16. August 2011, 21:42</a></div></div><blockquote class="bbc_standard_quote"><strong>Muss</strong> man nicht....</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Richtig, man muss nicht sofort neu probieren aber man muss auf jeden Fall probieren um überhaupt zu erfahren ob man überhaupt eine Chance hatte. Bei einem Spinlock kann man warten ohne eine größere Last zu erzeugen (die muss man nur ein einziges mal generieren wenn man den Lock tatsächlich hat) wogegen man bei der Lock-Frei-Variante ständig probieren (und Last erzeugen) muss. Klar kann man da Pausen einbauen aber probieren <strong>muss</strong> man trotzdem.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33230">Zitat von: bluecode am 16. August 2011, 21:42</a></div></div><blockquote class="bbc_standard_quote">Da ich wohl falsch verstanden habe, was LL/SC macht (mir ist irgendwie schleierhaft, was das in der Form soll), ist das irgendwie schwierig. Alle Algorithmen die ich kenne verwenden nativ natürlich CAS. Und wenn du die so komplett umschreibst, dass sie effektiv einen Spinlock drumrumbauen, dann ist das irgendwie wenig sinnvoll...</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Hm, schreibst Du da jetzt über meine Spezial-Variante von LL/SC oder über das normale (und bereits in vielen CPUs existierende) LL/SC-Konzept?<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33231">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33231_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33232"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33232_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #90 am:</strong> 17. August 2011, 10:07 »</div>
+<div class="posttile"><h5 id="subject_33232">
+<a href="offset-80.html#msg33232" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33232_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33232"><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Das ist übrigens so nicht mit dem normalen LL/SC-Pärchen machbar</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Jo, das war mir schon bewusst.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">mein Beispiel-Code hier funktioniert nur wenn LL auch Erfolgreich/Nicht-Erfolgreich an die Software melden kann</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das viel wesentlichere ist doch eigentlich, dass dein SC im Enqueue niemals fehlschlägt, sobald das passiert, wird es nämlich falsch. Wie gut man das in Hardware implementieren kann kA.<br/>Aber wie gesagt, das ist zwar schick, aber es hilft halt nichts bei der Diskussion über real existierende Hardware, da will man weder Interrupts deaktivieren (das ist wohl unbedingt notwendig, damit SC nicht fehlschlägt), noch hat man so ein LL/SC.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Auf jeden Fall sollte man deutlich erkennen wie enorm kurz der gelockte Code jeweils ist, klar scaliert das nicht unbedingt perfekt (in Richtung mehr CPUs) aber wenn jemand einen Lock-Freien-Algorithmus kennt der bei irgendeiner Anzahl an parallelen Versuchen besser performt dann würde ich den gerne mal sehen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich kann halt nur auf die Paper verweisen. Da testen die wohl ausschließlich die Datenstruktur (also massiv parallel) und vergleichen mit lock-basierten Varianten (oder älteren lockfreien Algorithmen) und die Ergebnisse sind einiges besser.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Bluecodes Code von Heute Morgen ist auf vergleichbarer Hardware auf jeden Fall langsamer.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist eine sehr gewagte Aussage, wo es doch diese "vergleichbare Hardware" nur in deiner Imagination gibt. <img alt=":wink:" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/> <br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Für die einzelnen Threads selber geht es nicht schneller weil ja trotzdem nur einer nach dem anderen zum Zug kommen kann (die Variante ist zwar lock-free aber nicht wait-free)</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Aber jeder ist vorbereitet.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33230">Zitat von: bluecode am 16. August 2011, 21:42</a></div></div><blockquote class="bbc_alternate_quote"><strong>Muss</strong> man nicht....</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Richtig, man muss nicht sofort neu probieren aber man muss auf jeden Fall probieren um überhaupt zu erfahren ob man überhaupt eine Chance hatte. Bei einem Spinlock kann man warten ohne eine größere Last zu erzeugen (die muss man nur ein einziges mal generieren wenn man den Lock tatsächlich hat) wogegen man bei der Lock-Frei-Variante ständig probieren (und Last erzeugen) muss. Klar kann man da Pausen einbauen aber probieren <strong>muss</strong> man trotzdem.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Bei einem Spinlock muss man doch auch probieren zu schreiben (auf den Lock). Wie relevant ist es da wenn ich zusätzlich noch ein bisschen auf dem L1 Cache alleine rumarbeite (beim enqueue ist das ja meine Referenz)? Ernsthaft, ich seh einfach keine "relevante" Last die da mehr erzeugt wird. (Aber ganz eigentlich will ich darüber auch garnicht reden, nicht mein Gebiet, ich sehe Performancegraphen die sagen es ist besser, das reicht mir vollkommen)<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33230">Zitat von: bluecode am 16. August 2011, 21:42</a></div></div><blockquote class="bbc_standard_quote">Hm, schreibst Du da jetzt über meine Spezial-Variante von LL/SC oder über das normale (und bereits in vielen CPUs existierende) LL/SC-Konzept?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Deine Variante ist für mich effektiv ein Spinlock. Bei der normalen Variante glaube ich ehrlich gesagt noch nicht so Recht, dass da nur einer ein LL machen kann und dann eine Art Lock hat. Zumindest schreibt Wikipedia nichts davon und in den Papern die LL/SC angesprochen haben, dachte ich auch das anders verstanden zu haben.<br/><br/>Ich glaube aber nicht, dass du eine verkettete Liste echt durchlaufen kannst mit deinem LL/SC. Zumindest mit Locks lockt man da wohl immer zwei Knoten und zwar nichtmal LIFO, sondern verschränkt (zuerst nächsten holen, dann momentanen freigeben, dann nächsten holen, momentanen freigeben, etc).</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33232">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33232_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33233"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_33233_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #91 am:</strong> 17. August 2011, 12:49 »</div>
+<div class="posttile"><h5 id="subject_33233">
+<a href="offset-80.html#msg33233" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33233_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33233">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_standard_quote">Das viel wesentlichere ist doch eigentlich, dass dein SC im Enqueue niemals fehlschlägt</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das sollte eigentlich weder in Enqueue noch in Dequeue jemals fehlschlagen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_standard_quote">sobald das passiert, wird es nämlich falsch</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Der einzigste Grund warum das fehlschlagen könnte ist eine Exception o.ä. zwischen LL und SC oder ein externer normaler Schreibzugriff (was eigentlich ein SW-Implementierungsfehler ist).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_standard_quote">Aber wie gesagt, das ist zwar schick, aber es hilft halt nichts bei der Diskussion über real existierende Hardware, da will man weder Interrupts deaktivieren (das ist wohl unbedingt notwendig, damit SC nicht fehlschlägt), noch hat man so ein LL/SC.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Falls ich meine Phantasien jemals realisieren kann verspreche ich Dir auch einen richtigen CAS zu implementieren so das wir dann mal vernünftige und objektive Benchmarks fahren können.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_standard_quote">Ich kann halt nur auf die Paper verweisen. Da testen die wohl ausschließlich die Datenstruktur (also massiv parallel) und vergleichen mit lock-basierten Varianten (oder älteren lockfreien Algorithmen) und die Ergebnisse sind einiges besser.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Auf welche Paper? Wie objektiv sind die dort durchgeführten Benchmarks? Auf einer Architektur die kein CAS hat mit LL/SC ein CAS zu emulieren ist jedenfalls nicht besonders fair bzw. objektiv.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_standard_quote">Aber jeder ist vorbereitet.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Aha, und das bedeutet was?<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_standard_quote">Wie relevant ist es da wenn ich zusätzlich noch ein bisschen auf dem L1 Cache alleine rumarbeite (beim enqueue ist das ja meine Referenz)?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also die 3 atmoic_read gehen nicht in den lokalen L1-Cache sondern alle auf globale Variablen die alle von den anderen Threads auch gelesen werden, die werden auf jeden Fall zwischen allen beteiligten CPUs hin und her gereicht. Das selbe trifft auch auf beide CAS-Befehle innerhalb der while-Schleife zu. 3 oder 4 deutlich nach außen spürbare Operationen pro Versuch (Schleifendurchlauf) sind was anderes als 1 nach außen spürbarer Lock-Zugriff pro Versuch. Der Spinlock kann entweder schneller reagieren (weil er pro Zeit öfter probiert) oder er erzeugt eine geringere Last (weil er pro Versuch nur eine Operation benötigt). Ich vermute das ist es auch was FlashBurn zu denken und zweifeln gibt.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_standard_quote">Deine Variante ist für mich effektiv ein Spinlock.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Korrekt.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_standard_quote">Bei der normalen Variante glaube ich ehrlich gesagt noch nicht so Recht, dass da nur einer ein LL machen kann und dann eine Art Lock hat.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wie soll das sonst funktionieren? Irgendwie muss der Memory-Controller (oder eine andere Instanz die gerade für die betreffende Speicherzelle autoritär verantwortlich ist) ja entscheiden ob zwischen einem SC und dem vorangegangenen dazugehörigem LL ein anderer (Schreib-)Zugriff stattgefunden hat. Eigentlich kann da jeder ein klassisches LL machen aber nur bei maximal einem davon wird der zugehörige SC auch ein "Erfolgreich" melden. Sollte gerade diese CPU zwischen LL und SC unterbrochen werden, so das der Lock im Memory-Controller abläuft, bekommt die auch kein "Erfolgreich" beim SC gemeldet. Das ist der große Nachteil dieses Locks gegenüber einem richtigem Lock mit einer echten dedizierten Lock-Variablen (letztere bleibt beliebig lang erhalten). Gerade diese "Persistenz" einer Lock-Variablen ermöglicht aber auch Dead-Locks, die beim klassischen (und auch meinem speziellem) LL/SC so nicht auftreten können.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_standard_quote">Zumindest schreibt Wikipedia nichts davon und in den Papern die LL/SC angesprochen haben, dachte ich auch das anders verstanden zu haben.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Für die ist das ein unerhebliches Implementierungsdetail. Ließ Dir noch mal genau die gemachten Zusicherungen durch und überlege wie man das wohl praktisch realisieren kann.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_standard_quote">Ich glaube aber nicht, dass du eine verkettete Liste echt durchlaufen kannst mit deinem LL/SC. Zumindest mit Locks lockt man da wohl immer zwei Knoten und zwar nichtmal LIFO, sondern verschränkt (zuerst nächsten holen, dann momentanen freigeben, dann nächsten holen, momentanen freigeben, etc).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dazu benötigt man auch echte Locks (also zusätzliche Variablen) und kein dazugezaubertes Lock. Nebst dessen das Du hier plötzlich die Anforderungen an die Queue erweitert hast, vorher sollte man nur hinten anhängen und vorne wegnehmen können. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33233">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33233_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33234"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33234_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #92 am:</strong> 17. August 2011, 13:08 »</div>
+<div class="posttile"><h5 id="subject_33234">
+<a href="offset-80.html#msg33234" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33234_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33234"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33233">Zitat von: erik.vikinger am 17. August 2011, 12:49</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_alternate_quote">Das viel wesentlichere ist doch eigentlich, dass dein SC im Enqueue niemals fehlschlägt</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das sollte eigentlich weder in Enqueue noch in Dequeue jemals fehlschlagen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Jo klar, ich will nur sagen, dass das dein SC garantieren muss. Bzw. genauer: Jedes Erfolgreiche LL muss garantieren, dass ein SC auch immer erfolgreich ist, solange niemand - ohne ein LL auf die Speicherzelle gemacht zu haben -, darauf schreibt.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_alternate_quote">sobald das passiert, wird es nämlich falsch</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Der einzigste Grund warum das fehlschlagen könnte ist eine Exception [...]</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Effektiv gibts dann kein Debugging, denn sobald man das tut, schlägt das SC fehl.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_alternate_quote">Ich kann halt nur auf die Paper verweisen. Da testen die wohl ausschließlich die Datenstruktur (also massiv parallel) und vergleichen mit lock-basierten Varianten (oder älteren lockfreien Algorithmen) und die Ergebnisse sind einiges besser.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Auf welche Paper? Wie objektiv sind die dort durchgeführten Benchmarks? Auf einer Architektur die kein CAS hat mit LL/SC ein CAS zu emulieren ist jedenfalls nicht besonders fair bzw. objektiv.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich habe nie einen Benchmark zwischen einem nativen CAS und einem über LL/SC. Wimre ist das nur im Paper der Vollständigkeit halber.<br/>edit: Was ich da sage scheint nicht zu stimmen, bei den Hazardpointer und bei der Queue steht, dass sie CAS emuliert haben über LL/SC. Die Frage ist halt immernoch, gegen was man jetzt Benchmarken soll, wenn es keinen Algorithmus gibt, der nativ ein LL/SC (so wie es von der momentanen Hardware garantiert wird) verwendet.<br/>Der Performancevergleich ist zwischen verschiedenen _Algorithmen_ und da schneiden lockfreie besser ab als andere (meist lock-basierte oder ältere lockfreie).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_alternate_quote">Aber jeder ist vorbereitet.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Aha, und das bedeutet was?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das jeder der in den sequentialisierten Bereich kommt (ist ja bei der queue nur ein CAS) viel schneller fertig werden kann.<br/>edit: btw. die Autoren des Hazard-Pointer Papers nennen einige Gründe warum die Ergebnisse die sie bekommen haben so sind, wie sie sind.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_alternate_quote">Bei der normalen Variante glaube ich ehrlich gesagt noch nicht so Recht, dass da nur einer ein LL machen kann und dann eine Art Lock hat.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wie soll das sonst funktionieren? </blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>In meiner Vorstellung verwaltet irgendwer eine Menge aus (CPUID, geLLteSpeicherzelle, WurdeBeschrieben). Falls jemand was schreibt (sei es per LL oder normal) wird die Menge durchgeschaut und bei allen matchenden (d.h. gleiche Speicherzelle) Trippeln wird "WurdeBeschrieben" auf true gesetzt. Bei einem LL kommt halt ein (CPUID, geLLteSpeicherzelle, false) und bei einem SC wird das entfernt. Vielleicht gibt es auch noch einen Timeout nach dem so ein Ding entfernt wird und nur ein SC bei dem ein passendes Trippel vorhanden ist, kann erfolgreich sein.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_alternate_quote">Zumindest schreibt Wikipedia nichts davon und in den Papern die LL/SC angesprochen haben, dachte ich auch das anders verstanden zu haben.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Für die ist das ein unerhebliches Implementierungsdetail. Ließ Dir noch mal genau die gemachten Zusicherungen durch und überlege wie man das wohl praktisch realisieren kann.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wo? Im speziellen wo finde ich, dass ein erfolgreiches LL (was ich bei normalen Architekturen eh nicht feststellen kann) auch immer ein erfolgreiches SC nach sich zieht? Ist das wirklich irgendwo eine _Zusicherung_. Vor allem letzteres würde mich wundern, weil man als Benutzer den Fall eh nicht unterscheiden kann. Und ehrlich gesagt: Wenn es keine Zusicherung auf Ebene der Instruktionen ist, dann würde ich darauf auch nichts geben. Die nächste Generation der CPU macht das bestimmt wieder kaputt.<br/>edit: Und wie du selbst sagst, Interrupts oder Exceptions machen das ganze wohl auf jeder Architektur kaputt. Und welche Architektur gibt es denn die es dem User erlaubt selbige zu deaktivieren?<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33232">Zitat von: bluecode am 17. August 2011, 10:07</a></div></div><blockquote class="bbc_standard_quote">Nebst dessen das Du hier plötzlich die Anforderungen an die Queue erweitert hast, vorher sollte man nur hinten anhängen und vorne wegnehmen können. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wie kommst du darauf, dass das Anforderungen an eine Queue waren? Ich rede eher von anderen Datenstrukturen (im speziellen dachte ich an eine Hashtable)... Im speziellen nach dem du explizit danach gefragt hast, wo man ein verschachteltes LL/SC braucht.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33234">
+								« <em>Letzte Änderung: 17. August 2011, 14:44 von bluecode</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33234_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33235"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33235_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #93 am:</strong> 17. August 2011, 14:17 »</div>
+<div class="posttile"><h5 id="subject_33235">
+<a href="offset-80.html#msg33235" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33235_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33235">Zu deinem Algorithmus nochmal: Man kann das mit der leeren Queue wohl dadurch fixen, dass man einen Dummyknoten einfügt, auf den Tail zeigt. Beim Enqueue wird dann erstmal in diese Dummyzelle der Wert geschrieben und dann eine neue Dummyzelle angefügt. Beim Dequeue muss man dann bei Head schauen ob next null ist (dann sitzt man am Dummyknoten) oder nicht (dann kann man dequeuen).<br/>Nicht zu vernachlässigen ist btw. bei dem momentanen Algo, dass das free auch ein Problem ist, da es dem Tail den Knoten unter dem Arsch wegzieht (deswegen den Dummyknoten einführen).</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33235">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33235_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33249"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_33249_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #94 am:</strong> 19. August 2011, 15:57 »</div>
+<div class="posttile"><h5 id="subject_33249">
+<a href="offset-80.html#msg33249" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33249_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33249">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33234">Zitat von: bluecode am 17. August 2011, 13:08</a></div></div><blockquote class="bbc_standard_quote">Effektiv gibts dann kein Debugging, denn sobald man das tut, schlägt das SC fehl.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, ist auffallend richtig. Zwischen dem LL und dem zugehörigem SC darf es keine Break-Points o.ä. geben, was natürlich gerade bei Daten-Break-Points etwas doof ist aber man kann eben nicht alles haben.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33234">Zitat von: bluecode am 17. August 2011, 13:08</a></div></div><blockquote class="bbc_standard_quote">Ich habe nie einen Benchmark zwischen einem nativen CAS und einem über LL/SC. Wimre ist das nur im Paper der Vollständigkeit halber.<br/>edit: Was ich da sage scheint nicht zu stimmen, bei den Hazardpointer und bei der Queue steht, dass sie CAS emuliert haben über LL/SC. Die Frage ist halt immernoch, gegen was man jetzt Benchmarken soll, wenn es keinen Algorithmus gibt, der nativ ein LL/SC (so wie es von der momentanen Hardware garantiert wird) verwendet.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Deine Frage ist zwar berechtigt aber wenn er ein CAS verwendet dann soll er auch eine Architektur benutzen die das nativ unterstützt, z.B. x86 oder Itanium und nicht Power3.<br/><br/>In dem Stückchen Code sind übrigens zwei Bugs drin :<div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">{<br/>do<br/> { if (LL(addr) != exp) return false; }<br/>while(!SC(addr,new));<br/>return true;<br/>}</code>Wer die findet darf sich bei mir zwei Bier abholen.<br/>Kleiner Tipp: es hat etwas mit dem zeitlichen Verhalten und mit bestimmten Ausführungspfaden zu tun.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33234">Zitat von: bluecode am 17. August 2011, 13:08</a></div></div><blockquote class="bbc_standard_quote">Der Performancevergleich ist zwischen verschiedenen _Algorithmen_ und da schneiden lockfreie besser ab als andere (meist lock-basierte oder ältere lockfreie).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich will ja nicht den ewigen Nörgler raus hängen lassen aber ein simples "es ist eben so" ist für mich persönlich keine zufriedenstellende Antwort.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33234">Zitat von: bluecode am 17. August 2011, 13:08</a></div></div><blockquote class="bbc_standard_quote">Das jeder der in den sequentialisierten Bereich kommt (ist ja bei der queue nur ein CAS) viel schneller fertig werden kann.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Der sequentielle Bereich beginnt mit dem ersten Atomic-Read, das wird zwar nicht geschützt o.ä. aber wenn ein anderer Thread auch in diesem Bereich ist dann kann maximal einer da erfolgreich raus kommen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33234">Zitat von: bluecode am 17. August 2011, 13:08</a></div></div><blockquote class="bbc_standard_quote">edit: btw. die Autoren des Hazard-Pointer Papers nennen einige Gründe warum die Ergebnisse die sie bekommen haben so sind, wie sie sind.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Hm, muss ich am WE noch mal nach suchen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33234">Zitat von: bluecode am 17. August 2011, 13:08</a></div></div><blockquote class="bbc_standard_quote">In meiner Vorstellung verwaltet irgendwer eine Menge aus (CPUID, geLLteSpeicherzelle, WurdeBeschrieben)....</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, dann hast Du das IMHO schon ziemlich gut verstanden. Ob das nun über eine Liste mit den laufenden Locks oder mit einer Art Tocken gemacht wird ist letztlich egal (ein unwesentliches Implementierungsdetail), entscheidend ist das der Lock mit dem LL erstellt wird und es nur 3 Möglichkeiten gibt diesen zu löschen: den zugehörigen SC (ein nicht zugehöriger SC hat keine Auswirkung), ein beliebiger Schreibzugriff oder ein TimeOut (das ist wichtig damit Dead-Locks zuverlässig ausgeschlossen sind, wenn man sowas in HW realisiert dann muss man da schon etwas Vorsorge treffen ansonsten müsste der User den Computer jedes mal Resetten o.ä. um sowas zu beheben).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33234">Zitat von: bluecode am 17. August 2011, 13:08</a></div></div><blockquote class="bbc_standard_quote">Im speziellen wo finde ich, dass ein erfolgreiches LL (was ich bei normalen Architekturen eh nicht feststellen kann) auch immer ein erfolgreiches SC nach sich zieht?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Diese Zusicherung gibt es nicht, auch bei mir nicht (bei mir möchte ich mit dem Abschalten der INTs nur nachhelfen damit das eben doch zuverlässig funktioniert).<br/><br/><br/>Ansonsten würde ich mich auf jeden Fall sehr freuen dazu einen schönen Wiki-Artikel zu haben, schon damit wir auch mal über etwas konkretes diskutieren können.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33249">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33249_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33251"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33251_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #95 am:</strong> 19. August 2011, 19:00 »</div>
+<div class="posttile"><h5 id="subject_33251">
+<a href="offset-80.html#msg33251" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33251_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33251"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33249">Zitat von: erik.vikinger am 19. August 2011, 15:57</a></div></div><blockquote class="bbc_standard_quote">In dem Stückchen Code sind übrigens zwei Bugs drin</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Erzähl! Ich seh keinen und die Bier mag ich eh nicht. <img alt="8-)" class="smiley" src="../../../assets/forum/02cf07575d06e00e076aefea.gif" title="cool"/> <br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33234">Zitat von: bluecode am 17. August 2011, 13:08</a></div></div><blockquote class="bbc_alternate_quote">Der Performancevergleich ist zwischen verschiedenen _Algorithmen_ und da schneiden lockfreie besser ab als andere (meist lock-basierte oder ältere lockfreie).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich will ja nicht den ewigen Nörgler raus hängen lassen aber ein simples "es ist eben so" ist für mich persönlich keine zufriedenstellende Antwort.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Du wirst von mir keine andere bekommen. <img alt=":wink:" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/> Und ich habe bereits in dem vorherigen Beitrag darauf verwiesen, dass die Autoren (des Hazard-Pointer Paper) da einiges dazu schreiben.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33234">Zitat von: bluecode am 17. August 2011, 13:08</a></div></div><blockquote class="bbc_alternate_quote">Im speziellen wo finde ich, dass ein erfolgreiches LL (was ich bei normalen Architekturen eh nicht feststellen kann) auch immer ein erfolgreiches SC nach sich zieht?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Diese Zusicherung gibt es nicht, auch bei mir nicht (bei mir möchte ich mit dem Abschalten der INTs nur nachhelfen damit das eben doch zuverlässig funktioniert).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wenn es das nicht als Zusicherung (bei abgeschalteten Interrupts gibt), dann ist dein Code inkorrekt.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33251">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33251_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33252"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_33252_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #96 am:</strong> 19. August 2011, 20:06 »</div>
+<div class="posttile"><h5 id="subject_33252">
+<a href="offset-80.html#msg33252" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33252_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33252">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33251">Zitat von: bluecode am 19. August 2011, 19:00</a></div></div><blockquote class="bbc_standard_quote">Erzähl! Ich seh keinen und die Bier mag ich eh nicht. <img alt="8-)" class="smiley" src="../../../assets/forum/02cf07575d06e00e076aefea.gif" title="cool"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nö, so einfach verrate ich das auch nicht, vielleicht möchte sich ja hier noch jemand anderes ernsthaft daran versuchen.<br/>Der Code (der aus dem Hazard-Pointer-PDF von diesem Michael kopiert ist) verursacht nicht wirklich einen Fehler oder gar Inkonsistenzen aber er kann in bestimmten Situationen ziemliche Performance-Probleme verursachen (fast Dead-Locks). Als korrekt würde ich ihn so auf jeden Fall nicht bezeichnen und in einem Benchmark wo es ja gerade um die Performance geht ist sowas IMHO auch ein Bug.<br/>Ich bin jetzt das gesamte Wochenende über nicht da und habe auch keinen iNetz-Zugang, die Auflösung gibt es dann am späteren Sonntag Abend. Bis da hin wäre es aber schön wenn jemand anderes doch drauf kommt und sich bei mir ein Bier abholt. Viel Glück!<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33251">Zitat von: bluecode am 19. August 2011, 19:00</a></div></div><blockquote class="bbc_standard_quote">Du wirst von mir keine andere bekommen. <img alt=":wink:" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Hab ich von Dir auch nicht anders erwartet. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33251">Zitat von: bluecode am 19. August 2011, 19:00</a></div></div><blockquote class="bbc_standard_quote">Und ich habe bereits in dem vorherigen Beitrag darauf verwiesen, dass die Autoren (des Hazard-Pointer Paper) da einiges dazu schreiben.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, is ja gut, bei nächster Gelegenheit lese ich das noch mal gründlich durch.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33251">Zitat von: bluecode am 19. August 2011, 19:00</a></div></div><blockquote class="bbc_standard_quote">Wenn es das nicht als Zusicherung (bei abgeschalteten Interrupts gibt), dann ist dein Code inkorrekt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Bei abgeschalteten INTs werden die Rahmenbedingen so hingedreht das es eben trotzdem zuverlässig klappt. Aber das Abschalten der INTs ist keine Voraussetzung für die Benutzung dieser Befehle, es gibt auch einfachere Situationen wo man die auch mit INTs benutzen kann.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33252">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33252_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33261"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_33261_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #97 am:</strong> 21. August 2011, 19:40 »</div>
+<div class="posttile"><h5 id="subject_33261">
+<a href="offset-80.html#msg33261" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33261_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33261">Hallo,<br/><br/><br/>wie ich sehe hat sich in den letzten 48 Stunden absolut gar nichts getan. Ich muss ehrlich sagen das ich sehr enttäuscht bin! War das etwa zu schwer? Soll ich noch mal ein paar Tage Zeit geben oder wollt Ihr lieber die Auflösung? Na ich will mal nicht so sein und Euch nicht länger auf die Folter spannen:<br/><br/>Der entscheidende Unterschied zwischen einem echten CAS und diesem emulierten CAS liegt in dem nach außen spürbaren Verhalten. Bei einem echten CAS gibt es nichts persistentes wohingegen beim LL/SC-Pärchen dann doch etwas persistentes, naja okay zumindest etwas semi-persistentes gibt. Dieser Lock in der Hardware bleibt ja wenn kein zugehöriges SC kommt erstmal eine Weile bestehen so das kein weiteres LL klappen kann, selbst wenn die CPU die das LL getätigt hat welches den Lock bekommen hat nun etwas anderes tut weil z.B. ein IRQ dazwischen gefunkt hat (eventuell gar der der das Ablaufen der Zeitscheibe signalisiert so das der Thread der beim LL gewonnen hat nun dummerweise geschedult wurde) oder weil das LL einfach nicht den gewünschten Wert geliefert hat so das die Funktion mit dem "return false" verlassen wurde (in diesem Pfad müsste eigentlich der Lock wieder freigegeben werden aber ohne einen anderen Wert zu schreiben).<br/><br/>Der Bug besteht also darin das diese Funktion regulär verlassen werden kann oder anderweitig unterbrochen werden kann obwohl der Hardware-Lock erfolgreich gewonnen wurde und nun bis zu seinem Time-Out bestehen bleibt so das kein anderes LL erfolgreich sein kann und damit auch kein anderes SC zum Ziel führt obwohl das spätere LL den richtigen Wert geliefert hat (aber eben nicht den Lock bekommen konnte).<br/><br/>In diesem Szenario gibt es IMHO nur eine unbekannte Variante: es wäre ja möglich das ein Thread zwar erfolgreich das Lock bekommt und dann entweder die Funktion verlässt oder unterbrochen wird und dann ein anderer Thread auf der selben CPU das SC durchführt (obwohl dieser eventuell auch zwischen LL und SC unterbrochen wurde aber wahrscheinlich von einer anderen Situation aus geht also mit einem anderen Wert in 'exp' aufgerufen wurde) so das dann die Frage aufkommt ob dieses SC zu einem "False-Positive"-Ergebnis führen kann. Eigentlich sollte die Hardware das absolut zuverlässig ausschließen, dazu reicht aber nicht allein eine CPU-ID in einer Liste sondern es ist IMHO auch ein zusätzliches Tocken (welches die CPU grundsätzlich bei jedem Modus-Wechsel vergisst) oder ein anderer Mechanismus innerhalb der CPU (der z.B. ein SC grundsätzlich unterbindet wenn nicht seit dem letzten Modus-Wechsel auch ein zugehöriges/vorangegangenes LL auf die selbe Speicherzelle stattgefunden hat). In meiner CPU möchte ich die zweite Lösung nutzen, die CPU muss immer die eigenen LL's mittracken und diese Information bei jedem Modus-Wechsel komplett vergessen so das ein unpassendes SC erst gar nicht nach Außen geht. Zusätzlich möchte ich das meine CPU bei jedem Löschen dieser Informationen immer noch ein Release-Lock ohne Schreibdaten durchführen (falls gerade ein Lock gehalten wurde) so das auch die nachfolgenden LL's nicht ausgebremst werden. Wie PowerPC das konkret macht weiß ich nicht (ist vermutlich auch nicht spezifiziert so das jede PowerPC-CPU das auf eigene Art erledigen kann) aber da dieser Michael in dem PDF auf dieses Problem nicht eingegangen ist nehme ich mal an das er sich darüber keine Gedanken gemacht hat (er sich dieser Problematik eventuell gar nicht bewusst ist).<br/><br/>Ich hoffe ich habe das alles einigermaßen verständlich formuliert, wenn nicht dann Bitte nachfragen.<br/>Es würde mich freuen wenn jemand, der besser englisch kann als ich (wovon es hier sicher einige gibt), diesen Bug dem Autor des PDF melden könnte.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33261">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33261_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33367"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33367_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #98 am:</strong> 01. September 2011, 12:11 »</div>
+<div class="posttile"><h5 id="subject_33367">
+<a href="offset-80.html#msg33367" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33367_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33367"><a class="bbc_link" href="http://arstechnica.com/hardware/news/2011/08/ibms-new-transactional-memory-make-or-break-time-for-multithreaded-revolution.ars" target="_blank">Transactional Memory</a> könnte auch interessant sein, v.a. ist interessant, dass es jetzt zum ersten Mal in Hardware implementiert wurde (zumindest innerhalb des gleichen Prozessors funktioniert das).</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33367">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33367_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33368"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_33368_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #99 am:</strong> 01. September 2011, 17:55 »</div>
+<div class="posttile"><h5 id="subject_33368">
+<a href="offset-80.html#msg33368" rel="nofollow">Re:Locking innerhalb des Kernels</a>
+</h5></div>
+<div id="msg_33368_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33368"><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33222">Zitat von: FlashBurn am 16. August 2011, 17:40</a></div></div><blockquote class="bbc_standard_quote">Die Arbeiten die du aufgezählt hast, sind ja alles Arbeiten wo die Locks überhaupt nicht interessieren <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Um es mal überspitzt zu sagen, bei den Arbeiten kann mir die Performance des OS scheiß egal sein, aber spätestens beim Kompilieren + Video (siehe Linux <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> ) ist es dann nicht mehr (ich weiß das es in dem Fall der Scheduler war).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da widerspreche ich. Wenn du 20 Prozesse hast, die gleichzeitig die CPU-begrenzt sind, dann muss dein Scheduler vernünftig arbeiten. Wenn du 20 Prozesse hast, die nur Festplattenzugriffe machen, dann muss dein I/O vernünftig arbeiten. Beide Fälle sind in der Reinform extrem selten, sie treten immer gemeinsam auf. Ein Giant Lock mit einer CPU kostet nichts, bei zwei CPUs gibt es nur dann Wartezeiten, wenn zwei Prozesse/Threads gleichzeitig I/O machen wollen. Es gibt aber immer noch einen anderen Prozess, der gerade CPU machen will - und der kann problemlos auf die "wartende" CPU verschoben werden, bis das Lock frei ist. Böse wird es beispielsweise, wenn du Festplattendaten übers Netzwerk schicken willst, aber auch dann hast du noch einiges an CPU-Verbrauch für die Paketstruktur usw.<br/><br/>Unerträglich wird der Ansatz bei vielen (&gt;4, evtl. &gt;2) CPUs, aber bis dahin ist er sehr einfach und ziemlich schnell. Und mit feinem Locking kann man diesen Faktor sehr weit rausschieben.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33222">Zitat von: FlashBurn am 16. August 2011, 17:40</a></div></div><blockquote class="bbc_standard_quote">Ein Mutex ist doch praktisch ne Semaphore mit nem Counter von 1, oder? Und sowas kann man nur eigentlich nur sinnvoll im Kernel machen, weil du einen Lock brauchst um Queue und Counter zu schützen und du willst ja Threads in die Queue packen und dann schlafen legen (spätestens da musst du in den Kernel).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das hängt davon ab, wie deine Threads implementiert sind. Liegen die komplett im Userspace, brauchst du dich um Locking zwischen einzelnen Threads des gleichen Prozesses nicht kümmern. Aber bei Kernel-Threads musst du das, richtig.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33222">Zitat von: FlashBurn am 16. August 2011, 17:40</a></div></div><blockquote class="bbc_standard_quote">Aber was ist dann z.B. mit Interrupts, die würden ja dann auch blockiert werden, nur weil irgend ein Thread was im Kernel macht, oder?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nicht, wenn Interrupts höher priorisiert sind als der Kernel selbst. Interrupthandler sollten normalerweise nur ein Ereignis im Kernel queuen, außerdem dürfen Interrupthandler keine Locks halten - damit stellt sich das Problem nicht.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-80.html#msg33222">Zitat von: FlashBurn am 16. August 2011, 17:40</a></div></div><blockquote class="bbc_standard_quote">Muss nicht auch die Video-Ausgabe irgendwann in den Kernel (also 24 mal in der Sekunde)?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Warum sollte sie? Seit wann musst du der Grafikkarte _jedes_ Bild schicken? Wenn sich nichts ändert, lässt du die einfach in Ruhe und das Bild bleibt stehen... und wenn du Videos darstellst, dann wird der Videospeicher (der Teil, der für das Overlay da ist, meist im Offscreen-Bereich) in den Adressraum der Anwendung gemappt und ab dann braucht es keine Kernelzugriffe mehr.<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33368">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: <a class="navPages" href="index.html">1</a> <span style="font-weight: bold;"> ... </span><a class="navPages" href="offset-40.html">3</a> <a class="navPages" href="offset-60.html">4</a> [<strong>5</strong>] <a class="navPages" href="offset-100.html">6</a>
+</div></div>
+<div class="nextlinks_bottom"><a href="../2858/index.html#msg33599">« vorheriges</a> <a href="../2846/index.html#msg33411">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Locking innerhalb des Kernels</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.015 Sekunden mit 73 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

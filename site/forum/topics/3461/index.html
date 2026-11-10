@@ -1,0 +1,610 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="Interrupts durch Syscalls blockiert" name="description"/>
+<title>Interrupts durch Syscalls blockiert</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:31</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/10/index.html"><span>Softwareentwicklung</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Interrupts durch Syscalls blockiert</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg39481"></a>
+<div class="nextlinks"><a href="../3459/index.html#msg39556">« vorheriges</a> <a href="../3456/index.html#msg39467">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] 
+				</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/d4e7b293435eb0f7983a825d.gif"/>
+<span id="author">Autor</span>
+						Thema: Interrupts durch Syscalls blockiert  (Gelesen 44191 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">OsDevNewbie</a>
+</h4>
+<ul class="reset smalltext" id="msg_39481_extra_info">
+<li class="postcount">Beiträge: 282</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://gurgel100.github.io/Kernel" target="_blank" title="YourOS Kernel"><img alt="YourOS Kernel" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong> am:</strong> 05. May 2016, 20:46 »</div>
+<div class="posttile"><h5 id="subject_39481">
+<a href="index.html#msg39481" rel="nofollow">Interrupts durch Syscalls blockiert</a>
+</h5></div>
+<div id="msg_39481_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39481">Hallo zusammen,<br/><br/>Ich wollte den Performanceunterschied zwischen den Assembler-Instructionen "int" <em>(im Folgenden als Interrupt bezeichet)</em> und "syscall" <em>(im Folgenden als Syscall bezeichet)</em> messen. Dazu habe ich eine Schleife gemacht, die 100'000'000 mal durchlaufen wird. Einmal wird dann ein Interrupt ausgelöst und das andere Mal wird ein Syscall ausgeführt. Vor und nach der Schleife speichere ich die aktuelle Laufzeit des ganzen System ab und gib am Schluss die Differenz der beiden Werte aus, also die gesamte Zeit, die die Schleife benötigt hat. Die Uptime wird vom Handler, der die Interrupts vom PIT handelt, incrementiert. Der PIT löst jede Millisekunde einen Interrupt aus. Das funktioniert soweit sehr gut. In meiner Shell kann man die aktuelle Uptime ausgeben lassen und die stimmt.<br/><br/>Jetzt ist das Problem, dass die Anfangszeit der Schleife immer gleich ist wie die Endzeit, was dazu führt, dass 0ms ausgegeben wird, was nicht stimmen kann, da es schon ein paar Sekunden dauert bis die Schleife beendet ist. Nach ein bisschen Debuggen ist mir aufgefallen, dass während der Schleife keine Timer-Interrupts mehr ausgelöst werden und dadurch wird auch Uptime nicht mehr incrementiert.<br/><br/>Nach der Schleife wird Uptime wieder incrementiert. Dieses Verhalten habe ich sowohl mit Interrupts als auch mit Syscalls.<br/>In den Syscalls und im entsprechenden Interrupt werden Interrupts nicht deaktiviert, also sollte Uptime hoch gezählt werden, was anscheinend nicht der Fall ist.<br/><br/>Wieso gibt es einen "Unterbruch" der Timer-Interrupts? Sind das zu viele Interrupts für die CPU? Aber wieso passiert das dann auch bei Syscall?<br/><br/>Hier die entsprechende Funktion:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">static void perftest()<br/>{<br/><span style="white-space: pre;"> </span>size_t i, count;<br/><span style="white-space: pre;"> </span>SIS start, end;<br/><span style="white-space: pre;"> </span>uint64_t time;<br/><span style="white-space: pre;"> </span>printf("Starting performance test:\n");<br/><br/><span style="white-space: pre;"> </span>getSysInfo(&amp;start);<br/><span style="white-space: pre;"> </span>for(i = 0; i &lt; 100000000; i++)<br/><span style="white-space: pre;"> </span>{<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>asm volatile("int $48": "=a"(count): "D"(61));<br/><span style="white-space: pre;"> </span>}<br/><span style="white-space: pre;"> </span>getSysInfo(&amp;end);<br/><span style="white-space: pre;"> </span>asm volatile("int $48":: "D"(62));<br/><span style="white-space: pre;"> </span>time = end.Uptime - start.Uptime;<br/><span style="white-space: pre;"> </span>printf("Interrupts: %zu in %lums =&gt; %f/s\n", count, time, count / (double)(time?:1000.0) * 1000);<br/><br/><span style="white-space: pre;"> </span>getSysInfo(&amp;start);<br/><span style="white-space: pre;"> </span>for(i = 0; i &lt; 100000000; i++)<br/><span style="white-space: pre;"> </span>{<br/><span style="white-space: pre;"> </span><span style="white-space: pre;"> </span>asm volatile("mov %1,%%rdi;syscall": "=a"(count): "i"(61): "rcx", "rdx", "rsi", "rdi", "r8", "r9", "r10", "r11");<br/><span style="white-space: pre;"> </span>}<br/><span style="white-space: pre;"> </span>getSysInfo(&amp;end);<br/><span style="white-space: pre;"> </span>asm volatile("mov %0,%%rdi;syscall":: "i"(62): "rax", "rcx", "rdx", "rsi", "rdi", "r8", "r9", "r10", "r11");<br/><span style="white-space: pre;"> </span>time = end.Uptime - start.Uptime;<br/><span style="white-space: pre;"> </span>printf("Syscalls: %zu in %lums =&gt; %f/s\n", count, time, count / (double)(time?:1000.0) * 1000);<br/><br/><span style="white-space: pre;"> </span>printf("End of performance test\n");<br/>}<br/></code><em>getSysInfo() ist die Funktion die mir die Uptime (und noch andere Infos) zurückgibt.</em><br/><br/>Hier die entsprechenden Funktionen, die durch Interrupts oder durch Syscalls aufgerufen werden (Funktionsnummer steht im rdi-Register):<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code"><br/>static uint64_t count = 0;<br/>static uint64_t perfTest() //Funktion 61<br/>{<br/><span style="white-space: pre;"> </span>return ++count;<br/>}<br/><br/>static void resetPerfTest() //Funktion 62<br/>{<br/><span style="white-space: pre;"> </span>count = 0;<br/>}<br/></code><br/>Das ganze läuft in meiner Shell im Userspace.<br/><br/>Ich hoffe ihr könnt mir helfen.<br/>Ansonsten wünsche ich euch noch einen schönen Abend.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39481">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39481_signature">Viele Grüsse<br/>OsDevNewbie<br/><hr/>Ein Computer ohne Betriebsystem ist nicht mehr wert als ein Haufen Schrott.<br/>Ein Computer ist eine Maschine, die einem Lebewesen das kostbarste klaut, was sie selber nicht hat:<br/><strong>DIE ZEIT DES LEBENS</strong></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39482"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_39482_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #1 am:</strong> 06. May 2016, 02:53 »</div>
+<div class="posttile"><h5 id="subject_39482">
+<a href="index.html#msg39482" rel="nofollow">Re: Interrupts durch Syscalls blockiert</a>
+</h5></div>
+<div id="msg_39482_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39482">Innerhalb von Interrupthandlern sind Interrupts normalerweise gesperrt, das sollte auch für Software-Interrupts gelten. Das macht einen Kernel sehr viel einfacher. Systeme, die für verschachtelte Interrupts gebaut sind, können so konfiguriert werden, dass sie automatisch "niedriger priorisierte" Interrupts zu sperren, während ein Interrupt-Handler läuft. Der PIC kann das nicht, darum musst du verschachtelte Interrupts selbst implementieren bzw. deine Interrupt-Handler unterbrechbar machen.<br/><br/>Dazu muss der Handler seine eigene Interruptquelle abschalten (sonst führt ein zu schnell feuernder Interrupt zu einem Stack-Overflow) und kann dann Interrupts im Handler wieder einschalten (sti). <strong>Außerdem müssen dann alle Funktionen, die von mehreren Interrupts aus aufgerufen werden können, reentrant sein.</strong><br/><br/>Zum Syscall-Befehl kann ich nichts sagen. Statt die Zeit über einen Tick-Timer zu messen, würde ich allerdings zu RDTSC o.ä. raten, das ist für sowas gemacht. Oder du lässt einen hochauflösenden Zähler frei laufen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39482">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39483"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">OsDevNewbie</a>
+</h4>
+<ul class="reset smalltext" id="msg_39483_extra_info">
+<li class="postcount">Beiträge: 282</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://gurgel100.github.io/Kernel" target="_blank" title="YourOS Kernel"><img alt="YourOS Kernel" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #2 am:</strong> 06. May 2016, 18:20 »</div>
+<div class="posttile"><h5 id="subject_39483">
+<a href="index.html#msg39483" rel="nofollow">Re: Interrupts durch Syscalls blockiert</a>
+</h5></div>
+<div id="msg_39483_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39483"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39482">Zitat von: Svenska am 06. May 2016, 02:53</a></div></div><blockquote class="bbc_standard_quote">Innerhalb von Interrupthandlern sind Interrupts normalerweise gesperrt, das sollte auch für Software-Interrupts gelten.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also bei meinem Kernel deaktivieren alle Interrupts Interrupts ausser der Interrupt, der für Syscalls verwendet wird.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39482">Zitat von: Svenska am 06. May 2016, 02:53</a></div></div><blockquote class="bbc_standard_quote">Das macht einen Kernel sehr viel einfacher.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wieso macht das den Kernel einfacher? Ich habe mir Syscalls als einen Funktionsaufruf einer Funktion im Kernel vorgestellt. Und bei einem Interrupt wird der aktuelle Status einfach wie jeder andere gesichert (ausser, dass der Stack weiterverwendet wird). Das hat bis jetzt auch gut funktioniert.<br/>Früher hatte ich einen Bug, wobei der Zustand nicht richtig wiederhergestellt wurde, wenn ein Interrupt ausgelöst wurde während man einen Syscall ausführte, dadurch weiss ich, dass (zumindest damals) Interrupts ausgelöst werden.<br/>Wenn ich mir das rflags-Register im Debugger (Bochs) während der Ausführung eines Syscalls anschaue, sind die Interrupts, sowohl wenn man den Syscall über die syscall-Instruction oder über Interrupts ausführt, aktiviert.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39482">Zitat von: Svenska am 06. May 2016, 02:53</a></div></div><blockquote class="bbc_standard_quote">Dazu muss der Handler seine eigene Interruptquelle abschalten (sonst führt ein zu schnell feuernder Interrupt zu einem Stack-Overflow) und kann dann Interrupts im Handler wieder einschalten (sti). <strong>Außerdem müssen dann alle Funktionen, die von mehreren Interrupts aus aufgerufen werden können, reentrant sein.</strong><br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das kann nicht passieren, da eben alle Interrupts (ausser der Syscall Interrupt) Interrupts deaktivieren.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39482">Zitat von: Svenska am 06. May 2016, 02:53</a></div></div><blockquote class="bbc_standard_quote">Statt die Zeit über einen Tick-Timer zu messen, würde ich allerdings zu RDTSC o.ä. raten, das ist für sowas gemacht.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>RDTSC gibt einen Zähler zurück, welcher mit einer nicht weiter definierten Taktrate incrementiert wird. Diese ist aber nicht gleich der Anzahl Takte, die bisher vergangen sind, da sich der Takt an die entsprechenden Verhältnisse anpasst, aber der Takt mit der der Zähler hochgezählt wird bleibt gleich.<br/><br/>Trotzdem Danke für deine Antwort.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39483">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39483_signature">Viele Grüsse<br/>OsDevNewbie<br/><hr/>Ein Computer ohne Betriebsystem ist nicht mehr wert als ein Haufen Schrott.<br/>Ein Computer ist eine Maschine, die einem Lebewesen das kostbarste klaut, was sie selber nicht hat:<br/><strong>DIE ZEIT DES LEBENS</strong></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39484"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_39484_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #3 am:</strong> 06. May 2016, 18:43 »</div>
+<div class="posttile"><h5 id="subject_39484">
+<a href="index.html#msg39484" rel="nofollow">Re: Interrupts durch Syscalls blockiert</a>
+</h5></div>
+<div id="msg_39484_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39484"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39483">Zitat von: OsDevNewbie am 06. May 2016, 18:20</a></div></div><blockquote class="bbc_standard_quote">Wieso macht das den Kernel einfacher? Ich habe mir Syscalls als einen Funktionsaufruf einer Funktion im Kernel vorgestellt. Und bei einem Interrupt wird der aktuelle Status einfach wie jeder andere gesichert (ausser, dass der Stack weiterverwendet wird). Das hat bis jetzt auch gut funktioniert.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wenn du in den Syscall-Implementierungen globalen Zustand benutzt, brauchst du Locking, weil du nicht weißt, an welcher Stelle der Syscall von einem anderen Task unterbrochen werden könnte, der den globalen Zustand ebenfalls liest oder sogar ändert.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">RDTSC gibt einen Zähler zurück, welcher mit einer nicht weiter definierten Taktrate incrementiert wird. Diese ist aber nicht gleich der Anzahl Takte, die bisher vergangen sind, da sich der Takt an die entsprechenden Verhältnisse anpasst, aber der Takt mit der der Zähler hochgezählt wird bleibt gleich.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich dachte, du willst einfach nur Zeit messen? Dafür ist RDTSC auf den meisten CPUs ziemlich gut geeignet.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39484">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39484_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39487"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">OsDevNewbie</a>
+</h4>
+<ul class="reset smalltext" id="msg_39487_extra_info">
+<li class="postcount">Beiträge: 282</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://gurgel100.github.io/Kernel" target="_blank" title="YourOS Kernel"><img alt="YourOS Kernel" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #4 am:</strong> 07. May 2016, 00:33 »</div>
+<div class="posttile"><h5 id="subject_39487">
+<a href="index.html#msg39487" rel="nofollow">Re: Interrupts durch Syscalls blockiert</a>
+</h5></div>
+<div id="msg_39487_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39487"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39484">Zitat von: kevin am 06. May 2016, 18:43</a></div></div><blockquote class="bbc_standard_quote">Wenn du in den Syscall-Implementierungen globalen Zustand benutzt, brauchst du Locking, weil du nicht weißt, an welcher Stelle der Syscall von einem anderen Task unterbrochen werden könnte, der den globalen Zustand ebenfalls liest oder sogar ändert.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist korrekt. Da muss man echt aufpassen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39484">Zitat von: kevin am 06. May 2016, 18:43</a></div></div><blockquote class="bbc_standard_quote">Ich dachte, du willst einfach nur Zeit messen? Dafür ist RDTSC auf den meisten CPUs ziemlich gut geeignet.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>OK, da hast du natürlich recht.<br/><br/>Aber leider löst das mein ursprüngliches Problem nicht.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39487">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39487_signature">Viele Grüsse<br/>OsDevNewbie<br/><hr/>Ein Computer ohne Betriebsystem ist nicht mehr wert als ein Haufen Schrott.<br/>Ein Computer ist eine Maschine, die einem Lebewesen das kostbarste klaut, was sie selber nicht hat:<br/><strong>DIE ZEIT DES LEBENS</strong></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39489"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_39489_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #5 am:</strong> 08. May 2016, 14:27 »</div>
+<div class="posttile"><h5 id="subject_39489">
+<a href="index.html#msg39489" rel="nofollow">Re: Interrupts durch Syscalls blockiert</a>
+</h5></div>
+<div id="msg_39489_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39489"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39483">Zitat von: OsDevNewbie am 06. May 2016, 18:20</a></div></div><blockquote class="bbc_standard_quote">Also bei meinem Kernel deaktivieren alle Interrupts Interrupts ausser der Interrupt, der für Syscalls verwendet wird.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das heißt, dass alle deine Interrupthandler mit CLI anfangen? Das sollte nicht nötig sein, wenn ich mich recht entsinne.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39489">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39490"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_39490_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #6 am:</strong> 08. May 2016, 18:29 »</div>
+<div class="posttile"><h5 id="subject_39490">
+<a href="index.html#msg39490" rel="nofollow">Re: Interrupts durch Syscalls blockiert</a>
+</h5></div>
+<div id="msg_39490_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39490">Interrupthandler, die mit cli anfangen, sind kaputt. Aber ich nehme an, er regelt das über den Deskriptortyp (Trap Gate oder Interrupt Gate) in der IDT, und das ist völlig in Ordnung.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39490">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39490_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39491"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">OsDevNewbie</a>
+</h4>
+<ul class="reset smalltext" id="msg_39491_extra_info">
+<li class="postcount">Beiträge: 282</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://gurgel100.github.io/Kernel" target="_blank" title="YourOS Kernel"><img alt="YourOS Kernel" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #7 am:</strong> 08. May 2016, 19:57 »</div>
+<div class="posttile"><h5 id="subject_39491">
+<a href="index.html#msg39491" rel="nofollow">Re: Interrupts durch Syscalls blockiert</a>
+</h5></div>
+<div id="msg_39491_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39491"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg39490">Zitat von: kevin am 08. May 2016, 18:29</a></div></div><blockquote class="bbc_standard_quote">Interrupthandler, die mit cli anfangen, sind kaputt. Aber ich nehme an, er regelt das über den Deskriptortyp (Trap Gate oder Interrupt Gate) in der IDT, und das ist völlig in Ordnung.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist so korrekt.<br/>Deshalb verstehe ich auch nicht wieso keine Interrupts ausgelöst werden während des Syscalls. Und es werden ja auch keine Interrupts ausgelöst wenn man über den syscall-Befehl die Syscalls ausführt.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39491">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_39491_signature">Viele Grüsse<br/>OsDevNewbie<br/><hr/>Ein Computer ohne Betriebsystem ist nicht mehr wert als ein Haufen Schrott.<br/>Ein Computer ist eine Maschine, die einem Lebewesen das kostbarste klaut, was sie selber nicht hat:<br/><strong>DIE ZEIT DES LEBENS</strong></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg39522"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">cacoon</a>
+</h4>
+<ul class="reset smalltext" id="msg_39522_extra_info">
+<li class="postcount">Beiträge: 10</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #8 am:</strong> 25. June 2016, 13:32 »</div>
+<div class="posttile"><h5 id="subject_39522">
+<a href="index.html#msg39522" rel="nofollow">Re: Interrupts durch Syscalls blockiert</a>
+</h5></div>
+<div id="msg_39522_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_39522">Ich setz mir hier mal ein Bookmark...</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_39522">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] 
+				</div></div>
+<div class="nextlinks_bottom"><a href="../3459/index.html#msg39556">« vorheriges</a> <a href="../3456/index.html#msg39467">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/10/index.html"><span>Softwareentwicklung</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Interrupts durch Syscalls blockiert</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.007 Sekunden mit 31 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

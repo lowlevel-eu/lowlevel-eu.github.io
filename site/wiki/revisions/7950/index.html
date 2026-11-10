@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>File Allocation Table – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-File_Allocation_Table rootpage-File_Allocation_Table skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1643/index.html">Aktueller Artikel</a> · <a href="../../history/1643/index.html">Versionsgeschichte</a> · <a href="../../source/7950.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">File Allocation Table</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 21. Juli 2010, 17:05 Uhr von <a class="mw-userlink" href="../../pages/2377/index.html" title="Benutzer:PNoob"><bdi>PNoob</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Ich hoffe Cluster sind nun genug erklärt)</span></div><div id="mw-revision-nav">(<a href="../../diffs/7949-7950.html" title="File Allocation Table">Unterschied</a>) <a href="../7949/index.html" title="File Allocation Table">← Nächstältere Version</a> | <a href="../../pages/1643/index.html" title="File Allocation Table">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../7955/index.html" title="File Allocation Table">Nächstjüngere Version →</a> (<a href="../../diffs/7950-7955.html" title="File Allocation Table">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Vorlage:Stub" style="margin-bottom:1em">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #f6f6f6; margin: 0 0em; padding: 0 0px; border: 1px solid #d6d6d6;" width="100%">
+<tbody><tr>
+<td>Diese Seite ist ein Artikel, welcher <b>mehr</b> haben könnte..<br/>
+<p>Wenn du mehr darüber weißt oder recherchieren willst, bist <b>du</b> aufgerufen, dies zu tun. Wenn du dir in einer Sache nicht sicher bist, dann stell es auf die Diskussionsseite.
+</p>
+</td></tr></tbody></table>
+</div>
+<p>FAT ist ein <a href="../../pages/1548/index.html" title="Dateisystem">Dateisystem</a>, das mit <a class="mw-redirect" data-archive-original-href="../../pages/1831/index.html" href="../../pages/1829/index.html" title="MS-DOS">MS-DOS</a> eingeführt wurde. Da PCs Ende der 70er Jahre meist noch keine Festplatten sondern nur Diskettenlaufwerke hatten, war dieses Dateisystem zunächst nur für die Kapazitäten von Disketten ausgelegt. 
+</p><p>Es gibt drei Varianten, die sich vor allem hinsichtlich der unterstützten Datenträgergröße unterscheiden:
+</p>
+<ul><li>FAT12</li>
+<li>FAT16</li>
+<li>FAT32</li></ul>
+<p>FAT steht dabei für File Allocation Table und die Zahl gibt an wie groß die Einträge in dieser Tabelle sind. Mit FAT12 sind somit nur 2<sup>12</sup> Cluster adressierbar, mit FAT16 2<sup>16</sup> und mit FAT32 2<sup>28</sup>.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Aufbau_von_FAT"><span class="tocnumber">1</span> <span class="toctext">Aufbau von FAT</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Bootsektor"><span class="tocnumber">1.1</span> <span class="toctext">Bootsektor</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Reservierte_Sektoren"><span class="tocnumber">1.2</span> <span class="toctext">Reservierte Sektoren</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#File_Allocation_Table"><span class="tocnumber">1.3</span> <span class="toctext">File Allocation Table</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Wurzelverzeichnis"><span class="tocnumber">1.4</span> <span class="toctext">Wurzelverzeichnis</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Datei-_und_Verzeichnis-Datenregion"><span class="tocnumber">1.5</span> <span class="toctext">Datei- und Verzeichnis-Datenregion</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Verzeichnis-Eintrag"><span class="tocnumber">2</span> <span class="toctext">Verzeichnis-Eintrag</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Cluster"><span class="tocnumber">3</span> <span class="toctext">Cluster</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#VFAT"><span class="tocnumber">4</span> <span class="toctext">VFAT</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Siehe_auch"><span class="tocnumber">5</span> <span class="toctext">Siehe auch</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Weblinks"><span class="tocnumber">6</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Aufbau_von_FAT">Aufbau von FAT</span></h2>
+<p>FAT wird in 5 Bereiche unterteilt:
+</p>
+<ul><li><a href="#Bootsektor"> Bootsektor</a></li>
+<li><a href="#Reservierte_Sektoren"> Reservierte Sektoren</a></li>
+<li><a href="#File_Allocation_Table"> File Allocation Table</a></li>
+<li><a data-archive-original-href="#Wurzelverzeichnes" href="index.html" title="Der ursprüngliche Abschnitt ist in dieser Momentaufnahme nicht verfügbar; stattdessen wird der Artikel angezeigt."> Wurzelverzeichnis</a> (bei FAT32 nicht vorhanden)</li>
+<li><a data-archive-original-href="#Datei-_and_Verzeichnis-Datenregion" href="index.html" title="Der ursprüngliche Abschnitt ist in dieser Momentaufnahme nicht verfügbar; stattdessen wird der Artikel angezeigt."> Datei- and Verzeichnis-Datenregion</a></li></ul>
+<h3><span class="mw-headline" id="Bootsektor">Bootsektor</span></h3>
+<p>Der Bootsektor enthält den BIOS Parameter Block, den Bootloader und die Bootsignatur.
+Damit der BIOS Parameter Block nicht ausgeführt wird, sind seine ersten 2 Bytes eine JMP-Anweisung.
+Hinter dem BIOS Parameter Block folgt der Bootloader. Dieser ist unter FAT <b>zwingend</b> notwendig. Der Bootloader der von Windows für FAT benutzt wird, zeigt meistens nur eine Nachricht an, dass man die Diskette entfernen und den Computer neustarten solle.
+</p><p>In MS-DOS 1.0 war kein BPB vorhanden. Stattdessen gab es zwei Typen von FAT:
+</p>
+<ul><li>Single-Sided: Dieser Typ war für einseitige Disketten da</li>
+<li>Double-Sided: Dieser Typ war dagegen für doppelseitige Disketten da.</li></ul>
+<p>Ab MS-DOS gab es den BPB, womit jetzt jedes FAT-System diesen braucht.
+(Die Verbreitung von MS-DOS 1.0 ist sehr gering. Deswegen wird nicht empfohlen,
+auf diese MS-DOS Version acht zu nehmen)
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>3</td>
+<td>Instruktion die den BIOS Parameter Block überspringt
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>8</td>
+<td>OEM-Name. Der Name, der Software, die das FAT erstellt hat. Dieses Feld hat keinen Einfluss auf eigentliche Dateisystem.
+</td></tr>
+<tr>
+<td>0x0B</td>
+<td>2</td>
+<td>Sektor-Größe in Bytes. Gültig: 512, 1024, 2048 und 4096. Normal wird 512 verwendet.
+</td></tr>
+<tr>
+<td>0x0D</td>
+<td>1</td>
+<td>Cluster-Größe in Sektoren. Gültig: Zweierpotenz zwischen 1 und 64.
+</td></tr>
+<tr>
+<td>0x0E</td>
+<td>2</td>
+<td>Anzahl reservierter Sektoren inkl. Bootsektor.
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>1</td>
+<td>Anzahl an File Allocation Tables. Normal gibt es immer 2 FATs
+</td></tr>
+<tr>
+<td>0x11</td>
+<td>2</td>
+<td>Maximale Anzahl an Einträgen im Wurzelverzeichnis (nur gültig für FAT16 und FAT32)
+</td></tr>
+<tr>
+<td>0x13</td>
+<td>2</td>
+<td>Anzahl an Sektoren. Wenn hier 0 steht, wird das Feld am Offset 0x20 benutzt.
+</td></tr>
+<tr>
+<td>0x15</td>
+<td>1</td>
+<td>Media-Descriptor:
+<ul><li>0xF0: Double sided, 80 Spuren, 18/36 Sektoren pro Spur</li>
+<li>0xF8: Festplatte</li>
+<li>0xF9: Double sided, 80 Spuren, 9/15 Sektoren pro Spur</li>
+<li>0xFA: Single sided, 80 Spuren, 8 Sektoren pro Spur (eventuell auch Ramdisk)</li>
+<li>0xFB: Double sided, 80 Spuren, 8 Sektoren pro Spur</li>
+<li>0xFC: Single sided, 40 Spuren, 9 Sektoren pro Spur</li>
+<li>0xFD: Double sided, 40 Spuren, 9 Sektoren pro Spur oder Double Sided, 77 Spuren, 26 Sektoren pro Spur</li>
+<li>0xFE: Single sided, 40 Spuren, 8 Sektoren pro Spur, Single Sided, 77 Spuren, 26 Sektoren pro Spur oder Double Sided, 77 Spuren, 8 Sektoren pro Spur</li>
+<li>0xFF: Double sided, 40 Spuren, 8 Sektoren pro Spur</li></ul>
+<p>Dieses Byte gilt als veraltet.
+</p>
+</td></tr>
+<tr>
+<td>0x16</td>
+<td>2</td>
+<td>FAT-Größe in Sektoren. Bei FAT32 steht hier 0 und es wird das Feld bei Offset 0x24 benutzt.
+</td></tr>
+<tr>
+<td>0x18</td>
+<td>2</td>
+<td>Spur-Größe in Sektoren.
+</td></tr>
+<tr>
+<td>0x1A</td>
+<td>2</td>
+<td>Anzahl der Schreib-Lese-Köpfe.
+</td></tr>
+<tr>
+<td>0x1C</td>
+<td>4</td>
+<td>Anzahl an Sektoren vor dem Bootsektor (z. B. wenn das FAT auf einer Partition liegt)
+</td></tr>
+<tr>
+<td>0x20</td>
+<td>4</td>
+<td>Anzahl an Sektoren.
+</td></tr></tbody></table>
+<p>Die folgenden Daten unterscheiden sich wischen FAT12/FAT16 und FAT32.
+</p><p><b>FAT12 und FAT16</b>
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x24</td>
+<td>1</td>
+<td>Nummer des BIOS-Laufwerks
+</td></tr>
+<tr>
+<td>0x25</td>
+<td>1</td>
+<td>Reserviert
+</td></tr>
+<tr>
+<td>0x26</td>
+<td>1</td>
+<td>Erweiterte Bootsignatur
+</td></tr>
+<tr>
+<td>0x27</td>
+<td>4</td>
+<td>Dateisystem-ID
+</td></tr>
+<tr>
+<td>0x2B</td>
+<td>11</td>
+<td>Dateisystem-Name (mit Leerzeichen auf 11 Zeichen gefüllt). Wird nicht mehr verwendet.
+</td></tr>
+<tr>
+<td>0x36</td>
+<td>8</td>
+<td>FAT-Variante (mit Leerzeichen gefüllt). z. B.: "FAT12   " oder "FAT16   ".
+</td></tr>
+<tr>
+<td>0x3E</td>
+<td>448</td>
+<td>Bootloader
+</td></tr>
+<tr>
+<td>0x1FE</td>
+<td>2</td>
+<td>Bootsignatur: 0xAA55
+</td></tr></tbody></table>
+<p><b>FAT32</b>
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x24</td>
+<td>4</td>
+<td>FAT-Größe in Sektoren
+</td></tr>
+<tr>
+<td>0x28</td>
+<td>2</td>
+<td>FAT-Flags
+</td></tr>
+<tr>
+<td>0x2A</td>
+<td>2</td>
+<td>FAT32-Version
+</td></tr>
+<tr>
+<td>0x2C</td>
+<td>4</td>
+<td>Erstes Cluster des Wurzelverzeichnis
+</td></tr>
+<tr>
+<td>0x30</td>
+<td>2</td>
+<td>Info-Sektor. Sektor der Informationen über das Dateisystem enthält.
+</td></tr>
+<tr>
+<td>0x32</td>
+<td>2</td>
+<td>Sektor der Bootsektorkopie. (Microsoft empfiehlt nur 6 zu verwenden)
+</td></tr>
+<tr>
+<td>0x34</td>
+<td>12</td>
+<td>Reserviert
+</td></tr>
+<tr>
+<td>0x40</td>
+<td>1</td>
+<td>Nummer des BIOS-Laufwerks
+</td></tr>
+<tr>
+<td>0x41</td>
+<td>1</td>
+<td>Reserviert
+</td></tr>
+<tr>
+<td>0x42</td>
+<td>1</td>
+<td>Erweiterte Bootsignatur
+</td></tr>
+<tr>
+<td>0x43</td>
+<td>4</td>
+<td>Dateisystem-ID
+</td></tr>
+<tr>
+<td>0x47</td>
+<td>11</td>
+<td>Dateisystem-Name (mit Leerzeichen auf 11 Zeichen gefüllt). Wird nicht mehr verwendet.
+</td></tr>
+<tr>
+<td>0x52</td>
+<td>8</td>
+<td>FAT-Variante (mit Leerzeichen gefüllt). Immer "FAT32   ".
+</td></tr>
+<tr>
+<td>0x5A</td>
+<td>420</td>
+<td>Bootloader
+</td></tr>
+<tr>
+<td>0x1FE</td>
+<td>2</td>
+<td>Bootsignatur: 0xAA55
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Reservierte_Sektoren">Reservierte Sektoren</span></h3>
+<p>Nach dem Bootsektor folgen optionale reservierte Sektoren. In diesen Sektoren kann z. B. ein Bootloader untergebracht werden, wenn der Platz im Bootsektor nicht reicht.
+Der Bootsektor wird von FAT zu den reservierten Sektoren dazugezählt.
+</p>
+<h3><span class="mw-headline" id="File_Allocation_Table">File Allocation Table</span></h3>
+<p>In der File Allocation Table (kurz FAT) wird festgehalten, welche Cluster zu welcher Datei gehören. Wenn man das erste Cluster einer Datei hat, kann man es in der FAT nachschlagen und somit das nächste Cluster herausfinden.
+Außerdem kann man in der FAT leere Cluster finden, wenn man z. B. eine neue Datei anlegen will.
+Bei einer Beschädigung eines Clusters, kann dieses in der FAT auch als defekt markiert werden. Es wird dann nicht mehr zum Speichern von Daten verwendet.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bedeutung</th>
+<th>FAT12</th>
+<th>FAT16</th>
+<th>FAT32
+</th></tr>
+<tr>
+<td>Freies Cluster</td>
+<td>0x000</td>
+<td>0x0000</td>
+<td>0x00000000
+</td></tr>
+<tr>
+<td>Defektes Cluster</td>
+<td>0xFF7</td>
+<td>0xFFF7</td>
+<td>0x0FFFFFF7
+</td></tr>
+<tr>
+<td>letztes Cluster einer Clusterkette</td>
+<td>0xFF8-0xFFF</td>
+<td>0xFFF8-0xFFFF</td>
+<td>0x0FFFFFF8-0x0FFFFFFF
+</td></tr>
+<tr>
+<td>normales Cluster einer Clusterkette</td>
+<td>-</td>
+<td>-</td>
+<td>-
+</td></tr></tbody></table>
+<p>Bei einem normalen Cluster in einer Clusterkette gibt der Wert in der FAT das nächste Cluster +2 an. Man muss also den Wert aus der FAT nehmen, 2 subtrahieren und kann das nächste Cluster nachschlagen.
+</p>
+<h3><span class="mw-headline" id="Wurzelverzeichnis">Wurzelverzeichnis</span></h3>
+<p>Bei FAT12 und FAT16 ist das Wurzelverzeichnis ein festgelegter Bereich auf dem Volume. Es bildet eine Tabelle aus Verzeichnis-Einträgen. Bei FAT32 wird das Wurzelverzeichnis wie jedes andere Verzeichnis auch behandelt und hat deshalb keinen festen Platz auf dem Volume.
+</p>
+<h3><span class="mw-headline" id="Datei-_und_Verzeichnis-Datenregion">Datei- und Verzeichnis-Datenregion</span></h3>
+<p>In der Datei- und Verzeichnis-Datenregion liegen die Datei- und Verzeichnis-Daten. Diese sind in Cluster verteilt. Um eine Datei Clustern zuzuordnen benutzt man die FAT.
+</p>
+<h2><span class="mw-headline" id="Verzeichnis-Eintrag">Verzeichnis-Eintrag</span></h2>
+<p>Ein Verzeichnis-Eintrag enthält Meta-Daten zu einer Datei (bzw. einem Unterverzeichnis). Ein Verzeichnis-Eintrag enthält außerdem die Nummer des ersten Sektors.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>8</td>
+<td>Dateiname ohne Erweiterung (mit Leerzeichen aufgefüllt). Der Dateiname darf nur aus Großbuchstaben bestehen und darf folgende Zeichen nicht enthalten: 0x22, 0x2A, 0x2B, 0x2C, 0x2E, 0x2F, 0x3A, 0x3B, 0x3C, 0x3D, 0x3E, 0x3F, 0x5B, 0x5C, 0x5D, 0x7C.
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>3</td>
+<td>Dateierweiterung (mit Leerzeichen aufgefüllt). Erlaubte Zeichen siehe Dateiname.
+</td></tr>
+<tr>
+<td>0x0B</td>
+<td>1</td>
+<td>Dateiattribute
+<table class="prettytable">
+<tbody><tr>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>Schreibschutz
+</td></tr>
+<tr>
+<td>Versteckt
+</td></tr>
+<tr>
+<td>Systemdatei
+</td></tr>
+<tr>
+<td>Volume-Label
+</td></tr>
+<tr>
+<td>Verzeichnis
+</td></tr>
+<tr>
+<td>Archiv
+</td></tr>
+<tr>
+<td>Ungenutzt
+</td></tr></tbody></table>
+<p>Wenn die ersten 4 Bits (Bitmaske: 0x0F) gesetzt sind, handelt es sich um einen VFAT-Eintrag
+</p>
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td>1</td>
+<td>Reserviert
+</td></tr>
+<tr>
+<td>0x0D</td>
+<td>5</td>
+<td>Erstellungsdatum
+<table class="prettytable">
+<tbody><tr>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>Dekasekunde (1 Dekasekunde entspricht 10 Sekunden)
+</td></tr>
+<tr>
+<td>Stunde
+</td></tr>
+<tr>
+<td>Minute
+</td></tr>
+<tr>
+<td>2 Sekunden
+</td></tr>
+<tr>
+<td>Jahr seit 1980
+</td></tr>
+<tr>
+<td>Monat
+</td></tr>
+<tr>
+<td>Tag des Monats
+</td></tr></tbody></table>
+</td></tr>
+<tr>
+<td>0x12</td>
+<td>2</td>
+<td>Datum des letzten Zugriffs
+<table class="prettytable">
+<tbody><tr>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>Jahr seit 1980
+</td></tr>
+<tr>
+<td>Monat
+</td></tr>
+<tr>
+<td>Tag des Monats
+</td></tr></tbody></table>
+</td></tr>
+<tr>
+<td>0x14</td>
+<td>2</td>
+<td>Obere 16 bit des ersten Clusters (für FAT32)
+</td></tr>
+<tr>
+<td>0x16</td>
+<td>4</td>
+<td>Datum des letzten Schreibzugriffs
+<table class="prettytable">
+<tbody><tr>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>Stunde
+</td></tr>
+<tr>
+<td>Minute
+</td></tr>
+<tr>
+<td>2 Sekunden
+</td></tr>
+<tr>
+<td>Jahr seit 1980
+</td></tr>
+<tr>
+<td>Monat
+</td></tr>
+<tr>
+<td>Tag des Monats
+</td></tr></tbody></table>
+</td></tr>
+<tr>
+<td>0x1A</td>
+<td>2</td>
+<td>Erstes Cluster +2 (man muss 2 subtrahieren um die eigentliche Clusternummer zu erhalten)
+</td></tr>
+<tr>
+<td>0x1C</td>
+<td>4</td>
+<td>Dateigröße in Bytes
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Cluster">Cluster</span></h2>
+<p>Ein Cluster ist die kleinste adressierbare Einheit, auf jeder Dieskette und Festplatte.
+Bei Diesketten, die mit FAT12 formatiert sind, ist ein Cluster immer 512 Byte groß. Somit nimmt auf der Diskette jede datei mindestens 512 Byte in anspruch, auch wenn si nur 32 Byte groß ist. Eine 2312 Byte große Datei würde jezt 5 Cluster Belegen und fast ein halber Cluster bleibt frei.
+Größeren Massenspeicher wie Festplatten sind natürlich nicht mit FAT 12 formatiert. sondern meißtens mit FAT32 oder NTFS. UM NTFS kümmern wir uns in diesem Artikel aber nicht. Bei FAT 32 kann man 2^28 Cluster adressieren. Meistens sind bei FAT32 4096 Bytes zu einem Cluster zusammengefasst Somit nimmt jede noch so kleine Datei 4096 Byte in anspruch nehmen.
+</p>
+<h2><span class="mw-headline" id="VFAT">VFAT</span></h2>
+<p>VFAT (<i>Virtual File Allocation Table</i>) ist eine Erweiterung für <a class="mw-redirect" data-archive-original-href="../../pages/1804/index.html" href="../../pages/1643/index.html" title="FAT">FAT</a>. Sie kommt seit <a href="../../pages/1558/index.html" title="Windows">Windows</a> 95 zum Einsatz und wurde entwickelt, um lange Dateinamen nutzen zu können. Beim normalen <a class="mw-redirect" data-archive-original-href="../../pages/1804/index.html" href="../../pages/1643/index.html" title="FAT">FAT</a> wird der Dateiname und die Erweiterung in der 8.3-Form angegeben. Bei längeren Namen benutzt VFAT einen Aliasnamen (z. B.: xxxxxx~1.xxx), dessen Nummer hochgezählt wird. Der eigentliche Name wird über mehrere Verzeichniseinträge verteilt. Ältere Systeme sehen diese als ungültig an und ignorieren sie. Der Dateiname kann so bis zu 255 Zeichen enthalten.
+Außerdem werden auch das Erstelldatum und das Datum des letzten Zugriffs durch VFAT gespeichert.
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">FAT12</a></li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://www.microsoft.com/whdc/system/platform/firmware/fatgen.mspx" rel="nofollow">FAT32 File System Specification</a></li>
+<li><a class="external text" href="http://de.wikipedia.org/wiki/File_Allocation_Table" rel="nofollow">Wikipedia-Artikel zu FAT</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165212
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.010 seconds
+Real time usage: 0.011 seconds
+Preprocessor visited node count: 76/1000000
+Preprocessor generated node count: 140/1000000
+Post‐expand include size: 656/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.488      1 -total
+ 40.25%    0.599      1 Vorlage:Stub
+ 38.31%    0.570      9 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=File_Allocation_Table&amp;oldid=7950</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1618/index.html" title="Kategorie:Stub">Stub</a></li><li><a href="../../pages/1659/index.html" title="Kategorie:Dateisystem">Dateisystem</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1643/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/1842/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1643/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

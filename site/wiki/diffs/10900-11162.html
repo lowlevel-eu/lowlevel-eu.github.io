@@ -1,0 +1,28 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Grand Unified Bootloader — Änderungen 10900 → 11162</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Grand Unified Bootloader — Änderungen 10900 → 11162</h1><nav><a href="../revisions/10900/index.html">Version 10900</a> · <a href="../revisions/11162/index.html">Version 11162</a> · <a href="../history/1567/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l156" >Zeile 156:</td>
+<td colspan="2" class="diff-lineno">Zeile 156:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Modulares und objektorientiertes Framework für Dateisysteme etc.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Modulares und objektorientiertes Framework für Dateisysteme etc.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Cross-Plattform-Installation</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Cross-Plattform-Installation</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">=== Grub auf Flash-Speicher (USB, SD-Karte u.Ä.) ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">==== Linux ====</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Du benötigst:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* grub2-install oder grub-install</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* Einen USB-Stick/SD-Karte</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* Grub auf dem Host</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Als erstes musst du den Flash-Speicher mit ext2 formatieren.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> mk2fs /dev/(???) # z.B. /dev/sdb</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Als zweites musst du Grub installieren:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Per grub-install</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> sudo grub-install --root-directory=(xxx) --no-floppy --recheck --force /dev/(yyy) # (xxx) durch den Mountpunkt und (yyy) durch der Festplattennummer (z.B. sdb) ersetzen.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Falls der Befehl nicht funktioniert musst du &quot;grub-install&quot; nacheinander durch</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> /usr/sbin/grub2-install</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> /usr/local/sbin/grub2-install</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">ersetzen bis es klappt.</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Disketten-Image erstellen ===</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Disketten-Image erstellen ===</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+</table></body></html>

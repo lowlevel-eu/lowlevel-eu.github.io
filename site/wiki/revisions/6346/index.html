@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Objective-C – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Objective-C rootpage-Objective-C skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2115/index.html">Aktueller Artikel</a> · <a href="../../history/2115/index.html">Versionsgeschichte</a> · <a href="../../source/6346.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Objective-C</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 18. November 2009, 06:34 Uhr von <a class="mw-userlink" href="../../pages/1865/index.html" title="Benutzer:Hartmut"><bdi>Hartmut</bdi></a> <span class="mw-usertoollinks">(<a class="mw-usertoollinks-talk" href="../../pages/2608/index.html" title="Benutzer Diskussion:Hartmut">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Spracheigenschaften">→</a>‎<span dir="auto"><span class="autocomment">Spracheigenschaften: </span> Den Fehler hatte ich in einer Klausur auch schon mal...</span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/6345-6346.html" title="Objective-C">Unterschied</a>) <a href="../6345/index.html" title="Objective-C">← Nächstältere Version</a> | <a href="../../pages/2115/index.html" title="Objective-C">Aktuelle Version</a> (<a href="../../diffs/6346-6347.html" title="Objective-C">Unterschied</a>) | <a href="../6347/index.html" title="Objective-C">Nächstjüngere Version →</a> (<a href="../../diffs/6346-6347.html" title="Objective-C">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Vorlage:Stub" style="margin-bottom:1em">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #f6f6f6; margin: 0 0em; padding: 0 0px; border: 1px solid #d6d6d6;" width="100%">
+<tbody><tr>
+<td>Diese Seite ist ein Artikel, welcher <b>mehr</b> haben könnte..<br/>
+<p>Wenn du mehr darüber weißt oder recherchieren willst, bist <b>du</b> aufgerufen, dies zu tun. Wenn du dir in einer Sache nicht sicher bist, dann stell es auf die Diskussionsseite.
+</p>
+</td></tr></tbody></table>
+</div>
+<div style="float:right; width:300px; padding-left:20px; padding-bottom: 20px; background-color:white">
+<div style="font-weight:normal; text-align:left; border:1px solid lightgray;">
+<table width="100%">
+<tbody><tr align="center" style="background:lightgray">
+<th colspan="2">Allgemeines
+</th></tr>
+<tr>
+<td>Name:</td>
+<td>Objective-C
+</td></tr>
+<tr>
+<td>Inlineassembler:</td>
+<td>Nein
+</td></tr>
+<tr>
+<td>Compiler:</td>
+<td>gobjc, Cocoa
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Spracheneigenschaften
+</th></tr>
+<tr>
+<td>Plattformen:</td>
+<td>Mac OS X, <a href="../../pages/1641/index.html" title="Linux">Linux</a>
+</td></tr>
+<tr>
+<td>Beispielkernel in der Sprache:</td>
+<td>Siehe unten
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Homepage
+</th></tr>
+<tr>
+<td colspan="2"><center><a class="external text" href="http://developer.apple.com/mac/library/documentation/cocoa/Conceptual/ObjectiveC/index.html" rel="nofollow">Apple's Developer-Center</a></center>
+</td></tr></tbody></table>
+</div>
+</div>
+<p><b>Objective-C</b> ist eine imperative und objektorientierte Programmiersprache, welche in den 80er-Jahren von Brad Cox und Tom Love als Basis für NextStep, einem Betriebssystem auf Basis von 4.3BSD und dem Mach2-Kernel, entwickelt wurde.
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Spracheigenschaften"><span class="tocnumber">1</span> <span class="toctext">Spracheigenschaften</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Objective-C_als_Sprache_f.C3.BCr_ein_Betriebssystem"><span class="tocnumber">2</span> <span class="toctext">Objective-C als Sprache für ein Betriebssystem</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Kernel_in_Objective-C"><span class="tocnumber">3</span> <span class="toctext">Kernel in Objective-C</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#init.m"><span class="tocnumber">3.1</span> <span class="toctext">init.m</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#start.S"><span class="tocnumber">3.2</span> <span class="toctext">start.S</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#link.ld"><span class="tocnumber">3.3</span> <span class="toctext">link.ld</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Kernel_erstellen"><span class="tocnumber">3.4</span> <span class="toctext">Kernel erstellen</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Compiler"><span class="tocnumber">4</span> <span class="toctext">Compiler</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Weblinks"><span class="tocnumber">5</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Spracheigenschaften">Spracheigenschaften</span></h2>
+<p>Primär hat Objective-C als Grundlage <a href="../../pages/1526/index.html" title="C">C</a>, welches es um objektorientierte Eigenschaften und Syntax erweitert. Die Syntax ist dabei stark an Smalltalk angelehnt und hebt sich bewusst von den C-Sprachelementen ab. Objective-C implementiert dabei bekannte Elemente der Objektorientierung wie:
+</p>
+<ul><li>Klassen</li>
+<li>Methoden</li>
+<li>Instanzen</li>
+<li>Delegierte</li></ul>
+<h2><span id="Objective-C_als_Sprache_für_ein_Betriebssystem"></span><span class="mw-headline" id="Objective-C_als_Sprache_f.C3.BCr_ein_Betriebssystem">Objective-C als Sprache für ein Betriebssystem</span></h2>
+<p>Objective-C eignet sich genauso wie C für die Entwicklung von Betriebssystemen bzw. Kerneln, verfügt allerdings nicht, anders als C, über einen Inline-<a href="../../pages/1514/index.html" title="Assembler">Assembler</a>, weshalb etwaige Assembler-Arbeiten extern erledigt werden müssen. Um die objektorientierten Eigenschaften von Objective-C zu nutzen bedarf es allerdings einiger Vorarbeiten (TODO ;-).
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Kernel_in_Objective-C">Kernel in Objective-C</span></h2>
+<p>Hier ein Objective-C-Kernel ohne Objektorientierung:
+</p>
+<h3><span class="mw-headline" id="init.m">init.m</span></h3>
+<p>&lt;c&gt;
+int init(int argc, const char *argv[])
+{
+</p>
+<pre>   // Pointer zum Videospeicher
+   char *video = (char*)0xB8000;
+</pre>
+<pre>   // String zum Ausgeben
+   char *hello = "Hello World";
+
+   // Zuerst den Speicher leeren
+   for(video+=4000; video !=(char*)0xB8000 ;video--)
+       *video=0;
+
+   // String ausgeben
+   while (*hello) 
+   {
+       *video = *hello;
+       video++;
+   	*video = 0x07;
+   	video++;
+   	hello++;
+   }
+
+   while (1);
+   return 0;
+</pre>
+<p>}
+&lt;/c&gt;
+</p><p>Findige Leser des Wikis haben wahrscheinlich gemerkt: Das ist der gleiche Kernel wie im Artikel zu <a href="../../pages/1526/index.html" title="C">C</a>; Objective-C hat als Basis C und somit ist (fast) jedes C-Programm auch ein gültiges Objective-C-Programm. Einzig wird aus
+</p>
+<pre>#include &lt;stdio.h&gt;
+</pre>
+<p>folgendes:
+</p>
+<pre>#import &lt;stdio.h&gt;
+</pre>
+<h3><span class="mw-headline" id="start.S">start.S</span></h3>
+<p>Hier die Assembler-Startdatei samt <a href="../../pages/1560/index.html" title="Multiboot">Multiboot</a>-Header, welche von <a class="mw-redirect" data-archive-original-href="../../pages/1960/index.html" href="../../pages/1567/index.html" title="GRUB">GRUB</a> aufgerufen wird und durch welche wir in den Objective-C-Kernel springen:
+&lt;asm&gt;
+.section .text
+</p><p>.extern init
+</p><p>.global _start
+</p><p>_start:
+	mov $_kernel_stack, %esp
+	push 0
+	push 0
+</p><p>	mov %esp, %ebp
+</p>
+<pre>   push %ebx
+   call init
+</pre>
+<pre>   jmp .
+</pre>
+<p>.section multiboot
+</p>
+<ol><li>define MB_MAGIC 0x1BADB002</li>
+<li>define MB_FLAGS 0x0</li>
+<li>define MB_CHECKSUM -(MB_MAGIC + MB_FLAGS)</li></ol>
+<p>.align 4
+.int MB_MAGIC
+.int MB_FLAGS
+.int MB_CHECKSUM
+</p><p>// 16 KB Stack werden hier reserviert
+.section .bss
+.space 16384
+_kernel_stack:
+&lt;/asm&gt;
+</p>
+<h3><span class="mw-headline" id="link.ld">link.ld</span></h3>
+<p>Dazu noch das <a href="../../pages/1932/index.html" title="Linker">Linker</a>-Script:
+</p><p><code>
+ENTRY(_start)
+</code></p><p><code>SECTIONS
+{
+</code></p><code><pre>   . = 0x100000;
+</pre></code><code><pre>   kernel_start = .;
+</pre></code><code><pre>   .text : {
+       *(multiboot)
+       *(.text)
+   }
+   .data ALIGN(4096) : {
+       *(.data)
+   }
+   .rodata ALIGN(4096) : {
+       *(.rodata)
+   }
+   .bss ALIGN(4096) : {
+       *(.bss)
+   }
+</pre></code><code><pre>   . = ALIGN(4096);
+   kernel_end = .;
+</pre></code><code></code><p><code>}
+</code>
+</p>
+<h3><span class="mw-headline" id="Kernel_erstellen">Kernel erstellen</span></h3>
+<p>Gebaut wird der Kernel nun wie folgt:
+</p>
+<pre>$ gcc -g -c -m32 -Wall -fno-stack-protector -fno-builtin -nostdlib -nodefaultlibs -c start.S
+$ gcc -g -c -m32 -Wall -fno-stack-protector -fno-builtin -nostdlib -nodefaultlibs -c init.m
+$ ld -melf_i386 -Tlink.ld start.o init.o -o objckernel
+</pre>
+<p>Dieser kann dann mit <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">qemu</a> direkt aufgerufen werden (ab Version 0.11.0):
+</p>
+<pre>$ qemu -kernel objkernel
+</pre>
+<h2><span class="mw-headline" id="Compiler">Compiler</span></h2>
+<ul><li><a class="external text" href="http://gcc.gnu.org/" rel="nofollow">GCC</a> - Unterstützung auch für Objective-C (gobjc)</li></ul>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://developer.apple.com/mac/library/documentation/cocoa/Conceptual/ObjectiveC/index.html" rel="nofollow">Apple's Developer-Center</a></li>
+<li><a class="external text" href="http://www.otierney.net/objective-c.html" rel="nofollow">Kleines Tutorial über die Spracheigenschaften</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165928
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.007 seconds
+Preprocessor visited node count: 64/1000000
+Preprocessor generated node count: 172/1000000
+Post‐expand include size: 1308/2097152 bytes
+Template argument size: 175/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.431      1 -total
+ 49.90%    0.714      1 Vorlage:Sprache
+ 39.62%    0.567      1 Vorlage:Stub
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Objective-C&amp;oldid=6346</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1618/index.html" title="Kategorie:Stub">Stub</a></li><li><a href="../../pages/1648/index.html" title="Kategorie:Programmiersprache">Programmiersprache</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2115/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2116/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2115/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>AC97 – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-AC97 rootpage-AC97 skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1862/index.html">Aktueller Artikel</a> · <a href="../../history/1862/index.html">Versionsgeschichte</a> · <a href="../../source/11330.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">AC97</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 2. Januar 2016, 11:45 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Mr. X</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Aufteilung in herstellerspezifische Kapitel ermöglicht, Abschnitt über VIA-AC97 begonnen)</span></div><div id="mw-revision-nav">(<a href="../../diffs/11329-11330.html" title="AC97">Unterschied</a>) <a href="../11329/index.html" title="AC97">← Nächstältere Version</a> | <a href="../../pages/1862/index.html" title="AC97">Aktuelle Version</a> (<a href="../../diffs/11330-11331.html" title="AC97">Unterschied</a>) | <a href="../11331/index.html" title="AC97">Nächstjüngere Version →</a> (<a href="../../diffs/11330-11331.html" title="AC97">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>AC'97 (Audio Codec '97) ist ein Audio-Standard, der von Intel im Jahre 1997 veröffentlicht wurde. Er wird hauptsächlich von On-Board-Chips und seltener von Soundkarten (bzw. Modems) verwendet. Seit 2004 wird er mehr und mehr von High Definition Audio Interface (HD Audio) abgelöst.
+</p><p>Ich gehe in diesem (mehr oder weniger) Tutorial davon aus, dass ihr einen einigermaßen funktionierenden <a class="mw-redirect" data-archive-original-href="../../pages/1627/index.html" href="../../pages/1626/index.html" title="PCI">PCI</a>-Treiber habt, von dem ihr von einem Gerät mit einer bestimmten Hersteller- und Geräte-ID die BARs (in diesem Fall I/O-Räume) herausfinden könnt. Außerdem solltet ihr euch einigermaßen mit dem Aufbau von Sounddateien (WAV, also unkomprimiert) und somit auch mit Begriffen wie PCM oder Samplerate auskennen.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Kompatible_Ger.C3.A4te"><span class="tocnumber">1</span> <span class="toctext">Kompatible Geräte</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Intel-Soundkarten"><span class="tocnumber">2</span> <span class="toctext">Intel-Soundkarten</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Initialisierung"><span class="tocnumber">2.1</span> <span class="toctext">Initialisierung</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#T.C3.B6ne_.28etc..29_ausgeben"><span class="tocnumber">2.2</span> <span class="toctext">Töne (etc.) ausgeben</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Anhang"><span class="tocnumber">2.3</span> <span class="toctext">Anhang</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#VIA-Soundkarten"><span class="tocnumber">3</span> <span class="toctext">VIA-Soundkarten</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Initialisierung_2"><span class="tocnumber">3.1</span> <span class="toctext">Initialisierung</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Weblinks"><span class="tocnumber">4</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span id="Kompatible_Geräte"></span><span class="mw-headline" id="Kompatible_Ger.C3.A4te">Kompatible Geräte</span></h2>
+<p>AC'97-kompatible Geräte erscheinen als <a class="mw-redirect" data-archive-original-href="../../pages/1627/index.html" href="../../pages/1626/index.html" title="PCI">PCI</a>-Geräte mit dem Basisklassencode 04h (Multimediacontroller) und dem Subklassencode 01h (Audio). Doch das sind nur Soundkarten und entsprechende Chips im Allgemeinen, es kann sich bei solchen Geräten also auch um HD-Audio-Soundkarten oder andere inkompatible Audiogeräte handeln. Daher hier eine unvollständige Liste von AC'97-Geräten:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Hersteller</th>
+<th>Gerät
+</th></tr>
+<tr>
+<td>0x8086 (Intel)</td>
+<td>0x2415 (82801AA - Intel ICH)
+</td></tr>
+<tr>
+<td>0x8086 (Intel)</td>
+<td>0x2425 (82801AB - Intel ICH0)
+</td></tr>
+<tr>
+<td>0x8086 (Intel)</td>
+<td>0x2445 (82801BA - Intel ICH2)
+</td></tr>
+<tr>
+<td>0x1106 (VIA)</td>
+<td>0x3058 (vmtl. auf allen VIA-Mainboards verbauter AC'97-Chip)
+</td></tr>
+</tbody></table>
+<p>Leider sind die Schnittstellen zur Ansteuerung der Karten von Hersteller zu Hersteller unterschiedlich, sodass in separaten Abschnitten darauf eingegangen wird.
+</p>
+<h2><span class="mw-headline" id="Intel-Soundkarten">Intel-Soundkarten</span></h2>
+<p><a href="../../pages/1505/index.html" title="QEMU">QEMU</a> (0.10.0) und <a href="../../pages/1553/index.html" title="VirtualBox">VirtualBox</a> (2.1.4) nutzen ICH. Die in diesem Tutorial vorgestellten Codes funktionieren leider anscheinend auch nur dort.
+</p>
+<h3><span class="mw-headline" id="Initialisierung">Initialisierung</span></h3>
+<p>Die Geräte besitzen zwei I/O-Räume, der erste heißt NAM-BAR (Native Audio Mixer BAR) und der zweite NABM-BAR (Native Audio Bus Master BAR). Mit den Registern in NAM-BAR wird der Mixer gesteuert (also Lautstärke, Samplerate, ...), mit denen in NABM-BAR wird das Abspielen gesteuert (Play/Pause, Soundbuffer, ...). Um diese I/O-Räume zu aktivieren und den Bus Master zu starten, muss der Wert des Registers „COMMAND“ im <a class="mw-redirect" data-archive-original-href="../../pages/1627/index.html" href="../../pages/1626/index.html" title="PCI">PCI</a>-Konfigurationsraum mit 0x05 „ge-Or-t“ werden. Ein Beispiel:
+</p><p>&lt;c&gt;pciConfigWrite(Bus, Geraet, Funktion, PCI_COMMAND, pciConfigRead(Bus, Geraet, Funktion, PCI_COMMAND) | 5)&lt;/c&gt;
+</p><p>Das Gerät muss dann wie folgt initialisiert werden:
+</p>
+<ul><li>Resetten</li>
+<li>Lautstärke einstellen</li>
+<li>evtl. Samplerate einstellen</li></ul>
+<p>Dies kann zum Beispiel so geschehen:
+</p><p>&lt;c&gt;void delay(int ms); //Wartet „ms“ Millisekunden
+uint16_t inw(int port); //Liest einen Wert vom I/O-Port „port“ ein
+void outb(int port, uint8_t value); //Gibt den Wert „value“ am I/O-Port „port“ aus
+void outw(int port, uint16_t value); //Gibt den Wert „value“ am I/O-Port „port“ aus
+</p><p>// Diese beiden Variablen müssen mit Daten vom PCI-Treiber gefüttert werden (erster bzw. zweiter I/O-Raum)
+int nambar; //NAM-BAR
+int nabmbar; //NABM-BAR
+</p><p>int volume; //Lautstärke; Achtung: 0 ist volle Lautstärke, 63 ist so gut wie stumm!
+</p><p>//Code (in einer beliebigen Funktion):
+outw(nambar + PORT_NAM_RESET, 42); //Resetten (jeder Wert ist hier möglich)
+outb(nabmbar + PORT_NABM_GLB_CTRL_STAT, 0x02); //Auch hier – 0x02 ist aber verpflichtend
+delay(100);
+volume = 0; //Am lautesten!
+outw(nambar + PORT_NAM_MASTER_VOLUME, (volume&lt;&lt;8) | volume); //Allg. Lautstärke (links und rechts)
+outw(nambar + PORT_NAM_MONO_VOLUME, volume); //Lautstärke für die Mono-Ausgabe (vmtl. unnötig)
+outw(nambar + PORT_NAM_PC_BEEP, volume); //Lautstärke für den PC-Lautsprecher (unnötig, wenn nicht benutzt)
+outw(nambar + PORT_NAM_PCM_VOLUME, (volume&lt;&lt;8) | volume); //Lautstärke für PCM (links und rechts)
+delay(10);
+if (!(inw(nambar + PORT_NAM_EXT_AUDIO_ID) &amp; 1))
+{ /* Samplerate fix auf 48 kHz */ }
+else
+{
+</p>
+<pre> outw(nambar + PORT_NAM_EXT_AUDIO_STC, inw(nambar + PORT_NAM_EXT_AUDIO_STC) | 1); //Variable Rate Audio aktivieren
+ delay(10);
+ outw(nambar + PORT_NAM_FRONT_SPLRATE, 44100); //Allg. Samplerate: 44100 Hz
+ outw(nambar + PORT_NAM_LR_SPLRATE, 44100); //Stereo-Samplerate: 44100 Hz
+ delay(10);
+ //Tatsächliche Samplerate steht jetzt in PORT_NAM_FRONT_SPLRATE bzw. PORT_NAM_LR_SPLRATE
+</pre>
+<p>}&lt;/c&gt;
+</p><p>Danach sollte das Gerät arbeiten und Töne abspielen können.
+</p>
+<h3><span id="Töne_(etc.)_ausgeben"></span><span class="mw-headline" id="T.C3.B6ne_.28etc..29_ausgeben">Töne (etc.) ausgeben</span></h3>
+<p>Sollen Töne (oder irgendwelche anderen Dinge in dieser Richtung) abgespielt werden, so müssen diese in Einzelstücke zu je maximal 65536 Samples zerlegt werden. Diese müssen wie folgt im Speicher stehen:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Inhalt
+</th></tr>
+<tr>
+<td>+0x00</td>
+<td>16-Bit-Sample (int16_t) links
+</td></tr>
+<tr>
+<td>+0x02</td>
+<td>16-Bit-Sample (int16_t) rechts
+</td></tr>
+</tbody></table>
+<p>Achtung: Das sind zwei Samples – pro Kanal eins. So ergibt sich pro Buffer eine maximale Größe von 65536 * 2 Bytes = 128 Kilobytes. Dem Gerät können maximal 32 Buffer übergeben werden, die es hintereinander abspielt. Das sind dann maximal 4 MB (128 kB * 32) oder 23,8 Sekunden (44,1 kHz) bzw. 21,8 Sekunden (48 kHz). Man sieht, dass es sich um eine große Datenmenge bei relativ kurzer Spieldauer handelt – daher sind viel mehr als 32 Buffer wohl auch vom Speicherverbrauch her übertrieben. Die Lösung liegt darin, schon abgespielte Datenbuffer mit neuen Daten zu füllen und erneut abspielen zu lassen. So durchläuft das Gerät alle Buffer immer wieder, während der Treiber deren Inhalte immer wieder auffrischt.
+</p><p>Kommen wir jetzt aber zur Praxis. Die Buffer werden durch acht Bytes lange Buffer Descriptors beschrieben, diese sind so aufgebaut:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Datentyp</th>
+<th>Inhalt
+</th></tr>
+<tr>
+<td>+0x00</td>
+<td>uint32_t</td>
+<td>Physischer Pointer zum Buffer (An DWord-Grenzen ausgerichtet)
+</td></tr>
+<tr>
+<td>+0x04</td>
+<td>uint16_t</td>
+<td>Länge des Buffers in Samplen (Stereo-PCM: maximal 0xFFFE, 0x0000 bedeutet: keine Daten)
+</td></tr>
+<tr>
+<td>+0x06</td>
+<td>uint16_t</td>
+<td>Parameter: 0x8000 = IOC; 0x4000 = BUP; Rest ist reserviert
+</td></tr>
+</tbody></table>
+<ul><li>IOC (Interrupt On Completion): Wenn gesetzt, so sendet das Gerät einen <a href="../../pages/1596/index.html" title="Interrupt">Interrupt</a>, wenn dieser Buffer abgespielt wurde.</li>
+<li>BUP (Buffer Underrun Policy): Dieses Bit wird dann wichtig, wenn dieser Buffer der letzte abzuspielende oder der nächste Buffer noch nicht bereit ist: Ist das Bit dann nicht gesetzt, so wird nach dem Abspielen das letzte Sample dieses Buffers gehalten, ist es gesetzt, so wird „0“ gesendet. Typischerweise ist es beim letzten abzuspielenden Buffer gesetzt.</li></ul>
+<p>Die Buffer Descriptors trägt man in eine Liste ein, die (logischerweise) Buffer Descriptor List genannt wird. Hier passen – wie gesagt – maximal 32 Deskriptoren rein (also 256 Bytes maximale Länge). Die Anfangsadresse dieser Liste wird dann dem Gerät mitgeteilt, dann die Nummer des letzten gültigen Elements (höchstens 31) und schließlich kann man (symbolisch) auf den Play-Knopf drücken. Das könnte zum Beispiel so aussehen, hiermit können maximal besagte 23,8 Sekunden abgespielt werden:
+</p><p>&lt;c&gt;struct buf_desc
+{
+</p>
+<pre> void *buffer;
+ unsigned short length;
+ int reserved : 14;
+ unsigned int bup : 1;
+ unsigned int ioc : 1;
+</pre>
+<p>} __attribute__((packed));
+</p><p>struct buf_desc *BufDescList; //Buffer Descriptor List
+</p><p>//Das folgende darf wieder in einer beliebigen Funktion stehen...
+int size; //Länge der zu spielenden Daten in Bytes
+int i; //Index
+int final; //Letzter gültiger Buffer
+for (i = 0; (i &lt; 32) &amp;&amp; size; i++)
+{
+</p>
+<pre> BufDescList[i].buffer = /* Physische Adresse des jeweiligen Buffers */;
+ if (size &gt;= 0x20000) //Noch mehr als 128 kB, also wird der Buffer voll
+ {
+   //Maximale Länge ist 0xFFFE und NICHT 0xFFFF! Links und rechts
+   //müssen gleich viele Samples sein, daher muss diese Zahl gerade sein.
+   BufDescList[i].length = 0xFFFE;
+   size -= 0x20000; //128 kB weg
+ }
+ else
+ {
+   //Die Hälfte der Länge in Bytes, da 16-Bit-Samples zwei Bytes brauchen
+   BufDescList[i].length = size &gt;&gt; 1;
+   size = 0; //Nix mehr jetzt
+ }
+ BufDescList[i].ioc = 1;
+ if (size) //Noch ein Buffer
+   BufDescList[i].bup = 0;
+ else //Kein Buffer mehr
+ {
+   BufDescList[i].bup = 1;
+   final = i; //Letzter gültiger Buffer ist dieser hier
+ }
+</pre>
+<p>}
+outl(nabmbar + PORT_NABM_POBDBAR, (uint32_t)/*Physische Adresse von BufDescList*/);
+outb(nabmbar + PORT_NABM_POLVI, final);
+outb(nabmbar + PORT_NABM_POCONTROL, 0x15); //Abspielen, und danach auch Interrupt generieren!&lt;/c&gt;
+</p><p>Funktioniert unter <a href="../../pages/1505/index.html" title="QEMU">QEMU</a> 0.10.0 und <a href="../../pages/1553/index.html" title="VirtualBox">VirtualBox</a> 2.1.4... Im Speicher müssen, wie oben gesagt, 16-Bit-Stereosamples mit einer Samplerate von 44,1 kHz (oder was ihr auch immer eingestellt habt), stehen.
+</p>
+<h3><span class="mw-headline" id="Anhang">Anhang</span></h3>
+<p>Nötige Konstanten:
+&lt;c&gt;#define PORT_NAM_RESET          0x0000
+</p>
+<ol><li>define PORT_NAM_MASTER_VOLUME  0x0002</li>
+<li>define PORT_NAM_MONO_VOLUME    0x0006</li>
+<li>define PORT_NAM_PC_BEEP        0x000A</li>
+<li>define PORT_NAM_PCM_VOLUME     0x0018</li>
+<li>define PORT_NAM_EXT_AUDIO_ID   0x0028</li>
+<li>define PORT_NAM_EXT_AUDIO_STC  0x002A</li>
+<li>define PORT_NAM_FRONT_SPLRATE  0x002C</li>
+<li>define PORT_NAM_LR_SPLRATE     0x0032</li>
+<li>define PORT_NABM_POBDBAR       0x0010</li>
+<li>define PORT_NABM_POLVI         0x0015</li>
+<li>define PORT_NABM_POCONTROL     0x001B</li>
+<li>define PORT_NABM_GLB_CTRL_STAT 0x0060&lt;/c&gt;</li></ol>
+<h2><span class="mw-headline" id="VIA-Soundkarten">VIA-Soundkarten</span></h2>
+<div id="Template_Stub">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #D0D8FF; margin: 0 0em; padding: 0 0px; border: 1px solid #b8c0e8" width="100%">
+<tbody><tr>
+<td>Diese Seite oder Abschnitt ist zwar komplett, es wird aber folgende Verbesserungen gewünscht:<br/>
+<p><i>Testen und erweitern</i>
+</p><p>Hilf Lowlevel, den Artikel zu verbessern.
+</p>
+</td></tr></tbody></table>
+</div>
+<h3><span class="mw-headline" id="Initialisierung_2">Initialisierung</span></h3>
+<p>VIAs AC'97-Soundkarte ist Funktion 5 der Southbridge, die sich ihre IO-Adressräume mit dem integrierten Modem (MC97) in Funktion 6 teilt. Wir behandeln im Folgenden nur AC'97. Der für uns relevante IO-Raum für DMA residiert im ersten PCI-BAR.
+</p><p>Die Karte bezieht Sounddaten aus aus mehreren Puffern, die in der SGD-Tabelle ("Scatter/Gather DMA Table") durch Deskriptoren folgenden Formats beschrieben werden. Die Basisadresse der Tabelle ist in das 32-bit-Register an Offset 0x4 zu schreiben und an 2-Byte-Grenzen auszurichten:
+&lt;c&gt;typedef struct
+{
+	uint32_t buf;
+	uint32_t len      : 24;
+	uint32_t reserved :  5;
+	uint32_t stop     :  1; // Transfer am Ende des Blocks unterbrechen. Um fortzufahren, setze Bit 2 in Register 0 (Audio SGD Read Channel Status)
+	uint32_t flag     :  1; // Transfer am Ende des Blocks unterbrechen. Löst einen FLAG-Interrupt aus.
+	uint32_t eol      :  1; // Letzter Eintrag. Löst einen EOL-Interrupt aus.
+} __attribute__((packed)) ac97Via_SGDEntry_t;&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://www.intel.de/content/dam/doc/datasheet/io-controller-hub-6-datasheet.pdf" rel="nofollow">Intels Programmierspezifikation (ICH6)</a></li>
+<li><a class="external text archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">VIA VT82C686A Datenblatt 1.82</a></li>
+<li><a class="external text" href="http://download.intel.com/support/motherboards/desktop/sb/ac97_r23.pdf" rel="nofollow">Spezifikationen der Register (Abschnitt “Baseline Audio Register Set”), eher Hardwarespezifikationen</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164454
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.007 seconds
+Real time usage: 0.008 seconds
+Preprocessor visited node count: 48/1000000
+Preprocessor generated node count: 92/1000000
+Post‐expand include size: 433/2097152 bytes
+Template argument size: 20/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.659      1 -total
+ 48.17%    0.799      3 Vorlage:Prettytable
+ 41.29%    0.685      1 Vorlage:TODO
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=AC97&amp;oldid=11330</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1820/index.html" title="Kategorie:TODO">TODO</a></li><li><a href="../../pages/1447/index.html" title="Kategorie:Hardware">Hardware</a></li><li><a href="../../pages/1827/index.html" title="Kategorie:Soundkarte">Soundkarte</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1862/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1862/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/AC97" hreflang="en" lang="en" title="AC97 – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

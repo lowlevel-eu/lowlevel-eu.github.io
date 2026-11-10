@@ -1,0 +1,17 @@
+Frage warum sollte das OS nur in Qemu laufen? die anderen Emulatoren emulieren genauso einen standard IBM PC. --[[Benutzer:PNoob|PNoob]] 20:54, 2. Feb. 2011 (CET)
+: Bitte nicht andere Betriebssysteme kommentieren. --[[Benutzer:Jidder|Jidder]] 21:11, 2. Feb. 2011 (CET)
+
+weil wenn ich jetzt boot.bin und kernel.bin ja zur einer img datei mache, kommen z.B.:600Bytes raus und Virtual Pc, ... erkennt nur bestimmte Formate. qemu schaut abe rnicht auf die größe, eher auf den inhalt. --[[Benutzer:XUNIX|XUNIX]] 21:14, 2. Feb. 2011 (CET)
+:du kannst einfach die Image datei mit nullen auf 1,44 MB "aufblasen" bzw. eine 1,44 MB große Datei mit dd erstellen und dann mit dd die beiden Dateien boot.bin und kernel.bin in die Datei reinschreiben. Oder du lässt den Assembler das padden erldigen indem du einfach am ende der Kerneldatei mithilfe des Times Befehl die Kernel Datei auf 1,44 MB - 512Byte für den Bootsektor padden. Und dann nehmen auch virtalPc usw. die Datei. Wobei es Theoretisch auch mit 720kb gehen müsste. das war auf jeden fall auchmal ein gültiges Floppy Format, ich weiß aber nicht ob VirtualPC usw. das Format noch nehmen oder ob die nur noch 3,5"er Disketten nehmen. Ich wünsche dir viel Glück mit deinem OS --[[Benutzer:PNoob|PNoob]] 22:15, 2. Feb. 2011 (CET)
+::ich werde es mal versuchen. danke für die tipps! --[[Benutzer:XUNIX|XUNIX]] 13:57, 3. Feb. 2011 (CET)
+
+Öhm PNoob ... Du weisst schon, dass ne 720kb Floppy auch 3,5" haben kann? ;) --[[Benutzer:DeepDancer|DeepDancer]] 17:14, 4. Feb. 2011 (CET)
+: Oh das wuste ich nicht. Ich dachte bei 3,5" gibts nur noch 1,44 und ?2,88?. Wieder etwas gelernt --[[Benutzer:PNoob|PNoob]] 21:39, 4. Feb. 2011 (CET)
+:: Und wieso macht eine Antwort von Dir bitte eine Änderung von mir rückgängig? oO --[[Benutzer:DeepDancer|DeepDancer]] 14:24, 5. Feb. 2011 (CET)
+::: Das war keine ABsicht. wenn es so gewesen sein sollte dann entschuldige ich mich dafür. --[[Benutzer:PNoob|PNoob]] 14:55, 5. Feb. 2011 (CET)
+
+Hat es einen bestimmten Grund, dass du nur das amerikanische Tastaturlayout unterstützt? --[[Benutzer:Dem epOS sein Linus|DesL]]
+:keine ahnung, vielleicht liegts am bios, dass es amerikanisch ist. --[[Benutzer:XUNIX|XUNIX]] 14:49, 10. Feb. 2011 (CET)
+:: Das BIOS hat damit nichts zu tun. der Tastaturkontroller gibt dir einen Scancode und den musst du je nach Tastaturlayout, also ob nun Amerikansich oder Deutsch usw. passend übersetzen. --[[Benutzer:PNoob|PNoob]] 17:01, 10. Feb. 2011 (CET)
+
+hast recht pnoob! --[[Benutzer:XUNIX|XUNIX]] 17:43, 10. Feb. 2011 (CET)

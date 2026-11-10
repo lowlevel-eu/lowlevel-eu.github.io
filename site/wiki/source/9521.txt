@@ -1,0 +1,38 @@
+{{Vorlage:Löschen
+| Grund = Wird nicht mehr weiterentwickelt. ---[[Benutzer:Hartmut|DerHartmut]] 10:36, 11. Feb. 2011 (CET)
+}}
+{{Vorlage:Infobox OS
+| Name = J-OS
+| Entwickler = [[Benutzer:Jonebohne | jonebohne]]
+| Version = Noch keine (siehe unten)
+| Lizenz = [http://creativecommons.org/licenses/by-nc-sa/3.0/de/ by-nc-sa 3.0]
+| Plattform = [[x86]]
+| Kernel = [[Makrokernel]]
+| Sprache = [[C]]
+| API = [[Syscall]]-Interface (geplant)
+| Binaerformat = (noch keins)
+| IPC = Keine
+| Homepage = Noch keine (siehe unten)
+}}
+
+'''''J-OS wird nicht mehr weiterentwickelt. Stattdessen entwickle ich momentan an meinem neues OS: ExpOS. Grund: J-OS war nicht nur untestbar sondern auch unübersichtlich und bestand aus zusammengewürfeltem Nudelsalat-Code :-).'''''
+
+J-OS ist ein (sehr) kleines [[Betriebssystem]] von mir, welches ich hier etwas genauer beschreibe.
+
+J-OS ist fast komplett in [[C]] geschrieben (teilweise [[Assembler]]) und bootet mit dem [[GRUB]]-Loader. Es läuft vollständig im [[Protected Mode]].
+Geplant ist eine API, [[Treiber]] für Festplatten/Disketten/CD-Laufwerke, Netzwerkkarten und vieles mehr.
+
+== Changelog ==
+==== Version 0.0.1 (wird geschrieben) ====
+In der Version 0.0.1 werden (vorraussichtlich) folgende Features implementiert sein:
+* Einrichtung einer [[IDT]] und einer [[GDT]]
+* Behandlung von [[Exception]]s und [[ISR]]s
+* [[Syscall]]-Interface
+* [[Multitasking]] in Ring 3
+* [[Paging]]
+* Eine kleine [[Shell]] (momentan eher eine ''sehr'' kleine Shell)
+* [[Debugging]] über den [[COM]]-Port
+* stdlibc (momentan nur teilweise)
+* [[Tastatur]]-[[Treiber]]
+* Treiber für [[PCI]] und evtl. Netzwerkkarten
+* Vielleicht auch mehr

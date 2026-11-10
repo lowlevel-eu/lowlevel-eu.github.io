@@ -1,0 +1,30 @@
+Ich denke dass die GDT-Tabelle jetzt von den Bytes her richtig ist. Da man ja am Ende auf 8 Bytes kommt. Aber die Bit-Nummerierung ist etwas kaputt. Kann man da nicht besser die Grafik aus dem Magazin nehmen?
+
+== Beispielcode falsch? ==
+
+Ich finde die Grafik ziemlich ansprechend: http://wiki.osdev.org/GDT
+
+Was mir noch aufgefallen ist: Ist der Beispielcode richtig? das RW-Bit ist dort mit der Bitmask 0x40 (also Bit 7) verzeichnet - in der Tabelle aber mit Bit 1.
+
+Ich lasse da jetzt aber mal die Finger weg, weil ich nicht wirklich Ahnung davon habe. [[Benutzer:Garfield|Garfield]]
+
+---
+@Garfield: Also ich schätze mal die Bitnummerierungen in der Tabelle sind falsch. Entweder du schaust in die Magazine, auf OSDev.org oder in ein anderes OS. Bei letzteren kann man zumindestens davon ausgehen, dass es stimmt, da es läuft.
+[[Benutzer:Jgraef|Jgraef]]
+
+== Selektoren ==
+
+Müsste man einen Selektor für Usersegment nicht mit 0x2b angeben, wenn es der 5. eintrag sein soll?
+Null-Deskriptor (0) + Kernel Codesegment (1) + Kernel Datensegment (2) + User Codesegment (3) + User Datensegment (4) + task state segment(5)
+hat also Index 5.<br>
+und 0x23 = 00100 011 (00100 = 4 müsste aber 5 sein 00101) von daher:<br>
+0000 0011 |<br>
+0010 1000 =<br>
+0010 1011 = 0x2b --[[Benutzer:Sebi2020|Sebi2020]] 20:27, 9. Jan. 2010 (CET)
+:Soweit ich das nachvollziehen kann, ja, aber worauf beziehst du dich jetzt genau? --[[Benutzer:XanClic|XanClic]] 21:28, 9. Jan. 2010 (CET)
+:: Auf den Abschnitt Selektoren im GDT Artikel: "Um also nach ds das Segment zu laden, das durch den fünften GDT-Eintrag beschrieben wird, und zwar als Userspace-Segment (Ring 3), könnte man folgenden Code verwenden:<br>
+<asm>mov $0x23, %ax
+mov %ax, %ds</asm>"
+:: Müsste es nicht demzufolge dann 0x2b heißen? 0x23 Würde den 4 Eintrag in der GDT laden, und das wäre denn, wenn sie so eingerichtet ist wie vorgeschlagen, das User-Datensegment. --[[Benutzer:Sebi2020|Sebi2020]] 22:12, 9. Jan. 2010 (CET)
+::: Der fünfte Eintrag hat den Index 4, weil bei Null zu zählen angefangen wird. Passt also alles. --[[Benutzer:Taljeth|Taljeth]] 23:39, 9. Jan. 2010 (CET)
+:::: Sicher Taljeth? Null-Deskriptor = Index 0 ; kernel codesegment index 1; kernel datensegment index 2 ; user-codesegment index 3; kernel-datensegment index 4; tss index 5 also ich hab jetzt von null angefangen, und es ist immer noch index 5 --[[Benutzer:Sebi2020|Sebi2020]] 00:18, 10. Jan. 2010 (CET)

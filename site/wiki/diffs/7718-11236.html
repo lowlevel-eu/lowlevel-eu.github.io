@@ -1,0 +1,36 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Image mit Grub2 erstellen — Änderungen 7718 → 11236</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Image mit Grub2 erstellen — Änderungen 7718 → 11236</h1><nav><a href="../revisions/7718/index.html">Version 7718</a> · <a href="../revisions/11236/index.html">Version 11236</a> · <a href="../history/2235/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l1" >Zeile 1:</td>
+<td colspan="2" class="diff-lineno">Zeile 1:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Vorbemerkungen==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Vorbemerkungen==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Man benötigt zum Folgen der Anleitung nur einen Rechner, auf dem GRUB 2 installiert ist.</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Man benötigt zum Folgen der Anleitung nur einen Rechner, auf dem <ins class="diffchange diffchange-inline">[[</ins>GRUB 2<ins class="diffchange diffchange-inline">]] </ins>installiert ist.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Erste Schritte==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Erste Schritte==</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l9" >Zeile 9:</td>
+<td colspan="2" class="diff-lineno">Zeile 9:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Durchführung==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Durchführung==</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Zuerst lädt man sich ein Image mit GRUB Legacy herunter, z.&amp;nbsp;B. hier: [http://download.tyndur.org/releases/0.2/ http://download.tyndur.org/releases/0.2/].</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Zuerst lädt man sich ein Image mit <ins class="diffchange diffchange-inline">[[GRUB|</ins>GRUB Legacy<ins class="diffchange diffchange-inline">]] </ins>herunter, z.&amp;nbsp;B. hier: [http://download.tyndur.org/releases/0.2/ http://download.tyndur.org/releases/0.2/].</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Ich habe tyndur-0.2.1-gothmog-floppy.img.bz2 genommen. Dieses Image entpackt man nun ins Arbeitsverzeichnis und mountet es anschließend:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Ich habe tyndur-0.2.1-gothmog-floppy.img.bz2 genommen. Dieses Image entpackt man nun ins Arbeitsverzeichnis und mountet es anschließend:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;bash&gt;mkdir mnt</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;bash&gt;mkdir mnt</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l47" >Zeile 47:</td>
+<td colspan="2" class="diff-lineno">Zeile 47:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  boot&#160; &#160; &#160;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160;  boot&#160; &#160; &#160;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; }</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; }</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Anschließend kopiert man den Kernel und die dazugehörigen Dateien auf das Image und unmountet es:</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Anschließend kopiert man den <ins class="diffchange diffchange-inline">[[</ins>Kernel<ins class="diffchange diffchange-inline">]] </ins>und die dazugehörigen Dateien auf das Image und unmountet es:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;bash&gt;sudo umount mnt&lt;/bash&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;bash&gt;sudo umount mnt&lt;/bash&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Das Image ist danach fertig.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Das Image ist danach fertig.</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l53" >Zeile 53:</td>
+<td colspan="2" class="diff-lineno">Zeile 53:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Test==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Test==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Testen kann man das Image z.&amp;nbsp;B. mit <del class="diffchange diffchange-inline">qemu</del>:</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Testen kann man das Image z.&amp;nbsp;B. mit <ins class="diffchange diffchange-inline">[[QEMU]]</ins>:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;bash&gt;qemu -fda 0.2.1-gothmog-floppy.img&lt;/bash&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;bash&gt;qemu -fda 0.2.1-gothmog-floppy.img&lt;/bash&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Tutorials]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Tutorials]]</div></td></tr>
+</table></body></html>

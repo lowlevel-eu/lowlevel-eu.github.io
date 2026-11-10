@@ -1,0 +1,54 @@
+Der Floppy Disk Controller ist ein Chip, der ein bis vier FLoppy-Laufwerke ansteuern kann.
+== Eigenschaften ==
+* DMA-Channel: 2
+* IRQ: 6
+= Register =
+== Übersicht ==
+{| border="1" cellspacing="1"
+! Name !! Port !! Beschreibung !! lesen/schreiben
+|-
+| MSR || 0x3F4 || Main Status Register || lesen
+|-
+| DR || 0x3F5 || Data Register || lesen/schreiben
+|-
+| DOR || 0x3F2 || Digital Output Register || schreiben
+|-
+|}
+== Aufbau ==
+=== MSR ===
+{| border="1" cellspacing="1"
+| Bit ||7||6||5||4||3||2||1||0
+|-
+| Name || MRQ || DIO || NDMA || BUSY || ACTD || ACTC || ACTB || ACTA 
+|-
+|}
+;MRQ
+
+;DIO
+
+;NDMA
+=== DR ===
+{| border="1" cellspacing="1"
+| Bit ||7-6||5||4||3||2||1-0
+|-
+| Name || IC || SE || UC || NR || HD || US
+|-
+|}
+=== DOR ===
+{| border="1" cellspacing="1"
+| Bit ||7||6||5||4||3||2||1-0
+|-
+| Name || MOTD || MOTC || MOTB || MOTA || DMA || RESET || DRIVE
+|-
+|}
+
+wird fortgesetzt!
+
+== Siehe auch ==
+[[Interrupt 13h]] - Disketten- und Festplattenzugriff
+
+== Weblinks ==
+* [http://lowlevel.brainsware.org/wiki/images/82077AA_FloppyControllerDatasheet.pdf 82077AA CHMOS Single-Chip Floppy Disk Controller Datasheet]
+*[http://www.isdaman.com/alsos/hardware/fdc/floppy.htm http://www.isdaman.com/alsos/hardware/fdc/floppy.htm]
+[[Kategorie:Glossar]]
+[[Kategorie:Hardware]]

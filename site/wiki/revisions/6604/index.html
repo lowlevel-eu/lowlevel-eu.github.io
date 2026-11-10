@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>BIOS Data Area – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-BIOS_Data_Area rootpage-BIOS_Data_Area skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1564/index.html">Aktueller Artikel</a> · <a href="../../history/1564/index.html">Versionsgeschichte</a> · <a href="../../source/6604.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">BIOS Data Area</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 23. Dezember 2009, 17:20 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Jidder</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Copy&amp;Paste-Fehler korrigiert, und nicht mehr vorhandene Seite gegen Quelle ausgetauscht)</span></div><div id="mw-revision-nav">(<a href="../../diffs/6049-6604.html" title="BIOS Data Area">Unterschied</a>) <a href="../6049/index.html" title="BIOS Data Area">← Nächstältere Version</a> | <a href="../../pages/1564/index.html" title="BIOS Data Area">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../6606/index.html" title="BIOS Data Area">Nächstjüngere Version →</a> (<a href="../../diffs/6604-6606.html" title="BIOS Data Area">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>In der <b>BIOS Data Area</b> (<b>BDA</b>) speichert das <a class="mw-redirect" data-archive-original-href="../../pages/1632/index.html" href="../../pages/1616/index.html" title="BIOS">BIOS</a> Informationen über Hardware und andere Systemkomponenten.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Aufbau_der_BIOS_Data_Area"><span class="tocnumber">1</span> <span class="toctext">Aufbau der BIOS Data Area</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Equipment_Word"><span class="tocnumber">1.1</span> <span class="toctext">Equipment Word</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Tastatur-Status-Flags"><span class="tocnumber">1.2</span> <span class="toctext">Tastatur-Status-Flags</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Disk-Kontroller-Informationen"><span class="tocnumber">1.3</span> <span class="toctext">Disk-Kontroller-Informationen</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Grafik-Adapter-Informationen"><span class="tocnumber">1.4</span> <span class="toctext">Grafik-Adapter-Informationen</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Weblinks"><span class="tocnumber">2</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Aufbau_der_BIOS_Data_Area">Aufbau der BIOS Data Area</span></h2>
+<p>Die BDA befindet sich im Segment 0x0040, d.h. an der physikalischen Adresse 0x0400. Die folgende Tabelle zeigt den Aufbau dieses Segments:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe (Bytes)</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>2</td>
+<td>Basisadresse des I/O-Ports von <a href="../../pages/1561/index.html" title="Serielle Schnittstelle"> COM1</a>
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>2</td>
+<td>Basisadresse des I/O-Ports von COM2
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>2</td>
+<td>Basisadresse des I/O-Ports von COM3
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>2</td>
+<td>Basisadresse des I/O-Ports von COM4
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>2</td>
+<td>Basisadresse des I/O-Ports von <a href="../../pages/1996/index.html" title="Parallele Schnittstelle"> LPT1</a>
+</td></tr>
+<tr>
+<td>0x0A</td>
+<td>2</td>
+<td>Basisadresse des I/O-Ports von LPT2
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td>2</td>
+<td>Basisadresse des I/O-Ports von LPT3
+</td></tr>
+<tr>
+<td>0x0E</td>
+<td>2</td>
+<td>Basisadresse des I/O-Ports von LPT4 oder <br/> Segment der <a class="mw-redirect" data-archive-original-href="../../pages/1587/index.html" href="../../pages/1586/index.html" title="EBDA">EBDA</a> (bei PS/2)
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>2</td>
+<td><a href="#Equipment_Word"> Equipment Word</a>
+</td></tr>
+<tr>
+<td>0x12</td>
+<td>1</td>
+<td>POST Status
+</td></tr>
+<tr>
+<td>0x13</td>
+<td>2</td>
+<td>Größe des konventionellen Speichers (in kB)
+</td></tr>
+<tr>
+<td>0x15</td>
+<td>2</td>
+<td>POST System Flag
+</td></tr>
+<tr>
+<td>0x17</td>
+<td>2</td>
+<td><a href="#Tastatur-Status-Flags"> Tastatur-Status-Flags</a>
+</td></tr>
+<tr>
+<td>0x19</td>
+<td>1</td>
+<td>Alt+Numpad-Data
+</td></tr>
+<tr>
+<td>0x1A</td>
+<td>2</td>
+<td>Zeiger auf nächsten Buchstaben im Tastatur-Ringpuffer
+</td></tr>
+<tr>
+<td>0x1C</td>
+<td>2</td>
+<td>Zeiger auf letzten Buchstaben im Tastatur-Ringpuffer
+</td></tr>
+<tr>
+<td>0x1E</td>
+<td>32</td>
+<td>Tastatur-Ringpuffer
+</td></tr>
+<tr>
+<td>0x3E</td>
+<td>11</td>
+<td><a href="#Disk-Kontroller-Informationen"> Disk-Kontroller-Informationen</a>
+</td></tr>
+<tr>
+<td>0x49</td>
+<td>30</td>
+<td><a href="#Grafik-Adapter-Informationen">Grafik-Adapter-Informationen</a>
+</td></tr>
+<tr>
+<td>0x67</td>
+<td>4</td>
+<td>Sprungadresse (Far Pointer) nach einem CPU-Reset (prä-AT: inkl. 0x6B diverse Informationen zum Kassettenlaufwerk)
+</td></tr>
+<tr>
+<td>0x6B</td>
+<td>1</td>
+<td>In AT und neuer ungenutzt. Siehe 0x67.
+</td></tr>
+<tr>
+<td>0x6C</td>
+<td>4</td>
+<td>Zähler für Interrupt 0x1A
+</td></tr>
+<tr>
+<td>0x70</td>
+<td>1</td>
+<td>Zähler 24h Überlauf
+</td></tr>
+<tr>
+<td>0x71</td>
+<td>1</td>
+<td>Keyboard-Control-Break-Flag
+</td></tr>
+<tr>
+<td>0x72</td>
+<td>2</td>
+<td>Soft-Reset-Flag
+</td></tr>
+<tr>
+<td>0x74</td>
+<td>4</td>
+<td>Disk-Kontroller-Informationen
+</td></tr>
+<tr>
+<td>0x78</td>
+<td>4</td>
+<td>LPT-Timeout-Werte
+</td></tr>
+<tr>
+<td>0x7C</td>
+<td>4</td>
+<td>COM-Timeout-Werte
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>2</td>
+<td>Start des PS/2-Keyboard-Buffers
+</td></tr>
+<tr>
+<td>0x82</td>
+<td>2</td>
+<td>Ende des PS/2-Keyboard-Buffers
+</td></tr>
+<tr>
+<td>0x84</td>
+<td>7</td>
+<td>Grafik-Controller-Informationen
+</td></tr>
+<tr>
+<td>0x8B</td>
+<td>13</td>
+<td>Disk-Controller-Informationen
+</td></tr>
+<tr>
+<td>0x96</td>
+<td>2</td>
+<td>Keyboard-Status-Flag
+</td></tr>
+<tr>
+<td>0x98</td>
+<td>4</td>
+<td>Zeiger auf Benutzer-Flag
+</td></tr>
+<tr>
+<td>0x9C</td>
+<td>4</td>
+<td>Benutzer-Warte-Zähler
+</td></tr>
+<tr>
+<td>0xA0</td>
+<td>1</td>
+<td>Benutzer-Warte-Flag
+</td></tr>
+<tr>
+<td>0xA1</td>
+<td>7</td>
+<td>Reseviert für Netzwerk-Adapter
+</td></tr>
+<tr>
+<td>0xA8</td>
+<td>4</td>
+<td>Grafik-Adapter-Informationen
+</td></tr>
+<tr>
+<td>0xAC</td>
+<td>68</td>
+<td>Reserviert
+</td></tr>
+<tr>
+<td>0xF0</td>
+<td>16</td>
+<td>Inter-Application-Kommunikations-Bereich
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Equipment_Word">Equipment Word</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Bits</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>15-14</td>
+<td>00b = 1 Parallelport vorhanden <br/> 01b = 2 Parallelports vorhanden <br/> 10b = 3 Parallelports vorhanden
+</td></tr>
+<tr>
+<td>13</td>
+<td>01b = internes Modem vorhanden
+</td></tr>
+<tr>
+<td>12</td>
+<td>01b = Joystick vorhanden
+</td></tr>
+<tr>
+<td>11-9</td>
+<td>Anzahl der vorhandenen <a href="../../pages/1561/index.html" title="Serielle Schnittstelle"> COM-Ports</a> 0-4
+</td></tr>
+<tr>
+<td>8</td>
+<td><a href="../../pages/1555/index.html" title="Direct Memory Access"> DMA</a>-Controller vorhanden (PC-junior)
+</td></tr>
+<tr>
+<td>7-6</td>
+<td>00b = 1 Floppylaufwerk vorhanden <br/> 01b = 2 Floppylaufwerke vorhanden
+</td></tr>
+<tr>
+<td>5-4</td>
+<td>00b = EGA oder älter <br/> 01b = Farbe 40x25 <br/> 10b = Farbe 80x25 <br/> 11b = Monochrom 80x25
+</td></tr>
+<tr>
+<td>3</td>
+<td>Reserviert
+</td></tr>
+<tr>
+<td>2</td>
+<td>Ob eine PS/2-Maus vorhanden ist
+</td></tr>
+<tr>
+<td>1</td>
+<td>Ob ein <a href="../../pages/1601/index.html" title="Mathematischer Koprozessor">mathematischer Koprozessor</a> vorhanden ist
+</td></tr>
+<tr>
+<td>0</td>
+<td>Ob ein Bootfloppy-Laufwerk vorhanden ist
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Tastatur-Status-Flags">Tastatur-Status-Flags</span></h3>
+<p>Hier werden die Tastatur-Flags gespeichert welche vom Interrupt 0x16 verwendet werden.<br/>
+Byte 1 (0x17): 
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bits</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>7</td>
+<td>0 = Einfügen ausgeschaltet <br/> 1 = Einfügen angeschaltet
+</td></tr>
+<tr>
+<td>6</td>
+<td>0 = CapsLock aus <br/> 1 = CapsLock an
+</td></tr>
+<tr>
+<td>5</td>
+<td>0 = NumLock aus <br/> 1 = NumLock an
+</td></tr>
+<tr>
+<td>4</td>
+<td>0 = ScrollLock aus <br/> 1 = ScrollLock an
+</td></tr>
+<tr>
+<td>3</td>
+<td>0 = Alt nicht gedrückt <br/> 1 = Alt gedrückt
+</td></tr>
+<tr>
+<td>2</td>
+<td>0 = Strg nicht gedrückt <br/> 1 = Strg gedrückt
+</td></tr>
+<tr>
+<td>1</td>
+<td>0 = LShift nicht gedrückt <br/> 1 = LShift gedrückt
+</td></tr>
+<tr>
+<td>0</td>
+<td>0 = RShift nicht gedrückt <br/> 1 = RShift gedrückt
+</td></tr></tbody></table>
+<p><br/>
+</p><p>Byte 2 (0x18): 
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bits</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>7</td>
+<td>0 = Einfügen nicht gedrückt <br/> 1 = Einfügen gedrückt
+</td></tr>
+<tr>
+<td>6</td>
+<td>0 = CapsLock nicht gedrückt <br/> 1 = CapsLock gedrückt
+</td></tr>
+<tr>
+<td>5</td>
+<td>0 = NumLock nicht gedrückt <br/> 1 = NumLock gedrückt
+</td></tr>
+<tr>
+<td>4</td>
+<td>0 = ScrollLock nicht gedrückt<br/> 1 = ScrollLock gedrückt
+</td></tr>
+<tr>
+<td>3</td>
+<td>0 = Pause-Taste inaktiv <br/> 1 = Pause-Taste aktiv
+</td></tr>
+<tr>
+<td>2</td>
+<td>0 = SysReg-Key (?) nicht gedrückt <br/> 1 = SysReg-Key gedrückt
+</td></tr>
+<tr>
+<td>1</td>
+<td>0 = Linkes Alt nicht gedrückt <br/> 1 = Linkes Alt gedrückt
+</td></tr>
+<tr>
+<td>0</td>
+<td>0 = Rechtes Alt nicht gedrückt <br/> 1 = Rechtes Alt gedrückt
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Disk-Kontroller-Informationen">Disk-Kontroller-Informationen</span></h3>
+<p>Byte 1 (0x3E): Floppy-Kalibrations-Status
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bits</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>7-4</td>
+<td>Reserviert
+</td></tr>
+<tr>
+<td>3</td>
+<td>Ob Floppy-Laufwerk 4 kalibriert ist (PC, XT)
+</td></tr>
+<tr>
+<td>2</td>
+<td>Ob Floppy-Laufwerk 3 kalibriert ist (PC, XT)
+</td></tr>
+<tr>
+<td>1</td>
+<td>Ob Floppy-Laufwerk 2 kalibriert ist
+</td></tr>
+<tr>
+<td>0</td>
+<td>Ob Floppy-Laufwerk 1 kalibriert ist
+</td></tr></tbody></table>
+<p><br/>
+Byte 2 (0x3F): Floppy-Motor-Status
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bits</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>7</td>
+<td>0b = Read- oder Verify-Operation<br/> 1b Write- oder Format-Operation
+</td></tr>
+<tr>
+<td>6</td>
+<td>Unbenutzt
+</td></tr>
+<tr>
+<td>5-4</td>
+<td>00b = Laufwerk 1<br/> 01b = Laufwerk 2<br/> 10b = Laufwerk 3 (PC, XT)<br/> 11b = Laufwerk 4 (PC, XT)
+</td></tr>
+<tr>
+<td>3</td>
+<td>Ob der Motor des Laufwerks 1 eingeschaltet ist
+</td></tr>
+<tr>
+<td>2</td>
+<td>Ob der Motor des Laufwerks 2 eingeschaltet ist
+</td></tr>
+<tr>
+<td>1</td>
+<td>Ob der Motor des Laufwerks 3 eingeschaltet ist
+</td></tr>
+<tr>
+<td>0</td>
+<td>Ob der Motor des Laufwerks 4 eingeschaltet ist
+</td></tr></tbody></table>
+<p><br/>
+Byte 3 (0x40):
+Floppy-Motor-Timeout
+</p><p><br/>
+Byte 4 (0x41):
+Floppy-Laufwerk-Status
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>7</td>
+<td>Ob Laufwerk bereit ist
+</td></tr>
+<tr>
+<td>6</td>
+<td>Ob ein Seek-Fehler aufgetreten ist
+</td></tr>
+<tr>
+<td>5</td>
+<td>Ob Floppy-Controller-Test erfolgreich war
+</td></tr>
+<tr>
+<td>4-0</td>
+<td>Error-Code
+</td></tr></tbody></table>
+<p>Error-Codes
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Binär</th>
+<th>Hexadezimal</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>00000b</td>
+<td>0x00</td>
+<td>Kein Fehler
+</td></tr>
+<tr>
+<td>00001b</td>
+<td>0x01</td>
+<td>Ungültige Funktion
+</td></tr>
+<tr>
+<td>00010b</td>
+<td>0x02</td>
+<td>Adresszeichen nicht gefunden
+</td></tr>
+<tr>
+<td>00011b</td>
+<td>0x03</td>
+<td>Schreibschutzfehler
+</td></tr>
+<tr>
+<td>00100b</td>
+<td>0x04</td>
+<td>Sektor nicht gefunden
+</td></tr>
+<tr>
+<td>00110b</td>
+<td>0x06</td>
+<td>Disketten-Changelink aktiv
+</td></tr>
+<tr>
+<td>01000b</td>
+<td>0x08</td>
+<td>DMA-Überlauf
+</td></tr>
+<tr>
+<td>01001b</td>
+<td>0x09</td>
+<td>DMA-Boundary-Fehler
+</td></tr>
+<tr>
+<td>01100b</td>
+<td>0x0C</td>
+<td>Unbekannter Medientyp
+</td></tr>
+<tr>
+<td>10000b</td>
+<td>0x10</td>
+<td>CRC-Fehler während Lesen
+</td></tr></tbody></table>
+<p><br/>
+</p><p>Byte 5 (0x42): Festplatten- und Floppystatus
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bits</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>7-6</td>
+<td>Interrupt-Code<br/> 00b = Befehl normal abgeschlossen<br/> 01b = Befehl unnormal beendet<br/> 10b = Unnormales Beenden, Readline aktiv oder Diskette verändert<br/> 11b = Seek-Befehl nicht abgeschlossen
+</td></tr>
+<tr>
+<td>5</td>
+<td>Ob Seek abgeschlossen wurde
+</td></tr>
+<tr>
+<td>4</td>
+<td>Drive-Fault
+</td></tr>
+<tr>
+<td>3</td>
+<td>Ob das Laufwerk bereit ist
+</td></tr>
+<tr>
+<td>2</td>
+<td>Kopf-Status
+</td></tr>
+<tr>
+<td>1-0</td>
+<td>00b = Laufwerk 1<br/> 01b = Laufwerk 2<br/> 10b = Laufwerk 3<br/> 11b = Laufwerk 4
+</td></tr></tbody></table>
+<p><br/>
+</p><p>Byte 6 (0x43): Floppy Statusregister 1
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bits</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>7</td>
+<td>Versuchter Zugriff jenseits des letzten Zylinders
+</td></tr>
+<tr>
+<td>6</td>
+<td>Unbenutzt
+</td></tr>
+<tr>
+<td>5</td>
+<td>CRC-Fehler während Lesen
+</td></tr>
+<tr>
+<td>4</td>
+<td>DMA-Überlauf
+</td></tr>
+<tr>
+<td>3</td>
+<td>Unbenutzt
+</td></tr>
+<tr>
+<td>2</td>
+<td>Sektor nicht gefunden oder lesen der Disketten-ID fehlgeschlagen
+</td></tr>
+<tr>
+<td>1</td>
+<td>Medium schreibgeschützt
+</td></tr>
+<tr>
+<td>0</td>
+<td>fehlendes Adresszeichen
+</td></tr></tbody></table>
+<p><br/>
+</p><p>Byte 7 (0x44): Floppy Statusregister 2
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bits</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>7</td>
+<td>Unbenutzt
+</td></tr>
+<tr>
+<td>6</td>
+<td>gelöschtes Daten-Adresszeichen
+</td></tr>
+<tr>
+<td>5</td>
+<td>CRC-Fehler festgestellt
+</td></tr>
+<tr>
+<td>4</td>
+<td>Falsche Zylinder
+</td></tr>
+<tr>
+<td>3</td>
+<td>Gleichheitsbedingungen während Verify
+</td></tr>
+<tr>
+<td>2</td>
+<td>Sektor nicht gefunden während Verify
+</td></tr>
+<tr>
+<td>1</td>
+<td>Ungültiger Zylinder
+</td></tr>
+<tr>
+<td>0</td>
+<td>Adresszeichen nicht gefunden während Lesen
+</td></tr></tbody></table>
+<p><br/>
+</p><p>Byte 8 (0x45): Floppy Zylindernummer
+</p><p><br/>
+</p><p>Byte 9 (0x46): Floppy Kopfnummer
+</p><p><br/>
+</p><p>Byte 10 (0x47): Floppy Sektornummer
+</p><p><br/>
+</p><p>Byte 11 (0x48): Anzahl geschriebener Bytes
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Grafik-Adapter-Informationen">Grafik-Adapter-Informationen</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe (Bytes)</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x49</td>
+<td>1</td>
+<td>Aktueller Videomodus (<a class="external autonumber" href="http://www.ctyme.com/intr/rb-0069.htm#table10" rel="nofollow">[1]</a>)
+</td></tr>
+<tr>
+<td>0x4A</td>
+<td>2</td>
+<td>Anzahl Spalten
+</td></tr>
+<tr>
+<td>0x4C</td>
+<td>2</td>
+<td>Größe einer Bildschirmseite im <a href="../../pages/1890/index.html#Regen_Buffer" title="Color Graphics Adapter">Regenerate Buffer</a>
+</td></tr>
+<tr>
+<td>0x4E</td>
+<td>2</td>
+<td>Adresse der aktuellen Seite im Regenerate Buffer
+</td></tr>
+<tr>
+<td>0x50</td>
+<td>16</td>
+<td>Cursorpositionen für die Seiten 0-7, abwechselnd Spalte und Zeile
+</td></tr>
+<tr>
+<td>0x60</td>
+<td>2</td>
+<td>Cursortyp
+</td></tr>
+<tr>
+<td>0x62</td>
+<td>1</td>
+<td>Aktuelle Bildschirmseite
+</td></tr>
+<tr>
+<td>0x63</td>
+<td>2</td>
+<td>I/O-Basisadresse des Grafikadapters
+</td></tr>
+<tr>
+<td>0x65</td>
+<td>1</td>
+<td>Inhalt des Mode Select Registers
+</td></tr>
+<tr>
+<td>0x66</td>
+<td>1</td>
+<td>Inhalt des CGA Palette Registers
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external free" href="http://www.bioscentral.com/misc/bda.htm" rel="nofollow">http://www.bioscentral.com/misc/bda.htm</a></li>
+<li><a class="external free" href="http://www.cs.cmu.edu/~ralf/files.html" rel="nofollow">http://www.cs.cmu.edu/~ralf/files.html</a> (Part C -&gt; memory.lst)</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164657
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.014 seconds
+Real time usage: 0.015 seconds
+Preprocessor visited node count: 92/1000000
+Preprocessor generated node count: 190/1000000
+Post‐expand include size: 228/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.032      1 -total
+ 62.72%    0.647     12 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=BIOS_Data_Area&amp;oldid=6604</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li><li><a href="../../pages/1874/index.html" title="Kategorie:X86">X86</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1564/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1564/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

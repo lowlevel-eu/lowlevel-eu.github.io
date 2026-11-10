@@ -1,0 +1,23 @@
+Das hier müsste noch hinzugefügt werden:
+* Übersicht über den Artikel: Wo findet wer Hilfe?
+* Bild zur Erläuterung von "Übertragung per CPU vs. Übertragung per DMA vs. Bus-Master-Transfers bei PCI"
+* Beim Aufbau: Kaskadierung der Controller, Floppy an Channel 2, etc.
+* Das Befehlsregister
+* Die Transfermodi: Block, Demand, Einzel
+* mem2mem-Transfer: Wie gehts? Nachteile aufzählen. Nicht mehr unterstützt (afaik)
+* Alles zusammenfassen: Wie wird jetzt eigentlich ein Transfer gestartet? Wie hilft mir DMA jetzt konkret?
+* Ein Beispiel
+
+Wer will, kann gerne helfen. Vor allem Korrekturlesen wäre mal angebracht ;)
+
+--[[Benutzer:DarkThing|DarkThing]] 18:40, 11. Dez. 2008 (CET)
+
+: Vielleicht wäre es nicht blöd zu erwähnen, daß das ISA-DMA ist und mit PCI alles anders ist. ;-) --[[Benutzer:Taljeth|Taljeth]] 19:30, 12. Dez. 2008 (CET)
+
+:: Ich kenn mich mit PCI jetzt nicht wirklich aus, aber ich dachte, dass hätte mit DMA im Sinne von Hardware nichts zu tun. Stattdessen können die PCI-Komponenten selbst direkt auf den Bus zugreifen und so DMA im Sinne des Vorgangs machen. Am Anfang wird ja schon kurz die Idee hinter DMA erklärt, danach kommt das Programmieren der DMA-Controller; in dieser Einleitung kann man ja schreiben, dass es auch andere Verfahren gibt direkt auf den Speicher zuzugreifen und dabei z.B. auf den PCI-Artikel verweisen. Aber korrigier mich, wenn ich mit meinen PCI-Vermutungen falsch liege :) --[[Benutzer:DarkThing|DarkThing]] 19:18, 13. Dez. 2008 (CET)
+
+::: DMA in diesem Sinne gibt es natürlich auch mit PCI. Was ich meine ist nur, daß die Einleitung allgemein genug ist, um beides drunter zu verstehen, daß der eigentliche Artikel hinterher aber nur den ISA-DMA-Controller beschreibt - soweit ich das verstehe jedenfalls, ich habe ja eigentlich auch keine Ahnung. --[[Benutzer:Taljeth|Taljeth]] 17:18, 14. Dez. 2008 (CET)
+
+::: DMA im "klassischen" Sinne gibt es zwar nicht mehr bei PCI aber für die Software ist das Endergebnis das selbe. Die typischen Bus-Master-Implementierungen in den PCI-Devices haben mit dem klassischen ISA-DMA-Controller wirklich gar nichts gemein. Viele können Scatter/Gatter was in etwa bedeutet das die zu transferierenden Daten im mehreren Stücken im Speicher verteilt sein können, damit kann man trotz Paging Daten verarbeiten lassen die nicht an ''einem'' Stück im physischen Speicher liegen. Auch gibt es bei PCI-Bus-Mastern keine Beschränkung auf die ersten 16MByte dafür gibt es noch ne Reihe PCI-Hardware die nur 32Bit-Adressen und damit nur 4GByte unterstützen. Moderne PCI-Bus-Master können aber 64Bit-Adressen benutzen und damit den gesamten RAM adressieren. Der deutliche Unterschied zwischen ISA-DMA und PCI-Bus-Master ist der das es bei PCI kein einheitliches Register-Schema gibt und die Fähigkeiten und eben auch die Ansteuerung durch die SW bei jeder Hardware anders ist bzw. auf die speziellen Bedürfnisse der entsprechenden Hardware zugeschnitten sind. Ich persönlich bin der Meinung das man bei PCI nicht von DMA sprechen sollte um Verwechslungen mit dem ISA-DMA-Konzept vorzubeugen, bei DMA denken viele an die klassischen DMA-Kanäle. Wörtlich betrachtet passt "Direct Memory Access" viel besser zu PCI als zu ISA, weil ein PCI-Busmaster wirklich direkt mit dem Speicher kommuniziert während ein ISA-Gerät (Bus-Master ist es ja nicht) einen zusätzlichen Hilfs-Controller als Arbeitssklave benötigt. Es gab früher (zu 486-Zeiten) viele Main-Boards bei denen nur ein Teil der PCI-Slots Bus-Master tauglich waren (es fehlten an einigen Slots die Anschlüsse für die Arbitrierung), auch in diesem Zusammenhang hab ich nie den Begriff DMA gelesen. --[[Benutzer:Erik.vikinger|Erik.vikinger]] 12:02, 27. Feb. 2010 (CET)
+
+: Der Satz "Typische DMA-Geräte sind dabei Festplatten und CD/DVD/BD-ROM-Laufwerke." ist inhaltlich falsch. Der (S)ATA-Controller ist das DMA-Gerät und nicht die daran angeschlossenen Laufwerke, genau so wie der USB-Host-Controller DMA/Bus-Master fähig ist und nicht die daran angeschlossene Soundkarte oder Tastatur. Die PATA-DMA-Modi heißen nur so weil früher der ISA-DMA-Controller benutzt werden musste um diese Modi auszureizen und es eben nicht mehr gereicht hat wenn die CPU das per PIO selber machte (heutige CPUs sollten es auch wieder per PIO schaffen die Performance des PATA-Kabel auszureizen, dass das fürs Multitasking hinderlich ist ist ne andere Baustelle). Trotzdem sind es nur Übertragungs-Modi auf dem PATA-Kabel, welche eben auch ein beliebiger PATA-Host-Controller nutzen kann selbst wenn es dort keinen DMA gibt, z.B. [http://opencores.org/project,ata PATA-Host-Controller für FPGAs]. --[[Benutzer:Erik.vikinger|Erik.vikinger]] 11:50, 27. Feb. 2010 (CET)

@@ -1,0 +1,199 @@
+{{TODO|
+* Ein Diagramm zur Registerarchitektur hinzufügen<br>
+* Ergänzungen zur Handhabung von Interrupts<br>
+* Eingehen auf verschiedene Befehlssätze}}
+Die '''x86'''-Architektur galt lange Zeit als quasi Standard für so gut wie alle Prozessoren. Sie wurde von Intel ins Leben gerufen und nach den Prozessoren der Baureihe 8086/8088 benannt. Der wirkliche Durchbruch begann allerdings erst mit dem ersten 32 Bit Prozessor, dem 80386, oder auch kurz 386 genannt. Der grundlegende Prozessoraufbau ist seitdem gleichgeblieben, alle neueren Prozessoren sind seitdem abwärtskompatibel zum 386 bzw 486. Intel selbst nennt diese Architektur heute IA-32 (<b>I</b>ntel <b>A</b>rchitecture with <b>32</b> Bit).
+In absehbarer Zukunft wird der x86 Standard aber wohl durch den [[x64]]-Standard ersetzt werden.
+
+
+==CPU==
+===Register===
+====Übersicht====
+<center>
+{| {{Prettytable}}
+! Bits  || Register
+|-
+| '''8''' || AL, BL, CL, DL, AH, BH, CH, DH
+|-
+| '''16''' || AX, BX, CX, DX, DI, SI, BP, SP, CS, DS, ES, FS, GS, SS
+|-
+| '''32''' || EAX, EBX, ECX, EDX, EDI, ESI, EBP, ESP, EIP, EFLAGS
+|-
+| '''128''' || XMM0, XMM1, XMM2, XMM3, XMM4, XMM5, XMM6, XMM7
+|}
+</center>
+
+
+====Allzweckregister====
+{|
+|
+{| {{Prettytable}}
+! colspan="4" align="center" | Bytes
+|-
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|- 
+| colspan="4" align="center" | E?X
+|-
+| colspan="2" style="background:lightgrey" | 
+| colspan="2" align="center" | ?X
+|-
+| colspan="2" style="background:lightgrey" | 
+| align="center" | ?H
+| align="center" | ?L
+|-
+| colspan="4" style="background:lightgrey" align="center" | ? = A, B, C, D
+|}
+
+| Die Allzweckregister können, wie ihr Name schon andeutet eigentlich für fast jeden Zweck genutzt werden. Trotzdem gibt es einige gebräuchliche Nutzungen:
+* '''EAX''' (engl.: '''A'''ccumulator Register): für Rechenoperatioen, als Rückgabewert in [[C]]
+* '''EBX''' (engl.: '''B'''ase Register): als Basisadresse für indizierte Adressierung
+* '''ECX''' (engl.: '''C'''ounter Register): als Zähler
+* '''EDX''' (engl.: '''D'''ata Register)
+
+|}
+
+
+====Indexregister====
+{|
+|
+{| {{Prettytable}}
+! colspan="4" align="center" | Bytes
+|-
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="4" align="center" | E?I
+|-
+| colspan="2" style="background:lightgrey" | 
+| colspan="2" align="center" | ?I
+|-
+| colspan="4" style="background:lightgrey" align="center" | ? = D, S
+|}
+
+| Die Indexregister werden oft als Indexe in Datenbereichen (va. bei den eingebauten Stringoperationen) verwendet. Dabei zeigt
+* '''ESI''' (engl.: '''S'''ource '''I'''ndex) auf die Quelle
+* '''EDI''' (engl.: '''D'''estination '''I'''ndex) auf das Ziel
+
+|}
+
+
+====Zeigerregister====
+{|
+|
+{| {{Prettytable}}
+! colspan="4" align="center" | Bytes
+|-
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="4" align="center" | E?P
+|-
+| colspan="2" style="background:lightgrey" | 
+| colspan="2" align="center" | ?P
+|-
+| colspan="4" style="background:lightgrey" align="center" | ? = B, S
+|}
+
+| Die Zeigerregister werden genutzt, um auf Stellen im Speicher zu zeigen.
+* '''ESP''' (engl.: <b>S</b>tack <b>P</b>ointer): Zeigt ''immer'' auf den aktuellen Stack
+* '''EBP''' (engl.: <b>B</b>ase <b>P</b>ointer): Wird meistens für Stackframes und lokale Variablen bei Funktionsaufrufen verwendet
+|}
+
+
+====Instruktionsregister====
+{|
+|
+{| {{Prettytable}}
+! colspan="4" align="center" | Bytes
+|-
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="4" align="center" | EIP
+|-
+| colspan="2" style="background:lightgrey" | 
+| colspan="2" align="center" | IP
+|}
+
+| Das Instruktionsregister '''EIP''' (engl.: '''I'''nstruction '''P'''ointer) zeigt ''immer'' auf den nächsten auszuführenden Befehl. Es kann nicht direkt geändert werden, sondern nur über Instruktionen wie ''jmp'', ''call'' oder ''ret''
+|}
+
+
+====Flagregister====
+→ ''Hauptartikel: [[EFLAGS]]''
+{|
+|
+{| {{Prettytable}}
+! colspan="4" align="center" | Bytes
+|-
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="4" align="center" | EFLAGS
+|}
+
+| Das Flagregister '''EFLAGS''' speichert einige Konfigurationsmöglichkeiten und Systemzuständen, beispielsweise, ob Interrupts gerade erlaubt sind oder ob ein Übertrag bei einer Addition stattfand.
+
+|}
+
+
+====Segmentregister====
+{|
+|
+{| {{Prettytable}}
+! colspan="2" align="center" | Bytes
+|-
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="2" align="center" | ?S
+|-
+| colspan="2" style="background:lightgrey" align="center" | ? = C, D, E, F, G, S
+|}
+
+| Die Segmentregister geben die Basisadresse des aktuellen Segments an. Dabei steht
+* '''CS''' für das '''C'''ode-'''S'''egment
+* '''DS''' für das '''D'''ata-'''S'''egment
+* '''SS''' für das '''S'''tack-'''S'''egment
+* '''ES''' für das '''E'''xtra-'''S'''egment
+'''FS''' und '''GS''' sind zusätzliche Daten-Segmente.
+
+|}
+Die Segmentregister sind im [[Protected Mode]] auch für die Segmentierung mit Hilfe der [[GDT]] verantwortlich.
+
+
+==== Zusätzliche Spezialregister ====
+* GDTR (engl.: <b>G</b>lobal <b>D</b>escriptor <b>T</b>able <b>R</b>egister) gibt die Position der [[GDT]] an
+* LDTR (engl.: <b>L</b>ocal <b>D</b>escriptor <b>T</b>able <b>R</b>egister) gibt die Position der [[LDT]] an
+* IDTR (engl.: <b>I</b>nterrupt <b>D</b>escriptor <b>T</b>able <b>R</b>egister) gibt die Position der [[IDT]] an
+* CR0, CR2, CR3 und CR4 (engl.: [[Control Register]]) werden im [[Protected Mode]] zum [[Paging]] benutzt
+* TR6 – TR7 (engl.: <b>T</b>est <b>R</b>egister) zum Überprüfen des [[Paging#Translation_Lookaside_Buffer|Translation Lookaside Buffers]] (TR0-TR5 gibt es beim 80386 nicht)
+* DR0 – DR7 (engl.: [[Debug Register|<b>D</b>ebug <b>R</b>egister]]) zum Setzen von [[Breakpoint]]s
+* TR (engl.: <b>T</b>ask <b>R</b>egister) Segment-Selektor des [[TSS]]
+* [[MSR]]s (engl.: '''M'''achine-'''S'''pecific '''R'''egister)
+
+
+=== Erkennen der CPU ===
+Mit dem Befehl [[CPUID]] kann man beispielsweise die von der CPU unterstützten Features oder Daten wie den Hersteller der CPU auslesen.
+
+== sonstige Hardware ==
+{{TODO|Andere zur Platform gehörende Hardware auflisten mit Links zu den entsprechenden Artikeln}}
+
+== Weblinks ==
+* [http://de.wikipedia.org/wiki/X86 Wikipedia x86]
+* [http://www.intel.com/products/processor/manuals/ Intel Manuals]
+* [http://www.amd.com/us-en/Processors/DevelopWithAMD/0,,30_2252_739_7044,00.html AMD Manuals]
+
+[[Kategorie:Hardware]]
+[[Kategorie:x86|!x86]]

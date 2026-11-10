@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>EFLAGS – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-EFLAGS rootpage-EFLAGS skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1751/index.html">Aktueller Artikel</a> · <a href="../../history/1751/index.html">Versionsgeschichte</a> · <a href="../../source/3460.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">EFLAGS</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 2. November 2008, 19:50 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Livinskull</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/3458-3460.html" title="EFLAGS">Unterschied</a>) <a href="../3458/index.html" title="EFLAGS">← Nächstältere Version</a> | <a href="../../pages/1751/index.html" title="EFLAGS">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../3461/index.html" title="EFLAGS">Nächstjüngere Version →</a> (<a href="../../diffs/3460-3461.html" title="EFLAGS">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Das EFLAGS (Programmstatus und Kontrollregister) Register ist 32 Bit groß, wobei jedes Bit ein Flag repräsentiert. Es beinhaltet Status-Informationen über das laufende Programm und erlaubt anwendungsbasierte Prozessorkontrolle. Das Register kann nicht komplett verändert werden, es können nur die einzelnen Flags gesetzt oder gelöscht werden, meistens auch nur indirekt, in der Form das ein aufgerufener Befehl ein Flag als nebeneffekt ändert.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Aufbau_des_EFLAGS-Registers"><span class="tocnumber">1</span> <span class="toctext">Aufbau des EFLAGS-Registers</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Statusflags"><span class="tocnumber">1.1</span> <span class="toctext">Statusflags</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#CF_-_Carry_Flag_.28Bit_0.29"><span class="tocnumber">1.1.1</span> <span class="toctext">CF - Carry Flag (Bit 0)</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="#PF_-_Parity_Flag_.28Bit_2.29"><span class="tocnumber">1.1.2</span> <span class="toctext">PF - Parity Flag (Bit 2)</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#AF_-_Adjust_Flag_.28Bit_4.29"><span class="tocnumber">1.1.3</span> <span class="toctext">AF - Adjust Flag (Bit 4)</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#ZF_-_Zero_Flag_.28Bit_6.29"><span class="tocnumber">1.1.4</span> <span class="toctext">ZF - Zero Flag (Bit 6)</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#SF_-_Sign_Flag_.28Bit_7.29"><span class="tocnumber">1.1.5</span> <span class="toctext">SF - Sign Flag (Bit 7)</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#OF_-_Overflow_Flag_.28Bit_11.29"><span class="tocnumber">1.1.6</span> <span class="toctext">OF - Overflow Flag (Bit 11)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#Controlflags"><span class="tocnumber">1.2</span> <span class="toctext">Controlflags</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#DF_-_Direction_Flag_.28Bit_10.29"><span class="tocnumber">1.2.1</span> <span class="toctext">DF - Direction Flag (Bit 10)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-11"><a href="#Systemflags"><span class="tocnumber">1.3</span> <span class="toctext">Systemflags</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Befehle_zum_direkten_Ver.C3.A4ndern"><span class="tocnumber">2</span> <span class="toctext">Befehle zum direkten Verändern</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Aufbau_des_EFLAGS-Registers">Aufbau des EFLAGS-Registers</span></h2>
+<p>Im folgenden steht (X) für Systemflag, (S) für Statusflag und (C) für Controlflag
+</p>
+<center>
+<table border="1" cellspacing="0">
+<tbody><tr>
+<th>Bit
+</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>22-31</td>
+<td>Reserviert, nicht verändern
+</td></tr>
+<tr>
+<td>21</td>
+<td>ID - ID Flag (X)
+</td></tr>
+<tr>
+<td>20</td>
+<td>VIP - <b>V</b>irtual <b>I</b>nterrupt <b>P</b>ending (X)
+</td></tr>
+<tr>
+<td>19</td>
+<td>VIF - <b>V</b>irtual <b>I</b>nterrupt <b>F</b>lag (X)
+</td></tr>
+<tr>
+<td>18</td>
+<td>AC - <b>A</b>lignment <b>C</b>heck (X)
+</td></tr>
+<tr>
+<td>17</td>
+<td>VM - <b>V</b>irtual 8086 <b>M</b>ode (X)
+</td></tr>
+<tr>
+<td>16</td>
+<td>RF - <b>R</b>esume <b>F</b>lag (X)
+</td></tr>
+<tr>
+<td>15</td>
+<td>Reserviert, nicht ändern
+</td></tr>
+<tr>
+<td>14</td>
+<td>NT - <b>N</b>ested <b>T</b>ask Flag (X)
+</td></tr>
+<tr>
+<td>13 - 12</td>
+<td>IOPL - <b>I</b>/<b>O</b> <b>P</b>rivilege <b>L</b>evel (X)
+</td></tr>
+<tr>
+<td>11</td>
+<td><a href="#OF_-_Overflow_Flag_.28Bit_11.29">OF - <b>O</b>verflow <b>F</b>lag</a> (S)
+</td></tr>
+<tr>
+<td>10</td>
+<td>[[DF - Direction Flag (Bit 10)|DF - <b>D</b>irection <b>F</b>lag (C)
+</td></tr>
+<tr>
+<td>9</td>
+<td>IF - <b>I</b>nterrupt <b>E</b>nable Flag (X)
+</td></tr>
+<tr>
+<td>8</td>
+<td>TF - <b>T</b>rap <b>F</b>lag (X)
+</td></tr>
+<tr>
+<td>7</td>
+<td><a href="#SF_-_Sign_Flag_.28Bit_7.29">SF - <b>S</b>ign <b>F</b>lag</a> (S)
+</td></tr>
+<tr>
+<td>6</td>
+<td><a href="#ZF_-_Zero_Flag_.28Bit_6.29">ZF - <b>Z</b>ero <b>F</b>lag</a> (S)
+</td></tr>
+<tr>
+<td>5</td>
+<td>Reserviert, nicht ändern
+</td></tr>
+<tr>
+<td>4</td>
+<td><a href="#AF_-_Adjust_Flag_.28Bit_4.29">AF - <b>A</b>uxiliary Carry <b>F</b>lag</a> (S)
+</td></tr>
+<tr>
+<td>3</td>
+<td>Reserviert, nicht ändern
+</td></tr>
+<tr>
+<td>2</td>
+<td><a href="#PF_-_Parity_Flag_.28Bit_2.29">PF - <b>P</b>arity <b>F</b>lag</a> (S)
+</td></tr>
+<tr>
+<td>1</td>
+<td>Reserviert, nicht ändern
+</td></tr>
+<tr>
+<td>0</td>
+<td><a href="#CF_-_Carry_Flag_.28Bit_0.29">CF - <b>C</b>arry <b>F</b>lag</a> (S)
+</td></tr></tbody></table>
+</center>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Statusflags">Statusflags</span></h3>
+<p>Die Statusflags (Bits 0,2,4,6,7,11) geben das Ergebnis einer Arithmetischen Operation an (z. B.: ADD, SUB, MUL, DIV). Verwendet werden sie normalerweise in Verbindung mit bedingten Sprüngen, sets, movs, und loops (Jcc, SETcc, MOVcc, LOOPcc; cc = conditional code).
+</p>
+<h4><span id="CF_-_Carry_Flag_(Bit_0)"></span><span class="mw-headline" id="CF_-_Carry_Flag_.28Bit_0.29">CF - Carry Flag (Bit 0)</span></h4>
+<p>Zeigt einen Overflow bei unsigned-Arithmetik an
+</p>
+<h4><span id="PF_-_Parity_Flag_(Bit_2)"></span><span class="mw-headline" id="PF_-_Parity_Flag_.28Bit_2.29">PF - Parity Flag (Bit 2)</span></h4>
+<p>Gesetzt wenn das niederwertige Byte des Ergebnisses eine gerade Anzahl an 1er Bits enthält.
+</p>
+<h4><span id="AF_-_Adjust_Flag_(Bit_4)"></span><span class="mw-headline" id="AF_-_Adjust_Flag_.28Bit_4.29">AF - Adjust Flag (Bit 4)</span></h4>
+<p>Gesetzt wenn ein Übertrag von Bit 3 stattgefunden hat.<br/>
+Wird hauptsächlich für <a class="mw-redirect" data-archive-original-href="../../pages/1590/index.html" href="../../pages/1589/index.html" title="BCD">BCD</a> Berechnungen verwendet.
+</p>
+<h4><span id="ZF_-_Zero_Flag_(Bit_6)"></span><span class="mw-headline" id="ZF_-_Zero_Flag_.28Bit_6.29">ZF - Zero Flag (Bit 6)</span></h4>
+<p>Gesetzt wenn das Ergebnis 0 ist.
+</p>
+<h4><span id="SF_-_Sign_Flag_(Bit_7)"></span><span class="mw-headline" id="SF_-_Sign_Flag_.28Bit_7.29">SF - Sign Flag (Bit 7)</span></h4>
+<p>Entspricht dem höherwertigsten Bit des Ergebnisses, also dem Vorzeichenbit bei signed-Berechnungen.<br/>
+0 steht für einen positiven Wert und 1 für einen negativen.
+</p>
+<h4><span id="OF_-_Overflow_Flag_(Bit_11)"></span><span class="mw-headline" id="OF_-_Overflow_Flag_.28Bit_11.29">OF - Overflow Flag (Bit 11)</span></h4>
+<p>Gesetzt wenn ein Overflow bei einer signed-Zahl stattgefunden hat.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Controlflags">Controlflags</span></h3>
+<h4><span id="DF_-_Direction_Flag_(Bit_10)"></span><span class="mw-headline" id="DF_-_Direction_Flag_.28Bit_10.29">DF - Direction Flag (Bit 10)</span></h4>
+<p>Gibt die Richtung bei Stringoperationen an.<br/>
+Wenn 0 wird der Zeiger inkrementiert, bei 1 dekrementiert.
+<br/>
+</p>
+<h3><span class="mw-headline" id="Systemflags">Systemflags</span></h3>
+<p><br/>
+</p>
+<h2><span id="Befehle_zum_direkten_Verändern"></span><span class="mw-headline" id="Befehle_zum_direkten_Ver.C3.A4ndern">Befehle zum direkten Verändern</span></h2>
+<ul><li>PUSHF</li>
+<li>PUSHFD</li>
+<li>POPF</li>
+<li>POPFD</li>
+<li>LAHF</li>
+<li>SAHF</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165054
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.006 seconds
+Preprocessor visited node count: 54/1000000
+Preprocessor generated node count: 66/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=EFLAGS&amp;oldid=3460</a>“</div>
+<div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks"></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1751/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1751/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

@@ -1,0 +1,135 @@
+Das EFLAGS (Programmstatus und Kontrollregister) Register ist 32 Bit groß, wobei jedes Bit ein Flag repräsentiert. Es beinhaltet Status-Informationen über das laufende Programm und erlaubt anwendungsbasierte Prozessorkontrolle. Das Register kann nicht komplett verändert werden, es können nur die einzelnen Flags gesetzt oder gelöscht werden, meistens auch nur indirekt, in der Form das ein aufgerufener Befehl ein Flag als nebeneffekt ändert.
+
+== Aufbau des EFLAGS-Registers ==
+
+Im folgenden steht (X) für Systemflag, (S) für Statusflag und (C) für Controlflag
+<center>
+{| border="1" cellspacing="0"
+|-
+! Bit
+! Beschreibung
+|-
+| 22-31 || Reserviert, nicht verändern
+|-
+| 21 || [[#ID - Identification Flag (Bit 21)|ID - ID Flag]] (X)
+|-
+| 20 || [[#VIP - Virtual Interrupt Pending Flag (Bit 20)|VIP - <b>V</b>irtual <b>I</b>nterrupt <b>P</b>ending]] (X)
+|-
+| 19 || [[#VIF - Virtual Interrupt Flag (Bit 19)|VIF - <b>V</b>irtual <b>I</b>nterrupt <b>F</b>lag]] (X)
+|-
+| 18 || [[#AC - Alignment Check Flag (Bit 18)|AC - <b>A</b>lignment <b>C</b>heck]] (X)
+|-
+| 17 || [[#VM - Virtual-8086 Mode Flag (Bit 17)|VM - <b>V</b>irtual 8086 <b>M</b>ode]] (X)
+|-
+| 16 || [[#RF - Resume Flag (Bit 16)|RF - <b>R</b>esume <b>F</b>lag]] (X)
+|-
+| 15 || Reserviert, nicht ändern
+|-
+| 14 || [[#NT - Nested Task Flag (Bit 14)|NT - <b>N</b>ested <b>T</b>ask Flag]] (X)
+|-
+| 13 - 12 || [[#IOPL - I/O Privilege Field (Bits 12 und 13)|IOPL - <b>I</b>/<b>O</b> <b>P</b>rivilege <b>L</b>evel]] (X)
+|-
+| 11 ||  [[#OF - Overflow Flag (Bit 11)|OF - <b>O</b>verflow <b>F</b>lag]] (S)
+|-
+| 10 || [[#DF - Direction Flag (Bit 10)|DF - <b>D</b>irection <b>F</b>lag]] (C)
+|-
+| 9 || [[#IF - Interrupt Enable Flag (Bit 9)|IF - <b>I</b>nterrupt <b>E</b>nable Flag]] (X)
+|-
+| 8 || [[#TF - Trap Flag (Bit 8)|TF - <b>T</b>rap <b>F</b>lag]] (X)
+|-
+| 7 || [[#SF - Sign Flag (Bit 7)|SF - <b>S</b>ign <b>F</b>lag]] (S)
+|-
+| 6 || [[#ZF - Zero Flag (Bit 6)|ZF - <b>Z</b>ero <b>F</b>lag]] (S)
+|-
+| 5 || Reserviert, nicht ändern
+|-
+| 4 || [[#AF - Adjust Flag (Bit 4)|AF - <b>A</b>uxiliary Carry <b>F</b>lag]] (S)
+|-
+| 3 || Reserviert, nicht ändern
+|-
+| 2 || [[#PF - Parity Flag (Bit 2)|PF - <b>P</b>arity <b>F</b>lag]] (S)
+|-
+| 1 || Reserviert, nicht ändern
+|-
+| 0 || [[#CF - Carry Flag (Bit 0)|CF - <b>C</b>arry <b>F</b>lag]] (S)
+|}
+</center>
+<br />
+=== Statusflags ===
+
+Die Statusflags (Bits 0,2,4,6,7,11) geben das Ergebnis einer Arithmetischen Operation an (z. B.: ADD, SUB, MUL, DIV). Verwendet werden sie normalerweise in Verbindung mit bedingten Sprüngen, sets, movs, und loops (Jcc, SETcc, MOVcc, LOOPcc; cc = conditional code).
+
+==== CF - Carry Flag (Bit 0) ====
+Zeigt einen Overflow bei unsigned-Arithmetik an
+
+==== PF - Parity Flag (Bit 2) ====
+Gesetzt wenn das niederwertige Byte des Ergebnisses eine gerade Anzahl an 1er Bits enthält.
+
+==== AF - Adjust Flag (Bit 4) ====
+Gesetzt wenn ein Übertrag von Bit 3 stattgefunden hat.<br />
+Wird hauptsächlich für [[BCD]] Berechnungen verwendet.
+
+==== ZF - Zero Flag (Bit 6) ====
+Gesetzt wenn das Ergebnis 0 ist.
+
+==== SF - Sign Flag (Bit 7) ====
+Entspricht dem höherwertigsten Bit des Ergebnisses, also dem Vorzeichenbit bei signed-Berechnungen.<br />
+0 steht für einen positiven Wert und 1 für einen negativen.
+
+==== OF - Overflow Flag (Bit 11) ====
+Gesetzt wenn ein Overflow bei einer signed-Zahl stattgefunden hat.
+
+<br />
+=== Controlflags ===
+==== DF - Direction Flag (Bit 10) ====
+Gibt die Richtung bei Stringoperationen an.<br />
+Wenn 0 wird der Zeiger inkrementiert, bei 1 dekrementiert.
+<br />
+
+=== Systemflags ===
+==== TF - Trap Flag (Bit 8) ====
+Für single-step debugging.
+
+==== IF - Interrupt Enable Flag (Bit 9) ====
+Wenn gesetzt wird auf Interrupts reagiert, wenn gelöscht werden diese ignoriert (Ausnahme: [[NMI|Non Maskable Interrupts]]).<br />
+Kann mit CLI (Clear Interruptflag) und STI (Set Interruptflag) geändert werden.
+
+==== IOPL - I/O Privilege Field (Bits 12 und 13) ====
+I/O Privilegien des laufenden Programms.
+
+==== NT - Nested Task Flag (Bit 14) ====
+Gesetzt wenn der akuelle Task eine Verbindung zum vorherigen hat.
+
+==== RF - Resume Flag (Bit 16) ====
+Steuert die Reaktion des Prozessors auf eine Debug Exception.
+
+==== VM - Virtual-8086 Mode Flag (Bit 17) ====
+Gesetzt um im Virtual-8086 Modus zu arbeiten.
+
+==== AC - Alignment Check Flag (Bit 18) ====
+Wenn dieses Flag un das AM-Bit im [[Control Register|CR0-Register]] gesetzt ist wird auf Speicherausrichtung geprüft.
+
+==== VIF - Virtual Interrupt Flag (Bit 19) ====
+Virtualmode-gegensatz zum IF-Flag
+
+==== VIP - Virtual Interrupt Pending Flag (Bit 20) ====
+''Set to indicate that an interrupt is pending;
+clear when no interrupt is pending. (Software sets and clears this flag; the
+processor only reads it.) Used in conjunction with the VIF flag.''<br />
+<b>Kann das jemand ordentlich übersetzen? Ich kanns nicht o.O</b>
+
+==== ID - Identification Flag (Bit 21) ====
+Gesetzt wenn der Prozessor [[CPUID]] unterstützt.
+<br />
+
+== Befehle zum direkten Verändern ==
+
+* PUSHF
+* PUSHFD
+* POPF
+* POPFD
+* LAHF
+* SAHF
+
+[[Category:Hardware]]
+[[Category:x86]]

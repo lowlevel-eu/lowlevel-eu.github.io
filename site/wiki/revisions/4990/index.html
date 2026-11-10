@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Ausgabe 3 – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Ausgabe_3 rootpage-Ausgabe_3 skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1419/index.html">Aktueller Artikel</a> · <a href="../../history/1419/index.html">Versionsgeschichte</a> · <a href="../../source/4990.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Ausgabe 3</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 1. August 2009, 18:40 Uhr von <a class="mw-userlink" href="../../pages/1785/index.html" title="Benutzer:SHyx0rmZ"><bdi>SHyx0rmZ</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Navigation)</span></div><div id="mw-revision-nav">(<a href="../../diffs/4804-4990.html" title="Ausgabe 3">Unterschied</a>) <a href="../4804/index.html" title="Ausgabe 3">← Nächstältere Version</a> | <a href="../../pages/1419/index.html" title="Ausgabe 3">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../4991/index.html" title="Ausgabe 3">Nächstjüngere Version →</a> (<a href="../../diffs/4990-4991.html" title="Ausgabe 3">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><table style="width:100%; background-color: #D0D8FF; border: 1px solid #b8c0e8; text-align:center; margin-bottom: 10px;">
+<tbody><tr>
+<td style="width:33%; text-align:left;">« <a href="../../pages/1412/index.html" title="Ausgabe 1">Ausgabe 1</a></td>
+<td style="width:33%; text-align:center;"><b>Navigation</b></td>
+<td style="width:33%; text-align:right;"><a class="mw-selflink selflink">Ausgabe 3</a> »</td>
+</tr>
+</tbody></table>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Vorwort"><span class="tocnumber">1</span> <span class="toctext">Vorwort</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#News"><span class="tocnumber">2</span> <span class="toctext">News</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Leserbriefe"><span class="tocnumber">3</span> <span class="toctext">Leserbriefe</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#OS_Dev-Tutorial.2C_Teil_3"><span class="tocnumber">4</span> <span class="toctext">OS Dev-Tutorial, Teil 3</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Design.C3.BCberlegungen"><span class="tocnumber">4.1</span> <span class="toctext">Designüberlegungen</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Unser_erster_Interrupt"><span class="tocnumber">4.2</span> <span class="toctext">Unser erster Interrupt</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Nachtrag_von_TeeJay"><span class="tocnumber">5</span> <span class="toctext">Nachtrag von TeeJay</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Lowlevel-Grundlagen.2C_Teil_3"><span class="tocnumber">6</span> <span class="toctext">Lowlevel-Grundlagen, Teil 3</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Aufbau_von_Disketten"><span class="tocnumber">6.1</span> <span class="toctext">Aufbau von Disketten</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Physikalischer_Aufbau"><span class="tocnumber">6.2</span> <span class="toctext">Physikalischer Aufbau</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Logischer_Aufbau"><span class="tocnumber">6.3</span> <span class="toctext">Logischer Aufbau</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Booten_von_Diskette"><span class="tocnumber">6.4</span> <span class="toctext">Booten von Diskette</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Code_Corner"><span class="tocnumber">7</span> <span class="toctext">Code Corner</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#APM_Powerdown"><span class="tocnumber">7.1</span> <span class="toctext">APM Powerdown</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#OS_Projekte:_SkyOS"><span class="tocnumber">8</span> <span class="toctext">OS Projekte: SkyOS</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="#OS_Design"><span class="tocnumber">8.1</span> <span class="toctext">OS Design</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Funktionalit.C3.A4t"><span class="tocnumber">8.2</span> <span class="toctext">Funktionalität</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Stabilit.C3.A4t_.2F_Kompatibilit.C3.A4t"><span class="tocnumber">8.3</span> <span class="toctext">Stabilität / Kompatibilität</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#Dokumentation"><span class="tocnumber">8.4</span> <span class="toctext">Dokumentation</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#Fazit"><span class="tocnumber">8.5</span> <span class="toctext">Fazit</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-21"><a href="#Inside_Makros_.28by_TeeJay.29"><span class="tocnumber">9</span> <span class="toctext">Inside Makros (by TeeJay)</span></a></li>
+<li class="toclevel-1 tocsection-22"><a href="#Phils_Kolumne"><span class="tocnumber">10</span> <span class="toctext">Phils Kolumne</span></a></li>
+<li class="toclevel-1 tocsection-23"><a href="#Nachwort"><span class="tocnumber">11</span> <span class="toctext">Nachwort</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Vorwort">Vorwort</span></h2>
+<p>Nun, das ist also die dritte Ausgabe von Lowlevel. In den letzten Wochen habt ihr wenig von mir gehört, ganz einfach aus dem Grund, dass ich im Urlaub war und deshalb keine Zeit hatte, an Lowlevel zu arbeiten.
+</p><p>Aber egal, jetzt bin ich wieder da, mit neuen Ideen und neuem Material für Lowlevel. Allerdings fürchte ich, dass die nächsten Ausgaben nicht ganz so umfangreich sein werden, wie die ersten zwei. Ich werde in den nächsten Monaten viel zu tun haben, und außerdem arbeite ich noch an einem Spieleprojekt...
+</p><p>Na ja, auf jeden Fall wünsche ich viel Spaß mit Ausgabe 3.
+</p>
+<h2><span class="mw-headline" id="News">News</span></h2>
+<p>PiranhOS wird von Grund auf neu gecodet. Grund: "messy code" (Originalzitat)
+</p><p>Das interne Betatesting zu EngesnOS ist fertig. In den nächsten Tagen können wir mit einer Public Beta rechnen
+</p><p>Ende August soll die nächste Beta des Windows NT-Clones <a href="../../pages/1421/index.html" title="ReactOS">ReactOS</a> erscheinen.
+</p><p>In Frankreich kann man nun bei Dell PCs bestellen, auf denen <a href="../../pages/2002/index.html" title="FreeDOS">FreeDOS</a> installiert ist. Toll, oder?
+</p>
+<h2><span class="mw-headline" id="Leserbriefe">Leserbriefe</span></h2>
+<p><b>Hi, eine tolle Idee, ein Deutsches Online Magazin für Betriebssystem- Entwicklung. Die ersten beiden Ausgaben sind sehr interessant, ich bin schon gespannt auf die folgenden!</b>
+<b>So, jetzt zu meiner Kritik: überall gibt es Webseiten, die zeigen, wie man Kernel in Assembler schreibt ... mich würde C mehr interessieren.</b>
+</p><p><b>Jetzt noch ein paar Anregungen für die nächste oder übernächste Ausgabe ;-) Ich würde gerne mehr über die Technischen Details der Diskette erfahren und besonders über den Aufbau und wie man dort ein Betriebssystem unterbringt.</b>
+</p><p><b>Hey, wie wäre es, wenn die Webseite mehr ausgebaut wird? Zum Beispiel Links, und sowas? Naja, alles hier nur Anregungen ... weitermachen!</b>
+</p><p>Vielen Dank fürs Lob. Wegen C... hier in der 3. Ausgabe habe ich einen Aufruf gemacht. Die Leute sollen mir sagen, ob ich mich eher auf C oder auf Assembler konzentrieren soll.
+</p><p>Diskette... schon gemacht, siehe "Lowlevel Grundlagen".
+</p><p>Das mit der Website - da hab ich schon was vor. Zusätzlich zu den Ausgaben wird dort es dort ein "Resource Center" geben, wo alle Infos und Sources gesammelt werden. Und natürlich auch mit Links und so.
+</p>
+<h2><span id="OS_Dev-Tutorial,_Teil_3"></span><span class="mw-headline" id="OS_Dev-Tutorial.2C_Teil_3">OS Dev-Tutorial, Teil 3</span></h2>
+<h3><span id="Designüberlegungen"></span><span class="mw-headline" id="Design.C3.BCberlegungen">Designüberlegungen</span></h3>
+<p>Nachdem wir also letztes Mal gelernt haben, wie Interrupts funktionieren, werden wir uns dieses Mal anschauen, wie man einen eigene ISR (Interrupt Service Routine) schreibt. Wir werden also eine rudimentäre API schreiben, die verschiedene Funktionen bereitstellt. Sowohl dem Kernel - als auch den User-Programmen.
+</p><p>Als erstes müssen wir uns einige Sachen überlegen.
+</p>
+<ol><li>Welchen Interrupt benutzen wir?</li>
+<li>Wie viele Funktionen werden wir pro Interrupt haben?</li>
+<li>Welches Register wird für die Funktionsnummer benutzt?</li>
+<li>Was werden die Funktionen machen?</li></ol>
+<p>Ich schlage vor, wir benutzen Interrupt 0x21. DOS benutzt für die meisten Calls 0x21 und auch wir werden es so machen. Zur Übergabe der Funktionsnummer benutzen wir AL (anders als in DOS). Da ein 8 Bit-Register bekanntlich Zahlen von 0 bis 255 enthalten kann, können wir theorethisch 255 Funktionen pro Interrupt haben.
+</p>
+<h3><span class="mw-headline" id="Unser_erster_Interrupt">Unser erster Interrupt</span></h3>
+<p>Unsere erste Routine - 0x01 von Interrupt 0x21 - wird ein Ersatz für die putstr-Funktion sein. Unsere Routine wird also den String nehmen, auf den SI zeigt und ihn über BIOS Teletype auf den Bildschirm schreiben (String muss Null-terminiert sein!).
+</p><p>&lt;asm&gt;    _int0x21:
+</p>
+<pre>    _int0x21_ser0x01:       ; funktion 0x01
+    cmp al, 0x01            ; funktion 0x01 angefragt?
+    jne _int0x21_end        ; nächste Routine checken
+    
+    _int0x21_ser0x01_start:
+    lodsb                   ; nächstes Byte laden
+    or  al, al              ; 0-Byte?
+    jz  _int0x21_ser0x01_end
+    mov ah, 0x0E            ; BIOS Teletype
+    mov bh, 0x00            ; Page 0
+    mov bl, 0x07            ; Text-Attribute
+    int 0x10                ; BIOS-Call
+    jmp _int0x21_ser0x01_start
+    _int0x21_ser0x01_end:
+    jmp _int0x21_end
+    
+    _int0x21_end:
+    iret&lt;/asm&gt;
+</pre>
+<p>Jetzt gehen wir den Code Stück für Stück durch. Jede Funktion hat ein Label in der Form "_int0x21_ser0x01". Der erste Teil ist die Interrupt-Nummer, der Zweite die Funkionsnummer. Zu beginn jeder Funktion wird geprüft, ob in AL die Nummer der Funktion drinsteht. Wenn ja, geht der Code normal weiter und die Routine wird ausgeführt. Wenn nicht, wird zur nächsten Funktion gesprungen. In diesem Beispiel haben wir nur eine Routine, deshalb wäre dann die ISR gleich zu Ende.
+</p><p>Nun haben wir also unseren Interrupt Handler. Dieser ist aber noch nicht in der Interrupt Vector Table registriert. Bevor wir den Interrupt aufrufen, müssen wir also ein paar Pointer umbiegen, damit der PC auch unseren Interrupt Handler benutzt.
+</p><p>&lt;asm&gt;    push dx
+</p>
+<pre>   push es
+   xor ax, ax
+   mov es, ax
+   cli
+   mov word [es:0x21*4], _int0x21  ; Pointer auf den Handler
+   mov [es:0x21*4+2], cs           ; Pointer auf CS
+   sti
+   pop es
+   pop dx&lt;/asm&gt;
+</pre>
+<p>Als erstes speichern wir DX und ES. Danach leeren wir das AX-Register und schreiben den Wert von AX in ES rein (keine Panik, das ist die schnellste Möglichkeit!). Als nächstes schalten wir Interrupts aus, da wir ja selbst mit Interrupts arbeiten.
+</p><p>Danach wird die Einsprungadresse von unserem Interrupt nach ES:0x21*4 geschrieben. Zum Schluss schreiben wir noch den CS-Wert in die nächsten zwei Bytes rein, damit der Prozessor weiß, wo das Segment des Interrupt Handlers liegt.
+</p><p>Manch einer wird sich wundern, warum wir den jetztigen CS-Wert nehmen: der Interrupt-Handler befindet sich ja im Kernel-Bereich (Remember? Monolithischer Kernel?), deshalb kann man auch diesen CS-Wert benutzen.
+</p><p>Wie benutzen wir also unsere schöne neue Funktion zur Textausgabe?
+</p><p>&lt;asm&gt;    mov si, Message ; der String
+</p>
+<pre>   mov al, 0x01    ; wir brauchen Funktion 0x01
+   int 0x21        ; unser Interrupt!!!&lt;/asm&gt;
+</pre>
+<p>So, das wars auch schon. Jeder kann jetzt mit wenig Aufwand neue Funktionen hinzufügen und so seine API Stück für Stück erweitern. War doch einfach, oder?
+</p>
+<h2><span class="mw-headline" id="Nachtrag_von_TeeJay">Nachtrag von TeeJay</span></h2>
+<p>Hier noch ein kleiner Nachtrag zum Thema Interrupts der Ausgabe 3 von LOWLEVEL.
+</p><p>Wenn man den Befehl "int 10h" im Assembler aufruft, dann passiert nichts anderes, als das der Prozessor einen Sprung an eine ganz bestimmte Stelle im Speicher macht, and der eine Routine steht, die dann ausgeführt wird. Meist muss man vor dem Aufruf ja noch gewisse Werte in den Registern speichern. Das sind dann einfach die Variablen, die man an diese Routine übergibt.
+</p><p>So, nun wüßte man wohl auch gerne, wo sich diese Stelle im Speicher befindet, zu der der Prozessor springt und woher er diese weiß.
+</p><p>Das ist ganz einfach. Es gibt eine sogenannte Interrupt Vector Tabelle, die direkt im Speicher an der Adresse 0000:0000 steht. Die Tabelle umfasst 256 Einträge (es gibt daher auch 256 verschiedene Interrupts). Jeder Eintrag dieser Tabelle ist genau 4 Bytes lang. In diesen 4 Bytes stehen der Offset (2 Bytes) und das Segment (2 Bytes), an denen sich Code im Speicher befindet, welcher ausgeführt werden soll, wenn dieser Interrupt aufgerufen wird.
+</p><p>Nun wird auch ersichtlicher was im folgenden Code passiert:
+</p><p>&lt;asm&gt;    push dx
+</p>
+<pre>   push es
+   xor ax, ax
+   mov es, ax
+   cli
+   mov word [es:0x21*4], _int0x21  ; Pointer auf den Handler
+   mov [es:0x21*4+2], cs           ; Pointer auf CS
+   sti
+   pop es
+   pop dx&lt;/asm&gt;
+</pre>
+<p>Entscheiden sind hier die Zeilen zwischen "cli" und "sti".
+</p><p>Hier überschreibt man den Eintrag der Interrupt Vector Tabelle so, dass dieser auf den Code zeigt, der ausgeführt werden soll, wenn man Interrupt 21h aufruft. Man sieht nun auch, wie man sich die Adresse jedes Eintrages dieser Tabelle errechnet.
+</p><p>Man multipliziert einfach die Interruptnummer mit 4 (jeder Eintrag ist 4 Bytes lang). Und genau SO findet auch der Prozessor den Code den er ausführen soll, wenn ein Interrupt aufgerufen wird. Er schaut also in der Tabelle nach, zu welcher Stelle er im Code Springen soll um dort die Routine des Interrupts auszurühren.
+</p><p>Als kleine Anmerkung sei noch erwähnt, dass auch der PIC (Programmable Interrupt Controller) in dieser Tabelle nachschaut, um den Code zu finden, den er ausführen soll, wenn zum Beispiel eine Taste auf der Tastatur gedrückt wurde. Man muss also nur nachschauen, welchen Interrupt der PIC aufruft, sobald eine Taste gedrückt wurde und kann dann den entsprechenden Eintrag in der Tabelle so abändern, das eine eigens geschriebene Routine dann ausgführt wird. So kann man seinen eigenen Tastaturtreiber schreiben.
+</p><p>Eine Tabelle der Interrupts, die aufgerufen werden, sobald der PIC ein Signal von der Hardware (Soundkarte, Tastatur usw.) empfängt, kann man in Ausgabe 2 von Lowlevel nachlesen.
+</p><p>PS: Man sollte sich beim Verändern der Einträge in dieser Tabelle die Ursprungswerte irgendwo sichern (Variable), damit man diese evtl. wieder herstellen kann. Auch sollte man nicht willkürlich diese Tabelle abändern, da das BIOS seine eigenen Einträge dort reingeschrieben hat.
+</p><p>So führt der Aufruf von int 10h ebenso "nur" zu einer Routine die das BIOS von Haus aus mitbringt um ein Zeichen auf dem Bildschirm auszugeben. Im Internet gibt es vollständige Auflistungen aller 256 Interrupts und in wie weit diese belegt sind. Gerade im Bereich über 200 sind noch ein paar Einträge unbelegt, die man so für eigene Zwecke gebrauchen kann.
+</p><p>PS2: (Das nun folgende ist von mir zusammengereimt! Ich kann nicht belegen, dass dies so stimmt, aber es klingt einleuchtend). Jetzt wird wohl auch klar, warum das BIOS den Bootsektor erst so weit hinten im Speicher (0x7C00) lädt. Das BIOS lädt nämlich vorher seine eigenen Routinen in den Speicher und ändert die Interrupt-Tabelle so ab, dass diese auf diesen Speicher zeigt.
+</p><p>Man könnte sich also theoretisch den gesammten Speicher von 0x0000 bis 0x7C00 (31744 Bytes) auf Diskette schreiben und dann unter Windows, Linux oder DOS in einem Disassembler anschauen. So kann man evtl. nachvollziehen, wie die Routinen des BIOS aussehen und was sie machen. Das wäre eine kleine, wenn auch eher "lächerliche" Abwandlung des Reverse Engeenering *g*.
+</p><p><b>Anmerkung von Mastermesh: das ist leider nicht richtig. Der Bereich zwischen 0x0000 bis 0x7C00 beinhaltet vor allem Speicheradressen von Systemports und andere Kleinigkeiten. Das BIOS hat seinen Einsprungscode und damit auch seine ganzen Routinen in 0xFFFF.</b>
+</p><p>PS3: Einige werden sich nun vielleicht ärgern, das sie erst jetzt, wo die guten alten DOS-Zeiten vorbei sind, mit Assembler angefangen haben. Alleine mit dem hier beschriebenen hätte man doch soooo schöne Viren programmieren können *G*.
+</p><p>Unter Windows funktioniert das nicht mehr, weil hier der Protected Mode läuft und diesen Speicherbereich vor unerlaubtem Zugriff sperrt. Daher kann man mit Assembler auch nicht mehr so einfach direkt auf die Hardware zugreifen. Zumindest nicht, ohne die API von Windows zu benutzen.
+</p><p>Für Fragen, Berichtigungen oder sonstigem: masta_ace_inc@gmx.de
+</p><p><b>mfg TeeJay</b>
+</p>
+<h2><span id="Lowlevel-Grundlagen,_Teil_3"></span><span class="mw-headline" id="Lowlevel-Grundlagen.2C_Teil_3">Lowlevel-Grundlagen, Teil 3</span></h2>
+<h3><span class="mw-headline" id="Aufbau_von_Disketten">Aufbau von Disketten</span></h3>
+<p>Disketten (Englisch: floppy disk) gibt es schon fast so lange wie es Computer (im heutigen Sinn) gibt. Aufgrund ihrer geringen Speicherkapazität verlieren Sie jedoch immer mehr an Bedeutung, was dazu führt, dass viele neue PCs kein Diskettenlaufwerk (englisch: floppy disk drive, kurz: FDD) mehr besitzen.
+</p>
+<h3><span class="mw-headline" id="Physikalischer_Aufbau">Physikalischer Aufbau</span></h3>
+<p>Disketten sind recht einfach aufgebaut: Jede Diskette besitzt zunächst zwei Seiten, denen jeweils ein Schreib-Lese-Kopf (englisch: head) des Diskettenlaufwerks zugeordnet ist. Die Seiten bzw. Köpfe werden mit den Nummern 0 und 1 bezeichnet. Zum Speichern der Kopfnummer reicht also 1 Bit aus. Jede Seite der Diskette ist in Spuren (englisch: track), auch Zylinder (englisch: cylinder) genannt, eingeteilt.
+</p><p>Die Anzahl der Spuren pro Seite ist abhängig vom Diskettentyp. Die äußerste Spur bekommt die Nummer 0, die zweite von außen die Nummer 1 und so weiter. Jede dieser Spuren ist wiederum in Sektoren (englisch: sector) eingeteilt, deren Anzahl auch vom Diskettentyp abhängig ist. Ein Sektor bildet die kleinste les- bzw. schreibbare Einheit einer Diskette. Das heißt: Will man nur 1 Byte der Diskette lesen, muss man den gesamten Sektor, in dem sich das Byte befindet, in den Speicher einlesen. Ein Sektor ist bei jedem Diskettentyp 512 Byte groß. Der erste Sektor einer Spur wird mit der Nummer 1 bezeichnet.
+</p><p>Wie schon erwähnt, gibt es verschiedene Diskettentypen, die im Laufe der Zeit auseinander hervorgegangen sind. Man unterscheidet sie in zweierlei Hinsicht: Das primäre Unterscheidungsmerkmal sind die äußeren Abmessungen. Es gibt 5,25-Zoll- und 3,5-Zoll-Disketten. Das zweite Merkmal ist die Dichte, mit der Daten auf einer Diskette gespeichert werden können. Man unterscheidet "Double Density" (kurz: DD), "High Density" (kurz: HD) und "Extra High Density" (kurz: EHD). In der folgenden Tabelle sind die Merkmale der bekanntesten Diskettentypen zusammengefasst:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<td>Maße, Bezeichnung</td>
+<td>Kapazität</td>
+<td>Spuren pro Seite</td>
+<td>Sektoren pro Spur</td>
+<td>Sektoren (gesamt)
+</td></tr>
+<tr>
+<td>5,25 Zoll, DD</td>
+<td>360 kB</td>
+<td>40</td>
+<td>9</td>
+<td>720
+</td></tr>
+<tr>
+<td>5,25 Zoll, HD</td>
+<td>1200 kB</td>
+<td>80</td>
+<td>15</td>
+<td>2400
+</td></tr>
+<tr>
+<td>3,5 Zoll, DD</td>
+<td>720 kB</td>
+<td>80</td>
+<td>9</td>
+<td>1440
+</td></tr>
+<tr>
+<td>3,5 Zoll, HD</td>
+<td>1440 kB</td>
+<td>80</td>
+<td>18</td>
+<td>2880
+</td></tr>
+<tr>
+<td>3,5 Zoll, EHD</td>
+<td>2880 kB</td>
+<td>80</td>
+<td>36</td>
+<td>5760
+</td></tr></tbody></table>
+<p>Wenn überhaupt, werden heute nur noch 1,44-MB-Disketten (3,5", HD) verwendet. Die anderen Diskettentypen sind fast vollkommen aus der Welt der Computer verschwunden.
+</p><p>Der oben beschriebene Aufbau ist nur die halbe Wahrheit. Diese Informationen reichen allerdings für Programmierer völlig aus. Alles weitere, wie zum Beispiel der Aufbau eines Sektors (Prüfbytes, Synchronisation usw.), würde hier zu weit führen. Wer sich dafür interessiert, findet entsprechende Informationen in einem gutem Hardware-Buch.
+</p>
+<h3><span class="mw-headline" id="Logischer_Aufbau">Logischer Aufbau</span></h3>
+<p>Da der Zugriff auf eine Diskette durch Angabe von Kopf, Spur und Sektor (siehe oben) sehr umständlich wäre, werden den Sektoren einer Diskette fortlaufende Nummern, welche als logische Sektornummern (kurz: LSN) bezeichnet werden, zugeteilt. Um aus einer logischen Sektornummer die physikalischen Sektordaten zu berechnen sind die folgenden drei Gleichungen nötig:
+</p>
+<pre>   Kopf = (LSN / 18) % 2 
+   Spur = LSN / 36 
+   Sektor = (LSN % 18) + 1 
+</pre>
+<h3><span class="mw-headline" id="Booten_von_Diskette">Booten von Diskette</span></h3>
+<p>Vorwort: ja, ich weiß, dass ich das bereits in der ersten Ausgabe behandelt habe. Da aber viele Nachfragen kamen, kommt hier das ganze noch mal ausführlich.
+</p><p>Nachdem der Computer eingeschalten wurde, führt die Hardware einen kleinen Selbsttest (englisch: power-on self test, kurz: POST) durch. Wurde dieser erfolgreich abgeschlossen, kopiert das BIOS den ersten Sektor der Diskette in Laufwerk A in den Speicher. Ist dies nicht möglich, weil zum Beispiel keine Diskette eingelegt wurde, wird das nächste (usw.) Laufwerk verwendet. Die Reihenfolge, in der die Laufwerke überprüft werden, kann im BIOS-Setup (unter Boot-Sequenz) eingestellt werden. Um das eigene Betriebssystem von einer Diskette zu starten, muss das entsprechende Laufwerk immer als ersten im BIOS-Setup angegeben werden, da sonst eventuell das "normale" System von der Festplatte gestartet wird.
+</p><p>Wenn kein Fehler auftritt, kopiert das BIOS den ersten Sektor (Kopf 0, Spur 0, Sektor 1) der Diskette in den Speicher und speichert die Nummer des entsprechenden Laufwerks (0 für a, 1 für b usw.) im Register DL. Die Adresse des ersten Bytes des Boot-Sektors im Arbeitsspeicher ist 0000h:7C00h. Wenn das BIOS seine Arbeit beendet hat, teilt es dem Prozessor mit, dass der Code an der genannten Adresse ausgeführt werden soll.
+</p><p>Dieser Programmcode (maximal 512 Byte, also ein Sektor) muss nun mit möglichst wenig Aufwand den restlichen Code des Betriebssystems von der Diskette in den Speicher laden und dessen Ausführung veranlassen.
+</p><p>Beim Schreiben des Bootloaders sollte man unbedingt beachten, dass außer in den Registern CS, IP und DL keine gültigen Werte gespeichert sind oder sich diese von BIOS zu BIOS unterscheiden. Man darf nicht vergessen, einen Stack (SS und SP) und ein Datensegment (DS) anzulegen, bevor man zum Beispiel versucht, Text auszugeben. Ein häufiger Fehler ist auch, dass falsche Offsets für Sprünge verwendet werden, da das erste Code-Byte bei 7C00h und nicht bei 0000h liegt. Zum Beheben dieses Problems hilft eine Anweisung wie "ORG 7C00h", die zu allen verwendeten Offsets den Wert 7C00h addiert.
+</p>
+<h2><span class="mw-headline" id="Code_Corner">Code Corner</span></h2>
+<h3><span class="mw-headline" id="APM_Powerdown">APM Powerdown</span></h3>
+<p>&lt;asm&gt;    ; SYSTEM POWERDOWN 
+</p>
+<pre>   ; WARNING - DO NOT RUN UNDER WIN! (IT WORKS!)
+   ; (C) 1999 BY VINNY  
+   
+   MOV AX,0x5300
+   XOR BX,BX
+   INT 0x15 ; APM install check
+   MOV AX,0x5304
+   XOR BX, BX
+   INT 0x15 ; disconnect interface
+   MOV AX,0x5301
+   XOR BX, BX
+   INT 0x15 ; connect real-mode interface
+   MOV AX,0x5307
+   MOV BX,1
+   MOV CX,3
+   INT 0x15 ; powerdown system&lt;/asm&gt;
+</pre>
+<h2><span class="mw-headline" id="OS_Projekte:_SkyOS">OS Projekte: SkyOS</span></h2>
+<p><img alt="skyos1.jpg" src="http://lowlevel.brainsware.org/wiki/images/skyos1.jpg"/>
+<img alt="skyos2.jpg" src="http://lowlevel.brainsware.org/wiki/images/skyos2.jpg"/>
+<img alt="skyos3.jpg" src="http://lowlevel.brainsware.org/wiki/images/skyos3.jpg"/>
+</p>
+<h3><span class="mw-headline" id="OS_Design">OS Design</span></h3>
+<p>SkyOS ist ein reines Desktop-OS. Das bedeutet, dass man eine sehr schöne GUI zu sehen kriegt und fast alles mit der Maus bedient. Über Vorzüge und Nachteile von so einem System möchte ich jetzt nicht reden, allerdings muss gesagt werden, dass SkyOS dies sehr gut hinbekommt.
+</p><p>Auch die technischen Details können sich sehen lassen: Multitasking, Multithreading, SMP, Virtual Memory - solche Begriffe lassen vermuten, dass SkyOS in hohem Maße ein objektorientiertes und durchdachtes System ist.
+</p><p>Der Kernel erlaubt das dynamische Laden von Modulen. Das heißt, dass man nur einen kleinen Kernel hat (~70 KB), die ganze Funktionalität wird durch Module geladen.
+</p><p>Eine besonders coole Sache ist das Virtual File System: dies ist eine Art Treiber, der Zugriff auf Dateisysteme, Netzwerke und Geräte gibt. In der Praxis bedeutet das, dass man auf eine CD mit der gleichen Methode zugreift wie auf einen FTP-Server.
+</p>
+<h3><span id="Funktionalität"></span><span class="mw-headline" id="Funktionalit.C3.A4t">Funktionalität</span></h3>
+<p>Extrem umfangreich.
+</p>
+<ul><li>FAT filesystem (LFN support)</li>
+<li>ImageMounter filesystem. (Makes it possible to mount ISO images)</li>
+<li>Various binary formats like PE, COFF, A.OUT and ELF</li>
+<li>IDE / ATA / ATAPI driver for harddisks, cdrom, cd-writer and DVD</li>
+<li>Serial mouse device driver</li>
+<li>PS/2 device driver</li>
+<li>Soundblaster device driver</li>
+<li>RealTek 8129/8139 Network card device driver</li>
+<li>3c509 Network card device driver</li>
+<li>VESA2.0, VGA16 and ChipsTechnologies device driver</li>
+<li>COM device driver</li>
+<li>Parallel port device driver</li>
+<li>Real Time clock, PIC(8259) and APIC (82489 and Pentium integrated and compatible)</li>
+<li>USB Driver</li>
+<li>Full network stack with Ethernet, IP, ICMP, ARP, UDP, TCP and berkley socket interface</li>
+<li>Network services like DHCP server/client, FTP, HTTP, TELNET, ....</li>
+<li>Resolution and color depth independent</li>
+<li>Supports all resolution with 4,8,16,24 and 32bpp graphic modes</li>
+<li>Support for TrueType Fonts and various graphic formats like GIF, JPEG, BMP, Animated GIF and Icons</li>
+<li>Support for multiple desktops where each desktop can has its own graphic driver, resolution and color depth.</li>
+<li>Clipboard</li>
+<li>Key Accelerators</li>
+<li>Very easy to use C API</li>
+<li>GNU compiler collection</li>
+<li>GNU binutils</li>
+<li>GNU shell tools,.....</li>
+<li>Debugging features to support local and remote debuggers</li>
+<li>Support for OpenGL</li>
+<li>Various games available. (Quake, QuakeII,...)</li></ul>
+<h3><span id="Stabilität_/_Kompatibilität"></span><span class="mw-headline" id="Stabilit.C3.A4t_.2F_Kompatibilit.C3.A4t">Stabilität / Kompatibilität</span></h3>
+<p>Vorbildlich. Kein einziges Problem mit bestimmter Hardware. Extrem stabil.
+</p>
+<h3><span class="mw-headline" id="Dokumentation">Dokumentation</span></h3>
+<p>Sehr gut. Eine sehr umfangreiche Dokumentation + eine Art Designdokument sind vorhanden.
+</p>
+<h3><span class="mw-headline" id="Fazit">Fazit</span></h3>
+<p>SkyOS beeindruckt durch die extreme umfangreiche Funktionalität und die ausgereifte GUI. Ein tolles OS, hoffen wir mal, dass dieses Projekt noch lange weitergeführt wird!
+</p>
+<h2><span id="Inside_Makros_(by_TeeJay)"></span><span class="mw-headline" id="Inside_Makros_.28by_TeeJay.29">Inside Makros (by TeeJay)</span></h2>
+<p>Für Leute, die hauptsächlich mit Hochsprachen (C / C++) arbeiten, wird Assembler ein wenig gewöhnungsbedürftig sein. Nehmen wir zum Beispiel unseren Interrupt, den wir in dieser Ausgabe geschrieben haben. Um einen String auszugeben, schreiben wir:
+</p><p>&lt;asm&gt;    mov al, 0x01
+</p>
+<pre>   mov si, Meldung
+   int 0x21&lt;/asm&gt;
+</pre>
+<p>Umständlich, oder? Mit einem Makro können wir uns sehr viel Arbeit ersparen!
+</p><p>&lt;asm&gt;    %macro PrintText 1 
+</p>
+<pre>   mov al, 0x01
+   mov si, %1 
+   int 0x21
+   %endmacro&lt;/asm&gt;
+</pre>
+<p>Jetzt reicht es, wenn wir im Code schreiben:
+</p><p>&lt;asm&gt;    PrintText Meldung&lt;/asm&gt;
+</p><p>Das ist die einzige Zeile, die man sich einfach merken muss.
+</p><p>Simpel, oder? Wenn man das Prinzip verstanden hat, kann man sich beliebig viele solcher Makros machen, die einem sehr viel Arbeit abnehmen. Der Vorteil liegt klar auf der Hand: der Code ist viel übersichtlicher und wenn mal was an der API geändert wird, muss man nicht den ganzen Code umändern.
+</p>
+<h2><span class="mw-headline" id="Phils_Kolumne">Phils Kolumne</span></h2>
+<p><b>Software darf einfach nichts kosten...</b>
+</p><p>...hört man immer mehr Leute predigen. Dieselben Leute, die ohne mit der Wimper zu zucken, viel Geld ausgeben für z.B. "optical-out to coax converter", weils angeblich besser klingt (reiner Beschiss mit Placebo-Effekt - zu dem ich vielleicht zu einem anderen Zeitpunkt mal ein paar Zeilen schreibe :-)
+</p><p>Ich werde das Gefühl nicht los, hier läuft etwas ganz gehörig schief. Da sitze ich monatelang Tag für Tag, Abend für Abend am Rechner, um ein Programm zu entwickeln und muss mir dann reichlich unverschämte E-Mails durchlesen, mit der Bitte um Erklärung, weshalb ich dafür Geld haben möchte. Ein Einsteckkarte, die genau das Gleiche macht - und u.U. in einem Bruchteil der Zeit entwickelt wurde, verkauft sich dagegen fast von selbst, und keiner fragt mich, weshalb sie etwas kostet. Tja, wenn die Leute es nicht anders wollen, dann fällt mir auch noch ein, wie ich ihren letzten PCI-Slot zumüllen kann. Auch wenn das noch so unnötig ist.
+</p><p>Die einzige Erklärung, die ich für dieses Phänomen habe, ist einfach, dass die Leute glauben, etwas in der Hand haben zu müssen für ihr Geld. Ein Programm, das womöglich noch über das Internet kommt und nicht mal eine Diskette benötigt, ist in den Augen - der vermutlich sogar Mehrheit - der Anwender, schlicht und einfach kein Produkt, für das Geld zu bezahlen gerechtfertigt ist.
+</p><p>Wann das nun aber diese so genannte "Dienstleistungsgesellschaft" ist, in der wir angeblich leben, dann gute Nacht....
+</p><p>Also wieder mal Schelte für diese fiesen Raubkopierer, die uns nicht die Butter aufs Brot gönnen? Jein... Ich sehe das etwas differenzierter. Wer heutzutage z.B. eine Arbeitsstelle sucht, hat reichlich schlechte Karten, wenn er von den großen bekannten Softwarepaketen keine Ahnung hat. Ähnliches gilt inzwischen auch für die Schule: Die, die finanziell in der Lage sind, sich die Software zu kaufen, haben entsprechende Vorteile im Unterricht. Das kanns ja irgendwie auch nicht sein. Ebenso kann es doch keinem verübelt werden, dass er sich das Zeug - was auch immer - einfach mal anschauen möchte.
+</p><p>Ich gehe sogar noch weiter und fordere eine eindeutige Gesetzgebung. Die aktuelle Situation ist die, dass quasi jeder, der einen Computer hat, potentiell kriminell ist. Bei Jedem, der einen Rechner hat, könnte also zu jeder Zeit die Polizei einlaufen und die Bude auf den Kopf stellen. Natürlich suchen die kein raubkopiertes WinZip - diese Raubkopie würde aber im Nachhinein die Durchsuchung rechtfertigen. Vollkommen egal und unabhängig davon, was die tatsächlich gesucht haben! Das Recht auf Unantastbarkeit der Privatsphäre ist damit also so ganz nebenbei wirkungsvoll unterlaufen. Das gibt mir zu Denken. Das sollte uns zu denken geben...
+</p><p><b>phil</b>
+</p>
+<h2><span class="mw-headline" id="Nachwort">Nachwort</span></h2>
+<p>Puuuuuuuh... fertig ^_^
+</p><p>Jetzt muss ich hier aber noch eine Sache sagen... es haben mich jetzt einige Leute angesprochen und gefragt, ob ich nicht auf Betriebssystemprogrammierung unter C/C++ eingehen kann.
+</p><p>Übrigens kommen wir bei einem Kernel, der in C/C++ geschrieben ist, trotzdem nicht um Assembler rum. Der Bootsektor und der "Startup-Code" müssen in Assembler geschrieben sein. Das geht einfach nicht anders.
+</p><p>Nun die Frage an euch: sollen wir weiterhin mit Assembler programmieren - eben Lowlevel :) - oder soll ich euch zeigen, wie man einen Kernel in C macht?
+</p><p><b>Mastermesh</b>
+</p>
+<table style="width:100%; background-color: #D0D8FF; border: 1px solid #b8c0e8; text-align:center; margin-bottom: 10px;">
+<tbody><tr>
+<td style="width:33%; text-align:left;">« <a href="../../pages/1412/index.html" title="Ausgabe 1">Ausgabe 1</a></td>
+<td style="width:33%; text-align:center;"><b>Navigation</b></td>
+<td style="width:33%; text-align:right;"><a class="mw-selflink selflink">Ausgabe 3</a> »</td>
+</tr>
+</tbody></table>
+<!-- 
+NewPP limit report
+Cached time: 20261109164620
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.011 seconds
+Real time usage: 0.013 seconds
+Preprocessor visited node count: 132/1000000
+Preprocessor generated node count: 242/1000000
+Post‐expand include size: 783/2097152 bytes
+Template argument size: 104/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.772      1 -total
+ 53.16%    0.942      2 Vorlage:Navigation
+ 32.58%    0.577      1 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Ausgabe_3&amp;oldid=4990</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1411/index.html" title="Kategorie:Magazin">Magazin</a></li><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li><li><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Lizenz ungeklärt</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1419/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1419/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

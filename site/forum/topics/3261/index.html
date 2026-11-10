@@ -1,0 +1,808 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="Interrupts überschreiben lokale Variablen?" name="description"/>
+<title>Interrupts überschreiben lokale Variablen?</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:31</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/2/index.html"><span>Lowlevel-Coding</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Interrupts überschreiben lokale Variablen?</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg37870"></a>
+<div class="nextlinks"><a href="../3262/index.html#msg37906">« vorheriges</a> <a href="../3260/index.html#msg37868">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] 
+				</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/d4e7b293435eb0f7983a825d.gif"/>
+<span id="author">Autor</span>
+						Thema: Interrupts überschreiben lokale Variablen?  (Gelesen 27775 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">OsDevNewbie</a>
+</h4>
+<ul class="reset smalltext" id="msg_37870_extra_info">
+<li class="postcount">Beiträge: 282</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://gurgel100.github.io/Kernel" target="_blank" title="YourOS Kernel"><img alt="YourOS Kernel" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong> am:</strong> 26. July 2013, 20:03 »</div>
+<div class="posttile"><h5 id="subject_37870">
+<a href="index.html#msg37870" rel="nofollow">Interrupts überschreiben lokale Variablen?</a>
+</h5></div>
+<div id="msg_37870_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_37870">Hallo liebe Kollegen,<br/>ich habe momentan Probleme mit meinem Multitasking. Irgendwie werden Daten auf dem Stack überschrieben. Ich programmiere meinen Kernel für den Long Mode (64-Bit Mode). Ich habe, um mein Multitaskingsystem zu testen zwei Tasks erstellt, die einfach Sachen ausgeben mit denen man identifieren kann, welcher Task gerade etwas ausgibt. Zuerst aber gab nachdem der zweite Task an der Reihe war, der erste nie mehr etwas aus, obwohl er auch an die Reihe kam. Ich dachte vielleicht ist etwas falsch an der Sleep-Funkion, die ich in beiden Tasks verwendete. Deswegen änderte ich die Ausgabe in "A" bei Task A und "B" bei Task B. Jetzt kommt aber ein Page Fault, wenn Task A wieder an der Reihe ist, d.h. jeder Task kommt einmal an die Reihe und danach krachts.<br/>Nach einigem Debuggen bin ich darauf gestossen, dass beim Laden einer lokalen Variablen vom Stack, plötzlich der Wert eines Segementregisters auftaucht und dieser dann als Addresse verwendet wird (0x10).<br/>Mir ist dann aufgefallen, dass der Compiler (gcc) zwar bei jeder Funktion einen Stackframe anlegt und zwar wie folgt:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">push %rbp<br/>mov %rsp,%rbp<br/></code>Folgender Code wird aber nur hinzugefügt, wenn innerhalb der Funktion eine andere Funktion aufgerufen wird:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">sub $Wert,%rsp<br/></code>Und deshalb frage ich mich, was passiert, wenn eine Funktion durch einen Interrupt abgebrochen wird, bei dem der Compiler vom Stackpointer nichts abzieht? Denn eigentlich müsste doch dann die CPU und der Interrupthandler die lokalen Daten der Funktion überschreibt. Ist das so oder ist das nur eine falsche Überlegung von mir?<br/>Und wenn das stimmt, wie kann man sowas verhindern?<br/>Danke.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_37870">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_37870_signature">Viele Grüsse<br/>OsDevNewbie<br/><hr/>Ein Computer ohne Betriebsystem ist nicht mehr wert als ein Haufen Schrott.<br/>Ein Computer ist eine Maschine, die einem Lebewesen das kostbarste klaut, was sie selber nicht hat:<br/><strong>DIE ZEIT DES LEBENS</strong></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg37871"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Jidder</a>
+</h4>
+<ul class="reset smalltext" id="msg_37871_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 1 625</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #1 am:</strong> 27. July 2013, 16:45 »</div>
+<div class="posttile"><h5 id="subject_37871">
+<a href="index.html#msg37871" rel="nofollow">Re: Interrupts überschreiben lokale Variablen?</a>
+</h5></div>
+<div id="msg_37871_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_37871">Ja, der Interrupt Handler wird den Stackinhalt überschreiben. Der Compiler ändert den Wert in esp nicht, weil er glaubt, dass er die <a class="bbc_link" href="http://en.wikipedia.org/wiki/Red_zone_%28computing%29" target="_blank">Red Zone</a> nutzen darf. Du musst dem Compiler den Parameter --mno-red-zone übergeben, um das zu unterbinden.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_37871">
+								« <em>Letzte Änderung: 27. July 2013, 16:53 von Jidder</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_37871_signature">Dieser Text wird unter jedem Beitrag angezeigt.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg37873"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_37873_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #2 am:</strong> 28. July 2013, 12:01 »</div>
+<div class="posttile"><h5 id="subject_37873">
+<a href="index.html#msg37873" rel="nofollow">Re: Interrupts überschreiben lokale Variablen?</a>
+</h5></div>
+<div id="msg_37873_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_37873">Gibt es irgendwo eine passende Stelle im Wiki, wo man das erwähnen könnte? Klingt nach einer bösen Falle für x86_64.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_37873">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_37873_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg37874"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">streetrunner</a>
+</h4>
+<ul class="reset smalltext" id="msg_37874_extra_info">
+<li class="postcount">Beiträge: 67</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #3 am:</strong> 28. July 2013, 12:30 »</div>
+<div class="posttile"><h5 id="subject_37874">
+<a href="index.html#msg37874" rel="nofollow">Re: Interrupts überschreiben lokale Variablen?</a>
+</h5></div>
+<div id="msg_37874_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_37874">Vielleicht wäre es gut eine neue Seite zu erstellen wo man die gängigsten Compiler-Flags auflistet und kurz erklärt. Da könnte man auch -mno-red-zone mit reinpacken und direkt dazu schreiben dass es wohl besser ist dieses Flag für x86_64 zu nutzen.<br/><br/>Sonst könnte man auch hier <a class="bbc_link" href="../../../wiki/pages/1666/index.html" target="_blank">http://www.lowlevel.eu/wiki/Long_Mode</a> einfach einen neuen Unterpunkt "Probleme im Long Mode" o.Ä. aufmachen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_37874">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg37875"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">OsDevNewbie</a>
+</h4>
+<ul class="reset smalltext" id="msg_37875_extra_info">
+<li class="postcount">Beiträge: 282</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://gurgel100.github.io/Kernel" target="_blank" title="YourOS Kernel"><img alt="YourOS Kernel" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #4 am:</strong> 28. July 2013, 15:51 »</div>
+<div class="posttile"><h5 id="subject_37875">
+<a href="index.html#msg37875" rel="nofollow">Re: Interrupts überschreiben lokale Variablen?</a>
+</h5></div>
+<div id="msg_37875_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_37875">Wie kann man den dieses Flag umgehen? Also wie wird das von Windows oder Linux bearbeitet, bzw. wie muss ich das in meinem Kernel handlen, wenn ein Interrupt aufgerufen wird? Ich möchte gerne dieses Flag umgehen, da es ja anscheinend auch unter Linux funktioniert, aber wie bringe ich die CPU dazu erst 128 Bytes zu überspringen, bevor sie beginnt ihre Sachen auf den Stack zu schreiben?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_37875">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_37875_signature">Viele Grüsse<br/>OsDevNewbie<br/><hr/>Ein Computer ohne Betriebsystem ist nicht mehr wert als ein Haufen Schrott.<br/>Ein Computer ist eine Maschine, die einem Lebewesen das kostbarste klaut, was sie selber nicht hat:<br/><strong>DIE ZEIT DES LEBENS</strong></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg37876"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_37876_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #5 am:</strong> 28. July 2013, 16:11 »</div>
+<div class="posttile"><h5 id="subject_37876">
+<a href="index.html#msg37876" rel="nofollow">Re: Interrupts überschreiben lokale Variablen?</a>
+</h5></div>
+<div id="msg_37876_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_37876">Für den Userspace ist es ja kein Problem, weil du da einen Ring- und damit auch einen Stackwechsel hast.<br/><br/>Beim Kernel musst du das Flag wohl oder übel benutzen. Linux hat es in arch/x86/Makefile auch drin:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">KBUILD_CFLAGS += -mno-red-zone</code></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_37876">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_37876_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg37892"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">MNemo</a>
+</h4>
+<ul class="reset smalltext" id="msg_37892_extra_info">
+<li class="postcount">Beiträge: 547</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #6 am:</strong> 31. July 2013, 13:16 »</div>
+<div class="posttile"><h5 id="subject_37892">
+<a href="index.html#msg37892" rel="nofollow">Re: Interrupts überschreiben lokale Variablen?</a>
+</h5></div>
+<div id="msg_37892_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_37892">Auch für den Kernel kann man im LM einen Stackwechsel erreichen. Man kann über die IST (Interrupt Stack Table) jedem Interrupt einen von insgesamt bis zu 7 festen Stacks zuweisen. Dann muss man nur sicherstellen, dass sich nie zwei Interrupts mit dem selben Stack in die Quere kommen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_37892">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_37892_signature">„Wichtig ist nicht, besser zu sein als alle anderen. Wichtig ist, besser zu sein als du gestern warst!“</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg37893"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_37893_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #7 am:</strong> 31. July 2013, 13:49 »</div>
+<div class="posttile"><h5 id="subject_37893">
+<a href="index.html#msg37893" rel="nofollow">Re: Interrupts überschreiben lokale Variablen?</a>
+</h5></div>
+<div id="msg_37893_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_37893">Ich habe noch ne einen LM-Kernel gebastelt, aber ich nehme an, für Exceptions wird das schwer zu garantieren sein.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_37893">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_37893_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg37894"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">MNemo</a>
+</h4>
+<ul class="reset smalltext" id="msg_37894_extra_info">
+<li class="postcount">Beiträge: 547</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #8 am:</strong> 31. July 2013, 14:46 »</div>
+<div class="posttile"><h5 id="subject_37894">
+<a href="index.html#msg37894" rel="nofollow">Re: Interrupts überschreiben lokale Variablen?</a>
+</h5></div>
+<div id="msg_37894_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_37894"><del>Eigentlich ist es für Exceptions relativ einfach. Bis auf den DoubleFault können die sich alle den selben Stack teilen.</del><br/><br/>Edit: Schein bar habe ich da den Double Fault falsch verstanden. Damit ist dass dann doch nicht so einfach wie ich dachte. Außer man schreibt einfach fehlerfreie Exception-Handler  <img alt=":-D" class="smiley" src="../../../assets/forum/40e5b6b3635b5359f55907e5.gif" title="grin"/>.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_37894">
+								« <em>Letzte Änderung: 31. July 2013, 15:51 von MNemo</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_37894_signature">„Wichtig ist nicht, besser zu sein als alle anderen. Wichtig ist, besser zu sein als du gestern warst!“</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg37895"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">OsDevNewbie</a>
+</h4>
+<ul class="reset smalltext" id="msg_37895_extra_info">
+<li class="postcount">Beiträge: 282</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://gurgel100.github.io/Kernel" target="_blank" title="YourOS Kernel"><img alt="YourOS Kernel" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #9 am:</strong> 31. July 2013, 15:10 »</div>
+<div class="posttile"><h5 id="subject_37895">
+<a href="index.html#msg37895" rel="nofollow">Re: Interrupts überschreiben lokale Variablen?</a>
+</h5></div>
+<div id="msg_37895_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_37895">Danke für eure Tipps.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg37892">Zitat von: MNemo am 31. July 2013, 13:16</a></div></div><blockquote class="bbc_standard_quote">Auch für den Kernel kann man im LM einen Stackwechsel erreichen. Man kann über die IST (Interrupt Stack Table) jedem Interrupt einen von insgesamt bis zu 7 festen Stacks zuweisen. Dann muss man nur sicherstellen, dass sich nie zwei Interrupts mit dem selben Stack in die Quere kommen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Danke dass du mich erinnerst, dass es ja auch noch die IST gibt.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg37894">Zitat von: MNemo am 31. July 2013, 14:46</a></div></div><blockquote class="bbc_standard_quote">Eigentlich ist es für Exceptions relativ einfach. Bis auf den DoubleFault können die sich alle den selben Stack teilen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Warum kann sich der DOuble Fault keinen Stack teilen?<br/><br/>Noch eine Frage nebenbei: Wie gross macht ihr euren Stack für den Kernel? Der wird ja eigentlich nur zum Initialisieren benutzt und später nicht mehr. Bei ist er 1MB gross. Könnte man den noch verkleinern? Wie stellt man fest, wieviel maximal vom Stack gebraucht wird? Wie gross sind eure Interrupts-Stacks?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_37895">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_37895_signature">Viele Grüsse<br/>OsDevNewbie<br/><hr/>Ein Computer ohne Betriebsystem ist nicht mehr wert als ein Haufen Schrott.<br/>Ein Computer ist eine Maschine, die einem Lebewesen das kostbarste klaut, was sie selber nicht hat:<br/><strong>DIE ZEIT DES LEBENS</strong></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg37896"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">MNemo</a>
+</h4>
+<ul class="reset smalltext" id="msg_37896_extra_info">
+<li class="postcount">Beiträge: 547</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #10 am:</strong> 31. July 2013, 15:34 »</div>
+<div class="posttile"><h5 id="subject_37896">
+<a href="index.html#msg37896" rel="nofollow">Re: Interrupts überschreiben lokale Variablen?</a>
+</h5></div>
+<div id="msg_37896_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_37896"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg37895">Zitat von: OsDevNewbie am 31. July 2013, 15:10</a></div></div><blockquote class="bbc_standard_quote">Warum kann sich der DOuble Fault keinen Stack teilen?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><del>Weil der Double Fault ausgelöst wird, wenn der Exception handler einer anderen Exception eine weitere Exception auslöst. Der Stack wird also schon benutzt, und würde überschrieben werden. Wenn man den Stack von der Original Exception nicht mehr braucht, weil man so wieso nur noch den Bildschirm rot macht, ist das kein Problem. Aber wenn man den Stack evtl. noch für nen StackTrace braucht, wäre es schlecht den zu überschreiben.</del><br/>Edit: Ok. Ist natürlich zum größten teil Blödsinn. Einen #DF wohl nur wenn es noch vor dem eigentlichen Exception-Handler noch eine Weitere Exception gibt. Lange pausen im OS-dev sind einfach nicht gut.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Noch eine Frage nebenbei: Wie gross macht ihr euren Stack für den Kernel? Der wird ja eigentlich nur zum Initialisieren benutzt und später nicht mehr. Bei ist er 1MB gross. Könnte man den noch verkleinern? Wie stellt man fest, wieviel maximal vom Stack gebraucht wird? Wie gross sind eure Interrupts-Stacks?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich mache meine immer 4k groß. Bis jetzt war das (glaub) ich auch immer genug (aber so komplex ist mein Kernel auch nicht). Aber wie viel ich wirklich brauche weiß ich auch nicht.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_37896">
+								« <em>Letzte Änderung: 31. July 2013, 15:55 von MNemo</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_37896_signature">„Wichtig ist nicht, besser zu sein als alle anderen. Wichtig ist, besser zu sein als du gestern warst!“</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg37897"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Dimension</a>
+</h4>
+<ul class="reset smalltext" id="msg_37897_extra_info">
+<li class="postcount">Beiträge: 155</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #11 am:</strong> 31. July 2013, 16:02 »</div>
+<div class="posttile"><h5 id="subject_37897">
+<a href="index.html#msg37897" rel="nofollow">Re: Interrupts überschreiben lokale Variablen?</a>
+</h5></div>
+<div id="msg_37897_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_37897">Ein 4096 Bytes großer Stack reicht für 42 Funktionsaufrufe mit einem Äquivalent von 10 64-Bit Ints als Parameter oder lokale Variablen. Interrupts sollten nicht re-entrant sein, also nicht während einer ISR auftreten dürfen. Ich setze den Stack an den Segmentanfang um Overflows zu erkennen. In der Mainloop meines Schedulers wird der Kernel-Stack nach jedem Task zurückgesetzt, da hier eh keine lokalen Variablen liegen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_37897">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg37898"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_37898_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #12 am:</strong> 01. August 2013, 08:48 »</div>
+<div class="posttile"><h5 id="subject_37898">
+<a href="index.html#msg37898" rel="nofollow">Re: Interrupts überschreiben lokale Variablen?</a>
+</h5></div>
+<div id="msg_37898_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_37898"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg37894">Zitat von: MNemo am 31. July 2013, 14:46</a></div></div><blockquote class="bbc_standard_quote">Edit: Schein bar habe ich da den Double Fault falsch verstanden. Damit ist dass dann doch nicht so einfach wie ich dachte. Außer man schreibt einfach fehlerfreie Exception-Handler  <img alt=":-D" class="smiley" src="../../../assets/forum/40e5b6b3635b5359f55907e5.gif" title="grin"/>.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Exceptions bedeuten nicht immer Fehler. Du musst dazu noch auf jeden planmäßigen Einsatz von Exceptions verzichten. Also kein Swapping oder COW für irgendwelchen Kernelcode, zum Beispiel. Bei einem Mikrokernel macht das nichts, bei einem Monolithen tut es vermutlich auf die Dauer weh.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_37898">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_37898_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] 
+				</div></div>
+<div class="nextlinks_bottom"><a href="../3262/index.html#msg37906">« vorheriges</a> <a href="../3260/index.html#msg37868">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/2/index.html"><span>Lowlevel-Coding</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Interrupts überschreiben lokale Variablen?</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.007 Sekunden mit 31 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

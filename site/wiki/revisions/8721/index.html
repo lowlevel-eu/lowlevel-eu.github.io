@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Crosscompiler für Windows – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Crosscompiler_für_Windows rootpage-Crosscompiler_für_Windows skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1450/index.html">Aktueller Artikel</a> · <a href="../../history/1450/index.html">Versionsgeschichte</a> · <a href="../../source/8721.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Crosscompiler für Windows</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 27. Oktober 2010, 14:17 Uhr von <a class="mw-userlink" href="../../pages/2377/index.html" title="Benutzer:PNoob"><bdi>PNoob</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/8353-8721.html" title="Crosscompiler für Windows">Unterschied</a>) <a href="../8353/index.html" title="Crosscompiler für Windows">← Nächstältere Version</a> | <a href="../../pages/1450/index.html" title="Crosscompiler für Windows">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../8722/index.html" title="Crosscompiler für Windows">Nächstjüngere Version →</a> (<a href="../../diffs/8721-8722.html" title="Crosscompiler für Windows">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Für Windows wird ein <a href="../../pages/1628/index.html" title="Cross-Compiler">Cross-Compiler</a> benötigt, um <a class="mw-redirect" data-archive-original-href="../../pages/1650/index.html" href="../../pages/1528/index.html" title="ELF">ELF</a>-Dateien zu erstellen, denn die MinGW- und cygwin-Compiler unterstützen dieses Format nicht. Das ELF-Format bietet gegenüber dem PE-Format von Windows den Vorteil, dass es weniger Sonderbehandlung und Workarounds bei der Entwicklung eines Betriebssystems benötigt. Die Verwendung eines Cross-Compilers bietet darüber hinaus mehr Kontrolle über den Ablauf des Kompiliervorgangs.
+</p><p>Dieser Artikel soll eine kleine Anleitung sein, wie man einen vorkompilierten <a class="mw-redirect" data-archive-original-href="../../pages/1846/index.html" href="../../pages/1805/index.html" title="GCC">GCC</a> unter Windows so installiert, dass man damit <a href="../../pages/1796/index.html" title="Týndur">týndur</a> kompilieren kann. Allerdings ist der verwendete Compiler nicht auf ein bestimmtes System beschränkt, sondern erzeugt Dateien für das allgemeine Target <i>i586-elf</i>. Es sollte also kein Problem sein, diesen Compiler für ein anderes OS einzusetzen.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Download"><span class="tocnumber">1</span> <span class="toctext">Download</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Installation"><span class="tocnumber">2</span> <span class="toctext">Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#MSYS_einrichten"><span class="tocnumber">2.1</span> <span class="toctext">MSYS einrichten</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#NASM"><span class="tocnumber">2.2</span> <span class="toctext">NASM</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Cross-Compiler_Kommandozeile"><span class="tocnumber">3</span> <span class="toctext">Cross-Compiler Kommandozeile</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#t.C3.BDndur-Disketten-Images"><span class="tocnumber">4</span> <span class="toctext">týndur-Disketten-Images</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Feedback"><span class="tocnumber">5</span> <span class="toctext">Feedback</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Probleme"><span class="tocnumber">6</span> <span class="toctext">Probleme</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#gcc:_CreateProcess:_No_such_file_or_directory"><span class="tocnumber">6.1</span> <span class="toctext">gcc: CreateProcess: No such file or directory</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#error:_no_include_path_in_which_to_search_for_stdio.h_.28oder_andere_.h.29"><span class="tocnumber">6.2</span> <span class="toctext">error: no include path in which to search for stdio.h (oder andere .h)</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#crt0.o:_No_such_file_or_directory"><span class="tocnumber">6.3</span> <span class="toctext">crt0.o: No such file or directory</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Siehe_auch"><span class="tocnumber">7</span> <span class="toctext">Siehe auch</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Download">Download</span></h2>
+<p>Der Compiler ist verfügbar unter <a class="external free" href="http://jidder.de/lost/files/crosstools-complete.rar" rel="nofollow">http://jidder.de/lost/files/crosstools-complete.rar</a>. Darin enthalten sind
+</p>
+<ul><li>GCC 4.4.0 (C- und C++-Compiler)</li>
+<li>binutils 2.19.1</li>
+<li>newlib 1.17.0 und libstdc++ (C- bzw. C++-Standardbibliothek)</li></ul>
+<p>Ein neuerer Compiler Build ist <a class="external text" href="http://pnoob.bplaced.net/downloads/i586-elf.rar" rel="nofollow">hier</a> zu finden. Darin enthalten sind
+</p>
+<ul><li>GCC 4.5.1 (C -C++-Compiler)</li>
+<li>Binutils 20.20</li></ul>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>Im Prinzip reicht es, das Archiv zu entpacken (z.B. nach C:\crosstools), und in die PATH-Variable das Verzeichnis C:\crosstools\bin einzutragen. Alle Programme haben dann das Präfix "i586-elf-". Zum Beispiel kann der C-Compiler mit <i>i586-elf-gcc</i> aufgerufen werden.
+</p><p>týndur erwartet, dass dieses Präfix in der <i>config.sh</i> eingetragen wird, damit die Makefiles den Compiler finden. Dazu muss die Variable <i>COMPILER_PREFIX_I386</i> in Zeile 3 mittels <i>COMPILER_PREFIX_I386=i586-elf-</i> entsprechend gesetzt werden.
+</p><p>Alternativ kann man statt C:\crosstools\bin auch C:\crosstools\i586-elf\bin in die PATH-Variable eintragen. Dann haben die Programme kein Präfix und heißen einfach <i>gcc</i>, <i>ld</i>, etc. Das kann allerdings unter Umständen zu Problemen führen, wenn noch mehr Compiler in der PATH-Variable eingetragen sind.
+</p>
+<h3><span class="mw-headline" id="MSYS_einrichten">MSYS einrichten</span></h3>
+<p>Für weitere Werkzeuge wie make, bash usw. wird wie bei MinGW die MSYS-Umgebung benötigt. Wenn MSYS bereits installiert ist, kann es problemlos weiter verwendet werden. In der Regel bedeutet das, dass das MSYS-Verzeichnis (Standard C:\msys\bin) ebenfalls in die PATH-Variable eingetragen werden muss.
+</p><p>Wenn bisher noch kein MinGW installiert war, ist vermutlich auch MSYS noch nicht eingerichtet. MSYS kann auf der <a class="external text" href="http://sourceforge.net/projects/mingw/files/MSYS/" rel="nofollow">SourceForge-Seite von MinGW</a> heruntergeladen werden. Um MSYS zu verwenden, muss dann das bin-Verzeichnis ebenfalls in die PATH-Umgebungsvariable eingetragen werden.
+</p>
+<h3><span class="mw-headline" id="NASM">NASM</span></h3>
+<p>Für týndur wird als Assembler außerdem NASM benötigt, den es auch auf SourceForge zum <a class="external text" href="http://sourceforge.net/projects/nasm/files/" rel="nofollow">Download</a> gibt. Diesen auch einfach installieren.
+</p>
+<h2><span class="mw-headline" id="Cross-Compiler_Kommandozeile">Cross-Compiler Kommandozeile</span></h2>
+<p>Ich verwende für týndur eine Batch-Datei, die mir die Umgebung einrichtet. Sie richtet die PATH-Variable ein, und startet die Kommandozeile. Zum Beispiel kann sie so aussehen:
+</p>
+<pre>SET PATH=C:\msys\bin;C:\crosstools\bin;C:\Programme\NASM;%PATH%
+cmd /k cls
+</pre>
+<p>Diese Datei kopiere ich mir in das Wurzelverzeichnis des Quelltextbaums von týndur und starte sie. Durch die Eingabe von <i>make</i> sollte dann týndur vollständig kompilieren.
+</p>
+<h2><span id="týndur-Disketten-Images"></span><span class="mw-headline" id="t.C3.BDndur-Disketten-Images">týndur-Disketten-Images</span></h2>
+<p>Das Buildsystem von týndur ist nicht darauf ausgelegt unter Windows ein GRUB-Image zu erstellen, deswegen ist dort eine alternative Lösung gefragt. Dieses Thema gehört zwar nicht mehr direkt zum Cross-Compiler, aber da dieses mehr oder wenige eine Anleitung ist, wie man týndur unter Windows baut, schreibe ich das vorerst mal hierhin. 
+</p><p>Um die GRUB-Problematik zu umgehen, ist es am einfachsten einfach ein fertiges Image (z.B. von den <a class="external text" href="http://download.tyndur.org/releases/" rel="nofollow">Releases</a>) nehmen, und darauf die Dateien von Hand zu kopieren. Diese Images kann man zum Beispiel mit <a href="../../pages/2063/index.html" title="Virtual Floppy Drive">Virtual Floppy Drive</a> als virtuelles Laufwerk einbinden, um sie zu verändern.
+</p><p>Nachdem du týndur mit <i>make</i> kompiliert hast, kannst du mit <i>make updateroot</i> die erstellten Programme in der passenden Verzeichnisstruktur zusammenstellen lassen. Das Ergebnis landet im Verzeichnis <i>build\root</i> und den Inhalt davon kannst du dann einfach auf das Disketten-Image kopieren und ggf. boot/grub/menu.lst anpassen.
+</p>
+<h2><span class="mw-headline" id="Feedback">Feedback</span></h2>
+<p>Feedback im Forum, im IRC oder auf der Diskussionsseite ist erwünscht. Besonders, wenn irgendwas nicht funktioniert.
+</p>
+<h2><span class="mw-headline" id="Probleme">Probleme</span></h2>
+<h3><span class="mw-headline" id="gcc:_CreateProcess:_No_such_file_or_directory">gcc: CreateProcess: No such file or directory</span></h3>
+<ul><li>Die beste Lösung dafür ist, nicht gcc.exe und die anderen Programme im Verzeichnis i586-elf\bin zu benutzen, sondern die i586-elf-gcc.exe und so weiter im Verzeichnis bin.</li>
+<li>Alternative: Dieser Fehler tritt auf, weil der gcc die Datei cc1.exe nicht finden kann. Man könnte diese (und cc1plus.exe und collect2.exe) als Workaround einfach von libexec\gcc\i586-elf\4.4.0 nach i586-elf\bin kopieren. Das sorgt allerdings unter Umständen für weitere Probleme, wenn man die mitgelieferte Bibliotheken nutzen will, siehe z.B. nächstes Problem.</li>
+<li>Ein Auftreten dieser Meldung bei i586-elf-gcc (der eigentlich nicht das Problem haben sollte) wurde im Forum durch den selben Workaround gelöst. <a class="external autonumber" href="../../../forum/topics/2345/index.html#msg26522" rel="nofollow">[1]</a></li></ul>
+<h3><span id="error:_no_include_path_in_which_to_search_for_stdio.h_(oder_andere_.h)"></span><span class="mw-headline" id="error:_no_include_path_in_which_to_search_for_stdio.h_.28oder_andere_.h.29">error: no include path in which to search for stdio.h (oder andere .h)</span></h3>
+<p>Eins vorweg: Die Verwendung der mitgelieferten Bibliotheken ist etwas tricky, weil dieser Compiler für das generische target i586-elf und nicht für ein bestimmtes Betriebssystem kompiliert wurde. Für alle Funktionen fehlen deswegen die Systemaufrufe, die die eigentliche Arbeit machen. Das heißt die meisten Standardfunktionen machen entweder nichts, oder bringen den Kernel/das Programm zum Absturz.
+</p>
+<ul><li>Die Lösung dafür ist, nicht gcc.exe und die anderen Programme im Verzeichnis i586-elf\bin zu benutzen, sondern die i586-elf-gcc.exe und so weiter im Verzeichnis bin.</li></ul>
+<h3><span class="mw-headline" id="crt0.o:_No_such_file_or_directory">crt0.o: No such file or directory</span></h3>
+<p>Dieser Compiler wurde für das generische Target i586-elf und nicht für ein bestimmtes Betriebssystem kompiliert. Weil crt0.o für jedes Betriebssystem anders ist, ist diese nicht mitgeliefert. 
+</p>
+<ul><li>Lösung: crt0.o im Linkerskript nicht erwähnen, oder selbst etwas gleichwertiges bereitstellen.</li></ul>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a href="../../pages/1628/index.html" title="Cross-Compiler">Cross-Compiler</a></li>
+<li><a href="../../pages/2060/index.html" title="X86-64 Cross-Compiler">Cross-Compiler für x86-64-Systeme</a></li>
+<li><a href="../../pages/2099/index.html" title="ARM Cross-Compiler">Cross-Compiler für ARM-Systeme</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165008
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.005 seconds
+Real time usage: 0.006 seconds
+Preprocessor visited node count: 47/1000000
+Preprocessor generated node count: 52/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Crosscompiler_für_Windows&amp;oldid=8721</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li><li><a href="../../pages/1923/index.html" title="Kategorie:Compiler">Compiler</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1450/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2663/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1450/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

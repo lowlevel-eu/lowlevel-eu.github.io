@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Keyboard Controller – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Keyboard_Controller rootpage-Keyboard_Controller skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1468/index.html">Aktueller Artikel</a> · <a href="../../history/1468/index.html">Versionsgeschichte</a> · <a href="../../source/10545.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Keyboard Controller</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 29. März 2012, 09:40 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Livinskull</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Links">→</a>‎<span dir="auto"><span class="autocomment">Links: </span>  Link zu Datenblatt eines KBC</span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/9541-10545.html" title="Keyboard Controller">Unterschied</a>) <a href="../9541/index.html" title="Keyboard Controller">← Nächstältere Version</a> | <a href="../../pages/1468/index.html" title="Keyboard Controller">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../11088/index.html" title="Keyboard Controller">Nächstjüngere Version →</a> (<a href="../../diffs/10545-11088.html" title="Keyboard Controller">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Der <b>Keyboard-Controller</b> oder auch <b>KBC</b> ist ein Baustein auf dem Mainboard und dient (unter anderem) der Tastaturansteuerung. Ursprünglich von IBM entwickelt, wurde der Keyboard-Controller in seiner Funktion stark erweitert, wodurch sich heutzutage viele Aufgaben über selbigen erledigen lassen.
+</p><p><br/>
+Der KBC wurde mit dem AT-System (i286) eingeführt. Im Vorgängersystem XT wurde für vergleichbare Aufgaben das Programmable Peripheral Interface (PPI) genutzt.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Funktionen_des_KBC"><span class="tocnumber">1</span> <span class="toctext">Funktionen des KBC</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Kommunikationswege"><span class="tocnumber">2</span> <span class="toctext">Kommunikationswege</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#USB_Legacy_Support"><span class="tocnumber">3</span> <span class="toctext">USB Legacy Support</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Programmieren_des_KBC"><span class="tocnumber">4</span> <span class="toctext">Programmieren des KBC</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Statusregister"><span class="tocnumber">4.1</span> <span class="toctext">Statusregister</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Input_Port_P1"><span class="tocnumber">4.2</span> <span class="toctext">Input Port P1</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Outputport"><span class="tocnumber">4.3</span> <span class="toctext">Outputport</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Controller_Command_Byte"><span class="tocnumber">4.4</span> <span class="toctext">Controller Command Byte</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#KBC-Befehle"><span class="tocnumber">4.5</span> <span class="toctext">KBC-Befehle</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Tastatur-Befehle"><span class="tocnumber">4.6</span> <span class="toctext">Tastatur-Befehle</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Tastaturtreiber"><span class="tocnumber">5</span> <span class="toctext">Tastaturtreiber</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Initialisierung"><span class="tocnumber">5.1</span> <span class="toctext">Initialisierung</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#IRQ-Handler"><span class="tocnumber">5.2</span> <span class="toctext">IRQ-Handler</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Beispiele_zur_Benutzung_der_KBC_Funktionen"><span class="tocnumber">6</span> <span class="toctext">Beispiele zur Benutzung der KBC Funktionen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#CPU-Reset"><span class="tocnumber">6.1</span> <span class="toctext">CPU-Reset</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Links"><span class="tocnumber">7</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Funktionen_des_KBC">Funktionen des KBC</span></h2>
+<ul><li>Ansteuerung eines oder zweier Auxiliary Port(s) (Tastatur, Maus)</li></ul>
+<ul><li>Ein-/ausschalten der 21. Adressleitung (<a href="../../pages/1462/index.html" title="A20-Gate">A20-Gate</a>)</li></ul>
+<ul><li>CPU-Reset auslösen, also Neustart des Systems</li></ul>
+<ul><li>Zusammen mit dem <a href="../../pages/1432/index.html" title="Programmable Interval Timer"> PIT</a> den <a href="../../pages/1570/index.html" title="Systemlautsprecher">Systemlautsprecher</a> ansteuern.</li></ul>
+<ul><li>Information darüber, ob das System eine Monochrom- oder Farbgrafikkarte benutzt (Irrelevant, da Farbgrafik bereits mit XT-Systemen als Standard eingeführt wurde!)</li></ul>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Kommunikationswege">Kommunikationswege</span></h2>
+<p><br/>
+<a class="image" href="../../pages/2262/index.html"><img alt="Kbc logic.png" height="437" src="../../../assets/wiki/06f025822c4a283706ab45a4.png" width="569"/></a>
+<br/>
+<br/>
+</p><p>Normalerweise wird der erste Auxiliary Port (PSAUX0*) für eine Tastatur verwendet und an den zweiten (PSAUX1*) eine Maus oder ein anderes Zeigegerät angeschlossen. Technisch unterscheiden sich die beiden Ports nicht. Daher kann man dort beliebige Gerätekombinationen anschließen, solange das BIOS nicht mit einer Fehlermeldung stoppt, weil es bestimmte Geräte an bestimmten Ports erwartet. Beliebige Gerätekombinationen werden z. B. von Linux unterstützt, nicht jedoch von Windows.<br/>
+</p><p>(*Anmerkung zu PSAUX0 und PSAUX1: Diese Begriffe habe ich mir „ausgedacht“, da ich keine vernünftige offizielle Bezeichnung kenne. Man wird diese Begriffe also in keiner anderen Referenz finden, außer es wurde hier abgeschrieben.)
+<br/>
+</p>
+<h2><span class="mw-headline" id="USB_Legacy_Support">USB Legacy Support</span></h2>
+<p>Diese von vielen Mainboards bereitgestellte Funktion simuliert angeschlossene USB-Geräte wie Maus und Tastatur als PS/2-Geräte.<br/>
+<br/>
+Dies hat für Programmierer Vor- und Nachteile. Einerseits muss man für die Unterstützung solcher Eingabegeräte keine eigenen USB-Treiber programmieren. Andererseits können damit folgende Probleme auftreten:<br/>
+</p>
+<ul><li>Auf manchen Systemen läuft IMMER eine Abstraktionsschicht mit, auch wenn keine USB-Geräte angeschlossen sind. Dies kann zur Folge haben, dass die Intellimaus-Extension nicht funktioniert. Oder dass man nicht, wie weiter oben beschrieben, beliebige Geräte an einen PSAUX-Port anschließen kann (werden nicht erkannt).</li>
+<li>Das <a class="mw-redirect" data-archive-original-href="../../pages/1700/index.html" href="../../pages/1699/index.html" title="SMM">SMM-BIOS</a>, über welches die USB-zu-PS/2-Abstraktion stattfindet, unterstützt nicht immer den Betrieb über 32-Bit-<a href="../../pages/1464/index.html" title="Protected Mode">Protected-Mode</a>. Die Benutzung erweiterter Speichertechniken oder des <a href="../../pages/1666/index.html" title="Long Mode">Long Mode</a> kann das System daher zum Absturz bringen!</li></ul>
+<p><br/>
+Diese Probleme sind nicht mehr vorhanden, wenn der Legacy-Modus ausgeschaltet wurde. Dies geschieht während der Initialisierung des USB-Hostcontrollers.
+</p>
+<h2><span class="mw-headline" id="Programmieren_des_KBC">Programmieren des KBC</span></h2>
+<p>Programmiert wird der KBC über die zwei Ports 0x60 und 0x64. Dabei werden auf den Ports nur Bytes gesendet und empfangen.<br/>
+<br/>
+Über den Port 0x64 kann man das Statusregister auslesen und KBC-Befehle senden.<br/>
+<br/>
+Der Port 0x60 dient als Ein-/Ausgabe-Puffer. Parameter oder Rückgabewerte für einen Befehl werden über diesen Port geschrieben bzw. gelesen. Wenn keine Befehlsparameter erwartet werden und man auf den Port 0x60 schreibt, wird direkt an PSAUX0 weitergeleitet.<br/>
+</p>
+<ul><li>Vor dem Schreiben auf Port 0x60 oder 0x64 muss der Eingabepuffer leer sein. (Port[0x64].Bit[1] == 0)</li>
+<li>Vor dem Lesen von Port 0x60 muss der Ausgabepuffer voll sein (Port[0x64].Bit[0] == 1)</li></ul>
+<h3><span class="mw-headline" id="Statusregister">Statusregister</span></h3>
+<p>Wird vom Port 0x64 gelesen und ist folgendermaßen aufgebaut:
+</p>
+<pre>Bit 76543210
+    │││││││└─ Status des Ausgabepuffers (KBC -&gt; CPU): 0=leer; 1=voll (es kann von Port 0x60 gelesen werden)
+    ││││││└── Status des Eingabepuffers (KBC &lt;- CPU): 0=leer (Schreiben auf 0x60 oder 0x64 möglich); 1=voll
+    │││││└─── 1=Erfolgreicher Selbsttest (Wie Controller_Command_Byte.Bit[3]; sollte immer 1 sein)
+    ││││└──── zuletzt benutzter Port: 0=0x60; 1=0x61 oder 0x64?
+    │││└───── Tastatursperre: 0=Tastatur gesperrt; 1=Tastatur nicht gesperrt
+    ││└────── PSAUX?
+    │└─────── Timeout: 1=Tastatur oder PSAUX-Gerät reagiert nicht?
+    └──────── Paritätsfehler: 1=Beim letzten gesendeten/empfangenen Byte trat ein Paritätsfehler auf
+</pre>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Input_Port_P1">Input Port P1</span></h3>
+<p>Nur aus Vollständigkeitsgründen hier aufgeführt! Wie man auf einem kurzen Blick erkennen kann, sind diese Werte heute nicht mehr relevant. Gelesen wird er über den KBC-Befehl 0xC0.
+</p>
+<pre>Bit 76543210
+    │││││││└─ Keyboard data in pin?
+    ││││││└── PS/2 mouse in pin?
+    │││││└─── Unused in ISA, EISA, PS/2 systems, Can be configured for clock switching
+    ││││└──── Unused in ISA, EISA, PS/2 systems, Can be configured for clock switching
+    │││└───── Speicher auf dem Mainboard:  0= 512 KB, 1= 256 KB
+    │││       
+    ││└────── Manufacturing jumper 0=installed, 1=not installed
+    ││        with jumper the BIOS runs an infinite diagnostic loop
+    │└─────── Grafikkarte: 0=Color Graphics Adapter (CGA), 1=Monochrome Display Adapter (MDA)
+    │         Kleiner Tipp: CGA wurde mit den XT-System eingeführt. ;)
+    └──────── Tastatursperre: 0=Tastatur gesperrt; 1=Tastatur nicht gesperrt
+</pre>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Outputport">Outputport</span></h3>
+<p>Wird mit dem KBC-Befehl 0xD0 ausgelesen und per 0xD1 geschrieben:
+</p>
+<pre>Bit 76543210
+    │││││││└─ 1=CPU-Reset
+    ││││││└── 1=A20-Gate eingeschaltet
+    │││││└─── ? PS/2 mouse data out
+    ││││└──── ? PS/2 mouse clock signal
+    │││└───── ? 1: Output buffer full
+    ││└────── ? 1: Output buffer PS/2 mouse full
+    │└─────── ? Keyboard clock signal
+    └──────── ? Keyboard data out
+</pre>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Controller_Command_Byte">Controller Command Byte</span></h3>
+<p>Wird mit dem KBC-Befehl 0x20 ausgelesen und per 0x60 geschrieben:
+</p>
+<pre>Bit 76543210
+    │││││││└─ 1=Erzeuge einen IRQ 1, wenn PSAUX0 Daten auf Port 0x60 ausgibt
+    ││││││└── 1=Erzeuge einen IRQ 12, wenn PSAUX1 Daten auf Port 0x60 ausgibt
+    │││││└─── 1=Erfolgreicher Selbsttest (Wie Statusregister.Bit[3]; sollte immer 1 sein)
+    ││││└──── AT  : 1=Tastatursperre Ignorieren (Statusregister Bit4 immer 1)
+    ││││      PS/2: 0 (unbenutzt)
+    │││└───── 1 = Die Taktleitung zu PSAUX0 auf low halten und damit das Senden/Empfangen unterbinden
+    ││└────── EISA, PS/2 : 1 = Die Taktleitung zu PSAUX1 auf low halten und damit das Senden/Empfangen unterbinden
+    ││        ISA : 0 = Benutze 11 Bit Übertragung, Paritätsüberprüfung und konvertiere PSAUX0 Bytes*
+    ││              1 = Benutze 8086 Übertragung, keine Paritätsüberprüfung oder Konvertierung 
+    │└─────── ? 1=Der KBC übersetzt von PSAUX eingehenden Bytes*
+    └──────── 0 (reserviert)
+</pre>
+<p><br/>
+</p>
+<ul><li><a class="external text" href="http://www.win.tue.nl/~aeb/linux/kbd/scancodes-10.html#translationtable" rel="nofollow">KBC-Scancode-Übersetzung</a></li></ul>
+<h3><span class="mw-headline" id="KBC-Befehle">KBC-Befehle</span></h3>
+<p>Müssen auf Port 0x64 ausgegeben werden (bevor man auf Port 0x64 schreibt, muss der Ausgabepuffer leer sein (Port[0x64].Bit[1]==0) und die Tastatur darf sich nicht mehr im Resetmodus befinden (Port[0x64].Bit[2]==1))
+</p>
+<pre>0xAA   Tastatur-Selbsttest. Sollte 0x55 auf Port 0x60 zurückgeben.
+
+0xAB   Testen des Tastaturanschlusses. Auf Port 0x60 wird ein Byte zurückgegeben:
+
+	     00h: No error
+	     01h: Clock low
+	     02h: Clock high
+	     03h: Data low
+	     04h: Data high
+	     ffh: Total Error
+
+0xAD   Deaktivieren der Tastatur
+
+0xAE   Aktivieren der Tastatur
+
+0xC0   Lesen des Inputports. Gibt den Inhalt vom Inputport auf Port 0x60 aus. (Siehe: Inputport)
+
+0xD0   Lesen des Outputports. Gibt den Inhalt vom Outputport auf Port 0x60 aus. (Siehe: Outputport)
+
+0xD1   Schreiben des Outputports. Den neuen Wert für das Outputport auf Port 0x60 schreiben. (Siehe: Outputport)
+
+0xD2   ?
+0xD3   ?
+0xD4   ?
+
+0xE0   ?
+
+0xFx   ?
+
+
+</pre>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Tastatur-Befehle">Tastatur-Befehle</span></h3>
+<p>Werden auf Port 0x60 ausgegeben (bevor man auf Port 0x60 schreibt, muss der Ausgabepuffer leer sein (Port[0x64].Bit[1]==0) und die Tastatur darf sich nicht mehr im Resetmodus befinden (Port[0x64].Bit[2]==1))
+</p>
+<pre>0xED   Setzen der LEDs auf der Tastatur. Ein zweites Byte wird über Port 0x60 gesendet:
+
+       Bit 76543210
+           │││││││└─ Scroll Lock : 0=aus 1=an
+           ││││││└── Num Lock    : 0=aus 1=an
+           │││││└─── Caps Lock   : 0=aus 1=an
+           └┴┴┴┴──── 0
+
+0xEE   Dieser Befehl ist zum Testen der Tastatur. Die Tastatur sollte mit 0xEE antworten.
+
+0xF0   Auswählen des Scancodes. Als Parameter den Scancode 1, 2 (Standard) oder 3 an Port 0x60 senden.
+       Mit dem Wert 0 als Parameter kann man den aktuellen Scancode von Port 0x60 auslesen
+
+0xF2   Diesen Befehl sendet man zum Identifizieren der Tastatur. Es gibt folgende Rückgabewerte:
+
+       XT-Tastatur    :  Timeout (leider NICHT Port[0x64].Bit[6]=1, sondern selbst zu messender Zweitwert)
+       AT-Tastatur    :  Rückgabewert 0xFA
+       MF-II-Tastatur :  Rückgabewert 0xFA 0xAB 0x41
+
+0xF3   Setzen der Wiederholrate für gedrückte Tasten. Ein zweites Byte wird über Port 0x60 gesendet:
+
+       Bit 76543210
+           │││└┴┴┴┴─ Wiederholrate der Taste nach der Wartezeit
+           │││       Wert  : Wiederholungen pro Sekunde
+           │││       00000 : 30
+           │││       00001 : 26,7
+           │││       00010 : 24
+           │││       00100 : 20
+           │││       01000 : 15
+           │││       01010 : 10
+           │││       01101 :  9
+           │││       10000 :  7,5
+           │││       10100 :  5
+           │││       11111 :  2
+           │││
+           │└┴────── Wartezeit, bevor eine gehaltene Taste wiederholt wird.
+           │         00 :  250 ms
+           │         01 :  500 ms
+           │         10 :  750 ms
+           │         11 : 1000 ms
+           │
+           └──────── 0
+
+0xF4   Aktivieren der Tastatur. Wenn ein Übertragungsfehler aufgetreten ist, muss           
+       die Tastatur mit diesem Kommando neu aktiviert werden, der interne Puffer
+       wird dabei gelöscht.
+
+0xF5   Tastatur deaktivieren und Standardwerte setzen. Der Puffer wird gelöscht, 
+       die LEDs werden abgeschaltet, Wiederholrate und Wartezeit werden auf 
+       Standardwerte zurückgesetzt und die Tastatur wird deaktiviert (es werden 
+       keine Tastenanschläge mehr übertragen)
+
+0xF6   Standardwerte setzen
+
+0xFE   Wird nur intern vom Keyboardcontroller an die Tastatur gesendet. Ist nicht
+       für die Nutzung mit der CPU gedacht.
+
+0xFF   Tastatur-Reset und Selbsttest. Rückgabe 0xAA, wenn Test erfolgreich, sonst 
+       0xFC
+
+</pre>
+<h2><span class="mw-headline" id="Tastaturtreiber">Tastaturtreiber</span></h2>
+<p>Im Folgenden soll genauer auf die Ansteuerung der Tastatur als ganzes
+eingegangen werden, also das Auslesen und Verarbeiten der vom Benutzer
+gedrückten Tasten. Dabei wird nur die manuelle Ansteuerung ohne
+BIOS-Funktionen behandelt, wie sie benötigt wird, wenn die Tastatur im
+Protected Mode angesteuert werden soll. Es wird davon ausgegangen, dass die
+entsprechenden Grundlagen für den Treiber gegeben sind (IRQ-Behandlung,
+Port-Funktionen).
+</p>
+<h3><span class="mw-headline" id="Initialisierung">Initialisierung</span></h3>
+<p>Bevor man die Tastatur benutzt, ist es ratsam, sie erst einmal in einen bekannten,
+sauberen Zustand zu bringen. Im 
+<a class="external text" href="http://git.tyndur.org/?p=tyndur.git;a=blob;f=src/modules/kbc/keyboard.c" rel="nofollow">Tastaturtreiber von týndur</a>
+hat sich nach einigem Herumexperimentieren mit verschiedenen Emulatoren die
+folgende einfache Initialisierung bewährt:
+</p>
+<ul><li>Solange das Bit 0 im Statusregister (Puffer voll) gesetzt ist, Bytes aus dem Datenregister lesen. Das hilft, wenn schon vor der Initialisierung des Treibers irgendwelche Tasten betätigt wurde, da der KBC dann keine weiteren Zeichen sendet, bis der Puffer geleert (ausgelesen wurde). Das tritt zum Beispiel im Zusammenhang mit GRUB oft auf, wenn der Benutzer die Taste zu lange gedrückt hält.</li>
+<li>Tastatur mit Befehl 0xF4 aktivieren. Andere Kombinationen wurden auch getestet, haben aber Probleme bereitet, unter anderem war Zeitweise ein Reset der Tastatur drin, was dazu geführt hat, dass diese unter gewissen Emulatoren überhaupt nicht mehr funktionierte.</li></ul>
+<p>Dieser Code könnte beispielsweise folgendermaßen aussehen:
+&lt;c&gt;
+static void send_command(uint8_t command);
+void init_keyboard(void)
+{
+</p>
+<pre>   // IRQ-Handler fuer Tastatur-IRQ(1) registrieren
+   register_intr_handler(IRQ_BASE + 1, &amp;irq_handler);
+</pre>
+<pre>   // Tastaturpuffer leeren
+   while (inb(0x64) &amp; 0x1) {
+       inb(0x60);
+   }   
+</pre>
+<pre>   // Tastatur aktivieren
+   send_command(0xF4);
+</pre>
+<p>}
+</p><p>/** Befehl an die Tastatur senden */
+static void send_command(uint8_t command)
+{
+</p>
+<pre>   // Warten bis die Tastatur bereit ist, und der Befehlspuffer leer ist
+   while ((inb(0x64) &amp; 0x2)) {}
+   outb(0x60, command);
+</pre>
+<p>}
+&lt;/c&gt;
+</p><p>In einem vernünftigen Betriebssystem möchte man die Tastatur wahrscheinlich
+mit IRQs nutzen, damit man jeweils benachrichtigt wird, wenn eine Taste
+gedrückt wird, und nicht darauf warten muss. Dabei ist es wichtig, dass die
+Routine zur Behandlung der Tastatur-IRQs vor der oben angegebenen
+Initialisierung erfolgt, da sich sonst möglicherweise üble <a href="../../pages/2013/index.html" title="Race Condition">Race-Conditions</a>
+ergeben, also konkret, wenn der Puffer bereits geleert wurde und noch vor dem
+Registrieren der IRQ-Routine eine Taste gedrückt wird, dann ist der Puffer
+der Tastatur voll, und sie schickt somit auch keine IRQs mehr, bis er geleert
+wird, was aber dann nicht mehr passiert, und die Tastatur hängt somit.
+</p>
+<h3><span class="mw-headline" id="IRQ-Handler">IRQ-Handler</span></h3>
+<p>Nun sind wir also bereit, Tastendrücke von der Tastatur einzulesen. Im Folgenden wird genauer darauf eingegangen, wie wir die Tastendrücke, die wir
+vom Controller über einen IRQ signalisiert erhalten, verarbeiten können.
+</p><p>Der erste und wichtigste Schritt in unserer IRQ-Behandlungsroutine ist es,
+das vom Tastaturkontroller bereitgestellte Byte aus dem Puffer zu lesen. In
+einem weiteren Schritt müssen wir jetzt entscheiden, womit wir es bei diesem
+Byte nun genau zu tun haben. Eine erste Unterscheidung, die wir machen müssen,
+ist die Unterteilung in gedrückte und gelöste Tasten, was uns durch das oberste
+Bit im eingelesenen Byte signalisiert wird.
+</p><p>Der Rest des Bytes ist ein Scancode,
+der uns angibt um welche Taste es sich handelt. Dieser Scancode hat überhaupt
+nichts mit irgendwelchen Zeichen zu tun, er gibt uns nur, an welche Taste
+gedrückt oder gelöst wurde und muss von uns manuell mit einer Scancode-Tabelle
+in die korrespondierenden Zeichen umgewandelt werden. Dabei muss man sich
+bewusst sein, dass für die Tastatur eine Steuertaste, wie zum Beispiel die
+Umschalttaste oder Capslock, genau das selbe ist wie beispielsweise ein „a“.
+Wird beispielsweise [Umschalt]+[a] gedrückt, um ein großes „a“ zu erhalten, schickt
+uns der Tastaturcontroller 2 Bytes, eines Umschalttaste gedrückt und ein anderes
+„a“ gedrückt. Es ist also Aufgabe des Treibers, diese Tasten entsprechend zu
+interpretieren.
+</p><p>Um das Ganze noch komplizierter zu machen, gibt es noch so genannte <i>Extented</i>
+Scancodes<i>, davon gibt es zwei verschiedene Sorten. Diese werden mit E0 und E1</i>
+bezeichnet, und bestehen aus zwei respektive drei Bytes. Das erste Byte eines
+E0-Scancodes hat überraschenderweise den Wert 0xE0, während das zweite Byte beinhaltet, um
+welchen e0-Scancode es sich genau handelt. E1-Scancodes bestehen aus 3 Bytes,
+das erste hat den Wert 0xE1, während die folgenden zwei Bytes zu einem
+Scancode-Wert kombiniert werden. Dabei muss beachtet werden, dass bei den
+Extended-Scancodes das Bit 8 des zweiten und dritten Bytes darüber Aufschluss gibt, ob es
+sich um eine gedrückte oder eine gelöste Taste handelt. Die einzelnen Bytes der
+E0-Scancodes werden mit unterschiedlichen IRQs gesendet, man muss sich den
+aktuellen Zustand im Code also irgendwie merken. Bei Extended Scancodes
+gibt es noch eine weitere Stolperfalle und zwar sind das die so genannten <i>„fake</i>
+shifts“<i> <a class="external text" href="http://www.win.tue.nl/~aeb/linux/kbd/scancodes-1.html#ss1.6" rel="nofollow">vgl.</a></i>
+</p><p>So, nun wissen wir also, mit welchem Scancode wir es zu tun haben. Als nächstes
+müssen wir den seltsamen Scancode jetzt in etwas sinnvolles umwandeln. Hier gibt
+es jetzt zwei Möglichkeiten, entweder wir wandeln sie direkt in ASCII-Zeichen
+(oder welche Kodierung auch immer) um oder wir wandeln sie in ein internes
+Format um (meist Keycodes genannt), welches wir dann weitergeben.
+</p><p>Auch hier wieder ein kleiner Codeabschnitt, der zeigt wie man den IRQ-Handler
+umsetzen könnte (aus týndur übernommen, BSD-Lizenz):
+&lt;c&gt;
+/**
+</p>
+<pre>* Scancode in einen Keycode uebersetzen
+* @return Keycode oder 0 falls der Scancode nicht bekannt ist
+*/
+</pre>
+<p>uint8_t translate_scancode(int set, uint16_t scancode);
+</p><p>void irq_handler(uint8_t irq) {
+</p>
+<pre>   uint8_t scancode;
+   uint8_t keycode = 0;
+   int break_code = 1;
+
+   // Status-Variablen fuer das Behandeln von e0- und e1-Scancodes
+   static int     e0_code = 1;
+   // Wird auf 1 gesetzt, sobald e1 gelesen wurde, und auf 2, sobald das erste
+   // Datenbyte gelesen wurde
+   static int      e1_code = 0;
+   static uint16_t  e1_prev = 0;
+
+   scancode = inb(0x60);
+
+   // Um einen Breakcode handelt es sich, wenn das oberste Bit gesetzt ist und
+   // es kein e0 oder e1 fuer einen Extended-scancode ist
+   if ((scancode &amp; 0x80) &amp;&amp;
+       (e1_code || (scancode != 0xE1)) &amp;&amp;
+       (e0_code || (scancode != 0xE0)))
+   {
+       break_code = 0;
+       scancode &amp;= ~0x80;
+</pre>
+<p>	return;
+</p>
+<pre>   }
+
+   if (e0_code) {
+       // Fake shift abfangen und ignorieren
+       if ((scancode == 0x2A) || (scancode == 0x36)) {
+           e0_code = 1;
+           return;
+       }
+
+       keycode = translate_scancode(1, scancode);
+       e0_code = 1;
+   } else if (e1_code == 2) {
+       // Fertiger e1-Scancode
+       // Zweiten Scancode in hoeherwertiges Byte packen
+       e1_prev |= ((uint16_t) scancode &lt;&lt; 8);
+       keycode = translate_scancode(2, e1_prev);
+       e1_code = 0;
+   } else if (e1_code == 1) {
+       // Erstes Byte fuer e1-Scancode
+       e1_prev = scancode;
+       e1_code++;
+   } else if (scancode == 0xE0) {
+       // Anfang eines e0-Codes
+       e0_code = 0;
+   } else if (scancode == 0xE1) {
+       // Anfang eines e1-Codes
+       e1_code = 1;
+   } else {
+       // Normaler Scancode
+       keycode = translate_scancode(0, scancode);
+   }
+       // Zum Testen sollte folgendes verwendet werden:
+</pre>
+<p>	kprintf("%c", keycode);
+</p>
+<pre>       //Nach erfolgreichen Tests, könnte eine send_key_event Funtkion wie bei Týndur verwendet werden
+</pre>
+<p>}
+&lt;/c&gt;
+</p><p>Dieses Codestück unternimmt genau die oben beschriebenen Schritte. Die Funktion
+„translate_scancode“ übersetzt, wie oben im Kommentar angegeben, die Scancodes
+in interne Keycodes der Code dazu findet sich ebenfalls im
+<a class="external text" href="http://git.tyndur.org/?p=tyndur.git;a=blob;f=src/modules/kbc/sc2kc.c" rel="nofollow">tyndur-Repository</a>.
+Es handelt sich dabei aber nur um eine mögliche Umsetzung und keineswegs um die
+einzig mögliche, hier muss man sich selbst überlegen wie das für den konkreten
+Anwendungsfall am komfortabelsten ist.
+</p>
+<h2><span class="mw-headline" id="Beispiele_zur_Benutzung_der_KBC_Funktionen">Beispiele zur Benutzung der KBC Funktionen</span></h2>
+<h3><span class="mw-headline" id="CPU-Reset">CPU-Reset</span></h3>
+<p>Der CPU-Reset wird ausgelöst, indem der Wert 0xFE in den Outputport geschrieben wird.
+&lt;asm&gt;
+</p>
+<dl><dt>Warten, bis der Eingabepuffer leer ist</dt></dl>
+<p>wait1:
+in   al, 0x64
+test al, 00000010b
+jne  wait1
+</p>
+<dl><dt>Befehl 0xD1 zum Schreiben des Inputports an den KBC senden</dt></dl>
+<p>mov  al, 0xD1
+out  0x64, al
+</p>
+<dl><dt>Wieder warten, bis der Eingabepuffer leer ist</dt></dl>
+<p>wait2:
+in   al, 0x64
+test al, 00000010b
+jne  wait2
+</p>
+<dl><dt>Den neuen Wert für den Inputport über Port 0x60 senden</dt></dl>
+<p>mov  al, 0xFE
+out  0x60, al
+&lt;/asm&gt;
+</p>
+<h1><span class="mw-headline" id="Links">Links</span></h1>
+<ul><li><a class="external free" href="http://www.win.tue.nl/~aeb/linux/kbd/scancodes-1.html" rel="nofollow">http://www.win.tue.nl/~aeb/linux/kbd/scancodes-1.html</a></li>
+<li><a class="external text" href="http://www.diakom.ru/el/elfirms/datashts/Smsc/42w11.pdf" rel="nofollow">SMS "8042" Datenblatt</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165543
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.009 seconds
+Real time usage: 0.010 seconds
+Preprocessor visited node count: 137/1000000
+Preprocessor generated node count: 228/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 6620/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Keyboard_Controller&amp;oldid=10545</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1468/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/1485/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1468/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/PS2_Keyboard" hreflang="en" lang="en" title="PS2 Keyboard – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

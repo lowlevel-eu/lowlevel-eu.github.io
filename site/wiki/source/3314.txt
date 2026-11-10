@@ -1,0 +1,41 @@
+Da ich Vista benutze, habe ich leider keinen nativen Compiler, der [[ELF]]-Dateien ausspuckt. Da ich nicht dazu komme den Artikel [[Crosscompiler für Windows]] zu überarbeiten, halte ich hier mal ein paar Gedanken und Hinweise fest. Ich hoffe jemand kann sich damit ein paar Stunden rumgefrickel ersparen. Für mich waren (und sind) die Lösungen für die ganzen Problemchen nicht unmittelbar durchschaubar. Vermutlich rühren die meisten eh von der Wahl eines so exotischen Host-Systems her ..
+
+== Binutils ==
+Der aktuelle MinGW kommt mit texinfo 4.11, das is auf Grund eines [http://sourceware.org/bugzilla/show_bug.cgi?id=5021 Bugs] allerdings zu neu für binutils. Wer gerne mit Patches spielt und mit den autotools umgehen kann, der kann den Patch natürlich anwenden. Windoofnutzer wie meine Wenigkeit können nach dem ./configure auch einfach die im build-Verzeichnis erzeugte Makefile  nachbearbeiten und die Zeile suchen, die ungefähr so aussieht: 
+ MAKEINFO = /PATH_TO/JIDDEROS_CC_SRC/binutils-2.18/missing makeinfo
+und sie durch diese ersetzen:
+ MAKEINFO = makeinfo
+Wenn man wirklich kein makeinfo hat, kann man sich auch an der Datei /PATH_TO/JIDDEROS_CC_SRC/binutils-2.18/missing zu schaffen machen, und da nach ''makeinfo)'' suchen und dann da drunter das erste Vorkommen von ''test -f $file || exit 1'' löschen.
+
+== GCC ==
+Sobald man eine C-Library hat, kann man im GCC-Verzeichnis noch
+ make all
+ make install
+ausführen, und bekommt dann noch ein paar Bibliotheken fürs Target hinterhergeworfen. Ohne Änderungen an den configure-Dateien fliegt allerdings ''make all'' kurz nachdem libgcc.a gebaut wurde auf die Fresse. Dann sollte make install allerdings immer noch gehen und libgcc installieren. Wenn nicht muss man sich das halt von Hand rauspicken. Dabei entgehen einem allerdings so schöne Dinge wie die C++-Bibliothek.
+
+Wenn ''make all'' mit Fehlern wie "Link tests are not allowed after GCC_NO_EXECUTABLES" aufgibt, kann man einfach mit einer "Replace All"-Funktion die configure-Dateien frisieren, und dann läuft der brav durch. 
+In den beiden Dateien libstdc++v3/configure und libiberty/configure (die sind im Quelltextverzeichnis, nicht im Build-Verzeichnis) müssen alle bis auf das erste Vorkommen von "test x$gcc_no_link=xyes; then" durch "false; then" ersetzt werden. Das erste Vorkommen schaut so aus:
+<code>if test x$gcc_no_link=xyes; then
+  # Setting cross_compile will disable run tests; it will
+  # also disable AC_CHECK_FILE but that's generally
+  # correct if we can't link.</code>
+
+
+== Newlib ==
+Wenn man das [http://wiki.osdev.org/OS_Specific_Toolchain Tutorial auf osdev.org] befolgt, bekommt man einen Cross Compiler, der ohne Gefrickel (auf dem Target-System) ausführbare Programme erstellt dank libc, headern, schönen Linker-Skripts, crt0, und so weiter. Das Erstellen der Syscall-Wrapper in der libc im Abschnitt [http://wiki.osdev.org/OS_Specific_Toolchain#newlib.2Flibc.2Fsys.2Fmyos newlib/libc/sys/myos] funktioniert bei mir allerdings nicht., Die MinGW-autotools machen Probleme und irgendwelche Makros nicht verstehen. Im Gegenzug verstehe ich deren Ausgabe nicht. 
+Workaround: Nicht die autotools benutzen, sondern fertige configure-Dateien. Zum Beispiel die in newlib/libc/sys/z8ksim. Damit das Gebastel schön einfach ist, hab ich anstelle die Schritte im Tutorial zu befolgen, einfach das gesamte Verzeichnis per Copy&Paste übernommen, in JIDDEROS umbenannt, und in der configure.in den Kommentar ebenfalls an mein OS angepasst. In die glue.c kam der Inhalt von [http://wiki.osdev.org/OS_Specific_Toolchain#syscalls.c syscalls.c] und crt0.c hab ich mit folgendem gefüllt:
+<c>extern int main();
+extern void exit(int);
+
+void _start()
+{
+	exit(main());
+}</c>
+
+
+== Libelf (und vielleicht auch andere Libraries) ==
+*config.sub wie [http://wiki.osdev.org/OS_Specific_Toolchain#config.sub im Tutorial beschrieben] um das Target ergänzen, wenn man sich ein eigenes ausgedacht hat, und nicht einfach für i386-elf oder so kompiliert.
+
+*Warum auch immer kann man der ./configure den Cross Compiler nicht korrekt verklickern, und meiner bockt mit den Include-Pfaden rum, wenn man ihn einfach nur als gcc.exe (statt i586-pc-JIDDEROS-gcc.exe) aufruft. Ich hab dann einfach gcc.exe und cc1.exe und deren Freunde (also die .exe-Dateien in deren Verzeichnissen) in das selbe Verzeichnis wie i586-pc-JIDDEROS-gcc.exe kopiert, und das natürlich in die PATH-Variable eingetragen.
+
+*Mein ./configure erkennt long long irgendwie nicht, welches allerdings für die Unterstützung von ELF64-Dateien notwendig ist. Ohne kompilierts auch gar nicht vernünftig. Ich hab mir deswegen die config.cache mit Wordpad gegriffen, in der Zeile ac_cv_sizeof_long_long=${ac_cv_sizeof_long_long=0} die 0 durch eine 8 ergänzt und libelf_cv_int64=${libelf_cv_int64=no} das "no" durch ein "long long" ersetzt. Dann noch mal ./configure laufen lassen, das nun leichtgläubig der config.cache glaubt. Dann kannst noch

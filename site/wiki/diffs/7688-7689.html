@@ -1,0 +1,43 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RedEagle-OperatingSystem — Änderungen 7688 → 7689</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>RedEagle-OperatingSystem — Änderungen 7688 → 7689</h1><nav><a href="../revisions/7688/index.html">Version 7688</a> · <a href="../revisions/7689/index.html">Version 7689</a> · <a href="../history/2232/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l15" >Zeile 15:</td>
+<td colspan="2" class="diff-lineno">Zeile 15:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Ziel ist es '''nicht''' ein sicheres und stabiles System zu schreiben. Diese Punkte werden frühstens in der Nächsten Generation berücksichtigt :)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Ziel ist es '''nicht''' ein sicheres und stabiles System zu schreiben. Diese Punkte werden frühstens in der Nächsten Generation berücksichtigt :)</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">== Bestandteile des Betriebssystems ==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Das RedEagle-OperatingSystem besteht (bisher) aus den folgenden Komponenten</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* '''reosboot''': Der Bootloader des Systems</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* '''reos''': Der Kernel des Systems</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* '''FT3fs''': Für das Betriebssystem entwickeltes Dateisystem</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* '''Bifröst''': Schnittstelle zur Außenwelt per rs232</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Allgemeine Features ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Allgemeine Features ==</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l101" >Zeile 101:</td>
+<td colspan="2" class="diff-lineno">Zeile 108:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Die Verteilung der Dateien auf dem Datenträger wird durch eine Liste von Sektor-nummern in der Datei-spezifischen Datenstruktur der Nodes beschrieben.&lt;br&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Die Verteilung der Dateien auf dem Datenträger wird durch eine Liste von Sektor-nummern in der Datei-spezifischen Datenstruktur der Nodes beschrieben.&lt;br&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Da das Dateisystem speziell auf mein Betriebssystem zugeschnitten ist werden keine unix-permissions unterstützt.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Da das Dateisystem speziell auf mein Betriebssystem zugeschnitten ist werden keine unix-permissions unterstützt.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Bifröst ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Bifröst bezeichnet einen Server und ein Übertragungsprotokoll dessen Aufgabe es ist, den Kernel zu unterstützen, bzw vom kernel stammende Informationen auszuwerten.&lt;br&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Der bootloader und später der kernel verbinden sich per rs232 mit dem auf einem Linux-rechner laufenden Server.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Der Server bietet derzeit folgende Features:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Up/Download von Dateien</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Sektor-weiser lese/schreibzugriff auf image-files</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* empfangen &amp; Anzeigen von log-informationen</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">==== kernel-logs ====</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Der Kernel schickt beständig Informationen über die rs232. Dafür verwendet er 3 verschiedene Übertragungsprotokolle:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"># Bifröst</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"># raw ascii</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"># ansi</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Durch ein ping wird ermittelt ob der Bifröst-Server erreichbar ist (s.o.) - ist dies nicht der Fall werden die logs ASCII-Codiert übertragen. Das hat den Vorteil dass auf einer virtuellen Maschiene die log-daten einfach in ein Textfile geschrieben werden können um sie später auszuwerten.&lt;br&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Im ANSI-Modus werden die Daten mit ANSI-Escape-Sequenzen coloriert. Somit kann man auch ohne Bifröst-Server die Daten mit einem 2. PC in Echtzeit farbig beobachten.</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Category:Betriebssystem]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Category:Betriebssystem]]</div></td></tr>
+</table></body></html>

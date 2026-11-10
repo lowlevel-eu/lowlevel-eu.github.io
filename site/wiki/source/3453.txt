@@ -1,0 +1,64 @@
+Das EFLAGS (Programmstatus und Kontrollregister) Register ist 32 Bit groß, wobei jedes Bit ein Flag repräsentiert. Es beinhaltet Status-Informationen über das laufende Programm und erlaubt anwendungsbasierte Prozessorkontrolle. Das Register kann nicht komplett verändert werden, es können nur die einzelnen Flags gesetzt oder gelöscht werden, meistens auch nur indirekt, in der Form das ein aufgerufener Befehl ein Flag als nebeneffekt ändert.
+
+== Aufbau des EFLAGS-Registers ==
+
+Im folgenden steht (X) für Systemflag, (S) für Statusflag und (C) für Controlflag
+{| border="1" cellspacing="0"
+|-
+! Bit
+! Beschreibung
+|-
+| 22-31 || Reserviert, nicht verändern
+|-
+| 21 || ID - ID Flag (X)
+|-
+| 20 || VIP - <b>V</b>irtual <b>I</b>nterrupt <b>P</b>ending (X)
+|-
+| 19 || VIF - <b>V</b>irtual <b>I</b>nterrupt <b>F</b>lag (X)
+|-
+| 18 || AC - <b>A</b>lignment <b>C</b>heck (X)
+|-
+| 17 || VM - <b>V</b>irtual 8086 <b>M</b>ode (X)
+|-
+| 16 || RF - <b>R</b>esume <b>F</b>lag (X)
+|-
+| 15 || Reserviert, nicht ändern
+|-
+| 14 || NT - <b>N</b>ested <b>T</b>ask Flag (X)
+|-
+| 13 - 12 || IOPL - <b>I</b>/<b>O</b> <b>P</b>rivilege <b>L</b>evel (X)
+|-
+| 11 || OF - <b>O</b>verflow <b>F</b>lag (S)
+|-
+| 10 || DF - <b>D</b>irection <b>F</b>lag (C)
+|-
+| 9 || IF - <b>I</b>nterrupt <b>E</b>nable Flag (X)
+|-
+| 8 || TF - <b>T</b>rap <b>F</b>lag (X)
+|-
+| 7 || SF - <b>S</b>ign <b>F</b>lag (S)
+|-
+| 6 || ZF - <b>Z</b>ero <b>F</b>lag (S)
+|-
+| 5 || Reserviert, nicht ändern
+|-
+| 4 || AF - <b>A</b>uxiliary Carry <b>F</b>lag (S)
+|-
+| 3 || Reserviert, nicht ändern
+|-
+| 2 || PF - <b>P</b>arity <b>F</b>lag (S)
+|-
+| 1 || Reserviert, nicht ändern
+|-
+| 0 || CF - <b>C</b>arry <b>F</b>lag (S)
+|}
+
+
+== Befehle zum direkten Verändern ==
+
+* PUSHF
+* PUSHFD
+* POPF
+* POPFD
+* LAHF
+* SAHF

@@ -1,0 +1,52 @@
+{{Infobox OS
+| Name = planlOS
+| Version = -
+| Entwickler = [[Benutzer:Phoenix | Phoenix]]
+| Lizenz = MIT
+| Kernel = Monolithisch
+| API = Unix
+| Binaerformat = ELF
+| Sprache = [[Assembler]], [[C]]
+| IPC = Signals
+| Plattform = [[X86 | x86]]
+| Homepage = [http://repo.or.cz/w/planlOS.git] (git)
+}}
+
+planlOS ist mein erster größerer Versuch, mal etwas lauffähiges zu produzieren. Dabei beschränke ich mich auf ein recht "traditionelles" Setup (monolithisch, Unix-API).
+
+= Build-Environment =
+* CMake 2.6
+* Dependencies:
+** mtools
+** grub legacy
+** GCC/GAS/LD (mit Unterstützung für ELF)
+** mkisofs
+
+= Features =
+* Partielle (noch recht rudimentäre) Unix-API
+* Partieller TCP-Support durch lwip (Lightweight IP stack)
+* SMP-Support (buggy)
+* Virtuelle Terminals (Strg+F1 - Strg+F8)
+* Kernelmodule als ELF-Shared-Objects
+* Kleine Testsuite für die Unix-API ([http://repo.or.cz/w/incOS.git?a=shortlog;h=refs/heads/testsuite], funktioniert auch unter meinos)
+* Treiber:
+** CDI:
+*** ATA
+*** Floppy
+*** rtl8139
+*** iso9660
+*** ramdisk
+** CDROM
+** CD-Speaker (noch ohne Interface)
+
+= Known Bugs =
+* SMP: Shell hängt nach sehr kurzer Zeit
+* Netzwerkstack stürzt regelmäßig ab
+
+= Roadmap =
+0.0.1:
+* Bessere Shell
+* Stabilerer Netzwerksupport
+* Booten von Floppy
+
+[[Kategorie:Betriebssystem]]

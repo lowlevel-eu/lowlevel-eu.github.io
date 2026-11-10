@@ -1,0 +1,36 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Virtual Floppy Drive — Änderungen 5797 → 5798</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Virtual Floppy Drive — Änderungen 5797 → 5798</h1><nav><a href="../revisions/5797/index.html">Version 5797</a> · <a href="../revisions/5798/index.html">Version 5798</a> · <a href="../history/2063/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l14" >Zeile 14:</td>
+<td colspan="2" class="diff-lineno">Zeile 14:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Benutzung des Konsolenprogramms ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Benutzung des Konsolenprogramms ==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Das Konsolenprogramm bietet sowohl die Möglichkeit über Parameter als auch über eine eigene Eingabeaufforderung die Funktionen von VFD zu verwenden. Man kann zum Beispiel über die Parameter den Vorgang des Mountens und Unmountens automatisieren, wenn man dafür nicht immer die GUI bemühen möchte. Dafür bietet es sich an eine Batch-Dateien zu erstellen.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Das Konsolenprogramm bietet sowohl die Möglichkeit über Parameter als auch über eine eigene Eingabeaufforderung die Funktionen von VFD zu verwenden. Man kann zum Beispiel über die Parameter den Vorgang des Mountens und Unmountens automatisieren, wenn man dafür nicht immer die GUI bemühen möchte. Dafür bietet es sich an eine Batch-Dateien zu erstellen.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Beispiel: Mount ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Diese Batch-Datei installiert den Treiber, startet den Treiber und bindet das Image auf den ersten verfügbaren Laufwerksbuchstaben ein. Die Variablen VFD und IMAGE sind gegebenenfalls anzupassen. Diese Datei ist dafür gedacht im Verzeichnis, in dem das Disketten-Image liegt, ausgeführt zu werden. Ist der Pfad in IMAGE absolut (also fängt mit C:\ oder so an), dann muss das %~dp0%IMAGE% durch %IMAGE% ersetzt werden.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;code&gt;@SET VFD=E:\vfd21-080206\vfd.exe</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">@SET IMAGE=disk.img</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">%VFD% INSTALL</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">%VFD% START</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">%VFD% OPEN 0: %~dp0%IMAGE%</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">@PAUSE&lt;/code&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Beispiel: Unmount ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Diese Batch-Datei bindet das virtuelle Laufwerk wieder aus, stoppt den Treiber und deinstalliert ihn wieder.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;code&gt;@SET VFD=E:\vfd21-080206\vfd.exe</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">%VFD% CLOSE 0:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">%VFD% STOP</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">%VFD% REMOVE</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">@PAUSE&lt;/code&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Weblinks ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Weblinks ==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*[http://chitchat.at.infoseek.co.jp/vmware/vfd.html VFD Homepage]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*[http://chitchat.at.infoseek.co.jp/vmware/vfd.html VFD Homepage]</div></td></tr>
+</table></body></html>

@@ -1,0 +1,14 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Textausgabe — Änderungen 2360 → 2361</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Textausgabe — Änderungen 2360 → 2361</h1><nav><a href="../revisions/2360/index.html">Version 2360</a> · <a href="../revisions/2361/index.html">Version 2361</a> · <a href="../history/1549/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l46" >Zeile 46:</td>
+<td colspan="2" class="diff-lineno">Zeile 46:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  u16 *off = (u16*)0xB8000;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  u16 *off = (u16*)0xB8000;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  // berechnen der Adresse</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  // berechnen der Adresse</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160;  off += <del class="diffchange diffchange-inline">( </del>y*80+x <del class="diffchange diffchange-inline">) * 2</del>; //<del class="diffchange diffchange-inline">*</del>2, da <del class="diffchange diffchange-inline">2 Byte pro Zeichen</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160;  off += y*80+x; <ins class="diffchange diffchange-inline"> </ins>// <ins class="diffchange diffchange-inline">eine Multiplikation mit </ins>2 <ins class="diffchange diffchange-inline">darf hier nicht erfolgen</ins>, da <ins class="diffchange diffchange-inline">off vom type u16 ist</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  // setzen des zeichens + attributebyte</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  // setzen des zeichens + attributebyte</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  *off = (((u16)color)&lt;&lt;8)|chr;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  *off = (((u16)color)&lt;&lt;8)|chr;</div></td></tr>
+</table></body></html>

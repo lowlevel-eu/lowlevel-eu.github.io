@@ -1,0 +1,42 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Scheduler — Änderungen 7167 → 7694</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Scheduler — Änderungen 7167 → 7694</h1><nav><a href="../revisions/7167/index.html">Version 7167</a> · <a href="../revisions/7694/index.html">Version 7694</a> · <a href="../history/1711/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l1" >Zeile 1:</td>
+<td colspan="2" class="diff-lineno">Zeile 1:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Der Scheduler hat die Aufgabe festzustellen welcher Prozess als nächstes CPU-Zeit zugeteilt bekommt. Dabei gibt es mehr oder weniger komplizierte Systeme. Das einfachste System ist [[#Round Robin | Round Robin]]. Dabei bekommt ein Prozess nach dem anderen CPU-Zeit zugeteilt. Man kann aber auch Prioritäten setzen und damit Prozesse, die wichtiger sind mehr CPU-Zeit zuteilen.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Der Scheduler hat die Aufgabe festzustellen welcher Prozess als nächstes CPU-Zeit zugeteilt bekommt. Dabei gibt es mehr oder weniger komplizierte Systeme. Das einfachste System ist [[#Round Robin | Round Robin]]. Dabei bekommt ein Prozess nach dem anderen CPU-Zeit zugeteilt. Man kann aber auch Prioritäten setzen und damit Prozesse, die wichtiger sind mehr CPU-Zeit zuteilen.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">= non-preemptive =</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Prozesse geben Kontrolle freiwillig ab.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">== FCFS - First Come First Served ==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Prozesse werden in der Reihenfolge in der sie erstellt werden abgearbeitet. Erst wenn der erste beendet ist kommt der nächste an die Reihe.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Bsp:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> P1, P2, P3, P4 und P5 werden in dieser Reihenfolge gestartet.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> Bedienzeiten: P1=22, P2=2, P3=3, P4=5, P5=8</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> Antwortzeiten: R1=22, R2=22+2=24, R3=24+3=27, R4=27+5=32, R5=32+8=40</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> durchschnittliche Antwortzeit: 29</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Vorteile:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* einfach zu implementieren</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* geringer Verwaltungsaufwand</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Fairness, alle Prozesse erreichen der Reihe nach CPU)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Nachteile:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* kurz laufende Prozesse müssen u.U. sehr lange warten, daher für Dialogsysteme nicht geeignet.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">= preemptive =</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">OS holt sich Kontrolle selbst zurück (Interrupt)</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Round Robin ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Round Robin ==</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l21" >Zeile 21:</td>
+<td colspan="2" class="diff-lineno">Zeile 44:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Der Vorteil dieses Systems ist, dass jedem Prozess, bei einer entsprechenden Implementierung, individuell der optimale Teil der Rechenleistung zugeteilt wird. Nachteil ist allerdings, dass diese Variante nur in Verbindung mit anderen Varianten zur Optimierung eingesetzt werden kann (zumindest ist der alleinige Einsatz schwierig).</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Der Vorteil dieses Systems ist, dass jedem Prozess, bei einer entsprechenden Implementierung, individuell der optimale Teil der Rechenleistung zugeteilt wird. Nachteil ist allerdings, dass diese Variante nur in Verbindung mit anderen Varianten zur Optimierung eingesetzt werden kann (zumindest ist der alleinige Einsatz schwierig).</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Multitasking]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Multitasking]]</div></td></tr>
+</table></body></html>

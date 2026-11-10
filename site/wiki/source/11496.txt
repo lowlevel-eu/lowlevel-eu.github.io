@@ -1,0 +1,12 @@
+{{ stub }}
+
+POSIX Threads (auch pthreads genannt) sind eine der beiden relevanten Betriebssystem-APIs für Multithreading (die andere ist die [[Windows |Win32 API]]). Dabei werden in der Basisversion [[Mutex |Mutexe]], [[Condvar |Condvars]] und [[Thread |Threads]] unterstützt, jeweils mit einigen Attributen. Der Standard wurde mehrfach erweitert und ist inzwischen wesentlich komplexer, aber die Basisversion ist für die meisten Hobby-OS vermutlich schon ein sehr guter Stand.
+
+Es gibt keine Bibliothek "pthreads" die einfach nur portiert werden muss, es ist nur eine Beschreibung der API. Die ganzen Funktionen müssen für den eigenen Kernel selber implementiert werden. Bestenfalls entsteht dabei eine eigene <code>libpthread.a</code>, da viele Buildsysteme davon ausgehen dass es eine eigene lib ist.
+
+== Weblinks ==
+* [https://pubs.opengroup.org/onlinepubs/007908799/xsh/pthread.h.html The Single UNIX ® Specification, Version 2, pthread.h]
+* [https://praios.lf-net.org/littlefox/lf-os_amd64/-/tree/pthread LF OS Branch für pthread (und bisschen mehr weil Chaos)]
+
+[Kategorie:Glossar]
+[Kategorie:Multitasking]

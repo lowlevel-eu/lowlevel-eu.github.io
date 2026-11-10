@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>X86 – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-X86 rootpage-X86 skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1749/index.html">Aktueller Artikel</a> · <a href="../../history/1749/index.html">Versionsgeschichte</a> · <a href="../../source/4882.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">X86</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 30. Juli 2009, 17:55 Uhr von <a class="mw-userlink" href="../../pages/1871/index.html" title="Benutzer:DickHuuhn"><bdi>DickHuuhn</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(hat leider nicht geklappt...)</span></div><div id="mw-revision-nav">(<a href="../../diffs/4881-4882.html" title="X86">Unterschied</a>) <a href="../4881/index.html" title="X86">← Nächstältere Version</a> | <a href="../../pages/1749/index.html" title="X86">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../4897/index.html" title="X86">Nächstjüngere Version →</a> (<a href="../../diffs/4882-4897.html" title="X86">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Template_Stub">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #D0D8FF; margin: 0 0em; padding: 0 0px; border: 1px solid #b8c0e8" width="100%">
+<tbody><tr>
+<td>Diese Seite oder Abschnitt ist zwar komplett, es wird aber folgende Verbesserungen gewünscht:<br/>
+<p><i></i>
+</p>
+<ul><li>Ein Diagramm zur Registerarchitektur hinzufügen<br/></li>
+<li>Ergänzungen zur Handhabung von Interrupts<br/></li>
+<li>Eingehen auf verschiedene Befehlssätze<br/></li>
+<li>Verweis auf <a href="../../pages/1739/index.html" title="CPUID">CPUID</a> zur Identifizierung<i></i></li></ul>
+<p>Hilf Lowlevel, den Artikel zu verbessern.
+</p>
+</td></tr></tbody></table>
+</div>
+<p>Die x86-Architektur galt lange Zeit als quasi Standard für so gut wie alle Prozessoren. Sie wurde von Intel ins Leben gerufen und nach den Prozessoren der Baureihe 8086/8088 benannt. Der wirkliche Durchbruch begann allerdings erst mit dem ersten 32 Bit Prozessor, dem 80386, oder auch kurz 386 genannt. Der grundlegende Prozessoraufbau ist seitdem gleichgeblieben, alle neueren Prozessoren sind seitdem abwärtskompatibel zum 386 bzw 486. Intel selbst nennt diese Architektur heute IA-32 (<b>I</b>ntel <b>A</b>rchitecture with <b>32</b> Bit.
+In absehbarer Zukunft wird der x86 Standard aber wohl durch den <a class="mw-redirect" data-archive-original-href="../../pages/1759/index.html" href="../../pages/1758/index.html" title="X64">x64</a>-Standard ersetzt werden.
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Aufbau_einer_32-Bit-CPU"><span class="tocnumber">1</span> <span class="toctext">Aufbau einer 32-Bit-CPU</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Mehrzweckregister"><span class="tocnumber">1.1</span> <span class="toctext">Mehrzweckregister</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Segment-Register"><span class="tocnumber">1.2</span> <span class="toctext">Segment-Register</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Zus.C3.A4tzliche_Spezial-Register"><span class="tocnumber">1.3</span> <span class="toctext">Zusätzliche Spezial-Register</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Weblinks"><span class="tocnumber">2</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Aufbau_einer_32-Bit-CPU">Aufbau einer 32-Bit-<a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">CPU</a></span></h2>
+<h3><span class="mw-headline" id="Mehrzweckregister">Mehrzweckregister</span></h3>
+<p>Die 32 Bit x86 Prozessoren verfügen über 4 je 32 Bit breite Mehrzweck-Register, wobei das 'E' jeweils für <i>Extended</i> steht:
+</p>
+<ul><li>EAX (engl.: <b>A</b>ccumulator Register) wird in <a href="../../pages/1526/index.html" title="C">C</a> für Rückgabewerte von Funktionen verwendet</li>
+<li>EBX (engl.: <b>B</b>ase Register)</li>
+<li>ECX (engl.: <b>C</b>ounter Register) meistens als Zähler verwendet</li>
+<li>EDX (engl.: <b>D</b>ata Register)</li></ul>
+<p>Diese Mehrzweck-Register (engl.: General Purpose Registers) sind vielseitig verwendbar.
+</p><p>Des Weiteren gibt es:
+</p>
+<ul><li>ESI (engl.: <b>S</b>ource <b>I</b>ndex) zeigt bei Stringoperationen auf die Quelle</li>
+<li>EDI (engl.: <b>D</b>estination <b>I</b>ndex) zeigt bei Stringoperationen auf das Ziel</li>
+<li>EBP (engl.: <b>B</b>ase <b>P</b>ointer) Pointer auf den Start des Speichers für ein (Unter-) Programm</li>
+<li>ESP (engl.: <b>S</b>tack <b>P</b>ointer) zeigt auf das aktuelle Element des Stacks, sollte nicht verändert werden wenn man nicht weiß was man tut</li></ul>
+<h3><span class="mw-headline" id="Segment-Register">Segment-Register</span></h3>
+<ul><li>DS (engl.: <b>D</b>ata <b>S</b>egment)</li>
+<li>CS (engl.: <b>C</b>ode <b>S</b>egment)</li>
+<li>SS (engl.: <b>S</b>tack <b>S</b>egment)</li>
+<li>FS</li>
+<li>GS</li>
+<li>ES</li></ul>
+<h3><span id="Zusätzliche_Spezial-Register"></span><span class="mw-headline" id="Zus.C3.A4tzliche_Spezial-Register">Zusätzliche Spezial-Register</span></h3>
+<ul><li>EIP (engl.: <b>I</b>nstruction <b>P</b>ointer) zeigt auf den nächsten auszuführenden Befehl</li>
+<li><a href="../../pages/1751/index.html" title="EFLAGS">EFLAGS</a> (engl.: Flag Register) die einzelnen Bits haben unterschiedliche Bedeutung und werden für bedingte Sprungbefehle eingesetzt</li>
+<li>GDTR (engl.: <b>G</b>lobal <b>D</b>escriptor <b>T</b>able <b>R</b>egister) gibt die Position der <a class="mw-redirect" data-archive-original-href="../../pages/1662/index.html" href="../../pages/1661/index.html" title="GDT">GDT</a> an</li>
+<li>LDTR (engl.: <b>L</b>ocal <b>D</b>escriptor <b>T</b>able <b>R</b>egister) gibt die Position der <a class="mw-redirect" data-archive-original-href="../../pages/2015/index.html" href="../../pages/2014/index.html" title="LDT">LDT</a> an</li>
+<li>IDTR (engl.: <b>I</b>nterrupt <b>D</b>escriptor <b>T</b>able <b>R</b>egister) gibt die Position der <a class="mw-redirect" data-archive-original-href="../../pages/1777/index.html" href="../../pages/1603/index.html" title="IDT">IDT</a> an</li>
+<li>CR0, CR1, CR2 und CR3 (engl.: <a href="../../pages/1610/index.html" title="Control Register">Control Register</a>) werden im <a href="../../pages/1464/index.html" title="Protected Mode">Protected Mode</a> zum <a href="../../pages/1496/index.html" title="Paging">Paging</a> benutzt</li>
+<li>TR6 – TR7 (engl.: <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar"><b>T</b>est <b>R</b>egister</a>) zum Überprüfen des <a class="mw-redirect" data-archive-original-href="../../pages/2011/index.html" href="../../pages/1496/index.html#Translation_Lookaside_Buffer" title="Translation Lookaside Buffer">Translation Lookaside Buffers</a> (TR0-TR5 gibt es beim 80386 nicht)</li>
+<li>DR0 – DR7 (engl.: <a href="../../pages/1928/index.html" title="Debug Register"><b>D</b>ebug <b>R</b>egister</a>) zum Setzen von <a class="mw-redirect" data-archive-original-href="../../pages/2009/index.html" href="../../pages/1544/index.html" title="Breakpoint">Breakpoints</a></li>
+<li>TR (engl.: <b>T</b>ask <b>R</b>egister) Segment-Selektor des <a class="mw-redirect" data-archive-original-href="../../pages/1600/index.html" href="../../pages/1599/index.html" title="TSS">TSS</a></li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://de.wikipedia.org/wiki/X86" rel="nofollow">Wikipedia x86</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170751
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.008 seconds
+Real time usage: 0.009 seconds
+Preprocessor visited node count: 25/1000000
+Preprocessor generated node count: 54/1000000
+Post‐expand include size: 550/2097152 bytes
+Template argument size: 194/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.984      1 Vorlage:TODO
+100.00%    0.984      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=X86&amp;oldid=4882</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1820/index.html" title="Kategorie:TODO">TODO</a></li><li><a href="../../pages/1447/index.html" title="Kategorie:Hardware">Hardware</a></li><li><a href="../../pages/1874/index.html" title="Kategorie:X86">X86</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1749/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1749/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

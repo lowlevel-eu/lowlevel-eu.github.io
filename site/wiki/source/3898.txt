@@ -1,0 +1,80 @@
+Ein Stargate-Fan, der ein Asyncronous interconnected Operating System Schreibt, ahb ich auch noch nicht gesehen! :P
+<br>Was ist den so Asynchron?<br>
+[[Benutzer:Dem epOS sein Linus|DesL]]
+
+Hey, jedem das Seine. Außerdem gehöre ich zu der Sorte, die ungern im Bereich Software etwas nachmachen, sprich klonen. Wenn ich Windows klonen wollte, hätte ich mich auch dem ReactOS-Team anschließen können. Naja und von Unix, Linux und Co. wird man heutzutage nur noch überschüttet. Man ist buchstäblich schon umgeben von Linux, ohne es zu wissen. Viele Microprozessorgesteuerte Geräte werden doch überwiegend von Linux angetrieben, ob nun ein DSL-Router, das Navi oder gar einen DSLAM Marke ISAM von Alcatel-Lucent die ich für HanseNet in Betrieb nehme.
+
+Nein, ich liebe die Herausforderung und das Lösen von Problemen. Im Zusammenhang mit dem Programmieren ist es etwas was mir besonders Spass macht. Und ja, ich bin Stargate-Fan ... Star Trek und was sonst noch mit SciFi zu tun hat.
+
+Sonst noch Fragen??? Nur zu ...
+
+
+Komm runter Man! Ich hab nichts Negatives gesagt, und du gehst ab wie 'ne Rakete!<br>
+Vieleicht kommt dir mal die idee, dass nur ein Hardcore-Stargatefan den Text "Übersetzen" kann??
+
+
+'''ScollPi:'''
+
+Wie eine Rakete??? War ich echt so langsam??? :P =)
+
+Man man man ... man bracht hier nur ein paar Jokes einbauen oder entsprechende Argumente purzeln lassen, einem stösst das immer auf. 
+So und nun lächel mal wieder, ich habe das keineswegs so ernst genommen.
+
+Mal schauen was mir noch für Scherze einfallen, APRIL ist ja auch bald wieder ;)
+
+
+'''DesL'''<br>
+Zitat: Wie eine Rakete??? War ich echt so langsam???<br>
+Die Deadalus war mir dafür doch zuschade...<br>
+Und was ist denn nun so Asynchron?<br>
+DesL<br>
+PS: April blei ich off! :P
+
+
+'''ScollPi:'''
+
+Na püüüh, dann gibts auch keine '''EASTER EGGS''' :P
+----
+
+
+
+'''ChristianF:'''<br/>
+Ich habe da mal eine kleine Frage an dich.<br/>
+Nach welchen Kriterien vergibst du neue Versionsnummern? Ist das eher impulsiv, also nach dem Motto, so ich habe jetzt das und das gemacht, da könnte ich ja mal die Versionsnummer um eins erhöhen oder hast du da alles geplant?
+
+
+'''ScollPi:'''<br/>
+Ich hatte schon mal den Gedanken gefasst, etwas zu Versionsdifferenzieren zu schreiben. Der Versionsstring setzt sich bei mir aus folgenden vier Teilen zusammen:<br/>Major.Minor.Build.Revision<br/>
+* '''Major:''' Erste stabiles Release hat den Wert > 1, solange dieser 0 ist, handelt es sich um eine Research-Version.
+* '''Minor:''' Wenn Major gleich 0 ist, dann gibt Minor die Research-Phase an, sonst das Release zur aktuellen Version. Eventuell werde ich hier noch eine Diffenrenzierung zwischen vorab (ungerade) und final (gerade) machen.
+* '''Build:''' Erhöht sich um 1, wenn das gesamte OS mit all seinen Komponenten rebuild wird. Als Build-System benutze ich Team-City 4.0.
+* '''Revision:''' SVN eben. Benutze hier VirtualSVN.
+
+Ausschlaggebend sind jedoch meine gesteckten Ziele für jede Version, wobei es ja jetzt eher Entwicklungsstufen sind. Dies kannst du der Roadmap entnehmen.
+----
+
+
+''Be59''
+
+Eine kleine Frage: Wie willst du es anstellen, das in jeden CPU-Kern ein Kernel läuft. Gibt es dann kein inter-CPU-Kern Kernel, der die einzelnen Kernel verwaltet? Oder hab ich es missverstanden. Und noch was: Welchen Zweck verfolgst du damit?
+
+
+'''ScollPi:'''<br/>
+Der Management-Kernel ist sozusagen der Hauptkernel, der schon vom Bootloader geladen, vorbereitet und in ihn hineinspringt. Der Management-Kernel steuert dann die anderen Kernels (Subkernels könnte man auch sagen. Ich kann noch nicht ganz sagen ob Großhirn und Kleinhirn ein treffenden Beispiel aus der Natur wären.
+
+Der Management-Kernel kümmert sich überwiegend um die IPC und dem Speichermanagement, während der CPU-Kernel nur für die Funktionalität der jeweiligen CPU ausgelegt ist. Dies würde später eine bessere Portierbarkeit auf eine andere CPU ermöglichen. Ein anderer Grund ist, der für mich ausschlaggebend ist, eine Art Redundance bei mehreren Cores zu erreichen.
+
+Die Frage die sich jetzt sicher ergibt, welcher Core übernimmt die Arbeit des Management-Kernel??? OK, Single-Core düfte klar sein. Bei Multi-Core übernimmt dies am Anfang natürlich der BSP, wird aber durch einen AP protected.
+
+Ich will einfach mal was anderes/neues versuchen. Solch Ideen hab ich öfters mal.
+
+'''Be59'''
+Jetzt sehe ich die Vorteile des Konzeptes bei Servern.
+Ich würde dir sagen, es sollte möglich sein, ein CPU-Kern ohne Kernel zu benutzen.
+Den die CPU-Kerne sind ja in Benutzung, sthen also nicht für andere Tätigkeiten zur Verfügung, nämlich Ausliefern von Webseiten...
+
+
+'''ScollPi:'''<br/>
+Eben, denn erster effektiver Einsatz wird sich im Netzwerk abspielen, so steht es ja auch schon offiziell geschrieben. Effektiv wird dieses OS daher auch 4 Cores benötigen (klingt jetzt zwar übertrieben), aber wenn Version 1.0 irgendwann mal fertig sein wird, sind 4x-Core-System sowieso schon das Mindestmaß aller dinge, wenn nicht schon mehr.
+
+Ich muss mir doch echt mal die Zeit nehmen und eine Visualisierung zu erstellen, die zeigt, wie AiCOS am Ende aufgebaut sein sollte. Es wird hoffentlich verständlich machen können, wie es mit dem MKS funktionieren soll und welche wichtige Rolle die Channels (als IPC) haben werden.

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Speicherverwaltung – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Speicherverwaltung rootpage-Speicherverwaltung skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1591/index.html">Aktueller Artikel</a> · <a href="../../history/1591/index.html">Versionsgeschichte</a> · <a href="../../source/2406.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Speicherverwaltung</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 16. Dezember 2007, 02:20 Uhr von <a class="mw-userlink" href="../../pages/1489/index.html" title="Benutzer:Bluecode"><bdi>Bluecode</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Hob den Schutz von „<a href="../../pages/1591/index.html" title="Speicherverwaltung">Speicherverwaltung</a>“ auf)</span></div><div id="mw-revision-nav">(<a href="../../diffs/2405-2406.html" title="Speicherverwaltung">Unterschied</a>) <a href="../2405/index.html" title="Speicherverwaltung">← Nächstältere Version</a> | <a href="../../pages/1591/index.html" title="Speicherverwaltung">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../2413/index.html" title="Speicherverwaltung">Nächstjüngere Version →</a> (<a href="../../diffs/2406-2413.html" title="Speicherverwaltung">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Die <b>Speicherverwaltung</b> (= <b>Memory Management</b>) ist ein wichtiger Teil des <a href="../../pages/1479/index.html" title="Betriebssystem"> Betriebssystems</a>. Um genau zu sein ist es ein Grundbestandteil eines Betriebssystems und meistens sogar vollständig im <a href="../../pages/1478/index.html" title="Kernel">Kernel</a> enthalten.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Einleitung"><span class="tocnumber">1</span> <span class="toctext">Einleitung</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#physische_Speicherverwaltung"><span class="tocnumber">2</span> <span class="toctext">physische Speicherverwaltung</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Bitmap"><span class="tocnumber">2.1</span> <span class="toctext">Bitmap</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Allokation_.26_Freigabe_von_Speicherseiten"><span class="tocnumber">2.1.1</span> <span class="toctext">Allokation &amp; Freigabe von Speicherseiten</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Implementationsvorschl.C3.A4ge"><span class="tocnumber">2.1.2</span> <span class="toctext">Implementationsvorschläge</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Eigenschaften"><span class="tocnumber">2.1.3</span> <span class="toctext">Eigenschaften</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-7"><a href="#Stack"><span class="tocnumber">2.2</span> <span class="toctext">Stack</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#Allokation_.26_Freigabe_von_Speicherseiten_2"><span class="tocnumber">2.2.1</span> <span class="toctext">Allokation &amp; Freigabe von Speicherseiten</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#Implementationsvorschlag"><span class="tocnumber">2.2.2</span> <span class="toctext">Implementationsvorschlag</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Eigenschaften_2"><span class="tocnumber">2.2.3</span> <span class="toctext">Eigenschaften</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-11"><a href="#Fazit"><span class="tocnumber">2.3</span> <span class="toctext">Fazit</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#virtuelle_Speicherverwaltung"><span class="tocnumber">3</span> <span class="toctext">virtuelle Speicherverwaltung</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Einleitung">Einleitung</span></h2>
+<p>Generell ist die Speicherverwaltung dafür zuständig nachfragenden Prozessen freien Speicher zuzuteilen bzw. freizugebenden Speicher wieder zurückzunehmen. Dazu muss natürlich gespeichert werden, welche Speicherbereiche belegt bzw. frei sind. Es ist wichtig zu verstehen, dass die Speicherverwaltung normalerweise auf 2 Ebenen aufgeteilt wird: Zum einen die <a data-archive-original-href="../../pages/1591/index.html#physische_Speicherverwaltung" href="../../pages/1591/index.html#Physische_Speicherverwaltung" title="Speicherverwaltung"> physische Speicherverwaltung</a> und darauf aufbauend die <a data-archive-original-href="../../pages/1591/index.html#virtuelle_Speicherverwaltung" href="../../pages/1591/index.html#Virtuelle_Speicherverwaltung" title="Speicherverwaltung"> virtuelle Speicherverwaltung</a>.
+</p>
+<h2><span class="mw-headline" id="physische_Speicherverwaltung">physische Speicherverwaltung</span></h2>
+<p>Die <b>physische Speicherverwaltung</b> bildet die unterste Ebene und ermöglicht das Allozieren und Freigeben von physischen Speicherbereichen. Meist sind diese Speicherbereiche gleich groß und richten sich nach der Seitengröße der jeweiligen Architektur. Intern speichert die physische Speicherverwaltung welche Speicherbereiche im physischen Speicher frei sind. Dies könnte folgendermaßen implementiert werden:
+</p>
+<h3><span class="mw-headline" id="Bitmap">Bitmap</span></h3>
+<p>Dabei wird eine Bitmap der Größe <i>Speichergröße / (Größe einer Speicherseite * 8)</i> erstellt. Das x-te Bit dieser Bitmap gibt an ob die x-te Speicherseite (bzw. die Speicherseite an Adresse <i>Größe einer Speicherseite * x</i>) frei oder belegt ist. Bei 4GB RAM benötigt man dafür eine 128kB große Bitmap.<br/>
+</p>
+<h4><span id="Allokation_&amp;_Freigabe_von_Speicherseiten"></span><span class="mw-headline" id="Allokation_.26_Freigabe_von_Speicherseiten">Allokation &amp; Freigabe von Speicherseiten</span></h4>
+<p>Um eine Speicherseite zu allozieren wird die Bitmap solange durchsucht, bis man ein Bit mit dem Wert 0 gefunden hat. Dieses Bit setzt man dann auf 1, um anzuzeigen, dass diese Speicherseite ab jetzt belegt ist. Dann errechnet man anhand der Position dieses Bits in der Bitmap die Adresse der Speicherseite. Anschließend kann man die Adresse an die aufrufende Funktion zurückgeben.<br/>
+Zum Freigeben einer Speicherseite muss nur die Bitposition aus der physischen Adresse berechnet werden und anschließend das Bit an der errechneten Position auf 0 gesetzt werden.
+</p>
+<h4><span id="Implementationsvorschläge"></span><span class="mw-headline" id="Implementationsvorschl.C3.A4ge">Implementationsvorschläge</span></h4>
+<ul><li>Wenn man sich die Bitposition der zuletzt allozierten/freigegebenen Speicherseite merkt, kann man zumindest im Normalfall das Allozieren von Speicherseiten beschleunigen.</li>
+<li>Wenn man beim Allozieren gleich 32 bzw 64 Bit mit dem Wert 0xFFFFFFFF bzw. 0xFFFFFFFFFFFFFFFF vergleicht, kann man mit einem Vergleich gleich 32 bzw. 64 Speicherseiten ausschließen.</li></ul>
+<h4><span class="mw-headline" id="Eigenschaften">Eigenschaften</span></h4>
+<p>+ Das Allozieren physisch kontinuierlicher Speicherseiten ist möglich. (lineare Komplexität)<br/>
+o Die Bitmap ist relativ klein.<br/>
+o Das Freigeben einer Speicherseite ist in konstanter Zeit möglich. (konstante Komplexität)<br/>
+- Zum Allozieren einer Speicherseite muss im schlechtesten Fall die gesamte Bitmap durchsucht werden. (lineare Komplexität)<br/>
+</p>
+<h3><span class="mw-headline" id="Stack">Stack</span></h3>
+<p>Die Adressen der Speicherseiten werden hierbei auf einen Stack gelegt.
+</p>
+<h4><span id="Allokation_&amp;_Freigabe_von_Speicherseiten_2"></span><span class="mw-headline" id="Allokation_.26_Freigabe_von_Speicherseiten_2">Allokation &amp; Freigabe von Speicherseiten</span></h4>
+<p>Zum Allozieren einer Speicherseite wird einfach die Adresse, die ganz oben auf dem Stack liegt, genommen. Anschließend wird der Zeiger auf das Stackende angepasst.<br/>
+Das Freigeben einer Speicherseite exakt umgekehrt zur Allokation.
+</p>
+<h4><span class="mw-headline" id="Implementationsvorschlag">Implementationsvorschlag</span></h4>
+<p>Der Speicher, der für den Stack benutzt wird, wird aus den Speicherseiten, die auf den Stack gelegt werden sollen, erstellt. Dies kann folgendermaßen implementiert werden: Beim Start des Kernels ist der Stack erstmal leer. Desweiteren ist nur ein virtueller und kein physikalischer Speicherbereich für den Stack reserviert. Anschließend geht man die freien Speicherbereiche durch und legt jede freie Speicherseite auf den Stack. Da der Stack bei der ersten Speicherseite noch keinen Speicherbereich hat, nimmt man einfach diese Seite und blendet in den virtuellen Adressraum an der Adresse des Stacks ein. Anschließend können die Adressen einiger Speicherseiten auf den Stack gelegt werden, solange bis wieder kein Speicher vorhanden ist. Dann wird einfach die nächste Speicherseite, die auf den Stack gelegt werden soll, in den virtuellen Adressraum ein. Das kann man beim Freigeben natürlich analog implementieren und Speicherseiten, die in den virtuellen Adressraum engeblendet waren, wieder freigeben, falls dieser Speicherbereich nicht mehr vom Stack selbst benötigt wird. Somit verbraucht der Stack im Prinzip "keinen" Speicher.
+</p>
+<h4><span class="mw-headline" id="Eigenschaften_2">Eigenschaften</span></h4>
+<p>+ Das Allozieren einer Speicherseite ist in konstanter Zeit möglich. (konstante Komplexität)<br/>
++ Der Stack verbraucht keinen Speicher.<br/>
+o Das Freigeben einer Speicherseite ist in konstanter Zeit möglich. (konstante Komplexität)<br/>
+- Das Allozieren physisch kontinuierlicher Speicherseiten ist unmöglich.<br/>
+</p>
+<h3><span class="mw-headline" id="Fazit">Fazit</span></h3>
+<p>Zusammenfassend lässt sich festhalten, dass eine Kombination aus den oben erklärten Datenstrukturen das Beste sein wird. Die Bitmap hat den Vorteil, dass man physisch kontinuierlichen Speicher allozieren kann. Dies benötigt man vor allem für <a class="mw-redirect" data-archive-original-href="../../pages/1605/index.html" href="../../pages/1555/index.html" title="DMA">DMA</a>. Das heißt es macht Sinn bei der <a href="../../pages/1749/index.html" title="X86">x86</a>- bzw. <a href="../../pages/1758/index.html" title="X86-64">x86-64</a>-Architektur die unteren 1/16MB mit einer Bitmap zu verwalten. Der Stack hingegen hat einen unschlagbaren Geschwindigkeits- und Speichervorteil und kann für den Rest des Speichers verwendet werden.
+</p>
+<h2><span class="mw-headline" id="virtuelle_Speicherverwaltung">virtuelle Speicherverwaltung</span></h2>
+<p>Die <b>virtuelle Speicherverwaltung</b> befindet sich eine Schicht über der <a data-archive-original-href="../../pages/1591/index.html#physischen_Speicherverwaltung" href="../../pages/1591/index.html" title="Speicherverwaltung — Der ursprüngliche Abschnitt ist in dieser Momentaufnahme nicht verfügbar; stattdessen wird der Artikel angezeigt."> physischen Speicherverwaltung</a> und ist für die Organisation der Speicherbereiche im virtuellen Adressraum eines Prozesses zuständig. Dies bedeutet auch, dass sie das Ein- und Ausblenden von physischen Speicherseiten in den virtuellen Adressraum eines Prozesses übernimmt.<br/>
+Das wird im Grunde so gemacht: Jeder Prozess bekommt beim Erzeugen mindestens ein Pagedirectory und ein Pagetable. Pagedirectory und Pagetable sind jeweils 4kB groß, die Pages können mithilfe der physischen Speicherverwaltung leicht und dynamisch angefordert werden. Wann immer man ein neues Pagedirectory oder Pagetable braucht, muss man einfach nur eine physische Speicherseite von der physischen Speicherverwaltung anfordern. Natürlich braucht der Prozess auch noch Speicher den er benutzen kann, dieser wird auch mithilfe der physischen Speicherverwaltung angefordert und kann dann leicht in die Pagetables eingetragen werden. Beim Prozesswechsel muss man nur noch CR3 mit dem richtigen Pagedir laden. Man sollte natürlich auf keinen Fall vergessen den Kernel in jeden der Pagedirectories/Pagetables der Prozesse einzutragen.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109170256
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.004 seconds
+Real time usage: 0.004 seconds
+Preprocessor visited node count: 47/1000000
+Preprocessor generated node count: 52/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Speicherverwaltung&amp;oldid=2406</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1591/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1591/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

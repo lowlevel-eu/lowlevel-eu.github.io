@@ -1,0 +1,36 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bootloader — Änderungen 5280 → 7451</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Bootloader — Änderungen 5280 → 7451</h1><nav><a href="../revisions/5280/index.html">Version 5280</a> · <a href="../revisions/7451/index.html">Version 7451</a> · <a href="../history/1477/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l1" >Zeile 1:</td>
+<td colspan="2" class="diff-lineno">Zeile 1:</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Der '''Bootloader''' wird vom [[BIOS]] <del class="diffchange diffchange-inline">oder einem </del>[[Bootsektor]] in den Speicher geladen und ausgeführt. Er hat die Aufgabe, <del class="diffchange diffchange-inline">ein </del>[[Betriebssystem]] zu starten. Im Bootsektor ist meist nicht genügend Platz vorhanden, deshalb teilt man den Bootprozess in mehrere Stufen auf: In der ersten Stufe wird der Bootsektor vom BIOS ausgeführt. Dieser lädt wiederum den eigentlichen Bootloader, welcher dann den Rest des Bootprozesses übernimmt und den [[Kernel]] des Betriebssystems (und evtl. Treiber) lädt und ausführt.</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Der '''Bootloader''' wird vom [[BIOS]] <ins class="diffchange diffchange-inline">vom ersten Sektor (</ins>[[Bootsektor]] in den Speicher geladen und ausgeführt. Er hat die Aufgabe, <ins class="diffchange diffchange-inline">das </ins>[[Betriebssystem]] zu starten<ins class="diffchange diffchange-inline">, indem er den Kernel und ggf. weitere Module lädt und ausführt</ins>.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">== Probleme ==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Im Bootsektor ist meist nicht genügend Platz vorhanden, deshalb teilt man den Bootprozess in mehrere Stufen auf: In der ersten Stufe wird der Bootsektor vom BIOS ausgeführt. Dieser lädt wiederum den eigentlichen Bootloader, welcher dann den Rest des Bootprozesses übernimmt und den [[Kernel]] des Betriebssystems (und evtl. Treiber) lädt und ausführt.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">== Ausgangssituation nach dem Laden ==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Wenn das BIOS die Kontrolle an den Bootloader übergeben hat, gibt es einige Dinge, die jedes BIOS standardmäßig sicherstellen muss:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* das Register dl enthält die Nummer des Bootlaufwerks</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* der Prozessor befindet sich im [[Real Mode]]</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* Interrupts sind aktiviert</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* CS:IP ist entweder 0x7C0:0x00 oder 0x00:0x7C00</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Andere Dinge sind allerdings nicht standardisiert:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* die Position des Stacks</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">* der Inhalt der Register (außer dl, siehe oben)</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Bekannte Bootloader ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Bekannte Bootloader ==</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l6" >Zeile 6:</td>
+<td colspan="2" class="diff-lineno">Zeile 20:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* NTLDR ([[Windows]] NT Loader)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* NTLDR ([[Windows]] NT Loader)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* BOOTMGR (Windows Vista Loader)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* BOOTMGR (Windows Vista Loader)</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">== Weiterführende Artikel ==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Obwohl davon abgeraten wird, kann man seinen Bootloader natürlich auch selbst programmieren: [[Eigener Bootloader]]</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Glossar]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Glossar]]</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Betriebssystemkomponente]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Betriebssystemkomponente]]</div></td></tr>
+</table></body></html>

@@ -1,0 +1,34 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ausgabe 7 — Änderungen 8862 → 10550</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Ausgabe 7 — Änderungen 8862 → 10550</h1><nav><a href="../revisions/8862/index.html">Version 8862</a> · <a href="../revisions/10550/index.html">Version 10550</a> · <a href="../history/1494/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l674" >Zeile 674:</td>
+<td colspan="2" class="diff-lineno">Zeile 674:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wir werden jetzt ein paar Funktionen für die Programmiersprache C zusammen entwickeln.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wir werden jetzt ein paar Funktionen für die Programmiersprache C zusammen entwickeln.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Nebenher schreiben wir die Funktionen dann auch noch in Assembler.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Nebenher schreiben wir die Funktionen dann auch noch in Assembler.</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Also, fangen wir an, ich denke in C dürfte jeder die Funktionen <del class="diffchange diffchange-inline">â€žinp</del>()<del class="diffchange diffchange-inline">â€œ </del>und <del class="diffchange diffchange-inline">â€žoutp</del>()<del class="diffchange diffchange-inline">â€œ </del>schon für sein</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Also, fangen wir an, ich denke in C dürfte jeder die Funktionen <ins class="diffchange diffchange-inline">&lt;c&gt;inp</ins>()<ins class="diffchange diffchange-inline">&lt;/c&gt; </ins>und <ins class="diffchange diffchange-inline">&lt;c&gt;outp</ins>()<ins class="diffchange diffchange-inline">&lt;/c&gt; </ins>schon für sein OS implementiert haben, weshalb ich darauf baue. Wir wissen, wir schalten den Lautsprecher an, indem die letzten 2 Bits in Port 0x61 auf 11b stehen. Daraus machen wir schnell eine Funktion:</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>OS implementiert haben, weshalb ich darauf baue.</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Wir wissen, wir schalten den Lautsprecher an, indem die letzten 2 Bits in Port 0x61 auf 11b stehen.</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Daraus machen wir schnell eine Funktion:</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l686" >Zeile 686:</td>
+<td colspan="2" class="diff-lineno">Zeile 683:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/c&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Okay<del class="diffchange diffchange-inline">. In </del>Assembler baue ich das schon alles mit in die _sound-Funktion ein.</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Okay<ins class="diffchange diffchange-inline">, in </ins>Assembler baue ich das schon alles mit in die _sound-Funktion ein.</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>So, an können wir ihn machen, nur aus noch nicht, aber wir wissen, wenn die beiden letzten Bits in</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>So, an können wir ihn machen, nur aus noch nicht, aber wir wissen, wenn die beiden letzten Bits in Port 0x61 auf 00b stehen, dann ist der Lautsprecher aus. Das geht also ganz leicht:</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Port 0x61 auf 00b stehen, dann ist der Lautsprecher aus. Das geht also ganz leicht:</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l706" >Zeile 706:</td>
+<td colspan="2" class="diff-lineno">Zeile 702:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/asm&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/asm&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Fertig. An und aus können wir ihn schon machen, aber das Herzstückt kommt noch! Einen Ton</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Fertig. An und aus können wir ihn schon machen, aber das Herzstückt kommt noch! Einen Ton ausgeben. Das geht mit folgendem, diesmal zuerst in Assembler ;-):</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>ausgeben. Das geht mit folgendem, diesmal zuerst in Assembler ;-):</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;asm&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;asm&gt;</div></td></tr>
+</table></body></html>

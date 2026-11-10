@@ -1,0 +1,10 @@
+Ich habe in einigen Dokumentationen/Howtos gelesen das beim XT-System das Ein- und Ausschalten der Tastatur, dieser sagt, dass man den Scancode gelesen/empfangen hat. Wofür ist das gut? Braucht man das überhaupt?
+
+Dann Antworte ich mir mal selber -.-<br>
+Wenn ein Byte auf den Ausgabepuffer gelegen wird (Ausgabepuffer wird über Port 0x60 gelesen), dann behält der Ausgabepuffer diesen wert bis er überschrieben wird. Mit dem Ein- und Ausschalten des KB wird der Ausgabepuffer auf den wert 0 gesetzt.
+Es wurde also bei XT-Systemen benötigt wenn man die Tastaturabfrage mittels Polling realisierte. Bei aktuellen Systemen (ab AT) findet dieses keine Anwendung. [[Benutzer:Osbios|Osbios]] 18:18, 4. Nov 2007 (CET)
+
+== das/der port ==
+
+Heisst es <b>das</b> Port?
+Ich bin bis jetzt immer von <b>der</b> Port ausgegangen....

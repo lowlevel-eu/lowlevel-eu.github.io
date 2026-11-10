@@ -1,0 +1,2619 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Universal Serial Bus – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Universal_Serial_Bus rootpage-Universal_Serial_Bus skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1690/index.html">Aktueller Artikel</a> · <a href="../../history/1690/index.html">Versionsgeschichte</a> · <a href="../../source/10734.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Universal Serial Bus</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 21. August 2012, 15:02 Uhr von <a class="mw-userlink" href="../../pages/1860/index.html" title="Benutzer:XanClic"><bdi>XanClic</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Isochronous">→</a>‎<span dir="auto"><span class="autocomment">Isochronous: </span> Dass sich das auch keiner durchliest</span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/10733-10734.html" title="Universal Serial Bus">Unterschied</a>) <a href="../10733/index.html" title="Universal Serial Bus">← Nächstältere Version</a> | <a href="../../pages/1690/index.html" title="Universal Serial Bus">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../10735/index.html" title="Universal Serial Bus">Nächstjüngere Version →</a> (<a href="../../diffs/10734-10735.html" title="Universal Serial Bus">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="padding: 2px; padding-left: 9px; padding-right: 9px; background-color: #ffffff; color: #000000; border: 2px solid #efbf00; text-align:left;">
+<div style="color: #efbf00">
+<p><b>Hinweis:</b>
+</p>
+</div>
+<p>Der Autor kannte sich bei Erstellung des Artikels nicht besonders mit dem Thema aus. Da dieses Thema aber dringend nach einem Artikel verlangte (z. B. aufgrund eines Eintrags in der <a href="../../pages/1518/index.html" title="TODO">TODO</a>-Liste), hat er sich dennoch entschieden, seine Kenntnisse niederzuschreiben.
+</p><p>Wenn <b>du</b> dich mit diesem Thema einigermaßen auskennst, dann bist du <b>jetzt</b> aufgerufen, diesen Artikel zu erweitern und/oder zu korrigieren (oder natürlich diesen Hinweis zu entfernen, wenn du den Artikel für korrekt befindest)!
+</p>
+</div>
+<p><br/>
+</p>
+<div id="Template_Stub">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #D0D8FF; margin: 0 0em; padding: 0 0px; border: 1px solid #b8c0e8" width="100%">
+<tbody><tr>
+<td>Diese Seite oder Abschnitt ist zwar komplett, es wird aber folgende Verbesserungen gewünscht:<br/>
+<p><i>Low- und Full-Speed werden hier detailliert beschrieben, High-Speed in den meisten Fällen auch relativ genau, wäre aber zu verbessern. Zu SuperSpeed jedoch fehlt jegliche Information (außer den bekannten Consumerinfos, die man auch von Wikipedia bekommen kann), das wäre aber schon nett.</i>
+</p><p>Hilf Lowlevel, den Artikel zu verbessern.
+</p>
+</td></tr></tbody></table>
+</div>
+<p><br/>
+</p>
+<div style="float: right; clear: right; margin: 0px; margin-left: 10px; margin-bottom: 10px; padding: 4px; border: 1px solid rgb(192, 192, 192); background-color: rgb(240, 240, 240); text-align: center; font-size: 90%;"><img alt="200px-Usb-svg.svg.png" src="http://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Usb-svg.svg/200px-Usb-svg.svg.png"/><hr/>USB-Symbol<br/><a class="external text" href="http://de.wikipedia.org/wiki/Datei:Usb-svg.svg" rel="nofollow">Quelle</a></div>
+<p>Der <b>Universal Serial Bus</b> (kurz <b>USB</b>) ist ein <a href="../../pages/1769/index.html" title="Kategorie:Bus"> Bus</a> zur Verbindung von Geräten mit einem PC und wird von praktisch jedem modernen Computer unterstützt. USB ist abwärtskompatibel, d. h., dass man langsame USB-1.0-Geräte an den schnelleren USB 2.0 oder 3.0 anschließen kann und umgekehrt.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Einsatzgebiete"><span class="tocnumber">1</span> <span class="toctext">Einsatzgebiete</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Spezifikationen"><span class="tocnumber">2</span> <span class="toctext">Spezifikationen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#USB_3.0"><span class="tocnumber">2.1</span> <span class="toctext">USB 3.0</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#USB_2.0"><span class="tocnumber">2.2</span> <span class="toctext">USB 2.0</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#USB_1.1"><span class="tocnumber">2.3</span> <span class="toctext">USB 1.1</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#USB_1.0"><span class="tocnumber">2.4</span> <span class="toctext">USB 1.0</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Vorwort"><span class="tocnumber">3</span> <span class="toctext">Vorwort</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Worum_es_in_den_folgenden_Abschnitten_geht"><span class="tocnumber">3.1</span> <span class="toctext">Worum es in den folgenden Abschnitten geht</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Worum_es_nicht_geht"><span class="tocnumber">3.2</span> <span class="toctext">Worum es nicht geht</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#.C3.9Cberblick"><span class="tocnumber">4</span> <span class="toctext">Überblick</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Ger.C3.A4te"><span class="tocnumber">4.1</span> <span class="toctext">Geräte</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Host"><span class="tocnumber">4.2</span> <span class="toctext">Host</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Konfigurationen"><span class="tocnumber">4.3</span> <span class="toctext">Konfigurationen</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Interfaces"><span class="tocnumber">4.4</span> <span class="toctext">Interfaces</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="#Alternative_Einstellungen"><span class="tocnumber">4.4.1</span> <span class="toctext">Alternative Einstellungen</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-16"><a href="#Endpunkte"><span class="tocnumber">4.5</span> <span class="toctext">Endpunkte</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Pipes"><span class="tocnumber">4.6</span> <span class="toctext">Pipes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="#Elektrische_Hintergr.C3.BCnde"><span class="tocnumber">5</span> <span class="toctext">Elektrische Hintergründe</span></a>
+<ul>
+<li class="toclevel-2 tocsection-19"><a href="#Daten.C3.BCbertragung"><span class="tocnumber">5.1</span> <span class="toctext">Datenübertragung</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#Selbstversuch"><span class="tocnumber">5.2</span> <span class="toctext">Selbstversuch</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-21"><a href="#Spezielle_Ereignisse"><span class="tocnumber">6</span> <span class="toctext">Spezielle Ereignisse</span></a>
+<ul>
+<li class="toclevel-2 tocsection-22"><a href="#Reset"><span class="tocnumber">6.1</span> <span class="toctext">Reset</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="#Suspend"><span class="tocnumber">6.2</span> <span class="toctext">Suspend</span></a>
+<ul>
+<li class="toclevel-3 tocsection-24"><a href="#Remote_Wakeup"><span class="tocnumber">6.2.1</span> <span class="toctext">Remote Wakeup</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="#High-Speed-Suspend"><span class="tocnumber">6.2.2</span> <span class="toctext">High-Speed-Suspend</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-26"><a href="#Protokoll"><span class="tocnumber">7</span> <span class="toctext">Protokoll</span></a>
+<ul>
+<li class="toclevel-2 tocsection-27"><a href="#Bit-_und_Bytereihenfolge"><span class="tocnumber">7.1</span> <span class="toctext">Bit- und Bytereihenfolge</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="#Organisation"><span class="tocnumber">7.2</span> <span class="toctext">Organisation</span></a>
+<ul>
+<li class="toclevel-3 tocsection-29"><a href="#.C3.9Cbertragungsarten"><span class="tocnumber">7.2.1</span> <span class="toctext">Übertragungsarten</span></a>
+<ul>
+<li class="toclevel-4 tocsection-30"><a href="#Control"><span class="tocnumber">7.2.1.1</span> <span class="toctext">Control</span></a></li>
+<li class="toclevel-4 tocsection-31"><a href="#Bulk"><span class="tocnumber">7.2.1.2</span> <span class="toctext">Bulk</span></a></li>
+<li class="toclevel-4 tocsection-32"><a href="#Interrupt"><span class="tocnumber">7.2.1.3</span> <span class="toctext">Interrupt</span></a></li>
+<li class="toclevel-4 tocsection-33"><a href="#Isochronous"><span class="tocnumber">7.2.1.4</span> <span class="toctext">Isochronous</span></a></li>
+<li class="toclevel-4 tocsection-34"><a href="#Zusammenfassung"><span class="tocnumber">7.2.1.5</span> <span class="toctext">Zusammenfassung</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-35"><a href="#Frames"><span class="tocnumber">7.2.2</span> <span class="toctext">Frames</span></a></li>
+<li class="toclevel-3 tocsection-36"><a href="#Flusskontrolle"><span class="tocnumber">7.2.3</span> <span class="toctext">Flusskontrolle</span></a>
+<ul>
+<li class="toclevel-4 tocsection-37"><a href="#Full-Speed"><span class="tocnumber">7.2.3.1</span> <span class="toctext">Full-Speed</span></a></li>
+<li class="toclevel-4 tocsection-38"><a href="#High-Speed"><span class="tocnumber">7.2.3.2</span> <span class="toctext">High-Speed</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-39"><a href="#Aufbau_eines_USB-Pakets"><span class="tocnumber">7.3</span> <span class="toctext">Aufbau eines USB-Pakets</span></a>
+<ul>
+<li class="toclevel-3 tocsection-40"><a href="#SOP"><span class="tocnumber">7.3.1</span> <span class="toctext">SOP</span></a></li>
+<li class="toclevel-3 tocsection-41"><a href="#PID"><span class="tocnumber">7.3.2</span> <span class="toctext">PID</span></a></li>
+<li class="toclevel-3 tocsection-42"><a href="#ADDR"><span class="tocnumber">7.3.3</span> <span class="toctext">ADDR</span></a></li>
+<li class="toclevel-3 tocsection-43"><a href="#ENDP"><span class="tocnumber">7.3.4</span> <span class="toctext">ENDP</span></a></li>
+<li class="toclevel-3 tocsection-44"><a href="#Framenummer"><span class="tocnumber">7.3.5</span> <span class="toctext">Framenummer</span></a></li>
+<li class="toclevel-3 tocsection-45"><a href="#Datenfeld"><span class="tocnumber">7.3.6</span> <span class="toctext">Datenfeld</span></a></li>
+<li class="toclevel-3 tocsection-46"><a href="#CRC"><span class="tocnumber">7.3.7</span> <span class="toctext">CRC</span></a></li>
+<li class="toclevel-3 tocsection-47"><a href="#EOP"><span class="tocnumber">7.3.8</span> <span class="toctext">EOP</span></a></li>
+<li class="toclevel-3 tocsection-48"><a href="#Verwendete_Felder"><span class="tocnumber">7.3.9</span> <span class="toctext">Verwendete Felder</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-49"><a href="#Senden_eines_USB-Pakets"><span class="tocnumber">7.4</span> <span class="toctext">Senden eines USB-Pakets</span></a>
+<ul>
+<li class="toclevel-3 tocsection-50"><a href="#MPS"><span class="tocnumber">7.4.1</span> <span class="toctext">MPS</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-51"><a href="#USB-Transfer"><span class="tocnumber">8</span> <span class="toctext">USB-Transfer</span></a>
+<ul>
+<li class="toclevel-2 tocsection-52"><a href="#Handshake-Datentransfer"><span class="tocnumber">8.1</span> <span class="toctext">Handshake-Datentransfer</span></a></li>
+<li class="toclevel-2 tocsection-53"><a href="#Nicht-Handshake-Datentransfers"><span class="tocnumber">8.2</span> <span class="toctext">Nicht-Handshake-Datentransfers</span></a></li>
+<li class="toclevel-2 tocsection-54"><a href="#SPLIT-Transfers"><span class="tocnumber">8.3</span> <span class="toctext">SPLIT-Transfers</span></a>
+<ul>
+<li class="toclevel-3 tocsection-55"><a href="#SSPLIT"><span class="tocnumber">8.3.1</span> <span class="toctext">SSPLIT</span></a></li>
+<li class="toclevel-3 tocsection-56"><a href="#CSPLIT"><span class="tocnumber">8.3.2</span> <span class="toctext">CSPLIT</span></a></li>
+<li class="toclevel-3 tocsection-57"><a href="#Zusammenfassung_2"><span class="tocnumber">8.3.3</span> <span class="toctext">Zusammenfassung</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-58"><a href="#Fehlerbehandlung"><span class="tocnumber">8.4</span> <span class="toctext">Fehlerbehandlung</span></a>
+<ul>
+<li class="toclevel-3 tocsection-59"><a href="#Daten_korrekt_empfangen_und_akzeptiert"><span class="tocnumber">8.4.1</span> <span class="toctext">Daten korrekt empfangen und akzeptiert</span></a></li>
+<li class="toclevel-3 tocsection-60"><a href="#Ung.C3.BCltiges_PID-Feld_oder_Adresse.2FEndpunkt_nicht_vorhanden"><span class="tocnumber">8.4.2</span> <span class="toctext">Ungültiges PID-Feld oder Adresse/Endpunkt nicht vorhanden</span></a></li>
+<li class="toclevel-3 tocsection-61"><a href="#CRC-Fehler"><span class="tocnumber">8.4.3</span> <span class="toctext">CRC-Fehler</span></a></li>
+<li class="toclevel-3 tocsection-62"><a href="#Daten_k.C3.B6nnen_nicht_empfangen_werden"><span class="tocnumber">8.4.4</span> <span class="toctext">Daten können nicht empfangen werden</span></a></li>
+<li class="toclevel-3 tocsection-63"><a href="#Handshake_geht_verloren"><span class="tocnumber">8.4.5</span> <span class="toctext">Handshake geht verloren</span></a>
+<ul>
+<li class="toclevel-4 tocsection-64"><a href="#Data-Toggle"><span class="tocnumber">8.4.5.1</span> <span class="toctext">Data-Toggle</span></a>
+<ul>
+<li class="toclevel-5 tocsection-65"><a href="#Isochronous_2"><span class="tocnumber">8.4.5.1.1</span> <span class="toctext">Isochronous</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-66"><a href="#False_EOPs"><span class="tocnumber">8.4.6</span> <span class="toctext">False EOPs</span></a></li>
+<li class="toclevel-3 tocsection-67"><a href="#Babble"><span class="tocnumber">8.4.7</span> <span class="toctext">Babble</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-68"><a href="#Zusammengesetzte_Transfers"><span class="tocnumber">9</span> <span class="toctext">Zusammengesetzte Transfers</span></a>
+<ul>
+<li class="toclevel-2 tocsection-69"><a href="#Controltransfers"><span class="tocnumber">9.1</span> <span class="toctext">Controltransfers</span></a></li>
+<li class="toclevel-2 tocsection-70"><a href="#Bulktransfers"><span class="tocnumber">9.2</span> <span class="toctext">Bulktransfers</span></a></li>
+<li class="toclevel-2 tocsection-71"><a href="#Interrupttransfers"><span class="tocnumber">9.3</span> <span class="toctext">Interrupttransfers</span></a></li>
+<li class="toclevel-2 tocsection-72"><a href="#Isochronoustransfers"><span class="tocnumber">9.4</span> <span class="toctext">Isochronoustransfers</span></a></li>
+<li class="toclevel-2 tocsection-73"><a href="#Beispiel"><span class="tocnumber">9.5</span> <span class="toctext">Beispiel</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-74"><a href="#Controltransfers_2"><span class="tocnumber">10</span> <span class="toctext">Controltransfers</span></a>
+<ul>
+<li class="toclevel-2 tocsection-75"><a href="#Enumeration"><span class="tocnumber">10.1</span> <span class="toctext">Enumeration</span></a>
+<ul>
+<li class="toclevel-3 tocsection-76"><a href="#Enumeration_beim_Hochfahren"><span class="tocnumber">10.1.1</span> <span class="toctext">Enumeration beim Hochfahren</span></a></li>
+<li class="toclevel-3 tocsection-77"><a href="#Enumeration_eines_neuen_Ger.C3.A4ts"><span class="tocnumber">10.1.2</span> <span class="toctext">Enumeration eines neuen Geräts</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-78"><a href="#Wiederholung"><span class="tocnumber">10.2</span> <span class="toctext">Wiederholung</span></a></li>
+<li class="toclevel-2 tocsection-79"><a href="#Setuppaket"><span class="tocnumber">10.3</span> <span class="toctext">Setuppaket</span></a>
+<ul>
+<li class="toclevel-3 tocsection-80"><a href="#Standardrequests"><span class="tocnumber">10.3.1</span> <span class="toctext">Standardrequests</span></a>
+<ul>
+<li class="toclevel-4 tocsection-81"><a href="#GET_STATUS"><span class="tocnumber">10.3.1.1</span> <span class="toctext">GET_STATUS</span></a></li>
+<li class="toclevel-4 tocsection-82"><a href="#CLEAR_FEATURE"><span class="tocnumber">10.3.1.2</span> <span class="toctext">CLEAR_FEATURE</span></a></li>
+<li class="toclevel-4 tocsection-83"><a href="#SET_FEATURE"><span class="tocnumber">10.3.1.3</span> <span class="toctext">SET_FEATURE</span></a></li>
+<li class="toclevel-4 tocsection-84"><a href="#SET_ADDRESS"><span class="tocnumber">10.3.1.4</span> <span class="toctext">SET_ADDRESS</span></a></li>
+<li class="toclevel-4 tocsection-85"><a href="#GET_DESCRIPTOR"><span class="tocnumber">10.3.1.5</span> <span class="toctext">GET_DESCRIPTOR</span></a></li>
+<li class="toclevel-4 tocsection-86"><a href="#SET_DESCRIPTOR"><span class="tocnumber">10.3.1.6</span> <span class="toctext">SET_DESCRIPTOR</span></a></li>
+<li class="toclevel-4 tocsection-87"><a href="#GET_CONFIGURATION"><span class="tocnumber">10.3.1.7</span> <span class="toctext">GET_CONFIGURATION</span></a></li>
+<li class="toclevel-4 tocsection-88"><a href="#SET_CONFIGURATION"><span class="tocnumber">10.3.1.8</span> <span class="toctext">SET_CONFIGURATION</span></a></li>
+<li class="toclevel-4 tocsection-89"><a href="#GET_INTERFACE"><span class="tocnumber">10.3.1.9</span> <span class="toctext">GET_INTERFACE</span></a></li>
+<li class="toclevel-4 tocsection-90"><a href="#SET_INTERFACE"><span class="tocnumber">10.3.1.10</span> <span class="toctext">SET_INTERFACE</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-91"><a href="#Descriptoren"><span class="tocnumber">10.4</span> <span class="toctext">Descriptoren</span></a>
+<ul>
+<li class="toclevel-3 tocsection-92"><a href="#Device-Descriptor"><span class="tocnumber">10.4.1</span> <span class="toctext">Device-Descriptor</span></a></li>
+<li class="toclevel-3 tocsection-93"><a href="#Konfigurationsdescriptor"><span class="tocnumber">10.4.2</span> <span class="toctext">Konfigurationsdescriptor</span></a></li>
+<li class="toclevel-3 tocsection-94"><a href="#Stringdescriptor"><span class="tocnumber">10.4.3</span> <span class="toctext">Stringdescriptor</span></a></li>
+<li class="toclevel-3 tocsection-95"><a href="#Interfacedescriptor"><span class="tocnumber">10.4.4</span> <span class="toctext">Interfacedescriptor</span></a></li>
+<li class="toclevel-3 tocsection-96"><a href="#Endpunktdescriptor"><span class="tocnumber">10.4.5</span> <span class="toctext">Endpunktdescriptor</span></a></li>
+<li class="toclevel-3 tocsection-97"><a href="#Device-Qualifier"><span class="tocnumber">10.4.6</span> <span class="toctext">Device-Qualifier</span></a></li>
+<li class="toclevel-3 tocsection-98"><a href="#Other-Speed-Konfigurationsdescriptor"><span class="tocnumber">10.4.7</span> <span class="toctext">Other-Speed-Konfigurationsdescriptor</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-99"><a href="#Legacy_Support"><span class="tocnumber">11</span> <span class="toctext">Legacy Support</span></a>
+<ul>
+<li class="toclevel-2 tocsection-100"><a href="#Funktionsweise"><span class="tocnumber">11.1</span> <span class="toctext">Funktionsweise</span></a></li>
+<li class="toclevel-2 tocsection-101"><a href="#Deaktivieren"><span class="tocnumber">11.2</span> <span class="toctext">Deaktivieren</span></a>
+<ul>
+<li class="toclevel-3 tocsection-102"><a href="#EHCI"><span class="tocnumber">11.2.1</span> <span class="toctext">EHCI</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-103"><a href="#.C3.9Cbersetzung"><span class="tocnumber">12</span> <span class="toctext">Übersetzung</span></a>
+<ul>
+<li class="toclevel-2 tocsection-104"><a href="#Deutsch-Englisch"><span class="tocnumber">12.1</span> <span class="toctext">Deutsch-Englisch</span></a></li>
+<li class="toclevel-2 tocsection-105"><a href="#Englisch-Deutsch"><span class="tocnumber">12.2</span> <span class="toctext">Englisch-Deutsch</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-106"><a href="#Links"><span class="tocnumber">13</span> <span class="toctext">Links</span></a></li>
+<li class="toclevel-1 tocsection-107"><a href="#Literatur"><span class="tocnumber">14</span> <span class="toctext">Literatur</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Einsatzgebiete">Einsatzgebiete</span></h2>
+<p>USB ist sehr vielseitig verwendbar, es eignet sich z. B. für externe Festplatten, Flashspeicher (USB-Sticks), Drucker, Kartenleser, Multimediageräte, HID-Geräte (<i>Human Interface Devices</i>) und vieles mehr. Ursprünglich wurde es für langsame Geräte wie Drucker, Tastatur oder Maus entworfen, mit den Geschwindigkeitsklassen High-Speed (seit USB 2.0) und SuperSpeed (seit USB 3.0) jedoch eignet es sich auch für Geräte, die eine höhere Bandbreite benötigen, wie Festplatten oder Webcams.
+</p>
+<h2><span class="mw-headline" id="Spezifikationen">Spezifikationen</span></h2>
+<p><b>Für alle USB-Spezifikationen gilt</b>:
+</p>
+<ul><li>Spannung: 5 V</li>
+<li>Stromstärke: 100 mA (bei USB 3.0 150 mA); nach besonderer Freigabe bis zu 500 mA (bei USB 3.0 900 mA)</li></ul>
+<h3><span class="mw-headline" id="USB_3.0">USB 3.0</span></h3>
+<p>USB 3.0 ist noch sehr spärlich verfügbar. Erste Spezifikationen gab es 2008, USB 3.0 erlaubt eine Übertragungsrate von 5,0 GBit/s (Super-Speed) was durch die <a class="external text" href="http://de.wikipedia.org/wiki/8b10b-Code" rel="nofollow">8b10b-Codierung</a> 500 MByte/s Brutto-Transferrate ergibt. Diese Datenrate steht, im Gegensatz zu USB 1 und USB 2, in beiden Richtungen (vom Host zum Device und vom Device zum Host) gleichzeitig zur Verfügung, USB 3 ist <a class="external text" href="http://de.wikipedia.org/wiki/Duplex_%28Nachrichtentechnik%29" rel="nofollow">vollduplex</a> und nicht mehr <a class="external text" href="http://de.wikipedia.org/wiki/Duplex_%28Nachrichtentechnik%29" rel="nofollow">halbduplex</a> wie seine Vorgänger. Zudem kann ein Gerät auf Anfrage bis zu 900 mA statt der bisherigen 500 mA erhalten. Damit lassen sich problemlos USB-Festplatten ohne zusätzliche externe Stromquelle anschließen.
+</p>
+<h3><span class="mw-headline" id="USB_2.0">USB 2.0</span></h3>
+<p>USB 2.0 wurde 2000 veröffentlicht und bot erstmals "High-Speed" mit einer Übertragungsrate von 480 MBit/s was durch das Bitstuffing etwa 50 bis 55 MByte/s Brutto-Transferrate ergibt.
+</p>
+<h3><span class="mw-headline" id="USB_1.1">USB 1.1</span></h3>
+<p>USB 1.1 wurde 1998 veröffentlicht und behob einige Fehler und Unklarheiten von USB 1.0.
+</p>
+<h3><span class="mw-headline" id="USB_1.0">USB 1.0</span></h3>
+<p>USB 1.0 wurde 1996 veröffentlicht und diente (wie auch noch heute) zum Anschluss von Peripheriegeräten an den PC. USB 1.0 definiert zwei Übertragungsgeschwindigkeiten mit 12 MBit/s (Full-Speed) und 1,5 MBit/s (Low-Speed) was durch das Bitstuffing etwa 1,3 bis 1,4 MByte/s bzw. ca. 165 kByte/s Brutto-Transferrate ergibt. Aufgrund dieser langsamen Datenübertragung eignet sich USB 1 kaum zum Anschluss von Festplatten, Kameras oder anderen Geräten, die größere Datenmengen transportieren.
+</p>
+<h2><span class="mw-headline" id="Vorwort">Vorwort</span></h2>
+<h3><span class="mw-headline" id="Worum_es_in_den_folgenden_Abschnitten_geht">Worum es in den folgenden Abschnitten geht</span></h3>
+<p>Die folgenden Abschnitte sollen eine erschöpfende Abhandlung und auch in gewisser Weise ein Nachschlagewerk über den USB sein. Sie handeln sowohl vom für den Entwickler eher uninteressanten elektrischen Teil, belegen diesen auch mit Beispielen, als auch von abstrakteren Objekten wie USB-Paketen und ganzen Transfers. Kurzum: Dieser Artikel soll den USB in seiner ganzen Fülle behandeln, bewusst oft sehr nah an der Hardware &amp;#150; schließlich ist das hier das <i>Lowlevel</i>-Wiki und viele Betriebssystemprogrammierer führen als Grund für ihre Motivation an, dass sie die Hardware im kleinsten Detail kennenlernen wollen.
+</p><p>Außerdem ist USB ein derartig komplexes Thema, dass es nicht genügen kann, eine Einführung zu lesen, etwas Code zu kopieren und dann nach und nach alles zu lernen: Schon der allererste Transfer fordert die Verwendung der meisten der mannigfaltigen Aspekte des USBs. Daher geht es hier vor allem darum, zu <i>verstehen</i> und nicht, Beispielcode zu sehen.
+</p>
+<h3><span class="mw-headline" id="Worum_es_nicht_geht">Worum es nicht geht</span></h3>
+<p>Hier geht es nicht um die Programmierung des USB. So wie die Artikel <a href="../../pages/1876/index.html" title="Ethernet">Ethernet</a> und <a href="../../pages/1533/index.html" title="RTL8139">RTL8139</a> getrennt sind, so ist auch dieser Artikel von den Artikeln für die Hostcontroller getrennt, die die einzelnen Transfers initiieren und steuern. Hier wird also nur vermittelt, was im Endeffekt auf dem Bus elektrisch passiert und was diese Signale bedeuten, nicht jedoch, wie man sie erzeugt. Dazu müssen die Artikel zu den entsprechenden Hostcontrollern konsultiert werden:
+</p>
+<ul><li><a href="../../pages/1575/index.html" title="Open Host Controller Interface">OHCI</a></li>
+<li><a href="../../pages/1576/index.html" title="Universal Host Controller Interface">UHCI</a></li>
+<li><a href="../../pages/1577/index.html" title="Enhanced Host Controller Interface">EHCI</a></li>
+<li><a href="../../pages/1692/index.html" title="Extensible Host Controller Interface">xHCI</a></li></ul>
+<h2><span id="Überblick"></span><span class="mw-headline" id=".C3.9Cberblick">Überblick</span></h2>
+<p>Bevor wir zum technischen Teil kommen, zuerst einmal ein Überblick über die Organisation des USB.
+</p>
+<h3><span id="Geräte"></span><span class="mw-headline" id="Ger.C3.A4te">Geräte</span></h3>
+<p>Logischerweise gibt es am USB Geräte. Das sind gewissermaßen Objekte, mit denen man kommunizieren kann. Jedes Gerät erhält eine am jeweiligen USB eindeutige Nummer von 1 bis 127 (0 ist für einen besonderen Zweck reserviert). Die USB-Geräte werden nochmals in Functions und Hubs unterteilt. Eine Function kann eine bestimmte Aufgabe erfüllen, z. B. ist dies ein Massenspeicher, ein Drucker oder eine Webcam. Ein Hub hat auch eine Aufgabe, aber eine ganz spezielle: Er leitet die Daten, die er an seinem USB-Anschluss (Upstreamport) erhält, an neue Ports (Downstreamports) weiter. So erhält der USB eine baumartige Struktur, die Wurzel ist der sogenannte Roothub, die einzelnen Verzweigungen werden durch Hubs gebildet. Es ist festgelegt, dass maximal fünf Hubs hintereinander geschaltet werden dürfen. Dies findet seine Begründung darin, dass für einige Übertragungen auf eine Antwort gewartet wird und ein Timeout benötigt wird, falls keine Antwort erfolgt. Dieses Timeout wurde so festgelegt, dass ein Gerät genügend Zeit hat, die Antwort zu senden, nachdem die Übertragung fünf Hubs und sechs Kabel durchquert hat und die Antwort diese Strecke nochmals zurücklegen muss. Hängt man also einen weiteren Hub an, so kann es passieren, dass das Gerät eine Antwort sendet, diese aber ignoriert wird, da sie bereits über der Timeoutzeit liegt.
+</p>
+<h3><span class="mw-headline" id="Host">Host</span></h3>
+<p>Der Host bildet den Busmaster eines USB. Er ist der einzige Teilnehmer, der Transaktionen initiieren darf, Geräte dürfen dies nicht von sich aus. Er besitzt keine Adresse, stattdessen wird er nur per Richtung adressiert: IN bedeutet immer in Richtung Host, OUT in Richtung Gerät (wobei das Gerät dann jeweils mit seiner Adresse identifiziert wird).
+</p>
+<h3><span class="mw-headline" id="Konfigurationen">Konfigurationen</span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><a class="image" href="../../pages/2214/index.html"><img alt="" class="thumbimage" height="212" src="../../../assets/wiki/579de13a7086feacd1b5ad5b.png" srcset="../../../assets/wiki/33e30be8b08d7e3f1b753fc0.png 1.5x, ../../../assets/wiki/dd40a66cd64c5f63a5cadc9e.png 2x" width="300"/></a> <div class="thumbcaption"><div class="magnify"><a class="internal" href="../../pages/2214/index.html" title="vergrößern"></a></div>Zusammenhang zwischen Gerät, Konfiguration, Interface und Endpunkt</div></div></div>
+<p>In verschiedenen Situationen muss sich ein Gerät unterschiedlich verhalten. Denkbar wäre zum Beispiel ein Gerät, das 500 mA vom Bus benötigt, um zu funktionieren. Hat der Host allerdings keine Möglichkeit, diese 500 mA bereitzustellen (z. B. hängt das Gerät hinter einem Hub, der sich ebenfalls mit Strom vom Bus versorgt und so maximal 100 mA pro Port bereitstellen kann). Obwohl das Gerät dadurch vielleicht keine Möglichkeit, seine eigentliche Funktion auszuführen, muss es trotzdem aktiv am Bus hängen. Das heißt, es kann zum Beispiel einfach nur darauf warten, dass es doch noch 500 mA erhält.
+</p><p>Dieses Reagieren auf unterschiedliche Situationen wird mit Konfigurationen erreicht. Jedes Gerät muss eine Default-Konfiguration anbieten, in der es nur 100 mA verbraucht und kann beliebig viele weitere Konfigurationen anbieten, die verschiedene Funktionen erlauben. Zu einem bestimmten Zeitpunkt kann ein Gerät nur eine Konfiguration besitzen.
+</p>
+<h3><span class="mw-headline" id="Interfaces">Interfaces</span></h3>
+<p>Es gibt sogenannte Composite Devices, welche mehrere Funktionen in sich vereinen. Eine Webcam beispielsweise hat häufig zwei Funktionen: Sie kann sowohl Bild als auch Ton aufnehmen. Nun gibt es drei Möglichkeiten, dies zu implementieren. Entweder man erstellt ein gerätespezifisches Protokoll und liefert für dieses Gerät Treiber aus &amp;#150; schlecht, da man erst Treiber schreiben muss und außerdem z. B. Linuxnutzer in die Röhre gucken könnten. Zweite Möglichkeit: Man setzt auf Standardfunktionen, hier wären die Video- und die Audiogeräteklasse sinnvoll. Dummerweise sind das aber zwei verschiedene Klassen. Man müsste also zwei verschiedene Geräte implementieren (oder zumindest zwei verschiedene logische Geräte, eventuell sogar mit integriertem Hub, sodass alles vollkommen transparent für das System erscheint). Das Problem hierbei ist offensichtlich: Relativ hohe Hardwarekosten, da es ja zwei getrennte USB-Geräte sind und außerdem noch ein zusätzlicher Hub, wenn zwei Upstreamports vermieden werden sollen. Die Lösung liegt in der dritten Möglichkeit, man verwendet Interfaces.
+</p><p>Jede Konfiguration kann mehrere Interfaces verwenden, wobei jedes Interface zu einer USB-Klasse gehören kann (oder auch nicht). So ist es für die Webcam möglich, ein Audio- und ein Videointerface bereitzustellen, die dann gleichzeitig verwendet werden können. Diese Möglichkeit besticht einerseits durch die Verwendung allgemein unterstützter Klassen, andererseits aber auch durch günstigere Hardware und auch ein schöneres Design.
+</p><p>Zu einem bestimmten Zeitraum besitzt ein Gerät alle Interfaces, die durch die aktuelle Konfiguration aktiviert sind, gleichzeitig.
+</p>
+<h4><span class="mw-headline" id="Alternative_Einstellungen">Alternative Einstellungen</span></h4>
+<p>Ein Gerät kann es für nötig befinden, dass ein einzelnes Interface während des Betriebs ausgetauscht werden muss, ohne die gesamte Konfiguration zu verändern. Dies wird über alternative Einstellungen erreicht.
+</p><p>Kommen wir zurück zur Webcam: Diese besitzt wie gesagt zwei Interfaces. Nun soll das Videointerface aber mehrere Auflösungen unterstützen, um sich an die verfügbare Bandbreite auf dem USB anzupassen. Hier könnte man einerseits mehrere Konfigurationen anbieten, da sich aber das Audiointerface nicht ändert, kann man auch mehrere Variationen für das Videointerface anbieten. Dies geschieht über alternative Einstellung. Beim Laden der Konfiguration wird die alternative Einstellung 0 geladen. Der USB-Gerätetreiber kann später eine andere alternative Einstellung (und so ein komplett anderes Interface) auswählen, falls dies nötig sein sollte.
+</p><p>Wie auch bei Konfigurationen kann immer nur eine alternative Einstellung pro Interface zu einem bestimmten Zeitpunkt ausgewählt sein.
+</p>
+<h3><span class="mw-headline" id="Endpunkte">Endpunkte</span></h3>
+<p>Endpunkte entsprechen sozusagen den Ports von Netzwerkprotokollen. Jedes Gerät besitzt innerhalb einer Konfiguration eindeutige Endpunkte, mit denen der Host kommunizieren kann. 31 verschiedene Endpunkte sind gleichzeitig möglich, davon ist einer (Endpunkt 0, EP0) jedoch als Kontrollendpunkt reserviert (Low-Speed-Geräte dürfen nur drei Endpunkte nutzen). Ein Interface gibt immer an, welche Endpunkte es nutzt. Deren Nummern müssen innerhalb einer Konfiguration eindeutig sein.
+</p>
+<h3><span class="mw-headline" id="Pipes">Pipes</span></h3>
+<p>Obwohl es im Grunde nur einen physischen Kommunikationskanal auf dem USB gibt, der von allen Geräten genutzt wird und daher aufgeteilt werden muss, gibt es mehrere logische Kanäle, sogenannte Pipes. Eine Pipe ist eine Verbindung vom Host zu einem bestimmten Endpunkt eines bestimmten Geräts, sie wird also durch die Geräteadresse und die Endpunktnummer eindeutig bestimmt. Dieser Endpunkt und seine Rolle bestimmen dann auch den Typ der Pipe (also den <a href="#.C3.9Cbertragungsarten">Transfertyp</a>).
+</p><p>Eine besondere Rolle spielt die <i>Default Control Pipe</i>, die zur Konfiguration des Geräts dient und bei jedem Gerät vorhanden sein muss. Sie entspricht einer Verbindung zum EP0. Sie ist verfügbar, sobald das Gerät Strom erhält und einen USB-Reset empfangen hat. Auch wenn schwerwiegende Fehler aufgetreten sind, muss sie immer erreichbar und ansprechbar sein.
+</p>
+<h2><span id="Elektrische_Hintergründe"></span><span class="mw-headline" id="Elektrische_Hintergr.C3.BCnde">Elektrische Hintergründe</span></h2>
+<div style="float: right; clear: right; margin: 0px; margin-left: 10px; margin-bottom: 10px; padding: 4px; border: 1px solid rgb(192, 192, 192); background-color: rgb(240, 240, 240); text-align: center; font-size: 90%;"><img alt="Usb_kabel_beschriftet.jpg" src="http://upload.wikimedia.org/wikipedia/commons/a/a7/Usb_kabel_beschriftet.jpg"/><hr/>Aufgeschnittenes USB-Kabel, Einzelkabel beschriftet<br/><a class="external text" href="http://de.wikipedia.org/w/index.php?title=Datei:Usb_kabel_beschriftet.jpg&amp;filetimestamp=20080530215106" rel="nofollow">Quelle</a></div>
+<div style="float: right; clear: right; margin: 0px; margin-left: 10px; margin-bottom: 10px; padding: 4px; border: 1px solid rgb(192, 192, 192); background-color: rgb(240, 240, 240); text-align: center; font-size: 90%;"><img alt="200px-USB.svg.png" src="http://upload.wikimedia.org/wikipedia/commons/thumb/6/67/USB.svg/200px-USB.svg.png"/><hr/>Kontakte von USB-A- und -B-Steckern<br/><a class="external text" href="http://de.wikipedia.org/w/index.php?title=Datei:USB.svg&amp;filetimestamp=20090406174048" rel="nofollow">Quelle</a></div>
+<p>Schneidet man ein USB-Kabel wie z. B. ein altes Handykabel auf, so wird man darin vier weitere Kabel entdecken, meist sind sie rot, schwarz, grün und weiß. Diese Farben stehen für die jeweilige Bedeutung:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Farbe</th>
+<th>Name</th>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>Rot</td>
+<td>V<sub>BUS</sub></td>
+<td>Betriebsspannung (5 Volt)
+</td></tr>
+<tr>
+<td>Schwarz</td>
+<td>Ground</td>
+<td>Masse (also 0 Volt)
+</td></tr>
+<tr>
+<td>Grün</td>
+<td>D+</td>
+<td>Eine der beiden Datenleitungen
+</td></tr>
+<tr>
+<td>Weiß</td>
+<td>D-</td>
+<td>Die andere Datenleitung
+</td></tr></tbody></table>
+<p>Die Anschlüsse V<sub>BUS</sub> und GND bilden für das USB-Gerät also eine Spannungsquelle, mit D+ und D- werden Daten seriell übertragen. Ist das Potential von D+ höher als das von D-, so liegt auf dem Bus eine differentielle 1 an, ist es umgekehrt, so handelt es sich um eine differentielle 0. Der Unterschied muss dabei jeweils mindestens 200 mV betragen.
+</p><p>Wenn kein Gerät am USB angeschlossen ist, befindet sich auf beiden Datenleitungen die gleiche Spannung, ist sie hoch, bezeichnet man dies als SE1 (Single Ended 1), ist sie niedrig, so wird dies SE0 (Single Ended 0) genannt. Wie wird nun das Anschließen eines Geräts an einem USB-Port erkannt? Logischerweise muss dazu das Gerät dafür sorgen, dass die beiden Leitungen ein unterschiedliches Potential erhalten. Damit erhält der entsprechende Hub auch sofort eine Information zur Geschwindigkeit des Geräts, dies funktioniert so:
+</p>
+<ul><li>Low-Speed-Geräte müssen die D--Leitung auf 3,3 V hochziehen (mit einem 1,5-kΩ-Widerstand).</li>
+<li>Full-Speed-Geräte hingegen ziehen die D+-Leitung hoch.</li></ul>
+<p>High-Speed-Geräte sind nicht in dieser Liste aufgeführt, sie melden sich zunächst als Full-Speed-Geräte (jedes High-Speed-Gerät muss auch im Full-Speed-Modus arbeiten, ob es seine eigentliche Funktion dann auch erfüllen kann, sei dahingestellt).
+</p><p>Diese Einteilung führt natürlich auch zu Unterschieden in der Handhabung von Low- und Full-Speed-Geräten: Wenn der Hub keine Spannung treibt, so stellt sich der Idle-Zustand ein, das heißt, bei Low-Speed-Geräten gibt es eine differentielle 0 (D- &gt; D+) und bei Full-Speed-Geräten eine differentielle 1 (D+ &gt; D-). Dieser Zustand wird auch J-State genannt, der jeweils andere ist der K-State. Bei letzterem muss der Hub aktiv eine Spannung durch beide Datenleitungen treiben, um die vom Gerät eingestellte Spannung zu invertieren.
+</p><p>Im High-Speed-Betrieb ist das ein bisschen anders, hier bedeutet Idle, dass beide Leitungen niedrig sein müssen (also SE0). J und K entsprechen dem Full-Speed-Modus (wobei sowohl bei J als auch bei K aktiv ein Signal getrieben werden muss). Außerdem sind die Spannungen unterschiedlich: Während eine hohe Spannung bei Low-/Full-Speed eine Spannung zwischen 2,8 und 3,6 V bedeutet (und eine niedrige eine zwischen 0 und 0,3 V), beträgt bei High-Speed eine hohe Spannung 0,36 bis 0,44 V (und eine niedrige -0,01 bis 0,01 V).
+</p><p>Auf dem USB kann es also vier Zustände geben: SE0 (D+ = D-, beide niedrig), SE1 (D+ = D-, beide hoch), J (bei Low-Speed D- &gt; D+, bei Full-/High-Speed D+ &gt; D-) und K (bei Low-Speed D+ &gt; D-, bei Full-/High-Speed D- &gt; D+). Dabei werden für die Datenübertragung selbst nur der J- und K-State verwendet, die anderen sind für das Anzeigen besonderer Ereignisse von Bedeutung.
+</p>
+<h3><span id="Datenübertragung"></span><span class="mw-headline" id="Daten.C3.BCbertragung">Datenübertragung</span></h3>
+<p>Daten werden, bevor sie über den USB verschickt werden, doppelt codiert:
+</p><p>Zuerst findet ein sogenanntes Bitstuffing statt. Das heißt, nach sechs aufeinander folgenden Einsen im eingehenden Datenstrom wird automatisch eine Null eingefügt (unabhängig davon, ob das Bit danach wieder eine Eins wäre). Dies mag merkwürdig erscheinen, erklärt sich jedoch aus der zweiten Verschlüsselung, der NRZI-Kodierung.
+</p><p>NRZI (Non Return to Zero Invert) bedeutet, dass nach jeder 0 der Zustand auf der Datenleitung invertiert wird und nach jeder 1 so gelassen wird, wie er ist. Dies dient dazu, dass Geräte allein aus diesem Wechsel der Spannung den USB-Takt verfolgen können. Daraus erklärt sich auch das Bitstuffing: Viele aufeinander folgende Einsen führen zu einem konstanten Zustand der Datenleitungen, dies muss jedoch verhindert werden, eben damit die Geräte nicht aus dem Takt geraten. Dazu wird dann zwangsweise ein Null eingefügt, um einen Zustandswechsel zu erreichen.
+</p><p>Möchte man also z. B. einen Text wie „Lowlevel?“ per USB verschicken, so sähe das folgendermaßen aus:
+</p><p>Zunächst müssen die Zeichen in einen Bitstrom umgewandelt werden. Da wir ASCII verwenden, sehen die Bytes zuerst so aus:
+</p>
+<pre>0x4C 0x6F 0x77 0x6C 0x65 0x76 0x65 0x6C 0x3F</pre>
+<p>Wir nehmen Little Endian (s. auch <a href="#Bit-_und_Bytereihenfolge">Bit- und Bytereihenfolge</a>), also wird daraus der Bitstrom:
+</p>
+<pre>001100101111011011101110001101101010011001101110101001100011011011111100</pre>
+<p>Jetzt zum Bitstuffing. Wir haben nur einmal im Bitstrom sechs aufeinander folgende Einsen und das ist das Fragezeichen (deshalb habe ich es auch im Beispiel benutzt). Obwohl direkt danach sowieso eine Null käme, müssen wir eine weitere einfügen, denn der Empfänger könnte sonst in manchen Fällen (hier wäre es wohl dank der zweiten Null danach eindeutig) nicht eindeutig wissen, ob die 0 von einem Bitstuff herrührt oder einfach so da war. Unsere Daten erfahren also eine klitzekleine Veränderung:
+</p>
+<pre>0011001011110110111011100011011010100110011011101010011000110110111111000</pre>
+<p>Jetzt noch zum NRZI. Bevor Daten gesendet werden, befindet sich die Leitung im Idle-Zustand (nehmen wir zumindest an), das heißt, wir haben am Anfang ein J. Hier jetzt der Zustand der Leitung, das erste Zeichen kennzeichnet ihn vor dem Senden, das letzte danach (somit haben wir 74 Zeichen für 73 Bits):
+</p>
+<pre>JKJJJKJJKKKKKJJJKKKKJJJJKJKKKJJJKKJJKJJJKJJJKKKKJJKKJKKKJKJJJKKKJJJJJJJKJK</pre>
+<p>Vielleicht ist es so deutlicher zu erkennen (- ist J, _ ist K):
+</p>
+<pre>-_---_––_____---____----_-___---__--_---_---____--__-___-_---___-------_-_</pre>
+<p>Ob J oder K der differentiellen 1 bzw. 0 entspricht, hängt dann von der Geschwindigkeit des Geräts ab.
+</p>
+<h3><span class="mw-headline" id="Selbstversuch">Selbstversuch</span></h3>
+<p>Um den ganzen Spaß einmal selbst zu testen, bedarf es nicht viel &amp;#150; natürlich gebe ich hier keine Garantie dafür, dass es funktioniert oder dafür, dass nichts kaputt geht, also:
+</p>
+<div style="border:1px solid black;">
+<div style="padding:10px; background-color: #bf111b; color: #fff; border: 2px solid white; text-align:center">
+<p><b>Warnung</b>
+</p><p>Ich garantiere weder dafür, dass dieses Experiment funktioniert, noch dafür, dass eure Hardware bzw. die hier verwendeten Bauteile unbeschädigt bleiben &amp;#150; dieser Versuch läuft komplett auf eigene Gefahr!
+</p>
+</div>
+</div>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><a class="image" href="../../pages/2201/index.html"><img alt="" class="thumbimage" height="370" src="../../../assets/wiki/b2571b43bae26a36195dc09a.png" srcset="../../../assets/wiki/141bc134f8a4bfc1eb39bce9.png 1.5x, ../../../assets/wiki/ad49b899bf35fb4934870a7c.png 2x" width="300"/></a> <div class="thumbcaption"><div class="magnify"><a class="internal" href="../../pages/2201/index.html" title="vergrößern"></a></div>Fertiger Schaltplan</div></div></div>
+<p>Nun gut, wer jetzt noch mutig genug ist, um diese Gefahr auf sich zu nehmen, der benötigt:
+</p>
+<ul><li>Ein altes USB-Kabel, das nicht mehr benötigt wird</li>
+<li>Ein relativ scharfes Messer</li>
+<li>Eine Möglichkeit zum Verbinden von Kabeln (Steckbretter, Löten, der Fantasie sind hier kaum Grenzen gesetzt)</li>
+<li>Einen Widerstand, der zumindest in die Nähe von 1,5 kΩ kommt sowie einen, der mindestens 200 Ω besitzen sollte (aber nicht viel mehr)</li>
+<li>Einen Transistor (könnte auch ohne gehen)</li>
+<li>Eine LED</li></ul>
+<p>So teuer sollte das also nicht sein, wenn was kaputt geht, dann ist das wohl die LED. Heutige Hostcontroller besitzen zudem Überspannungsschutz, sodass auch hier nichts schiefgehen sollte.
+</p><p>Der USB-Verkehr ist natürlich viel zu schnell, um ihn tatsächlich beobachten zu können. Aber einige Teile kann man sichtbar machen. So dauert z. B. der Reset eines Geräts mindestens 50 ms, während dieser Zeit wird ein SE0 auf dem Bus getrieben. Dies könnte man also tatsächlich erkennen.
+</p>
+<ul><li>Zuerst muss das Kabel aufgeschnitten werden. Darin müssten sich die oben genannten vier farbigen Kabel befinden, vermutlich von Metallfäden und anderen Materialien abgeschirmt. Das Kabel muss nun so aufgeschnitten werden, dass die vier Einzelkabel ziemlich unabhängig voneinander beweglich sind.</li>
+<li>Nun muss zuerst der 1,5-kΩ-Widerstand das rote (V<sub>BUS</sub>) und das grüne Kabel (D+) verbinden, um ein Full-Speed-Gerät vorzutäuschen. Man kann natürlich auch das rote und das weiße Kabel (D-) verbinden, dann handelt es sich um ein Low-Speed-Gerät. Zum Testen kann man theoretisch schon den USB-Stecker einstecken und das Betriebssystem sollte ein neues USB-Gerät melden (welches sich aber natürlich als fehlerhaft erweist), unter Linux sollte dies z. B. in der per Alt+F10 zu erreichenden Console zu beobachten sein (oder auch per dmesg | tail -f).</li>
+<li>Um jetzt tatsächlich etwas zu sehen, brauchen wir noch Transistor und LED. Die Basis des Transistors kommt an D+ (oder D-, je nachdem, wo der Widerstand von V<sub>BUS</sub> endet), der Kollektor nach V<sub>BUS</sub> und der Emitter wird an die LED angeschlossen (möglichst in Durchlassrichtung, am Emitter liegt aus der Sicht der LED der Pluspol). Die andere Seite der LED wird dann an den zweiten Widerstand, unseren Vorwiderstand, angeschlossen. Dessen anderes Ende kommt dann an Ground. Bei einem 200-Ω-Widerstand sollten 11,5 bis 17,5 mA erreicht werden, eine normale LED nimmt 20 &amp;#150; aber besser zu wenig als zu viel.</li></ul>
+<p>Sobald man jetzt das USB-Kabel einsteckt, sollte die LED leuchten (hoffentlich nicht rauchen und stinken) und nach kurzer Zeit leicht blinken &amp;#150; in diesem Moment treibt der Hub die D+-Leitung (oder D-) auf 0. Bei Datenübertragungen ist dieser Zeitraum allerdings extrem kurz, sodass es sich dabei vermutlich um einen Reset mit SE0 handelt. Zusätzlich könnte man auch einen Lautsprecher statt der LED anschließen, dann sollte sich ein leichtes Summen einstellen. Dies zeigt an, dass Daten gesendet werden (bzw. nicht wirklich Daten, aber schon diese nicht-wirklich-Daten werden so oft gesendet (1 kHz), dass es für ein Summen reicht). Bei jedem Reset sollte der Lautsprecher knacken.
+</p>
+<h2><span class="mw-headline" id="Spezielle_Ereignisse">Spezielle Ereignisse</span></h2>
+<h3><span class="mw-headline" id="Reset">Reset</span></h3>
+<p>Für den gesamten USB steht praktisch nur eine einzige Datenleitung zur Verfügung. Deshalb muss jedes Gerät eine eindeutige Adresse erhalten, um die für es bestimmten Daten erkennen zu können, diese Adresse liegt im Bereich von 1 bis 127. Allerdings gibt es ein Problem: Wenn ein Gerät neu an den USB angeschlossen wird, müsste es bereits eine eindeutige Adresse haben, damit der Host damit kommunizieren kann. Diese Adresse wäre dem Host aber unbekannt und somit wäre keine Kommunikation möglich. Also hat man eine ganz bestimmte Adresse festgelgt, die USB-Geräte annehmen müssen, wenn sie noch nicht anders konfiguriert werden, und diese Adresse ist 0.
+</p><p>Nun gibt es aber weitere Fälle, in denen eine USB-Adresse nicht bekannt ist. So zum Beispiel, wenn das BIOS die USB-Geräte initialisiert und ihnen dabei schon eine neue Adresse zugewiesen hat. Diese Geräte müssen also irgendwie auf eine bekannte Adresse und vor allem in einen bekannten Zustand zurückgesetzt werden (denn das BIOS kann diese Geräte ja bereits verwendet und dafür konfiguriert haben). Natürlich könnte man den Benutzer anweisen, alle USB-Geräte in diesem Moment abzuziehen und neu anzustecken, doch das wäre wohl ziemlich nervig. Also gibt es dafür eine spezielle USB-Funktion, den Reset.
+</p><p>Das Resetsignal wird ausgeführt, indem beide Datenleitungen auf unter 0,3 V gezogen werden, es wird also ein SE0 auf dem USB getrieben. Sobald dieses Signal beendet wurde, befindet sich das entsprechende Gerät im Defaultzustand, das heißt, es ist nicht konfiguriert, befindet sich nicht im Suspendmodus und antwortet auf die USB-Adresse 0. Bei Hub-Ports muss der SE0-Zustand mindestens 10 ms getrieben werden, an Rootports sind 50 vorgeschrieben. Ein Reset muss von einem USB-Gerät in so gut wie jedem Zustand ausgeführt werden können (ich kenne keine Ausnahme).
+</p><p>Für High-Speed-Geräte hat der Reset noch eine weitere Bedeutung: Das Gerät gibt sich hier als solches zu erkennen und ermittelt, ob der Hub ebenfalls im High-Speed-Modus arbeitet. Dies geschieht folgendermaßen:
+</p>
+<ul><li>Zuerst erkennt das Gerät den andauernden SE0-Zustand (entspricht dem Idle-Zustand und ist somit erst ab ca. 125 µs etwas besonderes) und begibt sich in den Full-Speed-Modus (falls es gerade als High-Speed-Gerät operiert).</li>
+<li>Jetzt wird ein sogenannter K-Chirp ausgeführt, das heißt, das Gerät treibt ein High-Speed-Signal in D-. Wenn der Hub dies nicht erkennt, bleibt eine Antwort aus und D+ und D- bleiben auf SE0. Das Gerät bleibt im Full-Speed-Modus und wartet das Ende des Resets ab.</li>
+<li>Befindet sich der Hub auch im High-Speed-Modus, dann treibt er abwechselnd K- und J-Chirps auf dem Bus (J-Chirp: D+ alterniert schnell), jede Sequenz dauert ca. 50 µs. Diese Chirps halten bis 100 &amp;#150; 500 µs vor Ende des Resets an, damit das Gerät nicht in den Suspendmodus wechselt.</li>
+<li>Sobald das USB-Gerät diese abwechselnden Chirps erkennt, muss es den Pull-Up-Widerstand an D+ entfernen und sich in den High-Speed-Modus begeben. <b>Das bedeutet, dass der High-Speed-Idle-Zustand SE0 entspricht!</b></li></ul>
+<h3><span class="mw-headline" id="Suspend">Suspend</span></h3>
+<p>Der Suspendmodus ist ein Energiesparmodus. Ein USB-Gerät muss sich nach 3 ms Idle-Zustand (also J, oder bei High-Speed SE0) in diesen Modus begeben. Dort muss es dann nach insgesamt 10 ms angelangt sein. Währenddessen darf es nur eine extrem geringe Menge an Strom verbrauchen (500 µA oder nach besonderer Freigabe 2,5 mA). Außerdem reagiert es nur auf Reset- und Resume-Signale. Letzteres dient dazu, das Gerät aus dem Suspendmodus aufzuwecken. Dies geschieht, indem für 20 ms ein K-Zustand und anschließend ein Low-Speed-<a href="#EOP">EOP</a> (End of packet) getrieben wird.. Danach hat jedes Gerät noch 10 ms Zeit, wieder in den Normalzustand zurückzukehren (allerdings müsste es sofort wieder in den Suspendmodus wechseln, wenn während dieser 10 ms mindestens 3 ms Idle-Zustand auftreten).
+</p>
+<h4><span class="mw-headline" id="Remote_Wakeup">Remote Wakeup</span></h4>
+<p>Einige Geräte, wie z. B. Tastaturen oder Mäuse, können auch eigenmächtig ein Resumesignal treiben (beispielsweise bei Tastendruck oder bei einer Mausbewegung), dies wird Remote Wakeup genannt. In diesem Fall wird das Signal an den Host weitergeleitet, der dann entscheidet, welche Geräte tatsächlich aufgeweckt werden sollen.
+</p>
+<h4><span class="mw-headline" id="High-Speed-Suspend">High-Speed-Suspend</span></h4>
+<p>Bei High-Speed-Geräten entspricht das Suspendsignal dem Resetsignal. Das Gerät beginnt also zuerst einen Reset, indem es sich in den Full-Speed-Modus begibt. Das heißt auch, dass der Pull-Up-Widerstand an D+ angeschlossen wird. Da sich die Datenleitungen im Idle-Zustand befinden, wird diese Spannung dann auch auf den Datenleitungen zu messen sein, wenn es sich um einen Suspend handelt. Bei einem Reset hingegen treibt der Hub aktiv SE0 und somit befinden sich die Leitungen bei einem Suspend nach dem Anschluss des Pull-Up-Widerstands im J-Zustand, bei einem Reset hingegen im SE0-Zustand.
+</p><p>Hat das Gerät ein Reset entdeckt, so fährt es wie vorgesehen fort (s. <a href="#Reset">Reset</a>), wenn nicht, tritt es als Full-Speed-Gerät in den Suspendmodus ein, beim Resume muss es allerdings wieder in den High-Speed-Modus schalten.
+</p>
+<h2><span class="mw-headline" id="Protokoll">Protokoll</span></h2>
+<p>USB gleicht weniger einem klassischen Bus wie der <a href="../../pages/1561/index.html" title="Serielle Schnittstelle">seriellen Schnittstelle</a> oder der <a href="../../pages/1996/index.html" title="Parallele Schnittstelle">parallelen Schnittstelle</a>, sondern eher einem Netzwerkprotokoll. Es gibt Zieladressen (könnte man als eine Art IP-Adresse werten), Endpunkte (entsprechen den von TCP oder UDP bekannten Ports) und die gesamte Übertragung findet in Paketen gekapselt statt. Allerdings besitzt USB eine wichtige Eigenschaft eines Bus: Es gibt Busmaster, und zwar genau einen. Dieser wird im Allgemeinen Host genannt, nur er darf Übertragungen initiieren &amp;#150; kein Gerät darf dies (im klassischen USB). Damit haben wir uns schon mal einen groben Überblick verschafft und können jetzt voll einsteigen.
+</p>
+<h3><span class="mw-headline" id="Bit-_und_Bytereihenfolge">Bit- und Bytereihenfolge</span></h3>
+<p>Sowohl bei mehreren Bits als auch bei mehreren Bytes wird Little Endian verwendet (also zuerst das LSb bzw. LSB und zuletzt das MSb bzw. MSB). Dies entspricht der Endianess von <a href="../../pages/1749/index.html" title="X86">x86</a>-Prozessoren, sodass hier bei Betriebssystemen für diese Architektur kein Umrechnen nötig sein sollte.
+</p>
+<h3><span class="mw-headline" id="Organisation">Organisation</span></h3>
+<h4><span id="Übertragungsarten"></span><span class="mw-headline" id=".C3.9Cbertragungsarten">Übertragungsarten</span></h4>
+<p>Es gibt vier verschiedene Möglichkeiten, Daten über den USB zu transportieren:
+</p>
+<h5><span class="mw-headline" id="Control">Control</span></h5>
+<p>Controltransfers dienen dazu, ein USB-Gerät einzurichten. Es ist garantiert, dass die Daten so ankommen wie sie gesendet wurden und es ist auch garantiert, dass das USB-Gerät die Anfrage verstanden und verarbeitet hat. Für sie gibt es keine garantierte Bandbreite.
+</p>
+<h5><span class="mw-headline" id="Bulk">Bulk</span></h5>
+<p>Mit Bulktransfers können große Datenmengen sicher übertragen werden, auch hier kommen die Daten also in jedem Fall und so, wie sie abgeschickt wurden, an. Andererseits ist auch hier nicht garantiert, dass der Transfer stattfindet, wenn er initiiert wird: Bulktransfers haben meist eine noch geringere Priorität als Controltransfers.
+</p>
+<h5><span class="mw-headline" id="Interrupt">Interrupt</span></h5>
+<p>Da es wie gesagt nur einen Busmaster auf dem USB gibt, dürfen Geräte von sich aus keine Transfers initiieren &amp;#150; schlecht für Tastaturen, Mäuse und Co., die so nur schwer Interrupts auslösen können. Die Lösung liegt in einer Art Polling, den Interrupttransfers: Sie werden regelmäßig ausgeführt und so kann das Gerät dem System Informationen über neue Ereignisse mitteilen (oder den Transfer abbrechen, wenn nichts passiert ist). Sie eignen sich nur für kleine Datenmengen, allerdings ist auch bei ihnen die Übertragung sicher und außerdem besitzen sie eine garantierte Bandbreite (werden also vor Control- und Bulktransfers ausgeführt).
+</p>
+<h5><span class="mw-headline" id="Isochronous">Isochronous</span></h5>
+<p>Die Transfers mit dem lustigen Namen, bei dem man erstmal ein paar Monate braucht, um sich daran zu gewöhnen, bilden die letzte Gruppe. Sie sind gewissermaßen die Echtzeitbetriebssysteme unter den USB-Transaktionen: Bei ihnen kommt es nicht darauf an, dass die Daten korrekt ankommen, sondern nur darauf, dass sie überhaupt irgendwie ankommen und zwar eine garantierte Datenmenge pro Zeiteinheit. Dies ist zum Beispiel bei Mikrofonen oder Kameras wichtig: Ein Mikrofon besitzt beispielsweise eine Samplerate von 48 kHz und eine Sampletiefe von 16 Bit (Mono). Dann entstehen pro Millisekunde 96 Bytes Daten, diese müssen irgendwie zum Host kommen. Dabei kommt es nicht darauf an, ob alle Bits korrekt sind, im schlimmsten Fall knackt es eben zwischendurch, sondern darauf, dass diese Daten auf jeden Fall gesendet werden. Deshalb besitzen Isochronous- zusammen mit Interrupttransfers die höchste Priorität und eine garantierte Bandbreite.
+</p>
+<h5><span class="mw-headline" id="Zusammenfassung">Zusammenfassung</span></h5>
+<p>Hier nochmal alles auf einen Blick:
+</p>
+<table cellpadding="5" class="prettytable">
+<tbody><tr>
+<th>Transfertyp</th>
+<th>Datenmenge</th>
+<th>Datensicherheit</th>
+<th>Bandbreite</th>
+<th>Typischer Einsatz
+</th></tr>
+<tr>
+<td>Control</td>
+<td>Gering</td>
+<td>Sehr hoch</td>
+<td>Kaum garantiert</td>
+<td>Abfragen/Beeinflussen des Gerätezustands
+</td></tr>
+<tr>
+<td>Bulk</td>
+<td>Hoch</td>
+<td>Hoch</td>
+<td>Nicht garantiert</td>
+<td>Massenspeicher, allg. unregelmäßige sichere Übertragung großer Datenmengen
+</td></tr>
+<tr>
+<td>Interrupt</td>
+<td>Sehr gering</td>
+<td>Hoch</td>
+<td>Garantiert</td>
+<td>HIDs, regelmäßige Übertragung von Statusmeldungen
+</td></tr>
+<tr>
+<td>Isochronous</td>
+<td>Hoch</td>
+<td>Keine</td>
+<td>Garantiert</td>
+<td>Echtzeitanwendungen, regelmäßige unsichere Übertragung großer Datenmengen
+</td></tr></tbody></table>
+<p>Interrupt- und Isochronoustransfers fasst man auch als periodische Transfers zusammen, Bulk- und Controltransfers werden (seltener) als asynchrone Transfers bezeichnet.
+</p>
+<h4><span class="mw-headline" id="Frames">Frames</span></h4>
+<p>Die USB-Zeit wird in Abschnitte, genannt Frames unterteilt. Solch ein Frame dauert immer eine Millisekunde, er beginnt mit einem SOF-Paket (Start of frame). Dies garantiert einerseits, dass ein Gerät nicht in den Suspendzustand gerät, andererseits aber auch, dass die Bandbreite sinnvoll aufgeteilt werden kann. So kann in jedem Frame eine gewisse Zeit für periodische Transfers reserviert werden, der Rest wird dann mit asynchronen Transfers aufgefüllt. Frames gibt es nur bei Full- und High-Speed-Geräten, Low-Speed-Geräte erhalten keine Frames (da sie nur Control- und Interrupttransfers ausführen dürfen, fällt das Scheduling hier nicht schwer), sondern sogenannte Low-Speed-Keepalives. Diese besitzen an sich keine Funktion, sie sorgen nur für etwas Busaktivität und verhindern so, dass das Gerät in den Suspendmodus schaltet.
+</p><p>Im High-Speed-Betrieb gibt es zusätzlich noch sogenannte Microframes. Während eines Frames gibt es acht Microframes, welche somit jeweils 125 µs dauern. Jeder Microframe beginnt mit einem SOF-Paket. Dabei ändert sich die dort eingetragene Framenummer (zwischen 0 und 2047) jedoch nur alle 8 Microframes (also bei jedem vollen Frame).
+</p>
+<h4><span class="mw-headline" id="Flusskontrolle">Flusskontrolle</span></h4>
+<p>Mit Flusskontrolle meine ich hier die Möglichkeit herauszufinden, ob Daten gesendet werden dürfen oder nicht. Hier verwenden Full- und High-Speed unterschiedliche Konzepte (Low-Speed gar nicht, weil dies nur für Bulk sinnvoll ist und Low-Speed-Geräte keine Bulktransfers benutzen können).
+</p>
+<h5><span class="mw-headline" id="Full-Speed">Full-Speed</span></h5>
+<p>Bei Full Speed geht alles ziemlich einfach, dafür aber auch ineffizient vor sich: Der Host sendet ein Datenpaket, kann das Gerät dieses annehmen, so sendet es ein ACK, sonst kommt ein NAK und der Host sendet es noch einmal. Das Problem hierbei ist, dass das Gerät wohl schon zu Beginn weiß, dass es die Daten nicht annehmen kann, aber dennoch erstmal das gesamte Paket abwarten muss, ehe es sie abweisen darf. Dies kostet natürlich unnötig viel Zeit.
+</p>
+<h5><span class="mw-headline" id="High-Speed">High-Speed</span></h5>
+<p>Dieses Konzept wurde bei High-Speed-Transaktionen überarbeitet. Hier schickt der Host zuerst einmal das Datenpaket, kann das Gerät dieses nicht annehmen, antwortet es mit NAK. Wenn es das Paket empfangen kann, antwortet es mit ACK, wenn das Gerät danach noch ein Paket aufnehmen kann oder mit NYET, wenn nicht. Hat der Host ACK empfangen, so sendet er das nächste Paket.
+</p><p>Hat er allerdings ein NYET oder ein NAK erhalten, dann beginnt er nun mit PING-Paketen. Das Gerät muss mit NAK antworten, wenn es immer noch kein Paket empfangen kann, oder mit ACK, wenn es nun bereit ist. Dies verringert die Anzahl an sinnlos gesendeten Daten natürlich erheblich. Das Gerät kann hierbei sogar angegeben, wann das nächste PING-Paket gesendet werden soll (der Host muss dies aber nicht befolgen).
+</p>
+<h3><span class="mw-headline" id="Aufbau_eines_USB-Pakets">Aufbau eines USB-Pakets</span></h3>
+<h4><span class="mw-headline" id="SOP">SOP</span></h4>
+<p>Jedes USB-Paket beginnt mit einem SOP (Start of packet), welches benutzt wird, um die Übertragung von Daten anzuzeigen. Dazu werden die Adressleitungen invertiert, sodass ein K-Zustand entsteht. Danach wird die Leitung wieder auf J gelassen, anschließend folgen noch zwei KJ-Paare und das ganze endet mit zwei Bitzeiten K (eine Bitzeit ist der kleinste Übertragungszeitraum und beträgt bei Full-Speed beispielsweise meistens 83,3 ns ((12 MHz)⁻¹)). Dieses Feld wird auch als SYNC-Feld bezeichnet und entspricht somit KJKJKJKK (vorher gab es auf der Leitung ein J). Dies gilt bei Full- und Low-Speed, bei High-Speed hingegen handelt es sich um 15-KJ-Paare und zwei K (also KJKJKJKJKJKJKJKJKJKJKJKJKJKJKJKK), davon darf jeder Hub vier Bits vom Anfang fallen lassen (sodass bei einer maximalen Hubtiefe von 5 Hubs 5 KJ-Paare und KK, also KJKJKJKJKJKK übrig bleiben). Dem Gerät ist ja egal, wie lange das Feld dauert, es dient lediglich zur Synchronisation mit dem Bustakt und das Ende wird in jedem Fall durch ein KK markiert.
+</p>
+<h4><span class="mw-headline" id="PID">PID</span></h4>
+<p>Als nächstes folgt ein Feld, dass den Typ des Pakets anzeigt. Es ist 8 Bit lang und beginnt (LSb) mit den Feldern PID0, PID1, PID2 und PID3. Diese folgen dann nochmals negiert, sodass hier eine einfache Konsistenzprüfung möglich ist. Pakete mit ungültigen PID-Feldern oder nicht unterstützten PIDs werden einfach verworfen. Folgende Werte sind möglich:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Pakettyp</th>
+<th>Name</th>
+<th>PID-Wert</th>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td rowspan="4">Token</td>
+<td>OUT</td>
+<td>0xE1</td>
+<td>Beginnt einen Datentransfer zu einem Gerät
+</td></tr>
+<tr>
+<td>IN</td>
+<td>0x69</td>
+<td>Beginnt einen Datentransfer zum Host
+</td></tr>
+<tr>
+<td>SOF</td>
+<td>0xA5</td>
+<td>Zeigt den Beginn eines <a data-archive-original-href="#Frame" href="index.html" title="Der ursprüngliche Abschnitt ist in dieser Momentaufnahme nicht verfügbar; stattdessen wird der Artikel angezeigt.">Frames</a> an
+</td></tr>
+<tr>
+<td>SETUP</td>
+<td>0x2D</td>
+<td>Beginnt einen Setuptransfer und gibt Informationen darüber an das Gerät aus
+</td></tr>
+<tr>
+<td rowspan="4">Data</td>
+<td>DATA0</td>
+<td>0xC3</td>
+<td>Ein Datenpaket mit dem Data-Toggle-Bit 0.
+</td></tr>
+<tr>
+<td>DATA1</td>
+<td>0x4B</td>
+<td>Ein Datenpaket mit dem Data-Toggle-Bit 1.
+</td></tr>
+<tr>
+<td>DATA2</td>
+<td>0x87</td>
+<td>Ein Datenpaket für High-Speed-IN-Isochronoustransfers, die eine hohe Bandbreite benötigen.
+</td></tr>
+<tr>
+<td>MDATA</td>
+<td>0x0F</td>
+<td>Ein Datenpaket für High-Speed-OUT-Isochronoustransfers, die eine hohe Bandbreite benötigen.
+</td></tr>
+<tr>
+<td rowspan="4">Handshake</td>
+<td>ACK</td>
+<td>0xD2</td>
+<td>Bestätigung eines fehlerfrei empfangenen Pakets.
+</td></tr>
+<tr>
+<td>NAK</td>
+<td>0x5A</td>
+<td>Daten wurden nicht akzeptiert, entspricht meistens einer Art EAGAIN, d. h., die Daten sollten zu einem späteren Zeitpunkt nochmals gesendet werden
+</td></tr>
+<tr>
+<td>STALL</td>
+<td>0x1E</td>
+<td>Ein schwerwiegender Fehler ist aufgetreten und der Ziel-Endpoint kann nicht verwendet werden, bis er explizit wieder freigegeben wird, außer beim Endpoint 0, hier wird einfach der aktuelle Controltransfer als ungültig abgewiesen.
+</td></tr>
+<tr>
+<td>NYET</td>
+<td>0x96</td>
+<td>Wird nur bei High-Speed-Transfers genutzt und bedeutet erstmal ein ACK. Allerdings können beim nächsten Mal keine Daten empfangen werden, sodass der Host erstmal PING verwenden soll.
+</td></tr>
+<tr>
+<td rowspan="4">Special</td>
+<td>PRE</td>
+<td>0x3C</td>
+<td>Beginnt einen Low-Speed-Transfer über einen Full-Speed-Bus.
+</td></tr>
+<tr>
+<td>ERR</td>
+<td>0x3C</td>
+<td>Zeigt einen Fehler bei einer SPLIT-Transaktion an (benutzt die gleiche PID wie PRE, kann aber nicht verwechselt werden)
+</td></tr>
+<tr>
+<td>SPLIT</td>
+<td>0x78</td>
+<td>Beginnt eine SPLIT-Transaktion (also einen Full- oder Low-Speed-Transfer über einen High-Speed-Bus).
+</td></tr>
+<tr>
+<td>PING</td>
+<td>0xB4</td>
+<td>Wird zur High-Speed-Flusskontrolle eingesetzt (s. <a href="#Flusskontrolle">entsprechender Abschnitt</a>).
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="ADDR">ADDR</span></h4>
+<p>Dieses Feld ist sieben Bit lang und enthält die USB-Adresse des Zielgeräts (so ergeben sich die Adressen 0 bis 127, wobei 0 ja als Defaultadresse nach dem Reset reserviert ist). Wenn diese Adresse nicht mit der des USB-Geräts übereinstimmt, muss es das Paket natürlich verwerfen.
+</p>
+<h4><span class="mw-headline" id="ENDP">ENDP</span></h4>
+<p>Kommen wir nun zum Endpunkt, der oben mit einem Netzwerkport verglichen wurde. Dieses Feld gibt seine Nummer an und ist vier Bit lang, so ergeben sich theoretisch 16 verschiedene Endpunkte. Ein Endpunkt kann allerdings nur in eine Richtung weisen, sodass es theoretisch 32 verschiedene Endpunkte gibt. Allerdings gibt es auch hier einen Defaultendpunkt, und das ist auch Endpunkt 0 (EP0). Er wird nur für Controltransfers verwendet und kann in beide Richtungen benutzt werden. Damit gibt es praktisch 31 Endpunkte (30 frei verwendbare unidirektionale und der bidirektionale Defaultendpunkt). Low-Speed-Geräte dürfen nur drei Endpunkte definieren, während Full- und High-Speed-Geräte die volle Zahl von 31 Endpunkten benutzen dürfen.
+</p><p>Wenn ein Gerät den angegebenen Endpunkt nicht besitzt, oder dieser in irgendeiner Weise initialisiert werden muss, aber nicht wurde, dann muss das Gerät das Paket verwerfen.
+</p>
+<h4><span class="mw-headline" id="Framenummer">Framenummer</span></h4>
+<p>Dieses elf Bit lange Feld gibt die aktuelle Framenummer an (0 bis 2047) und wird nur in SOF-Paketen gesendet.
+</p>
+<h4><span class="mw-headline" id="Datenfeld">Datenfeld</span></h4>
+<p>Jetzt folgen endlich die Daten. Dieses Feld besitzt keine feste Länge, sondern kann von 0 bis 1024 Bytes enthalten.
+</p>
+<h4><span class="mw-headline" id="CRC">CRC</span></h4>
+<p>Ganz zum Schluss folgt noch ein CRC-Feld, das gewährleistet, dass die empfangenen Daten korrekt sind. Wird bei der CRC-Berechnung ein Fehler erkannt, dann wird das Paket verworfen.
+</p><p>Bei Tokenpaketen (in diesem Fall IN, OUT, SOF, SETUP, PING, SPLIT) folgt ein CRC5 über ADDR und ENDP (oder das Framenummerfeld bei SOF), bei Datenpaketen ein CRC16 über das Datenfeld.
+</p><p>Bei CRC5 erfolgt die Berechnung mit dem Startwert 0x1F und dem Polynom 0x05, bei CRC16 mit dem Startwert 0xFFFF und dem Polynom 0x8005. Nachdem der Wert berechnet wurde, wird er invertiert und mit dem MSb voran gesendet. Der Empfänger berechnet dann den CRC-Wert über die zu berechnenden Felder und das empfangene CRC-Feld (wobei es angehangen wird, als wäre es ein normaler nicht invertierter LSb-Wert), bei CRC5 sollte sich dann ein Wert von 0x0C ergeben, bei CRC16 0x800D.
+</p><p>Ein Beispiel wäre der Wert 01010100 (42). Als CRC5 berechnet sich hier 0x06, als CRC16 0x7CF9. Gesendet wird dann der Wert 0x13 bzw. 0x60C1, so ergeben sich beim Empfänger 0101010011001 bzw. 010101001000001100000110. Dafür ergibt sich nach CRC5 0x0C und nach CRC16 0x800D &amp;#150; es ist also kein Problem aufgetreten.
+</p>
+<h4><span class="mw-headline" id="EOP">EOP</span></h4>
+<p>Nun ist die Frage, wie ein Gerät erkannt, wie lang das Datenfeld ist (da ja nirgendwo die Länge festgelegt ist). Dies geschieht über das EOP-Signal (End of packet), welches das Ende eines Pakets anzeigt (und damit auch seine Länge). Dieses besteht aus einem zwei Bitzeiten langen SE0, gefolgt von einem J-Zustand (welcher als Idle-Zustand anhält). Bei High-Speed wird der aktuelle Zustand invertiert und <i>sieben</i> Bitzeiten gehalten &amp;#150; hier passiert also auf jeden Fall ein Bitstufffehler, welcher als Indikator für das EOP verwendet wird (entspricht also einer Bitsequenz von 01111111 vor NRZI; beim SOF-Token wird 0111111111111111111111111111111111111111 gesendet (also fünf NRZI-Bytes), dies wird zum Erkennen von Disconnects verwendet (da High-Speed-Geräte ja normalerweise keine Spannung an D+/D- anlegen), hierbei wird dann eine höhere Spannung gemessen, wenn kein Gerät mehr vorhanden ist). Danach wird der Idle-Zustand (SE0) eingenommen.
+</p>
+<h4><span class="mw-headline" id="Verwendete_Felder">Verwendete Felder</span></h4>
+<p>Nicht alle Felder werden gleichzeitig verwendet. Bei welchem Pakettyp welches Feld vorhanden ist, zeigt die folgende Tabelle:
+</p>
+<table cellpadding="5" class="prettytable">
+<tbody><tr>
+<th>PID</th>
+<th>ADDR</th>
+<th>ENDP</th>
+<th>Frame</th>
+<th>Daten</th>
+<th>CRC
+</th></tr>
+<tr>
+<td>OUT</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+<td>5
+</td></tr>
+<tr>
+<td>IN</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+<td>5
+</td></tr>
+<tr>
+<td>SOF</td>
+<td></td>
+<td></td>
+<td>x</td>
+<td></td>
+<td>5
+</td></tr>
+<tr>
+<td>SETUP</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+<td>5
+</td></tr>
+<tr>
+<td>DATA0</td>
+<td></td>
+<td></td>
+<td></td>
+<td>x</td>
+<td>16
+</td></tr>
+<tr>
+<td>DATA1</td>
+<td></td>
+<td></td>
+<td></td>
+<td>x</td>
+<td>16
+</td></tr>
+<tr>
+<td>DATA2</td>
+<td></td>
+<td></td>
+<td></td>
+<td>x</td>
+<td>16
+</td></tr>
+<tr>
+<td>MDATA</td>
+<td></td>
+<td></td>
+<td></td>
+<td>x</td>
+<td>16
+</td></tr>
+<tr>
+<td>ACK</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>
+</td></tr>
+<tr>
+<td>NAK</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>
+</td></tr>
+<tr>
+<td>STALL</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>
+</td></tr>
+<tr>
+<td>NYET</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>
+</td></tr>
+<tr>
+<td>PRE</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>
+</td></tr>
+<tr>
+<td>ERR</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>
+</td></tr>
+<tr>
+<td>SPLIT</td>
+<td>x</td>
+<td></td>
+<td></td>
+<td></td>
+<td>5
+</td></tr>
+<tr>
+<td>PING</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+<td>5
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Senden_eines_USB-Pakets">Senden eines USB-Pakets</span></h3>
+<p>Ein USB-Paket wird immer an eine bestimmte Pipe gesendet. Diese Pipe wird durch Zieladresse, Endpunktnummer und Richtung des Transfers eindeutig identifiziert. Einige Pakete wie die Datenpakete besitzen keine Zieladresse etc., deren Ziel muss also durch vorherige Pakete wie IN oder OUT definiert werden.
+</p>
+<h4><span class="mw-headline" id="MPS">MPS</span></h4>
+<p>Zu beachten ist, dass ein USB-Gerät die Daten eines Datenpakets irgendwie aufnehmen muss. Es besitzt dafür für jeden Endpunkt einen FIFO-Speicher, dieser ist jedoch begrenzt. Daher kann ein Paket während eines Transfers nur eine bestimmte Menge an Daten aufnehmen, bis der Speicher voll ist, oder senden, bis er leer ist. Diese Datenmenge wird als <i>Maximum Packet Size</i> (maximale Paketgröße, kurz MPS) eines Endpunkts und damit auch einer Pipe bezeichnet. Ist ein Paket mit 64 Byte Daten beispielsweise an einen Endpunkt mit einer 32-Byte-FIFO gerichtet, muss das Gerät zwangsläufig die Hälfte der Daten verwerfen &amp;#150; und damit natürlich das gesamte Paket, denn nur die Hälfte der Daten bringt natürlich nichts.
+</p>
+<h2><span class="mw-headline" id="USB-Transfer">USB-Transfer</span></h2>
+<p>Ein richtiger USB-Transfer besteht allerdings nicht nur aus einzelnen Paketen. Es werden mehrere hintereinandergeschaltet, um eine richtige Transaktion durchzuführen.
+</p>
+<h3><span class="mw-headline" id="Handshake-Datentransfer">Handshake-Datentransfer</span></h3>
+<p>Solch ein Datentransfer besteht normalerweise aus drei Paketen:
+</p>
+<ul><li>Einem Token (IN/OUT/SETUP)</li>
+<li>Dem Datenpaket (DATA0/DATA1)</li>
+<li>Dem Handshake</li></ul>
+<p>Das Token gibt die Richtung des Transfer sowie den Empfänger an. Danach folgt das Datenpaket, welches logischerweise die Daten enthält. Gefolgt wird es dann vom Handshakepaket, das schlussendlich angibt, ob das Paket korrekt empfangen wurde. Ist es NAK, STALL oder fehlt es ganz, so ist ein Fehler aufgetreten. Bei STALL wird der Transfer abgebrochen, bei NAK und fehlendem Handshake meist komplett neu begonnen (ab dem IN/OUT). Ein ACK bedeutet, dass das Paket korrekt empfangen und akzeptiert wurde, ebenso wie ein NYET, dass den Host lediglich darauf hinweist, vor dem nächsten Transfer PING zu benutzen. Ein Beispiel für einen solchen Transfer wäre:
+</p>
+<table cellpadding="5" class="prettytable">
+<tbody><tr>
+<th>Richtung</th>
+<th>PID</th>
+<th>ADDR</th>
+<th>ENDP</th>
+<th>Daten</th>
+<th>CRC
+</th></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>OUT</td>
+<td>42</td>
+<td>1</td>
+<td>&amp;#151;</td>
+<td>0x1C
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>DATA0</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x4C 0x6F 0x77 0x6C 0x65 0x76 0x65 0x6C 0x3F</td>
+<td>0x80F2
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>ACK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Nicht-Handshake-Datentransfers">Nicht-Handshake-Datentransfers</span></h3>
+<p>Es gibt auch Datentransfers ohne Handshake, diese werden bei Isochronoustransfers verwendet. Ein Beispiel wäre hier:
+</p>
+<table cellpadding="5" class="prettytable">
+<tbody><tr>
+<th>Richtung</th>
+<th>PID</th>
+<th>ADDR</th>
+<th>ENDP</th>
+<th>Daten</th>
+<th>CRC
+</th></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>IN</td>
+<td>42</td>
+<td>7</td>
+<td>&amp;#151;</td>
+<td>0x13
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>DATA0</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x4D 0x6F 0x69 0x6E 0x2C 0x20 0x6D 0x6F 0x69 0x6E 0x2C 0x20 0x47 0x65 0x6E 0x6F 0x73 0x73 0x65 0x6E 0x5C 0x21</td>
+<td>0x04A9
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="SPLIT-Transfers">SPLIT-Transfers</span></h3>
+<p>Mit der neuen Geschwindigkeit High-Speed kam ein relativ großes Problem auf: Wie werden Geräte behandelt, die mit Full- oder Low-Speed arbeiten? Man könnte High-Speed-Geräte vollkommen inkompatibel mit diesen machen, sodass das Problem nicht auftritt, aber das wird den Benutzer nicht sehr freuen (vor allem bei HID-Geräten, die fast grundsätzlich Low-Speed verwenden). Kurzzeitig die Busgeschwindigkeit absenken würde die Performance sehr negativ beeinflussen und außerdem alle High-Speed-Geräte sehr kompliziert machen, die darauf reagieren müssten.
+</p><p>Es gibt grundsätzlich zwei Möglichkeiten, ein nicht-High-Speed-Gerät anzuschließen: An einen Rootport oder an einen Hub. Bei einem Rootport wurde das Problem gelöst, indem der High-Speed-Hostcontroller den Port an einen Low-/Full-Speed-Hostcontroller weitergibt und dieser dann direkt mit der entsprechenden Geschwindigkeit arbeitet. Bei Hubs tritt allerdings das Problem auf, dass sie mitten in der USB-Topologie hängen und somit Änderungen der Geschwindigkeit alle Geräte am entsprechenden Bus beeinflussen.
+</p><p>Die Lösung bestand letztendlich in den SPLIT-Token: Solch ein Token wird einem Low- oder Full-Speed-Transfer vorgeschaltet und mit High-Speed zum Hub geschickt, an dem das Gerät hängt. Dieser Hub muss den Transfer dann in Low- oder Full-Speed zum entsprechenden Gerät senden und dem Host später das Handshake übermitteln. Dies macht zwar High-Speed-Hubs ziemlich kompliziert, lässt aber High-Speed-Geräte unberührt und wirkt sich nicht negativ auf die Leistung des High-Speed-Busses aus.
+</p>
+<h4><span class="mw-headline" id="SSPLIT">SSPLIT</span></h4>
+<p>Es gibt zwei Typen von SPLIT-Token, der erste nennt sich SSPLIT für <i>Start split</i>. Wie sich aus dem Namen ergibt, leitet er eine SPLIT-Transaktion ein. Das Adressfeld dieses Tokens enthält nicht etwa die Adresse des USB-Geräts, sondern die Adresse des Hubs, an dem es hängt. Insgesamt ist der Aufbau wie folgt:
+</p>
+<table cellpadding="5" class="prettytable">
+<tbody><tr>
+<th>Größe in Bit</th>
+<th>Name</th>
+<th>Inhalt
+</th></tr>
+<tr>
+<td>8</td>
+<td>PID</td>
+<td>Paket-ID (0x78)
+</td></tr>
+<tr>
+<td>7</td>
+<td>Hub Addr</td>
+<td>USB-Adresse des Hubs, an dem das Low-/Full-Speed-Gerät hängt.
+</td></tr>
+<tr>
+<td>1</td>
+<td>SC</td>
+<td>0 (kennzeichnet dieses Token als SSPLIT)
+</td></tr>
+<tr>
+<td>7</td>
+<td>Port</td>
+<td>Port des Hubs, an dem das Low-/Full-Speed-Gerät hängt.
+</td></tr>
+<tr>
+<td>1</td>
+<td>S</td>
+<td>Ist bei Low-Speed-Geräten gesetzt und bei Full-Speed-Geräten gelöscht.
+</td></tr>
+<tr>
+<td>1</td>
+<td>E</td>
+<td>Nur für Isochronous-OUT-Transfers relevant (wer sich dafür interessiert, möge es in der USB-2.0-Spezifikation Abschnitt 8.4.2.2 nachschlagen und die Bedeutung wenn möglich hier eintragen).
+</td></tr>
+<tr>
+<td>2</td>
+<td>ET</td>
+<td>Typ des Endpunkts:
+<ul><li>00b: Control</li>
+<li>01b: Isochronous</li>
+<li>10b: Bulk</li>
+<li>11b: Interrupt</li></ul>
+</td></tr>
+<tr>
+<td>5</td>
+<td>CRC5</td>
+<td>Zum Schluss dann noch der CRC-Wert über <i>Hub Addr</i>, <i>SC</i>, <i>Port</i>, <i>S</i>, <i>E</i> und <i>ET</i>.
+</td></tr></tbody></table>
+<p>Wie das SSPLIT-Token verwendet wird, zeigt das folgende Schema:
+</p>
+<div class="center"><div class="floatnone"><a class="image" href="../../pages/2212/index.html"><img alt="SSPLIT.png" height="159" src="../../../assets/wiki/20c9a36e21a7b649fcacabf1.png" width="524"/></a></div></div>
+<p>Der ganze Transfer beginnt mit dem SSPLIT-Token an sich, das den SPLIT-Transfer anzeigt und zweitens auch den Zielhub und den dortigen Zielport anzeigt. Danach beginnt mit dem Low- oder Full-Speed-Token (das aber in High-Speed gesendet wird) die eigentliche SPLIT-Transaktion. Bei OUT- oder SETUP-Transfers folgen anschließend noch die zu verschickenden Daten und ein Handshakepaket des Hubs, dass er diese Daten akzeptiert hat.
+</p>
+<h4><span class="mw-headline" id="CSPLIT">CSPLIT</span></h4>
+<p>Nun zur zweiten Art, den CSPLIT-Token. Dieser Name kommt von <i>Complete split</i>, mit einem CSPLIT beendet man also eine SPLIT-Transaktion. Zuerst könnte man sich fragen, warum es überhaupt zwei Transaktionen gibt. Der Host könnte doch per SPLIT einen solchen Transfer einleiten, die Daten mit dem Hub austauschen und fertig. Das Problem ist aber, dass dies wieder den High-Speed-Bus ausbremsen würde. So würde es natürlich relativ lange dauern, bis das Low-/Full-Speed-Gerät überhaupt den Request übermittelt bekommen hat, da könnte man auch gleich den gesamten High-Speed-Bus in die entsprechende Geschwindigkeit umschalten. Also passiert das ganze gewissermaßen asynchron: Der Hub bekommt den Auftrag zur Transaktion und später fragt der Host per CSPLIT nach, wie diese denn ausgegangen ist.
+</p><p>Solch ein CSPLIT-Token sieht so aus:
+</p>
+<table cellpadding="5" class="prettytable">
+<tbody><tr>
+<th>Größe in Bit</th>
+<th>Name</th>
+<th>Inhalt
+</th></tr>
+<tr>
+<td>8</td>
+<td>PID</td>
+<td>Paket-ID (0x78)
+</td></tr>
+<tr>
+<td>7</td>
+<td>Hub Addr</td>
+<td>USB-Adresse des Hubs, an dem das Low-/Full-Speed-Gerät hängt.
+</td></tr>
+<tr>
+<td>1</td>
+<td>SC</td>
+<td>1 (kennzeichnet dieses Token als CSPLIT)
+</td></tr>
+<tr>
+<td>7</td>
+<td>Port</td>
+<td>Port des Hubs, an dem das Low-/Full-Speed-Gerät hängt.
+</td></tr>
+<tr>
+<td>1</td>
+<td>S</td>
+<td>Ist bei Low-Speed-Geräten gesetzt und bei Full-Speed-Geräten gelöscht.
+</td></tr>
+<tr>
+<td>1</td>
+<td>U</td>
+<td>Reserviert, muss auf 0 gesetzt werden.
+</td></tr>
+<tr>
+<td>2</td>
+<td>ET</td>
+<td>Typ des Endpunkts (s. bei SSPLIT)
+</td></tr>
+<tr>
+<td>5</td>
+<td>CRC5</td>
+<td>Und zum Schluss wieder CRC.
+</td></tr></tbody></table>
+<p>Folgendermaßen wird es verwendet:
+</p>
+<div class="center"><div class="floatnone"><a class="image" href="../../pages/2213/index.html"><img alt="CSPLIT.png" height="159" src="../../../assets/wiki/5c98f7ab4dd603b32c557e1d.png" width="448"/></a></div></div>
+<p>Zuerst kommt also wieder das SPLIT-Token, in diesem Fall CSPLIT. Anschließend wiederholt der Host sein Low-/Full-Speed-Token (war es beim ersten Mal OUT, so ist es jetzt wieder OUT). Der Hub reagiert darauf, indem er die Antwort des Geräts weiterleitet, also ein Handshake oder ein Datenpaket, je nachdem, was das Gerät gesendet hat. Ein Datenpaket würde letztendlich dann natürlich noch vom Host mit einem Handshake quittiert.
+</p>
+<h4><span class="mw-headline" id="Zusammenfassung_2">Zusammenfassung</span></h4>
+<p>Insgesamt gibt es also immer drei Transaktionen:
+</p>
+<ol><li>Einleitung des Transfers per SSPLIT durch den Host. Hier werden Token und evtl. auch Daten an den Hub geschickt.</li>
+<li>Kommunikation des Hubs mit dem nicht-High-Speed-Gerät. Der Hub sendet nun das Token und, soweit empfangen, auch Daten an dieses Gerät. Dabei speichert er sowohl die vom Gerät gesendeten Daten als auch das Handshake (es sei denn, es gab kein Handshake, dann wird die Transaktion normal wiederholt, s. auch <a href="#Fehlerbehandlung">Fehlerbehandlung</a>).</li>
+<li>Zuletzt dann das Ende und die Auswertung des Transfers per CSPLIT. Jetzt kommuniziert der Host mit dem Hub, als wäre er selbst das Gerät, nimmt also evtl. gesendete Daten in Empfang und quittiert sie mit einem Handshake oder empfängt direkt das vom Gerät gesendete Handshake.</li></ol>
+<p>Hier sieht man, wie komplex High-Speed-Hubs sein müssen. Sie bilden gewissermaßen zwei hermetisch voneinander abgeriegelte Bussysteme: Der High-Speed-Bus zum Host auf der einen und der nicht-High-Speed-Bus zum Gerät auf der anderen Seite. Kein Bit gelangt hindurch, der Hub übernimmt im Grunde für das Low-/Full-Speed-Gerät die Rolle des Hosts (da er die SOFs selbst initiiert und auch alle Transfers nicht vom Host durchleitet, sondern zwischenspeichert und dann komplett selbstständig ausführt).
+</p>
+<h3><span class="mw-headline" id="Fehlerbehandlung">Fehlerbehandlung</span></h3>
+<p>Während der Übertragung eines Datenpaketes können verschiedenste Fehler auftreten, die mit dem Handshake erkannt werden können.
+</p>
+<h4><span class="mw-headline" id="Daten_korrekt_empfangen_und_akzeptiert">Daten korrekt empfangen und akzeptiert</span></h4>
+<p>Dies ist der einfachste Fall. Hier wird einfach ein ACK geschickt.
+</p>
+<h4><span id="Ungültiges_PID-Feld_oder_Adresse/Endpunkt_nicht_vorhanden"></span><span class="mw-headline" id="Ung.C3.BCltiges_PID-Feld_oder_Adresse.2FEndpunkt_nicht_vorhanden">Ungültiges PID-Feld oder Adresse/Endpunkt nicht vorhanden</span></h4>
+<p>In diesem Fall wird kein Handshake gesendet. Das Ausbleiben zeigt dem Sender, dass solch ein Fehler aufgetreten ist und er beginnt die Übertragung erneut.
+</p>
+<h4><span class="mw-headline" id="CRC-Fehler">CRC-Fehler</span></h4>
+<p>Wird der CRC-Wert als nicht zum Paket gehörig erkannt, so wird ebenfalls kein Handshake gesendet. Auch dies veranlasst dann den Sender, das Paket neu zu übertragen.
+</p>
+<h4><span id="Daten_können_nicht_empfangen_werden"></span><span class="mw-headline" id="Daten_k.C3.B6nnen_nicht_empfangen_werden">Daten können nicht empfangen werden</span></h4>
+<p>Wenn die Daten zwar korrekt sind, aber aus verschiedensten Gründen derzeit nicht empfangen (oder bei IN-Transfers nicht gesendet) werden können, wird ein NAK gesendet. Unter Full- oder Low-Speed werden die Daten in diesem Fall später nochmals übertragen, unter High-Speed beginnt dann das PING-Protokoll (s. <a href="#Flusskontrolle">Flusskontrolle</a>).
+</p>
+<h4><span class="mw-headline" id="Handshake_geht_verloren">Handshake geht verloren</span></h4>
+<p>Dies ist immer wieder ein besonders komplizierter Fall. Beim Netzwerkprotokoll TCP wurde dieses Problem gelöst, indem jedes Paket eine eindeutige Nummer erhält. Geht hier ein Handshake verloren, sendet der Sender das ganze Paket noch einmal, der Empfänger akzeptiert dieses zweite Paket mit einem ACK (da es ja korrekt ist) und verwirft es erst dann, da die Daten bereits korrekt empfangen wurden (oder auch nicht, dann wird das Paket eben entgegengenommen). Auch bei USB hat man sich für eine ähnliche Lösung entschieden, wenngleich die eindeutige Identifizierung nicht wie bei TCP über die Position im Datenstrom, sondern über ein sogenanntes Toggle-Bit geschieht.
+</p>
+<h5><span class="mw-headline" id="Data-Toggle">Data-Toggle</span></h5>
+<p>Wie oben bereits beschrieben, gibt es verschiedene Datenpakete. Für die meisten Transfers sind allerdings nur DATA0 und DATA1 interessant (DATA2 und MDATA werden nur in Spezialfällen eingesetzt). Die Ziffer hinter dem DATA gibt den Zustand des sogenannten Toggle-Bits an, 0 oder 1. Dieses Bit dient wie die Sequenznummer bei TCP der eindeutigen Identifizierung eines Pakets, wobei diese Eindeutigkeit bei USB erstmal nicht ganz so gegeben ist. Dies erklärt sich aber dadurch, dass TCP über große Entfernungen verläuft, sodass der Sender die Handshakes des Empfängers selten abwartet, bevor er das nächste Paket schickt. Bei USB sind die Entfernungen und damit auch die Laufzeiten wesentlich geringer, sodass nach jeder Übertragung eines Datenpakets erst einmal das Handshake abgewartet wird. Daher genügt es, ein Datenpaket vom nächsten unterscheiden zu können.
+</p><p>Für jede Pipe gibt es ein Data-Toggle. Es wird nach dem erfolgreichen Empfang eines Pakets oder eines Handshakes invertiert. Dies sorgt dafür, dass verlorene Handshakes zu keiner Katastrophe führen. Stellen wir uns folgende Übertragung mit der hypothetischen MPS von 4 Byte vor:
+</p>
+<table cellpadding="5" class="prettytable">
+<tbody><tr>
+<th>Richtung</th>
+<th>PID</th>
+<th>ADDR</th>
+<th>ENDP</th>
+<th>Daten</th>
+<th>CRC
+</th></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>OUT</td>
+<td>2</td>
+<td>4</td>
+<td>&amp;#151;</td>
+<td>0x1F
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>DATA0</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x2A 0x42 0x66 0xFF</td>
+<td>0x373C
+</td></tr>
+<tr>
+<td colspan="6" style="background-color: rgb(250, 250, 250);"><i>Anmerkung:</i> Hier wird jetzt das Toggle-Bit beim Gerät invertiert.
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>ACK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td colspan="6" style="background-color: rgb(250, 250, 250);"><i>Anmerkung:</i> Und hier wird auch das Toggle-Bit beim Host invertiert.
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>OUT</td>
+<td>2</td>
+<td>4</td>
+<td>&amp;#151;</td>
+<td>0x1F
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>DATA1</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x29 0x00 0xC2 0x77</td>
+<td>0xC1E6
+</td></tr>
+<tr>
+<td colspan="6" style="background-color: rgb(250, 250, 250);"><i>Anmerkung:</i> Invertierung des Toggle-Bits beim Gerät
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>ACK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td colspan="6" style="background-color: rgb(250, 250, 250);"><i>Anmerkung:</i> Jetzt nehmen wir an, dass dieses ACK-Handshake verlorengeht. Der Host wird darauf reagieren, indem er sein Toggle-Bit nicht invertiert und die Daten noch einmal sendet, in der Annahme, dass ein Fehler aufgetreten ist:
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>OUT</td>
+<td>2</td>
+<td>4</td>
+<td>&amp;#151;</td>
+<td>0x1F
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>DATA1</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x29 0x00 0xC2 0x77</td>
+<td>0xC1E6
+</td></tr>
+<tr>
+<td colspan="6" style="background-color: rgb(250, 250, 250);"><i>Anmerkung:</i> Das Gerät erkennt nun, dass der Host das Handshake nicht erhalten hat, da schon wieder ein DATA1-Paket ankommt. Daraufhin lässt es sein Toggle-Bit auf 0 und schickt ein ACK, da die Daten ansonsten korrekt empfangen wurden.
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>ACK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td colspan="6" style="background-color: rgb(250, 250, 250);"><i>Anmerkung:</i> Dieses ACK kommt an, also invertiert der Host sein Toggle-Bit und alle sind glücklich.
+</td></tr></tbody></table>
+<p>Das ganze funktioniert natürlich auch in die andere Richtung:
+</p>
+<table cellpadding="5" class="prettytable">
+<tbody><tr>
+<th>Richtung</th>
+<th>PID</th>
+<th>ADDR</th>
+<th>ENDP</th>
+<th>Daten</th>
+<th>CRC
+</th></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>IN</td>
+<td>2</td>
+<td>4</td>
+<td>&amp;#151;</td>
+<td>0x1F
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>DATA0</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x2A 0x42 0x66 0xFF</td>
+<td>0x373C
+</td></tr>
+<tr>
+<td colspan="6" style="background-color: rgb(250, 250, 250);"><i>Anmerkung:</i> Hier wird jetzt das Toggle-Bit beim Host invertiert.
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>ACK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td colspan="6" style="background-color: rgb(250, 250, 250);"><i>Anmerkung:</i> Und hier wird auch das Toggle-Bit beim Gerät invertiert.
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>IN</td>
+<td>2</td>
+<td>4</td>
+<td>&amp;#151;</td>
+<td>0x1F
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>DATA1</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x29 0x00 0xC2 0x77</td>
+<td>0xC1E6
+</td></tr>
+<tr>
+<td colspan="6" style="background-color: rgb(250, 250, 250);"><i>Anmerkung:</i> Invertierung des Toggle-Bits beim Host
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>ACK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td colspan="6" style="background-color: rgb(250, 250, 250);"><i>Anmerkung:</i> Wieder nehmen wir an, dass dieses ACK-Handshake verlorengeht. Das Gerät wird darauf reagieren, indem es sein Toggle-Bit nicht invertiert und die Daten noch einmal sendet:
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>IN</td>
+<td>2</td>
+<td>4</td>
+<td>&amp;#151;</td>
+<td>0x1F
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>DATA1</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x29 0x00 0xC2 0x77</td>
+<td>0xC1E6
+</td></tr>
+<tr>
+<td colspan="6" style="background-color: rgb(250, 250, 250);"><i>Anmerkung:</i> In diesem Fall erkennt nun der Host, dass das Gerät das Handshake nicht erhalten hat, da schon wieder ein DATA1-Paket ankommt. Daraufhin lässt er sein Toggle-Bit auf 0 und schickt ein ACK, da die Daten ansonsten korrekt empfangen wurden.
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>ACK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td colspan="6" style="background-color: rgb(250, 250, 250);"><i>Anmerkung:</i> Dieses ACK kommt an, also invertiert das Gerät sein Toggle-Bit und auch hier: Friede, Freude, Eierkuchen.
+</td></tr></tbody></table>
+<p>Hinweis: Man könnte sich fragen, warum der Host nach dem nicht angekommenen ACK ein IN sendet, wenn er doch alle Daten hat. Wir nehmen hier an, dass er eben noch nicht alle Daten hat und ein weiteres Paket erwartet. Wenn er allerdings bereits alle Daten empfangen hätte, würde er die Übertragung einfach beenden und das Gerät würde anhand der verstreichenden Zeitspanne bemerken, dass etwas nicht stimmt und somit seine Daten verwerfen.
+</p><p>Es gibt für die verschiedenen Transferarten verschiedene Regeln, wann das Toggle-Bit auf einen definierten Zustand gesetzt wird. Bei Controltransfers wird das SETUP-Paket mit DATA0 versendet, danach gelten die normalen Regeln, bis zur Statusphase, deren Paket immer mit DATA1 versehen wird. Das Toggle-Bit von Bulkendpunkten wird auf 0 gesetzt, sobald die aktuelle Konfiguration gewechselt wird, gleiches gilt für Interruptendpunkte.
+</p>
+<h6><span class="mw-headline" id="Isochronous_2">Isochronous</span></h6>
+<p>Bei Isochronoustransfers wird das Toggle-Bit nicht wie hier beschrieben verwendet, stattdessen wird bei normalen Isochronoustransfers immer DATA0 verwendet und bei solchen mit hoher Bandbreite, also mehreren Paketen pro Microframe (bei Full-Speed-Isochronous wird nur DATA0 verwendet), wird das Bit bei Beginn jedes Microframes gewissermaßen zurückgesetzt.
+</p><p>Bei IN-Transfers wird bei einem Paket pro Microframe nur DATA0 verwendet, bei zweien kommt zuerst DATA1, dann DATA0 und bei dreien sendet das Gerät zuerst DATA2, dann DATA1 und zuletzt DATA0.
+</p><p>Bei OUT-Transfers zeigt ein MDATA-Paket an, dass im aktuellen Microframe noch ein Paket folgt und der Typ des letzten DATA-Pakets gibt dann an, wie viele MDATA-Pakete gesendet wurden. So wird bei einem Paket pro Microframe nur DATA0 verwendet, bei zweien ergibt sich zuerst MDATA, dann DATA1 und bei dreien gibt es zuerst zwei MDATA-Pakete und zuletzt ein DATA2-Paket.
+</p>
+<h4><span class="mw-headline" id="False_EOPs">False EOPs</span></h4>
+<p>Ja, auch das gibs: Falsche EOP-Signale. Durch etwas Rauschen kann es schnell passieren, dass mittem im Paket plötzlich ein SE0 auftritt und der Empfänger ein EOP registriert. Dies ist allerdings selten ein Problem, da das Paket dann entweder völlig zerstückelt ist oder einfach ein CRC-Fehler auftritt. Sendet der Host, so wird das Gerät kein Handshake senden und der Host initiiert ja sowieso erst wieder einen Transfer, wenn er mit dem Senden tatsächlich fertig ist. Ist das Gerät der Sender, so ist es schwieriger. In diesem Fall muss der Host darauf achten, bei solch einem CRC-Fehler 16 Bitzeiten zu warten. Tritt während dieser Zeit kein Verkehr auf dem USB auf, so darf er das nächsten Token senden, ansonsten muss er warten, bis das nächste EOP auftritt (16 Bitzeiten reichen aus, da bereits nach sechs Bitzeiten dank des Bitstuffings ein Wechsel in der Spannung auftreten muss, wenn Daten übertragen werden). Bei High-Speed-Transfers muss der Host einfach warten, bis die Datenleitungen zu SE0 zurückkehren (bei High-Speed tritt solch ein Fehler auch nicht aufgrund von SE0, sondern wegen eines Bitstufffehlers auf).
+</p>
+<h4><span class="mw-headline" id="Babble">Babble</span></h4>
+<p>Ein Babble ist ein äußerst schwerwiegender Fehler. Dieser tritt auf, wenn ein Gerät entweder einfach mehr Daten sendet als erwartet, oder wenn am Ende eines Frames noch Busaktivität herrscht &amp;#150; laut USB-Spezifikation sind solche Zustände „inakzeptabel“. Der Hub, an dem das Gerät hängt, muss den entsprechenden Port deaktivieren und der Hostcontroller wird dem Treiber diesen schwerwiegenden Fehler melden und den aktuellen Transfer zum Gerät abbrechen.
+</p>
+<h2><span class="mw-headline" id="Zusammengesetzte_Transfers">Zusammengesetzte Transfers</span></h2>
+<p>Diese kleinen Bausteine werden dann zu den Transfertypen zusammengesetzt.
+</p><p>Hinweis: <i>Im Folgenden wird mit einem „SETUP-Paket“ die Gesamtheit eines SETUP-Tokens, eines DATA0-Pakets vom Host zum Gerät und eines Handshakes vom Gerät zum Host bezeichnet. Ein „IN-Paket“ ist die Gesamtheit eines IN-Tokens, eines DATA0- oder DATA1-Pakets (wenn nicht explizit anders angegeben) vom Gerät zum Host und eines Handshakes vom Host zum Gerät. Schlussendlich ist ein „OUT-Paket“ die Gesamtheit eines OUT-Tokens, eines DATA0- oder DATA1-Pakets (wieder, wenn nicht anders angegeben) vom Host zum Gerät und eines Handshakes vom Gerät zum Host.</i>
+</p>
+<h3><span class="mw-headline" id="Controltransfers">Controltransfers</span></h3>
+<p>Ein Controltransfer beginnt mit einer Setupphase, danach folgt die Datenphase und zuletzt kommt noch eine Statusphase. Die in der Setupphase verwendeten Datenpakete sind immer DATA0, danach alterniert der Wert (DATA0/DATA1) und das letzte Paket (Statusphase) ist immer DATA1. Daraus ergibt sich ein Gesamttransfer wie der dieses Beispiel, das den Device-Descriptor eines Geräts einliest, wobei hier für den Endpunkt 0 eine maximale Paketgröße von 8 Byte angenommen wird:
+</p>
+<table cellpadding="5" class="prettytable">
+<tbody><tr>
+<th>Richtung</th>
+<th>PID</th>
+<th>ADDR</th>
+<th>ENDP</th>
+<th>Daten</th>
+<th>CRC
+</th></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>SETUP</td>
+<td>1</td>
+<td>0</td>
+<td>&amp;#151;</td>
+<td>0x1D
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>DATA0</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x80 0x06 0x00 0x01 0x00 0x00 0x12 0x00</td>
+<td>0x1A4E
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>ACK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td colspan="6" style="background-color: rgb(250, 250, 250);"><i>Anmerkung:</i> Setupphase abgeschlossen.
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>IN</td>
+<td>1</td>
+<td>0</td>
+<td>&amp;#151;</td>
+<td>0x1D
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>DATA1</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x12 0x01 0x00 0x01 0x00 0x00 0x00 0x08</td>
+<td>0x3718
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>ACK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>IN</td>
+<td>1</td>
+<td>0</td>
+<td>&amp;#151;</td>
+<td>0x1D
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>DATA0</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x27 0x06 0x01 0x00 0x00 0x00 0x03 0x02</td>
+<td>0xA7A8
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>ACK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>IN</td>
+<td>1</td>
+<td>0</td>
+<td>&amp;#151;</td>
+<td>0x1D
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>DATA1</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x01 0x01</td>
+<td>0x8307
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>ACK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td colspan="6" style="background-color: rgb(250, 250, 250);"><i>Anmerkung:</i> Datenphase abgeschlossen, da in der Setupphase 18 Bytes angefordert wurden.
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>OUT</td>
+<td>1</td>
+<td>0</td>
+<td>&amp;#151;</td>
+<td>0x1D
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>DATA1</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>ACK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td colspan="6" style="background-color: rgb(250, 250, 250);"><i>Anmerkung:</i> Statusphase abgeschlossen.
+</td></tr></tbody></table>
+<p>Wie man sieht, ist das letzte Datenpaket ein Paket ohne Inhalt. Hier wird immer die entgegengesetzte Richtung der Datenphase genommen (IN in der Datenphase → OUT in der Statusphase und umgekehrt). Mit diesem wird noch einmal bestätigt, dass alle Daten korrekt empfangen wurden und auch korrekt interpretiert werden können (falls nicht, kommt ein STALL).
+</p><p>Hier nochmal die Zusammenfassung eines Controltransfers:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Phase</th>
+<th>Pakettyp</th>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>Setup</td>
+<td>SETUP</td>
+<td>Hier wird ein 8 Byte langes SETUP-Paket zum Gerät gesendet, dessen Aufbau für alle Controltransfers einheitlich ist und u. a. die Länge und Richtung des Transfers angibt. Unterstützt das Gerät die Funktion nicht, kann sie hier bereits ein STALL zurückgeben. Für das SETUP-Paket wird immer DATA0 verwendet.
+</td></tr>
+<tr>
+<td>Daten</td>
+<td>IN/OUT</td>
+<td>Je nach in der Setupphase angegebenen Richtung werden nun Daten ein- oder ausgegeben. Ist die Länge der Datenphase im SETUP-Paket als 0 angegeben worden, existiert diese Phase nicht. Das erste Datenpaket der Datenphase ist immer DATA1, da das Toggle-Bit beim SETUP-Paket auf 0 gesetzt war.
+</td></tr>
+<tr>
+<td>Status</td>
+<td>OUT/IN</td>
+<td>Umgekehrt zur in der Datenphase verwendeten Richtung (oder der Richtung, die verwendet worden wäre, wenn es keine Datenphase gab) wird nun ein IN- bzw. OUT-Paket gesendet. Dies dient als nochmalige Versicherung, dass das Gerät die Anfrage auch verstanden und verarbeitet hat. In der Statusphase wird immer DATA1 eingesetzt.
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Bulktransfers">Bulktransfers</span></h3>
+<p>Ein Bulktransfer besitzt keine besondere Struktur. Das Data-Toggle-Bit wird bei jeder Änderung der Gerätekonfiguration auf 0 zurückgesetzt und ansonsten werden einfache IN- und OUT-Pakete verwendet. Hier könnte das „Lowlevel?“-Paket als Beispiel dienen:
+</p>
+<table cellpadding="5" class="prettytable">
+<tbody><tr>
+<th>Richtung</th>
+<th>PID</th>
+<th>ADDR</th>
+<th>ENDP</th>
+<th>Daten</th>
+<th>CRC
+</th></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>OUT</td>
+<td>42</td>
+<td>1</td>
+<td>&amp;#151;</td>
+<td>0x1C
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>DATA0</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x4C 0x6F 0x77 0x6C 0x65 0x76 0x65 0x6C 0x3F</td>
+<td>0x80F2
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>ACK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Interrupttransfers">Interrupttransfers</span></h3>
+<p>Interrupttransfers sind im Grunde einfache Bulk-IN-Transfers, die periodisch (also regelmäßig) ausgeführt werden. Wenn das Gerät keine neuen Daten besitzt, sendet es ein NAK, sind Daten vorhanden, sendet es diese und wartet auf ein ACK des Hosts (oder auf einen anderen Handshake, wobei es pro Frame nur drei Versuche gibt, danach wird die Übertragung abgebrochen). Hier ein Beispiel für das periodische Abfragen des Interrupt-Endpoints eines Hubs, bei dem sich schließlich eine nicht näher spezifizierte Änderung am Port 2 ergibt:
+</p>
+<table cellpadding="5" class="prettytable">
+<tbody><tr>
+<th>Richtung</th>
+<th>PID</th>
+<th>ADDR</th>
+<th>ENDP</th>
+<th>Daten</th>
+<th>CRC
+</th></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>IN</td>
+<td>3</td>
+<td>9</td>
+<td>&amp;#151;</td>
+<td>0x08
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>NAK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>SOF</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>IN</td>
+<td>3</td>
+<td>9</td>
+<td>&amp;#151;</td>
+<td>0x08
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>NAK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>SOF</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>IN</td>
+<td>3</td>
+<td>9</td>
+<td>&amp;#151;</td>
+<td>0x08
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>DATA0</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x04</td>
+<td>0x7C41
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>ACK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>SOF</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>IN</td>
+<td>3</td>
+<td>9</td>
+<td>&amp;#151;</td>
+<td>0x08
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>NAK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Isochronoustransfers">Isochronoustransfers</span></h3>
+<p>Das Toggle-Bit-Verhalten von Isochronoustransfers <a href="#Isochronous_2">wurde bereits besprochen</a>. Ebenso <a href="#Nicht-Handshake-Datentransfers">wurde bereits gezeigt</a>, dass Übertragungen von und zu Isochronousendpunkten kein Handshake besitzen. Und mehr ist dazu auch nicht zu sagen, man könnte hier nur das bereits gezeigte Beispiel nochmals zeigen:
+</p>
+<table cellpadding="5" class="prettytable">
+<tbody><tr>
+<th>Richtung</th>
+<th>PID</th>
+<th>ADDR</th>
+<th>ENDP</th>
+<th>Daten</th>
+<th>CRC
+</th></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>IN</td>
+<td>42</td>
+<td>7</td>
+<td>&amp;#151;</td>
+<td>0x13
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>DATA0</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x4D 0x6F 0x69 0x6E 0x2C 0x20 0x6D 0x6F 0x69 0x6E 0x2C 0x20 0x47 0x65 0x6E 0x6F 0x73 0x73 0x65 0x6E 0x5C 0x21</td>
+<td>0x04A9
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Beispiel">Beispiel</span></h3>
+<p>So, nachdem wir all das durchgekaut haben, können wir uns jetzt wieder an einem lustigen kleinen Beispiel versuchen, zum Beispiel dem Transfer des Strings „Lowlevel?“ als Bulk-OUT-Transfer. Wie wir gesehen haben, sieht das in der Zusammenfassung so aus:
+</p>
+<table cellpadding="5" class="prettytable">
+<tbody><tr>
+<th>Richtung</th>
+<th>PID</th>
+<th>ADDR</th>
+<th>ENDP</th>
+<th>Daten</th>
+<th>CRC
+</th></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>OUT</td>
+<td>42</td>
+<td>1</td>
+<td>&amp;#151;</td>
+<td>0x1C
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2204/index.html"><img alt="USB-trans-out.png" height="50" src="../../../assets/wiki/5c209163f6da04e04de2cd6b.png" width="70"/></a></td>
+<td>DATA0</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>0x4C 0x6F 0x77 0x6C 0x65 0x76 0x65 0x6C 0x3F</td>
+<td>0x80F2
+</td></tr>
+<tr>
+<td><a class="image" href="../../pages/2203/index.html"><img alt="USB-trans-in.png" height="50" src="../../../assets/wiki/42c1893a85c41f6f2cefaa0f.png" width="70"/></a></td>
+<td>ACK</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;</td>
+<td>&amp;#151;
+</td></tr></tbody></table>
+<p>Dies wird zu den einzelnen Paketen (zwischen Feldern jeweils ein Leerzeichen und Little Endian!):
+</p>
+<pre>10000111 0101010 1000 00111
+
+11000011 001100101111011011101110001101101010011001101110101001100011011011111100
+0100111100000001
+
+01001011</pre>
+<p>Jetzt lassen wir die Leerzeichen weg und führen das Bitstuffing durch (das immer noch an nur einer Stelle durchzuführen ist):
+</p>
+<pre>100001110101010100000111
+
+11000011001100101111011011101110001101101010011001101110101001100011011011111100
+00100111100000001
+
+01001011</pre>
+<p>Jetzt zum NRZI mit SOP und EOP (Leerzeichen zur Verdeutlichung, zuerst Idle-Zustand, dann SOP, dann Paket, dann EOP, alles Full-Speed), dabei gilt _ als SE0:
+</p>
+<pre>J KJKJKJKK KJKJKKKKJJKKJJKKJKJKJJJJ __J
+
+J KJKJKJKK KKJKJKKKJKKKJKKJJJJJKKKJJJJKKKKJKJJJKKKJJKKJKKKJKKKJJJJKKJJKJJJKJKKKJ
+JJKKKKKKKJKJKKJKKKKKJKJKJKJJ __J
+
+J KJKJKJKK JJKJJKKK __J</pre>
+<p>Lassen wir jetzt die Leerzeichen und auch die Pausen zwischen den Paketen weg (bzw. setzen da 16 Bitzeiten J hin):
+</p>
+<pre>JJJJJJJJJJJJJJJJKJKJKJKKKJKJKKKKJJKKJJKKJKJKJJJJ__JJJJJJJJJJJJJJJJKJKJKJKKKKJKJK
+KKJKKKJKKJJJJJKKKJJJJKKKKJKJJJKKKJJKKJKKKJKKKJJJJKKJJKJJJKJKKKJJJKKKKKKKJKJKKJKK
+KKKJKJKJKJJ__JJJJJJJJJJJJJJJJKJKJKJKKJJKJJKKK__JJJJJJJJJJJJJJJJ</pre>
+<p>Jetzt ein hübscheres „Diagramm“, auf dem man den Zustand der D+- und D--Leitung sehen kann (Full-Speed!):
+</p>
+<pre>D+ ----------------_-_-_-___-_-____--__--__-_-_----__----------------_-_-_-____-
+
+D- ________________-_-_-_---_-_----__--__--_-_-______________________-_-_-_----_</pre>
+<pre>D+ _-___-___-__-----___----____-_---___--__-___-___----__--_---_-___---_______-_
+
+D- -_---_---_--_____---____----_-___---__--_---_---____--__-___-_---___-------_-</pre>
+<pre>D+ -__-_____-_-_-_--__----------------_-_-_-__--_--_____----------------
+
+D- _--_-----_-_-_-____________________-_-_-_--__-__---__________________</pre>
+<p>So, wer das jetzt unbedingt ausprobieren will, kann das ja gerne tun, sich eines dieser extrem teuren USB-Analysegeräte kaufen, an 5 V anschließen und dann zwei Taster mit 12 MHz betätigen. Aber Achtung: Dies kann zu akuten Muskelbeschwerden im Armbereich führen.
+</p>
+<h2><span class="mw-headline" id="Controltransfers_2">Controltransfers</span></h2>
+<p>Dieses Kapitel soll die Controltransfers näher beleuchten und einige von den Standardrequests vorstellen. Zudem soll noch etwas über das Erkennen neuer Geräte am Bus erzählt werden.
+</p>
+<h3><span class="mw-headline" id="Enumeration">Enumeration</span></h3>
+<p>Diese Erkennung und Initialisierung neuer Geräte wird <i>Enumeration</i> genannt. Dies passiert folgermaßen:
+</p>
+<ol><li>Eventuell muss zuerst ein Resume getrieben werden, falls sich das Gerät oder der Port im Suspendmodus befindet. Dieses wird 20 ms gehalten, dann mit einem Low-Speed-EOP beendet und das Gerät erhält 10 ms, um sich zu stabilisieren.</li>
+<li>Zuerst wird ein Resetsignal am Port des Geräts getrieben, dies veranlasst es wie beschrieben dazu, in den Ursprungszustand zurückzugehen und die USB-Adresse 0 anzunehmen.</li>
+<li>Nun sollten die ersten 8 Bytes des Device-Descriptors abgeholt werden (USB-Adresse ist natürlich 0), nur die ersten acht, weil man zu diesem Zeitpunkt die MPS von EP0 (MPS0) noch nicht kennt. Diese beträgt aber mindestens 8 Byte und genau im achten befindet sich der MPS0-Wert.</li>
+<li>Sicherheitshalber sollte das Gerät nun nochmals zurückgesetzt werden.</li>
+<li>Anschließend wird die Adresse des Geräts auf einen auf dem jeweiligen Bus eindeutigen Wert gesetzt.</li>
+<li>Jetzt, da MPS0 bekannt ist, wird der gesamte Device-Descriptor eingelesen.</li>
+<li>Danach müssen alle möglichen Konfigurationen mit ihren Interfaces eingelesen und eine davon ausgewählt werden.</li></ol>
+<h4><span class="mw-headline" id="Enumeration_beim_Hochfahren">Enumeration beim Hochfahren</span></h4>
+<p>Die erste Enumeration kann anfangs schwierig erscheinen: Eventuell hängen mehrere Geräte am Bus, die alle die Adresse 0 benutzen. Wie kann man diese einzeln enumerieren? Eigentlich ist das ganz einfach.
+</p>
+<ol><li>Zuerst werden alle Rootports deaktiviert, der Strom wird ggf. eingeschaltet, dann müssen dem Gerät 100 ms gegeben werden, bis es stabil ist.</li>
+<li>Anschließend wird ein Rootport aktiviert, hängt daran ein Hub, gehe zu Schritt 4</li>
+<li>Das Gerät ist kein Hub, also wird es normal enumeriert. Gehe danach zu Schritt 2.</li>
+<li>Das Gerät ist ein Hub. Enumeriere ihn, gehe dann zu Schritt 1 und behandele seine Ports als Rootports (nach dem Ende des Untersuchen des Hubs gehe hierhin zurück). Gehe dann wieder zu Schritt 2.</li></ol>
+<p>Mit dieser Schrittfolge wird gewährleistet, dass immer nur ein Gerät die Adresse 0 hat und somit keine Konflikte auftreten können.
+</p>
+<h4><span id="Enumeration_eines_neuen_Geräts"></span><span class="mw-headline" id="Enumeration_eines_neuen_Ger.C3.A4ts">Enumeration eines neuen Geräts</span></h4>
+<p>Der häufiger beschriebene Fall ist das Anstecken eines neuen Gerätes. Hier muss zuerst 100 ms gewartet werden, bis das Gerät stabil ist, danach kann der Port aktiviert werden. Nun kann die normale Enumeration beginnen.
+</p>
+<h3><span class="mw-headline" id="Wiederholung">Wiederholung</span></h3>
+<p>Im ersten <a href="#Controltransfers">Controltransfer-Abschnitt</a> wurde bereits gezeigt, dass jeder Controltransfer aus zwei oder drei Phasen besteht: Setup, Daten, Status. Die Datenphase ist dabei optional. Das Setuppaket gibt an, was das Gerät tun soll, ob es eine Datenphase gibt, in welche Richtung sie geht und welche Daten dabei ausgetauscht werden sollen.
+</p>
+<h3><span class="mw-headline" id="Setuppaket">Setuppaket</span></h3>
+<p>Wie bereits gesagt ist der Aufbau eines Setuppakets standardisiert. Er lautet immer folgendermaßen:
+</p>
+<table cellspacing="5" class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Name</th>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>0</td>
+<td>bmRequestType</td>
+<td>Ein Bitfeld, das die Eigenschaften des Request angibt:
+<ul><li>Bit 0 &amp;#150; 4: Empfänger
+<ul><li>0 &amp;#150; Geräte</li>
+<li>1 &amp;#150; Interface</li>
+<li>2 &amp;#150; Endpunkt</li>
+<li>3 &amp;#150; Anderer</li></ul></li>
+<li>Bit 5 &amp;#150; 6: Typ des Requests
+<ul><li>0 &amp;#150; Standardrequest</li>
+<li>1 &amp;#150; Klassenspezifisch</li>
+<li>2 &amp;#150; Herstellerspezifisch</li></ul></li>
+<li>Bit 7: Richtung des Transfers
+<ul><li>0 &amp;#150; Gerät zum Host (OUT)</li>
+<li>1 &amp;#150; Host zum Gerät (IN)</li></ul></li></ul>
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>1</td>
+<td>bRequest</td>
+<td>Nummer des Requests
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>2</td>
+<td>wValue</td>
+<td>Requestspezifischer Wert
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>2</td>
+<td>wIndex</td>
+<td>Ebenfalls requestspezifisch, wird normalerweise benutzt, um einen Index oder einen Offset anzugeben
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>2</td>
+<td>wLength</td>
+<td>Länge der zu übertragenden Daten (Anzahl von Bytes)
+</td></tr></tbody></table>
+<p>Ein Setuppaket ist immer 8 Byte lang, sodass es von jedem Gerät unabhängig von MPS0 (welche mindestens 8 sein muss) empfangen werden kann.
+</p>
+<h4><span class="mw-headline" id="Standardrequests">Standardrequests</span></h4>
+<h5><span class="mw-headline" id="GET_STATUS">GET_STATUS</span></h5>
+<p>Gibt den Status des ausgewählten Empfängers zurück.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Feld</th>
+<th>Wert
+</th></tr>
+<tr>
+<td>bmRequestType</td>
+<td>
+<ul><li>00000000b</li>
+<li>00000001b</li>
+<li>00000010b</li></ul>
+</td></tr>
+<tr>
+<td>bmRequest</td>
+<td>0
+</td></tr>
+<tr>
+<td>wValue</td>
+<td>0
+</td></tr>
+<tr>
+<td>wIndex</td>
+<td>
+<ul><li>Gerät: 0</li>
+<li>Interface: Interface-ID</li>
+<li>Endpunkt: Endpunkt-ID</li></ul>
+</td></tr>
+<tr>
+<td>wLength</td>
+<td>2
+</td></tr></tbody></table>
+<p>In der Datenphase wird dann der Status des Empfängers in zwei Bytes zurückgegeben.
+</p><p>Empfänger ist ein Gerät:
+</p>
+<ul><li>Bit 0: Gesetzt, wenn das Gerät derzeit seinen Strom von einer externen Quelle bezieht, gelöscht, wenn es seinen Strom vom Bus bezieht.</li>
+<li>Bit 1: Gibt an, ob das Gerät derzeit Remote-Wakeup durchführen kann (Bit wäre dann gesetzt und sonst gelöscht).</li>
+<li>Alle anderen Bits sind reserviert.</li></ul>
+<p>Empfänger ist ein Interface:
+</p>
+<ul><li>Alle Bits sind reserviert.</li></ul>
+<p>Empfänger ist ein Endpunkt:
+</p>
+<ul><li>Bit 0: Ist gesetzt, wenn der Endpunkt derzeit gestallt, also gesperrt ist. Dies tritt meist aufgrund eines Funktionsfehlers auf, der nur durch den USB-Treiber wieder aufgehoben werden kann (per CLEAR_FEATURE).</li>
+<li>Alle anderen Bits sind reserviert.</li></ul>
+<h5><span class="mw-headline" id="CLEAR_FEATURE">CLEAR_FEATURE</span></h5>
+<p>Hebt einen bestimmten Zustand eines Geräts, Interfaces oder Endpunkts auf.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Feld</th>
+<th>Wert
+</th></tr>
+<tr>
+<td>bmRequestType</td>
+<td>
+<ul><li>00000000b</li>
+<li>00000001b</li>
+<li>00000010b</li></ul>
+</td></tr>
+<tr>
+<td>bmRequest</td>
+<td>1
+</td></tr>
+<tr>
+<td>wValue</td>
+<td>Aufzuhebender Zustand
+</td></tr>
+<tr>
+<td>wIndex</td>
+<td>
+<ul><li>Gerät: 0</li>
+<li>Interface: Interface-ID</li>
+<li>Endpunkt: Endpunkt-ID</li></ul>
+</td></tr>
+<tr>
+<td>wLength</td>
+<td>0
+</td></tr></tbody></table>
+<p>Es gibt keine Datenphase.
+</p><p>Mögliche Zustände sind:
+</p>
+<ul><li>0: ENDPOINT_HALT (für Endpunkte), wenn dieser Zustand gesetzt ist (vgl. <a href="#GET_STATUS">GET_STATUS</a>), reagiert der Endpunkt auf jeden Transfer mit einem STALL-Handshake. Dieser Zustand kann nur durch ein ClearFeature(ENDPOINT_HALT) wieder aufgehoben werden, dabei wird das Data-Toggle-Bit der entsprechenden Pipe auf 0 gesetzt.</li>
+<li>1: DEVICE_REMOTE_WAKEUP (für Geräte), gibt an, ob das Gerät ein Remote-Wakeup durchführen darf. ClearFeature(DEVICE_REMOTE_WAKEUP) verbietet dies.</li></ul>
+<h5><span class="mw-headline" id="SET_FEATURE">SET_FEATURE</span></h5>
+<p>Setzt einen bestimmten Zustand eines Geräts, Interfaces oder Endpunkts und ist somit das Gegenteil zu CLEAR_FEATURE.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Feld</th>
+<th>Wert
+</th></tr>
+<tr>
+<td>bmRequestType</td>
+<td>
+<ul><li>00000000b</li>
+<li>00000001b</li>
+<li>00000010b</li></ul>
+</td></tr>
+<tr>
+<td>bmRequest</td>
+<td>3
+</td></tr>
+<tr>
+<td>wValue</td>
+<td>Zu setzender Zustand
+</td></tr>
+<tr>
+<td>wIndex</td>
+<td>
+<ul><li>Gerät: 0</li>
+<li>Interface: Interface-ID</li>
+<li>Endpunkt: Endpunkt-ID</li></ul>
+</td></tr>
+<tr>
+<td>wLength</td>
+<td>0
+</td></tr></tbody></table>
+<p>Es gibt keine Datenphase.
+</p><p>Mögliche Zustände sind:
+</p>
+<ul><li>0: ENDPOINT_HALT (für Endpunkte), per SetFeature(ENDPOINT_HALT) kann ein schwerwiegender Fehler sozusagen simuliert werden (wobei sich mir der Sinn dessen bis heute verschließt).</li>
+<li>1: DEVICE_REMOTE_WAKEUP (für Geräte), SetFeature(DEVICE_REMOTE_WAKEUP) erlaubt ein Remote-Wakeup vom Gerät.</li>
+<li>2: TEST_MODE (für Geräte), dessen genaue Bedeutung mir unbekannt ist.</li></ul>
+<h5><span class="mw-headline" id="SET_ADDRESS">SET_ADDRESS</span></h5>
+<p>Legt die USB-Adresse eines Geräts fest. Diese Adresse nimmt es erst nach der Statusphase an (die findet also noch mit der alten Adresse statt).
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Feld</th>
+<th>Wert
+</th></tr>
+<tr>
+<td>bmRequestType</td>
+<td>00000000b
+</td></tr>
+<tr>
+<td>bmRequest</td>
+<td>5
+</td></tr>
+<tr>
+<td>wValue</td>
+<td>Neue Adresse (zwischen 0 und 127)
+</td></tr>
+<tr>
+<td>wIndex</td>
+<td>0
+</td></tr>
+<tr>
+<td>wLength</td>
+<td>0
+</td></tr></tbody></table>
+<p>Es gibt keine Datenphase.
+</p>
+<h5><span class="mw-headline" id="GET_DESCRIPTOR">GET_DESCRIPTOR</span></h5>
+<p>Liest einen Descriptor vom Gerät, welcher irgendetwas beschreiben kann. Dieses „irgendwas“ kann das gesamte Gerät sein, eine einzelne Konfiguration, ein Interface, ein Endpunkt, etc..
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Feld</th>
+<th>Wert
+</th></tr>
+<tr>
+<td>bmRequestType</td>
+<td>10000000b
+</td></tr>
+<tr>
+<td>bRequest</td>
+<td>6
+</td></tr>
+<tr>
+<td>wValue</td>
+<td>Typ des Descriptors im höherwertigen Byte und Index im niederwertigen
+</td></tr>
+<tr>
+<td>wIndex</td>
+<td>ID der Sprache bei Stringdescriptoren, sonst 0
+</td></tr>
+<tr>
+<td>wLength</td>
+<td>Länge des Descriptors (bzw. die Länge, die gelesen werden soll &amp;#150; <i>kann also auch kleiner sein!</i>)
+</td></tr></tbody></table>
+<p>In der Datenphase wird dann der Descriptor zum Host gesendet.
+</p>
+<h5><span class="mw-headline" id="SET_DESCRIPTOR">SET_DESCRIPTOR</span></h5>
+<p>In Einzelfällen kann es wünschenswert sein, auch einen Descriptor zu verändern oder hinzuzufügen. Dafür gibt es diesen Request, welcher allerdings optional ist (vom Gerät also per STALL-Handshake abgewiesen werden kann).
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Feld</th>
+<th>Wert
+</th></tr>
+<tr>
+<td>bmRequestType</td>
+<td>00000000b
+</td></tr>
+<tr>
+<td>bRequest</td>
+<td>7
+</td></tr>
+<tr>
+<td>wValue</td>
+<td>Typ des Descriptors im höherwertigen Byte und Index im niederwertigen
+</td></tr>
+<tr>
+<td>wIndex</td>
+<td>ID der Sprache bei Stringdescriptoren, sonst 0
+</td></tr>
+<tr>
+<td>wLength</td>
+<td>Descriptorlänge
+</td></tr></tbody></table>
+<p>In der Datenphase muss der Host dann den neuen Descriptor an das Gerät übermitteln.
+</p>
+<h5><span class="mw-headline" id="GET_CONFIGURATION">GET_CONFIGURATION</span></h5>
+<p>Hiermit kann die aktuelle Konfiguration ermittelt werden.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Feld</th>
+<th>Wert
+</th></tr>
+<tr>
+<td>bmRequestType</td>
+<td>10000000b
+</td></tr>
+<tr>
+<td>bRequest</td>
+<td>8
+</td></tr>
+<tr>
+<td>wValue</td>
+<td>0
+</td></tr>
+<tr>
+<td>wIndex</td>
+<td>0
+</td></tr>
+<tr>
+<td>wLength</td>
+<td>1
+</td></tr></tbody></table>
+<p>In der Datenphase wird ein Byte übertragen, das die aktuelle Konfiguration angibt. Ist es 0, so ist das Gerät unkonfiguriert.
+</p>
+<h5><span class="mw-headline" id="SET_CONFIGURATION">SET_CONFIGURATION</span></h5>
+<p>Mit diesem Request wird eine neue Konfiguration festgelegt. Die Data-Toggle-Bits aller geänderten Endpunkte (also alle außer EP0) werden auf 0 zurückgesetzt.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Feld</th>
+<th>Wert
+</th></tr>
+<tr>
+<td>bmRequestType</td>
+<td>00000000b
+</td></tr>
+<tr>
+<td>bRequest</td>
+<td>9
+</td></tr>
+<tr>
+<td>wValue</td>
+<td>Das untere Byte gibt die zu setzende Konfiguration anhand ihrer ID an. Ist der Wert 0, so wird das Gerät in den unkonfigurierten Zustand zurückgesetzt. Das höherwertige Byte ist reserviert und am besten auf 0 zu setzen.
+</td></tr>
+<tr>
+<td>wIndex</td>
+<td>0
+</td></tr>
+<tr>
+<td>wLength</td>
+<td>0
+</td></tr></tbody></table>
+<p>Es gibt keine Datenphase.
+</p>
+<h5><span class="mw-headline" id="GET_INTERFACE">GET_INTERFACE</span></h5>
+<p>Dieser Request ermittelt die derzeitige alternative Einstellung für ein bestimmtes Interface.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Feld</th>
+<th>Wert
+</th></tr>
+<tr>
+<td>bmRequestType</td>
+<td>10000001b
+</td></tr>
+<tr>
+<td>bRequest</td>
+<td>10
+</td></tr>
+<tr>
+<td>wValue</td>
+<td>0
+</td></tr>
+<tr>
+<td>wIndex</td>
+<td>Interface-ID
+</td></tr>
+<tr>
+<td>wLength</td>
+<td>1
+</td></tr></tbody></table>
+<p>In der Datenphase überträgt das Gerät dann ein Byte, welches die ID der derzeit aktiven alternativen Einstellung des Interfaces enthält.
+</p>
+<h5><span class="mw-headline" id="SET_INTERFACE">SET_INTERFACE</span></h5>
+<p>Mit diesem Request wird eine alternative Einstellung für ein Interface festgelegt.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Feld</th>
+<th>Wert
+</th></tr>
+<tr>
+<td>bmRequestType</td>
+<td>00000001b
+</td></tr>
+<tr>
+<td>bRequest</td>
+<td>11
+</td></tr>
+<tr>
+<td>wValue</td>
+<td>ID der zu setzenden alternativen Einstellung
+</td></tr>
+<tr>
+<td>wIndex</td>
+<td>Interface-ID
+</td></tr>
+<tr>
+<td>wLength</td>
+<td>0
+</td></tr></tbody></table>
+<p>Es gibt keine Datenphase.
+</p>
+<h3><span class="mw-headline" id="Descriptoren">Descriptoren</span></h3>
+<p>Nun zu den Descriptoren, die man per GET_CONFIGURATION lesen und per SET_CONFIGURATION setzen kann. Jeder Descriptor beginnt mit einem Byte, dass seine Länge angibt und einem weiteren, dass seinen Typ angibt.
+</p>
+<h4><span class="mw-headline" id="Device-Descriptor">Device-Descriptor</span></h4>
+<p>Dieser Descriptor enthält allgemeine Informationen zum Gerät, die für alle Konfigurationen zutreffen. Ihn in Erfahrung zu bringen (bzw. seine ersten 8 Bytes) ist normalerweise der erste Vorgang während der <a href="#Enumeration">Enumeration</a>.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Länge</th>
+<th>Name</th>
+<th>Bedeutung oder Inhalt
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>1</td>
+<td>bLength</td>
+<td>18
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>1</td>
+<td>bDescriptorType</td>
+<td>1
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>2</td>
+<td>bcdUSB</td>
+<td>Gibt die USB-Spezifikation, der das Gerät unterliegt, in BCD-Form an (z. B. 0x0210 für 2.10).
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>1</td>
+<td>bDeviceClass</td>
+<td>Gibt die USB-Klasse an, zu der dieses Gerät gehört. Damit können viele verschiedene Geräte mit dem gleichen Treiber verwendet werden. Ist der Wert 0x00, dann besitzt jedes Interface eine eigene Klasse. Ist der 0xFF, so gehört das Gerät keiner Klasse an, sondern verhält sich herstellerspezifisch. Alle anderen Werte bedeuten, dass das Gerät zu nur einer einzigen Klasse gehört.
+</td></tr>
+<tr>
+<td>0x05</td>
+<td>1</td>
+<td>bDeviceSubclass</td>
+<td>Unterklasse. Ist die Klasse 0x00, so muss dieser Wert auch 0x00 sein. 0xFF bedeutet eine herstellerspezifische Unterklasse.
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>1</td>
+<td>bDeviceProtocol</td>
+<td>Protokolltyp (noch feinere Unterteilung der Klassencodes). Sind Klasse und Unterklasse 0x00, dann muss auch dieser Wert 0x00 sein. Bei 0xFF gilt ein herstellerspezifisches Protokoll.
+</td></tr>
+<tr>
+<td>0x07</td>
+<td>1</td>
+<td>bMaxPacketSize0</td>
+<td>MPS0. Muss 8, 16, 32 oder 64 sein.
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>2</td>
+<td>idVendor</td>
+<td>Vendor-ID.
+</td></tr>
+<tr>
+<td>0x0A</td>
+<td>2</td>
+<td>idProduct</td>
+<td>Geräte-ID.
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td>2</td>
+<td>bcdDevice</td>
+<td>Releasenummer des Geräts in BCD-Form.
+</td></tr>
+<tr>
+<td>0x0E</td>
+<td>1</td>
+<td>iManufacturer</td>
+<td>ID des Stringdescriptors, der den Herstellernamen angibt.
+</td></tr>
+<tr>
+<td>0x0F</td>
+<td>1</td>
+<td>iProduct</td>
+<td>ID des Stringdescriptors, der den Gerätenamen angibt.
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>1</td>
+<td>iSerialNumber</td>
+<td>ID des Stringdescriptors, der die Seriennummer angibt.
+</td></tr>
+<tr>
+<td>0x11</td>
+<td>1</td>
+<td>bNumConfigurations</td>
+<td>Anzahl der möglichen Konfigurationen.
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="Konfigurationsdescriptor">Konfigurationsdescriptor</span></h4>
+<p>Ein Konfigurationsdescriptor enthält Informationen &amp;#150; wen wunderts &amp;#150; zu einer Konfiguration.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Länge</th>
+<th>Name</th>
+<th>Bedeutung oder Inhalt
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>1</td>
+<td>bLength</td>
+<td>9
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>1</td>
+<td>bDescriptorType</td>
+<td>2
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>2</td>
+<td>wTotalLength</td>
+<td>Wenn ein Konfigurationsdescriptor angefordert wird, wird nicht nur dieser zurückgegeben. Das Gerät hängt immer alle Interfacedescriptoren und an jeden Interfacedescriptor alle verwendeten Endpunktdescriptoren an. Dieses Feld gibt an, wie viele Bytes alle Descriptoren dieser Konfiguration zusammen brauchen.
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>1</td>
+<td>bNumInterfaces</td>
+<td>Anzahl der Interfaces für diese Konfiguration
+</td></tr>
+<tr>
+<td>0x05</td>
+<td>1</td>
+<td>bConfigurationValue</td>
+<td>ID der Konfiguration (für GET_CONFIGURATION oder SET_CONFIGURATION)
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>1</td>
+<td>iConfiguration</td>
+<td>ID des Stringdescriptors, der den Namen dieser Konfiguration enthält.
+</td></tr>
+<tr>
+<td>0x07</td>
+<td>1</td>
+<td>bmAttributes</td>
+<td>Charakteristika der Konfiguration:
+<ul><li>Bit 0 &amp;#150; 4: Reserviert, auf 0 zu setzen</li>
+<li>Bit 5: <a href="#Remote_Wakeup">Remote Wakeup</a>, gibt an, ob dies möglich ist</li>
+<li>Bit 6: Self-powered, gibt an, ob das Gerät in dieser Konfiguration seinen Strom vom Bus bezieht (0) oder von einer externen Stromquelle (1)</li>
+<li>Bit 7: Reserviert, auf 1 zu setzen</li></ul>
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>1</td>
+<td>bMaxPower</td>
+<td>Gibt an, wie viel Strom das Gerät in dieser Konfiguration <i>maximal</i> vom Bus bezieht, in 2-mA-Schritten (50 bedeutet 100 mA). Wenn das Gerät mit einer externen Stromquelle betrieben und plötzlich von dieser Quelle getrennt wird, darf es nicht mehr Strom verbrauchen, als dieses Feld angibt.
+</td></tr></tbody></table>
+<p>Tipp: Wie beschrieben weiß man anfangs nicht, wie lang alle Konfigurations-, Interface- und Endpunktdescriptoren einer Konfiguration zusammen sind. Daher müsste man theoretisch einen ausreichend großen Datenpuffer reservieren. Besser ist, zuerst nur die ersten neun Bytes dieses Descriptorenarrays (oder auch -liste) einzulesen (also nur den Konfigurationsdescriptor), daraus zu ermitteln, wie viel Platz alle Descriptoren zusammen brauchen (wTotalLength) und dann einen Puffer dieser Größe zu reservieren.
+</p>
+<h4><span class="mw-headline" id="Stringdescriptor">Stringdescriptor</span></h4>
+<p>Ein Stringdescriptor besitzt keinen besonders spezifischen Aufbau. Er enthält Strings, die z. B. den Hersteller oder den Namen des Produkts selbst beinhalten &amp;#150; somit haben sie für den Treiber selbst eher eine untergeordnete Bedeutung und dienen eher der Information des Benutzers.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Länge</th>
+<th>Name</th>
+<th>Bedeutung oder Inhalt
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>1</td>
+<td>bLength</td>
+<td>Länge dieses Descriptors (Anzahl der Zeichen im String mal zwei plus zwei: Mal zwei, weil UTF16 verwendet wird und plus zwei, weil der String erst bei Offset 2 beginnt)
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>1</td>
+<td>bDescriptorType</td>
+<td>3
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>beliebig</td>
+<td>bString</td>
+<td>Enthält den String, UTF16-kodiert. Wenn man keine UTF16-Unterstützung hat, genügt es in den meisten Fällen, das höherwertige Byte zu ignorieren und das niederwertige als ASCII auszugeben (oder ein Ersatzzeichen ausgeben, wenn der Wert größer als 127 ist).
+</td></tr></tbody></table>
+<p>Alle Stringdescriptoren haben einen Index größer als 0. Dieser Index ist für die Liste der verfügbaren Sprachen reserviert. Anstatt von Unicodezeichen enthält der Stringdescriptor 0 ein Array von 16-Bit-Werten, welche die verfügbaren Sprach-IDs enthalten.
+</p>
+<h4><span class="mw-headline" id="Interfacedescriptor">Interfacedescriptor</span></h4>
+<p>Ein Interfacedescriptor beschreibt ein Interface einer Konfiguration. Solche Descriptoren können nicht einzeln abgefragt werden, sie werden vom Gerät immer zusammen mit dem Konfigurationsdescriptor geliefert.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Länge</th>
+<th>Name</th>
+<th>Bedeutung oder Inhalt
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>1</td>
+<td>bLength</td>
+<td>9
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>1</td>
+<td>bDescriptorType</td>
+<td>4
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>1</td>
+<td>bInterfaceNumber</td>
+<td>Eindeutiger Index dieses Interfaces in der aktuellen Konfiguration
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>1</td>
+<td>bAlternateSetting</td>
+<td>Gibt die ID dieser alternativen Einstellung an (Standardeinstellung ist 0).
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>1</td>
+<td>bNumEndpoints</td>
+<td>Enthält die Anzahl der Endpunkte dieses Interfaces.
+</td></tr>
+<tr>
+<td>0x05</td>
+<td>1</td>
+<td>bInterfaceClass</td>
+<td>USB-Klassencode (Wert 0 ist reserviert, 255 bedeutet herstellerspezifisch)
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>1</td>
+<td>bInterfaceSubClass</td>
+<td>Unterklasse
+</td></tr>
+<tr>
+<td>0x07</td>
+<td>1</td>
+<td>bInterfaceProtocol</td>
+<td>Protokolltyp
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>1</td>
+<td>iInterface</td>
+<td>ID des Stringdescriptors, der dieses Interface beschreibt.
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="Endpunktdescriptor">Endpunktdescriptor</span></h4>
+<p>Der letzte Descriptor in der Kette Gerät → Konfiguration → Interface → Endpunkt ist eben dieser. Er beschreibt logischerweise einen Endpunkt und wie auch der Interfacedescriptor können Endpunktdescriptoren nicht einzeln, sondern nur zusammen mit dem Konfigurationsdescriptor abgefragt werden.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Länge</th>
+<th>Name</th>
+<th>Bedeutung oder Inhalt
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>1</td>
+<td>bLength</td>
+<td>7
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>1</td>
+<td>bDescriptorType</td>
+<td>5
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>1</td>
+<td>bEndpointAddress</td>
+<td>Beschreibt die Adresse des Endpunkts nach dem folgenden Schema:
+<ul><li>Bit 0 &amp;#150; 3: ID des Endpunkts (die tatsächliche Adresse)</li>
+<li>Bit 4 &amp;#150; 6: Reserviert (auf 0 zu setzen)</li>
+<li>Bit 7: Richtung (wird bei Controlendpunkten ignoriert, da sie sich bidirektional verhalten):
+<ul><li>0: OUT</li>
+<li>1: IN</li></ul></li></ul>
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>1</td>
+<td>bmAttributes</td>
+<td>Eigenschaften des Endpunkts:
+<ul><li>Bit 0 &amp;#150; 1: Übertragungstyp:
+<ul><li>00b: Control</li>
+<li>01b: Isochronous</li>
+<li>10b: Bulk</li>
+<li>11b: Interrupt</li></ul></li>
+<li>Bit 2 &amp;#150; 3: Synchronisation (nur für Isochronous):
+<ul><li>00b: Keine</li>
+<li>01b: Asynchron</li>
+<li>10b: Adaptiv</li>
+<li>11b: Synchron</li></ul></li>
+<li>Bit 4 &amp;#150; 5: Benutzung (nur für Isochronous):
+<ul><li>00b: Datenendpunkt</li>
+<li>01b: Feedbackendpunkt</li>
+<li>10b: Daten und gleichzeitig Feedback für einen anderen Endpunkt</li>
+<li>11b: Reserviert</li></ul></li>
+<li>Bit 6 &amp;#150; 7: Reserviert und auf 0 zu setzen (ebenso die Bits 2 &amp;#150; 5 für nicht-Isochronoustransfers)</li></ul>
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>2</td>
+<td>wMaxPacketSize</td>
+<td>Enthält u. a. die MPS für diesen Endpunkt:
+<ul><li>Bit 0 &amp;#150; 10: MPS in Bytes</li>
+<li>Bit 11 &amp;#150; 12: Gibt für High-Speed-Interrupt- und -Isochronoustransfers die Anzahl von zusätzlichen Übertragungen pro Microframe an (bei Interrupttransfers: falls eine fehlschlagen sollte):
+<ul><li>00b: Keine (max. eine Übertragung pro Microframe)</li>
+<li>01b: Eine (max. zwei Übertragungen pro Microframe)</li>
+<li>10b: Zwei (max. drei Übertragungen pro Microframe)</li></ul></li>
+<li>Bit 13 &amp;#150; 15: Reserviert</li></ul>
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>1</td>
+<td>bInterval</td>
+<td>Die Bedeutung hängt vom Endpunkttyp ab:
+<ul><li>Isochronous: 2^bInterval gibt an, wie häufig Transfers stattfinden sollen (aller wie viel (Micro-)Frames).</li>
+<li>Low-/Full-Speed-Interrupt: Gibt die Anzahl der Frames an, die zwischen zwei Interrupttransfers vergehen sollen.</li>
+<li>High-Speed-Interrupt: 2^bInterval gibt die Anzahl dieser Microframes an.</li>
+<li>High-Speed-Control/Bulk-OUT: Sozusagen die Anzahl der Microframes pro NAK. Ist der Wert 0, so gibt es nie ein NAK. Ist er 42, so gibt es höchstens aller 42 Microframes ein NAK.</li></ul>
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="Device-Qualifier">Device-Qualifier</span></h4>
+<p>Wenn ein High-Speed-Gerät an einen Full-Speed-Rootport angeschlossen wird, dann zeigen sowohl Windows als auch Linux eine nette Meldung à la „Dieses Gerät kann eine höhere Leistung erzielen“. Wie geht das, ein High-Speed-Gerät hat sich an Full-Speed-Rootports doch als normales Full-Speed-Gerät auszugeben?
+</p><p>Die Antwort liegt im Device-Qualifier. Dieser Descriptor enthält Informationen darüber, ob ein Gerät mit einer anderen Geschwindigkeit arbeiten kann und wie es sich dann verhalten würde. Arbeitet z. B. ein High-Speed-Gerät im Full-Speed-Modus, dann muss der Device-Qualifier Informationen über den High-Speed-Modus enthalten, arbeitet es im High-Speed-Modus, muss er Informationen zum Full-Speed-Modus enthalten.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Länge</th>
+<th>Name</th>
+<th>Bedeutung oder Inhalt
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>1</td>
+<td>bLength</td>
+<td>10
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>1</td>
+<td>bDescriptorType</td>
+<td>6
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>2</td>
+<td>bcdUSB</td>
+<td>USB-Versionsnummer in BCD-Forum (mindestens 0x0200 für 2.00)
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>1</td>
+<td>bDeviceClass</td>
+<td>USB-Klassencode
+</td></tr>
+<tr>
+<td>0x05</td>
+<td>1</td>
+<td>bDeviceSubClass</td>
+<td>Unterklasse
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>1</td>
+<td>bDeviceProtocol</td>
+<td>Protokolltyp
+</td></tr>
+<tr>
+<td>0x07</td>
+<td>1</td>
+<td>bMaxPacketSize0</td>
+<td>MPS für EP0
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>1</td>
+<td>bNumConfigurations</td>
+<td>Anzahl der Konfigurationen
+</td></tr>
+<tr>
+<td>0x09</td>
+<td>1</td>
+<td>bReserved</td>
+<td>0 (reserviert)
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="Other-Speed-Konfigurationsdescriptor">Other-Speed-Konfigurationsdescriptor</span></h4>
+<p>Nun enthält der Device-Qualifier in etwa so viel Information wie der Device-Descriptor. Da fehlt natürlich noch jede Menge, um z. B. entscheiden zu können, wie viel die andere Geschwindigkeit denn wirklich brächte, vor allem die dann verfügbaren Konfigurationen, Interfaces und Endpunkte. Dafür gibt es den Other-Speed-Konfigurationsdescriptor.
+</p><p>Dieser enthält die gleichen Informationen und ist genauso aufgebaut wie ein normaler Konfigurationsdescriptor, nur dass er einen anderen Code besitzt und so unabhängig von den normalen Konfigurationsdescriptoren abgefragt werden kann. Genau wie beim normalen Descriptor werden auch hier die entsprechenden Interface- und Endpunktdescriptoren angehangen.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Länge</th>
+<th>Name</th>
+<th>Bedeutung oder Inhalt
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>1</td>
+<td>bLength</td>
+<td>9
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>1</td>
+<td>bDescriptorType</td>
+<td>7
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>2</td>
+<td>wTotalLength</td>
+<td>s. <a href="#Konfigurationsdescriptor">Konfigurationsdescriptor</a>
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>1</td>
+<td>bNumInterfaces</td>
+<td>s. Konfigurationsdescriptor
+</td></tr>
+<tr>
+<td>0x05</td>
+<td>1</td>
+<td>bConfigurationValue</td>
+<td>s. Konfigurationsdescriptor
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>1</td>
+<td>iConfiguration</td>
+<td>s. Konfigurationsdescriptor
+</td></tr>
+<tr>
+<td>0x07</td>
+<td>1</td>
+<td>bmAttributes</td>
+<td>s. Konfigurationsdescriptor
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>1</td>
+<td>bMaxPower</td>
+<td>s. Konfigurationsdescriptor
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Legacy_Support">Legacy Support</span></h2>
+<h3><span class="mw-headline" id="Funktionsweise">Funktionsweise</span></h3>
+<p>Für einen Computer gibt es einige essentielle Geräte, ohne die er nicht arbeiten kann, die Tastatur ist eines von ihnen. Ist an einen Computer keine Tastatur angeschlossen, so wird bereits das BIOS sich weigern, ein Betriebssystem zu laden, ein solches würde häufig wiederum die Funktion verweigern (z. B. mit der berühmt-berüchtigen Meldung „Tastatur nicht gefunden. Drücken Sie F1 zum Fortfahren.“). Nun ist es so, dass heutzutage sehr oft USB-Tastaturen anstatt der „normalen“ PS/2-Tastaturen verwendet werden – hier liegt offenbar ein Problem, denn in diesem Fall würde zumindest das BIOS ohne USB-Treiber den Betrieb verweigern und nur Betriebssysteme mit USB-Treiber könnten dann mit der Tastatur umgehen. Zur Lösung dieser Probleme hat man den sogenannten <i>Legacy Support</i> eingeführt.
+</p><p>Das BIOS muss hierzu einen USB-Treiber enthalten. Beim Start initialisiert es alle USB-Hostcontroller und beginnt sie nach Geräten abzusuchen. Die Hostcontroller werden hierbei allerdings nicht so initialisiert, wie es das Betriebssystem tun würde, der Grund liegt darin, dass der BIOS-USB-Treiber auch im Protected Mode noch funktionieren muss, um Betriebssystemen ohne eigenen USB-Treiber den Umgang mit Maus und Tastatur zu ermöglichen. Dies geschieht über den <a href="../../pages/1699/index.html" title="System Management Mode">System Management Mode</a>. Der USB-Hostcontroller wird so eingerichtet, dass er bei jedem USB-Ereignis keinen normalen PCI-IRQ sondern einen SMI auslöst, der die CPU in besagten Modus versetzt. Hier läuft dann der BIOS-Treiber in einer „kontrollierten“ Umgebung und kann die anstehenden Aufgaben bewältigen, wobei das Betriebssystem davon gar nichts merkt.
+</p><p>Das BIOS initialisiert also den Hostcontroller und weist ihn an, SMIs zu bestimmten Ereignissen auszulösen, einige Hostcontroller können sogar Zugriffe auf die PS/2-Ports 0x60 und 0x64 überwachen und dementsprechend SMIs auslösen. Der BIOS-Treiber simuliert dann dort ganz einfach ein PS/2-Gerät.
+</p>
+<h3><span class="mw-headline" id="Deaktivieren">Deaktivieren</span></h3>
+<p>Das alles ist zwar schön für Betriebssysteme ohne USB-Unterstützung, aber ziemlich doof für solche mit. Wenn das OS nun versucht, die Kontrolle über den HC zu übernehmen, wird es ihn zurücksetzen, seine ISR für einen IRQ registrieren und so weiter. Das Problem ist aber, dass der HC immer noch darauf eingestellt ist SMIs auszulösen. Somit besitzen dann praktisch zwei Parteien den HC gleichzeitig: Das OS, das ihn initialisiert hat und das BIOS, welches seine Interrupts abarbeitet. Irgendwie muss das Betriebssystem also diese SMIs deaktivieren, dies geschieht bei jedem Hostcontroller auf verschiedenen Wegen. Beim UHCI müssen alle SMIs manuell deaktiviert werden, beim OHCI und beim EHCI hingegen wird idealerweise nur ein Bit vom OS gesetzt, das dem BIOS mitteilt, den HC freizugeben.
+</p>
+<h4><span class="mw-headline" id="EHCI">EHCI</span></h4>
+<p>Es gibt allerdings noch ein viel größeres Problem: Zwar gibt es Maus und Tastatur (fast?) nur in der Low-Speed-Variante, also für UHCI und OHCI, allerdings gibt es noch weitere Geräte, die von einer leicht anderen Form des Legacy Supports erfasst werden: USB-Massenspeicher. Sie werden allerdings nicht als ATA-Festplatten oder ISA-Diskettenlaufwerke simuliert, sondern sind nur über den BIOS-Interrupt 13h zu erreichen, daher kann man den BIOS-Treiber im Protected Mode nicht mehr (oder nur per VM8086) nutzen.
+</p><p>Das Problem ist hier, dass viele dieser Massenspeicher High-Speed-Geräte sind, also sehr gern am EHCI arbeiten. Viele BIOS besitzen auch EHCI-Unterstützung und dies ist geradezu tödlich für Betriebssysteme ohne jegliche EHCI-Unterstützung. Das Problem ist nämlich, dass jegliches High-Speed-Gerät per definitionem auch an Full-Speed-Ports arbeiten muss, da das BIOS aber den EHCI initialisiert hat, arbeiten diese Gerät im High-Speed-Modus und können aufgrund des EHCI-Designs von einem sogenannten <i>Companion Controller</i> nicht erkannt werden (ein EHC kann nur High-Speed-Geräte behandeln, alle anderen müssen von einem anderen HC wie UHC oder OHC gehandhabt werden – dem Companion Controller). Das heißt, für Betriebssysteme ohne EHCI-Unterstützung bleiben diese Geräte vollkommen unsichtbar, obwohl sie laut USB-2.0-Spezifikation auch als Full-Speed-Geräte arbeiten könnten und somit benutzbar wären.
+</p><p>Zur Lösung dieses Problems muss ein Betriebssystem zumindest eine minimale EHCI-Unterstützung mitbringen, welche darin besteht, den EHCI zu finden, die Kontrolle vom BIOS zu übernehmen (also den Legacy Support zu deaktivieren), zurückzusetzen und alle Geräte an die Companion Controller weiterzuleiten – dies ist allerdings leichter gesagt als getan. Wird mit dem Companion Controller dann ein Reset getrieben, so schaltet das Gerät in den Full-Speed-Modus zurück (s. auch <a href="#Reset">Reset</a>), da es keinen High-Speed-Hub erkennt.
+</p>
+<h2><span id="Übersetzung"></span><span class="mw-headline" id=".C3.9Cbersetzung">Übersetzung</span></h2>
+<p>Da es im OS-Dev-Metier häufig dazu kommen kann, dass man englische Literatur liest (z. B. die Spezifikation), hier noch eine Übersetzung der von mir verwendeten Begriffe.
+</p>
+<h3><span class="mw-headline" id="Deutsch-Englisch">Deutsch-Englisch</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Deutsch</th>
+<th>Englisch
+</th></tr>
+<tr>
+<td>Alternative Einstellung</td>
+<td>Alternate Setting
+</td></tr>
+<tr>
+<td>Asynchron</td>
+<td>Asynchronous
+</td></tr>
+<tr>
+<td>Datenphase</td>
+<td>Data stage
+</td></tr>
+<tr>
+<td>Endpunkt</td>
+<td>Endpoint
+</td></tr>
+<tr>
+<td>Flusskontrolle</td>
+<td>Flow controls
+</td></tr>
+<tr>
+<td>Konfiguration</td>
+<td>Configuration
+</td></tr>
+<tr>
+<td>Periodisch</td>
+<td>Periodic
+</td></tr>
+<tr>
+<td>Setupphase</td>
+<td>Setup stage
+</td></tr>
+<tr>
+<td>Statusphase</td>
+<td>Status stage
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Englisch-Deutsch">Englisch-Deutsch</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Englisch</th>
+<th>Deutsch
+</th></tr>
+<tr>
+<td>Alternate Setting</td>
+<td>Alternative Einstellung
+</td></tr>
+<tr>
+<td>Asynchronous</td>
+<td>Asynchron
+</td></tr>
+<tr>
+<td>Configuration</td>
+<td>Konfiguration
+</td></tr>
+<tr>
+<td>Data stage</td>
+<td>Datenphase
+</td></tr>
+<tr>
+<td>Endpoint</td>
+<td>Endpunkt
+</td></tr>
+<tr>
+<td>Flow control</td>
+<td>Flusskontrolle
+</td></tr>
+<tr>
+<td>Periodic</td>
+<td>Periodisch
+</td></tr>
+<tr>
+<td>Setup stage</td>
+<td>Setupphase
+</td></tr>
+<tr>
+<td>Status stage</td>
+<td>Statusphase
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li><a class="external text" href="http://www.usb.org/developers/docs/" rel="nofollow">Offizielle USB-Spezifikationen</a></li>
+<li><a class="external text" href="http://www.beyondlogic.org/usbnutshell/usb1.htm" rel="nofollow">USB in a nutshell</a></li></ul>
+<h2><span class="mw-headline" id="Literatur">Literatur</span></h2>
+<ul><li>Udo Eberhardt, Hans-Joachim Kelm: <i>USB 2.0.</i> Franzis, Poing 2001, <a class="external text" href="http://books.google.com/books?as_isbn=3772379656" rel="nofollow">ISBN 3-7723-7965-6</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170632
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.098 seconds
+Real time usage: 0.111 seconds
+Preprocessor visited node count: 2030/1000000
+Preprocessor generated node count: 4644/1000000
+Post‐expand include size: 14150/2097152 bytes
+Template argument size: 4456/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 1618/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   19.373      1 -total
+ 40.62%    7.869     58 Vorlage:USB-Transfer
+  5.93%    1.149      1 Vorlage:EMEJMM
+  5.56%    1.077     15 Vorlage:USB-Transferanmerkung
+  3.92%    0.759      1 Vorlage:Warnung
+  3.82%    0.740      3 Vorlage:ExtImg
+  3.71%    0.719      9 Vorlage:USB-Transferliste
+  3.52%    0.683     36 Vorlage:Prettytable
+  2.66%    0.515      1 Vorlage:Hinweis
+  2.56%    0.495      1 Vorlage:TODO
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Universal_Serial_Bus&amp;oldid=10734</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1820/index.html" title="Kategorie:TODO">TODO</a></li><li><a href="../../pages/1769/index.html" title="Kategorie:Bus">Bus</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1690/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/1815/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1690/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/Universal_Serial_Bus" hreflang="en" lang="en" title="Universal Serial Bus – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

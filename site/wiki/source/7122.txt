@@ -1,0 +1,32 @@
+{{Vorlage:Infobox OS
+| Name = J-OS
+| Entwickler = [[Benutzer:Jonebohne | Jonebohne]]
+| Version = Pre-Alpha 0.0.1
+| Lizenz = [http://creativecommons.org/licenses/by-nc-sa/2.0/de/ by-nc-sa 2.0]
+| API = Nativ(geplant)
+| IPC = [[RPC]](geplant)
+| Kernel = Umbau zu [[Microkernel]] läuft. Bisher ein undefiniertes Irgendwas.
+| Sprache = [[C]]
+| Plattform = [[x86]]
+| Binaerformat = Portable Executable
+| Homepage = (noch keine)
+}}
+J-OS ist ein (sehr) kleines [[Betriebssystem]] von mir, welches ich hier etwas genauer beschreibe.
+
+J-OS ist fast komplett in [[C]] geschrieben(teilweise [[Assembler]]) und bootet mit dem [[GRUB]]-Loader. Es läuft vollständig im [[Protected Mode]].
+Geplant ist ein [[Microkernel]], eine native API, [[Treiber]] für Festplatten/Disketten/CD-Laufwerke, Netzwerktreiber, eine [[Shell]] und vieles mehr. Es kann also fast nichts ;-)
+
+
+== Changelog ==
+==== Version 0.0.1 - Buchstabensalat ====
+In Version 0.0.1 sind folgende Features implementiert:
+* [[Textausgabe]] (verschiedene Farben)
+* [[GDT]] und [[IDT]]
+* [[Exception | Exceptions]] werden behandelt
+* [[Multitasking]] in Ring 3
+* [[Physische Speicherverwaltung | Physikale Speicherverwaltung]]
+
+==== Version 0.0.2 (geplant) ====
+In Version 0.0.2 soll folgendes stecken:
+* Reboot-Funktion
+* Angepasste Erstellung von Tasks

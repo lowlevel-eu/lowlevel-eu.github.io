@@ -1,0 +1,102 @@
+Allzuviel gibts zu mir nicht zu sagen:
+Ich heisse Antoine (auch Toni ;-)) Kaufmann und bin Schweizer(genauer: Emmentaler). Im Moment bin ich 18 Jahre alt und am Gymnasium.
+
+== Projekte ==
+*[[Týndur]]
+*Buildsystem(unter anderem für [[Týndur]]) zusammen mit taljeth
+
+== Vimrc ==
+Die .vimrc
+<code>
+" Spezielle einstellungen fuer Quelldateien
+autocmd BufEnter *.c,*.h,*.cpp,*.hpp,*.cc,*.pas source ~/.vim/source.vim
+
+"""""""""""""""""""
+" Tabs
+"""""""""""""""""""
+
+" Navigieren in Tabs
+map <F1> 1gt
+map <F2> 2gt
+map <F3> 3gt
+map <F4> 4gt
+map <F5> 5gt
+map <F6> 6gt
+map <F7> 7gt
+map <F8> 8gt
+map <F9> 9gt
+map <F0> 10g
+imap <F1> 1gt
+imap <F2> 2gt
+imap <F3> 3gt
+imap <F4> 4gt
+imap <F5> 5gt
+imap <F6> 6gt
+imap <F7> 7gt
+imap <F8> 8gt
+imap <F9> 9gt
+imap <F0> 10g
+
+" Tabs oeffnen und schliessen
+map <F11> :tabnew<cr>
+imap <F11> <ESC>:tabnew<cr>
+map <F12> :tabclose<cr>
+imap <F12> <ESC>:tabclose<cr>
+
+
+
+"""""""""""""""""""
+" Sonstiges
+"""""""""""""""""""
+" Zeilen- und Spaltennummer unten Rechts anzeigen
+set ruler
+
+" Zeile mit Cursor hervorheben
+set cursorline
+
+" Zeilennummerierung
+set number
+</code>
+
+Hier die ~/.vim/source.vim:
+<code>
+" Tabs 4 Zeichen breit
+set tabstop=4
+set shiftwidth=4
+
+" Tabs in Spaces umwandeln
+set expandtab
+
+" Automagisch einruecken
+set autoindent
+set smartindent
+
+" Formatierungsoptionen
+"  c => Text automatisch formatieren
+"  c => Kommentare mit nach textwidth umbrechen
+"  r => Kommentarzeichen beim Umbrechen auf der naechsten Zeile einfuegen
+"  o => Kommentarzeichen beim Starten einer neuen Zeile mit o in einem
+"       Kommentar
+"  t ?>
+set formatoptions=croqt
+
+" Zeilenbreite 79 Zeichen
+set tw=79 wrap
+
+
+
+
+"""""""""""""""""""
+" Highlighting
+"""""""""""""""""""
+
+" Eigene Typen
+syntax match xType /[a-zA-Z_0-9]*_t/
+
+" Alle Zeichen nach dem 80. rot einfaerben
+2match Error /\%>80v.\+/
+
+" Trailing spaces einfärben
+highlight RedundantSpaces ctermbg=red guibg=red
+match RedundantSpaces /\s\+$\| \+\ze\t/
+</code>

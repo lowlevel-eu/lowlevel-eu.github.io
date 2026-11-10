@@ -1,0 +1,40 @@
+== Intelbefehle ==
+
+IIRC handelt es sich bei den Funktionen 1-3 nicht um Intelbefehle. Sonden um Standardfunktionen für Prozessoren aller Hersteller. Kennt jemand eine Quellen, die eine eindeutige Aussage dazu macht. --[[Benutzer:MNemo|MNemo]] 10:03, 20. Jan. 2009 (CET)
+
+<br>'''Be59'''<br>
+Och doch. Hyper-Threading ist ein Feature von Intel und die CPU-ID ist ein Merkmal der Pentium-Familie
+
+:Ich nehme an du beziehst dich hier auf die Feature-Flags. Die existieren nicht ohne Grund. Ein Prozessor der der keine Seriennummer hat zeigt das indem er das PSN-Flag 0 setzt. Dass ein Flag möglicherweise je nach Hersteller immer einen bestimmten Wert hat(z.B. ist bei AMD Prozessoren, bis jetzt, das PSN-Flag immer 0), spielt dabei (in meinen Augen) keine rolle. Desweiteren sehe ich meine Annahme dadurch bestätigt, dass alle Funktionen 0-5 von AMD und Intel entweder Identisch definiert, oder reserviert sind(ich sehe keinen Punkt wo sie inkompatibel sein sollten).--[[Benutzer:MNemo|MNemo]] 12:21, 21. Jan. 2009 (CET)
+
+
+
+'''ScollPi'''<br/>
+Ja es gibt genauere Information. Schaue dir einfach mal die Dokus zu den einzelnen CPU-Schmieden bezüglich CPUID ganz unten auf der Seite an. Den Link zu Intels CPUID hab ich kürzlich aktualisiert. -- [[Benutzer:ScollPi|ScollPi]] 13:31, 21. Jan. 2009 (CET)
+
+:Die kenne ich. Ich kann aber keine ''eindeutigen'' Aussagen zu unserem Problem finden. Hab aber jetzt gefunden was ich gesucht habe. 
+
+:''"The standard functions (EAX=0 and EAX=1)''[mehr gab es damals noch nicht] ''are the same for all processors.''
+:''[...]''
+:''Extended functions are specific to a vendor’s processor."'' [http://www.myplc.com/sony/docs/amd_processor_specs_8-18-01.pdf] Seite 5(17) --[[Benutzer:MNemo|MNemo]] 15:21, 21. Jan. 2009 (CET)
+
+Ok, ich geb auf...
+
+== Wie man CPUID benutzt ==
+
+Ich habe mal das zweite '''pushfd''' aus dem Beispiel entfernt, da ich nicht erkennen konnte warum die flags doppelt gesichert werden.
+<asm>
+pushfd ; Sicher Flags
+pushfd ; Sicher Flags nochmal ?!
+</asm>
+korrigiert mich, wenn ich falsch liege :D --[[Benutzer:Sebi2020|Sebi2020]] 22:45, 2. Jan. 2010 (CET)
+:Ich habs wieder rückgängig gemacht, weil der Stack sonst nicht ausgeglichen bleibt (am Ende werden die Flags ja wieder hergestellt). Das ganze passiert, damit EFLAGS nach dem ganzen Schmus genau den gleichen Wert hat wie vorher (also das ID-Flag gleich bleibt). Ob das wirklich nötig ist, weiß ich nicht, aber wenn du sicher bist, dass nicht, dann solltest du auch das ''popfd'' am Ende entfernen. --[[Benutzer:XanClic|XanClic]] 22:50, 2. Jan. 2010 (CET)
+::Ich hab jetzt mal beide, pushfd und popfd, entfernt, weil das popfd da sonst die mühsam gesetzten Flags(speziell das ZF) grad' wieder kaputt macht:
+<asm>xor eax, ecx
+popfd
+je foo</asm>
+::--[[Benutzer:MNemo|MNemo]] 13:31, 3. Jan. 2010 (CET)
+
+
+== 0x80000002-4 ==
+Das scheint mir nicht Intel-spezifisch zu sein. Zumindest wird es genauso in der AMD-CPUID-Spec beschrieben --[[Benutzer:Bluecode|Bluecode]] 18:09, 3. Sep. 2010 (CEST)

@@ -1,0 +1,157 @@
+{{Infobox OS
+| Name = FruityOrange
+| Logo = [[Bild:FruityOrangeLogo.png]]
+| Version = 0.05
+| Entwickler = [[Benutzer:Micha.linuxfreak|Micha]]
+| Lizenz = [[Lizenz#GNU_General_Public_License|GNU General Public License]]
+| Kernel = [[Kernel#Monolithischer_Kernel|Monolithisch]]
+| API = nativ
+| Binaerformat = [[ELF]]
+| Sprache = [[C]] ([[Assembler]])
+| Plattform = [[x86|i386]]
+| IPC = ---
+| Homepage = https://github.com/michamimosa/FruityOrange<br/>https://code.google.com/p/fruityorange/
+}}
+FruityOrange ist ein Betriebssystem für den [[x86|i386]], welches [[GRUB]] als Bootloader benutzt.
+<br/><br/>
+== Features ==
+* Higherhalf-Kernel
+* printf, panic, debug
+* [[GDT]], [[Interrupt|Interrupts]], Dynamisches [[Syscall]]-interface
+* [[Physische Speicherverwaltung]], [[Paging]], [[Heap]]
+* [[Multitasking]], [[ELF]]32-loader
+* [[VFS]]
+=== Treiber ===
+* [[Textausgabe|CGA Grafik]] ;)
+* [[Keyboard_Controller|Tastatur (KBC)]]
+* [[PIT]]
+* [[CMOS|CMOS / RTC]]
+=== Programme ===
+* Concha - eine ganz kleine Shell (noch nicht  fertig)
+
+== Syscalls ==
+Die Syscalls werden über den Interrupt 0x30 aufgerufen.
+[https://github.com/michamimosa/FruityOrange/blob/master/include/sys/syscalls.h]
+
+{| {{prettytable}}
+!Nummer (in %eax)
+!Name
+!Beschreibung
+!ebx
+!ecx
+!edx
+|-
+|0
+|exit
+|Beendet das aktuelle programm
+|exit-Status
+|
+|
+|-
+|1
+|putc
+|Gibt ein Zeichen auf dem Bildschirm aus
+|Zeichen
+|
+|
+|-
+|2
+|puts
+|Gibt einen String auf dem Bildschirm aus
+|Pointer zum String
+|L&auml;nge des Strings
+|
+|-
+|3
+|getch
+|Wartet auf einen Tastendruck
+|Hier wird der ASCII-Code des gedrückten Zeichens reingeschrieben
+|
+|
+|-
+|4
+|gets
+|Liest einen String &uuml;ber die Tastatur ein.
+|Pointer zum String (muss vorher abgespeichert werden)
+|L&auml;nge des eingegebenen Strings (wird hier reingeschrieben)
+|
+|-
+|5
+|time
+|Hier bekommt man einen aktuellen Timestamp
+|In ebx liegt der timestamp dann drin
+|
+|
+|-
+|6
+|usleep
+|Legt das Programm f&uuml;r %ebx Mikrosekunden schlafen
+|Anzahl der Mikrosekunden, die zu warten sind
+|
+|
+|-
+|7
+|alloc
+|Alloziert freie Speicherseiten im userspace (1-3GB)
+|Anzahl der pages
+|Adresse
+|
+|-
+|8
+|free
+|Gibt Speicherseiten wieder frei
+|Adresse der pages
+|Anzahl der pages
+|
+|-
+|9
+|open
+|&Ouml;ffnet eine Datei
+|Pfad<br/>R&uuml;ckgabe: Filedeskriptor
+|flags
+|modus
+|-
+|10
+|close
+|Schließt eine Datei
+|Fildeskriptor
+|
+|
+|-
+|11
+|read
+|Liest den Inhalt einer Datei
+|Filedeskriptor<br/>R&uuml;ckgabe: Anzahl der gelesenen Bytes
+|Buffer
+|l&auml;nge (in bytes)
+|-
+|12
+|write
+|Schreibt in eine Datei
+|Filedeskriptor<br/>R&uuml;ckgabe: Anzahl der geschriebenen Bytes
+|Buffer
+|l&auml;nge (in bytes)
+|-
+|13
+|seek
+|Ändert die Position in einer Datei
+|Filedeskriptor
+|Whence
+|-
+|14
+|chdir
+|Wechselt das Arbeitsverzeichnis
+|Pfad
+|Rückgabe: erfolg bzw. fehlercode
+|
+|-
+|15
+|getcwd
+|Aktuelles Arbeitsverzeichnis auslesen
+|Buffer (hier wird der pfad abgespeichert)
+|Gr&ouml;&szlig;e des Buffers in Bytes
+|
+|}
+
+
+[[Category:Betriebssystem]]

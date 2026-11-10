@@ -1,0 +1,68 @@
+{{Infobox OS
+| Name = rizor-OS
+| Version = 0.1-Alpha Build 0002
+| Entwickler = [[Benutzer:rizor | rizor]]
+| Lizenz = Closed-Source
+| Kernel = Microkernel
+| API = Noch nicht näher geplant
+| Binaerformat = [[ELF]]
+| Sprache = [[C]] & [[Assembler]]
+| IPC= Noch nicht näher geplant
+| Plattform = i386
+| Homepage = In Planung
+}}
+
+rizor-OS ist ein kleines Hobby-OS bei dem ich viel über die LowLevel-Programmierung lernen möchte.
+Das OS soll später als Projektarbeit und Referenzen für und nach dem Studium gelten.
+Unter Umständen wechsele ich das Projekt zu einem OpenSource-Projekt, das dann unter der GPL-Lizenz laufen würde.
+
+== Entwickler ==
+* [[Benutzer:rizor | rizor]]
+
+== Entwicklungsstatus ==
+* Kernel
+** rizor-0.3.0.0003-Alpha
+*** Treiber für den PIC einbauen
+*** Entwickeln der IRQ
+*** Planung zum Multitasking
+
+== Features ==
+Folgende Features sind implementiert
+* x86
+* nicht-kommunikationsfähiger Microkernel
+** GDT
+** IDT
+** CPUID
+** ISR
+* teile der libc
+
+== Roadmap ==
+* rizor-OS-0.1 (Release: März/April 2009):
+** Multitasking (einfaches Round-Robin kein Thread-Support)
+** einfachste Shell (Starten/Stoppen von Prozessen)
+** Speicherverwaltung mit einfachem First-Fit
+** libc (fast komplette Implementierung)
+** Treiber für das Display und die Tastatur im Userspace 	
+* rizor-OS-0.2 (Release: August-Oktober 2009):
+** Speicherverwaltung optimieren
+** Multitasking erweitern
+*** Threads implementieren
+*** Round-Robin mit Prioritäten
+*** Multi-Level-Feedback
+** Shell-Integration
+** Dateisystem
+** vollständige libc
+* rizor-OS-0.3 (Release: 2010):
+** Netzwerktreiber
+** kleiner konsolenbasierter Browser
+** kleinen Dateimanager
+** Multitasking erweitern
+*** shortest-job-next
+*** longest-job-next
+*** Wechsel des Scheduling-Verfahrens zur Laufzeit
+* Entfernte Planung:
+** Teile der Treiber sollen in den Kernel verlagert werden um ein optimales Leistungs-Stabilitätsverhältnis zu gewährleisten
+** Portierung auf x86-64
+** guter Treibersupport (unter Umständen ein Einbau der CDI)
+
+[[Kategorie:Betriebssystem]]

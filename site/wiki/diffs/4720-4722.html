@@ -1,0 +1,86 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Teil 5 - Interrupts — Änderungen 4720 → 4722</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Teil 5 - Interrupts — Änderungen 4720 → 4722</h1><nav><a href="../revisions/4720/index.html">Version 4720</a> · <a href="../revisions/4722/index.html">Version 4722</a> · <a href="../history/1898/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l61" >Zeile 61:</td>
+<td colspan="2" class="diff-lineno">Zeile 61:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;// Master-PIC initialisieren</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;// Master-PIC initialisieren</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">outl</del>(0x20, 0x11); // Initialisierungsbefehl fuer den PIC</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">outb</ins>(0x20, 0x11); // Initialisierungsbefehl fuer den PIC</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">outl</del>(0x21, 0x20); // Interruptnummer fuer IRQ 0</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">outb</ins>(0x21, 0x20); // Interruptnummer fuer IRQ 0</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">outl</del>(0x21, 0x04); // An IRQ 2 haengt der Slave</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">outb</ins>(0x21, 0x04); // An IRQ 2 haengt der Slave</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">outl</del>(0x21, 0x01); // ICW 4</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">outb</ins>(0x21, 0x01); // ICW 4</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>// Slave-PIC initialisieren</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>// Slave-PIC initialisieren</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">outl</del>(0xa0, 0x11); // Initialisierungsbefehl fuer den PIC</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">outb</ins>(0xa0, 0x11); // Initialisierungsbefehl fuer den PIC</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">outl</del>(0xa1, 0x28); // Interruptnummer fuer IRQ 8</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">outb</ins>(0xa1, 0x28); // Interruptnummer fuer IRQ 8</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">outl</del>(0xa1, 0x02); // An IRQ 2 haengt der Slave</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">outb</ins>(0xa1, 0x02); // An IRQ 2 haengt der Slave</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">outl</del>(0xa1, 0x01); // ICW 4</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">outb</ins>(0xa1, 0x01); // ICW 4</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>// Alle IRQs aktivieren (demaskieren)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>// Alle IRQs aktivieren (demaskieren)</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l77" >Zeile 77:</td>
+<td colspan="2" class="diff-lineno">Zeile 77:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Dabei ist &lt;i&gt;outl&lt;/i&gt; eine Funktion, um einen 32-Bit-Wert an einen [[IO-Port]] zu schreiben, und kann wie in [[Inline-Assembler mit GCC]] beschrieben definiert werden:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Dabei ist &lt;i&gt;outl&lt;/i&gt; eine Funktion, um einen 32-Bit-Wert an einen [[IO-Port]] zu schreiben, und kann wie in [[Inline-Assembler mit GCC]] beschrieben definiert werden:</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;c&gt;static inline void <del class="diffchange diffchange-inline">outb_wait</del>(unsigned short port, unsigned char data)</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;c&gt;static inline void <ins class="diffchange diffchange-inline">outb</ins>(unsigned short port, unsigned char data)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; asm volatile (&quot;outb %0, %1&quot; : : &quot;a&quot; (data), &quot;Nd&quot; (port));</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; asm volatile (&quot;outb %0, %1&quot; : : &quot;a&quot; (data), &quot;Nd&quot; (port));</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l122" >Zeile 122:</td>
+<td colspan="2" class="diff-lineno">Zeile 122:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>.endm</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>.endm</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">; </del>Exceptions</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">// </ins>Exceptions</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>intr_stub 0</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>intr_stub 0</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>intr_stub 1</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>intr_stub 1</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l143" >Zeile 143:</td>
+<td colspan="2" class="diff-lineno">Zeile 143:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>intr_stub 18</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>intr_stub 18</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">; </del>IRQs</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">// </ins>IRQs</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>intr_stub 32</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>intr_stub 32</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">; </del>usw. bis 47</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">// </ins>usw. bis 47</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">; </del>Syscall</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">// </ins>Syscall</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>intr_stub 48&lt;/asm&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>intr_stub 48&lt;/asm&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l154" >Zeile 154:</td>
+<td colspan="2" class="diff-lineno">Zeile 154:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;asm&gt;.extern handle_interrupt</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;asm&gt;.extern handle_interrupt</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>intr_common_handler:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>intr_common_handler:</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; // CPU-Zustand sichern</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; push %ebp</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; push %ebp</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; push %edi</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; push %edi</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l162" >Zeile 162:</td>
+<td colspan="2" class="diff-lineno">Zeile 163:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; push %eax</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; push %eax</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; // Handler aufrufen</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; push %esp</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; push %esp</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; call handle_interrupt</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; call handle_interrupt</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; add $4, %esp</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; add $4, %esp</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; // CPU-Zustand wiederherstellen</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; pop %eax</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; pop %eax</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; pop %ebx</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; pop %ebx</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l174" >Zeile 174:</td>
+<td colspan="2" class="diff-lineno">Zeile 177:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; pop %ebp</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; pop %ebp</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; // Fehlercode und Interruptnummer vom Stack nehmen</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; add $8, %esp</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; // Ruecksprung zum unterbrochenen Code</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; iret&lt;/asm&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; iret&lt;/asm&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l201" >Zeile 201:</td>
+<td colspan="2" class="diff-lineno">Zeile 208:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;if (cpu-&gt;intr &gt;= 0x20 &amp;&amp; cpu-&gt;intr &lt;= 0x2f) {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;if (cpu-&gt;intr &gt;= 0x20 &amp;&amp; cpu-&gt;intr &lt;= 0x2f) {</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; if (cpu-&gt;intr &gt;= 0x28) {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; if (cpu-&gt;intr &gt;= 0x28) {</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; &#160; &#160; &#160; <del class="diffchange diffchange-inline">outl</del>(0xa0, 0x20);</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; &#160; &#160; &#160; <ins class="diffchange diffchange-inline">outb</ins>(0xa0, 0x20);</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; }</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; }</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; &#160; <del class="diffchange diffchange-inline">outl</del>(0x20, 0x20);</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; &#160; <ins class="diffchange diffchange-inline">outb</ins>(0x20, 0x20);</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}&lt;/c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}&lt;/c&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+</table></body></html>

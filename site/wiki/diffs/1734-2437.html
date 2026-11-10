@@ -1,0 +1,56 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Master Boot Record — Änderungen 1734 → 2437</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Master Boot Record — Änderungen 1734 → 2437</h1><nav><a href="../revisions/1734/index.html">Version 1734</a> · <a href="../revisions/2437/index.html">Version 2437</a> · <a href="../history/1431/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l1" >Zeile 1:</td>
+<td colspan="2" class="diff-lineno">Zeile 1:</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Der MBR (Master Boot Record) ist der erste Sektor einer Festplatte. Die Aufgabe des MBR ist es, die Partitionen zu definieren, den [[Bootsektor]] einer bootbaren <del class="diffchange diffchange-inline">Pation </del>zu laden und zu starten.</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Der MBR (Master Boot Record) ist der erste Sektor einer Festplatte. Die Aufgabe des MBR ist es, die Partitionen zu definieren, den [[Bootsektor]] einer bootbaren <ins class="diffchange diffchange-inline">Partition </ins>zu laden und zu starten.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Die Sektorennummer anhand der zwei Addressierungsmöglichkeiten:&#160; &#160;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Die Sektorennummer <ins class="diffchange diffchange-inline">des MBR </ins>anhand der zwei Addressierungsmöglichkeiten:&#160; &#160;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; LBA : 0x00000000</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; LBA : 0x00000000</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160; CHS : <del class="diffchange diffchange-inline">Cilinder</del>: 0, Head: 0, Sector: 1</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160; CHS : <ins class="diffchange diffchange-inline">Cylinder</ins>: 0, Head: 0, Sector: 1</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Aufbau ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Aufbau ==</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l12" >Zeile 12:</td>
+<td colspan="2" class="diff-lineno">Zeile 12:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 0x0000-0x01BD</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 0x0000-0x01BD</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>| Code zum Laden <del class="diffchange diffchange-inline">der </del>einer Partition</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>| Code zum Laden einer Partition</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 0x01BE-0x01FD</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 0x01BE-0x01FD</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l23" >Zeile 23:</td>
+<td colspan="2" class="diff-lineno">Zeile 23:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Partitionstabelle ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Partitionstabelle ==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Die Partitionstabelle besteht aus 4 Einträgen <del class="diffchange diffchange-inline">á </del>16 Byte in folgendem Format:</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Die Partitionstabelle besteht aus 4 Einträgen <ins class="diffchange diffchange-inline">à </ins>16 Byte in folgendem Format:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| border=&quot;1&quot; cellpadding=&quot;2&quot; cellspacing=&quot;0&quot;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| border=&quot;1&quot; cellpadding=&quot;2&quot; cellspacing=&quot;0&quot;</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l37" >Zeile 37:</td>
+<td colspan="2" class="diff-lineno">Zeile 37:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|0x1</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|0x1</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|DB</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|DB</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>|Kopf an dem die <del class="diffchange diffchange-inline">Partiton </del>anfängt</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>|Kopf an dem die <ins class="diffchange diffchange-inline">Partition </ins>anfängt</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|0x2</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|0x2</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|DB</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|DB</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>*Bit 0-5 -&gt; Anfangs <del class="diffchange diffchange-inline">Sector </del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>*Bit 0-5 -&gt; Anfangs <ins class="diffchange diffchange-inline">Sektor </ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*Bit 6-7 -&gt; Bit 8-9 des Anfangs-Zylinders</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*Bit 6-7 -&gt; Bit 8-9 des Anfangs-Zylinders</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l60" >Zeile 60:</td>
+<td colspan="2" class="diff-lineno">Zeile 60:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|DB</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|DB</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>*Bit 0-5 -&gt; Anfangs <del class="diffchange diffchange-inline">Sector</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>*Bit 0-5 -&gt; Anfangs <ins class="diffchange diffchange-inline">Sektor</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*Bit 6-7 -&gt; Bit 8-9 des Anfangs-Zylinders</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*Bit 6-7 -&gt; Bit 8-9 des Anfangs-Zylinders</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l69" >Zeile 69:</td>
+<td colspan="2" class="diff-lineno">Zeile 69:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|0x8</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|0x8</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|DD</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|DD</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>|LBA(Logical Block Addressing) Nummer des Ersten Sektors &#160;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>|LBA (Logical Block Addressing) Nummer des Ersten Sektors &#160;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|0xC</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|0xC</div></td></tr>
+</table></body></html>

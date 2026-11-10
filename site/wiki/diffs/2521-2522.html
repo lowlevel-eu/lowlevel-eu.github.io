@@ -1,0 +1,28 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Local Advanced Programmable Interrupt Controller — Änderungen 2521 → 2522</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Local Advanced Programmable Interrupt Controller — Änderungen 2521 → 2522</h1><nav><a href="../revisions/2521/index.html">Version 2521</a> · <a href="../revisions/2522/index.html">Version 2522</a> · <a href="../history/1581/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l200" >Zeile 200:</td>
+<td colspan="2" class="diff-lineno">Zeile 200:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	sti									;IRQs freigeben</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	sti									;IRQs freigeben</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>timerschleife:									;Solange Warten, bis das Einschalten und Messen des APIC Timers fertig ist &#160;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>timerschleife:									;Solange Warten, bis das Einschalten und Messen des APIC Timers <ins class="diffchange diffchange-inline">sicher </ins>fertig ist &#160;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>	cmp ebp,<del class="diffchange diffchange-inline">0x2	</del>							;Die Zählvariable hat dann den Wert <del class="diffchange diffchange-inline">2</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>	cmp ebp,<ins class="diffchange diffchange-inline">0x3	</ins>							;Die Zählvariable hat dann den Wert <ins class="diffchange diffchange-inline">3</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	jne timerschleife</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	jne timerschleife</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	cli</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	cli</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l238" >Zeile 238:</td>
+<td colspan="2" class="diff-lineno">Zeile 238:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>ApicSchonGestartet:								;Wenn Timer schon gestartet wurde, dann wird jetzt das Current Count Register gemessen</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>ApicSchonGestartet:</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">	cmp ebp,0x3	</ins>							<ins class="diffchange diffchange-inline">;Wenn der Timer schon zum 3. Mal ausgelöst, muss nichts mehr getan werden</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">	je schlussKalib</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">										</ins>;Wenn Timer schon gestartet wurde, dann wird jetzt das Current Count Register gemessen</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	mov ecx,0xFFFFFFFF							;Unterschied des Current Count in der Zeit des PITs ausrechnen</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	mov ecx,0xFFFFFFFF							;Unterschied des Current Count in der Zeit des PITs ausrechnen</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>	sub ecx,[eax+0x390]<del class="diffchange diffchange-inline">&lt;</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>	sub ecx,[eax+0x390]</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	mov DWORD[apiczähler],ecx</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	mov DWORD[apiczähler],ecx</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	</div></td></tr>
+</table></body></html>

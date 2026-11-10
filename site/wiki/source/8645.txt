@@ -1,0 +1,15 @@
+Ein virtuelles [[Dateisystem]] (VFS &#150; Virtual File System) abstrahiert verschiedene reale Dateisysteme. Dadurch muss ein Programm, das auf Dateien zugreift, nicht wissen, auf welchem Dateisystem sie liegen.
+
+Ein weiterer Vorteil besteht darin, dass die „realen“ Dateisysteme nicht wirklich real sein müssen. Sie müssen nicht wirklich auf einem physischen Medium existieren, sie können auch selbst „virtuell“ sein (wie zum Beispiel das Linux-Dateisystem procfs).
+
+== Aufbau ==
+Ein VFS lässt sich am besten als Baum implementieren. Dabei ist jedes Element (Node) mit den "umliegenden" Nodes verkettet.
+folgendermaßen könnte ein Ausschnitt aus einem VFS aussehen, die Nodes können (und sollten) mehr Elemente als die dargestellten enhalten:<br>
+[[Datei:VFS.png]]<br>
+Weitere Elemente eines Nodes könnten zum Beispiel ein (Funktions-)Pointer auf einen Treiber, eine Inode-Nummer, oder einen Zugriffszähler enthalten. Weiterhin wäre es sinnvoll zu speichern welche Art von Node vorliegt, eine Datei, ein Ordner, ein Gerätetreiber...
+
+== Weblinks ==
+* [http://www.jamesmolloy.co.uk/tutorial_html/8.-The%20VFS%20and%20the%20initrd.html James M.'s kernel development tutorial, Teil 8 (The VFS and the initrd)]
+* [http://de.wikipedia.org/wiki/Virtual_file_system Wikipedia-Artikel (Deutsch)]
+
+[[Kategorie:Dateisystem]]

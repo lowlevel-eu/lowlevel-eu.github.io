@@ -1,0 +1,30 @@
+{{TODO| }}
+
+Diese kompakte und leichtgewichtige Implementierung eines Kernel malloc/free ist aus meinem Treiber-Testkernel und soll der Lowlevel-Community nicht vorenthalten bleiben.
+
+http://pastebin.com/JBcwaTpv
+
+Die Speicherverwaltung weist Speicherblöcke der Größe ''Seitengröße << n'' direkt aus dem physischen Speicher zu. Die Seitengröße ist auf 4K festgelegt. In der Standardkonfiguration ist ''MEMORY_PAGES = 8K'', es sind also insgesamt ''8K * 4K = 32M'' für malloc verfügbar. Die Verwaltungsdaten (hier Arrays mit Bitmaps) kommen extra in das data Segment. ''MEMORY_MEMORY_START_P = 16M'' bedeutet, dass der Speicherbereich erst ab 16M beginnt und bei ''MEMORY_MEMORY_END_P = 16M + 32M = 48M'' endet. Der Bereich darunter (ab 1M) ist also für die text, data und bss Segmente des Kernels
+
+malloc() gibt einen Zeiger auf einen Bereich mit der kleinstmöglichen Speicherklasse zurück. Die Speicherklasse bestimmt die Größe des zugewiesenen Speicherbereichs folgendermaßen: ''Größe = 1 << Klasse''. Die kleinste Klasse ist ''MEMORY_CLASS_START = 12'', da ''1 << 12 == MEMORY_PAGE_SIZE == 4K''. Die Anzahl unterschiedlicher Speicherklassen wird mit ''MEMORY_SHIFT_LIMIT = 6'' festgelegt. Die größte Klasse (inklusive) ist somit ''MEMORY_CLASS_END = 12 + 6 = 18''.
+
+Wie der Speicher mit ''MEMORY_SHIFT_LIMIT = 2'' und ''MEMORY_PAGES = 8'' aufgeteilt werden würde, zeigt folgendes Beispiel:
+
+<code>0x00000 +---+
+        |   | 16x Blöcke der Größe  4K = 64K
+        |   |
+        |   |
+        |   |
+0x10000 +---+
+        |   |  4x Blöcke der Größe  8K = 32K
+        |   |
+0x18000 +---+
+        |   |  2x Blöcke der Größe 16K = 32K
+        |   |
+0x20000 +---+</code>
+
+Das Ganze hat dann noch einen Offset von ''MEMORY_MEMORY_START_P''. Die letzte Klasse bekommt dabei einen Slot mehr, da der Platz nun nicht weiter aufgeteilt wird.
+
+Die Referenzen auf printf(), print_str() und halt() müssen in der Umgebung des Kernels aufgelöst werden. Um die Bitmaps zu löschen, muss vor dem ersten malloc() mem_init() ausgeführt werden.
+
+Das Laufzeitverhalten kann verbessert werden, indem freie Slots im Hintergrund gesucht werden. Die Speicherverwaltung weist keine externe Fragmentierung auf und ist weitestgehend robust implementiert, was aber durch Redundanz und/oder Asserts noch gesteigert werden kann.

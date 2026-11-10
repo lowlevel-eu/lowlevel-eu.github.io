@@ -1,0 +1,161 @@
+<!-- 
+
+Der Quelltext dieses Artikels ist natürlich geeignet, um sich davon die Details der Formatierung abzugucken. Man sollte sich allerdings nicht von den <nowiki>-Tags verwirren lassen. Diese sind hier überall verteilt, um die automatische Formatierung zu unterdrücken, wenn die Befehle an und für sich erklärt werden sollen. Am besten ein einfach mal in der Vorschaufunktion ausprobieren und im Zweifelsfall im IRC fragen.
+
+-->
+Diese Seite fasst die wichtigsten Formatierungsbefehle, die man in diesem Wiki verwenden kann, zusammen. Dies ist keine Anleitung, wann welche Befehle zu verwenden sind.
+
+Eine umfangreichere Dokumentation bietet die offizielle [http://www.mediawiki.org/wiki/Help:Contents/de MediaWiki-Dokumentation]. 
+
+== Text ==
+Um Text hervorzuheben, wird dieser von jeweils zwei oder drei Apostrophen (') vorne und hinten eingeschlossen.
+
+Beispiel:
+<nowiki>''kursiv'' und '''fett'''</nowiki> wird zu ''kursiv'' bzw. '''fett'''
+
+== Überschriften ==
+Überschriften werden von jeweils zwei oder mehr Gleichheitszeichen (=) vorne und hinten eingeschlossen. Die Überschriften der obersten Ebene, werden von zwei Gleichheitszeichen umschlossen, und niedrigere Ebenen von mehr als zweien.
+
+<nowiki>== Erste Überschriftsebene ==</nowiki>
+
+<nowiki>=== Zweite Überschriftsebene ===</nowiki>
+
+=== Inhaltsverzeichnis ===
+Wenn eine bestimmte Anzahl an Überschriften im Artikel vorhanden ist, generiert die MediaWiki-Software automatisch ein Inhaltsverzeichnis. Dieses wird vor der ersten Überschrift (also nach den einleitenden Absätzen) platziert. 
+
+== Links ==
+* <nowiki>[[Artikelname]]</nowiki> - Bsp: <nowiki>„Ein [[Interrupt]]“</nowiki> wird zu: „[[Interrupt]]“
+* <nowiki>[[Artikelname|Text im Artikel]]</nowiki> - Bsp: <nowiki>„Eine [[Interrupt|Unterbrechung]] macht Spaß“</nowiki> wird zu: „Eine [[Interrupt|Unterbrechung]] macht Spaß“
+* <nowiki>[http://example.com externer Link]</nowiki> - Bsp: <nowiki>„Das [http://www.lowlevel.eu Lowlevel-Wiki] macht Spaß“</nowiki> wird zu: „Das [http://www.lowlevel.eu Lowlevel-Wiki] macht Spaß“
+* <nowiki>[http://example.com]</nowiki> - Bsp: „Siehe <nowiki>[http://www.lowlevel.eu]</nowiki>“ wird zu: „Siehe [http://www.lowlevel.eu]“
+
+
+== Listen ==
+=== Nicht nummeriert ===
+ * punkt x
+ * punkt y
+ * punkt z
+wird zu:
+* punkt x
+* punkt y
+* punkt z
+=== Nummeriert ===
+ # punkt x
+ # punkt y
+ # punkt z
+wird zu:
+# punkt x
+# punkt y
+# punkt z
+=== Mehrere Ebenen (kombiniert)===
+ * foo
+ *# unterfoo1
+ *#* unterunterfoo
+ *# unterfoo2
+ * bar
+wird zu:
+* foo
+*# unterfoo1
+*#* unterunterfoo
+*# unterfoo2
+* bar
+
+== Tabellen ==
+Tabellen werden immer durch ein „{|“ begonnen und mit „|}“ beendet. Dazwischen definiert man dann die einzelnen Reihen. Die Inhalte einer Reihe werden wiederrum durch „|-“ voneinander abgegrenzt. Jede Zelle selbst wird auf im Code auf eine eigene Zeile geschrieben, die mit „|“ beginnen muss, um anzuzeigen, dass nun eine neue Zelle der aktuellen Reihe beginnt. Außerdem kann man eine Überschriftenzelle erzeugen, die aber statt mit „|“ mit „!“ beginnen muss.
+
+Es empfiehlt sich in der ersten Zeile der Tabelle (nach dem „{|“) diese mit dem Attribut <nowiki>{{prettytable}}</nowiki> zu versehen, um den [[Designrichtlinien]] treu zu bleiben. Außerdem sieht es einfach besser aus. Mit dem Attribut width='??%' kann man zudem festlegen, über wieviel Prozent der Seite sich die Tabelle erstrecken soll.
+
+{| width="100%"
+|+
+! Anzeige
+! Code
+|-
+|
+{| {{prettytable}}
+!Auto
+!Fahrrad
+|-
+|Boot
+|Bahn
+|-
+|Taxi
+|Flugzeug
+|}
+|<pre> 
+{| {{prettytable}}
+!Auto
+!Fahrrad
+|-
+|Boot
+|Bahn
+|-
+|Taxi
+|Flugzeug 
+|}
+</pre>
+|}
+
+
+== Code ==
+=== In bestimmter Sprache ===
+C-Code und Assembler-Code wird in <nowiki><c></nowiki>- bzw. <nowiki><asm></nowiki>-Tags gesetzt, um bunten Code zu erhalten. 
+
+Bsp:
+ <nowiki><c>int main() {</nowiki>
+ <nowiki>    int i = 1;</nowiki>
+ <nowiki>}</c></nowiki>
+wird zu:
+<c>int main() {
+   int i = 1;
+}</c>
+
+Bsp:
+ <nowiki><asm>mov eax, cr0</nowiki>
+ <nowiki>or eax, 1</nowiki>
+ <nowiki>mov cr0, eax</asm></nowiki>
+wird zu:
+<asm>mov eax, cr0
+or al, 1
+mov cr0, eax</asm>
+
+Eine Liste aller verfügbaren Sprachen befindet sich bei den [[Spezial:Version#Installierte_Erweiterungen|Versionsinformationen]].
+=== In anderen Sprachen ===
+ <nowiki><code></nowiki>REM Important
+ ECHO Hello Batch<nowiki></code></nowiki>
+Wird zu
+<code>REM Important
+ECHO Hello Batch</code>
+Außerdem bekommt man diese schöne Code-Formatierung, wenn man einfach ein Leerzeichen vor jede Zeile des Codes setzt.
+
+== Diskussionsfäden ==
+Diskussionsfäden können mittels Listen ohne Auflistungszeichen relativ übersicht gestaltet werden. Zum Beispiel so:
+ : Also ich finde diese Diskussion verdient Antworten. <nowiki>--~~~~</nowiki>
+ :: Ich bin eine Antwort. <nowiki>--~~~~</nowiki>
+ ::: Ich bin eine mehrzeilige Antwort
+ ::: auf die Antwort. <nowiki>--~~~~</nowiki>
+ :: Ich bin auch wichtig. <nowiki>--~~~~</nowiki>
+Und das sieht so aus
+: Also ich finde diese Diskussion verdient Antworten. --Autor1 0:00, 1. Jan. 1900 (CEST) 
+:: Ich bin eine Antwort. --Autor2 10:10, 1. Jan. 1900 (CEST) 
+::: Ich bin eine mehrzeilige Antwort
+::: auf die Antwort. --Autor3 13:37, 1. Jan. 1900 (CEST) 
+:: Ich bin auch wichtig. --Autor4 21:42, 1. Jan. 1900 (CEST) 
+
+=== Signatur ===
+Kommentare in Diskussionsseiten sollten immer durch ein <nowiki>--~~~~</nowiki> am Ende signiert werden.
+
+
+== Wikiformatierung unterdrücken ==
+Wenn man zum Beispiel Wikibefehle erklären will, oder einfach eine Kollision mit den Befehlen von Mediawiki hat, kann man das <nowiki><nowiki></nowiki>-Tag benutzen, um zu verhindern, dass Mediawiki den enthaltenen Text formatiert.
+
+== HTML ==
+Die Verwendung von HTML ist möglichst zu vermeiden, und es sollten ausschließlich die eingebauten MediaWiki-Befehle (auch die, die hier nicht dokumentiert sind) verwendet werden. Man kann auch in der [http://meta.wikimedia.org/wiki/Help:Editing MediaWiki-Dokumentation] nach Alternativen suchen, oder im [[IRC]] nachfragen.
+
+== Siehe auch ==
+* [[Designrichtlinien]]
+* [[Wikiteam]]
+
+== Weblinks ==
+* [http://www.mediawiki.org/wiki/Help:Contents/de Mediawiki-Benutzerdokumentation]
+
+[[Kategorie:Internes]]

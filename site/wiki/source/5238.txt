@@ -1,0 +1,411 @@
+{{Achtung|Text= Dieser Artikel wird gerade generalüberholt. Bitte nimm keine Änderungen an diesem Artikel vor! (Der Artikel könnte zwischenzeitlich ein wenig komisch anmuten ;-) ~[[Benutzer:SHyx0rmZ|SHyx0rmZ]] 10:55, 6. Aug. 2009 (CEST)}}
+
+{{Hinweiss|Text=In den nachfolgenden Tabellen werden gelegentlich Tabellenzellen mit blauem oder grünen Hintergrund auftauchen.
+
+Diese deuten einen '''herstellerspezifischen''' Eintrag an. Auf anderen Prozessoren sind diese Einträge '''reserviert'''!}}
+
+So sehen die herstellerspezifischen Tabellenzellen aus:
+{| {{prettytable}}
+! Farbe
+! Bedeutung
+|-
+{{csintel|1}} Blau
+{{csintel|1}} Dieser Eintrag gilt '''ausschließlich''' für '''Intel'''-Prozessoren. Auf AMD-Prozessoren ist dieser Eintrag '''reserviert'''!.
+|-
+{{csamd|1}} Grün
+{{csamd|1}} Dieser Eintrag gilt '''ausschließlich''' für '''AMD'''-Prozessoren. Auf Intel-Prozessoren ist dieser Eintrag '''reserviert'''!.
+|}
+
+{{Hinweiss|Text=Manchmal folgen in der Beschreibung eines Registers auch '''zwei Tabellen'''. Die erste Tabelle ist dann zur schnellen Übersicht gedacht, die zweite Tabelle beschreibt die Funktion der Einträge.}}
+
+Der '''CPUID'''-Befehl liefert, sofern er denn von der CPU unterstützt wird, Informationen zu zahlreichen Fähigkeiten der CPU, wie zum Beispiel den Herstellernamen, die Modellnummer oder die Größe des Caches.
+
+== Wie man CPUID benutzt ==
+Bevor man munter versucht, mit dem CPUID Befehl Informationen auszulesen, sollte man ersteinmal prüfen, ob die CPU den Befehl überhaupt unterstützt. Dazu testet man, ob das ID-Flag gesetzt und gelöscht werden kann.
+
+Aussehen kann das zum Beispiel so:
+<asm>
+pushfd                 ; Sichere Flags
+pushfd                 ; Sichere Flags
+pop ecx                ; Lade Flags in EXC
+mov eax, ecx           ; Schiebe Flags in EAX
+xor eax, 0x200000      ; Vertausche das ID-Flag
+push eax               ; Sichere neue Flags
+popfd                  ; Lade neue Flags in EFLAGS 
+                       ; Wenn CPUID unterstützt wird, wird das geänderte ID-Flag übernommen
+                       ; Ansonsten wird bleibt das alte ID-Flag bestehen
+pushfd                 ; Sichere Flags
+pop eax                ; Lade Flags in EAX
+xor eax, ecx           ; Vergleiche EAX und ECX
+popfd                  ; Stelle Original Flags wieder her
+je cpuid_unsupported   ; EAX und ECX sind gleich, CPUID wird nicht unterstütz!
+jmp cpu_supported      ; EAX und ECX sind verschieden, CPUID wird unterstützt!
+</asm>
+
+Um den CPUID-Befehl auszuführen, verwendet man einfach den Assembler-Befehl '''CPUID'''. Die Funktionsnummer der CPUID-Funktion wird dabei im '''EAX'''-Register übergeben. Die Rückgabewerte werden in den Registern '''EAX''', '''EBX''', '''EDX''' und '''ECX''' abgelegt.
+
+Um zum Beispiel den Vendor-ID-String, also den Herstellernamen, auszulesen, ruft man CPUID mit der Funktionsnummer 0x00000000 auf.
+<asm>
+mov eax, 0x00000000   ; xor eax, eax bewirkt das selbe und ist schneller
+cpuid                 ; Der Vendor-ID-String befindet sich nun in (in dieser Reihenfolge), EBX, EDX, ECX
+</asm>
+Ein '''AMD'''-Prozessor hätte jetzt folgende Register Werte: '''EBX'''="'''Auth'''", '''EDX'''="'''enti'''", '''ECX'''="'''cAMD'''"<br>
+Ein '''Intel'''-Prozessor hätte jetzt folgende Register Werte: '''EBX'''="'''Genu'''", '''EDX'''="'''ineI'''", '''ECX'''="'''ntel'''"
+
+= Standard Funktionen =
+Die Standard Funktionsnummern beginnen bei 0. Der größtmögliche Funktionsnummer, die von der jeweiligen CPU unterstützt wird befindet sich nach dem Aufruf von Funktion 0 im ''EAX''-Register.
+Die Standard Funktionen sind nicht Hersteller spezifisch, sondern sollen für alle CPUs gleich sein. 
+
+== Funktion 0x0000_0000 ==
+CPUID-Funktion Nr. 0x00 gibt höchste vom Prozessor unterstützte Funktionsnummer im '''EAX'''-Register und die [[CPUID#Vendor-ID-Strings|Vendor-ID]] in den Registern '''EBX''', '''EDX''' und '''ECX'''(in dieser Reihenfolge) an. 
+{{Achtung|Text= Der String ist nicht nullterminiert!}}
+
+====EAX====
+{| {{prettytable32bit|size="30pt"}}
+{{cs|32}}Höchste, unterstützte Standard-Funktion
+|}
+
+====EBX====
+{| {{prettytable32bit|size="30pt"}}
+{{cs|32}} Bytes 0 - 3 des Vendor-ID-Strings
+|}
+
+====ECX====
+{| {{prettytable32bit|size="30pt"}}
+{{cs|32}} Bytes 8 - 11 des Vendor-ID-Strings
+|}
+
+====EDX====
+{| {{prettytable32bit|size="30pt"}}
+{{cs|32}} Bytes 4 - 7 des Vendor ID-Strings
+|}
+
+==== Vendor-ID-Strings ====
+{| {{prettytable}}
+! Vendor-ID-String
+! Hersteller
+|-
+| <tt>"AuthenticAMD"</tt>
+| AMD
+|-
+| <tt>"CentaurHauls"</tt>
+| Centaur 
+|-
+| <tt>"CyrixInstead"</tt>
+| Cyrix
+|-
+| <tt>"GenuineIntel"</tt>
+| Intel
+|-
+| <tt>"NexGenDriven"</tt>
+| NexGen
+|-
+| <tt>"Geode by NSC"</tt>
+| National Semiconductor
+|-
+| <tt>"RiseRiseRise"</tt>
+| Rise
+|-
+| <tt>"SiS SiS SiS "</tt>
+| SiS
+|-
+| <tt>"GenuineTMx86"</tt>
+| Transmeta
+|-
+| <tt>"UMC UMC UMC "</tt>
+| UMC
+|-
+| <tt>"VIA VIA VIA "</tt>
+| VIA
+|}
+
+== Funktion 0x0000_0001 ==
+==== EAX ====
+{| {{prettytable32bit|size="30pt"}}
+{{csr|4}}
+{{cs|8}} Erweiterte Familie
+{{cs|4}} Erweitertes Modell
+{{csr|2}}
+{{csintel|2}} Typ
+{{cs|4}} Familie
+{{cs|4}} Modell
+{{cs|4}} Stepping
+|}
+
+==== EBX ====
+{| {{prettytable32bit|size="30pt"}}
+{{cs|8}} [[APIC|APIC ID]]
+{{cs|8}} Anzahl logischer Prozessoren
+{{cs|8}} CLFLUSH Size
+{{cs|8}} Brand ID
+|}
+{{Achtung|Text='''APIC ID''' ist nur gültig wenn das '''[[#EDX_-_Featureflags|APIC-Flag]]''' gesetzt ist.<br/>
+Die Anzahl der logischen Prozessoren ist nur bei gesetztem '''[[#EDX_-_Featureflags|Hyper-Threading-Flag]]''' gültig.<br/>
+'''CLFLUSH Size''' gibt die Größe einer Cache line in 8 Byte Blöcken an. Das Feld ist nur gültig in Verbindung mit einem gesetzten '''[[#EDX_-_Featureflags|CFLUSH-Flag]]'''.
+}}
+
+==== ECX - Featureflags ====
+{| {{prettytable32bit|size="30pt"}}
+{{csamd|1}} RAZ
+{{csr|3}}
+{{csintel|1}} OSXSAVE
+{{csintel|1}} XSAVE
+{{csr|2}}
+{{cs|1}} POPCNT
+{{csintel|1}} MOVBE
+{{csintel|1}} x2APIC
+{{csintel|1}} SSE4.2
+{{cs|1}} SSE4.1
+{{csintel|1}} DCA
+{{csr|2}}
+{{csintel|1}} PDCM
+{{csintel|1}} xTPR
+{{cs|1}} CX16
+{{csr|2}}
+{{csintel}} CNXT-ID
+{{cs|1}} SSSE3
+{{csintel|1}} TM2
+{{csintel|1}} EST
+{{csintel|1}} SMX
+{{csintel|1}} DS-CPL
+{{cs|1}} MONITOR
+{{csintel|1}} DTES64
+{{csr|1}}
+{{cs|1}} SSE3
+|}
+
+Dieses Register gibt erweiterte Informationen über den Prozessor:
+{| {{Prettytable}}
+! Bits || Funktion
+|-
+| 9 || Verfügbarkeit von SSSE3
+|-
+| 5 || Verfügbarkeit von Virtual Machine Extensions (VMX)
+|-
+| 3 || Die Befehle MONITOR und MWAIT sind verfügbar
+|-
+| 0 || Verfügbarkeit von SSE3
+|}
+
+==== EDX - Featureflags====
+Dies sind die Featureflags. Wenn ein Bit gesetzt(=1) ist, dann wird das entsprechende Feature unterstützt.
+
+{| {{prettytable32bit|size="30pt"}}
+{{csintel|1}} PBE
+{{csintel|1}} IA64
+{{csintel|1}} TM
+{{cs|1}} HTT
+{{csintel|1}} SS
+{{cs|1}} SSE2
+{{cs|1}} SSE
+{{cs|1}} FXSR
+{{cs|1}} MMX
+{{csintel|1}} ACPI
+{{csintel|1}} DS
+{{csr|1}} 
+{{cs|1}} CLFLSH
+{{csintel|1}} PSN
+{{cs|1}} PSE-36
+{{cs|1}} PAT
+{{cs|1}} CMOV
+{{cs|1}} MCA
+{{cs|1}} PGE
+{{cs|1}} MTRR
+{{cs|1}} SEP
+{{csr|1}} 
+{{cs|1}} APIC
+{{cs|1}} CX8
+{{cs|1}} MCE
+{{cs|1}} PAE
+{{cs|1}} MSR
+{{cs|1}} TSC
+{{cs|1}} PSE
+{{cs|1}} DE
+{{cs|1}} VME
+{{cs|1}} FPU
+|}
+
+{| {{prettytable}}
+! width="30pt" | Bit
+! Funktion
+|-
+{{csh|1}} 31
+{{csintell|1}} Unterstützt die Benutzung des FERR#-Pins und des PBE#-Pins um dem Prozessor im Stop Clock State (STPCLK#) zu signalisieren, dass er einen wartenden Interrupt bearbeiten und dann zur normalen Ausführung zurückkehren soll.
+|-
+{{csh|1}} 30
+{{csintell|1}} Gehört zur Intel Intanium Familie und läuft gerade im IA32-Emulationsmodus
+|-
+{{csh|1}} 29
+{{csintell|1}} Implementiert den "Thermal Monitor aumatic thermal control circuitry" (TCC)
+|-
+{{csh|1}} 28
+{{csl|1}} Kann mehr als einen logischen Prozessor verwalten
+|-
+{{csh|1}} 27
+{{csl|1}} Unterstützt die Verwaltung von miteinander in Konflikt stehenden Speichertypen
+|-
+{{csh|1}} 26
+{{csl|1}} Unterstützt [[SSE2]]
+|-
+{{csh|1}} 25
+{{csl|1}} Unterstütz [[SSE]]
+|-
+{{csh|1}} 24
+{{csl|1}} Unterstützt die '''FXSAVE''' und '''FXSTOR''' Befehle, mit denen die [[Register#Floatingpointregister|Floatingpointregister]] schnell gesichert werden können
+|-
+{{csh|1}} 23
+{{csl|1}} Unterstützt [[MMX]]
+|-
+{{csh|1}} 22
+{{csintell|1}} Unterstützt Überwachung der Prozessortemperatur und Änderung des Prozessortaktes
+|-
+{{csh|1}} 21
+{{csintell|1}} Kann Debug Informationen in im Hauptspeicher präsente Buffer schreiben
+|-
+{{csh|1}} 20
+{{csr|1}}
+|-
+{{csh|1}} 19
+{{csl|1}} Unterstützt den '''CLFLUSH''' Befehl
+|-
+{{csh|1}} 18
+{{csintell|1}} Besitzt eine 96-Bit Prozessor-Seriennummer (Nur verfügbar auf Prozessoren, die neuer als Pentium 4 sind)
+|-
+{{csh|1}} 17
+{{csl|1}} Unterstützt [[Page Size Extension|36-Bit Page Size Extensions]] (4-MiB [[Paging|Pages]])
+|-
+{{csh|1}} 16
+{{csl|1}} Unterstützt das [[Paging|PAT-Bit]]
+|-
+{{csh|1}} 15
+{{csl|1}} Unterstützt den '''CMOVcc''' Befehl, mit dem Bedingte Verschiebungen vorgenommen werden können
+|-
+{{csh|1}} 14
+{{csl|1}} Unterstützt die Machine-Check Architektur (Besonders das '''MTRR_CAP'''-Register)
+|-
+{{csh|1}} 13
+{{csl|1}} Unterstützt das [[Paging|Page-Global-Bit]]
+|-
+{{csh|1}} 12
+{{csl|1}} Unterstützt MTRR-Register (Besonders das '''MTRR_CAP'''-Register)
+|-
+{{csh|1}} 11
+{{csl|1}} Unterstützt schnelle [[Systemcall|Systemcalls]] durch die Befehle '''SYSENTER''' und '''SYSEXIT'''
+|-
+{{csh|1}} 10
+{{csr|1}} 
+|-
+{{csh|1}} 9
+{{csl|1}} Besitzt einen lokalen [[APIC]]
+|-
+{{csh|1}} 8
+{{csl|1}} Unterstützt den '''CMPXCHG8B''' Befehl
+|-
+{{csh|1}} 7
+{{csl|1}} Unterstützt Machine-Check-[[Exception|Exceptions]]
+|-
+{{csh|1}} 6
+{{csl|1}} Unterstützt physische Adressen, die größer als 32-Bit sind
+|-
+{{csh|1}} 5
+{{csl|1}} Implementiert Modellspezifische Register über die Befehle '''RDMSR''' und '''WRMSR'''
+|-
+{{csh|1}} 4
+{{csl|1}} Unterstützt den '''RDTSC''' Befehl und CR4.TSD-Bit
+|-
+{{csh|1}} 3
+{{csl|1}} Unterstützt 4-MiB [[Paging|Pages]]
+|-
+{{csh|1}} 2
+{{csl|1}} Unterstützt I/O-Breakpoints, das CR4.DE-Bit und die DR4- und DR5-Register
+|-
+{{csh|1}} 1
+{{csl|1}} Unterstützt den [[Virtual 8086 Mode]]
+|-
+{{csh|1}} 0
+{{csl|1}} Besitzt eine [[FPU]], die den x87-Befehlssatz implementiert
+|}
+
+== EAX = 0x00000002 ==
+Wenn in EAX statt Null Zwei steht, dann werden bei Intelprozessoren
+Informationen über den Cache und die TLB-Deskriptoren ausgegeben.
+== EAX = 0x00000003 ==
+Wenn in EAX statt Null Drei steht, wird bei Intelprozessoren
+stattdessen folgendes ausgegeben:
+==== EAX ====
+Reserviert
+==== EBX ====
+Reserviert
+==== ECX ====
+Die Bits 31 bis 0 der Prozessor-ID sind darin hinterlegt.
+'''Funktioniert nur bei Prozessoren, bei denen das entsprechende ''[[#EDX_-_Featureflags|Featureflag(Bit 18)]]'' gesetzt ist.'''
+==== EDX ====
+Die Bits 63 bis 32 der Prozessor-ID sind darin hinterlegt.
+''(siehe oben)''
+
+= Erweiterte Funktionen =
+Es gibt Funktionen, die Hersteller spezifisch sind, d.h. sieh gelten nur nur für Intel- bzw. nur für AMD Prozessoren. Solche Befehle sollte man nicht ausführen, wenn man nicht weiß von welchem Hersteller die CPU ist! Zum Beispiel sollten CPUID-Befehle, die nur für Intel-CPUs gelten, nicht auf einer AMD-CPU ausgeführt werden. Diese Funktionen beginnen bei 0x80000000.
+
+Erweiterte Funktionen von Intel:
+
+== EAX = 0x80000000 ==
+==== EAX ====
+Enthält maximale erweiterte Funktionsnummer.
+==== EBX ====
+Reserviert
+==== ECX ====
+Reserviert
+==== EDX ====
+Reserviert
+
+== EAX = 0x80000001 ==
+==== EAX ====
+Reserviert
+==== EBX ====
+Reserviert
+==== ECX ====
+Reserviert
+==== EDX ====
+Wenn Bit 29 gesetzt, dann ist Intel64-Technologie verfügbar
+
+== EAX = 0x80000002 ==
+==== EAX ====
+Eingebrannter String
+==== EBX ====
+Eingebrannter String (Fortsetzung)
+==== ECX ====
+Eingebrannter String (Fortsetzung)
+==== EDX ====
+Eingebrannter String (Fortsetzung)
+
+== EAX = 0x80000003 ==
+==== EAX ====
+Eingebrannter String (Fortsetzung)
+==== EBX ====
+Eingebrannter String (Fortsetzung)
+==== ECX ====
+Eingebrannter String (Fortsetzung)
+==== EDX ====
+Eingebrannter String (Fortsetzung)
+
+== EAX = 0x80000004 ==
+==== EAX ====
+Eingebrannter String (Fortsetzung)
+==== EBX ====
+Eingebrannter String (Fortsetzung)
+==== ECX ====
+Eingebrannter String (Fortsetzung)
+==== EDX ====
+Eingebrannter String (Fortsetzung)
+
+
+== Siehe auch ==
+* [http://wiki.osdev.org/CPUID Englischer Artikel über den CPUID-Befehl]
+* [http://sandpile.org/ia32/cpuid.htm Englische Doku von CPUID; mit AMD/INTEL und anderen Prozessoren]
+* [http://support.intel.com/Assets/PDF/appnote/241618.pdf Intels CPUID-Spezifikation]
+* [http://www.amd.com/us-en/assets/content_type/white_papers_and_tech_docs/25481.pdf AMDs CPUID-Spezifikation]
+
+
+[[Category:Glossar]]
+[[Category:x86]]
+[[Category:x86-Befehle]]

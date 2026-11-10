@@ -1,0 +1,16 @@
+Der Long Mode ist ein CPU-Modus neuerer CPUs, in dem erstmals 64bit-Allzweckregister zur Verfügung stehen. Wie auch beim [[Protected Mode]] starten Prozessoren, die diesen Modus unterstützen, aus Kompatibilitätsgründen zunächst im [[Real Mode]] mit deaktiviertem [[A20-Gate]].
+
+==Eigenschaften==
+*Address-/Registerbreite beträgt 64bit
+*viele neue Register (z.B. R8-R15, CR8-CR15, ...)
+*...
+
+==Wie überprüfe ich, ob die CPU den Long Mode unterstützt?==
+CPUs, die den Long Mode unterstützen, setzen bei einem Aufruf der [[CPUID]]-Operation mit EAX=0x80000001 das LongMode-Capable-Bit (Bit 29) im EDX-Register auf 1.
+
+==Wie schalte ich den Long Mode um?==
+Um in den Long Mode umschalten zu können, muss erst einmal der [[Protected Mode]] aktiviert werden. Eine weitere Voraussetzung ist es, dass das ''Physical Address Extension''-Bit (Bit 5) im CR4 gesetzt und Paging deaktiviert ist. Jetzt kann der Long Mode mit dem Setzen des LME-Bits (Bit 8) im MSR 0xC00000080 aktiviert werden. Im eigentlichen Long Mode befindet man sich aber erst, wenn man in ein 64-Bit-Code-Segment wechselt, das im Vergleich zu den 32-Bit-Code-Segmenten in seinem Descriptor das L-Bit (Bit 21) im 2. DWord gesetzt hat.
+
+==Links==
+*http://www.osdev.org/wiki/X86-64
+*http://www.sandpile.org/aa64/index.htm

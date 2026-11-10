@@ -1,0 +1,57 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Aufrufkonventionen — Änderungen 3206 → 3254</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Aufrufkonventionen — Änderungen 3206 → 3254</h1><nav><a href="../revisions/3206/index.html">Version 3206</a> · <a href="../revisions/3254/index.html">Version 3254</a> · <a href="../history/1525/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l3" >Zeile 3:</td>
+<td colspan="2" class="diff-lineno">Zeile 3:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== cdecl ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== cdecl ==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Cdecl wird von vielen Compilern verwendet die für x86-Systeme kompilieren. Die Parameter werden, beginnend mit den letzten, nacheinander auf den Stack gelegt. Der Rückgabewert einer Funktion wird über das EAX-Register übergeben.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Cdecl wird von vielen Compilern verwendet die für x86-Systeme kompilieren. Die Parameter werden, beginnend mit den letzten, nacheinander auf den Stack gelegt. Der Rückgabewert einer Funktion wird über das EAX-Register übergeben.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Um zwischen einen in Assembly geschriebenen Teil, und einem in C oder C++ geschriebenen Teil zu interagieren sind folgende Punkte zu beachten:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"># Name der Funktion</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"># Argumente</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"># Rückgabewert</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Der '''Funktionsname''' wird beim gcc 4 ( [[C]] ) nicht verändert. Nennt man die Funktion in C ''test'' so heißt diese auch im objectfile ''test''.\\</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Beim g++ ( [[C++]] ) ist das schon etwas komplizierter. Bei C++ kann man namensräume verwenden, und Funktionen überladen, entsprechend wird der Funktionsname aufwändiger codiert:\\</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Als Beispiel folgende Funktion:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;cpp&gt;namespace namensraum</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">{</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> int test(int x)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> {</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; return x;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> }</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">}&lt;/cpp&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Im Objectfile heißt die Funktion nun ''_ZN10namensraum4testEi'' &lt;br/&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Aufgelöst bedeutet ''N10'' Das ein Namensraum mit 10 Buchstaben folgt (''namensraum'') &lt;br/&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Die ''4'' gibt an, das nun der funktionsname mit 4 Buchstaben folgt (''test'') &lt;br/&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Und nach dem ''E'' werden die datentypen der parameter aufgelistet - hier ein ''i'' für int &lt;br/&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Dies kann bei anderen Compilern auch anders sein; Am besten einfach mal in ein objectfile gucken, das mit dem Compiler erstellt wurde, und die Namen, mit den Namen des entsprechenden sourcefiles vergleichen.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Wenn man eine Funktion mit dem Namen ''test'' erstellen möchte, muss man neben dem üblichen lable den Assembler noch anweisen, das dieses lable auch für andere &quot;Dateien&quot; sichtbar sein soll. Dazu verwendet man (unter nasm) das schlüsselwort ''global''</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;asm&gt;[global test]</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">test:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> ret&lt;/asm&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Damit man diese Funktion jetzt von C aus aufrufen kann, muss man in C angeben, dass irgendwo eine Funktion ist, die ''test'' heißt. Das geht über das Schlüsselwort ''extern''</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;c&gt;extern int test(int x);&lt;/c&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Die '''Argumente''' Werden in C über den Stack übergeben. Dabei werden die Argumente von rechts nach links auf den Stack gepushed.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;asm&gt;[global test]</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">test:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> mov eax, [esp+4]</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> ret&lt;/asm&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Unter ''[esp]'' liegt die Rücksprungadresse, unter ''[esp+4]'' liegt das 1. Argument. Das 2. Argument würde unter ''[esp+8]'' liegen, usw.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Der '''Rückgabewert''' steht in ''eax''. Mann sollte also bei der Verwendung von ''popad'' darauf achten, dass der Rückgabewert nicht verlohren geht. Die Beispeilfunktion ''test'' würde hier das Argument zurückgeben.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Das asm-file und das C-file müssen nun jeweils zu einem object-file assembliert/compiliert werden, und können dann zusammen geliked werden.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Ein Aufruf einer C-Funktion (oder der Funktion einer anderen Hochsprache) aus einem Assembley-code geht natürlich auch:</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>int a,b,c,r;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">//</ins>int a,b,c,r;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>int test(int a,int b,int c);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>int test(int a,int b,int c);</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>r = test(a,b,c)</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">//</ins>r = test(a,b,c)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/c&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;asm&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;asm&gt;</div></td></tr>
+</table></body></html>

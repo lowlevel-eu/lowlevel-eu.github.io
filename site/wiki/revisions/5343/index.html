@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Protected Mode – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Protected_Mode rootpage-Protected_Mode skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1464/index.html">Aktueller Artikel</a> · <a href="../../history/1464/index.html">Versionsgeschichte</a> · <a href="../../source/5343.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Protected Mode</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 6. August 2009, 17:44 Uhr von <a class="mw-userlink" href="../../pages/1860/index.html" title="Benutzer:XanClic"><bdi>XanClic</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(In "Task State Segment" steht doch nochmal das gleiche wie hier)</span></div><div id="mw-revision-nav">(<a href="../../diffs/4835-5343.html" title="Protected Mode">Unterschied</a>) <a href="../4835/index.html" title="Protected Mode">← Nächstältere Version</a> | <a href="../../pages/1464/index.html" title="Protected Mode">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../5478/index.html" title="Protected Mode">Nächstjüngere Version →</a> (<a href="../../diffs/5343-5478.html" title="Protected Mode">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Vorwort"><span class="tocnumber">1</span> <span class="toctext">Vorwort</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Der_Protected_Mode"><span class="tocnumber">2</span> <span class="toctext">Der Protected Mode</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Segmente_im_Protected_Mode"><span class="tocnumber">3</span> <span class="toctext">Segmente im Protected Mode</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Deskriptoren"><span class="tocnumber">4</span> <span class="toctext">Deskriptoren</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Segmentbasisadresse"><span class="tocnumber">4.1</span> <span class="toctext">Segmentbasisadresse</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Segmentgr.C3.B6.C3.9Fe"><span class="tocnumber">4.2</span> <span class="toctext">Segmentgröße</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Zugriff.2FSegmenttyp"><span class="tocnumber">4.3</span> <span class="toctext">Zugriff/Segmenttyp</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#P_.3D_Present_Bit"><span class="tocnumber">4.3.1</span> <span class="toctext">P = Present Bit</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#DPL_.3D_Deskriptor_Privilege_Level"><span class="tocnumber">4.3.2</span> <span class="toctext">DPL = Deskriptor Privilege Level</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#S_.3D_Segment_Bit"><span class="tocnumber">4.3.3</span> <span class="toctext">S = Segment Bit</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Type"><span class="tocnumber">4.3.4</span> <span class="toctext">Type</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#A_.3D_Accessed_Bit"><span class="tocnumber">4.3.5</span> <span class="toctext">A = Accessed Bit</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="#Zusatz"><span class="tocnumber">4.4</span> <span class="toctext">Zusatz</span></a>
+<ul>
+<li class="toclevel-3 tocsection-14"><a href="#G_.3D_Granular_Bit"><span class="tocnumber">4.4.1</span> <span class="toctext">G = Granular Bit</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#D"><span class="tocnumber">4.4.2</span> <span class="toctext">D</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#0_2"><span class="tocnumber">4.4.3</span> <span class="toctext">0</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#AVL_.3D_Available"><span class="tocnumber">4.4.4</span> <span class="toctext">AVL = Available</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="#Segmenttypen"><span class="tocnumber">5</span> <span class="toctext">Segmenttypen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-19"><a href="#Datensegment_.28Expand-Down.29"><span class="tocnumber">5.1</span> <span class="toctext">Datensegment (Expand-Down)</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#Conforming_Codesegment"><span class="tocnumber">5.2</span> <span class="toctext">Conforming Codesegment</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-21"><a href="#Systemsegmente"><span class="tocnumber">6</span> <span class="toctext">Systemsegmente</span></a>
+<ul>
+<li class="toclevel-2 tocsection-22"><a href="#Local_Deskriptor_Table_Segment"><span class="tocnumber">6.1</span> <span class="toctext">Local Deskriptor Table Segment</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="#Task_State_Segment_.28TSS.29"><span class="tocnumber">6.2</span> <span class="toctext">Task State Segment (TSS)</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="#Call_Gates"><span class="tocnumber">6.3</span> <span class="toctext">Call Gates</span></a>
+<ul>
+<li class="toclevel-3 tocsection-25"><a href="#Offset_31_-_16"><span class="tocnumber">6.3.1</span> <span class="toctext">Offset 31 - 16</span></a></li>
+<li class="toclevel-3 tocsection-26"><a href="#P_.3D_Present"><span class="tocnumber">6.3.2</span> <span class="toctext">P = Present</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="#DPL_.3D_Deskriptor_Privilege_Level_2"><span class="tocnumber">6.3.3</span> <span class="toctext">DPL = Deskriptor Privilege Level</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#0_.3D_Reserviert"><span class="tocnumber">6.3.4</span> <span class="toctext">0 = Reserviert</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="#Type_.3D_Deskriptor_Typ"><span class="tocnumber">6.3.5</span> <span class="toctext">Type = Deskriptor Typ</span></a></li>
+<li class="toclevel-3 tocsection-30"><a href="#Param_.3D_Parameter_Count"><span class="tocnumber">6.3.6</span> <span class="toctext">Param = Parameter Count</span></a></li>
+<li class="toclevel-3 tocsection-31"><a href="#Selektor"><span class="tocnumber">6.3.7</span> <span class="toctext">Selektor</span></a></li>
+<li class="toclevel-3 tocsection-32"><a href="#Offset_15_-_0"><span class="tocnumber">6.3.8</span> <span class="toctext">Offset 15 - 0</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-33"><a href="#Interrupt_Gate"><span class="tocnumber">6.4</span> <span class="toctext">Interrupt Gate</span></a>
+<ul>
+<li class="toclevel-3 tocsection-34"><a href="#Offset_31_-_16_2"><span class="tocnumber">6.4.1</span> <span class="toctext">Offset 31 - 16</span></a></li>
+<li class="toclevel-3 tocsection-35"><a href="#P_.3D_Present_2"><span class="tocnumber">6.4.2</span> <span class="toctext">P = Present</span></a></li>
+<li class="toclevel-3 tocsection-36"><a href="#DPL_.3D_Deskriptor_Privilege_Level_3"><span class="tocnumber">6.4.3</span> <span class="toctext">DPL = Deskriptor Privilege Level</span></a></li>
+<li class="toclevel-3 tocsection-37"><a href="#0_.3D_Reserviert_2"><span class="tocnumber">6.4.4</span> <span class="toctext">0 = Reserviert</span></a></li>
+<li class="toclevel-3 tocsection-38"><a href="#D_.3D_Size"><span class="tocnumber">6.4.5</span> <span class="toctext">D = Size</span></a></li>
+<li class="toclevel-3 tocsection-39"><a href="#Type_.3D_Deskriptor_Typ_2"><span class="tocnumber">6.4.6</span> <span class="toctext">Type = Deskriptor Typ</span></a></li>
+<li class="toclevel-3 tocsection-40"><a href="#Selektor_2"><span class="tocnumber">6.4.7</span> <span class="toctext">Selektor</span></a></li>
+<li class="toclevel-3 tocsection-41"><a href="#Offset_15_-_0_2"><span class="tocnumber">6.4.8</span> <span class="toctext">Offset 15 - 0</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-42"><a href="#Beispielcode"><span class="tocnumber">7</span> <span class="toctext">Beispielcode</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Vorwort">Vorwort</span></h2>
+<p>Dieses Tutorial wird wohl wieder etwas umfangreicher und vor allem mit viel Theorie bestückt sein. Auch wenn Theorie oft langweilig scheint. Bei diesem Thema ist es unerlässlich, da man sich im Protected Mode doch recht gut auskennen sollte, wenn man ein eigenes Betriebssystem schreiben möchte.
+</p><p>Und für die Praxisleute werde ich am Ende auch noch etwas Code bereitstellen, wie man in den Protected Mode wechselt und dort herumspielen kann.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Der_Protected_Mode">Der Protected Mode</span></h2>
+<p>Wenn der PC neu gestartet wird, so befindet er sich im sogenannten Real-Mode. In diesem Modus wird nur 16-Bit Code benutzt, sowie der Speicher, der adressierbar ist, auf 1 MB begrenzt, da im Real-Mode nur 20 Bit Adressen zur Adressierung des Speichers benutzt werden dürfen (bzw. können).
+</p>
+<pre><b>Hinweis:</b>
+JEDER kompatible x86 Prozessor läuft beim Booten noch im 16-Bit Realmode. Dazu gehören auch Pentium 4,
+Athlon XP und sonstige in dieser Reihe. Für einen Athlon64 sollte dies ebenfalls zutreffen, da dessen Archtiektur
+ledliglich auf 64-Bit Register und einen 64-Adressbuch erweitert wurde. Ob Intel Itanium 1/2 ebenfalls von
+dieser Regel betroffen sind kann ich nicht mit Sicherheit sagen, da ich noch keine in den Fingern hatte, jedoch
+gehe ich davon aus.
+
+<i>(Kommentar: Das stimmt auch für die 64-Bit Prozessoren)</i>
+</pre>
+<p><br/>
+Im Real-Mode gibt es entscheidende Nachteile. Die verschiedenen laufenden Programme werden alle gleich behandelt. Das heißt, jedes Programm kann ohne Einschränkung auf den kompletten Speicher zugreifen und diesen verändern. Auch der Kernel eines Betriebssystems ist nicht geschützt. Somit ist ein Betriebssystem das im Real-Mode läuft anfällig für jegliche Art von Viren und Programmierfehlern. Selbst ein einfacher Programmierfehler, welcher verursacht, dass an eine ungewollte Speicheradresse Daten verändert werden, kann dazu führen, dass das komplette System zum Absturz gebracht wird oder instabil läuft. Auch könnten Ergebnisse anderer Programme die im Speicher sind verändert werden, was den korrekten Ablauf jenes Programms erheblich stören kann.
+</p><p>Microsoft DOS ist ein Betriebssystem das im Real-Mode läuft. Da dieses System früher hauptsächlich von Privatpersonen als Single-User-System genutzt wurde, waren die eben aufgezeigten Sicherheitsrisiken zu vernachlässigen. Zudem kam noch hinzu, das das Internet noch sehr wenig verbeitet war und daher die Gefahr von Viren und dergleichen ebenfalls zu vernachlässigen war. 
+</p>
+<pre><b>Hinweis:</b>
+Das "vernachlässigen" bezieht sich lediglich auf den Entwurf des Betriebssystems, jedoch nicht auf die Gefahren
+die dennoch klar bestanden!
+</pre>
+<p><br/>
+Microsoft DOS ist ein gutes Beispiel um die Entwicklung bis hin zum Protected Mode aufzuführen. DOS ist eines der ersten Betriebssysteme die für den Heim-PC entworfen wurden. Dieses war im Gegensatz zu vielen Anderen sehr leicht bedienbar. An Sicherheitsrisiken war damals noch nicht zu denken, da es diese einfach noch nicht gab, mal abgesehen von Programmierfehlern. Zu jener Zeit als DOS erschien, dürfte der Intel 8086 mit 64? KB Speicher wohl gerade das Maß der Dinge gewesen sein. Da die Rechenleistung und der Arbeitsspeicher begrenzt waren, und es wohl eh kaum in Frage kam, dass mehrere Anwendungen "gleichzeitig" laufen würden, war der Entwurf von DOS als Single-Task Betriebssystem wohl ausreichend. Später erschien dann der 80186 und der 80286, welcher schon einen größeren Vorteil mit sich brachte. Zum einen war hier schon ein 20 Bit-Adressbus (dieser wurde soweit, ich mich Erinnern kann, bereits schon vor dem 286 eingeführt) mit welchem man einen 1 MB großen Arbeitsspeicher ansprechen konnte, sowie eine erste Version des Protected Mode. Da dieser Entwurf des Protected Mode wohl nicht sehr gut durchdacht war und auch (meines Wissens nach) nicht sehr oft genutzt wurde, wurde dieser nochmal kräftig überholt und im schließlich erscheinenden 386 eingeführt, welcher nun auch einen Adressbus von 32 Bit besaß, womit man einen 4 GB (zu dieser Zeit wohl utopisch) großen Arbeitsspeicher ansprechen konnte. Bevor ich nun jedoch aufzähle und im kurzen erkläre, wozu der Protected Mode dient und was er so kann, möchte ich jedoch noch einmal kurz auf einen oft hinterfragtem Umstand eingehen; Die Abwärtskompatibilität. Ja, wer hat diesen Begriff denn nicht schoneinmal gehört. Damit ist schlichtweg (in diesem Fall) gemeint, dass neue Hardware so entworfen wird, dass diese auch mit älterer Software zusammenarbeitet. Dies ist auch der hauptsächliche Grund, warum selbst ein Pentium 4 (der wohl üblich meist mit Windows2000 und "besser" ausgeliefert wird) heute immernoch im Real-Mode startet. Man könnte also selbst DOS noch auf einem Pentium 4 betreiben, was natürlich eine Verschwendung der Rechenleistung wäre, mal abgesehen von einem Arbeitsspeicher der heutzutage wohl standardmäßig um die 512 MB umfassen dürfte. Aus Gründen besagter Abwärtskompatibilität trifft man gerade als Programmierer immer wieder auf komische Software und vor allem Strukturkonstrukte, die etwas merkwürdig vom Aufbau und Inhalt erscheinen mögen. Dies hat SELTEN etwas mit Effizienz, sondern meist vielmehr mit Abwärtskompatibilität zu tun. Daher erscheint es auch meist mehr als witzig, wenn die Intel-Entwickler in einem Register das eine oder andere Bit als "reserved" ungenutzt lassen um evtl. später bei einem "kleinen" Prozessorupdate dieses auch noch zu nutzen. Witzig ist es gerade deshalb, weil es selten vorkommt, das ein neu entwickelter Prozessor nur so wenig Änderungen mit sich bringt, bei denen gerade dieses bisher ungenutzte Bit nun benutzt wird. Meistens werden gleich komplette neue Register erstellt. Aber soviel dazu.
+</p><p>So, nun aber zu den Vorteilen die der Protected Mode mit sich bringt:
+</p><p><br/>
+</p>
+<ul><li>Es ist es nun möglich, Programmen eine Privilegstufe zuordnen zu können. Dadurch kann schon einmal zwischen den Programmen unterschieden werden (Beispiel: Anwendungen, Treiber, Kernel).</li></ul>
+<ul><li>Nicht jedes Programm darf JEDEN Befehl, den der Prozessor zur Verfügung stellt, ausführen. Dazu gehören Befehle, die hauptsächlich vom Kernel benutzt werden, um den Arbeitsablauf des Prozessors zu steuern. Ein normales Anwenderprogramm benötigt diese Befehle meist auch garnicht. Jedoch ist es einfach SICHERER diese erst gar nicht zuzulassen. Man denke nur an Viren.</li></ul>
+<ul><li>Auch wie im Real-Mode "kann" der Arbeitsspeicher in Segmente unterteilt werden. Dieses Unterteilen dient hier NICHT MEHR dazu, um den kompletten Arbeitsspeicher ansprechen zu können, sondern um Speicherbereiche voneinander abgrenzen zu können. Dazu jedoch später mehr.</li></ul>
+<ul><li>Multitasking wäre theoretisch auch schon im Real-Mode möglich gewesen, jedoch bietet der Protected-Mode wesentlich bessere Vorraussetzungen dafür.</li></ul>
+<ul><li>Ein Programmfehler (sofern nicht im Kernel oder in den Treibern) bringt nun nichtmehr das komplette System zum Absturz. Dies KANN zwar auch im Protected Mode noch auftreten, jedoch nur wenn man diesen so einsetzt, das ALLE Programme (Anwendungen, Kernel, Teiber) mit den gleichen Privilegien ausgestattet sind.</li></ul>
+<ul><li>Ein Programm (sofern nicht der Kernel) kann nun nichtmehr in den Speicher eines anderen Programms schreiben. Auch dies gilt nur bei einer korrekten Anwendung des Protected Mode.</li></ul>
+<p>Sicherlich gibt es auch noch weitere Vorteile die der Protected Mode mit sich bringt, jedoch würde es wohl den Rahmen dieses Tutorials sprengen, diese alle bis ins letzte Detail aufzuzählen.
+</p>
+<h2><span class="mw-headline" id="Segmente_im_Protected_Mode">Segmente im Protected Mode</span></h2>
+<p>Wie oben schon erwähnt, gibt es auch im Protected Mode Segmente. Diese haben jedoch eine andere Bedeutung als im Real-Mode. Segmente dienen auch im Protected Mode zur Unterteilung des Speichers, jedoch kann die größe und die Anzahl der Segmente "nahezu" beliebig gewählt werden.
+</p><p>Zudem erhalten Segmente eine ganze Reihe von Attributen die bei jedem Speicherzugriff eines Programms innerhalb eines Segmentes überprüft werden.
+</p><p>So wird einem Segment beispielsweise eine Privilegstufe zugeordnet. So kann ein Programm NUR DANN auf ein Segment zugreifen, wenn die Privilegstufe des Programms höher oder gleich hoch ist. Wenn dem nicht so ist, erkennt der Prozessor diesen Fehler und startet automatisch eine Unterroutine (Exception) die vom Kernel bereitgestellt wird. Im einfachsten Falle veranlasst der Kernel dann einfach, das das betreffende Programm beendet wird und aus dem Speicher entfernt wird. Dies garantiert, das das restliche System ohne Beinträchtigung weiterlaufen kann. Damit der Prozessor weiß welche Attribute ein Segment hat, muss dieses dem Prozessor mitgeteilt werden. Dazu wird eine Tabelle (die Global Deskriptor Table, kurz GDT) erstellt. In dieser Tabelle werden sogenannte Deskriptoren eingetragen. Diese Deskriptoren sind 8 Byte lange Speicherbereiche die Ihrerseits nochmal in einzelnen Bereiche unterteilt werden. Diese Bereiche beschreiben dann im einzelnen die Attribute der Segmente. Die Deskriptoren (to describe) beschreiben also die Eigenschaften der Segmente.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Deskriptoren">Deskriptoren</span></h2>
+<p>Hier werde ich nun nochmal im Detail auf Deskriptoren eingehen. Dabei werde ich genauer beschreiben, wie diese Aufgebaut sind und welche Aufgaben die einzelnen Attribute die dort eingetragen werden haben. Dazu schauen wir uns zuerst einmal den allgemeinen Aufbau eines Deskriptoren an.
+</p><p><img alt="deskriptor.gif" src="http://www.jay-code.de/pics/deskriptor.gif"/>
+</p><p>Hier fällt gleich auf, das die Segmentgröße und die Segmentbasisadresse etwas wild verstreut auf die 4 WORDs verteilt sind. Das kommt daher, weil man den Deskriptor zum 286-Prozessor möglichst kompatibel halten wollte.
+</p><p>Um nicht zu viel drum herum zu erzählen werde ich nun mal die einzelnen Felder in diesem Deskriptor erläutern:
+</p>
+<h3><span class="mw-headline" id="Segmentbasisadresse">Segmentbasisadresse</span></h3>
+<p>Das ist die lineare Adresse an welcher das Segment im Speicher beginnt.
+</p>
+<h3><span id="Segmentgröße"></span><span class="mw-headline" id="Segmentgr.C3.B6.C3.9Fe">Segmentgröße</span></h3>
+<p>Das ist die Größe des Segments. Für die Größe werden lediglich 20 Bits verwendet. Diese Bits werden jedoch unterschiedlich  interpretiert. Entscheidend ist hierfür das Granular-Bit. Dazu jedoch weiter unten mehr.
+</p>
+<h3><span id="Zugriff/Segmenttyp"></span><span class="mw-headline" id="Zugriff.2FSegmenttyp">Zugriff/Segmenttyp</span></h3>
+<p>Hier wird festgelegt welcher Typ(Code,Daten,Stack,System) Segment vorliegt und wie Zugriffsrechte für dieses Segment aussehen.
+</p>
+<center>
+<table class="prettytable">
+<caption>Zugriff/Segmenttyp (BITs)
+</caption>
+<tbody><tr>
+<th><b>7</b></th>
+<th><b>6</b></th>
+<th><b>5</b></th>
+<th><b>4</b></th>
+<th><b>3</b></th>
+<th><b>2</b></th>
+<th><b>1</b></th>
+<th><b>0</b>
+</th></tr>
+<tr>
+<td>P
+</td>
+<td colspan="2">DPL
+</td>
+<td>S
+</td>
+<td colspan="3">Type
+</td>
+<td>A
+</td></tr></tbody></table>
+</center>
+<p><br/>
+</p>
+<h4><span id="P_=_Present_Bit"></span><span class="mw-headline" id="P_.3D_Present_Bit">P = Present Bit</span></h4>
+<p>Gibt an ob das Segment im Arbeitsspeicher present ist.
+</p>
+<h4><span id="DPL_=_Deskriptor_Privilege_Level"></span><span class="mw-headline" id="DPL_.3D_Deskriptor_Privilege_Level">DPL = Deskriptor Privilege Level</span></h4>
+<p>Gibt die Privilegstufe an die ein Programm mindestens besitzen muss um auf dieses Segment zugreifen zu dürfen.
+</p>
+<h4><span id="S_=_Segment_Bit"></span><span class="mw-headline" id="S_.3D_Segment_Bit">S = Segment Bit</span></h4>
+<p>Gibt an ob es sich um ein normales Segment(1) oder um ein System-Segment(0) handelt.
+</p>
+<h4><span class="mw-headline" id="Type">Type</span></h4>
+<p>Gibt an um was für ein Segment es sich handelt. Dazu eine Tabelle weiter unten.
+</p>
+<h4><span id="A_=_Accessed_Bit"></span><span class="mw-headline" id="A_.3D_Accessed_Bit">A = Accessed Bit</span></h4>
+<p>Dieses Bit wird beim Zugriff auf das Segment automatisch vom Prozessor gesetzt.
+Im Falle der Nutzung eines virtuellen Adressraums, kann anhand dieses Bits entschieden werden, ob
+ein Segment auf die Festplatte ausgelagert werden kann.
+</p>
+<h3><span class="mw-headline" id="Zusatz">Zusatz</span></h3>
+<p>Die Bits in diesem Feld geben ebenfalls Charakteristika für das Segment an.
+</p>
+<center>
+<table class="prettytable">
+<caption>Zusatz (BITs)
+</caption>
+<tbody><tr>
+<th><b>7</b></th>
+<th><b>6</b></th>
+<th><b>5</b></th>
+<th><b>4</b>
+</th></tr>
+<tr>
+<td>G
+</td>
+<td>D
+</td>
+<td>0
+</td>
+<td>AVL
+</td></tr></tbody></table>
+</center>
+<h4><span id="G_=_Granular_Bit"></span><span class="mw-headline" id="G_.3D_Granular_Bit">G = Granular Bit</span></h4>
+<p>Gibt an ob die Segmentgröße in Bytes(0) oder in 4KB(1) Schritten angegeben werden.
+</p>
+<h4><span class="mw-headline" id="D">D</span></h4>
+<p>Dieses Bit gibt an ob es sich um ein Segment für den 286 (Datensegment max 64 KB, Code = 16 Bit,
+Stack = 16 Bit) oder ein Segment für den 386 (Datensegment max 4 GB, Code = 32 Bit, Stack = 32 Bit)
+handelt.
+</p>
+<h4><span class="mw-headline" id="0_2">0</span></h4>
+<p>Dieses Bit ist reserviert und sollte immer auf 0 gesetzt sein.
+</p>
+<h4><span id="AVL_=_Available"></span><span class="mw-headline" id="AVL_.3D_Available">AVL = Available</span></h4>
+<p>Dieses Bit kann vom Systemprogrammierer frei für eigenen Gebrauch benutzt werden oder einfach ignoriert werden. 
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Segmenttypen">Segmenttypen</span></h2>
+<p>Hier eine Tabelle der normalen Segmenttypen. Systemsegmente werden später erläutert.
+</p>
+<center>
+<table class="prettytable">
+<tbody><tr>
+<th><b>TYPE-Feld (BITs)</b></th>
+<th><b>Beschreibung</b>
+</th></tr>
+<tr>
+<td>000
+</td>
+<td>Datensegment (Schreibgeschützt)
+</td></tr>
+<tr>
+<td>001
+</td>
+<td>Datensegment (Beschreibbar, Lesbar)
+</td></tr>
+<tr>
+<td>010
+</td>
+<td>Reserviert (Nicht benutzen)
+</td></tr>
+<tr>
+<td>011
+</td>
+<td>Datensegment (Expand-Down)
+</td></tr>
+<tr>
+<td>100
+</td>
+<td>Codesegment (Nur Ausführbar, nicht lesbar)
+</td></tr>
+<tr>
+<td>101
+</td>
+<td>Codesegment (Ausführbar und lesbar)
+</td></tr>
+<tr>
+<td>110
+</td>
+<td>Conforming Codesegment (Nur Ausführbar, nicht lesbar)
+</td></tr>
+<tr>
+<td>111
+</td>
+<td>Conforming Codesegment (Ausführbar und lesbar)
+</td></tr>
+</tbody></table>
+</center>
+<p>Sicherlich sind ein paar Erklärungen zu einzelnen Segmenttypen notwendig, weshalb ich das hier auch gleich mache:
+</p>
+<h3><span id="Datensegment_(Expand-Down)"></span><span class="mw-headline" id="Datensegment_.28Expand-Down.29">Datensegment (Expand-Down)</span></h3>
+<p>Dieses Datensegment "wächst" nach unten. Es ist extra für Stacks entworfen. Ein Stack beginnt in einem Segment am Ende und wächst nach unten. Sollte es nun vorkommen das der Stack über die Grenzen des Segments hinauswächst, so ist es mit diesem Segmenttyp möglich das Segment nach unten zu vergrößern. Beim anlegen dieses Segmentes ist allerdings etwas zu beachten. Das Segment sollte NICHT die lineare Basisadresse 0 haben. Das würde nämlich bedeuten das das Segment nicht mehr vergrößerbar ist. Also muss das Segment irgendwo im Speicher beginnen, so das die Segmenbasisadresse nicht bei 0 sondern an irgendeinem Wert beginnt.
+</p>
+<h3><span class="mw-headline" id="Conforming_Codesegment">Conforming Codesegment</span></h3>
+<p>Normalerweise ist es so, das ein Programm das eine Privilegstufe 3 (niedrigste) über ein sog. Call-Gate in ein Codesegment springen kann, das eigentlich nur für ein Programm der Privilegstufe 0 (höchste) gedacht ist. Sollte nun dieser Sprung erfolgen, so erhält das Programm für die Dauer, in der es sich in diesem Codesegment befindet um dort Code auszuführen, die Privilegstufe 0. In einem Conforming Codesegment ist das nicht so. Es ist zwar auch hier möglich durch ein Call-Gate in dieses Codesegment zu springen, jedoch wird das Program weiterhin mit der Privilegstufe 3 ausgeführt. Wozu das im einzelnen dienlich sein kann, kann ich im Moment noch nicht sagen ,weshalb ich dazu rate sich erst einmal mit den normalen Codesegmenten zu begnügen.
+</p><p><br/>
+</p><p>Um das erstellen von Deskriptoren etwas zu vereinfachen, habe ich ein kleines Konsolenprogramm für Windows geschrieben, mit dem man sich bequem über eine Auswahl den Deskriptor zusammenbauen kann und bekommt diesen dann zum direkten abtippen fertig geliefert.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Systemsegmente">Systemsegmente</span></h2>
+<p>Wie im obigen Abschnitt schon erwähnt gibt es auch sogenannte Systemsegmente. Diese haben alle eine spezielle Aufgabe und stellen auch nicht alle ein Segment im Sinne eines Arbeitsspeicherabschnitts dar. Genauer gesagt handelt es sich bei den meisten Systemsegmenten vielmehr um lediglich Deskriptoren die Informationen für spezielle Zwecke beinhalten.
+</p><p>Hier eine Liste der Systemsegmente und deren Verwendungszweck: 
+</p>
+<h3><span class="mw-headline" id="Local_Deskriptor_Table_Segment">Local Deskriptor Table Segment</span></h3>
+<p>Dieses Segment stellt einen Speicherabschnitt dar, der eine Local Deskriptor Table (LDT) beinhaltet. Um diese LDT zu laden wird der Befehl LLDT mit der Angabe des Selektors für dieses Segment benutzt.
+</p><p><br/>
+</p>
+<h3><span id="Task_State_Segment_(TSS)"></span><span class="mw-headline" id="Task_State_Segment_.28TSS.29">Task State Segment (TSS)</span></h3>
+<p>Siehe: <a href="../../pages/1599/index.html" title="Task State Segment">Task State Segment</a>
+</p>
+<h3><span class="mw-headline" id="Call_Gates">Call Gates</span></h3>
+<p>In der Regel ist es so, das lediglich das Betriebssystem das mit der Privilegstfue 0 arbeitet zugang zu der Hardware und dem gesamten Speicher hat. Ein Benutzerprogramm, das für gewöhnlich mit der Privilegstufe 3 arbeitet, ist daher sehr eingeschränkt und darf von Haus aus lediglich Standardbefehle ausführen und auch nur Daten im eigenen Adressraum verändern und benutzen. Folglich wäre das Benutzerprogramm sehr unattraktiv und hätte kaum einen nützlichen Verwendungszweck. Daher gibt es die Call Gates. Das sind Deskriptoren in der GDT, die auf ein Codesegment zeigen das eine höhere Privilegstufe besitzt als das Benutzerprogramm. Das Benutzerprogramm kann nun einen Call zu diesem Call Gate machen, was zur Folge hat das es dem Benutzerprogramm gestattet wird, Code in einer höheren Privilegstufe auszuführen. Dieser Code stammt jedoch nicht vom Benutzerprogramm selbst, sondern vom Betriebssystem oder einem Treiber. Außerdem definiert ein Call Gate nicht nur das Code Segment in dem sich der ausführbare, höher privilegierte Code, befindet, sondern auch die genaue Adresse. Sprich das Offset des Codes innerhalb des Segmentes. Somit ist es möglich einem Benutzerprogramm auf eine kontrollierte Art und Weise Zugang zu Systemfunktionen zu gewähren. Hier gibt es noch eine kleine Besonderheit die zu beachten ist. Bei einem Wechsel der Privilegstufe, der für gewöhnlich die Folge eines Call Gate Aufrufs ist, wird ein anderer Stack benutzt. Für jeden Task gibt es für jede Privilegstufe einen eigenen Stack. Damit nun Parameter die VOR dem Call Gate Aufruf auf den alten Stack gepusht wurden, auch in dem neuen Segment benutzt werden können, werden diese beim Aufruf des Call Gates vom alten Stack in den neuen Stack kopiert. Der Deskriptor des Call Gates beinhaltet ein Feld das angibt, wie viele Parameter zwischen den Stacks kopiert werden sollen. Wenn die Routine in dem neuen Segment abgearbeitet wurde und mittels des RET Befehls wieder zurückgesprungen wird, wird wieder der Stack gewechselt und das Programm erhält wieder seine ursprüngliche Privilegstufe.
+</p>
+<center>
+<table class="prettytable">
+<caption>Call Gate (BITs) Teil 1
+</caption>
+<tbody><tr>
+<th><b> 31 - 16</b></th>
+<th><b>15</b></th>
+<th><b>14 - 13</b></th>
+<th><b>12</b></th>
+<th><b>11 - 8</b></th>
+<th><b>7 - 5</b></th>
+<th><b>4 - 0</b>
+</th></tr>
+<tr>
+<td>Offset 31 - 16
+</td>
+<td>P
+</td>
+<td>DPL
+</td>
+<td>0
+</td>
+<td>Type
+</td>
+<td>0
+</td>
+<td>Param
+</td></tr></tbody></table>
+</center>
+<center>
+<table class="prettytable">
+<caption>Call Gate (BITs) Teil 2
+</caption>
+<tbody><tr>
+<th><b>31 - 24</b></th>
+<th><b>16 - 0</b>
+</th></tr>
+<tr>
+<td>Selektor
+</td>
+<td>Offset 15 - 0
+</td></tr></tbody></table>
+</center>
+<p><br/>
+</p>
+<h4><span class="mw-headline" id="Offset_31_-_16">Offset 31 - 16</span></h4>
+<p>Gibt die Bits 31 bis 16 des 32-Bit Offsets innerhalb des Codesegmentes an in dem sich der Code befindet, zu
+dem über das Call Gate gesprungen werden soll.
+</p>
+<h4><span id="P_=_Present"></span><span class="mw-headline" id="P_.3D_Present">P = Present</span></h4>
+<p>Gibt an ob das Call Gate gültig ist.
+</p>
+<h4><span id="DPL_=_Deskriptor_Privilege_Level_2"></span><span class="mw-headline" id="DPL_.3D_Deskriptor_Privilege_Level_2">DPL = Deskriptor Privilege Level</span></h4>
+<p>Dieses Feld gibt an welche Privilegstufe ein Programm mindestens besitzen muß um dieses Call Gate nutzen zu können.
+</p>
+<h4><span id="0_=_Reserviert"></span><span class="mw-headline" id="0_.3D_Reserviert">0 = Reserviert</span></h4>
+<h4><span id="Type_=_Deskriptor_Typ"></span><span class="mw-headline" id="Type_.3D_Deskriptor_Typ">Type = Deskriptor Typ</span></h4>
+<p>Gibt den Deskriptor Typ an. Für ein Call Gate muß hier 1100b eingetragen werden.
+</p>
+<h4><span id="Param_=_Parameter_Count"></span><span class="mw-headline" id="Param_.3D_Parameter_Count">Param = Parameter Count</span></h4>
+<p>Gibt die Anzahl der Parameter an, die zwischen den Stacks kopiert werden soll, wenn das Call Gate benutzt wird.
+</p>
+<h4><span class="mw-headline" id="Selektor">Selektor</span></h4>
+<p>Hier wird der Selektor des Code Segmentes eingetragen in dem sich der Code befindet, zu dem über das Call Gate
+gesprungen werden soll.
+</p>
+<h4><span class="mw-headline" id="Offset_15_-_0">Offset 15 - 0</span></h4>
+<p>Gibt die Bits 15 bis 0 des 32-Bit Offsets innerhalb des Codesegmentes an, in dem sich der Code befindet, zu dem
+über das Call Gate gesprungen werden soll.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Interrupt_Gate">Interrupt Gate</span></h3>
+<p>Diese haben in etwa den selben Sinn und Zweck eines Call Gates. Jedoch werden diese in der IDT abgelegt und ein Sprung zu einem Interrupt-Handler erfolgt mittels des Int Befehls. Zudem sind die Interrupt Gates hauptsächlich dazu gedacht Systemfunktionen bereitzustellen, mit der auf das Auftreten eines Hardware-Interrupts reagiert wird. Deshalb wird beim Aufurf eines Interrupt Gates auftomatisch das IF Flag im EFLAGS Register geändert, damit während der Abarbeitung des Interrupt Handlers kein weiterer Interrupt ausgelöst werden kann.
+</p>
+<center>
+<table class="prettytable">
+<caption>Interrupt Gate (BITs) Teil 1
+</caption>
+<tbody><tr>
+<th><b> 31 - 16</b></th>
+<th><b>15</b></th>
+<th><b>14 - 13</b></th>
+<th><b>12</b></th>
+<th><b> 11 </b></th>
+<th><b>10 - 8</b></th>
+<th><b>7 - 0</b>
+</th></tr>
+<tr>
+<td>Offset 31 - 16
+</td>
+<td>P
+</td>
+<td>DPL
+</td>
+<td>0
+</td>
+<td>D
+</td>
+<td>Type
+</td>
+<td>0
+</td></tr></tbody></table>
+</center>
+<center>
+<table class="prettytable">
+<caption>Interrupt Gate (BITs) Teil 2
+</caption>
+<tbody><tr>
+<th><b>31 - 24</b></th>
+<th><b>16 - 0</b>
+</th></tr>
+<tr>
+<td>Selektor
+</td>
+<td>Offset 15 - 0
+</td></tr></tbody></table>
+</center>
+<p><br/>
+</p>
+<h4><span class="mw-headline" id="Offset_31_-_16_2">Offset 31 - 16</span></h4>
+<p>Gibt die Bits 31 bis 16 des 32-Bit Offsets innerhalb des Codesegmentes an in dem sich der Code befindet, zu
+dem über das Interrupt Gate gesprungen werden soll.
+</p>
+<h4><span id="P_=_Present_2"></span><span class="mw-headline" id="P_.3D_Present_2">P = Present</span></h4>
+<p>Gibt an ob das Interrupt Gate gültig ist.
+</p><p><br/>
+</p>
+<h4><span id="DPL_=_Deskriptor_Privilege_Level_3"></span><span class="mw-headline" id="DPL_.3D_Deskriptor_Privilege_Level_3">DPL = Deskriptor Privilege Level</span></h4>
+<p>Dieses Feld gibt an welche Privilegstufe ein Programm mindestens besitzen muß um dieses Interrupt Gate nutzen zu können.
+</p>
+<h4><span id="0_=_Reserviert_2"></span><span class="mw-headline" id="0_.3D_Reserviert_2">0 = Reserviert</span></h4>
+<h4><span id="D_=_Size"></span><span class="mw-headline" id="D_.3D_Size">D = Size</span></h4>
+<p>Gibt an ob es sich um ein 32-Bit(1) oder ein 16-Bit(0) Segment handelt.
+Sprich ob sich 32-Bit oder 16-Bit Code darin befindet.
+</p>
+<h4><span id="Type_=_Deskriptor_Typ_2"></span><span class="mw-headline" id="Type_.3D_Deskriptor_Typ_2">Type = Deskriptor Typ</span></h4>
+<p>Gibt den Deskriptor Typ an. Für ein Interrupt Gate muß hier 110b eingetragen werden.
+</p>
+<h4><span class="mw-headline" id="Selektor_2">Selektor</span></h4>
+<p>Hier wird der Selektor des Code Segmentes eingetragen in dem sich der Code befindet, zu dem über das Interrupt Gate
+gesprungen werden soll.
+</p>
+<h4><span class="mw-headline" id="Offset_15_-_0_2">Offset 15 - 0</span></h4>
+<p>Gibt die Bits 15 bis 0 des 32-Bit Offsets innerhalb des Codesegmentes an, in dem sich der Code befindet, zu dem
+über das Interrupt Gate gesprungen werden soll.
+</p>
+<h2><span class="mw-headline" id="Beispielcode">Beispielcode</span></h2>
+<p>Eine knappe Variante in den Protected Mode zu schalten wird <a href="../../pages/1537/index.html" title="Umschalten in Protected Mode">hier</a> erklärt.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109170119
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.012 seconds
+Real time usage: 0.013 seconds
+Preprocessor visited node count: 188/1000000
+Preprocessor generated node count: 230/1000000
+Post‐expand include size: 133/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.920      1 -total
+ 65.20%    0.600      7 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Protected_Mode&amp;oldid=5343</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1464/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/1763/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1464/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

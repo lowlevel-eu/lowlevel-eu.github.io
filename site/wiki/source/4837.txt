@@ -1,0 +1,224 @@
+iso9660 ist ein Dateisystem das extra zur Benutzung auf CDROMs entworfen wurde. Es ist ähnlich wie FAT aufgebaut, nur werden Dateien weder fragmentiert noch wird das Dateisystem mehr als einmal beschrieben.
+
+== Dateien ==
+Die Form und Art der Dateien ähnelt sehr derer von FAT. Dateinamen sind auf 8.3 Zeichen (8 Zeichen Name, 1 Punkt und 3 Zeichen Erweiterung) beschränkt. Außerdem dürfen Dateinamen nur aus Großbuchstaben, Ziffern oder dem Untestrich gebildet werden. Es gibt maximal 8 Ebenen an Verzeichnissen.
+
+== BothEndian ==
+Viele Multibytewerte werden bei iso9660 also BothEndian gespeichert. D.h erst kommt der Wert in LittleEndian, dann in BigEndian. Multibytewerte werden in diesem Artikel wie folgt bezeichnet:
+* Little Endian (LE)
+* Big Endian (BE)
+* Both Endian (XE)
+Zu beachten ist natürlich, dass z.B ein 4 Byte großer BothEndian-Wert nur ein Word ist.
+
+== Allgemeiner Aufbau ==
+Die ersten 16 Sektoren sind systemspezifisch, danach folgen in einigen Sektoren die sogenannten Volume-Deskriptoren. Ein Sektor hat normalerweise eine Größer von 2048 Bytes, kann aber auch eine andere Größe haben.
+Nach den Volume-Deskriptoren liegen Pathtables und Datensektoren (Sektoren die Datei oder Verzeichnis-Informationen enthalten).
+
+== Volume-Deskriptoren ==
+Es gibt 2 wichtige Typen an Volume Deskriptoren:
+* Primäre Volume-Deskriptoren: Enthalten wichtige Informationen über das Dateisystem
+* Terminierender Volume-Deskriptor: Zeigt das Ende der Volume-Deskriptoren an.
+Ein Volume-Deskriptor füllt dabei einen ganzen Sektor.
+
+Volume-Deskriptoren füllen immer einen ganzen Sektor aus und fangen mit dem Typ und der Signatur an:
+{| {{prettytable}}
+! Offset || Größe || Beschreibung
+|-
+| 0x00   || 1     || Typ
+|-
+| 0x01   || 6     || Signature
+|}
+
+Danach folgen Typabhängige Daten.
+
+=== Primärer Volume-Deskriptor ===
+{| {{prettytable}}
+! Offset || Größe || Beschreibung
+|-
+| 0x00   || 1     || Typ
+|-
+| 0x01   || 6     || Signature
+|-
+| 0x07   || 1     || Null
+|-
+| 0x08   || 32    || System-Identifizierer*
+|-
+| 0x28   || 32    || Volume-Identifizierer*
+|-
+| 0x48   || 8     || Null
+|-
+| 0x50   || 8     || Number of sectors (XE)
+|-
+| 0x58   || 32    || Null
+|-
+| 0x78   || 4     || Setgröße (XE)
+|-
+| 0x7C   || 4     || Sequenznummer (XE)
+|-
+| 0x80   || 4     || Sektorgröße (XE)
+|-
+| 0x84   || 8     || Pathtablegröße (XE)
+|-
+| 0x8C   || 4     || Sektor der 1. Pathtable (LE)
+|-
+| 0x90   || 4     || Sektor der 2. Pathtable (LE)
+|-
+| 0x94   || 4     || Sektor der 1. Pathtable (BE)
+|-
+| 0x98   || 4     || Sektor der 2. Pathtable (BE)
+|-
+| 0x9C   || 34    || Verzeichniseintrag des Rootverzeichnis
+|-
+| 0x118  || 128   || Volume-Set-Identifizierer
+|-
+| 0x198  || 128   || Hersteller-Identifizierer
+|-
+| 0x218  || 128   || Data-Preparer-Identifizierer
+|-
+| 0x318  || 128   || Application-Identifizierer
+|-
+| 0x418  || 37    || Copyright-Identifizierer
+|-
+| 0x43D  || 37    || Abstract-File-Identifizierer
+|-
+| 0x462  || 37    || Bibliographical-File-Identifizierer
+|-
+| 0x487  || 17    || Erstellungsdatum
+|-
+| 0x498  || 17    || Modifikationsdatum
+|-
+| 0x4A9  || 17    || Ablaufdatum
+|-
+| 0x4BA  || 17    || Effektivdatum
+|-
+| 0x4CB  || 1     || One (1)
+|-
+| 0x4CC  || 1     || Zero
+|-
+| 0x4CD  || 512   || Reserviert für Application-Benutzung
+|-
+| 0x6CD  || 653   || Zero
+|}
+* Diese Namen werden mit Leerzeichen (0x20) aufgefüllt um alle 32 Byte zu füllen
+
+=== Terminierender Volume-Deskriptor ===
+{| {{prettytable}}
+! Offset || Größe || Beschreibung
+|-
+| 0x00   || 1     || Typ
+|-
+| 0x01   || 6     || Signature
+|}
+Dieser Volume-Deskriptor enthält keine Informationen. Er ist nur zum Anzeigen des Ende der Volume-Deskriptoren da.
+
+== Verzeichniseintrag ==
+Ein Verzeichniseintrag enthält Metainformationen zu den Dateien bzw. Verzeichnissen auf der CD. Der Root-Verzeichniseintrag befindet sich im primären Volume-Deskriptor. Jedes Verzeichnis (somit auch das Rootverzeichnis) enthält eine Liste an Verzeichniseinträgen im Datenbereich.
+
+{| {{prettytable}}
+! Offset   || Größe || Beschreibung
+|-
+| 0x00     || 1     || Größe des gesamten Verzeichniseintrags
+|-
+| 0x01     || 1     || Anzahl an Sektoren im erweiterten Attributeintrag
+|-
+| 0x02     || 8     || Erster Sektor des Datenbereichs (XE)
+|-
+| 0x0A     || 8     || Größe des Datenbereichs (XE)
+|-
+| 0x13     || 1     || Erstellungsjahr (seit 1900)
+|-
+| 0x14     || 1     || Erstellingsmonat (1=Januar, 2=Februar,...)
+|-
+| 0x15     || 1     || Erstellungstag (Tag des Monats)
+|-
+| 0x16     || 1     || Erstellungsstunde
+|-
+| 0x17     || 1     || Erstellungsminute
+|-
+| 0x18     || 1     || Erstellungssekunde
+|-
+| 0x19     || 1     || GMT Verschiebung (in 15min-Intervallen)
+|-
+| 0x1A     || 1     || Flags
+|-
+| 0x1B     || 1     || Einheitengröße für Interleaved-Dateien
+|-
+| 0x1C     || 1     || Abstand zwischen Blöcken von Interleaved-Dateien
+|-
+| 0x1D     || 4     || Volume-Sequenz-Nummer (XE)
+|-
+| 0x22     || 1     || Länge des Identifizierers
+|-
+| 0x23     || X     || Identifizierer
+|-
+| 0x23+X   || (1)   || Padding-Byte. Füllt so, dass die System Use Area mit einem geraden Offset anfängt.
+|-
+| 0x23+X+Y || Rest  || Für Erweiterungen (System Use Area)
+|}
+
+== Rockridge ==
+Rockridge ist eine Erweiterung von ISO9660 für POSIX-Systeme. Rockridge erweitert dabei ISO9660 um:
+* lange Dateinamen
+* Zugriffsrechte
+* Gerätedateien
+* Symbolische Links
+* Timestamps
+* weiteres
+
+Rockridge teilt sich die System Use Are (Ab jetzt SUA genannt) in jeden Verzeichniseintrags nach den SUSP-Standard ein. Dabei wird die SUA in Einträge gegliedert, die hintereinander liegen. Jeder Eintrag beginnt mit einem Kopf, mit dem er eindeutig indentifizierbar ist.<br>
+
+=== Kopf eines Eintrags ===
+{| {{prettytable}}
+! Offset   || Größe || Beschreibung
+|-
+| 0x00     || 2     || Signatur
+|-
+| 0x02     || 1     || Größe des Eintrags
+|-
+| 0x03     || 1     || Version (1)
+|}
+Die Signatur entspricht der Abkürzung (z.B "PX" entspricht 'P'|('X'<<8)).
+
+== SP-Eintrag ==
+Der SP-Eintrag sollte nach dem SUSP-Standart eigentlich der erste Eintrag sein. Er zeigt an, dass diese SUA SUSP verwendet. Auf meinen ISOs hab ich bis jetzt nur RR-Einträge am Anfang der SUA gefunden. Wegen diesen Umstimmigkeiten wird hier nicht weiter auf den Inhalt dieser Einträge eingegangen. Sie können außerdem problemlos übersprungen werden.
+
+== ST-Eintrag ==
+Der ST-Eintrag terminiert die Liste der Einträge in einer SUA. Er sollte immer vorhanden sein, außer wenn nur noch 4 oder weniger Bytes im SUA verbleiben. Dieser Eintrag hat keinen speziellen Inhalt.
+
+=== PX-Eintrag ===
+Der PX-Eintrag enthält Informationen zu den Zugriffsrechten und weitere Daten.
+{| {{prettytable}}
+! Offset   || Größe || Beschreibung
+|-
+| 0x00     || 2     || Signatur
+|-
+| 0x02     || 1     || Größe des Eintrags
+|-
+| 0x03     || 1     || Version (1)
+|-
+| 0x04     || 8     || Mode (XE)
+|-
+| 0x0C     || 8     || Number of Links (XE)
+|-
+| 0x14     || 8     || UID (XE)
+|-
+| 0x1C     || 8     || GID (XE)
+|-
+| 0x24     || 8     || Serielle Nummer (XE)
+|}
+Diese Felder stimmen mit denen aus struct stat überein.
+
+=== PN-Eintrag ===
+
+=== SL-Eintrag ===
+
+=== NM-Eintrag ===
+
+=== TF-Eintrag ===
+
+== Links ==
+* [http://www.ecma-international.org/publications/standards/Ecma-119.htm Standard ECMA-119 - Volume and File Structure of CDROM for Information Interchange (2nd edition)]
+* [ftp://ftp.ymi.com/pub/rockridge/rrip112.ps RRIP Draft Standard 1.12]
+* [ftp://ftp.ymi.com/pub/rockridge/susp112.ps SUSP Draft Standard 1.12]
+
+[[Kategorie:Dateisystem]]

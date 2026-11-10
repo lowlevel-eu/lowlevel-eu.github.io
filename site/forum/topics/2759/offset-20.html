@@ -1,0 +1,1126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="SLAB-Allocator als Basis fuer kmalloc?" name="description"/>
+<title>SLAB-Allocator als Basis fuer kmalloc?</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:30</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>SLAB-Allocator als Basis fuer kmalloc?</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg32230"></a>
+<div class="nextlinks"><a href="../2770/index.html#msg32500">« vorheriges</a> <a href="../2185/offset-60.html#msg32143">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: <a class="navPages" href="index.html">1</a> [<strong>2</strong>] <a class="navPages" href="offset-40.html">3</a> <a class="navPages" href="offset-60.html">4</a> <span style="font-weight: bold;"> ... </span><a class="navPages" href="offset-120.html">7</a>
+</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/0f01c9c83ac67395064654f9.gif"/>
+<span id="author">Autor</span>
+						Thema: SLAB-Allocator als Basis fuer kmalloc?  (Gelesen 227948 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32230_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #20 am:</strong> 19. May 2011, 14:26 »</div>
+<div class="posttile"><h5 id="subject_32230">
+<a href="offset-20.html#msg32230" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32230_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32230">Nope!<br/><br/>Also ich habe ein Objekt vom Typ SlabDesc (wo die ganzen Infos zum Slab drin stehen, z.B. wie groß ein Objekt ist, welches Alignment usw. und auch die Listen für die Objectcaches) und dieses Objekt brauchst du ja im Endeffekt nur einmal und zwar wenn du den Slab-Descriptor erzeugst und der wird vom Slab-Allocator geholt (deswegen gibt es da auch kein Henne-Ei-Problem, nur bei dem SlabDesc der die Objekte vom Typ SlabDesc beschreibt, aber den kann ich von Hand erstellen).<br/><br/>Wenn ein neuer Objectcache erstellt werden muss, muss man ja einfach nur ein paar Pages (die Info steht im SlabDesc) vom VMM geholt werden und die einzelnen Objekte müssen konstruiert werden (falls du das verwendest) und schon habe ich neue Objekte die ich dann rausgeben kann.<br/><br/>Dann gibt es da noch das Problem das man ja feststellen muss zu welchen Objectcache ein Object gehört (es sei denn du machst es wie einige einfache malloc() Implementationen und speicherst nen Pointer auf den Objectcache 4byte vor dem Object, aber dann müssen alle deine Objecte 4byte größer sein) und da habe ich mir was von Linux abgeguckt. Dort werden zu jeder physikalischen Page einige Infos gespeichert und ich speichere da unter anderem zu welchem Objectcache eine Page gehört. So muss man nur in einem Array nachgucken und bekommt nen Pointer auf den Objectcache (was O(1) ist). Vorher hatte ich das in Bäumen gespeichert (da bin ich dann den Baum nach der Adresse des Objects durchgegangen und ob die innerhalb eines Objectcaches liegt), aber das war mir zu Zeit-, Speicher- und Rechenaufwändig.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32230">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32234"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32234_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #21 am:</strong> 19. May 2011, 16:28 »</div>
+<div class="posttile"><h5 id="subject_32234">
+<a href="offset-20.html#msg32234" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32234_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32234">Hallo,<br/><br/><br/>Warum so <em>unendlich</em> kompliziert?<br/>Die SLABs können sich doch auch selber verwalten. Ich hab mir gedacht das in jeden Block (ich fordere für die SLABs immer Blöcke zu 512 kB an) vorne ein kleiner Header drin ist der Infos über die Anzahl der freien Objekte in diesem Block und einen Pointer auf das erste freie Objekt (soll dann nach LIFO-Prinzip arbeiten), dazu kommen dann noch ein Next-/Prev-Pointer-Pärchen damit die Blöcke als doppelt verkette Liste verwaltet werden können (die Liste soll nach der Anzahl an freien Objekten sortiert werden damit ich immer möglichst aus den vollsten Blöcken zuerst neue Objekte nehme). Es gibt dann also für jede Objekt-Größe eine solche SLAB-Block-Verkettung und jeweils einen Pointer (als statische Variable) der auf den SLAB-Block zeigt welcher am vollsten aber noch nicht ganz voll ist (damit das Allozieren neuer Objekte möglichst schnell geht). Dazu gibt es dann pro Objekt-Größe (als statische Variable) noch jeweils die Gesamt-Anzahl an SLAB-Blöcken und die Anzahl aller freien Objekte (wenn dieser Wert eine kritische Grenze unterschreitet wird ein neuer Block von der physischen Speicherverwaltung angefordert, diese Grenze muss aber so bemessen sein das die physische Speicherverwaltung selber noch problemlos arbeiten kann da diese ja auch kleine Objekte benötigt).<br/><br/>Von dem Objekt-Pointer auf dessen Größe schließen zu müssen empfinde ich als unnötig, da kann man auch kfree mit einen zweiten Parameter ausstatten das die Objekt-Größe angibt. Man weiß doch schließlich was man frei gibt! Und wenn die SLAB-Blöcke immer eine definierte Größe (Zweierpotenz) und ein passendes Alignment haben kommt man vom Objekt-Pointer immer sofort auf den Header des betreffenden SLAB-Blocks mit einer simplen AND-Operation.<br/><br/>Einen Typ "SlabDesc" möchte ich gar nicht haben da ich ja nur eine sehr überschaubare Anzahl an Objekt-Größen habe (die alle zur Compile-Zeit bekannt sind) und die entsprechenden SLAB-Parameter jeweils händisch bestimmen kann (welche dann als Konstanten in den Code kommen was dafür kleineren und schnelleren Code ergibt weil ja Speicherzugriffe fehlen).<br/><br/>Die CPU-lokalen Caches sind da eine zusätzliche Ebene drüber (auf die ich der Einfachheit halber im ersten Anlauf verzichten möchte) und dafür sollten die SLAB-Funktionen so aufgebaut werden das sie immer gleich 16 (oder ne andere Anzahl) Objekte auf einmal allozieren oder freigeben. Ich seh da jedenfalls kein Problem sowas später drüber zu stülpen um ordentliche Performance zu bekommen. Der komplette Speicherbedarf für diese Funktionalität ist zur gesamten Laufzeit konstant (es wird hierfür also kein malloc/free benötigt) und hängt nur von einer Information ab die man nicht zur Compile-Zeit hat: der Anzahl der CPUs.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32234">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32234_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32235"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32235_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #22 am:</strong> 19. May 2011, 17:09 »</div>
+<div class="posttile"><h5 id="subject_32235">
+<a href="offset-20.html#msg32235" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32235_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32235"><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Warum so unendlich kompliziert?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also erstmal wurde der originale Slab-Allocator ja für monolithische Kernel entwickelt und da gelten ein paar andere Bedingungen und dann kommt noch hinzu das sich jeder andere Ziele für sein OS setzt. Zumal ich meine Variante nicht sondernlich kompliziert finde.<br/><br/>Was mich an deinem Konzept stören würde (aber das hat was mit den Zielen die wir erreichen wollen zu tun), ist das du immer Objectcaches von 512kb hast, ist mir viel zu groß. Dann hast du den Header vorne drin, ich würde ihn ja nach hinten packen. Denn dann kannst du ein besseres Alignment umsetzen (da du immer mit einem Alignment von 512kb anfängst), aber das hat auch den Nachteil, das du unter Umständen ganz schön verschnitt hast (obwohl das bei dieser Größe=512kb nicht das Problem sein sollte).<br/>Dann kommt noch das Sortieren der Liste hinzu, das könnte ein Problem sein, aber theoretisch würdest du einen Objectcache max 1 Element nach hinten oder vorne schieben (?).<br/><br/>Dein Vorschlag kfree einen zweiten Parameter mit der größe mitzugeben, halte ich mal "dagegen", warum macht man das dann nicht schon seit Anfang an?<br/><br/>Ich habe diese SlabDescs auch nur deswegen dynamisch, weil ich halt die CPU Anzahl (und bei bestimmten Datenstrukturen die Größe) nicht zur Compilezeit kenne. Ansonsten hätte ich das auch so gemacht, alleine schon deswegen, weil man so weniger Speicher benötigt.<br/><br/>Das du immer gleich 16 (als Bsp.) Objekte mit einmal rausgeben willst, ist erstmal eine gute Idee, aber was machst du wenn die Anzahl an Objekten die in einem Objectcache ist, kein vielfaches von 16 ist? Dann hättest du ja nochmal Verschnitt.<br/><br/>Als letztes wäre noch meine Frage, wie du dann eine Datenstruktur haben willst, deren Größe erst zur Laufzeit bekannt ist (was ja auf die per CPU Caches zutrifft)?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32235">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32243"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32243_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #23 am:</strong> 20. May 2011, 09:10 »</div>
+<div class="posttile"><h5 id="subject_32243">
+<a href="offset-20.html#msg32243" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32243_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32243">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32235">Zitat von: FlashBurn am 19. May 2011, 17:09</a></div></div><blockquote class="bbc_standard_quote">Also erstmal wurde der originale Slab-Allocator ja für monolithische Kernel entwickelt und da gelten ein paar andere Bedingungen</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, da hast Du Recht, aber Du wolltest doch wimre einen Micro-Kernel und ich finde da sollte man sich schon mal die Mühe machen auch das Konzept passend umzuarbeiten.<br/><br/>Natürlich hat jeder andere Ziele für sein OS, wäre ja schlimm wenn es anders wäre, aber für die Bedürfnisse eines Micro-Kernels empfinde ich persönlich das Du etwas zu viel Komplexität da drin hast.<br/><br/>Das ich immer gleich 512 kB nehme hat bei mir einen einfachen Grund: die Descriptor-Tabellen sind auch 512 kB groß und in der 64 Bit-Version meiner CPU möchte ich eventuell 512 kB als kleinste Page-Größe benutzen (für ein 3-stufiges Paging, wenn ich kleinere Pages (z.B. 64 kB) möchte dann benötige ich auf jeden Fall ein 4-stufiges Paging). Diese 512 KB tauchen bei meiner CPU-Architektur auch noch an anderen Stellen auf und als so verschwenderisch empfinde ich die 512 kB auch nicht. Das Windows XP an dem ich gerade sitze sagt das im Moment 63 Prozesse mit 700 Threads zusammen knapp 800 MB Speicher verbrauchen, wenn auf mein System irgendwann einmal eine ähnliche Last kommt denke ich das mein Kernel deutlich weniger eigenen Verwaltungsspeicher verbraucht als Windows XP oder andere OSe (schon weil ich nicht für jeden Prozess ein eigenes Paging-Directory benötige) trotz den großzügigen 512 kB SLAB-Blöcken.<br/><br/>Ob der Header vorne oder hinten ist hat IMHO auf den Verschnitt keine Auswirkungen (der Header bleibt ja immer gleich groß) aber das Argument mit dem Alignment für die eigentlichen Objekte muss ich mir auf jeden Fall noch mal durch den Kopf gehen lassen, Danke für den Hinweis.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32235">Zitat von: FlashBurn am 19. May 2011, 17:09</a></div></div><blockquote class="bbc_standard_quote">Dann kommt noch das Sortieren der Liste hinzu, das könnte ein Problem sein, aber theoretisch würdest du einen Objectcache max 1 Element nach hinten oder vorne schieben (?).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich kann nicht nachvollziehen worin Du beim Sortieren der SLAB-Block-Kette ein Problem siehst. Klar kostet das ab und an mal etwas Rechenleistung aber dafür hab ich beim Allozieren den Vorteil das ich bevorzugt die Blöcke benutze die eh schon recht voll sind und sobald diese ganz voll sind fallen sie aus der Suche nach freien Objekten ganz raus. Wenn Speicher immer nach dem LIFO-Prinzip alloziert und freigegeben werden würde würde sich das von ganz allein so ergeben aber in der Realität ist das eben nicht so, von daher möchte ich dem etwas nachhelfen. Ich erhoffe mir durch diese Sortierung dafür zu sorgen das immer nur möglichst wenige dieser Blöcke nur teilweise belegt sind. Falls das so in der Realität nicht funktioniert muss ich mir dann was anderes überlegen aber erst einmal möchte ich das so umsetzen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32235">Zitat von: FlashBurn am 19. May 2011, 17:09</a></div></div><blockquote class="bbc_standard_quote">Dein Vorschlag kfree einen zweiten Parameter mit der größe mitzugeben, halte ich mal "dagegen", warum macht man das dann nicht schon seit Anfang an?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist doch kein Argument, selbst wenn ich der einzigste in diesem Universum wäre der das so macht. Warum soll ich es dem free <span class="bbc_u">unnötig</span> kompliziert machen? Gerade in einem überschaubaren Micro-Kernel weiß ich doch immer was ich freigebe also kann ich diese Information auch gleich dem free mitgeben und ihm so die Mühe sparen das selber heraus finden zu müssen. Du hattest Dein Konzept dazu ja mal beschrieben und ich muss ehrlich sagen das mir persönlich das viel zu viel Speicher und CPU-Leistung kosten würde. Vor allem da ein zweites Parameter für free ja quasi gratis ist.<br/><br/>Für meine User-Mode-Heap-Umsetzung möchte ich ja ein zum SLAB ähnliches Konzept benutzen aber da ich dort immer FAR-Pointer habe sehe ich dem Pointer durch den Selector-Teil immer an was er für ein Objekt beschreibt. Mein Aufwand ist also ein einzelner simpler Tabellenzugriff.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32235">Zitat von: FlashBurn am 19. May 2011, 17:09</a></div></div><blockquote class="bbc_standard_quote">Ich habe diese SlabDescs auch nur deswegen dynamisch, weil ich halt die CPU Anzahl (und bei bestimmten Datenstrukturen die Größe) nicht zur Compilezeit kenne.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Aber zur Boot-Zeit kennst Du doch die Anzahl der CPUs und ab da ist diese konstant. Oder möchtest Du das Hinzufügen und Entfernen von CPUs zur Laufzeit unterstützen?<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32235">Zitat von: FlashBurn am 19. May 2011, 17:09</a></div></div><blockquote class="bbc_standard_quote">Ansonsten hätte ich das auch so gemacht, alleine schon deswegen, weil man so weniger Speicher benötigt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dann mach es doch einfach so. Ich denke das die Einsparung an Speicher (bei Daten und Code) sicher nennenswert ist.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32235">Zitat von: FlashBurn am 19. May 2011, 17:09</a></div></div><blockquote class="bbc_standard_quote">Das du immer gleich 16 (als Bsp.) Objekte mit einmal rausgeben willst, ist erstmal eine gute Idee, aber was machst du wenn die Anzahl an Objekten die in einem Objectcache ist, kein vielfaches von 16 ist? Dann hättest du ja nochmal Verschnitt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Die 16 war ja auch nur so ein Vorschlag, ich könnte in den CPU-lokalen Cache auch immer 8 Objekte auf einmal vom SLAB-Allocator holen bzw. zurückgeben. Ich bin aber der Meinung das man den SLAB-Allocator dann schon so umbauen sollte das er mehrere Objekte mit einem Aufruf alloziert bzw. freigibt um eben die Kosten von mehreren Funktionsaufrufen zu sparen. Da die eigentlichen Benutzer von kmalloc/kfree ja dann nur noch den CPU-lokalen Cache benutzen benötigt der eigentliche SLAB-Allocator dann kein Interface mehr das einzelne Objekte behandeln kann. Ich kann mir sogar vorstellen das man diese CPU-lokalen Caches per define zur Compile-Zeit zuschaltbar macht ohne das man am restlichen Code etwas ändern müsste, so könnte man mal belastbare Messergebnisse liefern um zu sehen wie viel Performance diese Caches wirklich bringen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32235">Zitat von: FlashBurn am 19. May 2011, 17:09</a></div></div><blockquote class="bbc_standard_quote">Als letztes wäre noch meine Frage, wie du dann eine Datenstruktur haben willst, deren Größe erst zur Laufzeit bekannt ist (was ja auf die per CPU Caches zutrifft)?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich habe keine solchen Strukturen und mir fällt auch absolut keine Situation ein wo ich das brauchen könnte. Auch die Größe der CPU-lokalen Objekt-Caches ist bei mir schon zur Compile-Zeit bekannt (ich sehe da nichts dynamisches, der besteht doch aus X Pointern und ein paar Verwaltungsdaten) nur die Anzahl weiß ich eben erst wenn das OS gestartet wird. Ich möchte diese Objekt-Caches dann einfach beim Booten hinten an die Data-Sektion des Kernels ran hängen, so das ich zur Laufzeit auch immer möglichst einfach den richtigen Pointer ausrechnen kann (aus CPU-Nummer und Objekt-Typ).<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32243">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32243_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32244"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_32244_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #24 am:</strong> 20. May 2011, 11:52 »</div>
+<div class="posttile"><h5 id="subject_32244">
+<a href="offset-20.html#msg32244" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32244_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32244"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32243">Zitat von: erik.vikinger am 20. May 2011, 09:10</a></div></div><blockquote class="bbc_standard_quote">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32235">Zitat von: FlashBurn am 19. May 2011, 17:09</a></div></div><blockquote class="bbc_alternate_quote">Also erstmal wurde der originale Slab-Allocator ja für monolithische Kernel entwickelt und da gelten ein paar andere Bedingungen</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, da hast Du Recht, aber Du wolltest doch wimre einen Micro-Kernel und ich finde da sollte man sich schon mal die Mühe machen auch das Konzept passend umzuarbeiten.<br/><br/>Natürlich hat jeder andere Ziele für sein OS, wäre ja schlimm wenn es anders wäre, aber für die Bedürfnisse eines Micro-Kernels empfinde ich persönlich das Du etwas zu viel Komplexität da drin hast.<br/><br/>Das ich immer gleich 512 kB nehme hat bei mir einen einfachen Grund: die Descriptor-Tabellen sind auch 512 kB groß und in der 64 Bit-Version meiner CPU möchte ich eventuell 512 kB als kleinste Page-Größe benutzen (für ein 3-stufiges Paging, wenn ich kleinere Pages (z.B. 64 kB) möchte dann benötige ich auf jeden Fall ein 4-stufiges Paging). Diese 512 KB tauchen bei meiner CPU-Architektur auch noch an anderen Stellen auf und als so verschwenderisch empfinde ich die 512 kB auch nicht. Das Windows XP an dem ich gerade sitze sagt das im Moment 63 Prozesse mit 700 Threads zusammen knapp 800 MB Speicher verbrauchen, wenn auf mein System irgendwann einmal eine ähnliche Last kommt denke ich das mein Kernel deutlich weniger eigenen Verwaltungsspeicher verbraucht als Windows XP oder andere OSe (schon weil ich nicht für jeden Prozess ein eigenes Paging-Directory benötige) trotz den großzügigen 512 kB SLAB-Blöcken.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/>Ich nehme selten Windows in Schutz, aber in diesem Fall sagen deine 800 MB nichts über die wirklich notwendige Menge an belegten MBs aus. Das das Ding so viel verwendet, hat den einfachen Grund, dass moderne OSes freien Speicher als Verschwendung ansehen. Windows arbeitet in diesen Fällen genau so wie Linux. "Nimm dir jeden freien SPeicher, den du finden kannst und gib ihn frei, falls jemand anders den Speicher benötigt." Das hat den einfachen Grund, dass die Dinger alles Chachen, was sie vermuten demnächst zu brauchen. Also sagen die 800 MB für den Kernel nur aus, dass deine Prozesse nicht viel Speicher benötigen und Windows somit mehr für sich nimmt.<br/><br/>So will ich es ja auch machen und dafür verwende ich den SLAB-Allocator. Ich möchte da auch so eine Art Defragmentierung des Speichers einbauen, dass bei SPeicherknappheit der Speicher umgelegt werden soll. Macht das System in manchen Situationen natürlich langsamer, aber das ist kurz vor einem OOM egal. Lieber warte ich etwas, bis mein System wieder flüssig läuft, bevor es einen OOM ausgibt.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32243">Zitat von: erik.vikinger am 20. May 2011, 09:10</a></div></div><blockquote class="bbc_standard_quote"><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32235">Zitat von: FlashBurn am 19. May 2011, 17:09</a></div></div><blockquote class="bbc_alternate_quote">Dein Vorschlag kfree einen zweiten Parameter mit der größe mitzugeben, halte ich mal "dagegen", warum macht man das dann nicht schon seit Anfang an?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist doch kein Argument, selbst wenn ich der einzigste in diesem Universum wäre der das so macht. Warum soll ich es dem free <span class="bbc_u">unnötig</span> kompliziert machen? Gerade in einem überschaubaren Micro-Kernel weiß ich doch immer was ich freigebe also kann ich diese Information auch gleich dem free mitgeben und ihm so die Mühe sparen das selber heraus finden zu müssen. Du hattest Dein Konzept dazu ja mal beschrieben und ich muss ehrlich sagen das mir persönlich das viel zu viel Speicher und CPU-Leistung kosten würde. Vor allem da ein zweites Parameter für free ja quasi gratis ist.<br/>Compile-Zeit zuschaltbar macht ohne das man am restlichen Code etwas ändern müsste, so könnte man mal belastbare Messergebnisse liefern um zu sehen wie viel Performance diese Caches wirklich bringen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/>Die Variante dürfte vermutlich auch schneller sein, da du dir so unnötiges nachschauen im Speicher schenken kannst. Das macht natürlich nichts, wenn der Speicher im Cache liegt, aber tut er das nicht, verbrätst du Takte, die du mit einem zweiten Parameter verhinderst. Außerdem ist es so gut wie sicher, dass der zweite Parameter im CPU Cache liegt.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32243">Zitat von: erik.vikinger am 20. May 2011, 09:10</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32235">Zitat von: FlashBurn am 19. May 2011, 17:09</a></div></div><blockquote class="bbc_alternate_quote">Als letztes wäre noch meine Frage, wie du dann eine Datenstruktur haben willst, deren Größe erst zur Laufzeit bekannt ist (was ja auf die per CPU Caches zutrifft)?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich habe keine solchen Strukturen und mir fällt auch absolut keine Situation ein wo ich das brauchen könnte. Auch die Größe der CPU-lokalen Objekt-Caches ist bei mir schon zur Compile-Zeit bekannt (ich sehe da nichts dynamisches, der besteht doch aus X Pointern und ein paar Verwaltungsdaten) nur die Anzahl weiß ich eben erst wenn das OS gestartet wird. Ich möchte diese Objekt-Caches dann einfach beim Booten hinten an die Data-Sektion des Kernels ran hängen, so das ich zur Laufzeit auch immer möglichst einfach den richtigen Pointer ausrechnen kann (aus CPU-Nummer und Objekt-Typ).<br/><br/><br/>Grüße<br/>Erik<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/>Naja, sobald du CPU-Hotplugin unterstützen möchtest, ist die ganze Geschichte dynamisch. Habe ich momentan auch noch nicht drin, soll aber irgendwann mal kommen. Dürfte aber eine riesige Baustelle für sich selbst werden, da da ja sehr viel mehr dran hängt.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32244">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32244_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32245"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32245_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #25 am:</strong> 20. May 2011, 14:21 »</div>
+<div class="posttile"><h5 id="subject_32245">
+<a href="offset-20.html#msg32245" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32245_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32245"><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Klar kostet das ab und an mal etwas Rechenleistung aber dafür hab ich beim Allozieren den Vorteil das ich bevorzugt die Blöcke benutze die eh schon recht voll sind und sobald diese ganz voll sind fallen sie aus der Suche nach freien Objekten ganz raus.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Mir gefällt die Idee auch immer besser <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Das Sortieren sollte eigentlich nicht wirklich Rechenzeit kosten, weil du ja einen Objectcache max eine Postion nach vorne schiebst (es wird was alloziert) oder nach hinten (es wird was freigegeben). Da ich ja dann eh von der Objektadresse auf die Adresse von der Slab-Struktur komme brauche ich die vollen Objecktcaches auch nicht in einer extra Liste speichern (zu Debugging Zwecken wäre das natürlich trotzdem sinnvoll).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Das ist doch kein Argument, selbst wenn ich der einzigste in diesem Universum wäre der das so macht. <br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das war übrigens ne ernst gemeinte Frage <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Ich denke mal das hat mal "damals" nicht so gemacht, weil man dann in jedem Objekt hätte speichern müssen wie groß es ist und (das wird viel wichtiger sein), malloc liefert nicht immer einen Block zurück der genauso groß sit wie angefordert, sondern der kann auch größer sein und dann nützt dir die Angabe bei free() nämlich nichts!<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Aber zur Boot-Zeit kennst Du doch die Anzahl der CPUs und ab da ist diese konstant. Oder möchtest Du das Hinzufügen und Entfernen von CPUs zur Laufzeit unterstützen?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also ich will kein Hotplugging von CPUs unterstützen. Allerdings hilft es mir auch nicht wenn ich zur Boot-Zeit weiß wie viele CPUs ich habe.<br/>Mein SlabDesc sieht ungefähr so aus:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">struct SlabDesc {<br/> //alle möglichen Sachen und Listen die man halt so braucht<br/> void* CPUCaches[][4][2];<br/>};<br/></code>Das heißt ich habe pro CPU 2*4 Objekte. Einmal 4 Objekte die ich rausgeben kann (allozieren) und einmal 4 Objekte die ich freigeben kann (free).<br/>Wie willst du es hinbekommen das der SlabDesc immer erst zur Bootzeit erstellt wird und wo willst du das hinpacken? Zumal ich dann entweder alle SlabDesc Symbole erst zur Boot-Zeit auflösen kann (und dann das Problem habe, wie bekomme ich meine Konstanten Daten da rein, ohne das ich das als extra Code habe) oder ich speichere die Pointer (so wie jetzt auch schon) in Variablen ab (wo ich mir dann auch erstmal die Symbole holen müsste).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Die 16 war ja auch nur so ein Vorschlag, ich könnte in den CPU-lokalen Cache auch immer 8 Objekte auf einmal vom SLAB-Allocator holen bzw. zurückgeben.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Auf was ich hinaus will ist, was passiert, wenn du ne ungerade Anzahl von Objekten in deinen 512kb hast?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32245">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32247"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32247_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #26 am:</strong> 20. May 2011, 16:32 »</div>
+<div class="posttile"><h5 id="subject_32247">
+<a href="offset-20.html#msg32247" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32247_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32247">Hallo,<br/><br/>ein free(pointer, size) ist nicht unbedingt sinnvoll. Denn malloc() darf mehr rausgeben als gewünscht und realloc() darf dynamisch die Größe ändern. Das kann unter Umständen im Programm sehr aufwändig werden, da den Überblick bis zum free() vollständig zu behalten.<br/><br/>Ansonsten könnt ihr immer RAM-Verbrauch durch Rechenzeit ersetzen.<br/><br/>Ich sehe kein Problem darin, für ein SMP-fähiges Betriebssystem ein paar Kilobyte für CPU-Verwaltungsstrukturen zu opfern, welche dann mangels realer CPUs nicht genutzt werden. Jeder heute übliche Rechner hat RAM-Größen im Gigabytebereich und ob dein Kernel nun ein MB mehr oder weniger für elementare Dinge (!) verbraucht oder nicht, spielt keine Rolle. Wenn mein Firefox sich ein paar hundert MB greift, dann fallen die paar KB mehr oder weniger freier Speicher nicht ins Gewicht.<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32247">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32248"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32248_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #27 am:</strong> 20. May 2011, 17:23 »</div>
+<div class="posttile"><h5 id="subject_32248">
+<a href="offset-20.html#msg32248" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32248_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32248">Sorry, wenn ich das mal wieder so sage, aber was du (Svenska) schreibst ist doch der Grund warum die Programme soviel Speicher verbrauchen! Alle denken ja, wir hams ja und keiner macht sich mehr nen Kopf darüber.<br/><br/>Zumal du besser sagen solltest besonders die x86 Architektur ist mit viel RAM "gesegnet" (obwohl ich das eher negativ sehe). Wenn du dann mal zu ARM guckst (auch wenn die RAM mäßig tierisch am Aufholen sind) sieht es wieder anders aus. Wenn ich mir noch überlege wie es "damals" war, als 128MB noch als viel galten und auch ausreichen war, selbst für Spiele.<br/><br/>Ich weiß das viele die Auto vergleiche hassen, aber das kennt nun mal jeder. Wenn das Öl nicht so teuer (und knapp) wäre, dann würden wir heute immernoch (?) mit Autos fahren die 20l und mehr fressen.<br/><br/>Und was den Speicherverbrauch von einem OS angeht, wie gesagt jeder setzt sich halt andere Ziele und ich möchte kein OS schreiben welches schon nur für ne einfach Konsole 16MB und mehr braucht.<br/><br/>Das die paar KB nicht ins Gewicht fallen mag ja für nen Mikrokernel stimmen, aber ab nem Hybriden kann das schon echt viel werden. Hätte denn jemand mal eine Zahl zur Hand wie viele verschiedene Objekttypen (die den Slab-Allocator nutzen) der Linux-Kernel hat und dann wäre (auch wenn es Off-Topic ist) die max CPU Anzahl auch mal interessant.<br/><br/>So und um nun auch mal eure Einstellung/Meinung ein wenig zu überspitzen. Ihr sagt also die meisten Sachen sollte man statisch machen. Na wenn ich meine ganzen Datenstrukturen statisch mache, die von der CPU Anzahl abhängen, dann bin ich wahrscheinlich irgendwo im MB bereich. Dann kommen bei mir noch die Datenstrukturen für die IRQs dazu, weil da kann ich ja auch nicht wissen wie viele es sind (obwohl es zu &gt;99% wohl 24 oder weniger sein werden) und das geht noch weiter so <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/>Weil wir haben ja genug RAM <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/>Das Problem was ich einfach damit habe, ist die Einstellung, die ich auch in der Uni feststellen muss. Man hat ja genug Speicher, da können wir den auch verschwenden, fällt ja nicht auf oder bis irgendein Programm mal fertig ist, hat sich die durchschnittliche RAM-Menge ja eh wieder vergrößert.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_standard_quote">Ansonsten könnt ihr immer RAM-Verbrauch durch Rechenzeit ersetzen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Sicher das du bei dieser These mit dieser Wortwahl bleiben möchtest <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32248">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32249"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_32249_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #28 am:</strong> 20. May 2011, 17:55 »</div>
+<div class="posttile"><h5 id="subject_32249">
+<a href="offset-20.html#msg32249" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32249_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32249"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32248">Zitat von: FlashBurn am 20. May 2011, 17:23</a></div></div><blockquote class="bbc_standard_quote">So und um nun auch mal eure Einstellung/Meinung ein wenig zu überspitzen. Ihr sagt also die meisten Sachen sollte man statisch machen. Na wenn ich meine ganzen Datenstrukturen statisch mache, die von der CPU Anzahl abhängen, dann bin ich wahrscheinlich irgendwo im MB bereich. Dann kommen bei mir noch die Datenstrukturen für die IRQs dazu, weil da kann ich ja auch nicht wissen wie viele es sind (obwohl es zu &gt;99% wohl 24 oder weniger sein werden) und das geht noch weiter so <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/>Weil wir haben ja genug RAM <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/>Hier möchte ich dir widersprechen. Den Rest empfinde ich genau so.<br/>Wenn man das statisch macht, kannst du Speicher sparen, da du davon ausgehst, dass derjenige, der den Kernel baut, weiß wie viel Kerne er verwendet. Du kannst dem Compiler ja sagen, dass dein System auf zwei CPUs gebaut werden soll. Wenn es nicht stimmt, ist der User des Kernels selber schuld. Im Prinzip genau so, wie es Linux macht. Natürlich hast du einen größeren Speicherverbrauch wenn du mehr Kerne angibst, aber warum solltest du das tun?<br/>Okay, große Linux-Distros machen das so (Deren Config nimmt 256 CPUs als Basis (Standard vom Kernel)), aber Gentoo z.B. baut ja keine Kernel. Das muss der Gentoo-User selber machen (in meinen Augen der gigantische Vorteil von Gentoo). Und jemand, der das macht, kennt auch die Anzahl an CPUs.<br/>Also hat statisch definitiv seine Vorteile (außer beim CPU-Hotplugin)</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32249">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32249_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32250"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32250_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #29 am:</strong> 20. May 2011, 18:02 »</div>
+<div class="posttile"><h5 id="subject_32250">
+<a href="offset-20.html#msg32250" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32250_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32250">@rizor<br/><br/>Da wären wir dann wieder bei dem Thema, was man mit seinem OS erreichen möchte. Ganz ehrlich das was du beschreibst ist genau der Punkt warum Linux Windows nie ersetzen kann.<br/><br/>Es kann, meiner Meinung nach, nicht das Ziel sein, jedes Mal wenn ich mein OS auf nem anderen Rechner laufen lassen, neu kompilieren zu müssen.<br/><br/>Das wäre wie, das man erst Windows installieren müsste um dann Linux zu kompilieren und dann nutzen zu können und ich denke mal das will keiner <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/>Auch diese Einstellung kann ich überspitzt so darstellen, dass ich dann sage, sowas wie PIC/IOAPIC oder PIT/APIC mache ich auch statisch und der jenige der mein OS nutzen will, muss halt wissen was für Hardware er dann vorsich hat um mein OS nutzen zu können.<br/>Das nächste ist die Hemmschwelle, wenn ich ein OS erst kompilieren muss (und bei größeren OS dauert das schonmal ewig und ist meistens mit einigem Aufwand verbunden), dann will ich es auch nicht mehr ausprobieren!</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32250">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32251"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_32251_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #30 am:</strong> 20. May 2011, 18:08 »</div>
+<div class="posttile"><h5 id="subject_32251">
+<a href="offset-20.html#msg32251" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32251_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32251">Okay, das ist ein Argument.<br/>Ich weiß nicht, wie Windows das intern handhabt, aber die machen bestimmt auch nicht alles dynamisch.<br/>Natürlich ist das der Grund warum Linux den Nerd-Status nie verlieren wird, aber man kann das ganze ja auch noch etwas einfacher machen.<br/>Für den OS-Installer könnte man ja einen Kernel verwenden, der alles erkennen kann und automatisch die Config anpasst und dann den passenden Kernel baut. Natürlich kannst du jetzt sagen, dass das ganze dann trotzdem nur auf einem System läuft, aber da gibt es ja auch Mittel und Wege. Man könnte z.B. Beim booten analysieren,ob noch alles passt. Wenn das nicht so ist, wird im Hintergrund ein Kernel gebaut, der sich anpasst und dann das System neu gestartet werden muss.<br/>Ist halt alles eine Frage des Aufwands.<br/>Aber die ganzen der zur Compiler-Zeit zu kennen hat in meinen Augen den riesigen Vorteil, dass du das gesamte System kennst und der Compiler den Kernel optimal bauen kann. Das dürfte dann zum Teil schneller sein, als deine zur Laufzeit aufgebauten Datenstrukturen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32251">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32251_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32253"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32253_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #31 am:</strong> 20. May 2011, 18:25 »</div>
+<div class="posttile"><h5 id="subject_32253">
+<a href="offset-20.html#msg32253" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32253_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32253">Es ist auch möglich, mit einigem Aufwand, das ich die Sache "emulieren" könnte. In dem Sinne, das ich meine Datenstrukturen, die dynamisch sind, kennen muss und mein Bootloader die dann zur Laufzeit erzeugt und hinten an das Datensegment ranhängt und dann die ganzen Symbole auflöst. Das sollte genauso wenig Speicher verbrauchen.<br/><br/>Also ich möchte kein System nutzen wollen, wo während eines Starts rebootet wird, weil der Kernel neu kompiliert werden muss. Zumal es sowas in der Art bzw. von der Idee her besser, schon gibt. TCC kompiliert doch den Kernel erst zur Bootzeit. Allerdings steigt damit natürlich die Bootzeit enorm an.<br/><br/>Ein anderes Problem was ich sehe, der Source-Code benötigt auch ne Menge Speicher (was wieder vorraussetzt das du deinen Source-Code mitliefern möchtest) und den müsstest du dann auch immer auf dem Bootmedium haben, wo wir dann wieder dabei wären, wir haben ja riesige Festplatten, wozu also mit dem Speicher geizen (und da regen sich die meisten immer auf, wieviel Speicher Windows immer auf der Festplatte belegt).<br/><br/>Dazu kommt das man das ja auch auf Anwendungen ummünzen könnte und ganz ehrlich, ich möchte die meisten Sachen einfach benutzen und nicht noch kompilieren müssen.<br/><br/>Wenn deine Zielgruppe, für dein OS, natürlich absolute Nerds sind ist das natürlich möglich, aber bedenke das sich dann nicht viele finden lassen werden die dein OS mal testen oder ausprobieren würden!<br/><br/>Ich muss auch ganz ehrlich sein, ich würde kein OS testen wollen, was ich erst noch kompilieren muss. Wäre mir der Aufwand viel zu groß für.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32253">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32255"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32255_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #32 am:</strong> 20. May 2011, 19:43 »</div>
+<div class="posttile"><h5 id="subject_32255">
+<a href="offset-20.html#msg32255" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32255_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32255">Hallo,<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32248">Zitat von: FlashBurn am 20. May 2011, 17:23</a></div></div><blockquote class="bbc_standard_quote">Alle denken ja, wir hams ja und keiner macht sich mehr nen Kopf darüber.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Beachte bitte die Relationen. Es ging um statische(!) Datenstrukturen, in einer Größenordnung von weniger als einem Mega(!)byte und um Rechnersysteme, die sehr viel mehr RAM haben (weil SMP).<br/><br/>Außerdem ist es problemlos möglich, die Anzahl der Einträge zur Compilezeit begrenzen (oder nachträglich durch ein Relinken anzupassen). So funktionierten alte UNIX-Systeme.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32248">Zitat von: FlashBurn am 20. May 2011, 17:23</a></div></div><blockquote class="bbc_standard_quote">Ihr sagt also die meisten Sachen sollte man statisch machen. Na wenn ich meine ganzen Datenstrukturen statisch mache, die von der CPU Anzahl abhängen, dann bin ich wahrscheinlich irgendwo im MB bereich.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja. Dafür verbrauchst du weniger Rechenzeit, weil du für den Zugriff auf die Strukturen nicht durch ewig viele Indirektionen gehen musst, außerdem sparst du Codegröße, weil die Zugriffsmuster viel einfacher sind.<br/><br/>Wenn du einen SMP-fähigen Kernel auf einem Uniprozessorsystem betreibst, dann führst du oft mehr Code aus als nötig (z.B. für Locking etc.). Dieser Code nimmt Platz weg. Ältere Prozessoren haben weniger CPU-Cache, also reduzierst du durch "mehr nutzloser Code" ohnehin die Leistung.<br/><br/>Willst du einen Kernel schreiben, der optimal auf einem 386er mit 4 MB RAM optimal performt, dann wird er auf einem Dual-Hexacore-System mit 64 GB RAM nur suboptimal laufen. Andersrum gilt das genauso. Du musst dir bewusst sein, dass du <em>immer</em> Kompromisslösungen benutzt.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32248">Zitat von: FlashBurn am 20. May 2011, 17:23</a></div></div><blockquote class="bbc_standard_quote">Weil wir haben ja genug RAM <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, haben wir. Auf meinem System sind von 2 GB RAM mehr als die Hälfte für Plattencache eingeteilt. Eben <em>weil</em> wir genug RAM haben, können wir performancesteigernden Maßnahmen, wie z.B. aggressives Caching, sinnvoll einsetzen. Ich rede nicht von großflächiger Verschwendung.<br/><br/>Wenn der Compiler (für eine sinnvolle Verarbeitungszeit) nur 8 MB RAM hat, dann kann er nunmal nicht alle Optimierungen ausschöpfen. Hat er dagegen ein paar GB verfügbar, geht das plötzlich viel besser. Und wenn wir den Compiler in nur 64K quetschen müssen, dann ist das Ergebnis sogar grausam dagegen. Aber es gibt solche Compiler.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32248">Zitat von: FlashBurn am 20. May 2011, 17:23</a></div></div><blockquote class="bbc_standard_quote">Das Problem was ich einfach damit habe, ist die Einstellung, die ich auch in der Uni feststellen muss. Man hat ja genug Speicher, da können wir den auch verschwenden, fällt ja nicht auf oder bis irgendein Programm mal fertig ist, hat sich die durchschnittliche RAM-Menge ja eh wieder vergrößert.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>In der freien Wirtschaft zählt die Größe "Realzeit zwischen Idee und Vermarktung". Da ist für Qualität nur wenig Platz. In der Uni zählt "lässt sich theoretisch Beweisen", da spielt die Umsetzbarkeit nur eine untergeordnete Rolle.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32248">Zitat von: FlashBurn am 20. May 2011, 17:23</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_alternate_quote">Ansonsten könnt ihr immer RAM-Verbrauch durch Rechenzeit ersetzen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Sicher das du bei dieser These mit dieser Wortwahl bleiben möchtest <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich ersetze das Wort "immer" durch "fast immer". Und ja, bei der These bleibe ich; ich bin mir aber durchaus bewusst, dass es sowohl nach oben als auch nach unten praktische Grenzen gibt, ab der es sich nicht lohnt.<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32255">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32256"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32256_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #33 am:</strong> 20. May 2011, 20:02 »</div>
+<div class="posttile"><h5 id="subject_32256">
+<a href="offset-20.html#msg32256" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32256_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32256"><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenksa</div></div><blockquote class="bbc_standard_quote">Außerdem ist es problemlos möglich, die Anzahl der Einträge zur Compilezeit begrenzen (oder nachträglich durch ein Relinken anzupassen).<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da müsstest du mal genauer werden. Ich verstehe nicht ganz wie das mit dem relinken funktionieren soll bzw. was das machen soll.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_standard_quote">Wenn du einen SMP-fähigen Kernel auf einem Uniprozessorsystem betreibst, dann führst du oft mehr Code aus als nötig (z.B. für Locking etc.). Dieser Code nimmt Platz weg. Ältere Prozessoren haben weniger CPU-Cache, also reduzierst du durch "mehr nutzloser Code" ohnehin die Leistung.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da hast du absolut recht!<br/><br/>Aber wie gesagt, zum Thema Usability finde ich es sehr schlecht wenn man ein Programm immer bzw. immer wenn man auf nem anderen Rechner ist (was auch portable Programme unmöglich macht bzw. unpraktikabel) neu kompilieren muss.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_standard_quote">Willst du einen Kernel schreiben, der optimal auf einem 386er mit 4 MB RAM optimal performt, dann wird er auf einem Dual-Hexacore-System mit 64 GB RAM nur suboptimal laufen. Andersrum gilt das genauso. Du musst dir bewusst sein, dass du immer Kompromisslösungen benutzt.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich gehe dahin, das ich auf jeden Fall alte Systeme unterstützen will, aber SMP Systeme bevorzuge. Ansonsten sehe ich zu das meine Datenstrukturen und Algos in beiden Extremen halbwegs gleich effizient sind.<br/><br/>Zumal du mir doch wohl zustimmen musst, das es eigentlich nicht sein kann, dass ein OS welches nur eine Konsole zur Verfügung stellt schon 16MB und mehr braucht, oder?<br/><br/>Ich sags mal so, mit der Einstellung würde Linux aber nicht auf Routern oder anderen kleinen Geräten laufen und Handies wären noch langsamer!<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_standard_quote">In der freien Wirtschaft zählt die Größe "Realzeit zwischen Idee und Vermarktung". Da ist für Qualität nur wenig Platz. In der Uni zählt "lässt sich theoretisch Beweisen", da spielt die Umsetzbarkeit nur eine untergeordnete Rolle.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da stimme ich dir nicht ganz zu. Ich habe allerdings noch keinerlei Erfahrung aus der freien Wirtschaft, aber wenn du ein Programm schreibst, dann musst du dich ja für irgend einen Algo und irgendeine Datenstruktur entscheiden, d.h. du denkst darüber nach und genau da kann man ansetzen. Denn seien wir ehrlich es wird sich oft nur für irgendeine Datenstruktur entschieden weil man keine besseren kennt (weil man sich nicht auf dem laufenden hält und/oder keine Ahnung hat) und sich sagt, Speicher ist ja genug da, was die anderen Programme dann machen ist ja egal.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_standard_quote">Und ja, bei der These bleibe ich; ich bin mir aber durchaus bewusst, dass es sowohl nach oben als auch nach unten praktische Grenzen gibt, ab der es sich nicht lohnt.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Naja, um nur mal ein Bsp. zu nennen. Ich habe eine zeitlang für alle Sachen die über eine ID haben, einen AVL-Baum benutzt um die IDs zu verwalten und auf die Datenstrukturen zuzugreifen.<br/>Jetzt verwende ich statt dessen ein Array und das verbraucht <strong>immer</strong> (da nur Pages gemappt werden wo auch Daten drin sind) weniger oder gleich viel (was nur zutrifft, wenn eine Page in Benutzung ist) Speicher ist aber um Welten schneller.<br/><br/>Es kommt nämlich durchaus auf das Problem an, ob man sagen kann das weniger Speicherverbrauch mehr Rechenzeit heißt.<br/><br/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32256">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32257"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_32257_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #34 am:</strong> 20. May 2011, 20:05 »</div>
+<div class="posttile"><h5 id="subject_32257">
+<a href="offset-20.html#msg32257" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32257_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32257"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32249">Zitat von: rizor am 20. May 2011, 17:55</a></div></div><blockquote class="bbc_standard_quote">Wenn man das statisch macht, kannst du Speicher sparen, da du davon ausgehst, dass derjenige, der den Kernel baut, weiß wie viel Kerne er verwendet. Du kannst dem Compiler ja sagen, dass dein System auf zwei CPUs gebaut werden soll. Wenn es nicht stimmt, ist der User des Kernels selber schuld. Im Prinzip genau so, wie es Linux macht. Natürlich hast du einen größeren Speicherverbrauch wenn du mehr Kerne angibst, aber warum solltest du das tun?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ist das immer noch so? Ich meine, in Erinnerung zu haben, dass das zu ändern schon vor zwei, drei Jahren im Gespräch war. Du kannst auf jeden Fall davon ausgehen, dass das nicht so ist, weil es toll wäre, sondern eher weil es so schön einfach zu implementieren war. Auf kurz oder lang wird das also dynamisch werden.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32257">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32257_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32258"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32258_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #35 am:</strong> 20. May 2011, 20:47 »</div>
+<div class="posttile"><h5 id="subject_32258">
+<a href="offset-20.html#msg32258" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32258_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32258">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32245">Zitat von: FlashBurn am 20. May 2011, 14:21</a></div></div><blockquote class="bbc_standard_quote">Mir gefällt die Idee auch immer besser <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Das Sortieren sollte eigentlich nicht wirklich Rechenzeit kosten, weil du ja einen Objectcache max eine Postion nach vorne schiebst (es wird was alloziert) oder nach hinten (es wird was freigegeben).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, meine Ideen wissen oft zu gefallen. <img alt=":-D" class="smiley" src="../../../assets/forum/40e5b6b3635b5359f55907e5.gif" title="grin"/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32245">Zitat von: FlashBurn am 20. May 2011, 14:21</a></div></div><blockquote class="bbc_standard_quote">Da ich ja dann eh von der Objektadresse auf die Adresse von der Slab-Struktur komme brauche ich die vollen Objecktcaches auch nicht in einer extra Liste speichern (zu Debugging Zwecken wäre das natürlich trotzdem sinnvoll).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wozu Du die komplett vollen SLAB-Blöcke in einer extra Liste speichern möchtest verstehe ich nicht, ich möchte das als eine einzige doppelt verkettete Liste lassen und den statischen Pointer (quasi den Einsprungspunkt in diese Liste) will ich auf den vollsten nicht ganz vollen SLAB-Block zeigen lassen (von diesem Punkt aus kann man sich also oft in beide Richtungen durch die Liste bewegen). Zusätzlich möchte ich noch einen Pointer auf den leersten SLAB-Block haben um das Freigeben von diesen zu vereinfachen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32245">Zitat von: FlashBurn am 20. May 2011, 14:21</a></div></div><blockquote class="bbc_standard_quote">Das war übrigens ne ernst gemeinte Frage <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Ich denke mal das hat mal "damals" nicht so gemacht, weil man dann in jedem Objekt hätte speichern müssen wie groß es ist und (das wird viel wichtiger sein)</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Mir ist klar das Deine Frage ernst gemeint ist aber ich Denke wir reden hier trotzdem von 2 verschiedenen Standpunkten. Ich rede von einem kleinen überschaubaren Micro-Kernel (gerade die dynamischen Speicherbedürfnisse eines Micro-Kernels sind IMHO sehr gut überschaubar weil man ja nur eine eng begrenzte und wohl bekannte Menge an unterschiedlichen Objekten benötigt) und nicht von einer generischen Heap-Implementierung (wie sie z.B. in einer libc drin ist, auch die User-Mode-libc zu meinem OS wird ein normales free implementieren, schon allein weil ich im User-Mode FAR-Pointer hab und die gewünschte Information ja daher auch gratis bekomme).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32245">Zitat von: FlashBurn am 20. May 2011, 14:21</a></div></div><blockquote class="bbc_standard_quote">malloc liefert nicht immer einen Block zurück der genauso groß sit wie angefordert, sondern der kann auch größer sein und dann nützt dir die Angabe bei free() nämlich nichts!</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Klar kann malloc auch größere Objekte liefern, solange free den selben Algorithmus benutzt um an die <em>genormte</em> Objektgröße zu kommen ist das doch auch in Ordnung.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32245">Zitat von: FlashBurn am 20. May 2011, 14:21</a></div></div><blockquote class="bbc_standard_quote">Also ich will kein Hotplugging von CPUs unterstützen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist IMHO auch ganz gut, ansonsten holt man sich damit doch eine enorme Komplexität ins OS von der wohl kaum einer von uns tatsächlich profitieren könnte. Aber selbst wenn dann kann man ja auch einfach beim booten die Anzahl der Sockel bestimmen und so die maximal mögliche Anzahl an CPUs ausrechnen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32245">Zitat von: FlashBurn am 20. May 2011, 14:21</a></div></div><blockquote class="bbc_standard_quote">Allerdings hilft es mir auch nicht wenn ich zur Boot-Zeit weiß wie viele CPUs ich habe.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Warum nicht? Vor allem was geht besser wenn Du das erst noch später ermittelst? Wann genau ermittelt Dein OS denn die Anzahl der vorhandenen CPUs?<br/><br/>Ich möchte zur Verwaltung der SLABs folgende Struktur verwenden (für jede Objektgröße eine eigene) :<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">struct t_SlabMng<br/>{<br/>  ulong  NumFreeObj;     //Anzahl an freien Objekten (kann bei ungeordneter Freigabe auch deutlich mehr als die Anzahl der Objekte in einem SLAB-Block sein)<br/>  ulong  NumSlabBlocks;  //Anzahl der SLAB-Blöcke insgesamt<br/>  void*  SlabList;       //Pointer auf den vollsten nicht ganz vollen SLAB-Block<br/>  void*  SlabListLast;   //Pointer auf den leersten SLAB-Block (Ende der Liste)<br/>  char   Lock;           //Lock-Variable für alle malloc/mfree für diese Objektgröße<br/>  char   BlockAddActiv;  //wird auf 1 gesetzt solange eine Block-Add-Aktion aktiv ist<br/>                         //(in der Zeit müssen alle anderen Anforderungen die nicht vom VMM kommen warten)<br/>  void*  LocalCaches[];  //Pointer auf ein Array mit allen CPU-lokalen Caches<br/>                         //(die Größe dieser Objekte ist zur Compile-Zeit bekannt und die Anzahl wird beim booten ermittelt,<br/>                         // die CPU-Anzahl steht in einer globalen Variable)<br/>};</code>Ich denke das ich damit komplett hin komme, alles andere sind ja Konstanten die bereits zur Compile-Zeit bekannt sind. Den Speicher für die CPU-lokalen Caches möchte ich dem physischen Speicher entnehmen (genauso wie den jeweils ersten SLAB-Block auch) bevor ich den VMM mit dem dann noch freien Speicher initialisiere, das Freigeben dieser Strukturen ist ja nicht nötig also geht das problemlos als statischer Speicherverbrauch durch. Zugegriffen wird auf die CPU-lokalen Caches mit LocalCaches[currentCpuNum].* da sehe ich keine Probleme.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32245">Zitat von: FlashBurn am 20. May 2011, 14:21</a></div></div><blockquote class="bbc_standard_quote">Auf was ich hinaus will ist, was passiert, wenn du ne ungerade Anzahl von Objekten in deinen 512kb hast?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ah, jetzt hab ich verstanden auf was Deine Frage abzielt. Dann muss eben bevor die Bündelanforderung erfüllt werden kann noch ein neuer SLAB-Block per VMM alloziert werden, ob das nötig ist ergibt bei mir folgender Vergleich: if (slab.NumFreeObj &lt;= (Anforderungsmenge + ObjektReserve)) { vmalloc(); }. Eine Bündelanforderung muss ja nicht alle Objekte aus einem SLAB nehmen sondern soll auch beim vollsten nicht ganz vollen SLAB-Block anfangen, theoretisch wäre es möglich das alle neuen Objekte aus unterschiedlichen SLAB-Blöcken kommen (und danach auch X Blöcke zusätzlich komplett voll sind).<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32244">Zitat von: rizor am 20. May 2011, 11:52</a></div></div><blockquote class="bbc_standard_quote">Also sagen die 800 MB für den Kernel nur aus, dass deine Prozesse nicht viel Speicher benötigen und Windows somit mehr für sich nimmt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nein, die 800 MB sind der Verbrauch der 63 Prozesse selber, was der Kernel tatsächlich für sich verbraucht (ohne Caches und ohne Treiber usw.) sagt der Taskmanager nicht so deutlich.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32244">Zitat von: rizor am 20. May 2011, 11:52</a></div></div><blockquote class="bbc_standard_quote">Ich möchte da auch so eine Art Defragmentierung des Speichers einbauen, dass bei SPeicherknappheit der Speicher umgelegt werden soll.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Du willst in einem Flat-Memory-System den Speicher defragmentieren? Da bin ich jetzt aber mal neugierig, wie?<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32244">Zitat von: rizor am 20. May 2011, 11:52</a></div></div><blockquote class="bbc_standard_quote">Außerdem ist es so gut wie sicher, dass der zweite Parameter im CPU Cache liegt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dieser zweite Parameter für mein kfree ist eine Konstante die ich als Programmierer in den Quell-Code tippen kann da ich ja immer genau weiß was für ein Objekt ich da freigeben will. Zumindest in meinem Kernel kostet die gar nichts.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32244">Zitat von: rizor am 20. May 2011, 11:52</a></div></div><blockquote class="bbc_standard_quote">soll aber irgendwann mal kommen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Was echt, Du willst CPU-Hotplugging unterstützen? Und ich dachte immer mein Projekt ist schon ziemlich ambitioniert. Auf was für einen Rechner möchtest Du das denn entwickeln/testen?<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32244">Zitat von: rizor am 20. May 2011, 11:52</a></div></div><blockquote class="bbc_standard_quote">Dürfte aber eine riesige Baustelle für sich selbst werden, da da ja sehr viel mehr dran hängt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Oh ja, das dürfte wirklich eine recht große und komplexe Baustelle werden.<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32247">Zitat von: Svenska am 20. May 2011, 16:32</a></div></div><blockquote class="bbc_standard_quote">Ansonsten könnt ihr immer RAM-Verbrauch durch Rechenzeit ersetzen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Grundsätzlich kann ich dieser These zustimmen. Aber es gibt manchmal auch Lösungen die an beiden Seiten einen Vorteil bringen, z.B. das zweite Parameter für free bei einem SLAB-Allocator bringt mehr Performance weil man nicht erst aufwendig die Objekt-Größe ermitteln muss und spart Speicher weil eben einige Verwaltungsinformationen weg fallen (ja ich weiß das ich das auf einen exotischen Sonderfall (meinen Micro-Kernel) beziehe aber es gibt diese Fälle eben doch ab und an mal).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32247">Zitat von: Svenska am 20. May 2011, 16:32</a></div></div><blockquote class="bbc_standard_quote">Wenn mein Firefox sich ein paar hundert MB greift, dann fallen die paar KB mehr oder weniger freier Speicher nicht ins Gewicht.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Grundsätzlich kann ich auch hier zustimmen aber möchte schon anmerken das man sich zumindest bemühen sollte mit den verfügbaren Ressourcen sparsam umzugehen. Zumindest hab ich kein großes Problem damit wenn man mit ein klein wenig Speicherverschwendung einiges an Performance rausholen kann, wenn aber der Performancegewinn nur marginal oder der zusätzliche Speicherverbrauch riesig wäre würde ich das wohl nicht machen, ist eben immer ein Kompromiss.<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32255">Zitat von: Svenska am 20. May 2011, 19:43</a></div></div><blockquote class="bbc_standard_quote">In der freien Wirtschaft zählt die Größe "Realzeit zwischen Idee und Vermarktung". Da ist für Qualität nur wenig Platz.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>So ist es! Leider!<br/><br/><br/>Das Neucompilieren eines OS (oder eines anderen Programms) würde ich als User auch nur dann in Betracht ziehen wenn ich dadurch einen echten Vorteil bekomme, z.B. eine spürbar höhere Performance oder einen spürbar niedrigeren Speicherverbrauch. Das Aufsetzen einer geeigneten Build-Umgebung ist meistens mit erheblichen Aufwand verbunden für den es schon einer ordentlichen Begründung bedarf. Prinzipiell möchte ich mit einem frisch ausgepackten OS/Programm zumindest überhaupt etwas anfangen können (auch wenn es da ein paar Aspekte gibt die nicht ganz optimal auf meinen konkreten PC abgestimmt sind).<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32256">Zitat von: FlashBurn am 20. May 2011, 20:02</a></div></div><blockquote class="bbc_standard_quote">Zumal du mir doch wohl zustimmen musst, das es eigentlich nicht sein kann, dass ein OS welches nur eine Konsole zur Verfügung stellt schon 16MB und mehr braucht, oder?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das kommt auf die Qualitäten der Konsole an. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/>Der Punkt ist das hier viele eine möglichst hochperformante Speicherverwaltung realisieren wollen und da hat man oft einen gewissen Basisverbrauch (z.B. bei meinen riesigen SLAB-Blöcken) der sich erst mit steigender Systemauslastung wieder relativiert aber eben die Minimalanforderungen sehr hoch ausfallen lässt. In das Zeitalter wo es noch hieß "640 kB sind genug für alles" möchte ich aber definitiv auch nicht mehr zurück.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32258">
+								« <em>Letzte Änderung: 20. May 2011, 20:54 von erik.vikinger</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32258_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32259"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32259_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #36 am:</strong> 20. May 2011, 21:16 »</div>
+<div class="posttile"><h5 id="subject_32259">
+<a href="offset-20.html#msg32259" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32259_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32259"><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Wozu Du die komplett vollen SLAB-Blöcke in einer extra Liste speichern möchtest verstehe ich nicht, ich möchte das als eine einzige doppelt verkettete Liste lassen und den statischen Pointer (quasi den Einsprungspunkt in diese Liste) will ich auf den vollsten nicht ganz vollen SLAB-Block zeigen lassen (von diesem Punkt aus kann man sich also oft in beide Richtungen durch die Liste bewegen). Zusätzlich möchte ich noch einen Pointer auf den leersten SLAB-Block haben um das Freigeben von diesen zu vereinfachen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich sags mal so, ob du nun alles in einer Liste hast, die sortiert ist und dir trotzdem den Anfang der vollen Elemente, den Anfang der Elemente mit mind. einem freien Objekt und den Anfang der komplett freien Element merkst oder ob du 3 Listen hast, sollte nun wirklich egal sein.<br/>Was mir aber gefällt (im Hinblick auf den Speicherverbrauch) ist, dass die Liste der Anzahl der freien Objekte nach sortiert ist.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Klar kann malloc auch größere Objekte liefern, solange free den selben Algorithmus benutzt um an die genormte Objektgröße zu kommen ist das doch auch in Ordnung.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Mal was anderes, du sprichst zwar ständig von malloc/free, aber wenn ich dein Konzept richtig verstanden habe, dann hast du die doch gar nicht, sondern nur nen Slab-Allocator, wo du auch noch für jedes Objekt ne andere Funktion aufrufst.<br/><br/>Was mir auch nicht ganz klar ist, was du eigentlich immer mit der Objektgröße holen meinst. Wann brauchst du die denn? Nur wenn du einen neuen Objektcache erstellst und da wird bei dir einfach ne Instruktion sein, die die Größe in ein Register läd und bei mir wird sie von ner Stack-Variablen geladen. Da sollte Performance technisch nun wirklich kein Unterschied sein! Dafür ist mein Code dann kompakter.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Warum nicht? Vor allem was geht besser wenn Du das erst noch später ermittelst? Wann genau ermittelt Dein OS denn die Anzahl der vorhandenen CPUs?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Damit wollte ich eigentlich nur ausdrücken, da ich ja die Objektgröße für SlabDesc dynamisch beim Initialisieren festlege, ändert auch die Tatsache, das ich die CPU Anzahl zur Bootzeit kenne, nichts daran.<br/><br/>Was man vllt auch nochmal betonen sollte, du hast ja deine Segment und damit eine Art malloc/free und ich habe das gar nicht und kann nicht mal eben einen Block einer beliebigen Größe allozieren um den als Puffer für die per CPU Caches zu nehmen. Wobei wir da dann auch wieder wären, das du nen Pointer hast um auf deine CPU Caches zuzugreifen und ich habe auch einen Pointer dafür. Ist also im Endeffekt das gleiche, nur anders gelöst.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Eine Bündelanforderung muss ja nicht alle Objekte aus einem SLAB nehmen sondern soll auch beim vollsten nicht ganz vollen SLAB-Block anfangen, theoretisch wäre es möglich das alle neuen Objekte aus unterschiedlichen SLAB-Blöcken kommen (und danach auch X Blöcke zusätzlich komplett voll sind).<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Jetzt wird es nämlich interessant. Wie gibst du die dann zuück? Machst du aus den Objekten eine Liste? Wie löst du es, dass du ja auch jedes Mal nachgucken musst, ob überhaupt noch ein freies Objekt in dem Cache ist?<br/><br/>Ich habe das (leider eher unperformant) so gelöst das halt 4x die Funktion aufgerufen werden muss, die immer ein Objekt aus nem Cache holt. Macht die Sache erstens einfacher und zweitens behalte ich mir so die Option vor (und nutze sie auch intensiv), dass ich Fälle habe, wo ich den per CPU Cache nicht nutzen will oder kann.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">In das Zeitalter wo es noch hieß "640 kB sind genug für alles" möchte ich aber definitiv auch nicht mehr zurück.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Schon alleine wegen der Herausforderung würde ich das gerne machen bzw. habe mich ja auch vor fast 10 Jahren noch damit befasst.<br/><br/>Edit::<br/><br/>Jetzt sind mir meine Bedenken bezüglich der sortierten Liste doch wieder eingefallen.<br/><br/>Stell dir vor du hast eine List mit 100 Objectcaches und alle haben nur zwei Objekte rausgegeben und jetzt gibst du genau beim ersten Objectcache der List ein Objekt frei und musst jetzt 99 Listeneinträge durchgehen nur um die Liste sortiert zu halten.<br/><br/>Um das Problem zu umgehen würde ich insgesamt 4 Pointer für Objectcaches nutzen, 2 um eine doppelt verkettete Liste für alle Objectcaches mit der gleichen Anzahl freier Objekte zu machen und zwei um diese Listen miteinander zu verbinden.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32259">
+								« <em>Letzte Änderung: 20. May 2011, 21:26 von FlashBurn</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32260"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32260_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #37 am:</strong> 20. May 2011, 21:35 »</div>
+<div class="posttile"><h5 id="subject_32260">
+<a href="offset-20.html#msg32260" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32260_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32260">Hallo,<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32256">Zitat von: FlashBurn am 20. May 2011, 20:02</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenksa</div></div><blockquote class="bbc_alternate_quote">Außerdem ist es problemlos möglich, die Anzahl der Einträge zur Compilezeit begrenzen (oder nachträglich durch ein Relinken anzupassen).<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da müsstest du mal genauer werden. Ich verstehe nicht ganz wie das mit dem relinken funktionieren soll bzw. was das machen soll.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wie das technisch genau umgesetzt wurde, weiß ich nicht. Konkret hatte ich bei nem alten Xenix die Möglichkeit, durch ein Konfigurationsprogramm die Limits im Kernel zu ändern (also max. Anzahl serieller Terminals / gleichzeitig aktiver Prozesse / gleichzeitig geöffneter Dateien usw.); anschließend wurde der Kernel aus den Objectfiles neu gelinkt. Die Sourcen waren also nicht verfügbar, aber die Objectfiles. Ich vermute, dass dort die Offsets geändert wurden und im Kernel dann Freiräume eingebaut wurden, in denen dann die Datenstrukturen lagen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32256">Zitat von: FlashBurn am 20. May 2011, 20:02</a></div></div><blockquote class="bbc_standard_quote">Aber wie gesagt, zum Thema Usability finde ich es sehr schlecht wenn man ein Programm immer bzw. immer wenn man auf nem anderen Rechner ist (was auch portable Programme unmöglich macht bzw. unpraktikabel) neu kompilieren muss.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Davon redet auch keiner. Du redest von <em>müssen</em>, ich rede von <em>können</em>. Wenn es dir also zufällig auf das letzte Byte im Kernel ankommen sollte, hast du durchaus die Möglichkeit, den Speicherverbrauch zu reduzieren. Du musst es aber nicht tun.<br/><br/>Guck dir doch die üblichen Linux-Distributionen an. Die sind nicht auf Speicher sparen ausgelegt.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32256">Zitat von: FlashBurn am 20. May 2011, 20:02</a></div></div><blockquote class="bbc_standard_quote">Zumal du mir doch wohl zustimmen musst, das es eigentlich nicht sein kann, dass ein OS welches nur eine Konsole zur Verfügung stellt schon 16MB und mehr braucht, oder?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ein Größenvergleich: Boote ich mein Netbook (i686) mit "init=/bin/sh", lande ich bei 4.6 MB (6 MB inkl. Plattencache). Boote ich mit "single", lande ich bei 12 MB (27 MB inkl. Plattencache). Starte ich ein vollwertiges System ohne X11 (Runlevel 2), verbraucht mein System schon 29 MB (60 MB inkl. Plattencache). In allen Fällen habe ich "nur" eine Shell. Aber, wie dir auffallen sollte, ist die Größe des Kernels gegenüber den Anwendungen vernachlässigbar klein.<br/><br/>Oder andersrum: Wenn jede Anwendung einen Speicherverbrauch von mindestens 64 MB RAM hat, dann ist es total egal, ob der Microkernel nun 1 MB oder 2 MB verbraucht.<br/><br/>Würde man bei deinem Auto-Beispiel so konsequent argumentieren wie du, dann hätten wir keine Autobahnen aus Straßen, sondern aus Schienen und würden ausschließlich elektrisch angetriebene Mobilität haben. Die Kosten dafür (Bau, Instandhaltung, Inflexibilität) machen es aber nicht sinnvoll. Also nehmen wir absichtlich einen höheren Benzin-/Dieselverbrauch in Kauf.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32256">Zitat von: FlashBurn am 20. May 2011, 20:02</a></div></div><blockquote class="bbc_standard_quote">Ich sags mal so, mit der Einstellung würde Linux aber nicht auf Routern oder anderen kleinen Geräten laufen und Handies wären noch langsamer!</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Guck dir mal in einem modernen Kernel an, was alles durch CONFIG_EMBEDDED abschaltbar oder änderbar wird. Dann siehst du vielleicht auch den Grund, warum Linux auf Routern mit 16 MB einigermaßen vernünftig läuft. Ein normaler Distributionskernel für x86_64 ist da jedenfalls nicht mehr gebrauchbar.<br/><br/>Du vergleichst Äpfel mit Birnen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32256">Zitat von: FlashBurn am 20. May 2011, 20:02</a></div></div><blockquote class="bbc_standard_quote">Ich habe allerdings noch keinerlei Erfahrung aus der freien Wirtschaft, aber wenn du ein Programm schreibst, dann musst du dich ja für irgend einen Algo und irgendeine Datenstruktur entscheiden, d.h. du denkst darüber nach und genau da kann man ansetzen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Kann man nicht. Da wird sich nicht für einen Algorithmus und eine Datenstruktur entschieden, sondern da wird nach der erstbesten Bibliothek gesucht, die man anwenden kann und die die Aufgabe erledigt.<br/><br/>Da ist es schon zu spät, auf Effizienz zu achten. Oder andersrum: Es wird durchaus hochgradig optimiert, aber auf die Zeit bis zur Marktreife, nicht auf Effizienz des Ergebnisses.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32256">Zitat von: FlashBurn am 20. May 2011, 20:02</a></div></div><blockquote class="bbc_standard_quote">Denn seien wir ehrlich es wird sich oft nur für irgendeine Datenstruktur entschieden weil man keine besseren kennt (weil man sich nicht auf dem laufenden hält und/oder keine Ahnung hat) und sich sagt, Speicher ist ja genug da, was die anderen Programme dann machen ist ja egal.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nein. Wenn ich alle Daten vorrätig habe, dann habe ich weniger Arbeit. Also verbrauche ich Speicher, um mir damit später Arbeit zu vereinfachen (oder die Programmierzeit zu verkürzen).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32256">Zitat von: FlashBurn am 20. May 2011, 20:02</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_alternate_quote">Und ja, bei der These bleibe ich; ich bin mir aber durchaus bewusst, dass es sowohl nach oben als auch nach unten praktische Grenzen gibt, ab der es sich nicht lohnt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Naja, um nur mal ein Bsp. zu nennen. Ich habe eine zeitlang für alle Sachen die über eine ID haben, einen AVL-Baum benutzt um die IDs zu verwalten und auf die Datenstrukturen zuzugreifen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wenn du <em>noch mehr</em> Speicher sparen möchtest, dann verwaltest du die IDs garnicht zentral, sparst dir also die Datenstruktur komplett, und iterierst bei jeder ID-Anfrage durch sämtliche vorhandenen Objekte. Das ist wesentlich langsamer, kostet aber garkeinen Speicher.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32256">Zitat von: FlashBurn am 20. May 2011, 20:02</a></div></div><blockquote class="bbc_standard_quote">Es kommt nämlich durchaus auf das Problem an, ob man sagen kann das weniger Speicherverbrauch mehr Rechenzeit heißt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Es gibt immer noch mehr Möglichkeiten, den Speicherverbrauch oder die Rechenzeit zu minimieren. Ab einem gewissen Punkt lohnt es sich jedoch nicht mehr, weil die geringste Ersparnis zu enormen Performanceverlust führt oder umgekehrt.<br/><br/>Wenn du dein Betriebssystem auf 640K optimierst, dann wird es auf großen Maschinen nicht optimal laufen. Das solltest du bedenken - hat dein Ziel viel RAM, solltest du ihn auch nutzen.<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32260">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32261"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32261_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #38 am:</strong> 20. May 2011, 21:51 »</div>
+<div class="posttile"><h5 id="subject_32261">
+<a href="offset-20.html#msg32261" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32261_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32261"><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_standard_quote">Du redest von müssen, ich rede von können. Wenn es dir also zufällig auf das letzte Byte im Kernel ankommen sollte, hast du durchaus die Möglichkeit, den Speicherverbrauch zu reduzieren. Du musst es aber nicht tun.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Naja, wenn ein Programm mit einem bestimmten Prozessorfeature kompiliert wurde (weil halt hochgradig optimeirt), dann muss ich das Programm auf nem Rechner wo die CPU dieses Feature nicht bietet neu kompilieren.<br/>Baue ich mein Programm so auf, das ich sagen, entweder ich optimiere hochgradig (durch irgendwelche Flags eventuell auch im Code) oder ich mache es allgemein und packe alle Features rein, würde ich sagen macht es die Sache nur unnötig kompliziert und verlängert die Programmentwicklung. Besser ist es sich für eine Sache zu entscheiden (in meinem Fall also, alle Features rein und zur Laufzeit wird entschieden welches Feature genutzt wird).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_standard_quote">Oder andersrum: Wenn jede Anwendung einen Speicherverbrauch von mindestens 64 MB RAM hat, dann ist es total egal, ob der Microkernel nun 1 MB oder 2 MB verbraucht.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich meinte das mit dem Speicherverbrauch eigentlich auch allgemein und nicht nur auf den Kernel bezogen.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_standard_quote">Würde man bei deinem Auto-Beispiel so konsequent argumentieren wie du, dann hätten wir keine Autobahnen aus Straßen, sondern aus Schienen und würden ausschließlich elektrisch angetriebene Mobilität haben. Die Kosten dafür (Bau, Instandhaltung, Inflexibilität) machen es aber nicht sinnvoll. Also nehmen wir absichtlich einen höheren Benzin-/Dieselverbrauch in Kauf.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da kann ich dir nicht ganz folgen. Zumal es mir darum ging, wenn wir (und das gilt wahrscheinlich für fast alle Probleme) keinen Zwang zu Effizienzverbesserungen bekommen, dann belassen wir es dabei.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_standard_quote">Da wird sich nicht für einen Algorithmus und eine Datenstruktur entschieden, sondern da wird nach der erstbesten Bibliothek gesucht, die man anwenden kann und die die Aufgabe erledigt.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich kann da wie gesagt leider nicht aus Erfahrung sprechen, aber ich kann mich auch dann immer noch zw. verschiedenen Datenstrukturen entscheiden, auch wenn ich eine schon fertige Implementierung der Datenstruktur nehme.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_standard_quote">Wenn du noch mehr Speicher sparen möchtest, dann verwaltest du die IDs garnicht zentral, sparst dir also die Datenstruktur komplett, und iterierst bei jeder ID-Anfrage durch sämtliche vorhandenen Objekte. Das ist wesentlich langsamer, kostet aber garkeinen Speicher.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich will ja nicht so wenig Speicher wie nur äußerst möglich verbrauchen, sondern so wenig wie mit der Leistung zu vereinbaren und da ist viel möglich, wenn man die richtigen Algos nutzt. Außerdem kann ein Algo der weniger Speicher verbraucht durchaus schneller sein, alleine schon weil man wahrscheinlich weniger Cachemisses hat und die sind richtig teuer.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_standard_quote">Wenn du dein Betriebssystem auf 640K optimierst, dann wird es auf großen Maschinen nicht optimal laufen. Das solltest du bedenken - hat dein Ziel viel RAM, solltest du ihn auch nutzen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Eher umgedreht in meinem Fall. Ich möchte das mein OS auch mit wenig Speicher läuft, aber mit mehr Speicher wird es definitiv bei vielen Sachen schneller/besser laufen, weil dann z.B. weniger ausgelagert werden muss und sowas. Ich will dahin, das es läuft und zwar auf beiden extremen und das sollte machbar sein. Die Cachegröße an die vorhandene RAM-Größe anzupassen sollte kein Problem sein und muss sowieso gemacht werden.<br/><br/>Edit::<br/><br/>Auch die freie Wirtschaft wird irgendwann lernen, dass alles immer schnell nichts bringt. Ganz aktuell, siehe Sony <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/>Der Schaden ist oft höher wenn man etwas zu schnell veröffentlich als wenn man gründlich arbeitet!</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32261">
+								« <em>Letzte Änderung: 20. May 2011, 22:06 von FlashBurn</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32262"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32262_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #39 am:</strong> 20. May 2011, 22:12 »</div>
+<div class="posttile"><h5 id="subject_32262">
+<a href="offset-20.html#msg32262" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32262_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32262">Hallo,<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32261">Zitat von: FlashBurn am 20. May 2011, 21:51</a></div></div><blockquote class="bbc_standard_quote">Naja, wenn ein Programm mit einem bestimmten Prozessorfeature kompiliert wurde (weil halt hochgradig optimeirt), dann muss ich das Programm auf nem Rechner wo die CPU dieses Feature nicht bietet neu kompilieren.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Darum ging es doch nicht. Konkret ging es um die paar KB, die du verschwendest, wenn du die per-CPU-Strukturen statisch einbindest. Um die paar KB einzusparen, machst du dir eine Menge Aufwand und meine Argumentation war "wozu eigentlich, dafür ist genug RAM da".<br/><br/>Optimierung auf CPU-Basis ist noch eine ganz andere Baustelle, siehe "int 0x80", "SYSENTER", "SYSCALL".<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32261">Zitat von: FlashBurn am 20. May 2011, 21:51</a></div></div><blockquote class="bbc_standard_quote">Besser ist es sich für eine Sache zu entscheiden (in meinem Fall also, alle Features rein und zur Laufzeit wird entschieden welches Feature genutzt wird).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Oder, dass halt der PIT verwendet wird und nicht der HPET. <img alt=":-)" class="smiley" src="../../../assets/forum/3bd230edbfa99cc1552b7785.gif" title="smiley"/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32261">Zitat von: FlashBurn am 20. May 2011, 21:51</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_alternate_quote">Würde man bei deinem Auto-Beispiel so konsequent argumentieren wie du, dann hätten wir keine Autobahnen aus Straßen, sondern aus Schienen (...)</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da kann ich dir nicht ganz folgen. Zumal es mir darum ging, wenn wir (und das gilt wahrscheinlich für fast alle Probleme) keinen Zwang zu Effizienzverbesserungen bekommen, dann belassen wir es dabei.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Schienen haben wesentlich weniger Gleitreibung und sind daher effizienter für den Transport. Dennoch wird Transport im großen Stil auf der Straße durchgeführt.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32261">Zitat von: FlashBurn am 20. May 2011, 21:51</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_alternate_quote">Wenn du noch mehr Speicher sparen möchtest, dann verwaltest du die IDs garnicht zentral, sparst dir also die Datenstruktur komplett, und iterierst bei jeder ID-Anfrage durch sämtliche vorhandenen Objekte. Das ist wesentlich langsamer, kostet aber garkeinen Speicher.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich will ja nicht so wenig Speicher wie nur äußerst möglich verbrauchen, sondern so wenig wie mit der Leistung zu vereinbaren und da ist viel möglich, wenn man die richtigen Algos nutzt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Merkste was? Das ist eine Kompromisslösung. Du <em>kannst</em> den Speicherverbrauch noch weiter auf Kosten der Performance reduzieren. Das ergibt sich aus meiner These: Du kannst beide gegeneinander eintauschen. Vom Verhältnis ist keine Rede.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32261">Zitat von: FlashBurn am 20. May 2011, 21:51</a></div></div><blockquote class="bbc_standard_quote">Außerdem kann ein Algo der weniger Speicher verbraucht durchaus schneller sein, alleine schon weil man wahrscheinlich weniger Cachemisses hat und die sind richtig teuer.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Kann, muss aber nicht, das hängt konkret von der Umgebung ab. Wäre dir das wichtig, würdest du immer den langsameren, speichersparenden Algorithmus nehmen, denn so ein 486er hat nur 16K Cache... Die Aussage ist in jedem Fall nicht allgemeingültig, sonst würde man keine aufwändigeren Algorithmen verwenden.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg32261">Zitat von: FlashBurn am 20. May 2011, 21:51</a></div></div><blockquote class="bbc_standard_quote">Ich möchte das mein OS auch mit wenig Speicher läuft, [...] weil dann z.B. weniger ausgelagert werden muss und sowas.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also doch Windows 95 bei 4 MB RAM. Es geht, ist aber nicht benutzbar.<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32262">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: <a class="navPages" href="index.html">1</a> [<strong>2</strong>] <a class="navPages" href="offset-40.html">3</a> <a class="navPages" href="offset-60.html">4</a> <span style="font-weight: bold;"> ... </span><a class="navPages" href="offset-120.html">7</a>
+</div></div>
+<div class="nextlinks_bottom"><a href="../2770/index.html#msg32500">« vorheriges</a> <a href="../2185/offset-60.html#msg32143">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>SLAB-Allocator als Basis fuer kmalloc?</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.047 Sekunden mit 409 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

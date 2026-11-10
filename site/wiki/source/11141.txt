@@ -1,0 +1,203 @@
+Der '''I/O APIC''' (= '''I/O Advanced Programmable Interrupt Controller''') löst den [[PIC | Programmable Interrupt Controller]] in einem [[SMP]]- bzw. [[NUMA]]-System ab. Da der PIC die [[IRQ | IRQs]] ausschließlich an den BSP (= Bootstrap Processor) senden kann, ist in einem System mit mehreren Prozessoren ein I/O APIC notwendig. Darüber hinaus stellt der I/O APIC statt nur 16 IRQ-Leitungen wie der PIC normalerweise 24 IRQ-Leitungen zur Verfügung. Dies verringert die Anzahl der von mehreren Geräten gleichzeitig genutzten IRQs in Systemen mit sehr vielen Geräten. Außerdem ist die Programmierung des I/O APIC schneller, da sie nicht über I/O Ports, sondern über Speicherbereiche abläuft.
+
+
+== Aufbau ==
+
+=== memory-mapped Register ===
+
+Die folgenden Register sind in den physischen Adressraum des Systems eingeblendet und dienen dazu auf die [[I/O APIC#Interne Register | internen Register]] zuzugreifen:
+
+
+{| {{prettytable}}
+!Offset
+!Abkürzung
+!Beschreibung
+!Zugriffsart
+|-
+| 0x00 || IOREGSEL || I/O Register Select || 8Bit, lesend/schreibend
+|-
+| 0x10 || IOWIN || I/O Window || 32Bit, lesend/schreibend
+|}
+
+
+=== Interne Register ===
+
+Die folgenden Register dienen der Konfiguration des I/O APIC:
+
+
+{| {{prettytable}}
+!Index
+!Abkürzung
+!Beschreibung
+!Zugriffsart
+|-
+| 0x00 || IOAPICID || I/O APIC ID || 32Bit, lesend/schreibend
+|-
+| 0x01 || IOAPICVER || I/O APIC Version || 32Bit, nur lesend
+|-
+| 0x02 || IOAPICARB || I/O APIC Arbitration ID || 32Bit, nur lesend
+|-
+| 0x10 - ? || IOREDTBL[0-23] || ''Redirection Table''-Eintrag 0-? (jeweils 64bit) || 32Bit, lesend/schreibend
+|}
+
+
+==== I/O APIC ID ====
+
+{| {{prettytable}}
+! Bits
+! Beschreibung
+! Zugriffsart
+|-
+| 28-31 || reserviert ||
+|-
+| 24-27 || 4Bit ID des I/O APIC || lesend/schreibend
+|-
+| 0-23 || reserviert ||
+|}
+
+==== I/O APIC Version ====
+
+{| {{prettytable}}
+! Bits
+! Beschreibung
+! Zugriffsart
+|-
+| 24-31 || reserviert ||
+|-
+| 26-23 || maximaler Index eines gültigen Eintrags in der ''Redirection Table'' || nur lesend
+|-
+| 8-15 || reserviert ||
+|-
+| 0-7 || I/O APIC Versionsnummer:<br> 0x11 = 82093AA || nur lesend
+|}
+
+==== I/O APIC Arbitration ID ====
+
+{| {{prettytable}}
+! Bits
+! Beschreibung
+! Zugriffsart
+|-
+| 28-31 || reserviert ||
+|-
+| 24-27 || 4Bit Arbitration ID des I/O APIC || lesend/schreibend
+|-
+| 0-23 || reserviert ||
+|}
+
+==== ''Redirection Table'' ====
+
+===== Aufbau eines Eintrags =====
+
+{| {{prettytable}}
+! Bits
+! Abkürzung
+! Name
+! Beschreibung
+! Zugriffsart
+|-
+| 56-63 || || Destination || gibt den/die empfangenden [[Local APIC]](s) an, Erklärung siehe [[I/O APIC#Destination | ''Destination''-Tabelle]] || lesend/schreibend
+|-
+| 17-55 || || || reserviert ||
+|-
+| 16 || || Interrupt Mask || Der Interrupt ist maskiert, falls der Wert 1 ist || lesend/schreibend
+|-
+| 15 || || Trigger Mode || 0b = edge sensitive<br>1b = level sensitive || lesend/schreibend
+|-
+| 14 || || Remote IRR || Dieses Bit ist nur gültig, wenn der ''Trigger Mode'' ''edge'' ist:<br> 0b = EOI mit passendem Interruptvektor wurde gesendet<br>1b = Interrupt wurde vom [[Local APIC]] bzw. den Local APICs angenommen || nur lesend
+|-
+| 13 || INTPOL || Interrupt Input Pin Polarity || 0b = high active<br>1b = low active || lesend/schreibend
+|-
+| 12 || DELIVS || Delivery Status || Der Interrupt wird momentan ausgeliefert, falls der Wert 1 ist || nur lesend
+|-
+| 11 || DESTMOD || Destination Mode || Gibt an wie das Destination-Feld zur Adressierung der empfangenden [[Local APIC]]s interpretiert wird, siehe Destination-Feld || lesend/schreiben
+|-
+| 8-10
+| DELMOD
+| Delivery Mode
+| Gibt an wie die empfangenden [[Local APIC]]s reagieren sollen, Erklärung siehe [[I/O APIC#Delivery Mode | ''Delivery Mode''-Tabelle]] || lesend/schreibend
+|-
+| 0-7 || INTVEC || Interrupt Vector || auszulösender Interruptvektor || lesend/schreibend
+|}
+
+===== ''Destination'' =====
+
+{| {{prettytable}}
+! Wert von DESTMOD
+! Modus
+! Beschreibung
+|-
+| 0 || Physical Mode || Bits 56-59 enthalten eine APIC ID
+|-
+| 1 || Logical Mode || Bits 56-63 werden als Menge von Prozessoren interpretiert
+|}
+
+===== ''Delivery Mode'' =====
+
+{| {{prettytable}}
+! Wert
+! Modus
+! Beschreibung
+|-
+| 000b || Fixed || Löst in den durch das ''Destination''-Feld ausgewählten Prozessoren einen normalen Interrupt aus.
+|-
+| 001b || niedrigste Priorität || Löst in dem Prozessor mit der momentan geringsten Priorität der durch das ''Destination''-Feld ausgewählten Prozessoren einen normalen Interrupt aus.
+|-
+| 010b || [[SMI]] || Es wird allen durch das ''Destination''-Feld ausgewählten Prozessoren ein SMI signalisiert. Dabei wird der Interruptvektor ignoriert, sollte aber aus Kompatibilitätsgründen auf 0 gesetzt werden. Der ''Trigger Mode'' muss ''edge'' sein.
+|-
+| 011b || reserviert ||
+|-
+| 100b || [[NMI]] || Es wird allen durch das ''Destination''-Feld ausgewählten Prozessoren ein NMI signalisiert. Dabei wird der Interruptvektor ignoriert. Der ''Trigger Mode'' muss ''edge'' sein.
+|-
+| 101b || INIT || 
+|-
+| 110b || reserviert ||
+|-
+| 111b || ExtINT || Analog zu ''Fixed'' wird ein normaler Interrupt ausgelöst. Der Interruptvektor kommt allerdings nicht vom I/O APIC sondern wird von einem externen Controller (z.B. des [[PIC]]) geliefert. Der ''Trigger Mode'' muss ''edge'' sein.
+|}
+
+
+== Programmierung ==
+
+=== Basisadresse des I/O APIC ===
+
+Die Basisadresse dieser Speicherbereiche kann im Allgemeinen über die [[Symmetrisches_Multiprozessorsystem#Intel_Multiprocessor_Specification | SMP]]- bzw. die [[ACPI | ACPI]]-Tabellen ausgelesen werden. Bei einem PIIX3 Chipsatz beginnt der Speicherbereich bei 0xFEC00xy00 (x und y werden mit dem APICBASE Register im PIIX3 festgelegt).
+
+=== Lesen/Schreiben der internen Register ===
+Der I/O APIC besitzt ein Indexregister (''I/O Register Select'' bzw. ''IOREGSEL'') und ein Datenregister (''I/O Window'' bzw. ''IOWIN''). Mit dem Indexregister wählt man ein [[I/O APIC#Interne Register | internes Register]] des I/O APIC aus und kann anschließend über das Datenregister das interne Register auslesen bzw. beschreiben.
+
+Folgender Code kann dazu verwendet werden auf die internen Register zuzugreifen:
+<c>
+/* Offset der memory-mapped Register */
+#define IO_APIC_MMREG_IOREGSEL 0x00
+#define IO_APIC_MMREG_IOWIN    0x10
+
+/* Basisadresse, sollte vorher initialisiert werden */
+volatile uint8_t * io_apic_base;
+
+/* Lesen eines internen Registers */
+uint32_t io_apic_read(uint8_t index)
+{
+  *(io_apic_base + IO_APIC_MMREG_IOREGSEL) = index;
+  return *(volatile uint32_t *)(io_apic_base + IO_APIC_MMREG_IOWIN);
+}
+
+/* Schreiben eines internen Registers */
+void io_apic_write(uint8_t index, uint32_t value)
+{
+  *(io_apic_base + IO_APIC_MMREG_IOREGSEL) = index;
+  *(volatile uint32_t *)(io_apic_base + IO_APIC_MMREG_IOWIN) = value;
+}
+</c>
+
+=== Setzen der Einträge der ''Redirection Table'' ===
+Die Einträge der ''Redirection Table'' werden basierend auf den Informationen, die die [[Symmetrisches_Multiprozessorsystem#Intel_Multiprocessor_Specification | SMP]]- bzw. die [[ACPI | ACPI]]-Tabellen enthalten, gesetzt.
+
+== Weblinks ==
+* [http://www.intel.com/design/chipsets/datashts/290566.htm Intel® 82093AA I/O Advanced Programmable Interrupt Controller (I/O APIC) Datasheet]
+* [http://www.intel.com/design/chipsets/specupdt/290710.htm Intel® 82093AA I/O Advanced Programmable Interrupt Controller (I/O APIC) Specification Update]
+
+[[Kategorie:Hardware]]
+[[Kategorie:Glossar]]
+
+[[en:IOAPIC]]

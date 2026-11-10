@@ -1,0 +1,56 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Stack — Änderungen 6949 → 6952</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Stack — Änderungen 6949 → 6952</h1><nav><a href="../revisions/6949/index.html">Version 6949</a> · <a href="../revisions/6952/index.html">Version 6952</a> · <a href="../history/2165/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l1" >Zeile 1:</td>
+<td colspan="2" class="diff-lineno">Zeile 1:</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Der Stack (=Kellerspeicher oder Stapel) ist eine der wichtigsten Datenstrukturen sowohl für Software als auch Hardware, da dieser <del class="diffchange diffchange-inline">ua</del>. Parameter und Rücksprungadressen speichert.</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Der Stack (=Kellerspeicher oder Stapel) ist eine der wichtigsten Datenstrukturen sowohl für Software als auch Hardware, da dieser <ins class="diffchange diffchange-inline">u.&amp;nbsp;a</ins>. Parameter und Rücksprungadressen speichert.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Funktionsweise ===</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Funktionsweise ===</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l12" >Zeile 12:</td>
+<td colspan="2" class="diff-lineno">Zeile 12:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Die CPU bietet zwei Register zum Arbeiten mit dem Stack:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Die CPU bietet zwei Register zum Arbeiten mit dem Stack:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*'''das SS-Register''' speichert das Stacksegment (im [[Real Mode]]) bzw. den Stackselektor (im [[Protected Mode]]).</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*'''das SS-Register''' speichert das Stacksegment (im [[Real Mode]]) bzw. den Stackselektor (im [[Protected Mode]]).</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>*'''das ESP-Register''' (=StackPointer) zeigt auf das oberste Element des aktuellen Stacks. Die [[Real Mode]]Variante dieses Registers ist das SP-Register.</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>*'''das ESP-Register''' (=StackPointer) zeigt auf das oberste Element des aktuellen Stacks. Die [[Real <ins class="diffchange diffchange-inline">Mode|Real-</ins>Mode]]<ins class="diffchange diffchange-inline">-</ins>Variante dieses Registers ist das SP-Register.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Zudem sind die Befehle PUSH und POP in die CPU integriert. Dabei ist zu beachten, '''dass der Stack von den höheren zu den niedrigeren Adressen wächst'''.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Zudem sind die Befehle PUSH und POP in die CPU integriert. Dabei ist zu beachten, '''dass der Stack von den höheren zu den niedrigeren Adressen wächst'''.</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>*Der PUSH-Befehl <del class="diffchange diffchange-inline">schreibt </del>den Operanden an die Stelle, auf die <del class="diffchange diffchange-inline">ESP </del>zeigt <del class="diffchange diffchange-inline">und vermindert den Wert des Registers um die Größe des Operanden</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>*Der PUSH-Befehl <ins class="diffchange diffchange-inline">vermindert </ins>den <ins class="diffchange diffchange-inline">Wert von ESP um die Größe des </ins>Operanden <ins class="diffchange diffchange-inline">und schreibt diesen </ins>an die Stelle, auf die <ins class="diffchange diffchange-inline">das Register dann </ins>zeigt</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*Der POP-Befehl liest das Element, auf das ESP zeigt und erhöht das Register um die Operandengröße.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>*Der POP-Befehl liest das Element, auf das ESP zeigt und erhöht das Register um die Operandengröße.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Das bedeutet, dass der Stack seine maximale Größe erreicht hat, wenn der Wert <del class="diffchange diffchange-inline">Eins </del>im ESP-Register steht. In diesem Fall wird ein [[Stackfault]] ausgelöst.</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Das bedeutet, dass der Stack seine maximale Größe erreicht hat, wenn der Wert <ins class="diffchange diffchange-inline">0 </ins>im ESP-Register steht. In diesem Fall wird ein [[Stackfault]] ausgelöst.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Das EPB-Register ===</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Das EPB-Register ===</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l42" >Zeile 42:</td>
+<td colspan="2" class="diff-lineno">Zeile 42:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|popf</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|popf</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|liest das EFLAGS-Register vom Stack</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|liest das EFLAGS-Register vom Stack</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|pusha</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|legt alle &quot;allgemeinen&quot; Register (EAX, ECX, EDX, EBX, ESP, EBP, ESI, EDI) auf den Stack</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|popa</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|Holt diese Register wieder vom Stack, wobei ESP übersprungen wird</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|call</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|call</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l47" >Zeile 47:</td>
+<td colspan="2" class="diff-lineno">Zeile 53:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|ret</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|ret</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|int</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|int</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l52" >Zeile 52:</td>
+<td colspan="2" class="diff-lineno">Zeile 59:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|iret</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|iret</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|enter</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|leave</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td></tr>
+</table></body></html>

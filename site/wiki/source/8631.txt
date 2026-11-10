@@ -1,0 +1,125 @@
+Die Control Register sind spezielle Register der [[IA-32]] und [[AMD64]] Architekturen, die den Betriebsmodus und einige Eigenschaften der CPU festlegen. In der AMD64-Architektur haben sie eine Breite von 64 Bit, wobei die unteren 32 Bit, den der IA-32 Architektur entsprechen.
+Der Zugriff auf diese Register ist wie bei den Segment Registern auch nur mit einem Umweg über Allzweckregister möglich.
+
+==CR0==
+{| align="right"
+|
+{| {{Prettytable}} width="100%"
+|- align="center"
+! 63-32
+|- bgcolor="#bbb" align="center"
+| ''Reserviert''
+|}
+|-
+|
+{| {{Prettytable}} width="100%"
+|- align="center"
+! width='3.125%' | 31
+! width='3.125%' | 30
+! width='3.125%' | 29 
+! width='31.25%' | 28-19 
+! width='3.125%' | 18
+! width='3.125%' | 17
+! width='3.125%' | 16 
+! width='31.25%' | 15-6
+! width='3.125%' | 5
+! width='3.125%' | 4
+! width='3.125%' | 3
+! width='3.125%' | 2
+! width='3.125%' | 1
+! width='3.125%' | 0
+|- align="center"
+| PG || CD || NW || bgcolor="#bbb" |  ''Reserviert'' || AM || bgcolor="#bbb" | || WP || bgcolor="#bbb" | ''Reserviert'' 
+| NE || ET || TS || EM || MP || PE
+|}
+|}
+* PE - ''Protection Enbale'' Flag schaltet den [[Protected Mode]] ein bzw. aus (Genaueres siehe [[Umschalten in Protected Mode | hier]])
+* MP - Mit dem ''Monitor Coprocessor'' Flag kann festgelegt werden, ob bei gesetztem TS-Flag der Aufruf von WAIT/FWAIT einen Exception auslöst oder nicht (bei gesetztem MP-Flag wird die Exception ausgelöst).
+* EM - Bei gesetztem ''Emulation'' Flag löst die CPU für jede [[FPU]]-Instruktion eine [[Exception|#NM-Exception]] aus. Für Multimedia-Instruktionen wird eine [[Exception|#UD-Exception]] ausgelöst. Damit wird es dem Betriebssystem ermöglicht eine FPU zu emulieren. (WAIT/FWAIT lösen keine Exception aus)
+* TS -  Das ''Task Switched'' Flag wird bei einem [[Multitasking|Hardware-Taskswitch]] von der CPU gesetzt und kann für Software Multitasking auch von Hand gesetzt werden. Wenn bei gesetztem TS-Flage versucht wird eine FPU- oder Multimedia-Instruktion auszuführen, dann löst die CPU eine #NM-Exception aus. Dadurch können die FPU- bzw. Multimedia-Register, die bei normalen Taskswitchs nicht beachtet werden, entsprechend gesichert und geladen werden bevor sie verwendet werden.
+* ET - ''Extension Type''
+* NE - ''Numeric Error''
+* WP - Mittels ''Write Protect'' Flag kann festgelegt werden ob schreibgeschützte Pages auch vor dem Kernel (Ring0) geschützt sind (bei gesetztem WP-Flag sind die Pages auch vor dem Kernel sicher).
+* AM - ''Alignment Mask''
+* NW - Im Long Mode löst das Setzen des ''Not Write-throgh Disable'' eine [[Exception|#GP-Exception]] aus (außer wenn Caching mittels CD-Flag ganz abgeschaltet ist). Im Legacy Mode wird mit gesetztem Flag Writethroug-Caching erzwungen, unabhängig vom PWT-Flag in den Paging Strukturen.
+* CD - Das ''Cache Disable'' Flag steuert das Caching der CPU. Mit dem Setzten dieses Flags wird das Caching der CPU abgeschaltet und die den Cache betreffenden Flags in möglichen Paging-Strukturen werden ignoriert.
+* PG - Mit dem ''Paging'' Flag kann der [[Paging|Paging-Mechanismus]] ein- bzw. ausgeschaltet werden.
+
+== CR2 ==
+Bevor die CPU eine [[Exception|Page-Fault-Exception]] auslöst, lädt sie die virtuelle Adresse, die den Fehler verursacht hat, in das CR2 Register.
+
+==CR3==
+Das CR3-Register enthält primär die Adresse des Page Directories, sowie 2 Flags, die das interne Caching innerhalb der CPU (nicht im TLB) steuern. Wenn [[Physical Address Extension]] (PAE) aktiviert ist, wird die Adresse des Page Directories ersetzt durch die um 7 Bits größere Adresse zur Page-Directory Pointer Table.
+{| {{Prettytable}}
+!Bit !! Funktion !!Funktion mit aktivierter [[PAE]]
+|- bgcolor="#bbb"
+| Bit 0-2 || colspan="2" |  ''Reserviert''
+|-
+| Bit 3 || colspan="2" | '''PWT''' ''Page-level Writes Transparant''
+|-
+| Bit 4 || colspan="2" | '''PCD''' ''Page-level Cache Disable''
+|-
+| Bit 5-11 || bgcolor="#bbb" | ''Reserviert'' || rowspan="2" | '''Page-Directory-Pointer-Table Base'''
+Basis-Adresse der PDPT
+|-
+| Bit 12-31 || '''Page-Directory Base''' Basis Adresse des Page-Directorys
+|}
+
+==CR4==
+{| align="right"
+|
+{| {{Prettytable}} width="100%"
+|- align="center"
+! 63-32
+|- bgcolor="#bbb" align="center"
+| ''Reserviert''
+|}
+|-
+|
+{| {{Prettytable}} width="100%"
+|- align="center"
+! width='65.625%' | 31-11
+! width='3.125%' | 10
+! width='3.125%' | 9
+! width='3.125%' | 8
+! width='3.125%' | 7 
+! width='3.125%' | 6
+! width='3.125%' | 5
+! width='3.125%' | 4
+! width='3.125%' | 3
+! width='3.125%' | 2
+! width='3.125%' | 1
+! width='3.125%' | 0
+|- align="center"
+| bgcolor="#bbb" |  ''Reserviert'' || OSXMMEXCPT || OSFXSR || PCE || PGE || MCE || PAE || PSE || DE || TSP || PVI || VME 
+|}
+|}
+* VME - ''Virtual-8086 Mode Extension''
+* PVI - ''Protected-Mode Virtual Interrupts''
+* TSD - ''Time-Stamp Disable''
+* DE - ''Debugging Extension''
+* PSE - ''Page-Size Extension'' (Wird im Long Mode ignoriert)
+* PAE - Das Flag schaltet ''Physical-Address Extension'' ein bzw. aus. (Genaueres siehe [[Physical Address Extension|hier]]) (MUSS im Long Mode gesetzt sein)
+* MCE - ''Machine-Check Enable''
+* PGE - Mit dem ''Page-Global Enable'' Flag kann die Unterstützung des Global-Flags in den [[Paging]] Strukturen ein bzw. aus geschaltet werden.
+* PCE - Ein gesetztes ''Performance-Monitoring Counter Enable'' Flag erlaubt die Verwendung der RDPMC-Instruktion auch aus Ring 3-1. Ist das Flag 0, ist die Verwendung nur aus Ring 0 gestattet.
+* OSFXSR - Mit dem Setzen des ''FXSAVE/FXRSTORE Support'' Flags versichert das Betriebssystem, dass es (mittels FXSAVE/FXRSTOR) zum Beispiel bei Taskswitches den Prozessorstatus für FPU- und Multimedia-Instruktionen sichert und wiederherstellt. Ohne diese „Versicherung“ ist die Unterstützung dieser Befehle von seiten der CPU deaktiviert, d.h. die CPU löst für jede dieser Instruktionen (mit Ausnahme der FXSAVE bzw. FXRSTORE Instruktionen) eine [[Exception|#UD-Exception]] aus.
+* OSXMMEXCPT - Das ''Unmasked Exception Support'' Flag muss vom Betriebssystem gesetzt werden, wenn es einen Handler für [[Exception|#XF-Exceptions]] bereit stellt. Ist das nicht der Fall wird beim auftreten einer ''«unmasked SIMD floating-point exception»'' statt dessen eine #UD-Exception ausgelöst.
+
+== CR8 ==
+{| {{Prettytable}}
+!Bit !!Funktion
+|-
+| Bit 0-3 || '''TPL''' ''Task Priority Level''
+|- bgcolor="#bbb"
+| Bit 3-31 || ''n/a''
+|}
+
+== CR1, CR5-CR7 und CR9-CR15 ==
+Die Register CR1, CR5-CR7 und CR9-CR15 sind reserviert. Versucht Software dennoch darauf zuzugreifen löst die CPU eine [[Exception|#UD-Exception]] aus.
+
+== Weblinks ==
+* [http://www.intel.com/products/processor/manuals/index.htm Intel® 64 and IA-32 Architectures Software Developer's Manual Volume 3A: System Programming Guide] (Kapitel 2.5)
+* [http://developer.amd.com/documentation/guides/Pages/default.aspx#Manuals AMD64 Architecture Programmer's Manual Volume 2: System Programming](Kapitel 3.1)
+
+[[Kategorie:x86-64]]

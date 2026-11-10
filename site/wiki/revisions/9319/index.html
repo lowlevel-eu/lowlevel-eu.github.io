@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Software Multitasking Tutorial – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Software_Multitasking_Tutorial rootpage-Software_Multitasking_Tutorial skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1849/index.html">Aktueller Artikel</a> · <a href="../../history/1849/index.html">Versionsgeschichte</a> · <a href="../../source/9319.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Software Multitasking Tutorial</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 10. Januar 2011, 21:03 Uhr von <a class="mw-userlink" href="../../pages/2155/index.html" title="Benutzer:Bjork"><bdi>Bjork</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Vorlage, Code-Tags)</span></div><div id="mw-revision-nav">(<a href="../../diffs/5206-9319.html" title="Software Multitasking Tutorial">Unterschied</a>) <a href="../5206/index.html" title="Software Multitasking Tutorial">← Nächstältere Version</a> | <a href="../../pages/1849/index.html" title="Software Multitasking Tutorial">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../9321/index.html" title="Software Multitasking Tutorial">Nächstjüngere Version →</a> (<a href="../../diffs/9319-9321.html" title="Software Multitasking Tutorial">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="float:right; background-color:white; border:1px solid lightgray; margin: 10px; margin-right: 0px; margin-top: 0px;">
+<table style="border: 1px" width="100%">
+<tbody><tr align="center" style="background: lightgrey; padding: 1px">
+<th colspan="2">Software Multitasking
+</th></tr>
+<tr align="center">
+<td colspan="2" style="border: 1px solid grey"><b>Schwierigkeit</b>:
+<p><a class="image" href="../../pages/2384/index.html"><img alt="Stern gold.gif" height="16" src="../../../assets/wiki/652977078229332fbbb5a74e.gif" width="16"/></a><a class="image" href="../../pages/2384/index.html"><img alt="Stern gold.gif" height="16" src="../../../assets/wiki/652977078229332fbbb5a74e.gif" width="16"/></a><a class="image" href="../../pages/2383/index.html"><img alt="Stern weiß.gif" height="16" src="../../../assets/wiki/018d909821fbb5b564905ce5.gif" width="16"/></a><a class="image" href="../../pages/2383/index.html"><img alt="Stern weiß.gif" height="16" src="../../../assets/wiki/018d909821fbb5b564905ce5.gif" width="16"/></a><a class="image" href="../../pages/2383/index.html"><img alt="Stern weiß.gif" height="16" src="../../../assets/wiki/018d909821fbb5b564905ce5.gif" width="16"/></a>
+</p>
+</td></tr>
+<tr>
+<td>Benötigtes Vorwissen:
+</td>
+<td><a class="mw-redirect" data-archive-original-href="../../pages/1667/index.html" href="../../pages/1465/index.html#IRQ_Tabelle" title="IRQ">IRQ</a>, <a href="../../pages/1711/index.html" title="Scheduler">Scheduler</a>
+</td></tr>
+<tr>
+<td>Sprache:
+</td>
+<td>Pascal
+</td></tr></tbody></table>
+</div>
+<p>Dieses Tutorial ist für alle gedacht, die in ihrem <a href="../../pages/1479/index.html" title="Betriebssystem">Betriebssystem</a> <a href="../../pages/1495/index.html" title="Multitasking">Multitasking</a> auf Softwarebasis implementieren wollen. Ich bin am Anfang an diesem Thema fast verzweifelt, daher schreibe ich dieses Tutorial, damit andere einen leichten Einstieg in diese Thema haben. Ich werde hier nicht "alles" erklären, aber danach sollte einfache Tests mit zwei Tasks möglich sein.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Bevor_wir_anfangen..."><span class="tocnumber">1</span> <span class="toctext">Bevor wir anfangen...</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Einige_.C3.9Cberlegungen"><span class="tocnumber">2</span> <span class="toctext">Einige Überlegungen</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Der_Code"><span class="tocnumber">3</span> <span class="toctext">Der Code</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Abschlie.C3.9Fende_Worte"><span class="tocnumber">4</span> <span class="toctext">Abschließende Worte</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Links"><span class="tocnumber">5</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Bevor_wir_anfangen...">Bevor wir anfangen...</span></h2>
+<p>Eines vorweg: Du solltest mit deinem Betriebssystem bereits auf einem gewissen Stand sein, d.h. du solltest <a class="mw-redirect" data-archive-original-href="../../pages/1667/index.html" href="../../pages/1465/index.html#IRQ_Tabelle" title="IRQ"> IRQs</a> verwalten und den <a href="../../pages/1432/index.html" title="Programmable Interval Timer"> PIT</a> umprogrammieren können, eine <a href="../../pages/1591/index.html" title="Speicherverwaltung">Speicherverwaltung</a> wird auch benötigt. Ansonsten brauchst du nur noch gesunden Menschenverstand. Wenn du das alles hast, kann es losgehen.
+</p>
+<h2><span id="Einige_Überlegungen"></span><span class="mw-headline" id="Einige_.C3.9Cberlegungen">Einige Überlegungen</span></h2>
+<p>Einfach drauflos zu coden ist hier der falsche Weg. Überlegen wir uns zuerst einmal, wie Software-Multitasking überhaupt funktioniert.
+</p>
+<ul><li>Generelles:
+<ul><li>Wir benötigen eine Tabelle mit den Tasks, in der Stack, ProzessID und der Status gespeichert werden. Dann noch eine Variable, in der wir die ID des aktuellen Prozesses festhalten.</li></ul></li></ul>
+<ul><li>Initialisierung:
+<ul><li>Wir sagen dem PIT, wie oft er in der Sekunde einen IRQ feuern soll. Danach erzeugen wir in der IDT an der Stelle des IRQs 0 einen Eintrag, der auf unsere Task-Switch Routine verweist.</li></ul></li></ul>
+<ul><li>Task-Switch:
+<ul><li>Wir legen die Register auf den Stack (das ist der Stack des unterbrochenen Tasks). Dann rufen wir unseren Scheduler auf. Er legt die übergebene Stackaddresse in der Task-Tabelle ab, sucht den nächsten Task heraus und gibt dessen Stackaddresse zurück. Die Task-Switch Routine lädt dann die Register von dem neuen Stack und kehrt mit einem IRET zurück zum Task.</li></ul></li></ul>
+<ul><li>Task erstellen:
+<ul><li>Diese Routine erhält als Parameter die ID, an der der Task in der Tabelle eingetragen werden soll, und die Adresse des Codes. Wir blocken dann die Interrupts mit CLI und holen uns erst einmal Speicher für den Stack. Wir sichern dann die Adresse des Kernelstacks und laden den neuen. Dann benutzen wir einen kleinen Trick: Wir lassen den Stack des Tasks so aussehen, als wäre der Task gleich am Anfang unterbrochen worden, also legen wir die vorbereiteten Register auf den Stack. Dann stellen wir einfach den Kernelstack wieder her, tragen den Tasks in die Tabelle ein, erlauben die Interrupts wieder und fertig.</li></ul></li></ul>
+<h2><span class="mw-headline" id="Der_Code">Der Code</span></h2>
+<p>Kommen wir nun zum Hauptteil dieses Tutorials: Dem Code. Ich werde hier erst ein Stück <a href="../../pages/1624/index.html" title="FreeBASIC">FreeBASIC</a>-Code zeigen und dann erklären, was dieser Code macht.
+</p><p>Zuerst kommen ein paar Konstanten:
+&lt;pascal&gt;
+</p>
+<pre>const TASK_EMPTY as BYTE = 0
+const TASK_READY as BYTE = 1
+</pre>
+<p>&lt;/pascal&gt;
+</p><p>Die zeigen einfach nur an, ob ein Tabelleneintrag der Task-Tabelle mit einem Task belegt ist.
+&lt;pascal&gt;
+</p>
+<pre>type TaskType
+   PID as USHORT
+   stack as UINTEGER
+   status as BYTE
+end type
+
+dim shared Tasks(100) as TaskType
+dim shared AllTasks as USHORT
+dim shared currentPID as USHORT
+</pre>
+<p>&lt;/pascal&gt;
+</p><p>Nicht wirklich schwer. Wir machen eine Typendefinition für die Task-Tabelle. Enthalten sind die ProzessID (positive 16bit Zahl), die Stack-Adresse (positive 32bit Zahl) und der Status des Tasks (8bit Zahl). Danach legen wir ein Array an, das wir jetzt mit den Daten füttern können.
+</p><p>Dann legen wir noch zwei Variablen an. "AllTasks" gibt an, wieviele Einträge der Tabelle belegt sind. "currentPID" beinhaltet die ProzessID des aktuell laufenden Tasks.
+&lt;pascal&gt;
+</p>
+<pre>function dec (byref tPTR as UINTEGER PTR) as UINTEGER PTR
+    tPTR -= 1
+    return tPTR
+end function
+</pre>
+<p>&lt;/pascal&gt;
+</p><p>Das hat jetzt nichts direkt mit Multitasking zu tun, ist aber nützlich. Damit können wir so etwas wie "*--stack = 0" in FreeBASIC folgendermaßen schreiben: "*(dec(stack)) = 0". Kurz gesagt, nimmt sie einen UINTEGER-pointer und setzt ihn um 4bytes (also ein UINTEGER) runter. Das macht später einiges einfacher.
+&lt;pascal&gt;
+</p>
+<pre>sub Multitasking_Init
+   PIT_Timer_init (100)
+   IDT_CreateEntry (Interrupt_IRQ0, @Multitasking_Switch, &amp;h08, &amp;h8E)
+end sub
+</pre>
+<p>&lt;/pascal&gt;
+</p><p>Auch einfach. Wir programmieren den PIT so, dass er 100 mal in der Sekunde (vermutlich kein guter Wert für später) den IRQ 0 auslöst. Dann legen wir in der IDT einen Eintrag an, an der Stelle für IRQ 0. Da tragen wir die Adresse der Task-Switch Routine ein, und geben als Selector den Hex-Wert 0x08 an. Die Flags setzen wir auf 0x8E.
+&lt;pascal&gt;
+</p>
+<pre>sub Multitasking_Switch naked
+   asm
+      pusha
+      push ds
+      push es
+      push fs
+      push gs
+      
+      mov eax, &amp;h10
+      mov ds, eax
+      mov es, eax
+      mov fs, eax
+      mov gs, eax
+      
+      push esp
+      call MULTITASKING_SCHEDULER
+      mov esp, eax
+      
+      mov al, &amp;h20
+      out &amp;h20, al
+      
+      pop gs
+      pop fs
+      pop es
+      pop ds
+      popa
+      
+      iret
+   end asm
+end sub
+</pre>
+<p>&lt;/pascal&gt;
+</p><p>Kurz, oder? Als erstes fällt wohl das "naked" auf. Damit sagen wir FreeBASIC (Vorsicht, funktioniert erst aber Version 0.21!), dass er am Anfang und Ende nichts am Stack macht und kein "ret" anfügt. Sonst könnten wir die Routine nicht direkt in die IDT eintragen.
+Zuerst legen wir die Register auf den Stack. Dann laden wir die Segmentregister wieder mit einem gültigen Wert, damit es keine Probleme gibt (wenn der Task die Werte zerstört hat, und wir das nicht machen würden, würde unser Kernel nicht mehr lange mitspielen). Dann folgt ein kleiner Trick, wie rufen den Scheduler direkt aus dem Assembler-Code auf. Dazu legen wir das Stack-Register (das ist der Stack des unterbrochenen Tasks) auf den Stack, da der Scheduler die Stack-Adresse als Parameter erwartet. Dann rufen wir den Scheduler auf, und er gitb uns eine neue Stackadresse in eax zurück. Diesen Wert laden wir in esp, und schon haben wir den Stack des neuen Tasks.
+</p><p>Wir müssen natürlich auch noch dem PIC sagen, dass wir mit unserem Interrupt fertig sind.
+</p><p>Dann laden wir nur noch die Register wieder vom Stack und gehen mit "iret" zum neuen Task.
+</p><p>&lt;pascal&gt;
+</p>
+<pre>function Multitasking_scheduler (stack as UINTEGER) as UINTEGER
+   Tasks(currentPID).stack = stack
+   
+   do
+      currentPID += 1
+      if currentPID &gt; AllTasks then currentPID = 1
+   loop until Tasks(currentPID).status = TASK_READY
+   
+   return Tasks(currentPID).stack
+end function
+</pre>
+<p>&lt;/pascal&gt;
+</p><p>Auch recht einfach. Wir sichern die Stackadresse im Tabelleneintrag des aktuellen Tasks. Dann erhöhen wir currentPID bis wir einen Task finden, der auf seine Aktivierung wartet. Sollte der Wert in currentPID zu hoch werden, setzen wir ihn wieder auf den Tabellenanfang. Haben wir als einen Task gefunden, geben wir dessen Stackadresse zurück.
+</p><p>&lt;pascal&gt;
+</p>
+<pre>sub Task_Create (ID as USHORT, priority as UBYTE, address as any ptr)
+    if Tasks(ID).status &lt;&gt; TASK_EMPTY then return
+    
+    dim stack as UINTEGER PTR
+    
+    asm cli
+    
+    stack = cast(UINTEGER PTR, malloc(4096) + 1024)
+    
+    *(dec(stack)) = &amp;h202                    '// EFLAGS
+    *(dec(stack)) = &amp;h08                     '// CS
+    *(dec(stack)) = cast(UINTEGER, address)  '// EIP
+    
+    *(dec(stack)) = &amp;h0                      '// EDI
+    *(dec(stack)) = &amp;h0                      '// ESI
+    *(dec(stack)) = &amp;h0                      '// EBP
+    *(dec(stack)) = &amp;h0                      '// NULL
+    *(dec(stack)) = &amp;h0                      '// EBX
+    *(dec(stack)) = &amp;h0                      '// EDX
+    *(dec(stack)) = &amp;h0                      '// ECX
+    *(dec(stack)) = &amp;h0                      '// EAX
+    
+    *(dec(stack)) = &amp;h10                     '// DS
+    *(dec(stack)) = &amp;h10                     '// ES
+    *(dec(stack)) = &amp;h10                     '// FS
+    *(dec(stack)) = &amp;h10                     '// GS
+    
+    Tasks(ID).status = TASK_READY
+    Tasks(ID).stack = cast(UINTEGER, stack)
+    Tasks(ID).PID = ID
+    
+    AllTasks += 1                                                 '// We now have more tasks than before (what a surprise!)
+    
+    asm sti                                                       '// allow Interrupts again
+end sub
+</pre>
+<p>&lt;/pascal&gt;
+</p><p>Puh. Auf zur Erklärung: Wir prüfen zuerst, ob die gewünschte ProzessID schon belegt ist. Wenn ja, kerhen wir sofort zurück (besser wäre es, wenn wir einen Fehler-Wert zurückgeben würden). Dann erstellen wir eine Variable, in der wir die Stack-Adresse des Tasks zwischenspeichern.
+</p><p>Wichtig ist, das wir hier mit "cli" die Interrupts ausschalten.
+</p><p>Dann holen wir uns 4kb Speicher und legen die Adresse dazu in "stack" ab (das "+ 1024" ist notwendig, weil der Stack von oben nach unten wächst. Also ist der Stackanfang am oberen Ende des reservierten Speicherbereichs! Zu beachten ist hier, das wir zwar 1024 addieren, aber die Adresse in Wirklichkeit um 4096 Bytes ansteigt. Das liegt daran, das wir das zu einem UINTEGER-Pointer addieren. Das ist also alles korrekt so.)
+</p><p>Jetzt basteln wir den Task-Stack zusammen, und zwar ohne den Stack zu wechseln! Hier wird auch klar, für was unsere Hilfsfunktion genutzt wird. Wir simulieren damit praktisch einen "push"-Befehl. Natürlich legen wir hier keine richtigen Register auf den Stack, sondern nur Anfangs-Werte.Dann sieht es so aus, als ob der Task sofot am Anfang unterbrochen worden wäre, so gibt es keine Probleme beim ersten aktivieren des Tasks.
+</p><p>Würden wir noch ein Register cr3 (für <a href="../../pages/1496/index.html" title="Paging">Paging</a>) dazu legen, müssten wir natürlich auch unsere Switch-Routine anpassen, sonst schrotten wir unseren Stack.
+</p><p>Nun legen wir den Tabelleneintrag für unseren Task an. Wir setzen ihn auf ready und legen die Stackadresse rein. Die Stack-Adresse ist tatsächlich korrekt, dafür hat unsere Hilfsfunktion schon gesorgt. Naja, dann schreiben wir noch die ProzessID rein und erhöhen den Wert von "AllTasks" um eins, da wir ja jetzt einen Task mehr haben.
+</p><p>Abschließend erlauben wir mit "sti" die Interrupts wieder und fertig sind wir.
+</p>
+<h2><span id="Abschließende_Worte"></span><span class="mw-headline" id="Abschlie.C3.9Fende_Worte">Abschließende Worte</span></h2>
+<p>Puh. Fertig. Es hat mir Spaß gemacht, dieses Tutorial zu schreiben, und ich hoffe, es hat euch auch Spaß gemacht, es zu lesen. Solltet ihr etwas nicht verstanden haben, könnt ihr eure Fragen im Forum posten. Wahrscheinlich wäre den meisten <a href="../../pages/1526/index.html" title="C">C</a>-Code hier lieber gewesen, aber ich kann nicht gut C, außerdem ist so das Risiko geringer, dass jemand per copy&amp;paste den Code übernimmt ohne ihn zu verstehen ;). Ich hoffe aber trotzdem, das alles verständlich war.
+</p><p>Natürlich sind wir hier noch nicht beim perfekten Multitasking angelangt. Wie gesagt müsste cr3 noch gesichert werden, auch Prioritäten wären wünschenswert. Also hört hier nicht einfach auf, sondern bastelt noch ein wenig, und verbessert euren Code. Dieses Tutorial zeigt euch nur wie es geht, was ihr letztendlich damit anstellt, ist eure Sache ;)
+</p><p>Noch ein Hinweis: Der Code stammt aus meinem Kernel, den ihr hier finden könnt: <a class="external free" href="http://sourceforge.net/projects/frostkernel" rel="nofollow">http://sourceforge.net/projects/frostkernel</a>
+</p><p>Happy Coding,
+TheThing
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<p><a class="external text" href="http://www.fh-zwickau.de/doc/prmo/pmtutor/text/" rel="nofollow">Protected-Mode Tutorial der FH-Zwickau</a>
+<a class="external text" href="http://code.google.com/p/onyxkernel/wiki/SoftwareMultitasking" rel="nofollow">Software-Multitasking Tutorial auf google code</a>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109170247
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.008 seconds
+Real time usage: 0.010 seconds
+Preprocessor visited node count: 42/1000000
+Preprocessor generated node count: 184/1000000
+Post‐expand include size: 732/2097152 bytes
+Template argument size: 72/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.932      1 Vorlage:Tutorial
+100.00%    0.932      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Software_Multitasking_Tutorial&amp;oldid=9319</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1849/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1849/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

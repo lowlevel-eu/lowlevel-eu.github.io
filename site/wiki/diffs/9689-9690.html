@@ -1,0 +1,44 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Diskussion:OS-Dev für Einsteiger — Änderungen 9689 → 9690</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Diskussion:OS-Dev für Einsteiger — Änderungen 9689 → 9690</h1><nav><a href="../revisions/9689/index.html">Version 9689</a> · <a href="../revisions/9690/index.html">Version 9690</a> · <a href="../history/1654/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l105" >Zeile 105:</td>
+<td colspan="2" class="diff-lineno">Zeile 105:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Zum Thema UNIX ist zu bemerken, das ein Gerät nunmal keine Datei ist, also ein Linux/Windows Programmierer sich nicht zwangsweise mit Hardware- und BIOS-zugriff auskennt. (Ich habe - im Ernst - mal in einem Linux forum gelesen, dass einer nicht weis wofür die Befehle IN und OUT sind). Viel wichtiger ist es sich mit DOS auszukennen, denn da arbeitet man ständig mit BIOS und Hardwarezugriffen, und weis auch wie man zum Beispiel erkennt ob und was für Geräte angeschlossen sind. Und das ist genau dass, was die Klicki-Bunti-Objekti-Hochsprachi-Programmierer eben nicht können.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Zum Thema UNIX ist zu bemerken, das ein Gerät nunmal keine Datei ist, also ein Linux/Windows Programmierer sich nicht zwangsweise mit Hardware- und BIOS-zugriff auskennt. (Ich habe - im Ernst - mal in einem Linux forum gelesen, dass einer nicht weis wofür die Befehle IN und OUT sind). Viel wichtiger ist es sich mit DOS auszukennen, denn da arbeitet man ständig mit BIOS und Hardwarezugriffen, und weis auch wie man zum Beispiel erkennt ob und was für Geräte angeschlossen sind. Und das ist genau dass, was die Klicki-Bunti-Objekti-Hochsprachi-Programmierer eben nicht können.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">: Diese C-vs.-Assembler-Diskussion gab es mehr als einmal und Assembler hat immer den kürzeren gezogen (weil zeitaufwendig und fehleranfällig). Wenn du ernsthaft daran interessiert bist, such dir im Forum die passenden Threads raus und lies sie. Wenn nicht, troll bitte woanders weiter.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;pre&gt;static inline void outportb(short port, char value)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">{</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; asm volatile(&quot;outb %0, %1&quot; : : &quot;a&quot; (value), &quot;Nd&quot; (port));</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">static inline char inportb(short port)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">{</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; char value;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; asm volatile(&quot;inb %1, %0&quot; : &quot;=a&quot; (value) : &quot;Nd&quot; (port));</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; return value;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">unsigned char readCMOS (unsigned char a)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">{</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; &#160; outportb(0x70,a);</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160; &#160; return inportb(0x71);</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">kwolf@dhcp-5-188:/tmp/c$ gcc -O2 -c cmos.c </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">kwolf@dhcp-5-188:/tmp/c$ objdump -d cmos.o</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">cmos.o:&#160; &#160;  file format elf64-x86-64</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Disassembly of section .text:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">0000000000000000 &lt;readCMOS&gt;:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160;  0:&#160;  89 f8&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;  mov&#160; &#160; %edi,%eax</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160;  2:&#160;  e6 70&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;  out&#160; &#160; %al,$0x70</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160;  4:&#160;  e4 71&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;  in&#160; &#160;  $0x71,%al</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160;  6:&#160;  c3&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; retq &lt;pre&gt;</ins></div></td></tr>
+</table></body></html>

@@ -1,0 +1,36 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>C++-Kernel mit GRUB — Änderungen 6412 → 6415</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>C++-Kernel mit GRUB — Änderungen 6412 → 6415</h1><nav><a href="../revisions/6412/index.html">Version 6412</a> · <a href="../revisions/6415/index.html">Version 6415</a> · <a href="../history/2124/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l192" >Zeile 192:</td>
+<td colspan="2" class="diff-lineno">Zeile 192:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>SECTIONS</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>SECTIONS</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; .text&#160; 0x0100000 : {</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; .text&#160; 0x0100000 :</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">&#160; &#160; code = .; _code = .; __code = .;</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; </ins>{</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; *(.text)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; *(.text)</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; &#160; . <del class="diffchange diffchange-inline">= ALIGN(1</del>)<del class="diffchange diffchange-inline">;</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; &#160; <ins class="diffchange diffchange-inline">*(</ins>.<ins class="diffchange diffchange-inline">rodata</ins>)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; }</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; }</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; .data&#160; : {</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;&#160; &#160; __CTOR_LIST__ = .; LONG((__CTOR_END__ - __CTOR_LIST__) / 4 - 2) *(.ctors) LONG(0) __CTOR_END__ = .;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; .data&#160; :</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&#160; </ins>{</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;&#160; &#160; __CTOR_LIST__ = .;LONG((__CTOR_END__ - __CTOR_LIST__) / 4 - 2) *(.ctors) LONG(0) __CTOR_END__ = .;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; __DTOR_LIST__ = .; LONG((__DTOR_END__ - __DTOR_LIST__) / 4 - 2) *(.dtors) LONG(0) __DTOR_END__ = .;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; __DTOR_LIST__ = .; LONG((__DTOR_END__ - __DTOR_LIST__) / 4 - 2) *(.dtors) LONG(0) __DTOR_END__ = .;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">&#160; &#160; data = .; _data = .; __data = .;</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; *(.data)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; *(.data)</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">&#160; &#160; . = ALIGN(1);</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; }</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; }</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; .bss&#160; :</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; .bss&#160; :</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; {</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">&#160; &#160; bss = .; _bss = .; __bss = .;</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; *(.bss)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; *(.bss)</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">&#160; &#160; . = ALIGN(1);</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; }</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; }</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange">&#160; end = .; _end = .; __end = .;</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/pre&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/pre&gt;</div></td></tr>
+</table></body></html>

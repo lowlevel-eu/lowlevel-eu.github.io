@@ -1,0 +1,13 @@
+== Daten vom Stick löschen unter Linux ==
+
+Wenn man die Bezeichnung des Sticks in mount nachschaut heißt das ja, dass er schon gemountet ist. Man sollte ihn doch lieber unmounten bevor man ihn mit Nullbytes überschreibt.<br /><br />
+Ist eingefügt worden. Das habe ich anscheinend vergessen einzubauen. ;-)<br /><br />
+== irrglaube bootbare USB Sticks ==
+Es hängt zum einen vom BIOS oder EFI ab, zum anderen vom Stick. Und hierzu ist zu sagen, das es dazu eine Spezifikation von USB.org gibt, die beschreibt wie sich so ein key zu verhalten hat. Erfüllt er diese Bedingungen nicht, darf der Hersteller das auch nicht aufdrucken. Es kann aber durchaus trotzdem funktionieren, muss aber nicht. z.B. wenn das BIOS rumzickt.
+www.usb.org/developers/devclass_docs/usb_msc_boot_1.0.pdf und www.usb.org/developers/devclass_docs/usb_msc_overview_1.2.pdf
+
+== 2.1 Löschen der Dateien ==
+
+Das Überschreiben mit Nullen ist föllig überflüssig. Durch einfaches Neuformatieren werden alle Dateien gelöscht.
+Damit erspart man sich außerdem das neu Partitionieren. Denn für gewöhnlich sind USB sticks schon Partitioniert( eine Große Partition ). 
+Man braucht da also nicht viel zu ändern(Außer möglicherweise das Boot-Flag setzen).[[Benutzer:MNemo|MNemo]] 18:15, 18. Sep. 2008 (CEST)

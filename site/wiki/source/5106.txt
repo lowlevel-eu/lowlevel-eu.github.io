@@ -1,0 +1,233 @@
+{{Achtung|Text= Dieser Artikel wird gerade generalüberholt. Bitte nimm keine Änderungen an diesem Artikel vor! ~~ [[Benutzer:SHyx0rmZ|SHyx0rmZ]] 10:55, 6. Aug. 2009 (CEST)}}
+Der CPUID-Befehl wird benutzt, um Informationen über die Fähigkeiten eines Prozessors zu erhalten, wie zum Beispiel den Herstellernamen, die Modellnummer, die Größe des Caches, usw.
+
+== Wie man CPUID benutzt ==
+Um den CPUID-Befehl auszuführen, verwendet man einfach den Assembler-Befehl "CPUID". Die nötigen Parameter(Funktionsnummer) werden dabei im Register EAX angegeben. Die Rückgabewerte werden in den Registern ''EAX'', ''EBX'', ''EDX'' und ''ECX'' abgelegt.
+
+Um zum Beispiel den Vendor-ID-String, also den Herstellernamen, zu bekommen, ruft man CPUID mit der Funktionsnummer 0x00 auf.
+<asm>
+ mov eax, 0x00; xor eax, eax bewirkt das selbe und ist schneller
+ cpuid
+</asm>
+Ein AMD-Prozessor hätte jetzt folgende Register Werte: EBX="'''Auth'''", EDX="'''enti'''", ECX="'''cAMD'''"
+
+== Standard Funktionen ==
+Die Standard Funktionsnummern beginnen bei 0. Der größtmögliche Funktionsnummer, die von der jeweiligen CPU unterstützt wird befindet sich nach dem Aufruf von ''Function 0'' im ''EAX''-Register.
+Die Standard Funktionen sind nicht Hersteller spezifisch, sondern sollen für alle CPUs gleich sein. 
+
+=== EAX = 0x00000000 ===
+CPUID-Funktion Nr. 0x00 gibt wie bereits genannt die größte vom Prozessor unterstützte Funktionsnummer im ''EAX''-Register und die Vendor-ID in den Registern ''EBX'', ''EDX'' und ''ECX''(in dieser Reihenfolge) an. '''Achtung: Der String ist nicht nullterminiert!'''
+==== Vendor-ID der einzelnen Hersteller ====
+* AMD: "AuthenticAMD"
+* Intel: "GenuineIntel"
+* VIA: "CentaurHauls"
+* Transmeta: "GenuineTMx86"
+* Cyrix: "CyrixInstead"
+* Centaur: "CentaurHauls"
+* NexGen: "NexGenDriven"
+* UMC: "UMC UMC UMC "
+* SiS: "SiS SiS SiS "
+* NSC: "Geode by NSC"
+* Rise: "RiseRiseRise"
+
+=== EAX = 0x00000001 ===
+Das Ergebnis dieser Funktion ist folgendes: 
+==== EAX ====
+{| {{Prettytable}}
+! Bits  || Funktion  
+|-
+| 31 - 28 || bgcolor="#bbb" | Reserviert
+|-
+| 27 - 20 || Erweiterte Familie
+|-
+| 19 - 16 || Erweitertes Modell
+|-
+| 15 - 14 || bgcolor="#bbb" | Reserviert
+|-
+| 13 - 12 || Prozessortyp
+|-
+| 11 - 8 || Familienkennzeichen / Familiencode
+|-
+| 7 - 4 || Model
+|-
+| 4 - 0 || Stepping
+|}
+==== EBX ====
+{| {{Prettytable}}
+! Bits  || Funktion  
+|-
+| 31 - 24 || [[APIC|APIC ID]]
+|-
+| 23 - 16 || Count
+|-
+| 15 - 8 || Chunks
+|-
+| 7 - 0 || Brand ID
+|}
+*''APIC ID'' ist nur gültig wenn das ''[[#EDX_-_Featureflags|APIC-Flag]]'' gesetzt ist.
+*''Count'' ist die Anzahl der logischen Prozessoren und ist nur mit gesetztem ''[[#EDX_-_Featureflags|Hyper-Threading-Flag]]'' gültig.
+*''Chunks'' gibt die Größe einer Cache line in 8&nbsp;Byte Blocken an. Das Feld ist ebenfalls nur gültig in Verbindung mit einem gesetzten ''[[#EDX_-_Featureflags|CFLUSH-Flag]]''.
+==== ECX ====
+Dieses Register gibt erweiterte Informationen über den Prozessor:
+{| {{Prettytable}}
+! Bits || Funktion
+|-
+| 9 || Verfügbarkeit von SSSE3
+|-
+| 5 || Verfügbarkeit von Virtual Machine Extensions (VMX)
+|-
+| 3 || Die Befehle MONITOR und MWAIT sind verfügbar
+|-
+| 0 || Verfügbarkeit von SSE3
+|}
+==== EDX - Featureflags ====
+Dies sind die Featureflags. Wenn ein Bit gesetzt(=1) ist, dann wird das entsprechende Feature unterstützt.
+{| {{Prettytable}}
+! Bit  || Funktion  
+|-
+| 31 - 30 || bgcolor="#bbb" | Reserviert
+|-
+| 29 || Wenn eins, dann wird das Thermal Monitor unterstützt
+|-
+| 28 || Der Prozessor unterstützt Hyper-Threading.
+|-
+| 27 || Der Prozessor unterstützt Self-Snoop
+|-
+| 26 || Der Prozessor kann SSE2
+|-
+| 25 || Der Prozessor kann SSE
+|-
+| 24 || Der Prozessor unterstützt FXSAVE und FXSTOR, womit er einen Floatzusammenhang(?) speichern und wiederherstellen kann
+|-
+| 23 || Der Prozessor kann MMX
+|-
+| 22 || Die Temperatur und der Prozessortakt kann durch eine Software verändert und überwacht werden
+|-
+| 21 || Der Prozessor hat die Fähigkeit, die Entwicklung eines Ablegers in eine Adresse zu schreiben
+|-
+| 20 || bgcolor="#bbb" | Reserviert
+|-
+| 19 || Der Prozessor kann CSFLUSH
+|-
+| 18 || Der 12-Byte ProzessorID ist aktiviert und vorhanden
+|-
+| 17 || Der Prozessor kann im Protected Mode mehr als 4 GByte adressieren. (PSE)
+|-
+| 16 || Der Prozessor unterstützt die Page Attribute Table
+|-
+| 15 || Der Prozessor untersützt CMOVcc, und wenn Bit 0 gesetzt ist, dann kann er FCMOVCC und FCOMI
+|-
+| 14 || Der Prozessor unterstützt die Machine Check Architecture und MCG_CAP Register
+|-
+| 13 || Der Prozessor unterstützt die Page Entry Table, die Page Directory Table und das TLB muss nicht erneuert werden
+|-
+| 12 || Der Prozessor unterstützt die Memory Type Range Register, speziell das MTRR_CAP Register
+|-
+| 11 || Der Prozessor unterstützt die Fast System Call Befehle, den SYSENTER Befehl und SYSEXIT Befehl
+|-
+| 10 || bgcolor="#bbb" | Reserviert
+|-
+| 9 || Der Prozessor beinhaltet ein [[Local APIC]]
+|-
+| 8 || Der Prozessor unterstützt den CMPXCHG8 Befehl
+|-
+| 7 || Der Prozessor unterstützt die Machine Check Exception
+|-
+| 6 || Der Prozessor unterstützt Physical Adress Extension
+|-
+| 5 || Der Prozessor unterstützt die Model Specific Register, den RDMSR Befehl und den WRMSR Befehl
+|-
+| 4 || Der Prozessor unterstützt den RDTSC Befehl, zudem den CR4.TSD-Bit für Rechtekontrolle
+|-
+| 3 || Der Prozessor unterstützt 4-MByte-Pages
+|-
+| 2 || Der Prozessor unterstützt I/O-Breakpoints, das CR4.DE Bit und die DR4 und DR5 Register
+|-
+| 1 || Der Prozessor unterstützt Erweiterungen für den Virtual-8086-Modus
+|-
+| 0 || Der Prozessor unterstützt die Intel857-Gleitkommeoperationen
+|}
+
+=== EAX = 0x00000002 ===
+Wenn in EAX statt Null Zwei steht, dann werden bei Intelprozessoren
+Informationen über den Cache und die TLB-Deskriptoren ausgegeben.
+=== EAX = 0x00000003 ===
+Wenn in EAX statt Null Drei steht, wird bei Intelprozessoren
+stattdessen folgendes ausgegeben:
+==== EAX ====
+Reserviert
+==== EBX ====
+Reserviert
+==== ECX ====
+Die Bits 31 bis 0 der Prozessor-ID sind darin hinterlegt.
+'''Funktioniert nur bei Prozessoren, bei denen das entsprechende ''[[#EDX_-_Featureflags|Featureflag(Bit 18)]]'' gesetzt ist.'''
+==== EDX ====
+Die Bits 63 bis 32 der Prozessor-ID sind darin hinterlegt.
+''(siehe oben)''
+
+== Erweiterte Funktionen ==
+Es gibt Funktionen, die Hersteller spezifisch sind, d.h. sieh gelten nur nur für Intel- bzw. nur für AMD Prozessoren. Solche Befehle sollte man nicht ausführen, wenn man nicht weiß von welchem Hersteller die CPU ist! Zum Beispiel sollten CPUID-Befehle, die nur für Intel-CPUs gelten, nicht auf einer AMD-CPU ausgeführt werden. Diese Funktionen beginnen bei 0x80000000.
+
+Erweiterte Funktionen von Intel:
+
+=== EAX = 0x80000000 ===
+==== EAX ====
+Enthält maximale erweiterte Funktionsnummer.
+==== EBX ====
+Reserviert
+==== ECX ====
+Reserviert
+==== EDX ====
+Reserviert
+
+=== EAX = 0x80000001 ===
+==== EAX ====
+Reserviert
+==== EBX ====
+Reserviert
+==== ECX ====
+Reserviert
+==== EDX ====
+Wenn Bit 29 gesetzt, dann ist Intel64-Technologie verfügbar
+
+=== EAX = 0x80000002 ===
+==== EAX ====
+Eingebrannter String
+==== EBX ====
+Eingebrannter String (Fortsetzung)
+==== ECX ====
+Eingebrannter String (Fortsetzung)
+==== EDX ====
+Eingebrannter String (Fortsetzung)
+
+=== EAX = 0x80000003 ===
+==== EAX ====
+Eingebrannter String (Fortsetzung)
+==== EBX ====
+Eingebrannter String (Fortsetzung)
+==== ECX ====
+Eingebrannter String (Fortsetzung)
+==== EDX ====
+Eingebrannter String (Fortsetzung)
+
+=== EAX = 0x80000004 ===
+==== EAX ====
+Eingebrannter String (Fortsetzung)
+==== EBX ====
+Eingebrannter String (Fortsetzung)
+==== ECX ====
+Eingebrannter String (Fortsetzung)
+==== EDX ====
+Eingebrannter String (Fortsetzung)
+
+
+== Siehe auch ==
+* [http://wiki.osdev.org/CPUID Englischer Artikel über den CPUID-Befehl]
+* [http://sandpile.org/ia32/cpuid.htm Englische Doku von CPUID; mit AMD/INTEL und anderen Prozessoren]
+* [http://support.intel.com/Assets/PDF/appnote/241618.pdf Intels CPUID-Spezifikation]
+* [http://www.amd.com/us-en/assets/content_type/white_papers_and_tech_docs/25481.pdf AMDs CPUID-Spezifikation]
+
+
+[[Category:Glossar]]
+[[Category:x86]]
+[[Category:x86-Befehle]]

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>ARM-OS-Dev Teil 5 – Interrupts – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-ARM-OS-Dev_Teil_5_–_Interrupts rootpage-ARM-OS-Dev_Teil_5_–_Interrupts skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2422/index.html">Aktueller Artikel</a> · <a href="../../history/2422/index.html">Versionsgeschichte</a> · <a href="../../source/9767.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">ARM-OS-Dev Teil 5 – Interrupts</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 11. Mai 2011, 22:47 Uhr von <a class="mw-userlink" href="../../pages/1860/index.html" title="Benutzer:XanClic"><bdi>XanClic</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Die Seite wurde neu angelegt: „{{Navigation |Zurück = <a href="../../pages/2421/index.html" title="ARM-OS-Dev Teil 4 – Hello World">ARM-OS-Dev Teil 4 – Hello World</a> |Vor = <a href="../../pages/2423/index.html" title="ARM-OS-Dev Teil 6 – Multitasking">ARM-OS-Dev Teil 6 – Multitasking</a> }}  == Exceptions == Es gibt verschiedene Gründe, die…“)</span></div><div id="mw-revision-nav">(Unterschied) ← Nächstältere Version | <a href="../../pages/2422/index.html" title="ARM-OS-Dev Teil 5 – Interrupts">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../9769/index.html" title="ARM-OS-Dev Teil 5 – Interrupts">Nächstjüngere Version →</a> (<a href="../../diffs/9767-9769.html" title="ARM-OS-Dev Teil 5 – Interrupts">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><table style="width:100%; background-color: #D0D8FF; border: 1px solid #b8c0e8; text-align:center; margin-bottom: 10px;">
+<tbody><tr>
+<td style="width:33%; text-align:left;">« <a href="../../pages/2421/index.html" title="ARM-OS-Dev Teil 4 – Hello World">ARM-OS-Dev Teil 4 – Hello World</a></td>
+<td style="width:33%; text-align:center;"><b>Navigation</b></td>
+<td style="width:33%; text-align:right;"><a href="../../pages/2423/index.html" title="ARM-OS-Dev Teil 6 – Multitasking">ARM-OS-Dev Teil 6 – Multitasking</a> »</td>
+</tr>
+</tbody></table>
+<h2><span class="mw-headline" id="Exceptions">Exceptions</span></h2>
+<p>Es gibt verschiedene Gründe, die auf einem ARM eine Exception, also eine Unterbrechung des normalen Programmflusses auslösen. An dieser Stelle sei auf den <a href="../../pages/2101/index.html#Exceptions" title="ARM">ARM-Artikel</a> verwiesen, der all diese auflistet und beschreibt. Versucht man, die x86-Interrupts auf ARM-Exceptions abzubilden, dann entsprechen Exceptions einem Abort oder einer Undefined Instruction Exception, IRQs einem IRQ oder einem FIQ und Software-Interrupts einem SWI.
+</p><p>Jede Exception verlangt einen bestimmten CPU-Modus mit eigenen Registern. Wir verwenden in diesem Tutorial lediglich die Modi User/System, Supervisor und IRQ, weil wir nur die IRQ- und SWI-Exceptions behandeln (User/System werden für Programme verwendet).
+</p>
+<h2><span class="mw-headline" id="Initialisierung">Initialisierung</span></h2>
+<p>IRQs verwenden ist auf dem ARM sehr einfach. Eigentlich muss man lediglich das I-Bit im CPSR löschen (s. <a href="../../pages/2101/index.html#CPSR" title="ARM">ARM-Artikel</a>) und schon können IRQs aufgerufen werden. Aborts, Undefined Instruction Exceptions, und SWIs können sowieso jederzeit auftreten. Zusätzlich enthält eigentlich jedes ARM-System jedoch noch einen Interruptcontroller, damit das OS auch schnell feststellen kann, welcher IRQ aufgetreten ist – von sich aus kennt der Prozessor ja keinen Unterschied zwischen einem IRQ, der von der Netzwerkkarte und einem, der von der Tastatur ausgelöst wurde. Daher möchte auch dieser Interruptcontroller initialisiert werden. Auf dem I/CP-Board gibt es sogar mehrere Interruptcontroller, wobei wir hier nur einen einzigen verwenden (die meisten „interessanten“ IRQs werden von diesem Primary Interrupt Controller abgewickelt). Zudem gibt es jeden Interruptcontroller einmal für IRQs und einmal für FIQs. Wir wollen jedoch der Einfachheit halber nur IRQs benutzen.
+</p><p>Der erste Interruptcontroller bietet seine Register im Speicher ab der Adresse 0x14000000 an. Am Offset +8 befindet sich ein 32-Bit-Register (ENABLESET), mit dem IRQs aktiviert werden können, indem das entsprechende Bit gesetzt wird. Am Offset +12 ist ein Register (ENABLECLR), mit dem IRQs deaktiviert werden können, indem ihr Bit gesetzt wird. Beim Start sollten zunächst alle IRQs deaktiviert werden, damit zum Beispiel die drei Systemtimer nicht einfach wild feuern und die gesamte CPU-Zeit stehlen, wenn man sie nicht konfiguriert hat. Dies geschieht also, indem 0xFFFFFFFF nach 0x1400000C geschrieben wird. Wenn ein Handler für einen IRQ registriert wird, muss der IRQ dann aktiviert werden, indem das entsprechende Bit im ENABLESET-Register gesetzt wird.
+</p><p>Nach der Interrupt-Controller-Initialisierung kann dann einfach das I-Bit im CPSR gelöscht werden, sodass IRQs ausgelöst werden können:
+&lt;c&gt;__asm__ __volatile__ ("mrs r0,cpsr;"
+</p>
+<pre>                     "bic r0,#0x80;"
+                     "msr cpsr_ctl,r0" ::: "r0");&lt;/c&gt;
+</pre>
+<p>Diese Befehlsreihe liest das CPSR ins r0-Register, löscht Bit 7 (das I-Bit, Wert 0x80) und schreibt den resultierenden Wert wieder ins CPSR-Register, wobei nur der ctl-Teil, also die untersten acht Bit, verändert wird (am Rest haben wir ja nichts geändert).
+</p>
+<h2><span class="mw-headline" id="IRQs_abfangen">IRQs abfangen</span></h2>
+<p>Nun bringt das nicht viel, da der bisherige IRQ-Exception-Handler ja einfach aus einem „b .“ besteht, also einer Endlosschleife. Irgendwas anderes zu tun wäre wohl nicht schlecht. Im Allgemeinen erweist es sich sinnvoll, alle Register zu speichern und eine C-Funktion aufzurufen. Dazu fügen wir oben in unsere init.S ein „.extern asm_handle_irq“ ein, verändern das sechste „b .“ von oben zu einem „b asm_handle_irq“ und erstellen eine neue Datei intr.S mit dem Inhalt:
+</p>
+<pre>.arm
+.extern handle_irq
+.global asm_handle_irq
+
+asm_handle_irq:
+sub     r14, #4
+/* Nicht gebankte Register speichern */
+push    {r0 - r12, r14}
+
+/* Supervisor-R13/R14/SPSR und CPSR speichern */
+msr     cpsr_ctl, #0xD3
+mrs     r1, spsr
+mov     r2, r13
+mov     r3, r14
+msr     cpsr_ctl, #0xD2
+mrs     r0, spsr
+push    {r0 - r3}
+
+/* User-R13/R14 speichern */
+stmdb   r13, {r13, r14}^
+sub     r13, #8
+
+/* IRQ behandeln */
+mov     r0, r13
+bl      handle_irq
+mov     r13, r0
+
+/* User-R13/R14 laden */
+ldmia   r13, {r13, r14}^
+add     r13, #8
+
+/* Supervisor-R13/R14/SPSR und CPSR laden */
+pop     {r0 - r3}
+msr     spsr_all, r0
+msr     cpsr_ctl, #0xD3
+msr     spsr_all, r1
+mov     r13, r2
+mov     r14, r3
+msr     cpsr_all, #0xD2
+
+/* Nicht gebankte Register laden und zurückkehren */
+pop     {r0 - r12, r14}
+movs    r15, r14</pre>
+<p>r14 zeigt zu Beginn auf den zweiten Befehl nach dem Befehl, der ausgeführt wurde, bevor der IRQ ausgelöst wurde. Das heißt, wir müssen vier abziehen, damit es auf den als nächstes auszuführenden Befehl zeigt. Dann speichern wir es und alle nicht-Schattenregister (r0 bis r12) auf dem IRQ-Stack. Nun müssen wir auch die Schattenregister speichern. Das betrifft r13, r14 und das SPSR, welches ebenfalls in jedem Prozessormodus extra vorhanden ist (außer im System/User-Modus, dort existiert es gar nicht, weil nur die CPU dieses Register zum Speichern von CPSR im Falle einer Exception benötigt; der User/System-Modus wird von keiner Exception betreten, sodass auch kein SPSR nötig ist). Also wechseln wir mit dem MSR-Befehl in den Prozessormodus 0x13 (mit deaktivierten IRQs und FIQs, deshalb insgesamt 0xD3), also den Supervisormodus, laden r13, r14 und das SPSR in nicht-Schattenregister und speichern dieser Werte nach der Rückkehr in den IRQ-Modus (0x12 ist der Wert für den IRQ-Modus) auf dem Stack, zusammen mit dem IRQ-SPSR, das den CPSR-Wert vor Auslösen des IRQs enthält.
+</p><p>Später möchten wir auch noch den Usermodus verwenden, deshalb müssen wir auch dessen r13 und r14 auf dem Stack speichern. Hier können wir uns einen Wechsel des Prozessormodus sparen, weil es eine spezielle Variante der LDM-/STM-Befehle gibt, die mit Usermoderegistern arbeitet (wird durch das Zirkumflex nach der Registerliste deutlich gemacht). Diese kann allerdings kein Base-Write-Back, sodass wir r13 anschließend manuell um acht verringern müssen.
+</p><p>Dann wird r13 nach r0 geladen, sodass die C-Funktion handle_irq den Stackpointer als ersten (und einzigen) Parameter erhält. Sie gibt einen neuen Stack in r0 zurück, der wieder nach r13 geladen wird. Von diesem Stack werden dann wieder alle Register geladen. Der Aufruf „movs r15, r14“ lädt r14 nach r15 und das SPSR ins CPSR (wechselt also auch den CPU-Modus; dies ist eine Besonderheit der Arithmetik- und Logikbefehle: Werden die <i>s</i>-Varianten (die die Flags modifizierenden Varianten) und r15 als Zielregister verwendet, dann wird das SPSR ins CPSR geladen).
+</p><p>Hinweis: Anstatt am Anfang vier von r14 abzuziehen, könnte man am Ende auch einfach „subs r15, r14, #4“ statt des <i>movs</i> verwenden. Dies würde aber bedeuten, dass wir beim Erstellen eines neuen Prozesses, bei dem wir mit dem r14-Wert auf dem Stack den Einsprungspunkt des Programms festlegen, den tatsächlichen Wert plus vier nehmen müssten. Kann man machen, man kann aber auch einfach am Anfang des IRQ-Handlers vier von r14 abziehen und sich das somit sparen, so wie das hier getan wird.
+</p><p>Jetzt können wir noch den C-Teil in einer irq.c schreiben:
+&lt;c&gt;#include "cpu.h"
+</p>
+<ol><li>include "stdint.h"</li></ol>
+<ol><li>define IC_REGS ((volatile uint32_t *)0x14000000)</li></ol>
+<p>void init_irqs(void)
+{
+</p>
+<pre>   // Alle IRQs deaktivieren
+   IC_REGS[3] = 0xFFFFFFFF;
+</pre>
+<pre>   // IRQs an sich aber erlauben
+   __asm__ __volatile__ ("mrs r0,cpsr;"
+                         "bic r0,#0x80;"
+                         "msr cpsr_ctl,r0" ::: "r0");
+</pre>
+<p>}
+</p><p>struct cpu_state *handle_irq(struct cpu_state *state)
+{
+</p>
+<pre>   // IRQ-Nummer herausfinden
+   unsigned irq = 0;
+   // In diesem Register sind die Bits der IRQs gesetzt, aufgrund deren dieser
+   // IRQ ausgelöst wurde; durch das Lesen werden alle Bits zurückgesetzt
+   uint32_t status = IC_REGS[0];
+</pre>
+<pre>   while (status)
+   {
+       if (status &amp; 1)
+       {
+           // Etwas tun, um den IRQ mit der Nummer irq zu behandeln...
+       }
+</pre>
+<pre>       irq++;
+       status &gt;&gt;= 1;
+   }
+</pre>
+<pre>   return state;
+</pre>
+<p>}&lt;/c&gt;
+</p><p>(stdint.h enthält typedefs für uint8_t (unsigned char), uint16_t (unsigned short), uint32_t (unsigned int) und uint64_t (unsigned long long), cpu.h definiert <i>struct cpu_state</i>)
+</p><p>Um jetzt noch wirklich IRQs zu behandeln, könnte man ein Array aus Funktionspointern anlegen, die auf IRQ-Handler zeigen:
+&lt;c&gt;static struct cpu_state *(*irq_handlers[32])(struct cpu_state *state);
+</p><p>void register_irq_handler(unsigned irq, struct cpu_state (*handler)(struct cpu_state *state))
+{
+</p>
+<pre>   // Es gibt nur 32 IRQs
+   if (irq &gt;= 32)
+       return;
+</pre>
+<pre>   // Wenn schon ein Handler registriert ist, wird der nicht überschrieben
+   if (irq_handlers[irq])
+       return;
+</pre>
+<pre>   irq_handlers[irq] = handler;
+</pre>
+<pre>   // IRQ aktivieren
+   IC_REGS[2] |= 1 &lt;&lt; irq;
+</pre>
+<p>}&lt;/c&gt;
+</p><p>Der Teil, um den IRQ zu behandeln (in <i>handle_irq</i>), lautet dann wie folgt:
+&lt;c&gt;            if (irq_handlers[irq])
+</p>
+<pre>               state = irq_handlers[irq](state);&lt;/c&gt;
+</pre>
+<p>Nun zur <i>struct cpu_state</i>, diese wird in cpu.h definiert; sie spiegelt die Werte auf dem Stack wieder, die asm_handle_irq darauf gelegt hat:
+&lt;c&gt;struct cpu_state
+{
+</p>
+<pre>   // r13 und r14 des Usermodes
+   uint32_t usr_r13, usr_r14;
+   // CPSR vor dem IRQ und SPSR des Supervisormodes
+   uint32_t cpsr, svc_spsr;
+   // r13 und r14 des Supervisormodes
+   uint32_t svc_r13, svc_r14;
+   // r0 bis r12 sowie r15
+   uint32_t r0, r1, r2, r3, r4, r5, r6, r7;
+   uint32_t r8, r9, r10, r11, r12, r15;
+</pre>
+<p>} __attribute__((packed));&lt;/c&gt;
+</p><p>Apropos Stack: Genau da gibt es noch ein Problem. Wir haben noch keinen Stack für IRQs definiert. Das müssen wir in der init.S machen, indem wir nicht nur das r13 des aktiven Supervisormodes ändern, sondern auch das r13 des IRQ-Modes:
+</p>
+<pre>ldr     r13, [r15, #kernel_stack_addr - 8 - .]
+mov     r0, r13
+msr     cpsr_ctl, #0xD2
+add     r13, r0, #8192
+msr     cpsr_ctl, #0xD3</pre>
+<p>Damit das funktioniert, müssen wir jedoch noch mal 8 kB Speicher nach dem Supervisorstack für den IRQ-Stack reservieren:
+</p>
+<pre>.space 8192
+kernel_stack:
+.space 8192</pre>
+<p>Irgendwo in der init-Funktion, möglichst am Anfang, sollte jetzt noch die init_irqs-Funktion aufgerufen werden.
+</p><p>Theoretisch könnte man auch hier jetzt schon einen Tastaturtreiber schreiben, wenn man unbedingt wöllte. Dieser unterscheidet sich noch nicht einmal besonders vom x86-Treiber, weil auch bei I/CP-Boards PS/2 als Tastaturinterface benutzt wird, es werden also die gleichen Befehle zur Kommunikation mit der Tastatur verwendet.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109164510
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.008 seconds
+Preprocessor visited node count: 39/1000000
+Preprocessor generated node count: 172/1000000
+Post‐expand include size: 480/2097152 bytes
+Template argument size: 150/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 1020/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    2.172      1 Vorlage:Navigation
+100.00%    2.172      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=ARM-OS-Dev_Teil_5_–_Interrupts&amp;oldid=9767</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1895/index.html" title="Kategorie:OS-Dev für Einsteiger">OS-Dev für Einsteiger</a></li><li><a href="../../pages/2100/index.html" title="Kategorie:ARM">ARM</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2422/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2422/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

@@ -1,0 +1,17 @@
+{{Stub}}
+Die '''Real Time Clock''' (= '''RTC''') bzw. '''Echtzeituhr''' eines [[x86]]- bzw. [[x86-64]]-Computers gehört zum [[CMOS]] und aktualisiert die darin gespeicherte Uhrzeit und das Datum.
+
+== Programmierung ==
+Die RTC wird über die Statusregister im CMOS programmiert. Wenn Bit 6 im [[CMOS#Statusregister B|Statusregister B]] gesetzt ist, kann die RTC periodisch den [[IRQ]] 8 auslösen. Die Frequenz lässt sich mit dem [[CMOS#Statusregister A|Statusregister A]] einstellen.
+<c>void rtc_init() { 
+	cmos_write(0x0B, cmos_read(0x0B) | 0x40); // IRQ aktivieren
+	cmos_write(0x0A, (cmos_read(0x0A) & 0xF0) | 0x0F); // Interrupt alle 500ms
+}</c>
+
+Im IRQ-Handler muss dann das [[CMOS#Statusregister C|Statusregister C]] ausgelesen werden, sonst löst der RTC keine Interrupts mehr aus. Das Statusregister enthält Informationen über die Ursache des Interrupts, allerdings man kann den Wert nach dem Lesen auch einfach ignorieren.
+
+== Siehe auch ==
+* [[CMOS]]
+
+[[Kategorie:Hardware]]
+[[en:RTC]]

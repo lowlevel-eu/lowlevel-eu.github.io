@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>C-Kernel mit GRUB – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-C-Kernel_mit_GRUB rootpage-C-Kernel_mit_GRUB skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1604/index.html">Aktueller Artikel</a> · <a href="../../history/1604/index.html">Versionsgeschichte</a> · <a href="../../source/8463.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">C-Kernel mit GRUB</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 3. Oktober 2010, 10:36 Uhr von <a class="mw-userlink" href="../../pages/1489/index.html" title="Benutzer:Bluecode"><bdi>Bluecode</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/8461-8463.html" title="C-Kernel mit GRUB">Unterschied</a>) <a href="../8461/index.html" title="C-Kernel mit GRUB">← Nächstältere Version</a> | <a href="../../pages/1604/index.html" title="C-Kernel mit GRUB">Aktuelle Version</a> (<a href="../../diffs/8463-11528.html" title="C-Kernel mit GRUB">Unterschied</a>) | <a href="../11528/index.html" title="C-Kernel mit GRUB">Nächstjüngere Version →</a> (<a href="../../diffs/8463-11528.html" title="C-Kernel mit GRUB">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>In diesem Tutorial werde ich beschreiben, wie man einen in <a href="../../pages/1526/index.html" title="C">C</a> programmierten <a href="../../pages/1478/index.html" title="Kernel">Kernel</a> mithilfe von <a class="mw-redirect" data-archive-original-href="../../pages/1960/index.html" href="../../pages/1567/index.html" title="GRUB">GRUB</a> bootet.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Hinweis_f.C3.BCr_Windowsianer"><span class="tocnumber">1</span> <span class="toctext">Hinweis für Windowsianer</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Kernel"><span class="tocnumber">2</span> <span class="toctext">Kernel</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Kernel_-_C"><span class="tocnumber">2.1</span> <span class="toctext">Kernel - C</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Kernel_-_Assembler"><span class="tocnumber">2.2</span> <span class="toctext">Kernel - Assembler</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Zusammenbauen"><span class="tocnumber">3</span> <span class="toctext">Zusammenbauen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Assemblieren"><span class="tocnumber">3.1</span> <span class="toctext">Assemblieren</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Kompilieren"><span class="tocnumber">3.2</span> <span class="toctext">Kompilieren</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Linken"><span class="tocnumber">3.3</span> <span class="toctext">Linken</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#GRUB-Image_erstellen"><span class="tocnumber">4</span> <span class="toctext">GRUB-Image erstellen</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Vorschl.C3.A4ge"><span class="tocnumber">5</span> <span class="toctext">Vorschläge</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Nachwort"><span class="tocnumber">6</span> <span class="toctext">Nachwort</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Siehe_auch"><span class="tocnumber">7</span> <span class="toctext">Siehe auch</span></a></li>
+</ul>
+</div>
+<h2><span id="Hinweis_für_Windowsianer"></span><span class="mw-headline" id="Hinweis_f.C3.BCr_Windowsianer">Hinweis für Windowsianer</span></h2>
+<p>Ich werde hier beschreiben, wie ich es unter <a href="../../pages/1641/index.html" title="Linux">Linux</a> mache. Unter <a href="../../pages/1558/index.html" title="Windows">Windows</a> geht es auch, aber du musst sicherstellen, dass du ELF als Binärformat benutzt – das heißt, du solltest dir erst entweder den Artikel <a href="../../pages/1450/index.html" title="Crosscompiler für Windows">Crosscompiler für Windows</a> (Verwenden von <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar"> Jidders</a> Crosscompiler) oder <a href="../../pages/1628/index.html" title="Cross-Compiler">Cross-Compiler</a> (Erstellen eines eigenen Crosscompilers) durchlesen und eine entsprechende Entwicklungsumgebung aufsetzen.
+</p>
+<h2><span class="mw-headline" id="Kernel">Kernel</span></h2>
+<p>Der eigentliche Kernel soll ja in C programmiert sein. Ein Teil des Kernels muss aber immernoch in <a href="../../pages/1514/index.html" title="Assembler">Assembler</a> sein.
+</p>
+<h3><span class="mw-headline" id="Kernel_-_C">Kernel - C</span></h3>
+<p>Als erstes kannst du dir einen kleinen Test-Kernel ausdenken, oder einfach den hier benutzen:
+&lt;c&gt;
+int main() {
+</p>
+<pre> // Pointer zum Videospeicher
+ char *video = (char*)0xB8000;
+ // String zum Ausgeben
+ char *hello = "Hello World";
+</pre>
+<pre> // Zuerst den Speicher leeren
+ for(video+=4000; video !=(char*)0xB8000 ;video--)
+    *video=0;
+</pre>
+<pre> // String ausgeben
+ while (*hello) {
+   *video = *hello;
+   video++;
+   *video = 0x07;
+   video++;
+   hello++;
+ }
+</pre>
+<pre> // jetzt wo wir schon im Kernel drin sind, wollen wir auch nicht mehr raus ;)
+ while (1);
+ return 0;
+</pre>
+<p>}
+&lt;/c&gt;
+</p>
+<h3><span class="mw-headline" id="Kernel_-_Assembler">Kernel - Assembler</span></h3>
+<p>Dieser Code macht eigentlich nichts anderes als in die main-Funktion unseres C-Kernels zu springen.
+&lt;asm&gt;
+global loader ; loader für Linker sichtbar machen
+extern main   ; main-Funktion des C-Kernels
+</p><p>FLAGS    equ 0
+MAGIC    equ 0x1BADB002       ; Magicnumber - Erkennungsmerkmal für GRUB
+CHECKSUM equ -(MAGIC + FLAGS) ; Checksum
+</p><p>section .text
+align 4
+MultiBootHeader:
+</p>
+<pre> dd MAGIC       ; Magic number
+ dd FLAGS       ; Flags
+ dd CHECKSUM    ; Checksum
+</pre>
+<p>loader:
+</p>
+<pre> mov esp,0x200000 ; Stack an die 2MB-Grenze platzieren
+ push eax         ; Multiboot Magicnumber auf den Stack legen
+ push ebx         ; Adresse der Multiboot-Structure auf den Stack legen
+ call main        ; main-Funktion des C-Kernels aufrufen
+</pre>
+<pre> cli ; falls der Kernel bis hier her kommt, CPU anhalten
+ hlt
+</pre>
+<p>&lt;/asm&gt;
+Der Code sollte eigentlich gut verständlich sein, trotzdem ist noch was zu klären:
+</p>
+<ul><li>Die Flags können geändert werden, am besten schaut man sich die <a href="../../pages/1560/index.html" title="Multiboot">Multiboot</a>-Spezifikation an.</li>
+<li>Den Stack kann man natürlich an eine beliebige Stelle setzen, aber an der 2MB-Grenze wird er uns nicht stören.</li>
+<li>Es wird die Adresse der Multiboot-Structure nicht umsonst an den C-Kernel übergeben. Am besten liest man so ziemlich am Anfang des Kernels die Informationen aus ihr. In der Multiboot-Structure steht z. B. wie viel Speicher der Rechner hat oder welche Module von GRUB mitgeladen wurden.</li></ul>
+<h2><span class="mw-headline" id="Zusammenbauen">Zusammenbauen</span></h2>
+<p>Nun müssen wir den Kernel „zusammenbauen“. Dafür müssen wir den Assembler-Code assemblieren, den C-Code kompilieren und am Ende beides linken.
+</p>
+<h3><span class="mw-headline" id="Assemblieren">Assemblieren</span></h3>
+<p>Dies geschieht ganz einfach mit diesem Befehl:
+</p>
+<pre>$ nasm -f elf -o kernel_asm.o kernel.asm
+</pre>
+<p>Damit wird eine <a class="mw-redirect" data-archive-original-href="../../pages/1650/index.html" href="../../pages/1528/index.html" title="ELF">ELF</a>-Datei erzeugt, die wir später noch linken können.
+</p>
+<h3><span class="mw-headline" id="Kompilieren">Kompilieren</span></h3>
+<p>Der C-Kernel wird mit diesem Befehl kompiliert:
+</p>
+<pre>$ gcc -m32 -ffreestanding -o kernel_c.o -c kernel.c -Wall -Werror -nostdinc
+</pre>
+<p>Damit erstellen wir eine Objektdatei, mit der wir nachher noch linken können. Es ist wichtig, dass keine Includes und damit auch keine Funktionen aus der Standardbibliothek des Hostsystems benutzt werden. Diese müssen erst selbst implementiert werden.
+Eine genau Beschreibung der einzelnen Kommandozeilenparameter findet sich im <a class="external text" href="http://gcc.gnu.org/onlinedocs/gcc/Invoking-GCC.html#Invoking-GCC" rel="nofollow">GCC Handbuch (englisch)</a>. An dieser Stelle nur so viel:
+</p>
+<ul><li>-m32 weist gcc an, den Code für den 32-Bit-Protected-Mode (im Gegensatz zu -m64) zu erstellen</li>
+<li>-ffreestanding weißt gcc an nicht davon auszugehen, dass eine Standardbibliothek zur Verfügung steht</li>
+<li>-nostdinc weißt gcc an keine Header aus der Standardbibliothek des Hostsystems bereitzustellen</li></ul>
+<h3><span class="mw-headline" id="Linken">Linken</span></h3>
+<p>Meiner Meinung nach ist dies der schwierigste Teil des „Zusammenbauens“. Beim Linken wird unser Assembler-Kernel und unser C-Kernel miteinander verbunden und es wird z. B. dem Assembler-Kernel auch gesagt wo die main-Funktion des C-Kernels liegt. Wir brauchen erstmal eine Konfigurationsdatei/<a class="mw-redirect" data-archive-original-href="../../pages/1934/index.html" href="../../pages/1932/index.html" title="Linkerscript">Linkerscript</a> für <i>ld</i>:
+</p>
+<pre>ENTRY (loader)
+OUTPUT_FORMAT(elf32-i386)
+OUTPUT_ARCH(i386:i386)
+
+SECTIONS
+{
+  . = 0x00100000;
+	
+  .text :
+  {
+    *(.text)
+  }
+	
+  .rodata :
+  {
+    *(.rodata)
+  }
+
+  .data : 
+  {
+    *(.data)
+  }
+
+  .bss :
+  {
+    _sbss = .;
+    *(COMMON)
+    *(.bss)
+    _ebss = .;
+  }
+}
+</pre>
+<p>Nun wird gelinkt:
+</p>
+<pre>$ ld -T &lt;LD-Konfigurationsdatei&gt; -o kernel.bin kernel_asm.o kernel_c.o
+</pre>
+<p>Wenn man später mehr Dateien hat, können diese natürlich auch dazugelinkt werden. Man sollte den fertigen Kernel jetzt in einer Datei namens <i>kernel.bin</i> haben.
+</p><p>Mehr Informationen darüber, was genau dieses Linkerscript genau macht und warum es notwendig bzw. sinnvoll ist, findet ihr im Artikel <a class="mw-redirect" data-archive-original-href="../../pages/1934/index.html" href="../../pages/1932/index.html" title="Linkerscript">Linkerscript</a>. An dieser Stelle nur so viel:
+</p><p>Mit „ENTRY(loader)“ wird ld mitgeteilt, dass der Kernel bei der Funktion loader (siehe <a href="../../pages/1604/index.html#Kernel_-_Assembler" title="C-Kernel mit GRUB"> Assemblerteil des Kernels</a>) beginnt. Dies wird in einem Datenfeld in der ELF-Header der „kernel.bin“ festgehalten und von GRUB benötigt um zur richtigen Adresse zu springen.
+</p><p>Der Rest des Linkerscripts gibt an wo die Sektionen, das sind die Bereiche, welche man in Assembler mittels des „.section .text“ beispielsweise direkt angeben kann, aus den ELF-Objektdateien (kernel_asm.o und kernel_c.o) in der ELF-Binärdatei „kernel.bin“ bzw. nach dem Laden im Speicher landen. Das „. = 0x00100000;“ gibt an, dass die „kernel.bin“ an die Adresse 1 MB gelinkt wird, d. h. sich nach dem Laden durch GRUB an die Adresse 1 MB und folgende im (physischen) Speicher befindet. 1 MB ist als Adresse gewählt, da GRUB keine Dateien unter diese Adresse lädt, der Grund dafür ist, dass der Speicherbereich zwischen 0 und 1 MB durch das BIOS, den Bootloader selbst und verschiedene Hardware belegt ist. Siehe dazu auch den Artikel über <a href="../../pages/1563/index.html" title="Speicherbereiche">Speicherbereiche</a>.
+</p>
+<h2><span class="mw-headline" id="GRUB-Image_erstellen">GRUB-Image erstellen</span></h2>
+<p><i>siehe: <a class="mw-redirect" data-archive-original-href="../../pages/1960/index.html#GRUB_legacy" href="../../pages/1567/index.html#GRUB_legacy" title="GRUB"> GRUB legacy</a></i>
+</p><p>Fertig ist unser GRUB-Image! Man kann es jetzt noch mit
+</p>
+<pre>$ dd if=floppy.img of=/dev/fd0
+</pre>
+<p>auf eine Floppydisk kopieren und damit booten. Wenn alles klappt, seht ihr „Hello World“ auf dem Bildschirm.
+</p>
+<h2><span id="Vorschläge"></span><span class="mw-headline" id="Vorschl.C3.A4ge">Vorschläge</span></h2>
+<ul><li>Auf Dauer wird es anstregend, die ganzen Befehle einzutippen. Am einfachsten ist es eine <a href="../../pages/1436/index.html" title="Makefile">Makefile</a> zu benutzen.</li>
+<li>Um nicht immer neustarten zu müssen, kann man einen Emulator wie <a href="../../pages/1505/index.html" title="QEMU">QEMU</a> oder <a href="../../pages/1538/index.html" title="Bochs">Bochs</a> nehmen. Dann muss man das Image auch erst gar nicht auf Diskette kopieren.</li>
+<li>Mit <i>color light-blue/black light-cyan/blue</i> in menu.lst kann man dem Bootloader Farbe verpassen.</li></ul>
+<h2><span class="mw-headline" id="Nachwort">Nachwort</span></h2>
+<p>Bei Fehlern in Text oder Code bitte an das Lowlevel-Team wenden.
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a href="../../pages/1458/index.html" title="C-Kernel starten">C-Kernel starten</a></li>
+<li><a href="../../pages/1560/index.html" title="Multiboot">Multiboot</a></li>
+<li><a class="mw-redirect" data-archive-original-href="../../pages/1960/index.html" href="../../pages/1567/index.html" title="GRUB">GRUB</a></li>
+<li><a href="../../pages/2124/index.html" title="C++-Kernel mit GRUB">C++-Kernel mit GRUB</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164803
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.007 seconds
+Real time usage: 0.007 seconds
+Preprocessor visited node count: 56/1000000
+Preprocessor generated node count: 72/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 285/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=C-Kernel_mit_GRUB&amp;oldid=8463</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1604/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/1786/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1604/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

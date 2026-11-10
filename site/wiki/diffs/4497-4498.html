@@ -1,0 +1,83 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>D — Änderungen 4497 → 4498</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>D — Änderungen 4497 → 4498</h1><nav><a href="../revisions/4497/index.html">Version 4497</a> · <a href="../revisions/4498/index.html">Version 4498</a> · <a href="../history/1863/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l16" >Zeile 16:</td>
+<td colspan="2" class="diff-lineno">Zeile 16:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Für die Konstruktoren:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Für die Konstruktoren:</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;<del class="diffchange diffchange-inline">pre</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;<ins class="diffchange diffchange-inline">asm</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>static_ctors_loop:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>static_ctors_loop:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  mov ebx, start_ctors</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  mov ebx, start_ctors</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l26" >Zeile 26:</td>
+<td colspan="2" class="diff-lineno">Zeile 26:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  cmp ebx, end_ctors</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  cmp ebx, end_ctors</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  jb .body</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  jb .body</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;/<del class="diffchange diffchange-inline">pre</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;/<ins class="diffchange diffchange-inline">asm</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>start_ctors ist dabei im Linker-Script angegeben.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>start_ctors ist dabei im Linker-Script angegeben.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Für die Destruktoren:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Für die Destruktoren:</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;<del class="diffchange diffchange-inline">pre</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;<ins class="diffchange diffchange-inline">asm</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>static_dtors_loop:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>static_dtors_loop:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  mov ebx, start_dtors</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  mov ebx, start_dtors</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l41" >Zeile 41:</td>
+<td colspan="2" class="diff-lineno">Zeile 41:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  cmp ebx, end_dtors</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  cmp ebx, end_dtors</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  jb .body</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  jb .body</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;/<del class="diffchange diffchange-inline">pre</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;/<ins class="diffchange diffchange-inline">asm</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>end_dtors ist hier auch im Linker-Script angegeben.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>end_dtors ist hier auch im Linker-Script angegeben.</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l92" >Zeile 92:</td>
+<td colspan="2" class="diff-lineno">Zeile 92:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Um diesen Fehler vorzubeugen, sollte also zumindest eine Stub-Funktion erstellt werden:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Um diesen Fehler vorzubeugen, sollte also zumindest eine Stub-Funktion erstellt werden:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;<del class="diffchange diffchange-inline">pre</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;<ins class="diffchange diffchange-inline">c</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>extern(C) void _d_array_bounds(char filename, uint line) {}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>extern(C) void _d_array_bounds(char filename, uint line) {}</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;/<del class="diffchange diffchange-inline">pre</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;/<ins class="diffchange diffchange-inline">c</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Zu Debugging-Zwecken kann hier natürlich auch eine echt Überprüfung gemacht werden.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Zu Debugging-Zwecken kann hier natürlich auch eine echt Überprüfung gemacht werden.</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l102" >Zeile 102:</td>
+<td colspan="2" class="diff-lineno">Zeile 102:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Nichts weltbewegendes, wir geben ein einfaches 'D' auf dem Bildschirm aus:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Nichts weltbewegendes, wir geben ein einfaches 'D' auf dem Bildschirm aus:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;<del class="diffchange diffchange-inline">pre</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;<ins class="diffchange diffchange-inline">c</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>module kernel.main;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>module kernel.main;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; &#160;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; &#160;</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l124" >Zeile 124:</td>
+<td colspan="2" class="diff-lineno">Zeile 124:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; }</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; }</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;/<del class="diffchange diffchange-inline">pre</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;/<ins class="diffchange diffchange-inline">c</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Man beachte das 'module kernel.main', wobei kernel der Name des Verzeichnisses ist, wo sich die Datei befindet.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Man beachte das 'module kernel.main', wobei kernel der Name des Verzeichnisses ist, wo sich die Datei befindet.</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l132" >Zeile 132:</td>
+<td colspan="2" class="diff-lineno">Zeile 132:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Und hier der Start-Code mit Multiboot-Signatur und dem Konstruktor/Destruktor-Code von oben:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Und hier der Start-Code mit Multiboot-Signatur und dem Konstruktor/Destruktor-Code von oben:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;<del class="diffchange diffchange-inline">pre</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;<ins class="diffchange diffchange-inline">asm</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>global start</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>global start</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>extern main&#160; &#160; &#160; &#160; &#160;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>extern main&#160; &#160; &#160; &#160; &#160;</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l191" >Zeile 191:</td>
+<td colspan="2" class="diff-lineno">Zeile 191:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>stack:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>stack:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; resb&#160; &#160; &#160; STACKSIZE</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; resb&#160; &#160; &#160; STACKSIZE</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;/<del class="diffchange diffchange-inline">pre</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;/<ins class="diffchange diffchange-inline">asm</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Erstellung ===</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Erstellung ===</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Erstellt wird das Ganze per</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Erstellt wird das Ganze per</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> $ </ins>nasm -f elf -o ./obj/start.o ./src/kernel/start.asm</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>nasm -f elf -o ./obj/start.o ./src/kernel/start.asm</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>und</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>und</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> $ </ins>gdc -nostdlib -nodefaultlibs -g -c -o ./obj/kernel.main.o ./src/kernel/kernel.main.d</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>gdc -nostdlib -nodefaultlibs -g -c -o ./obj/kernel.main.o ./src/kernel/kernel.main.d</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>gelinkt wird's so:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>gelinkt wird's so:</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> $ </ins>ld -T link.d -o dkernel ./obj/start.o ./obj/kernel.main.o</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>ld -T link.d -o dkernel ./obj/start.o ./obj/kernel.main.o &#160;</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+</table></body></html>

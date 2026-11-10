@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Keyboard Controller – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Keyboard_Controller rootpage-Keyboard_Controller skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1468/index.html">Aktueller Artikel</a> · <a href="../../history/1468/index.html">Versionsgeschichte</a> · <a href="../../source/1769.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Keyboard Controller</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 21. Januar 2007, 14:46 Uhr von <a class="mw-userlink" href="../../pages/1467/index.html" title="Benutzer:Osbios"><bdi>Osbios</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/1768-1769.html" title="Keyboard Controller">Unterschied</a>) <a href="../1768/index.html" title="Keyboard Controller">← Nächstältere Version</a> | <a href="../../pages/1468/index.html" title="Keyboard Controller">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../1777/index.html" title="Keyboard Controller">Nächstjüngere Version →</a> (<a href="../../diffs/1769-1777.html" title="Keyboard Controller">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Der Keyboard Controller (KBC) sitzt auf dem Mainboard und dient, wie der Name vermuten lässt, unter anderem der Tastaturansteuerung. Er hat jedoch noch viele weitere Funktionen.
+</p><p>Funktionen des KBC:
+</p>
+<ul><li>Ansteuerung der Tastatur</li>
+<li>Ansteuerung des PSAUX-Ports (z.B. PS/2-Maus)</li>
+<li>ein-/ausschalten der 21-Adressleitung (a20-Gate)</li>
+<li>CPU-Reset auslösen</li>
+<li>ein-/ausschalten des Systemlautsprechers</li>
+<li>Information ob das System eine Monochrom- oder Farbgrafikkarte benutzt</li></ul>
+<p>Zur Komunikation mit dem KBC werden die Ports 0x60, 0x61 und 0x64 verwendet.<br/>
+</p><p><img alt="kbcnr6.png" src="http://img241.imageshack.us/img241/5692/kbcnr6.png"/>
+<br/>
+Statusregister<br/>
+</p><p><br/>
+</p><p><br/>
+Statusregister (lesen von Port 0x64)
+</p>
+<pre>Bit 76543210
+    │││││││└─ Status des Ausgabepuffers (KBC -&gt; CPU) :  0=leer;  1=voll (es kann von Port 0x60 gelesen werden)
+    ││││││└── Status des Eingabepuffers (KBC &lt;- CPU) :  0=leer (Schreiben auf 0x60 oder 0x64 möglich);  1=voll
+    │││││└─── Systemstatus? :  0=Reset/Selbsttest wird gerade ausgeführt;  1=Selbsttest OK
+    ││││└──── zuletzt benutztes Port : 0=0x60;  1=0x61 oder 0x64?
+    │││└───── Tastatursperre : 0=Tastatur gesperrt; 1=Tastatur nicht gesperrt
+    ││└────── PSAUX?
+    │└─────── Timeout : 1=Tastatur oder PSAUX-Gerät ragiert nicht?
+    └──────── Paritätsfehler : 1=Beim letzten Senden/Empfangen trat ein Paritätsfehler auf
+</pre>
+<p><br/>
+</p><p>Inputport (Lesen über KBC-Befehl 0xC0)
+</p>
+<pre>Bit 76543210
+    │││││││└─ Keyboard data in pin?
+    ││││││└── PS/2 mouse in pin?
+    │││││└─── Reserviert
+    ││││└──── Reserviert
+    │││└───── Reserviert
+    ││└────── Reserviert
+    │└─────── Wether you have a color or mono screen?
+    └──────── Tastatursperre : 0=Tastatur gesperrt;  1=Tastatur nicht gesperrt
+</pre>
+<p><br/>
+</p><p>Outputport (Lesen über KBC-Befehl 0xD0, schreiben über KBC-Befehl 0xD1)
+</p>
+<pre>Bit 76543210
+    │││││││└─ 1=CPU-Reset
+    ││││││└── 1=A20-Gate eingeschaltet
+    │││││└─── ? PS/2 mouse data out
+    ││││└──── ? PS/2 mouse clock signal
+    │││└───── ? 1: Output buffer full
+    ││└────── ? 1: Output buffer PS/2 mouse full
+    │└─────── ? Keyboard clock signal
+    └──────── ? Keyboard data out
+</pre>
+<p><br/>
+</p><p><br/>
+Port 0x61 (lesen und schreiben)
+</p>
+<pre>Bit 76543210
+    │││││││└─ PPI \
+    ││││││└── PPI  \
+    │││││└─── PPI   |Dieser Teil ist vom Programmable Peripheral Interface
+    ││││└──── PPI   |nicht überschreiben!
+    │││└───── PPI  /
+    ││└────── PPI /
+    │└─────── Setzt die "clock"-Leitung auf low, so dass die Tastatur keine Daten an den PC senden kann
+    └──────── 0=Tastatur eingeschaltet;  1=Tastatur ausgeschaltet
+</pre>
+<p><br/>
+</p><p>KBC-Befehle (schreiben auf Port 0x64)<br/>
+Bevor man auf Port 0x64 schreibt, müssen Port[0x60].Bit[1]==0 und Port[0x60].Bit[2]==1 sein!
+</p>
+<pre>0xAA   Tastatur-Selbsttest. Sollte 0x55 auf Port 0x60 zurückgeben.
+
+0xAB   Testen des Tastaturanschlusses. Auf Port 0x60 wird ein Byte zurückgegeben:
+
+	     00h: No error
+	     01h: Clock low
+	     02h: Clock high
+	     03h: Data low
+	     04h: Data high
+	     ffh: Total Error
+
+0xAD   Deaktivieren der Tastatur
+
+0xAE   Aktivieren der Tastatur
+
+0xC0   Lesen des Inputports. Gibt den Inhalt vom Inputport auf Port 0x60 aus. (Siehe: Inputport)
+
+0xD0   Lesen des Outputports. Gibt den Inhalt vom Outputport auf Port 0x60 aus. (Siehe: Outputport)
+
+0xD1   Schreiben des Outputports. Den neuen Wert für das Outputport auf Port 0x60 schreiben. (Siehe: Outputport)
+
+0xD2   ?
+0xD3   ?
+0xD4   ?
+
+0xE0   ?
+
+0xFx   ?
+
+
+</pre>
+<p><br/>
+</p><p>Tastatur-Befehle (schreiben auf Port 0x60)<br/>
+Bevor man auf Port 0x60 schreibt, müssen Port[0x60].Bit[1]==0 und Port[0x60].Bit[2]==1 sein!
+</p>
+<pre>0xED   Setzen der LEDs auf der Tastatur. Ein zweites Byte wird über Port 0x60 gesendet:
+
+       Bit 76543210
+           │││││││└─ Scroll Lock : 0=aus 1=an
+           ││││││└── Num Lock    : 0=aus 1=an
+           │││││└─── Caps Lock   : 0=aus 1=an
+           └┴┴┴┴──── 0
+
+0xEE   Dieser Befehl ist zum testen der Tastatur. Die Tastatur sollte mit 0xEE antworten.
+
+0xF0   Auswählen des Scancodes. Als Parameter den Scancode 1, 2(standard) oder 3 auf Port 0x60 senden.
+       (Anmerkung: Kann man mit dem Wert 0 als Parameter den aktuellen Scancode auslesen?)
+
+0xF2   Diesen Befhel sendet man zum identifiziren der Tastatur. Es gibt folgende Rückgabewerte:
+
+       XT Tastatur    :  Timeout (Port[0x64].Bit[6]=1)
+       AT Tastatur    :  Rückgabewert 0xFA
+       MF II Tastatur :  Rückgabewert 0xFA 0xAB 0x41
+
+0xF3   Setzen der Wiederholrate für gedrückte Tasten. Ein zweites Byte wird über Port 0x60 gesendet:
+
+       Bit 76543210
+           │││└┴┴┴┴─ Wiederholrate der Taste nach der Wartezeit
+           │││       Wert  : Wiederholungen pro Sekunde
+           │││       00000 : 30
+           │││       00001 : 26,7
+           │││       00010 : 24
+           │││       00100 : 20
+           │││       01000 : 15
+           │││       01010 : 10
+           │││       01101 :  9
+           │││       10000 :  7,5
+           │││       10100 :  5
+           │││       11111 :  2
+           │││
+           │└┴────── Wartezeit bevor eine gehaltene Taste wiederholt wird.
+           │         00 :  250 ms
+           │         01 :  500 ms
+           │         10 :  750 ms
+           │         11 : 1000 ms
+           │
+           └──────── 0
+
+0xF4   ?
+0xF5   ?
+0xF6   ?
+
+0xFE   ?
+
+0xFF   ?
+
+</pre>
+<!-- 
+NewPP limit report
+Cached time: 20261109165550
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.001 seconds
+Real time usage: 0.001 seconds
+Preprocessor visited node count: 19/1000000
+Preprocessor generated node count: 124/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 4928/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Keyboard_Controller&amp;oldid=1769</a>“</div>
+<div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks"></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1468/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/1485/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1468/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>X86-64 Cross-Compiler – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-X86-64_Cross-Compiler rootpage-X86-64_Cross-Compiler skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2060/index.html">Aktueller Artikel</a> · <a href="../../history/2060/index.html">Versionsgeschichte</a> · <a href="../../source/9854.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">X86-64 Cross-Compiler</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 17. Juni 2011, 11:13 Uhr von <a class="mw-userlink" href="../../pages/1865/index.html" title="Benutzer:Hartmut"><bdi>Hartmut</bdi></a> <span class="mw-usertoollinks">(<a class="mw-usertoollinks-talk" href="../../pages/2608/index.html" title="Benutzer Diskussion:Hartmut">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Vorbereitung">→</a>‎<span dir="auto"><span class="autocomment">Vorbereitung: </span> Neue Versionen</span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/6270-9854.html" title="X86-64 Cross-Compiler">Unterschied</a>) <a href="../6270/index.html" title="X86-64 Cross-Compiler">← Nächstältere Version</a> | <a href="../../pages/2060/index.html" title="X86-64 Cross-Compiler">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../9855/index.html" title="X86-64 Cross-Compiler">Nächstjüngere Version →</a> (<a href="../../diffs/9854-9855.html" title="X86-64 Cross-Compiler">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Wer ein 64-Bit-Betriebssystem entwickeln möchte, allerdings kein 64-Bit-Linux installiert hat, muss sich einen Cross-Compiler bauen, damit dieser 64-Bit-Dateien erstellen kann.
+</p><p>Im Folgenden wird erklärt, wie man einen Cross-Compiler für die x86-64-Plattform unter einem 32-Bit-Linux erstellt.
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Vorbereitung"><span class="tocnumber">1</span> <span class="toctext">Vorbereitung</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#binutils_erstellen"><span class="tocnumber">2</span> <span class="toctext">binutils erstellen</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#gcc_bauen"><span class="tocnumber">3</span> <span class="toctext">gcc bauen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Halt.2C_da_fehlt_noch_was"><span class="tocnumber">3.1</span> <span class="toctext">Halt, da fehlt noch was</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Jetzt_aber"><span class="tocnumber">3.2</span> <span class="toctext">Jetzt aber</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Fertig.21"><span class="tocnumber">4</span> <span class="toctext">Fertig!</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Vorbereitung">Vorbereitung</span></h2>
+<p>Es gibt zwei verschiedene Wege, einen Cross-Compiler für x86-64 zu erstellen, wir bedienen uns hier der einfachsten Variante: Wir bauen die Binutils und den <a class="mw-redirect" data-archive-original-href="../../pages/1846/index.html" href="../../pages/1805/index.html" title="GCC">GCC</a> neu, sodass wir einen funktionierenden gcc haben, mit dessen Hilfe wir x86-64-ELF-Dateien erstellen können.
+</p><p>Als erstes müssen dazu die Binutils und der gcc heruntergeladen werden. Wir benutzen dazu die neueste (Stand: 17. Juni 2011) Version beider Toolchains, einmal die <a class="external text" href="http://ftp.gnu.org/gnu/binutils/binutils-2.21.tar.gz" rel="nofollow">binutils 2.21.0</a> und das Core-Package des <a class="external text" href="http://ftp.gnu.org/gnu/gcc/gcc-4.6.0/gcc-core-4.6.0.tar.bz2" rel="nofollow">gcc 4.6.0</a>. Wenn allerdings auch Support für mehr Sprachen als C gewünscht ist, müssen dementsprechend zusätzliche Pakete unter <a class="external text" href="http://ftp.gnu.org/gnu/gcc" rel="nofollow">ftp.gnu.org/gnu/gcc</a> heruntergeladen werden.
+</p><p>Diese werden nun in ein beliebiges Verzeichnis entpackt, wir verwenden hier die Verzeichnisse <b>/usr/src/cross-gcc</b> und <b>/usr/src/cross-binutils</b>. Desweiteren sollte auch ein Verzeichnis für die Cross-Tools angelegt werden, in unserem Beispiel landen die fertigen Tools unter <b>/usr/cross</b>.
+</p><p>Falls man sich noch nicht auf der Shell befindet, sollte man <b>jetzt</b> zu selbiger wechseln.
+</p><p>Anschließend werden ein paar Variablen gesetzt:
+</p>
+<pre>$ export PREFIX=/usr/cross
+$ export TARGET=x86_64-elf
+</pre>
+<p><br/>
+PREFIX kann mit dem Verzeichnis ersetzt werden, wo die Tools später landen sollen.
+</p><p>Nun kann es schon losgehen!
+</p>
+<h2><span class="mw-headline" id="binutils_erstellen">binutils erstellen</span></h2>
+<p>Wir erstellen nun die binutils. Das ist einfacher als gedacht, handelt es sich doch auch hier um den typischen Dreisatz:
+</p><p>configure
+make all
+make install
+</p><p>Ins binutils-Verzeichnis gewechselt, geben wir configure ein paar Parameter mit auf dem Weg:
+</p>
+<pre>$ ./configure --target=$TARGET --prefix=$PREFIX
+</pre>
+<p>Wie man sieht, konfigurieren wir die Binutils für unser Zielsystem. Nach erfolgreichem configure kann nun gebaut werden:
+</p>
+<pre>$ make all
+# make install
+</pre>
+<p>Die binutils wurden dann erfolgreich gebaut. Jetzt geht's weiter zum gcc.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="gcc_bauen">gcc bauen</span></h2>
+<h3><span id="Halt,_da_fehlt_noch_was"></span><span class="mw-headline" id="Halt.2C_da_fehlt_noch_was">Halt, da fehlt noch was</span></h3>
+<p>Um den gcc zu bauen, benötigt es zwei (sofern nicht bereits installiert) Bibliotheken: Die GMP und MPFR-Libraries. Diese können durch die Paketverwaltung bezogen werden oder müssen gegenebenfalls runtergeladen und von Hand gebaut werden.
+</p>
+<ul><li><a class="external text archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">GMP</a></li>
+<li><a class="external text" href="http://www.mpfr.org/mpfr-current/mpfr-2.4.1.tar.bz2" rel="nofollow">MPFR</a></li></ul>
+<p>Hierbei ist zu beachten, <b>erst</b> GMP zu bauen und zu installieren und <b>dann</b> MPFR zu bauen und zu installieren. Gebaut werden beide Libraries mit dem bekannten Dreisatz ./configure, make, (sudo) make install.
+</p>
+<h3><span class="mw-headline" id="Jetzt_aber">Jetzt aber</span></h3>
+<p>Nun bauen wir also den gcc. Dazu sind erst kurze Vorbereitungen nötig:
+</p>
+<pre>$ export PATH=$PATH:$PREFIX/bin
+</pre>
+<p>Damit wird der Ort der Cross-binutils zum PATH hinzugefügt.
+</p><p>Jetzt wird gcc konfiguriert:
+</p>
+<pre>$ ./configure --target=$TARGET --prefix=$PREFIX --enable-languages=c --without-headers
+</pre>
+<p>Sollte einer der benötigten Tools oder Librarys (bison, flex, GMP, MPFR) fehlen, meckert configure entsprechend. Nach erfolgreichem configure kann nun der gcc per
+</p>
+<pre>make all-gcc
+make install-gcc
+</pre>
+<p>gebaut und installiert werden. Das Bauen des gcc dauert unter Umständen sehr lange (sind halt ein paar MB Sourcecode). 
+</p><p><br/>
+</p>
+<h2><span id="Fertig!"></span><span class="mw-headline" id="Fertig.21">Fertig!</span></h2>
+<p>Gratulation, ein Cross-Compiler für die x86-64-Plattform wurde erstellt! Die Tools befinden sich nun unter /usr/cross/ (in diesem Beispiel) und haben x86_64-elf- als Prefix, Beispiel: x86_64-elf-gcc, x86_64-elf-ld usw.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109170755
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.003 seconds
+Real time usage: 0.004 seconds
+Preprocessor visited node count: 77/1000000
+Preprocessor generated node count: 148/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 349/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=X86-64_Cross-Compiler&amp;oldid=9854</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1913/index.html" title="Kategorie:X86-64">X86-64</a></li><li><a href="../../pages/1923/index.html" title="Kategorie:Compiler">Compiler</a></li><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2060/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2061/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2060/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

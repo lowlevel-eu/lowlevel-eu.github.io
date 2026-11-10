@@ -1,0 +1,1130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="Emulation von fork/exec in der libc" name="description"/>
+<title>Emulation von fork/exec in der libc</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:30</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Emulation von fork/exec in der libc</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg32787"></a>
+<div class="nextlinks"><a href="../2807/offset-20.html#msg32987">« vorheriges</a> <a href="../2797/offset-20.html#msg32869">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] <a class="navPages" href="offset-20.html">2</a>
+</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/0f01c9c83ac67395064654f9.gif"/>
+<span id="author">Autor</span>
+						Thema: Emulation von fork/exec in der libc  (Gelesen 79169 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32787_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong> am:</strong> 16. July 2011, 10:25 »</div>
+<div class="posttile"><h5 id="subject_32787">
+<a href="index.html#msg32787" rel="nofollow">Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32787_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32787">Hallo,<br/><br/><br/>zu dem oben genannten Thema ist mir vor kurzen was gutes eingefallen: Ich kann mir vorstellen das es möglich ist das Pärchen fork/exec in der libc recht brauchbar zu emulieren. Der fork-Stub müsste dafür nur eine Kopie des aktuelles Stacks anfertigen und ein Flag setzen, alle weiteren Aufrufe in die libc welche File-Handels u.ä. betreffen müssten dann mit einem zweiten Datensatz bearbeitet werden (deswegen das Flag) und die exec-Funktion müsste dann einen neuen Prozess erzeugen und den geänderten zweiten Handle-Datensatz dem neuen Prozess geben und als letztes im eigenen Prozess den alten Stack restaurieren um damit wieder aus dem fork-Aufruf zurück zu kommen (mit dem passenden Return-Wert für den Eltern-Prozess). Mir ist klar dass das nicht immer funktioniert, spätestens wenn zwischen fork und exec die beiden Prozesse miteinander kommunizieren wollen geht das mit meiner Idee nicht weil der neue Prozess ja erst bei exec erstellt wird und der Code zwischen fork und exec noch im alten Prozess läuft während der eigentliche Ausführungspfad des alten Prozesses noch nicht ausgeführt wird. Das das nur mit Single-Thread-Programmen funktioniert ist auch klar aber wer Threads benutzt benötigt IMHO auch kein fork.<br/><br/>Es ist offensichtlich das dieser dirty Hack in einigen Situationen nicht das tut was unter POSIX passieren würde und es da eine Menge Risiken gibt, z.B. könnten andere statische Variablen zwischen fork und exec manipuliert werden und diese Manipulation wäre dann im Elternprozess sichtbar (sie passiert ja auch noch im Elternprozess) obwohl das eigentlich nicht sein darf. Trotzdem könnte diese Krücke für viele einfache Programme durchaus brauchbar sein. Es würde einem zumindest ersparen beim Portieren eine Menge Code anzufassen obwohl da nur nach klassischer POSIX-Manier neue Prozesse erstellt werden. Ich hab noch nicht nachgesehen aber ich kann mir vorstellen das damit über 90% aller fork-Aufrufe in den Core-Utils gut abgedeckt wären und man sich so eine Menge Portierungsaufwand erspart. Da man diese Funktionalität nur dann in der libc bräuchte wenn es sich um ein POSIX-Programm handelt sollte das ganze eventuell über ein #define zuschaltbar sein bzw. die libc müsste doppelt vorhanden sein damit dann der Loader die jeweils passende benutzen kann.<br/><br/><br/>Ich hoffe ich habe meine Idee verständlich ausgedrückt ansonsten Bitte nachfragen.<br/><br/>Was haltet Ihr von meiner Idee?<br/>Seht Ihr irgendwelche Probleme oder Lücken (aus Sicht der <em>einfachen</em> Standard-Fälle)?<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32787">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32787_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32788"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_32788_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #1 am:</strong> 16. July 2011, 11:48 »</div>
+<div class="posttile"><h5 id="subject_32788">
+<a href="index.html#msg32788" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32788_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32788">Könnte so für die einfachen Fällen schon funktionieren.<br/><br/>Aber es gibt zwei Punkte, die mich davon abhalten würden, das umzusetzen: Zum einen die tiefgreifenden Auswirkungen auf die Implementierung der restlichen libc, wenn die überall Spezialfälle berücksichtigen müssen, falls es nach einem fork() war. Und zum anderen, dass du die schwierigen Fälle nicht automatisch erkennst, in denen es schiefgeht. Eine Lösung, die normal das richtige tut, aber in schwierigen Fällen einen Fehler zurückgibt, wäre okay. Aber eine Funktion, die normal das richtige tut, und in schwierigen Fällen den Pseudo-Elternprozess korrumpiert, ist für mich keine Option.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32788">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32788_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32790"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32790_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #2 am:</strong> 16. July 2011, 12:25 »</div>
+<div class="posttile"><h5 id="subject_32790">
+<a href="index.html#msg32790" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32790_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32790">Außerdem wäre das irgendwie... schon vom Design her kaputt.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32790">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32792"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32792_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #3 am:</strong> 16. July 2011, 17:04 »</div>
+<div class="posttile"><h5 id="subject_32792">
+<a href="index.html#msg32792" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32792_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32792">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32790">Zitat von: Svenska am 16. July 2011, 12:25</a></div></div><blockquote class="bbc_standard_quote">Außerdem wäre das irgendwie... schon vom Design her kaputt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Full ACK! (übrigens ein Gedanke der mir bei fork/exec schon des öfteren gekommen ist <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> SCNR)<br/>Der Gedanke hinter meiner Idee war auch nicht eine tolle Lösung zu präsentieren sondern eine Art Trade-Off über den Portierungsaufwand. Wenn man mit einer Art libc-Anpassung oder eventuell einem Wrapper (hierüber müsste man mal noch etwas grübeln ob damit taljeth's erster Kritikpunkt abwendbar ist) sich bei 90% aller zu portierenden POSIX-Programme eine große Menge an Aufwand spart dann ist das doch schon mal ein Gewinn. Klar muss man trotzdem noch bei allen Programmen in den Quell-Code schauen ob dieser Dirty-Hack auch anwendbar ist, eine vollautomatische Rundumsorgloslösung kommt da auf jeden Fall nicht bei raus. Ich könnte mir aber vorstellen das man damit bei vielen Programmen, die fork/exec genau so klassisch benutzen, den Quell-Code nur marginal ändern müsste und man so auch von Aktualisierungen im Original-Projekt automatisch profitieren kann ohne jedes mal wieder neu den Portierungsaufwand haben zu müssen.<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32788">Zitat von: taljeth am 16. July 2011, 11:48</a></div></div><blockquote class="bbc_standard_quote">die tiefgreifenden Auswirkungen auf die Implementierung der restlichen libc, wenn die überall Spezialfälle berücksichtigen müssen, falls es nach einem fork() war</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Was schätzt Du denn wie tiefgreifend diese Auswirkungen sind? Eigentlich betrifft das ja nicht so viele der libc-Funktionen, etliche haben keinen dauerhaften Zustand, und für den Rest wäre eventuell ein Wrapper eine gute Idee der eben nur die Zustandsänderungen mit loggt und am Ende von exec wieder alles rückgängig macht (für den Elternprozess). Mir ist klar das das reichlich Dirty ist aber wenn man die "Heilige Kuh der Kompatibilität" nicht schlachten möchte darf man keine Angst vor schmutzigen Händen haben, alles selber neu Schreiben macht auf jeden Fall deutlich mehr Arbeit und mit Sicherheit keine saubereren Hände.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32788">Zitat von: taljeth am 16. July 2011, 11:48</a></div></div><blockquote class="bbc_standard_quote">Könnte so für die einfachen Fällen schon funktionieren.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Es geht mir ja vorwiegend um die <em>einfachen</em> Fälle. Solange diese einen erheblichen Anteil darstellen müsste meine Idee tatsächlich die Chance haben eine Reduktion des Portierungsaufwandes bewirken zu können.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32792">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32792_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32795"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32795_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #4 am:</strong> 16. July 2011, 20:25 »</div>
+<div class="posttile"><h5 id="subject_32795">
+<a href="index.html#msg32795" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32795_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32795">Erik, für die "einfachen Fälle" gibt es vfork(). Wenn ein Programm also direkt hintereinander fork()/exec() ausführt, dann kann man das fork() auch immer durch ein vfork() ersetzen und spart sich eine Menge Ärger. Ohne MMU kann man fork() nicht performant machen, vfork() hingegen schon.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32795">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32798"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32798_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #5 am:</strong> 17. July 2011, 11:57 »</div>
+<div class="posttile"><h5 id="subject_32798">
+<a href="index.html#msg32798" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32798_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32798">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32795">Zitat von: Svenska am 16. July 2011, 20:25</a></div></div><blockquote class="bbc_standard_quote">Erik, für die "einfachen Fälle" gibt es vfork(). Wenn ein Programm also direkt hintereinander fork()/exec() ausführt, dann kann man das fork() auch immer durch ein vfork() ersetzen und spart sich eine Menge Ärger.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>So einfache Fälle habe ich nun auch nicht im Visier. Wenn fork und exec direkt hintereinander stehen dann kann man das einfach mit einem CreateProzess(enableInheritance=true) ersetzen ohne da viel denken zu müssen. Es geht mir um die Fälle wo zwischen fork und exec noch einiges an Code ist der vorwiegend Handels schließt oder öffnet um dem Kindprozess gezielt bestimmte Dinge zu vererben. Ich denke das gerade in den Programmen aus den Core-Utils ne Menge Beispiele für sowas drin sind und gerade um solche klassischen POSIX-Tools geht es mir. Ich würde z.B. gerne einfach eine bash portieren anstatt selber eine Shell schreiben zu müssen (letzteres ist bei weitem keine Kleinigkeit), grundsätzlich sehe ich an der bash auch absolut keine Probleme für meine Plattform von fork/exec mal abgesehen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32795">Zitat von: Svenska am 16. July 2011, 20:25</a></div></div><blockquote class="bbc_standard_quote">Ohne MMU kann man fork() nicht performant machen, vfork() hingegen schon.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Damit willst Du mir doch jetzt hoffentlich nicht empfehlen den gut ausgetrampelten Pfad des Flat-Memory-Konzepts zu gehen? Ich weiß, die dunkle Seite ist einfacher, schneller und verführerischer aber stärker ist sie nicht. Ich persönlich empfinde fork schon vom Design her kaputt aber das ändert nichts an der Tatsache das es in der großen bösen Welt ne Menge Programme gibt die das benutzen. Ich habe also 2 Möglichkeiten: ich kann versuchen diese Programme irgendwie zu Portieren oder ich kann diese Programme für meine Plattform neu schreiben. Letzteres würde ich als Zeitverschwendung betrachten, warum sollte ich das Rad ein weiteres mal neu erfinden? Erstes ist auf eine Plattform die fork grundsätzlich nicht unterstützen kann aber auch nicht einfach also kommt man da schon mal auf, äh, pragmatische Ideen.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32798">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32798_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32857"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32857_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #6 am:</strong> 24. July 2011, 13:59 »</div>
+<div class="posttile"><h5 id="subject_32857">
+<a href="index.html#msg32857" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32857_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32857">Hallo,<br/><br/>naja ich halte Segmentierung jetzt nicht unbedingt für den totalen Grund gegen fork(). Code und RO-Daten lassen sich in jedem Fall als ganzes Segment gemeinsam nutzen und im Notfall kannst du jedes Segment auch wie eine Page behandeln (d.h. Copy-on-Write plus einiges an Buchführung für die Datenstrukturen). Du könntest dich in der Embedded-Welt bedienen (Busybox enthält einen Großteil der Coreutils und funktioniert auch auf NOMMU-Systemen - also exakt deine Zielwelt). Der schnellste Weg, Unix-Programme zum Laufen zu überreden, ist übrigens eine Unix-kompatible Umgebung. Du willst sie nicht, behalte also die Scherben. <img alt=":P" class="smiley" src="../../../assets/forum/7d770ef9789e478248a64dfd.gif" title="Tongue"/><br/><br/>Effektiv hast du zwei in meinen Augen sinnvolle Möglichkeiten: Du unterstützt in deinem Kernel ein fork() [muss ja nicht performant sein, korrekt reicht aus] oder du unterstützt es halt nicht. Du wirst mit einer unglaublich langsamen fork()-Emulation jedenfalls keinen Spaß haben und dann entweder sowieso um- oder neuschreiben müssen. Bei einer mäßigen/kaputten Implementation passiert das sowieso.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32798">Zitat von: erik.vikinger am 17. July 2011, 11:57</a></div></div><blockquote class="bbc_standard_quote">Damit willst Du mir doch jetzt hoffentlich nicht empfehlen den gut ausgetrampelten Pfad des Flat-Memory-Konzepts zu gehen?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ganz sicher nicht, da ich einerseits weiß, dass du dagegen eine winzigkleine Abneigung hast, andererseits Segmentierung selbst eine nette Sache finde und daher möchte, dass du für deine Probleme auch Lösungen findest. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/>Ich finde fork() gut, aber wenn es nicht vernünftig implementierbar ist, dann lass es weg und portiere die Software. Wenn du es nebenbei schaffst, die bash gebrauchbar auf NOMMU-Systeme zu portieren, dann freut sich bestimmt auch Upstream.<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32857">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32860"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32860_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #7 am:</strong> 24. July 2011, 18:19 »</div>
+<div class="posttile"><h5 id="subject_32860">
+<a href="index.html#msg32860" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32860_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32860">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32857">Zitat von: Svenska am 24. July 2011, 13:59</a></div></div><blockquote class="bbc_standard_quote">naja ich halte Segmentierung jetzt nicht unbedingt für den totalen Grund gegen fork(). Code und RO-Daten lassen sich in jedem Fall als ganzes Segment gemeinsam nutzen ...</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da bin ich mir nicht so ganz sicher, der Code und auch die RO-Daten werden beim Laden reloziert (z.B. werden in den Code die richtigen LDT-Selectoren eingebaut, die sollen eigentlich per Zufall vergeben werden) und außerdem landet der Code zur Laufzeit nicht an Offset 0 im Code-Segment sondern an einem zufälligen Offset. Ich habe auch explizit vorgesehen das der Loader in der Lage sein soll in entsprechend markierte Felder in den RO-Daten Zufallswerte einzutragen damit z.B. ein PRNG das als Seed nutzen kann. Es wäre eher ungeschickt (wenn nicht gar ein Sicherheitsrisiko) solche Dinge zu sharen. Ich will bei mir möglichst viele Dinge vom Zufall steuern lassen, in so eine Umgebung passt fork einfach nicht rein (egal ob Flat-Memory oder Segmentierung).<br/><br/>An BusyBox hab ich auch schon gedacht aber ich denke auch das basiert auf fork/exec, auch wenn man dort sicher einiges möglichst einfach gestaltet hat. Ich schätze ich sollte mir dessen Quellcode mal etwas genauer ansehen. Hat damit hier schon jemand Erfahrung?<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32857">Zitat von: Svenska am 24. July 2011, 13:59</a></div></div><blockquote class="bbc_standard_quote">Der schnellste Weg, Unix-Programme zum Laufen zu überreden, ist übrigens eine Unix-kompatible Umgebung. Du willst sie nicht, behalte also die Scherben. <img alt=":P" class="smiley" src="../../../assets/forum/7d770ef9789e478248a64dfd.gif" title="Tongue"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Mein Plan war eigentlich die Kompatibilität auf der libc-Ebene zu erreichen, da ich einen Micro-Kernel realisieren möchte wird dort eh sehr vieles von dem drin sein was bei klassischen POSIX-Systemen im Kernel steckt.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32857">Zitat von: Svenska am 24. July 2011, 13:59</a></div></div><blockquote class="bbc_standard_quote">Effektiv hast du zwei in meinen Augen sinnvolle Möglichkeiten: Du unterstützt in deinem Kernel ein fork() [muss ja nicht performant sein, korrekt reicht aus] oder du unterstützt es halt nicht.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich denke ich kann fork schon aus technischen Gründen nicht im Kernel unterstützen und eigentlich will ich das auch nicht. In meinen Augen ist fork obsolet. Bei einzelnen Programmen die fork nutzen um mehrere Aufgaben parallel zu erledigen (z.B. ein HTTP-Server der für jede TCP-Connection forkt, ich weiß dass das ein doofes Beispiel ist weil es dafür eigentlich Async-IO gibt) sind Threads aus heutiger Sicht die bessere Wahl (entsprechende Programme muss ich auf jeden Fall portieren aber das sollte selten sein da sich die Benutzung von Threads durchaus langsam verbreitet) und bei den Fällen wo fork benutzt wird um dann mit exec ein neues Programm zu starten wäre CreateProzess und eine konkrete Liste der zu vererbenden Ressourcen die bessere Wahl (schon allein aus sicherheitstechnischer Sicht). Ich möchte in meinem OS nicht nur deswegen kein fork haben weil ich es technisch nicht vernünftig umsetzen kann sondern auch weil ich es als Sicherheitsrisiko einstufe. Nebst dessen das für den ersten Fall Threads billiger sind als fork.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32857">Zitat von: Svenska am 24. July 2011, 13:59</a></div></div><blockquote class="bbc_standard_quote">Du wirst mit einer unglaublich langsamen fork()-Emulation jedenfalls keinen Spaß haben</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wieso sollte die Variante in der libc "unglaublich langsam" sein? Klar wird dadurch jeder interessante libc-Aufruf um ein paar CPU-Takte ausgebremst aber das dürfte kaum spürbar sein solange kein fork aktiv ist und wenn fork aktiv ist dann wird zwar stärker gebremst aber es handelt sich ja auch nur um einen relativ kurzen Abschnitt im Programm.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32857">Zitat von: Svenska am 24. July 2011, 13:59</a></div></div><blockquote class="bbc_standard_quote">da ich einerseits weiß, dass du dagegen eine winzigkleine Abneigung hast</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Aber wirklich nur eine ganz winzig kleine. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32857">Zitat von: Svenska am 24. July 2011, 13:59</a></div></div><blockquote class="bbc_standard_quote">andererseits Segmentierung selbst eine nette Sache finde und daher möchte, dass du für deine Probleme auch Lösungen findest. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist toll. Für fork werde ich aber ganz sicher keine wirklich zufriedenstellende Lösung finden, ich kann IMHO nur versuchen für die verschiedenen Anwendungsszenarien jeweils einigermaßen passende Teil-Lösungen zu erarbeiten. In den Fällen wo fork nur zum Parallelisieren benutzt wird oder wo zwischen fork und exec richtig komplexer Code ist und/oder die zwei Prozesse gar miteinander kommunizieren muss ich eh portieren da sich sowas nicht einfach emulieren lässt. Die Fälle wo fork und exec direkt hintereinander stehen lassen sich auch ganz simpel portieren so das dort keine Emulation lohnt. Was übrig bleibt sind die Fälle wo zwischen fork und exec noch Ressourcen geschlossen/geöffnet werden aber sonst nicht allzu komplexe Dinge passieren, ich denke diese Fälle sind auch recht häufig so das sich hier eine Emulation eventuell tatsächlich lohnt, technisch umsetzbar erscheint mir diese zumindest.<br/><br/>In diesem Zusammenhang kann ich mir vorstellen das BusyBox ein schwieriges Programm ist weil es wahrscheinlich recht viele verschiedene Anwendungsszenarien für fork enthält. Bei einem Programm das nur eine Aufgabe erfüllen muss könnte das eventuell einfach werden, man kann dann für jedes Programm individuell entscheiden. Gerade bei der bash sehe ich eigentlich nicht das es dort verschiedene Szenarien für fork gibt, wenn die bash einen neuen Prozess startet dann geht es in erster Linie um das gezielte Vererben von stdin/stdout/stderr und um das Übermitteln von Parametern. Meiner Meinung nach dürfte die bash gerade in die Kategorie fallen die ich mit der libc-Emulation anvisiere.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32857">Zitat von: Svenska am 24. July 2011, 13:59</a></div></div><blockquote class="bbc_standard_quote">Ich finde fork() gut</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Tja, jeder hat eben seine eigene Meinung. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Keine Angst, Meinungsvielfalt empfinde ich als ein sehr wichtiges Gut unserer modernen Zivilisation.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32857">Zitat von: Svenska am 24. July 2011, 13:59</a></div></div><blockquote class="bbc_standard_quote">Wenn du es nebenbei schaffst, die bash gebrauchbar auf NOMMU-Systeme zu portieren, dann freut sich bestimmt auch Upstream.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Sicher? Davon bin ich nicht so überzeugt, immerhin würde das bedeuten das die bash von wesentlichen POSIX-Traditionen abweichen würde und damit würde man eventuell riskieren das sie auf anderen Plattformen nicht mehr so toll funktioniert. Ich könnte mir durchaus vorstellen das eine entsprechende Anfrage mit "entweder Du kannst POSIX oder Du lässt es" beantwortet wird. Ich hab mit so einer Antwort auch kein Problem, wenn die bash explizit ein POSIX-Programm sein soll dann ist das Okay für mich.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32860">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32860_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32861"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32861_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #8 am:</strong> 24. July 2011, 20:45 »</div>
+<div class="posttile"><h5 id="subject_32861">
+<a href="index.html#msg32861" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32861_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32861">Hallo,<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32860">Zitat von: erik.vikinger am 24. July 2011, 18:19</a></div></div><blockquote class="bbc_standard_quote">Es wäre eher ungeschickt (wenn nicht gar ein Sicherheitsrisiko) solche Dinge zu sharen. Ich will bei mir möglichst viele Dinge vom Zufall steuern lassen, in so eine Umgebung passt fork einfach nicht rein (egal ob Flat-Memory oder Segmentierung).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Einverstanden. Ein wirkliches Hindernis ist das also nur, weil du ein paar Designentscheidungen so triffst.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32860">Zitat von: erik.vikinger am 24. July 2011, 18:19</a></div></div><blockquote class="bbc_standard_quote">An BusyBox hab ich auch schon gedacht aber ich denke auch das basiert auf fork/exec, auch wenn man dort sicher einiges möglichst einfach gestaltet hat. Ich schätze ich sollte mir dessen Quellcode mal etwas genauer ansehen. Hat damit hier schon jemand Erfahrung?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Als ich mich damit befasst habe, ging es mir um meinen schon damals veralteten Palm IIIx (m68k-Kern), also Linux 2.0. Die NOMMU-Patches unterstützten damals ganz einfach kein fork(), sondern nur vfork(). Entsprechend sollte Busybox - wenn es für NOMMU kompiliert wurde - auch kein fork benutzen können.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32860">Zitat von: erik.vikinger am 24. July 2011, 18:19</a></div></div><blockquote class="bbc_standard_quote">Mein Plan war eigentlich die Kompatibilität auf der libc-Ebene zu erreichen, da ich einen Micro-Kernel realisieren möchte wird dort eh sehr vieles von dem drin sein was bei klassischen POSIX-Systemen im Kernel steckt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Richtig, du kannst aber nicht alles komplett in der libc verstecken (zumindest nicht, wenn es ein bisschen performant sein soll), wenn der Kernel nicht ein paar Grundfunktionen unterstützt. Für fork() wäre das zumindest die Möglichkeit, einen Descriptor zu vererben; dann könnte die libc die Segmente kopieren/sharen und alles wäre gut. Wenn dein Kernel dieses Konzept auch nicht kennen soll, wirst du wohl ganz einfach ohne auskommen müssen.<br/><br/>Die libc sollte kein POSIX-Emulator sein. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/> Allerdings mache ich mir es da einfacher, indem mein gedachter (Mikro)kernel einfach die grundlegenden Unixkonzepte unterstützt (z.B. fork) und die libc das dann nur weitergibt. Der Kernel (und die Treiber, so es die betrifft) kennt also die Konzepte.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32860">Zitat von: erik.vikinger am 24. July 2011, 18:19</a></div></div><blockquote class="bbc_standard_quote">Ich denke ich kann fork schon aus technischen Gründen nicht im Kernel unterstützen und eigentlich will ich das auch nicht.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dann lass es einfach sein und lebe mit den Konsequenzen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32860">Zitat von: erik.vikinger am 24. July 2011, 18:19</a></div></div><blockquote class="bbc_standard_quote">In meinen Augen ist fork obsolet. Bei einzelnen Programmen die fork nutzen um mehrere Aufgaben parallel zu erledigen (z.B. ein HTTP-Server der für jede TCP-Connection forkt, ich weiß dass das ein doofes Beispiel ist weil es dafür eigentlich Async-IO gibt) sind Threads aus heutiger Sicht die bessere Wahl [...]</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ein fork-basierter HTTP-Server lässt sich extrem einfach implementieren, hat gute Performance und skaliert unter Linux recht gut. Laut einer älteren Analyse besser, als wenn man poll() nutzt. Und z.B. Apache nutzt mehrere Mechanismen (Threads, Forks, im Prozess ausgeführte Module) parallel, was sicherlich auch Gründe hat; den würde ich aber nicht als Performancemeister bezeichnen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32860">Zitat von: erik.vikinger am 24. July 2011, 18:19</a></div></div><blockquote class="bbc_standard_quote">Ich möchte in meinem OS nicht nur deswegen kein fork haben weil ich es technisch nicht vernünftig umsetzen kann sondern auch weil ich es als Sicherheitsrisiko einstufe. Nebst dessen das für den ersten Fall Threads billiger sind als fork.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dann lass auch die Emulation weg...<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32860">Zitat von: erik.vikinger am 24. July 2011, 18:19</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32857">Zitat von: Svenska am 24. July 2011, 13:59</a></div></div><blockquote class="bbc_alternate_quote">Du wirst mit einer unglaublich langsamen fork()-Emulation jedenfalls keinen Spaß haben</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wieso sollte die Variante in der libc "unglaublich langsam" sein? Klar wird dadurch jeder interessante libc-Aufruf um ein paar CPU-Takte ausgebremst aber das dürfte kaum spürbar sein solange kein fork aktiv ist und wenn fork aktiv ist dann wird zwar stärker gebremst aber es handelt sich ja auch nur um einen relativ kurzen Abschnitt im Programm.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ein fork-basierter Webserver wird nicht nur ein paarmal forken, sondern ständig und sehr oft. Dann kommt neben dem ständigen Overhead auch noch der Aufruf von fork() selbst dazu - und der ist ziemlich teuer, besonders wenn du die betroffenen Segmente nicht gemeinsam nutzen möchtest.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32860">Zitat von: erik.vikinger am 24. July 2011, 18:19</a></div></div><blockquote class="bbc_standard_quote">In diesem Zusammenhang kann ich mir vorstellen das BusyBox ein schwieriges Programm ist weil es wahrscheinlich recht viele verschiedene Anwendungsszenarien für fork enthält.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich vermute, es gibt für die meisten Applets ein paar "#ifdef NOMMU"-Anweisungen und damit zwei verschiedene Implementationen. Ein paar Applets laufen aber nicht (wimre ist die ash nicht NOMMU-tauglich, sondern nur die hush).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32860">Zitat von: erik.vikinger am 24. July 2011, 18:19</a></div></div><blockquote class="bbc_standard_quote">Meiner Meinung nach dürfte die bash gerade in die Kategorie fallen die ich mit der libc-Emulation anvisiere.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dann patche lieber die bash selbst, als ein per Design kaputtes Konzept in die libc zu schreiben (oder nimm eine externe lib_böse_routinen für sowas).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32860">Zitat von: erik.vikinger am 24. July 2011, 18:19</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32857">Zitat von: Svenska am 24. July 2011, 13:59</a></div></div><blockquote class="bbc_alternate_quote">Wenn du es nebenbei schaffst, die bash gebrauchbar auf NOMMU-Systeme zu portieren, dann freut sich bestimmt auch Upstream.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Sicher? Davon bin ich nicht so überzeugt, immerhin würde das bedeuten das die bash von wesentlichen POSIX-Traditionen abweichen würde und damit würde man eventuell riskieren das sie auf anderen Plattformen nicht mehr so toll funktioniert.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Naja, wenn die Bash unter NOMMU-Linux vernünftig funktionieren kann, wäre das schon ne nette Sache. Nutzen wird es wohl eher niemand, weil an Speicherfragmentierung bei der Bash wohl niemand gedacht hat. Ansonsten wirst du sie wohl für deine Verhältnisse forken müssen. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Oder du guckst dir die Dash bzw. ähnliche Projekte an. Die sind meist eh schneller, fast komplett kompatibel und vermutlich mit saubereren Sourcen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32860">Zitat von: erik.vikinger am 24. July 2011, 18:19</a></div></div><blockquote class="bbc_standard_quote">Ich könnte mir durchaus vorstellen das eine entsprechende Anfrage mit "entweder Du kannst POSIX oder Du lässt es" beantwortet wird. Ich hab mit so einer Antwort auch kein Problem, wenn die bash explizit ein POSIX-Programm sein soll dann ist das Okay für mich.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dazu müsstest du erstmal einen minimalinvasiven Patch an die Entwickler schicken. <img alt=":-)" class="smiley" src="../../../assets/forum/3bd230edbfa99cc1552b7785.gif" title="smiley"/><br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32861">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32862"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32862_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #9 am:</strong> 24. July 2011, 21:52 »</div>
+<div class="posttile"><h5 id="subject_32862">
+<a href="index.html#msg32862" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32862_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32862">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32861">Zitat von: Svenska am 24. July 2011, 20:45</a></div></div><blockquote class="bbc_standard_quote">Einverstanden. Ein wirkliches Hindernis ist das also nur, weil du ein paar Designentscheidungen so triffst.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Naja, so in etwa. Mir ist klar das man auch mit Segmentierung grundsätzlich ein fork implementieren kann. Wenn man immerhin Code und RO-Data shared spart man sich zumindest ein klein wenig Kopierarbeit, trotzdem würde fork ein ziemlich langsames Konstrukt bleiben. Gerade über das Sharen von Code und RO-Data habe ich schon einige male nachgedacht, es gibt ja auch die Situation wo ein Programm mehrere male gestartet wird und da könnte man eventuell etwas Speicher sparen. Aber mir persönlich erscheint die Speicherersparnis gegenüber dem Sicherheitsverlust (weil dann mehrere unabhängige Programme ein paar Dinge wie eben die LDT-Belegung oder das Start-Offset vom Code nicht mehr individuell per Zufall bekommen können, also kein ASLR mehr geht) als zu gering so das ich auf das Sharen lieber verzichte um ein möglichst sicheres System zu bekommen. Ist ganz klar eine willkürliche Designentscheidung aber so ist es eben. Das fork mit Segmenten trotzdem kein Performancewunder wird ist ein weiterer Grund warum ich das erst gar nicht haben will.<br/>Du weißt ja, ich will Sicherheit <span class="bbc_u">und</span> Performance haben! <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32861">Zitat von: Svenska am 24. July 2011, 20:45</a></div></div><blockquote class="bbc_standard_quote">Die NOMMU-Patches unterstützten damals ganz einfach kein fork(), sondern nur vfork(). Entsprechend sollte Busybox - wenn es für NOMMU kompiliert wurde - auch kein fork benutzen können.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Okay, Danke für diesen Hinweis. Ich sollte mir auf jeden Fall noch mal die genauen Unterschiede zwischen fork und vfork ansehen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32861">Zitat von: Svenska am 24. July 2011, 20:45</a></div></div><blockquote class="bbc_standard_quote">du kannst aber nicht alles komplett in der libc verstecken (zumindest nicht, wenn es ein bisschen performant sein soll)</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich sehe da momentan keine Performance-Probleme. Solange der Kernel schnelles IPC/RPC mit Zero-Copy-Datentransfer unterstützt ist doch egal ob ein bestimmter Service vom Kernel oder von einem User-Mode-Prozess (also der Personality) erbracht wird.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32861">Zitat von: Svenska am 24. July 2011, 20:45</a></div></div><blockquote class="bbc_standard_quote">wenn der Kernel nicht ein paar Grundfunktionen unterstützt. Für fork() wäre das zumindest die Möglichkeit, einen Descriptor zu vererben; dann könnte die libc die Segmente kopieren/sharen und alles wäre gut. Wenn dein Kernel dieses Konzept auch nicht kennen soll, wirst du wohl ganz einfach ohne auskommen müssen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Aber gerade bei einem Micro-Kernel ist es doch Teil des Konzeptes das diser nicht weiß was ein Datei-Descriptor (diese Descriptoren meintest Du doch?) ist, das soll ein vfs-Prozess managen. Für das Vererben von Datei-Descriptoren hab ich ein halbwegs anständiges Konzept mal irgendwo aufgeschrieben (und auch hier kurz diskutiert), wimre war das auch einigermaßen performant. Die libc kann bei mir keine ganzen Segmente kopieren oder sharen (und schon gar nicht alle), das ist für meine Idee zur fork-Emulation auch überhaupt nicht erforderlich. Die libc im Elternprozess macht bloß beim exec-Aufruf eine Bestandsaufnahme über alle geöffneten Ressourcen und gibt beim CreateProzess eine Liste mit die dann von der libc im Kindprozess verarbeitet wird (bevor main aufgerufen wird, damit dann dort diese Ressourcen auch verfügbar sind), anschließend wird im Elternprozess, nach dem CreateProzess-Aufruf innerhalb von exec, alle Änderungen seit dem zugehörigen/vorangegangenen fork-Aufruf wieder rückgängig gemacht und anschließend noch der Stack auf den Zeitpunkt des fork-Aufrufs restauriert damit dann ein zweites mal aus dem fork zurückgekehrt werden kann (diesmal als Elternprozess). Es wird also nie wirklich ein echtes fork ausgeführt, sondern das ganze über die Zeit hinweg emuliert.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32861">Zitat von: Svenska am 24. July 2011, 20:45</a></div></div><blockquote class="bbc_standard_quote">Die libc sollte kein POSIX-Emulator sein. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Schon klar, aber irgendwie muss man dieses Problem ja lösen und da helfen ideologische Scheuklappen auch nicht weiter. Grundsätzlich gebe ich Dir ja Recht und diese Spezial-Version der libc soll auch nur in den Programmen benutzt werden die eben fork enthalten und wo ich mir den Aufwand des Portierens ersparen möchte (okay das könnten tendenziell schon einige sein da ich ja mit möglichst wenig Aufwand möglichst viele Programme portieren möchte).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32861">Zitat von: Svenska am 24. July 2011, 20:45</a></div></div><blockquote class="bbc_standard_quote">Ein fork-basierter HTTP-Server lässt sich extrem einfach implementieren, hat gute Performance und skaliert unter Linux recht gut.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Sicher richtig, aber den selben HTTP-Server mit Threads zu realisieren ist noch deutlich performanter (so den die Zielplattform Threads ordentlich unterstützt), fork kostet in jedem Fall das Anlegen eines neuen Paging-Directorys und später etliche Paging-Exceptions (für COW) und ein Haufen Verwaltung im Kernel wogegen Threads nur einen neuen Stack und ein wenig Verwaltung im Kernel kosten.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32861">Zitat von: Svenska am 24. July 2011, 20:45</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32860">Zitat von: erik.vikinger am 24. July 2011, 18:19</a></div></div><blockquote class="bbc_alternate_quote">Ich möchte in meinem OS nicht nur deswegen kein fork haben weil ich es technisch nicht vernünftig umsetzen kann sondern auch weil ich es als Sicherheitsrisiko einstufe. Nebst dessen das für den ersten Fall Threads billiger sind als fork.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dann lass auch die Emulation weg...</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Gerade diese Emulation wird nur recht wenig Performance kosten und eigentlich kein Sicherheitsrisiko darstellen, der Kernel kann ja trotzdem beim CreateProzess einen neuen Prozess mit neuen Zufallswerten fürs ASLR anlegen. In meiner Emulation gibt es kein Sharing.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32861">Zitat von: Svenska am 24. July 2011, 20:45</a></div></div><blockquote class="bbc_standard_quote">Ein fork-basierter Webserver wird nicht nur ein paarmal forken, sondern ständig und sehr oft.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ein solcher HTTP-Server ist definitiv nicht Ziel meiner Emulation, die funktioniert nur wenn nach dem fork auch exec aufgerufen wird. Alles was nur fork benutzt muss von mir auf jeden Fall auf die Benutzung von Threads umgebaut werden. Aber zumindest hier könnte der Upstream durchaus profitieren da ich dafür auf pthread setzen möchte.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32861">Zitat von: Svenska am 24. July 2011, 20:45</a></div></div><blockquote class="bbc_standard_quote">Dann patche lieber die bash selbst, als ein per Design kaputtes Konzept in die libc zu schreiben (oder nimm eine externe lib_böse_routinen für sowas).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich wollte eine BAD-POSIX-Version der libc erstellen oder eventuell einen Warpper der die interessanten Funktionen der libc passend kapselt und zusätzlich fork/exec anbietet.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32861">Zitat von: Svenska am 24. July 2011, 20:45</a></div></div><blockquote class="bbc_standard_quote">Oder du guckst dir die Dash bzw. ähnliche Projekte an. Die sind meist eh schneller, fast komplett kompatibel und vermutlich mit saubereren Sourcen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Okay, ich werde mich dann mal bei Gelegenheit umsehen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32861">Zitat von: Svenska am 24. July 2011, 20:45</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32860">Zitat von: erik.vikinger am 24. July 2011, 18:19</a></div></div><blockquote class="bbc_alternate_quote">Ich könnte mir durchaus vorstellen das eine entsprechende Anfrage mit "entweder Du kannst POSIX oder Du lässt es" beantwortet wird. Ich hab mit so einer Antwort auch kein Problem, wenn die bash explizit ein POSIX-Programm sein soll dann ist das Okay für mich.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Dazu müsstest du erstmal einen minimalinvasiven Patch an die Entwickler schicken. <img alt=":-)" class="smiley" src="../../../assets/forum/3bd230edbfa99cc1552b7785.gif" title="smiley"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich hatte eher gehofft mit meiner Emulation ganz ohne Patch auszukommen, oder mit so minimalen Änderungen das es keine große Mühe ist diese in die nächste Version zu holen (ich würde nur sehr ungern auf eine bestimmte Version festgenagelt sein und bei eventuellen Sicherheitsfixes im Original-Projekt vor erheblichen Aufwand stehen).<br/>Die bash NOMMU-tauglich zu machen dürfte über "minimalinvasiv" deutlich hinaus gehen, genau deswegen betrachte ich das Patchen solcher Programme nicht wirklich als Option.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32862">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32862_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32864"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32864_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #10 am:</strong> 24. July 2011, 22:53 »</div>
+<div class="posttile"><h5 id="subject_32864">
+<a href="index.html#msg32864" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32864_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32864"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32862">Zitat von: erik.vikinger am 24. July 2011, 21:52</a></div></div><blockquote class="bbc_standard_quote">Wenn man immerhin Code und RO-Data shared spart man sich zumindest ein klein wenig Kopierarbeit, trotzdem würde fork ein ziemlich langsames Konstrukt bleiben.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Beim Start ja, im Betrieb nicht. Solaris hat so betrachtet auch ein langsames Fork. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32862">Zitat von: erik.vikinger am 24. July 2011, 21:52</a></div></div><blockquote class="bbc_standard_quote">Gerade über das Sharen von Code und RO-Data habe ich schon einige male nachgedacht, es gibt ja auch die Situation wo ein Programm mehrere male gestartet wird und da könnte man eventuell etwas Speicher sparen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das allein ist für mich ein wichtiger Grund, sowas zu tun (insbesondere bei Shared Libraries wird das wichtig, wenn du sowas komplexes wie KDE haben möchtest - wo jeder Popel eine riesige Umgebung mitzieht). Ob man da nun das Codesegment der Lib shared oder das Codesegment einer Anwendung ist egal.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32862">Zitat von: erik.vikinger am 24. July 2011, 21:52</a></div></div><blockquote class="bbc_standard_quote">Aber mir persönlich erscheint die Speicherersparnis gegenüber dem Sicherheitsverlust (weil dann mehrere unabhängige Programme ein paar Dinge wie eben die LDT-Belegung oder das Start-Offset vom Code nicht mehr individuell per Zufall bekommen können, also kein ASLR mehr geht) als zu gering so das ich auf das Sharen lieber verzichte um ein möglichst sicheres System zu bekommen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Zwei Programme, die sich ein Segment teilen, können doch trotzdem verschiedene LDTs haben (nur die betroffenen Segmente müssen die gleichen Indizes haben) und der Offset ist dann für gemeinsame Segmente gleich. Um ein Programm so zu exploiten, müsstest du es also ein zweites Mal exploitet haben, um an den Offset zu kommen... außerdem kannst du das Sharing ja für bestimmte kritische Anwendungen deaktivieren.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32862">Zitat von: erik.vikinger am 24. July 2011, 21:52</a></div></div><blockquote class="bbc_standard_quote">Aber gerade bei einem Micro-Kernel ist es doch Teil des Konzeptes das diser nicht weiß was ein Datei-Descriptor (diese Descriptoren meintest Du doch?) ist, das soll ein vfs-Prozess managen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Naja, das seh ich für mich persönlich etwas anders. Ich betrachte einen Kernel, der Speicher- und Prozess-/Threadverwaltung macht und das VFS enthält durchaus noch als Mikrokernel. Treiber (inkl. Dateisystem) sind ja schließlich trotzdem noch Userspace. Aber der Kernel muss nichts von Dateidescriptoren wissen, sondern höchstens von "Ressourcen" (und das Sharing würde dann trotzdem über die VFS-Anwendung laufen).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32862">Zitat von: erik.vikinger am 24. July 2011, 21:52</a></div></div><blockquote class="bbc_standard_quote">Grundsätzlich gebe ich Dir ja Recht und diese Spezial-Version der libc soll auch nur in den Programmen benutzt werden die eben fork enthalten und wo ich mir den Aufwand des Portierens ersparen möchte (okay das könnten tendenziell schon einige sein da ich ja mit möglichst wenig Aufwand möglichst viele Programme portieren möchte).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wenn du die Programme nicht auf Forkfreiheit hin umbauen möchtest, dann solltest du ein voll funktionsfähiges und relativ schnelles (im Rahmen der Möglichkeiten) fork bauen. Ansonsten wäre der richtige Weg, darauf zu verzichten und die Programme zu portieren.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32862">Zitat von: erik.vikinger am 24. July 2011, 21:52</a></div></div><blockquote class="bbc_standard_quote">Ich wollte eine BAD-POSIX-Version der libc erstellen oder eventuell einen Warpper der die interessanten Funktionen der libc passend kapselt und zusätzlich fork/exec anbietet.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Achso, deine "normale" libc soll also kein POSIX anbieten? Ansonsten würde ich vorschlagen, in der libc nur die gewöhnlichen und gewollten Teile anzubieten und eine zusätzliche bad_libc bereitstellen, die sowas wie fork wrappt.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32862">Zitat von: erik.vikinger am 24. July 2011, 21:52</a></div></div><blockquote class="bbc_standard_quote">Die bash NOMMU-tauglich zu machen dürfte über "minimalinvasiv" deutlich hinaus gehen, genau deswegen betrachte ich das Patchen solcher Programme nicht wirklich als Option.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/>Meine Meinung ist, dass du entweder richtiges POSIX anbieten solltest (und zwar ohne größere Verrenkungen wie eine fork-Emulation) oder eben kein richtiges POSIX hast. Im letzteren Fall kannst du dich einerseits bei einer großen Menge NOMMU-fähiger (Linux-)Software bedienen oder sie recht einfach anpassen (wenn sie schon Threads oder asynchrones I/O benutzen). Teilweise wirst du halt Programme nicht sinnvoll portieren können, dann solltest du es meiner Meinung nach aber auch eher lassen.<br/><br/>Du hast eine MMU, die du nicht benutzen willst - also simuliere sie bitte auch nicht in Software. <img alt=":P" class="smiley" src="../../../assets/forum/7d770ef9789e478248a64dfd.gif" title="Tongue"/><br/><br/>Am Ende landest du dann bei den gleichen Problemen wie Intel mit dem Pentium Pro, der zwar wirklich schnell war, aber eben nicht für 16-Bit-Code (Win95)... wenn Programm X nicht läuft, dann ist das blöde - wenn aber Programm X nur sehr langsam ist, dann fällt das direkt auf deine Plattform und dein OS zurück und hinterlässt einen schlechten Eindruck. Unabhängig davon, ob Programm X nun irgendwelche Kompatiblitätslayer benutzt oder nicht.<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32864">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32865"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32865_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #11 am:</strong> 25. July 2011, 09:44 »</div>
+<div class="posttile"><h5 id="subject_32865">
+<a href="index.html#msg32865" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32865_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32865">Hallo,<br/><br/><br/>Okay, das selbst ein fork das kopiert zur eigentlichen Laufzeit keine Bremse darstellt ist mir klar aber das Kopieren kann bei größeren Programmen schon ein ziemlich extremer Overhead sein (da müsste ja der gesamte Heap usw. mitkopiert werden). Vor allem wäre dieser Overhead kompletter Unsinn wenn kurz nach den fork ein exec kommt und dann eh ein neuer Prozess erstellt wird. Gerade für diese Szenarien ist ein echtes fork im Kernel IMHO völliger Unsinn auf meiner Plattform.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32864">Zitat von: Svenska am 24. July 2011, 22:53</a></div></div><blockquote class="bbc_standard_quote">Das allein ist für mich ein wichtiger Grund, sowas zu tun (insbesondere bei Shared Libraries wird das wichtig, wenn du sowas komplexes wie KDE haben möchtest - wo jeder Popel eine riesige Umgebung mitzieht). Ob man da nun das Codesegment der Lib shared oder das Codesegment einer Anwendung ist egal.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>An Dinge wie KDE denke ich noch nicht wirklich aber grundsätzlich hast Du schon recht. Wenn ich wirklich irgendwann mal Shared Libraries haben möchte dann wird das wohl über die GDT gehen (dafür ist diese ja vorgesehen, in meiner derzeitigen System-Struktur benötige ich gar keine GDT so das ich mich entschlossen habe in den ersten CPU-Versionen auch noch keine GDT zu unterstützen, das wird also ein optionales Feature) so das die Prozesse trotzdem noch ein individuelles ASLR haben. Auf jeden Fall ist dieses Thema in meinem Projekt noch in weiter Ferne.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32864">Zitat von: Svenska am 24. July 2011, 22:53</a></div></div><blockquote class="bbc_standard_quote">Wenn du die Programme nicht auf Forkfreiheit hin umbauen möchtest, dann solltest du ein voll funktionsfähiges und relativ schnelles (im Rahmen der Möglichkeiten) fork bauen. Ansonsten wäre der richtige Weg, darauf zu verzichten und die Programme zu portieren.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das erscheint mir ein wenig zu sehr in Schwarz-Weiß. Ich würde es bevorzugen zumindest für die Programme wo es geht auch einen Mittelweg zu haben. So eine BAD-POSIX-libc-Version ist sicher mit einigem Aufwand verbunden aber wenn ich dafür etliche Programme fast gratis portieren kann dürfte sich das wieder rechnen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32864">Zitat von: Svenska am 24. July 2011, 22:53</a></div></div><blockquote class="bbc_standard_quote">Achso, deine "normale" libc soll also kein POSIX anbieten?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nein, also zumindest keine problematischen POSIX-Teile. Sowas wie pthread möchte ich schon immer anbieten. Ob der fork-Zusatz nun per Compilerschalter und #define kommt oder als zusätzlicher Wrapper drum herum gelegt wird spielt denke ich auch keine konzeptionelle Rolle, das kann ich immer noch später nach Lust und Laune entscheiden.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32864">Zitat von: Svenska am 24. July 2011, 22:53</a></div></div><blockquote class="bbc_standard_quote">... kannst du dich einerseits bei einer großen Menge NOMMU-fähiger (Linux-)Software bedienen oder sie recht einfach anpassen (wenn sie schon Threads oder asynchrones I/O benutzen).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da werde ich mich auf jeden Fall noch mal gründlich umsehen müssen. Es ist von mir aber schon beabsichtigt das sich das System für den User einem normalen Linux zumindest ähnlich anfühlt. Wenn sich das nicht vernünftig umsetzen lässt muss ich mich eben anderweitig umsehen, trotzdem möchte ich in den normalen User-Space möglichst wenig Aufwand investieren müssen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32864">Zitat von: Svenska am 24. July 2011, 22:53</a></div></div><blockquote class="bbc_standard_quote">Teilweise wirst du halt Programme nicht sinnvoll portieren können, dann solltest du es meiner Meinung nach aber auch eher lassen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Klar, wenn es nicht wirklich geht dann muss ich eben einen anderen Weg finden eine benötigte Funktionalität anzubieten.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32864">Zitat von: Svenska am 24. July 2011, 22:53</a></div></div><blockquote class="bbc_standard_quote">Du hast eine MMU, die du nicht benutzen willst - also simuliere sie bitte auch nicht in Software. <img alt=":P" class="smiley" src="../../../assets/forum/7d770ef9789e478248a64dfd.gif" title="Tongue"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich hab keine MMU, zumindest nicht im herkömmlichen Sinne. Ich hab zwar Paging aber ich kann nicht so ohne weiteres das Paging-Directory wechseln, nebst dessen das im gesamten System immer nur ein Paging-Directory benutzt werden kann egal wie viele CPUs vorhanden sind (das Paging wird an einer Stelle systemweit/global verwaltet, selbst der Chip-Satz wird darauf zugreifen).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32864">Zitat von: Svenska am 24. July 2011, 22:53</a></div></div><blockquote class="bbc_standard_quote">Am Ende landest du dann bei den gleichen Problemen wie Intel mit dem Pentium Pro, der zwar wirklich schnell war, aber eben nicht für 16-Bit-Code (Win95)... wenn Programm X nicht läuft, dann ist das blöde - wenn aber Programm X nur sehr langsam ist, dann fällt das direkt auf deine Plattform und dein OS zurück und hinterlässt einen schlechten Eindruck. Unabhängig davon, ob Programm X nun irgendwelche Kompatiblitätslayer benutzt oder nicht.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist ein berechtigter Einwand. Aber gerade die von mir erdachte fork-Emulation dürfte deutlich schneller sein als wenn ich das mit Kopieren im Kernel erledigen tät, zumindest in den Fällen wo nach dem fork auch ein exec kommt (Programme die nur fork allein benutzen muss ich eh richtig portieren). Ich denke mit meiner fork-Emulation dürfte ich fast eine Geschwindigkeit erreichen wie sie Flat-Memory-Systeme mit richtigen fork schaffen (und zwar was das fork selber anbelangt aber auch die restliche Laufzeit), dafür verhält sich mein fork nicht ganz so wie POSIX es vorsieht. In all jenen Fällen wo diese Verhaltensabweichung akzeptabel ist, und ich hoffe dieser Anteil ist hoch, könnte ich somit mit insgesamt wenig Aufwand ein recht passables Ergebnis erzielen.<br/><br/><br/>Zu Deinen Micro-Kernel-Gedanken dürfte Dir taljeth sicher recht geben, aber wir wollen uns nicht streiten wie Micro ein Kernel sein muss um als Micro-Kernel zu gelten. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32865">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32865_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32867"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_32867_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #12 am:</strong> 25. July 2011, 11:27 »</div>
+<div class="posttile"><h5 id="subject_32867">
+<a href="index.html#msg32867" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32867_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32867"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32865">Zitat von: erik.vikinger am 25. July 2011, 09:44</a></div></div><blockquote class="bbc_standard_quote">Zu Deinen Micro-Kernel-Gedanken dürfte Dir taljeth sicher recht geben, aber wir wollen uns nicht streiten wie Micro ein Kernel sein muss um als Micro-Kernel zu gelten. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nein, sobald LIOv2 drin ist, würde ich tyndur als Hybriden bezeichnen (wenn auch stark mikrokernellastig).</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32867">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32867_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32868"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32868_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #13 am:</strong> 25. July 2011, 12:01 »</div>
+<div class="posttile"><h5 id="subject_32868">
+<a href="index.html#msg32868" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32868_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32868">Hallo,<br/><br/><br/>Ich hab mir mal den Unterschied zwischen fork und vfork genauer angesehen, im Prinzip ist meine Emulation eine Art Umwandlung von fork nach vfork in der nur ein paar mehr Möglichkeiten funktionieren als mit purem vfork. Der Vorteil meiner Idee wäre das alle Aspekte die von dem BAD-POSIX-Wrapper berücksichtigt werden für den Elternprozess nicht vom Kindprozess manipuliert werden können wogegen bei vfork nur die Dinge getrennt bleiben die der Kernel verwaltet. Also bevor ich überhaupt anfangen würde diese Idee zu realisieren muss ich erst einmal genau prüfen ob es in diesem Band an Möglichkeiten genug Programme gibt damit sich das ganze wirklich lohnt. Wenn ich hingegen gute Alternativen zu den üblichen User-Space-Programmen (Core-Utils, bash usw.) finde kann diese Idee natürlich komplett entfallen, das wäre mir eigentlich auch ganz recht.<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32867">Zitat von: taljeth am 25. July 2011, 11:27</a></div></div><blockquote class="bbc_standard_quote">Nein, sobald LIOv2 drin ist, würde ich tyndur als Hybriden bezeichnen (wenn auch stark mikrokernellastig).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Aha, dann hatte ich Dich wohl irgendwann einmal missverstanden, sorry.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32868">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32868_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32870"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32870_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #14 am:</strong> 25. July 2011, 15:23 »</div>
+<div class="posttile"><h5 id="subject_32870">
+<a href="index.html#msg32870" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32870_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32870">Hallo,<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32865">Zitat von: erik.vikinger am 25. July 2011, 09:44</a></div></div><blockquote class="bbc_standard_quote">Vor allem wäre dieser Overhead kompletter Unsinn wenn kurz nach den fork ein exec kommt und dann eh ein neuer Prozess erstellt wird. Gerade für diese Szenarien ist ein echtes fork im Kernel IMHO völliger Unsinn auf meiner Plattform.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Eben dafür gibt es ja vfork. Der Elternprozess bleibt so lange stehen, bis das Kind ein exec ausführt (und damit einen neuen Prozess erzeugt), außerdem kann das Kind auf den Elternprozess rückwirken.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32865">Zitat von: erik.vikinger am 25. July 2011, 09:44</a></div></div><blockquote class="bbc_standard_quote">Ich hab keine MMU, zumindest nicht im herkömmlichen Sinne. Ich hab zwar Paging aber [...]</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also doch eine MMU, denn die stellt Paging bereit. Deine ist nur etwas dümmer als alle anderen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32865">Zitat von: erik.vikinger am 25. July 2011, 09:44</a></div></div><blockquote class="bbc_standard_quote">Ich denke mit meiner fork-Emulation dürfte ich fast eine Geschwindigkeit erreichen wie sie Flat-Memory-Systeme mit richtigen fork schaffen (und zwar was das fork selber anbelangt aber auch die restliche Laufzeit), dafür verhält sich mein fork nicht ganz so wie POSIX es vorsieht.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Damit ist es aber kein richtiges fork mehr und sollte auch nicht so bezeichnet werden. Ein richtiges fork kannst du nicht wirklich performant machen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32865">Zitat von: erik.vikinger am 25. July 2011, 09:44</a></div></div><blockquote class="bbc_standard_quote">In all jenen Fällen wo diese Verhaltensabweichung akzeptabel ist, und ich hoffe dieser Anteil ist hoch, könnte ich somit mit insgesamt wenig Aufwand ein recht passables Ergebnis erzielen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist sicher. Aber du solltest dann nicht behaupten, dein System könne fork (wenn die Semantik aber größtenteils stimmt, ist der Patch für die Anwendungen aber ein sed-Befehl...).<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32870">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32876"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32876_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #15 am:</strong> 25. July 2011, 16:31 »</div>
+<div class="posttile"><h5 id="subject_32876">
+<a href="index.html#msg32876" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32876_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32876">Hallo,<br/><br/><br/>ich hab mal im Source-Code der bash 4.2 nach fork gesucht (vfork gab es nicht) und das gibt es nur in einer Funktion make_child(), diese gibt es aber 2 mal (in jobs.c und nojobs.c) und ist noch recht übersichtlich (200 bzw. 50 Zeilen lang mit vielen Kommentaren). Ich denke zumindest für die bash ist damit die Idee der Emulation erledigt da sich das dort wohl einfach nicht lohnt.<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32870">Zitat von: Svenska am 25. July 2011, 15:23</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32865">Zitat von: erik.vikinger am 25. July 2011, 09:44</a></div></div><blockquote class="bbc_alternate_quote">Vor allem wäre dieser Overhead kompletter Unsinn wenn kurz nach den fork ein exec kommt und dann eh ein neuer Prozess erstellt wird. Gerade für diese Szenarien ist ein echtes fork im Kernel IMHO völliger Unsinn auf meiner Plattform.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Eben dafür gibt es ja vfork. Der Elternprozess bleibt so lange stehen, bis das Kind ein exec ausführt (und damit einen neuen Prozess erzeugt), außerdem kann das Kind auf den Elternprozess rückwirken.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Meine Emulation würde aber mehr erhalten als vfork das tut und bei Programmen die fork benutzen (die dürften das üblicherweise aus einem triftigen Grund tun) ist das sicher relevant. Auch das Rückwirken auf den Elternprozess ist ja oft gerade nicht gewollt.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32870">Zitat von: Svenska am 25. July 2011, 15:23</a></div></div><blockquote class="bbc_standard_quote">Damit ist es aber kein richtiges fork mehr und sollte auch nicht so bezeichnet werden.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Okay, es ist dann kein richtiges fork mehr aber da ich den Original-Source der zu portierenden Programme möglichst wenig anfassen möchte lass ich den Namen einfach so wie er ist. Ich werde auch nicht behaupten das mein System fork kann sondern höchstens das ich eine Library habe die fork für gewisse Fälle einigermaßen brauchbar emulieren kann.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32870">Zitat von: Svenska am 25. July 2011, 15:23</a></div></div><blockquote class="bbc_standard_quote">Ein richtiges fork kannst du nicht wirklich performant machen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Exakt, u.a. deswegen will ich sowas erst gar nicht im Kernel haben, das wäre wirklich "schon vom Design her kaputt".<br/><br/>Eine fork-Emulation in der Art von <a class="bbc_link" href="http://cygwin.com/faq-nochunks.html#faq.api.fork" target="_blank">Cygwin</a> möchte ich auch nicht ohne echte Not realisieren, Performance ist mir schon wichtig, auch bei nicht-nativen Programmen (den Grund hast Du ja gestern Abend ausführlich erläutert).<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32870">Zitat von: Svenska am 25. July 2011, 15:23</a></div></div><blockquote class="bbc_standard_quote">Also doch eine MMU, denn die stellt Paging bereit.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Aber mein Paging dient nicht dem Memory-<strong>Management</strong> in dem Sinne wie das bei Flat-Memory-Systemen benutzt wird (also ist es keine M<strong>M</strong>U!), nebst dessen das mein Paging das auch gar nicht könnte (ich beschränke die HW-Realisierung ganz bewusst auf das was ich auch wirklich benötige oder mir Performance bringt).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32870">Zitat von: Svenska am 25. July 2011, 15:23</a></div></div><blockquote class="bbc_standard_quote">Deine ist nur etwas dümmer als alle anderen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Du scheinst mein Paging-Konzept noch nicht zu kennen ansonsten würdest Du nicht solchen Quatsch schreiben. Schau Dir mal die MMU-Realisierung im MicroBlaze (Soft-CPU von Xilinx, auf dem wimre richtiges Linux läuft) an und dann reden wir noch mal über dumme MMUs. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32876">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32876_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32883"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32883_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #16 am:</strong> 25. July 2011, 20:47 »</div>
+<div class="posttile"><h5 id="subject_32883">
+<a href="index.html#msg32883" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32883_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32883">Hallo,<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32876">Zitat von: erik.vikinger am 25. July 2011, 16:31</a></div></div><blockquote class="bbc_standard_quote">Eine fork-Emulation in der Art von <a class="bbc_link" href="http://cygwin.com/faq-nochunks.html#faq.api.fork" target="_blank">Cygwin</a> möchte ich auch nicht ohne echte Not realisieren</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Die Idee sieht sogar verdammt gebrauchbar aus. Langsam, aber korrekt. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32876">Zitat von: erik.vikinger am 25. July 2011, 16:31</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32870">Zitat von: Svenska am 25. July 2011, 15:23</a></div></div><blockquote class="bbc_alternate_quote">Deine ist nur etwas dümmer als alle anderen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Du scheinst mein Paging-Konzept noch nicht zu kennen ansonsten würdest Du nicht solchen Quatsch schreiben. Schau Dir mal die MMU-Realisierung im MicroBlaze (Soft-CPU von Xilinx, auf dem wimre richtiges Linux läuft) an und dann reden wir noch mal über dumme MMUs. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Würde mich mal interessieren. Kannst du das bei Langeweile (Wetter ist eh schlecht) mal in einem neuen Thread näher ausführen? <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/><br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32883">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32885"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32885_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #17 am:</strong> 25. July 2011, 21:24 »</div>
+<div class="posttile"><h5 id="subject_32885">
+<a href="index.html#msg32885" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32885_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32885">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32883">Zitat von: Svenska am 25. July 2011, 20:47</a></div></div><blockquote class="bbc_standard_quote">Die Idee sieht sogar verdammt gebrauchbar aus. Langsam, aber korrekt. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Hm, korrekt vermutlich schon, langsam aber mit absoluter Sicherheit.<br/>Ob ich das auch auf meiner Plattform hinbekomme kann ich gar nicht so einfach sagen, dazu müsste die fork-Implementierung die gesamte LDT analysieren und da es auch Segmente geben kann die Write-Only sind dürfte das Auslesen schwer werden, spätestens bei Code-Segmenten ist dann der Kernel gefragt weil die im User-Mode weder lesbar noch beschreibbar sind (aber das lässt Cygwin ja auch von Windows erledigen). Was bleibt ist das es sich um Kopieren handelt und das möchte ich möglichst vermeiden. Kopieren finde ich grundsätzlich doof!<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32883">Zitat von: Svenska am 25. July 2011, 20:47</a></div></div><blockquote class="bbc_standard_quote">Würde mich mal interessieren. Kannst du das bei Langeweile (Wetter ist eh schlecht) mal in einem neuen Thread näher ausführen? <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Okay, aber dafür musst Du mir helfen für das zweite M eine passende Alternative zu finden. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32885">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32885_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32888"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32888_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #18 am:</strong> 25. July 2011, 21:36 »</div>
+<div class="posttile"><h5 id="subject_32888">
+<a href="index.html#msg32888" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32888_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32888"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32885">Zitat von: erik.vikinger am 25. July 2011, 21:24</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg32883">Zitat von: Svenska am 25. July 2011, 20:47</a></div></div><blockquote class="bbc_alternate_quote">Würde mich mal interessieren. Kannst du das bei Langeweile (Wetter ist eh schlecht) mal in einem neuen Thread näher ausführen? <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Okay, aber dafür musst Du mir helfen für das zweite M eine passende Alternative zu finden. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Erst danach. Und wenn ich dann immernoch der Meinung bin, dass ein M da passend wäre, dann ist das eben so. <img alt=";-)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="wink"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32888">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32891"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_32891_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #19 am:</strong> 25. July 2011, 21:49 »</div>
+<div class="posttile"><h5 id="subject_32891">
+<a href="index.html#msg32891" rel="nofollow">Re:Emulation von fork/exec in der libc</a>
+</h5></div>
+<div id="msg_32891_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32891">Das zweite M heißt Mapping, hab ich dir doch schonmal gesagt. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/>Abgesehen davon hat Svenska recht, dass du auch Memory Management damit machst, auch wenn du es noch so sehr leugnest.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32891">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32891_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] <a class="navPages" href="offset-20.html">2</a>
+</div></div>
+<div class="nextlinks_bottom"><a href="../2807/offset-20.html#msg32987">« vorheriges</a> <a href="../2797/offset-20.html#msg32869">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Emulation von fork/exec in der libc</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.01 Sekunden mit 31 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

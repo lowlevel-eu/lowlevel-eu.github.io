@@ -1,0 +1,105 @@
+Ein '''Linker''' ist ein Programm, das (z.B. vom Compiler generierte) Objektdateien mit anderen Objektdateien und/oder Libraries verknüpft.
+
+
+== Funktionsweise ==
+Ein Beispiel: Das gute, alte "Hello, world!"-Programm soll kompiliert, aber noch nicht gelinkt werden.
+
+<c>
+#include <stdio.h>
+
+int main()
+{
+    printf("Hello, world!\n");
+}
+</c>
+
+Kompilieren kann man das Programm mit folgendem Befehl:
+
+<code>
+gcc -c -o hello.o hello.c
+</code>
+
+Das "-c" sorgt dafür, dass der gcc vorerst nur kompiliert und noch nicht linkt.
+
+Nun wurde eine Objektdatei erstellt. Diese enthält zwar bereits den übersetzten Code aus hello.c, aber man könnte sie noch nicht ausführen:
+
+<code>
+$ gcc -c -o hello hello.c
+$ ./hello
+bash: ./hello: Keine Berechtigung
+$ chmod u+x hello
+$ ./hello
+bash: ./hello: Kann die Datei nicht ausführen.
+</code>
+
+Woran liegt das? Nun, wir benutzen in hello.c die Funktion printf() aus stdio.h. Allerdings genügt es nicht, stdio.h einfach zu inkludieren, wie man sieht. Zur Erklärung ein Auszug aus stdio.h:
+
+<c>
+extern int printf (__const char *__restrict __format, ...);
+</c>
+
+Die Parameterliste soll uns hier nicht interessieren. Deutlich wichtiger (zumindest im Zusammenhang mit diesem Artikel) ist das Schlüsselwort "extern" vor der eigentlichen Funktionsdeklaration. Dieses Schlüsselwort besagt, dass die Funktion existiert (jedoch nicht in der aktuellen Quelldatei) und beruhigt somit den Compiler, der sonst eine Fehlermeldung oder zumindest eine Warnung ausgegeben hätte, wenn man printf() ohne diese Deklaration verwendet hätte.
+
+Nun kommt der Linker ins Spiel. Dessen Aufgabe ist es, die Objektdatei (bzw. in diesem Fall Library), die die Funktion enthält, so mit dem Programm zu verknüpfen, dass die Funktion auch tatsächlich aufgerufen werden kann. Dazu genügt folgender Befehl:
+
+<code>
+$ gcc -c -o hello.o hello.c
+$ gcc hello.o -o hello
+$ ./hello
+Hello, world!
+</code>
+
+Der gcc ruft selbstständig den Linker mit allen benötigten Libraries auf und erzeugt eine ausführbare Datei, die nun auch die Funktion printf() (sowie alle anderen Funktionen, die in stdio.h als extern deklariert wurden) enthält.
+
+== Linkerskript ==
+Ein Linkerskript ist eine Datei, in der die Optionen für den Linker, insbesondere die Position der einzelnen Segmente im Speicher, festgelegt sind. Allerdings können alle Optionen auch als Kommandozeilenargument an den Linker übergeben werden.
+Ein Linkerskript ist insbesondere in der Betriebssystementwicklung von besonderer Bedeutung, da hier der Kernel an einen Teil im Speicher geladen wird, den der Linker von sich aus nicht kennt (z. B. wird der Bootloader an 0x7C00 geladen und GRUB kann den Kernel erst ab der Position 1 MB laden), anders als etwa Programme für MS DOS, die immer an die Adresse 0x100 geladen werden.
+
+Ein Linkerskript könnte in etwa so aussehen (hier das Beispiel aus der Reihe [[OS-Dev_für_Einsteiger | OS-Dev für Einsteiger]], das man [[Teil_4_-_Hello_World#Multiboot-Header_in_einer_eigenen_Sektion | hier]] finden kann):
+<code>
+/*  Bei _start soll die Ausfuehrung losgehen */
+ENTRY(_start)
+
+/*
+ * Hier wird festgelegt, in welcher Reihenfolge welche Sektionen in die Binary
+ * geschrieben werden sollen
+ */
+SECTIONS
+{
+    /*
+     * . ist die aktuelle Position in der Datei. Wir wollen den Kernel wie gehabt
+     * an 1 MB laden, also muessen wir dort die erste Sektion hinlegen
+     */
+    . = 0x100000;
+
+    /*
+     * Der Multiboot-Header muss zuerst kommen (in den ersten 8 kB).
+     * Die Standardsektionen einfach hintereinander weg einbinden.
+     */
+    .text : {
+        *(multiboot)
+        *(.text)
+    }
+    .data ALIGN(4096) : {
+        *(.data)
+    }
+    .rodata ALIGN(4096) : {
+        *(.rodata)
+    }
+    .bss ALIGN(4096) : {
+        *(.bss)
+    }
+}
+</code>
+
+* Mit ENTRY kann der Einstiegspunkt definiert werden. Dort beginnt dann die Ausführung des Kernels.
+* Im SECTIONS-Bereich kann man die Position (das Offset) der einzelnen Segmente im Speicher festlegen. Das ist notwendig, wenn der Kernel nicht an der Position 0x0001 im Speicher liegt.
+
+Am besten nimmt man sich für sein Linkerscript ein vorhandenes Exemplar und ändert die Einträge, z. B. "_main" statt "_start", eine andere Position des text-Segments usw. Wer sich dennoch näher mit Linkerscripts befassen möchte, findet [http://sourceware.org/binutils/docs/ld/index.html hier] das Handbuch zum ld.
+
+== Weblinks ==
+* [http://sourceware.org/binutils/docs/ld/index.html GNU ld Handbuch]
+
+[[Kategorie:Werkzeuge]]
+
+[[en:Linkers]]

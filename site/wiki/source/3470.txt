@@ -1,0 +1,100 @@
+Der '''Programmable Interrupt Controller''' ('''PIC''') empfängt Unterbrechungsanforderungen (Interrupt Requests, kurz IRQs) von Hardwarekomponenten und gibt sie an die CPU weiter. In den ersten PCs gab es ursprünglich nur einen PIC mit 8 IRQ-Kanälen. Da diese nicht genügten, wurde ein zweiter PIC hinzugefügt. Dieser ist an den zweiten IRQ-Anschluss des ersten PIC angeschlossen. Man erhält so 15 IRQ-Kanäle. Die Verwendung der einzelnen IRQ-Kanäle wurde früher fest vorgegeben, da sie direkt mit der Hardware verdrahtet waren. Die restlichen, frei gebliebenen IRQs werden heutzutage dynamisch vergeben z.B. über PnP.
+
+== Programmierung ==
+Jeder der beiden PICs hat jeweils zwei IO-Ports, über die er programmiert wird: Einen Befehlsport (0x20 für den Master und 0xA0 für den Slave) und einen Datenport (0x21 bzw. 0xA1).
+
+=== Initialisierung ===
+Nach dem Booten beginnen die IRQs standardmäßig beim Interrupt 0. An dieser Stelle liegen sie aber denkbar ungünstig, weil dieselben Interruptnummern bereits von der CPU für [[Exception|Exceptions]] verwendet werden.
+Beim Start des Kernels müssen daher die IRQs auf andere Interruptnummern gelegt werden.
+
+Zunächst muss ein Befehl gesendet werden, dass der PIC sich resetten soll und die nächsten gesendeten Datenbytes als Parameter für die Initialisierung gedacht sind. Anschließend werden bis zu vier Bytes nacheinander auf den Datenport geschrieben. Insgesamt werden folgende Operationen durchgeführt:
+
+<center>
+{| border="1" cellspacing="0" cellpadding="2" style="text-align:left"
+|-
+! Port
+! Name
+! colspan="2" | Erklärung
+|-
+| rowspan="4" | Befehl || rowspan="4" | ICW1 || colspan="2" | Einleitung der Initialisierung
+|-
+| 0x01 || Gesetzt, wenn anschließend ICW4 gesendet wird
+|-
+| 0x02 || Single Mode, es gibt keinen Slave. Wenn dieses Bit gesetzt ist, entfällt ICW3
+|-
+| 0x10 || Initialisierung einleiten (eigentliches Befehlsbit)
+|-
+| Daten || ICW2 || colspan="2" | Interruptnummer für IRQ 0
+|-
+| Daten || ICW3 || colspan="2" | Master: IRQs, auf denen Slaves gemappt sind (Bitmaske, normal 0x04)<br>Slave: IRQ, über den der Slave am Master angeschlossen ist (normal 2)
+|-
+| rowspan="3" | Daten || rowspan="3" | ICW4 || colspan="2" | Flags<br>
+|-
+| 0x01 || Für PCs gesetzt
+|-
+| 0x02 || Automatisches EOI
+|}
+</center>
+
+=== Maskieren von Interrupts ===
+Der PIC bietet außerdem noch die Möglichkeit, bestimmte IRQs zu maskieren, d.h. für diese IRQs keine Interrupts auszulösen, solange sie maskiert sind. Wenn auf den Datenport geschrieben wird, ohne dass vorher ein Befehl gesendet wurde, der auf dem Datenport Parameter erwartet, wird dieser Wert als IRQ-Maske benutzt.
+
+In diesem Wert steht jedes Bit für einen Interrupt (IRQ 0 ist Bit 0 usw.). Gesetztes Bit bedeutet, dass der Interrupt maskiert ist (d.h. nicht an die CPU weitergeleitet wird); gelöschtes Bit bedeutet, dass der Interrupt aktiv ist.
+
+== IRQ Tabelle ==
+<br>
+<center>
+{| border="1" cellspacing="0"
+|-
+! IRQ ¹
+! IVT ²
+! Hardware/Funktion
+|-
+| 0 || 0x08 || [[Programmable Interval Timer]]
+|-
+| 1 || 0x09 || Erster PS/2 Port des [[Keyboard Controller]] (meist PS/2 Tastatur)
+|-
+| 2 || 0x0A || Verbindung zum zweiten PIC
+|-
+| 3 || 0x0B || [[serielle Schnittstelle | RS-232]] Port 2/4
+|-
+| 4 || 0x0C || [[serielle Schnittstelle | RS-232]] Port 1/3
+|-
+| 5 || 0x0D || LPT 2
+|-
+| 6 || 0x0E || [[Floppy Disk Controller]]
+|-
+| 7 || 0x0F || LPT 1 und [[PIC#Spurious Interrupt | Spurious Interrupt]]
+|-
+| 8 || 0x70 || RTC ([[CMOS]] Real Time Clock)
+|-
+| 9 || 0x71 || frei
+|-
+| 10 || 0x72 || frei
+|-
+| 11 || 0x73 || frei
+|-
+| 12 || 0x74 || Zweiter PS/2 Port des [[Keyboard Controller]] (meist PS/2 Maus)
+|-
+| 13 || 0x75 || FPU
+|-
+| 14 || 0x76 || primärer [[ATA | ATA/ATAPI/(E)IDE]]
+|-
+| 15 || 0x77 || sekundärer [[ATA | ATA/ATAPI/(E)IDE]] und [[PIC#Spurious Interrupt | Spurious Interrupt]]
+|}
+</center>
+<br>
+¹ IRQ ist die eigentliche IRQ-Nummer. IRQ0-IRQ7 gehören zur ersten PIC, IRQ8-IRQ15 zur zweiten.<br>
+² IVT ist die Standard Interrupt Nummer auf der [[Interrupt Vector Table]] des [[Real Mode]] nach dem booten.
+
+== Spurious Interrupt ==
+
+Ein Spurious Interrupt wird ausgelöst, wenn der PIC irrtümlicherweise einen Interrupt an die CPU meldet und erst danach bemerkt, dass er eigentlich gar kein Interrupt auslösen hätte dürfen. Darum ruft die CPU den Spurious Interrupt auf, welcher sich je nach Konfiguration am letzten Eingang des Master oder Slave PIC befindet. Um ihn von den "normalen" Interrupts (LPT oder ATA) zu unterscheiden kann man im ISR Register des jeweiligen PICs schauen, ob dieser gerade einen "normalen" Interrupt bearbeitet oder eben nicht. Ein Spurious Interrupt kann einfach mit einem iret beendet werden ohne dass anderer Code nötig ist. Bemerkenswert ist, dass ein Spurious Interrupt selbst dann auftreten kann, wenn alle IRQ-Kanäle in der PIC maskiert wurden.
+
+== siehe auch ==
+* [[Ausgabe 2#Lowlevel-Grundlagen.2C_Teil_2 | Ausgabe 2]]
+* [[APIC]]
+
+[[Category:Glossar]]
+[[Category:Hardware]]
+[[Kategorie:Lizenz ungeklärt]]

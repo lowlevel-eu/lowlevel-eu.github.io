@@ -1,0 +1,42 @@
+== add esp,4 ==
+
+na<h dem call interupt_handler, wozu soll dass add esp,4 da? ich versteh nicht was da vom stack genommen wird. ich mein die funktion gibt doch nichts zurück -.-. ich mein der aufruf parameter wird doch automatisch von c wieder vom stack genommen, oder täusche ich mich da? <small>(''Der vorstehende, nicht signierte Beitrag stammt von'' [[Benutzer:Sebi2020|Sebi2020]] 13:50, 22. Dez. 2009 (CET))</small>
+
+:Genau, da täuschst du dich: http://de.wikipedia.org/wiki/Aufrufkonvention#cdecl ;-) --[[Benutzer:XanClic|XanClic]] 15:56, 22. Dez. 2009 (CET)
+:: Also der verlinkte beitrag wiederspricht dir und sagt, dass c dass sehr wohl tut. --[[Benutzer:Sebi2020|Sebi2020]] 20:09, 22. Dez. 2009 (CET)
+:::Natürlich tut C das, irgendwie muss es ja runter. Aber die Funktion macht das nicht für dich, das macht immer der Aufrufer. Und wenn der Aufrufer kein C-Code ist, dann passiert es eben ''nicht'' automatisch. Das entsprechende Zitat im Artikel ist: "Um wieder auf die Position von vorher zu kommen, muss im Anschluss an den Aufruf wieder 12 auf den Wert im ESP-Register addiert werden." --[[Benutzer:XanClic|XanClic]] 21:15, 22. Dez. 2009 (CET)
+:::: Dann musst du dass auch sagen, dass es um den Aufrufer geht --[[Benutzer:Sebi2020|Sebi2020]] 10:46, 23. Dez. 2009 (CET)
+:::::Muss ich nicht, weil das meiner Meinung nach klar war. Wenn du zu einem Assemblerstub sagst, der eine C-Funktion aufruft: "Das macht C doch automatisch", dann war es aus meiner Sicht korrekt zu sagen, "macht es nicht", weil hier nur die aufgerufene Funktion in C geschrieben ist und die macht es eben nicht. --[[Benutzer:XanClic|XanClic]] 12:40, 23. Dez. 2009 (CET)
+
+== pusha/popa ==
+Ich habe den Code grad mal überflogen, da ist mir aufgefallen, dass da 
+    push %ebp
+    push %edi
+    push %esi
+    push %edx
+    push %ecx
+    push %ebx
+    push %eax
+steht. Wie wäre es mit einem einfachen "pusha" und entsprechend dazu popa weiter unten?! --[[Benutzer:Bjork|Bjork]] 21:12, 8. Feb. 2010 (CET)
+
+:Es könnte sein, dass alles einzeln zu speichern/wiederherzustellen etwas schneller ist (dazu hatte ich mal eine Diskussion), schlimmstenfalls ist es wohl gleich schnell wie ein pusha/popa. --[[Benutzer:XanClic|XanClic]] 21:34, 8. Feb. 2010 (CET)
+
+:Ein Vorteil ist, dass dadurch die Reihenfolge der Register explizit ist. Der Aufbau von struct cpu_state ist damit klarer. --[[Benutzer:Jidder|Jidder]] 22:36, 8. Feb. 2010 (CET)
+
+== make: gdt undeclared ==
+
+Ich erhalte eine kuriose Fehlermeldung, und glaube, dass es daran liegt, dass mein Compiler den Wert uint64_t nicht kennt. Ich nutze den von Lowlevel vorgeschlagenen Crosscompiler für Windows.
+Hier die Fehlermeldung (habe das nur schnell abgetippt):
+<c>In file included from main.c:3:
+gdt.h: In function set_entry:
+gdt.h:8: 'gdt' undeclared (first use in this function)
+(...)
+make: *** [main.o] Error 1</c>
+** Welchen Code kompilierst du denn? Der Tutorial-Kernel kann es nicht sein, da gibt es weder gdt.h noch main.c. In der intr.c finde ich nur ein struct uint64_t gdt[GDT_ENTRIES]. uint64_t sollte in der Datei stdint.h definiert sein als unsigned long long int. --[[Benutzer:Hartmut|DerHartmut]] 13:54, 10. Mär. 2012 (CET) (PS: Bitte deine Beiträge immer mit <nowiki>--~~~~</nowiki> signieren - Danke!)
+*** Ich kompiliere den Tutorial-Kernel! main.c ist die Hauptdatei. gdt.h ist der Header für die GDT. Was ist da jetzt so unklar? Zu stdint.h: Wo steht, dass man das einbinden soll?? Und was für ein struct?? Ich habe folgende Zeile: <c>static uint64_t gdt[GDT_ENTRIES];</c> Das habe ich aus dem Artikel zur GDT kopiert!
+**** Erst einmal wäre ein anderer Ton recht angebracht, zweitens sollst du bitte deine Beiträge mit <nowiki>--~~~~</nowiki> signieren. Um zur Thematik zurückzukommen: [http://git.tyndur.org/?p=tutorial.git;a=tree;f=kernel;h=9caf1798cac40be757e92b9ca5900a0e944deba7;hb=HEAD Weder hier] noch [http://git.tyndur.org/?p=tutorial.git;a=tree;f=kernel/include;h=9f197d11e47eef57d631a5395315b15b163979a5;hb=HEAD hier] finde ich eine main.c oder gdt.h - und das ist der Tutorial-Kernel. Unklar ist mir das deshalb, weil ich den Code deiner main.c und gdt.h nicht kenne - woher die auch immer kommen mögen. Stimmt, es ist kein struct sondern ein static, also lautet die Zeile in der Datei intr.c "static uint64_t gdt[GDT_ENTRIES];". Wo steht, dass man die stdint.h einbinden soll? Steht natürlich nirgends - als versierter C-Programmierer weiß man aber, dass ein uint64_t nicht aus dem Nichts kommt. Wenn man ein natives Programm programmiert bindet man die stdint.h ein, die die libc liefert. Wenn man ein OS programmiert und sich keiner libc bedient muss man selbst irgendwo ein uint64_t definieren - idealerweise in einer Datie namens [http://git.tyndur.org/?p=tutorial.git;a=blob;f=kernel/include/stdint.h;h=98ad321ff9de3744fe946a02b1650deb9e9dfae3;hb=HEAD stdint.h], um auch schön konform zu bleiben. Die Datei intr.c, die wohl im entferntesten mit deiner gdt.h verwandt ist, bindet die stdint.h übrigens [http://git.tyndur.org/?p=tutorial.git;a=blob;f=kernel/intr.c;h=ee353b47a1613c72dcece0ddf2f53cf322d9dd5f;hb=HEAD#l1 '''recht deutlich'''] ein. Wenn du weitere Fragen hast zu der Thematik kannst du auch gerne in den [[IRC]] kommen - wir befinden uns im EUirc (irc.euirc.net) im Kanal #lost. Dort wird man weitere Fragen deinerseits mit Sicherheit gerne beantworten. --[[Benutzer:Hartmut|DerHartmut]] 22:39, 13. Mär. 2012 (CET) (PS: Stures kopieren hat noch keinem geholfen)
+***** Im Artikel zur GDT steht etwas von static, nicht struct. Als ich es mit 'struct' anstelle von 'static' probiert habe (und allen anderen uint64_t ebenfalls struct vorangestellt habe), änderte sich plötzlih die Fehlermeldung:<c>In file included from main.c:3:
+gdt.h:17: error: array type has incomplete element type
+In function load_gdt:
+gdt.h:32: error: field ´limit´ has incomplete type
+make: *** [main.o] Error 1</c> Ich schreibe übrigens nicht von den verlinkten Lösungen im týndur-Repo ab, sondern kopiere höchstens die Codebeispiele ''direkt im Artikel''! Dein ''recht deutliches'' Einbinden aus dem Lösungs-Repo habe ich also nicht gesehen. Eine Erwähnung direkt im Tutorial wäre überlegenswert - wie du richtig gesagt hast, hilft blindes abtippen ja nichts. --[[Benutzer:BeanMe|BeanMe]] 17:48, 15. Mär. 2012 (CET) (PS: In der Vorschau wurde nur um die erste Zeile des <nowiki><c>...</c></nowiki>-Blocks umrahmt, aber das Wort function außerhalb des Rahmens und im Codeblock formatiert. Ich hoffe, das ist beim gespeicherten Artikel nicht so...) //EDIT: Es ist so, aber da mir der Grund nicht klar ist, kann ich das nicht ändern.

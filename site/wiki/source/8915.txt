@@ -1,0 +1,24 @@
+Wie wäre es, die Beschreibung zu den TSS in den eigentlichen [[TSS]]-Artikel zu kopieren? Die gefällt mir eigentlich ziemlich gut und es wäre schade, sie in diesem Artikel zu verstecken. Zu deiner Anmerkung in Schritt 4 meine ich, dass der Taskwechsel per ltr nicht so klappen wird. Ich nehme an, du meintest in Wirklichkeit ein ljmp $0x1234, $01234. Wäre gut, wenn du es auch noch ausprobierst, ob es tatsächlich funktioniert. --[[Benutzer:Taljeth|Taljeth]] 23:34, 9. Jan. 2010 (CET)
+
+== iret ==
+
+Ich finde es keine gute Idee, eine ISR komplett in C mitsamt ''leave'' und ''iret'' zu implementieren (für sowas nimmt man besser einen Assemblerstub, der die C-Funktion aufruft). Meinungen dazu? --[[Benutzer:XanClic|XanClic]] 21:20, 8. Jan. 2010 (CET)
+
+:Da hast du Recht, aber um die Sache möglichst einfach zu halten, habe ich das hier mal mit dieser, ich gebe zu, unschönen "Pseudointerrupt" Version gemacht. In meinem eigenen Kernel habe ich das ganze auch so umgesetzt, wie du das vorschlägst. --[[Benutzer:Bjork|Bjork]] 22:37, 8. Jan. 2010 (CET)
+
+::Du rufst die Funktion nirgends auf bzw. setzt den Pointer auf die Funktion in der IDT. Insofern würde ich vorschlagen, das iret-Zeug einfach wegzulassen und nur im Text zu erwähnen, dass der Interrupthandler diese Funktion aufrufen soll. Unsaubere Hacks sollte man im Wiki vermeiden, weil Anfänger sie benutzen ohne wirklich zu verstehen, was das Problem dabei ist, und am Ende müssen wir im Forum erraten, was sie falsch gemacht haben. --[[Benutzer:Taljeth|Taljeth]] 23:34, 9. Jan. 2010 (CET)
+
+== ax ==
+In der richtigen Syntax ist es nicht ax, weil register mit % gekenzeichnet werden müssen. Also "%ax"
+:: Nein im Artikel wird der NASM Syntax verwendet und da werden keine % vor Register namen gesetzt. --[[Benutzer:PNoob|PNoob]] 15:39, 12. Nov. 2010 (CET)
+:: Und es gibt kein richtigen und keinen Falschen Syntax --[[Benutzer:PNoob|PNoob]] 15:48, 12. Nov. 2010 (CET)
+::: Ich dachte es wäre die AT&A Synatx. Also lag ich falsch.
+:::: Ich hab Ja Vorgeschlagen das man einen Einheitlichen Syntax im Wiki verwendet. aber die OP's halten es ja für Unwichtig. --[[Benutzer:PNoob|PNoob]] 15:05, 18. Nov. 2010 (CET)
+::::: "DIE" Syntax <sub><sub><sub>sie lasen einen Beitrag zur Verbesserung ihrer Sprachfähigkeiten</sub></sub></sub>--[[Benutzer:SHyx0rmZ|SHyx0rmZ]] 16:24, 18. Nov. 2010 (CET)
+:::: Falsch PNoob, es wurde von der Allgemeinheit als "unnötig" angesehen, da ein (guter) Programmierer sich in andere Programmiersprachen reindenken kann und es nicht zu viel verlangt ist sich zu merken, dass man in AT&T vor Register ein Prozentzeichen macht. --[[Benutzer:Hartmut|DerHartmut]] 16:39, 18. Nov. 2010 (CET)
+::::: FULL ACK, dem ist nichts (aber auch gaaar nichts) hinzuzufügen --[[Benutzer:SHyx0rmZ|SHyx0rmZ]] 16:45, 18. Nov. 2010 (CET)
+
+== Bild ==
+Das Bild ist zum einen unschön, in dem Sinne, dass es nicht zum Farbstil des wikis passt, zum anderen teilweise falsch (esp0 ist zweimal aufgeführt) bzw. ungenau (einfach die Feldgrößen unterschlagen). Ich wäre dafür das Bild rauszunehmen und lieber nur auf das im TSS-Artikel zu verweisen (oder die Tabelle von [[TSS]] in eine [[Vorlage:TSS]] auslagern und hier dann diese einzubinden). Dann kannst du ja immernoch schreiben, welche Felder für dich (un)wichtig sind.--[[Benutzer:Bluecode|Bluecode]] 14:47, 9. Jan. 2010 (CET)--[[Benutzer:Bluecode|Bluecode]] 14:47, 9. Jan. 2010 (CET)
+
+:Stimmt, ich war eigentlich auch nicht ganz zufrieden mit meiner Formulierung "unwichtig", denn wenn die Felder unwichtig wären, dann wären sie ja nicht da. Ich bin allerdings noch nicht lange im Wiki, und das ist mein erster Artikel. Werde das Bild also rausnehmen und nur auf den tss-Artikel verweisen --[[Benutzer:Bjork|Bjork]] 15:02, 9. Jan. 2010 (CET)

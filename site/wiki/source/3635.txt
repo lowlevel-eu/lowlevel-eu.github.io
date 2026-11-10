@@ -1,0 +1,21 @@
+== Grober Aufbau ==
+=== MS-DOS Header ===
+Diese Header ist ein Kompabilitätsheader, womit im MS-DOS ausgedrückt werden kann, dass das Programm
+darunter nicht läuft.<br>
+Für lowlevel kann dieser Bereich getrost ausgelassen werden, weil
+* Programme eines Nicht-Windowssystem brauchen nicht unter MS-DOS zu laufen
+* Fast niemand hat noch MS-DOS
+=== PE Kennzeichnung ===
+An der Stelle 0x3c kommt das Kennzeichnen des PE-Formates. Dieser ist 4-Byte groß und sieht so aus: "PE\0\0".
+(Zwei Nullbytes am Ende)
+Das ist wiederum ein Kennzeichen von Windows und sollte verändert(nicht weggelassen) werden.
+
+
+
+
+
+== Links ==
+* [http://www.microsoft.com/whdc/system/platform/firmware/PECOFF.mspx Microsoft Portable Executable and Common Object File Format Specification]
+
+[[Kategorie:Dateityp]]
+[[Kategorie:Stub]]

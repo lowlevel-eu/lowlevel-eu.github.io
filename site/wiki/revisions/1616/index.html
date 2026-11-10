@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Crosscompiler für Windows – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Crosscompiler_für_Windows rootpage-Crosscompiler_für_Windows skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1450/index.html">Aktueller Artikel</a> · <a href="../../history/1450/index.html">Versionsgeschichte</a> · <a href="../../source/1616.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Crosscompiler für Windows</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 13. Januar 2007, 18:20 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Taljeth</bdi></a> <span class="mw-usertoollinks">(<a class="mw-usertoollinks-talk" href="../../pages/1728/index.html" title="Benutzer Diskussion:Taljeth">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Aus dem LOST-Wiki importiert)</span></div><div id="mw-revision-nav">(Unterschied) ← Nächstältere Version | <a href="../../pages/1450/index.html" title="Crosscompiler für Windows">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../1617/index.html" title="Crosscompiler für Windows">Nächstjüngere Version →</a> (<a href="../../diffs/1616-1617.html" title="Crosscompiler für Windows">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Im Folgenden werde ich (<a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Jidder</a>) erklären wie man LOST unter Windows kompiliert.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Ben.C3.B6tigte_Werkzeuge"><span class="tocnumber">1</span> <span class="toctext">Benötigte Werkzeuge</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#MinGW-basierte_Umgebung"><span class="tocnumber">2</span> <span class="toctext">MinGW-basierte Umgebung</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Cygwin"><span class="tocnumber">3</span> <span class="toctext">Cygwin</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Erstellung_eines_eigenen_Cross_Compilers"><span class="tocnumber">4</span> <span class="toctext">Erstellung eines eigenen Cross Compilers</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Probleme"><span class="tocnumber">5</span> <span class="toctext">Probleme</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#gcc.exe:_spawnvp:_No_such_file_or_directory"><span class="tocnumber">5.1</span> <span class="toctext">gcc.exe: _spawnvp: No such file or directory</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2><span id="Benötigte_Werkzeuge"></span><span class="mw-headline" id="Ben.C3.B6tigte_Werkzeuge">Benötigte Werkzeuge</span></h2>
+<p>Die Anforderungen von LOST sind relativ gering und auf allen unterstützten Plattformen gleich:
+</p>
+<ul><li>Eine POSIX-Umgebung (wir brauchen unter anderem Bash, sed und make)</li>
+<li>NASM</li>
+<li>GCC</li></ul>
+<h2><span class="mw-headline" id="MinGW-basierte_Umgebung">MinGW-basierte Umgebung</span></h2>
+<p>MinGW ist ein Port des GCC nach Windows. Der mitgelieferte Compiler von MinGW kann keine ELF-Dateien erzeugen und ist deswegen nicht geeignet, um LOST zu kompilieren. Darum muss ein Cross-Compiler benutzt werden. 
+</p><p>Einen Cross-Compiler, den ich selbst aus den ungeänderten Sourcen kompiliert habe, gibt es unter <a class="external autonumber" href="http://jidder.de/lost/files/lostcc.rar" rel="nofollow">[1]</a>. Darin enthalten ist der GCC 4.1.1 mit dem Target ELF und die Binutils 2.17. Außerdem benötigen wir die POSIX-Umgebung für MinGW <a class="external text" href="http://mingw.org/download.shtml" rel="nofollow">MSYS</a> (aktuelle Version: MSYS-1.0.10.exe) und <a class="external text" href="http://sourceforge.net/project/showfiles.php?group_id=6208&amp;package_id=47034" rel="nofollow">NASM</a> (aktuelle Version: nasm-0.98.39-win32.zip).
+</p><p>Wenn iht die drei Dateien runtergeladen habt, erstellt ein Verzeichnis namens C:\lostdev. (Wer seine Werkzeuge woanders platzieren möchte, kann das natürlich auch tun. Im folgenden werde ich dennoch von diesem Pfad ausgehen.) Startet den Setup von MSYS und klickt euch bis zur Angabe des Pfads durch. Gebt da C:\lostdev\msys an. Dann weiter bis zum Ende durchklicken. Wenn eine Eingabeaufforderung auftaucht, die etwas von "This is a post install process" erzählt, brecht das durch die Eingabe von "n" ab. 
+</p><p>Entpacke danach NASM in das Verzeichnis C:\lostdev\nasm. Achte dabei darauf, dass die Datei nasmw.exe direkt in dem Verzeichnis C:\lostdev\nasm liegt und nicht in irgendwelchen Unterverzeichnissen. Benenne außerdem die Datei nasmw.exe in nasm.exe um, damit NASM von dem build-Skript erkannt wird.
+</p><p>Entpacke dann die Datei lostcc.rar in dem lostdev Verzeichnis. (Die Datei ist doppelt gepackt, damit sie kleiner ist.) Es sollte reichen einmal mit "Hier entpacken" zu wählen, wenn die Datei lostcc2.rar im Verzeichnis C:\lostdev liegt. Es sollte jetzt ein Verzeichnis namens lostcc mit den Unterverzeichnissen bin, i586-elf und so weiter im Verzeichnis C:\lostdev befinden.
+</p><p>Damit der Compiler und der Assembler auch gefunden werden, muss die PATH-Variable entsprechend geändert werden. Ich bevorzuge für jede Compilerumgebung auf meinem Computer eine Batch-Datei, die die Umgebung einrichtet. Für LOST sieht sie so aus:
+</p>
+<pre>set path=C:\lostdev\msys\bin;C:\lostdev\lostcc\i586-elf\bin;C:\lostdev\nasm;%path%
+cmd /k cls
+</pre>
+<p>Diese Datei kopiere ich mir dann in immer das Wurzelverzeichnis des Quelltextbaums von LOST und starte sie. Durch die Eingabe von make sollte dann LOST vollständig kompilieren.
+</p><p>Wer lieber den Compiler tiefer in das System verankern will, kann die Pfade in die globale PATH-Variable schreiben. Diese Pfade sind dann überall verfügbar und können unter Umständen Konflikte mit anderen Compilern und Umgebungen verursachen. Unter Windows geht das in der Systemsteuerung (klassische Ansicht) -&gt; System -&gt; Erweitert -&gt; Umgebungsvariablen und dort eine PATH-Variable editieren.
+</p>
+<h2><span class="mw-headline" id="Cygwin">Cygwin</span></h2>
+<p>(todo)
+</p>
+<h2><span class="mw-headline" id="Erstellung_eines_eigenen_Cross_Compilers">Erstellung eines eigenen Cross Compilers</span></h2>
+<p>Wer nicht meinen Cross Compiler nutzen möchte, kann sich selbst einen bauen. Weil das zur Zeit den Rahmen dieses Artikels sprengen würde, verweise ich auf die <a class="external text" href="http://www.mega-tokyo.com/osfaq2/index.php/GCC%20Cross-Compiler" rel="nofollow">Anleitung</a> im OS-FAQ Wiki auf Mega-Tokyo. Mein Cross Compiler ist auch in etwa nach dieser Anleitung entstanden.
+</p>
+<h2><span class="mw-headline" id="Probleme">Probleme</span></h2>
+<h3><span class="mw-headline" id="gcc.exe:_spawnvp:_No_such_file_or_directory">gcc.exe: _spawnvp: No such file or directory</span></h3>
+<p>Die genaue Ursache kenne ich auch nicht, aber es könnte helfen, die Datei libexec\gcc\i586-elf\4.1.1\cc1.exe nach i586-elf\bin zu kopieren.
+</p><p>[[Category::Tutorials]]
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109165013
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.003 seconds
+Real time usage: 0.003 seconds
+Preprocessor visited node count: 23/1000000
+Preprocessor generated node count: 28/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Crosscompiler_für_Windows&amp;oldid=1616</a>“</div>
+<div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks"></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1450/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2663/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1450/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

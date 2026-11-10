@@ -1,0 +1,25 @@
+{{Infobox Software
+| Name = Clang
+| Entwickler = [https://clang.llvm.org/about.html Das GCC-Team]
+| Version = 10.0.1
+| Lizenz = Apache 2.0
+| Plattform = alle verbreiteten und ein paar andere
+| Homepage = [https://clang.llvm.org/ clang.llvm.org]
+}}
+
+Clang ist ein Frontend für die [[LLVM Compiler Infrastructure]] für die C-ähnlichen Sprachen [[C]], [[C++]], [[Objective-C]]/++, OpenCL, CUDA und RenderScript. Dabei werden auch eine Vielzahl von CPU-Architekturen und Plattformen unterstützt. Clang ist immer ein Cross-Compiler, über das <code>--target</code> Attribut kann die Zielplatform als triple angegeben werden (bspw <code>x86_64-pc-lf_os</code> oder <code>x86_64-linux-elf</code>), extra Cross-Compiler sind also nicht notwendig.
+
+Um Clang ein neues Betriebssystem beizubringen, sind ein paar Änderungen an der Code-Basis notwendig, unter anderem um die Toolchain oder eingebaute <code>define</code>s zu definieren.
+
+Clang selber wandelt den Code in LLVM IR Code um, dieser kann dann von anderen LLVM Tools zu Maschinencode umgewandelt werden. Normalerweise erfolgt das aber automatisch mit einem <code>clang</code> Aufruf, ähnlich wie auch der [[GCC]] intern diverse andere Programme ausführt.
+
+Generell versucht Clang mit dem GCC kompatibel zu sein, verwendet die gleichen Kommandozeilenargumente und Spracherweiterungen. Die meisten höheren Build-Tools (CMake, gn, ..) definieren Clang dabei als einen GCC mit Extras.
+
+== Siehe auch ==
+[[Inline-Assembler mit GCC]]
+
+== Weblinks ==
+* [https://lf-net.org/blog/posts/2020-05-17-clang-osdev/ Blog-Post von LittleFox: Neues OS zu Clang/LLVM hinzufügen (englisch)]
+
+[[Kategorie:Compiler]]
+[[en:LLVM]]

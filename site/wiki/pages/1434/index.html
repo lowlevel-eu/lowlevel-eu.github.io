@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Diskussion:Programmable Interval Timer – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-1 ns-talk page-Diskussion_Programmable_Interval_Timer rootpage-Diskussion_Programmable_Interval_Timer skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="index.html">Aktueller Artikel</a> · <a href="../../history/1434/index.html">Versionsgeschichte</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Diskussion:Programmable Interval Timer</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><h2><span class="mw-headline" id="Frequenz">Frequenz</span></h2>
+<p>Ich bin mir nicht sicher ob die Frequenz 1.193.181 Hz oder 1.193.180 Hz ist. Um genau zu sein bin ich mir nicht einmal sicher ob es überhaupt eine der beiden Frequenzen ist. --<a href="../1467/index.html" title="Benutzer:Osbios">Osbios</a> 18:08, 4. Okt 2006 (CEST)
+</p>
+<dl><dd>Nach Toasters PIT Tutorial und Google sind es 1193180hz --<a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">MNemo</a> 19:13, 4. Okt 2006 (CEST)
+<dl><dd>Ich hab in der englischen Wiki Informationen über den 8253 gefunden: <a class="external free" href="http://en.wikipedia.org/wiki/Intel_8253" rel="nofollow">http://en.wikipedia.org/wiki/Intel_8253</a></dd>
+<dd>Da steht einerseits die Frequenz (es ist 1193180Hz) und zweitens gibt es noch ein par andere dinge die wir übernehmen könnten. Das was dann noch fehlt ist die Programmierung des PIT in einfachen Beispielen. --<a href="../1467/index.html" title="Benutzer:Osbios">Osbios</a> 22:00, 4. Okt 2006 (CEST)</dd></dl></dd></dl>
+<h2><span class="mw-headline" id="Code_Beispiele">Code Beispiele</span></h2>
+<p>Finde nen Codebeispiel wäre ganz Hilfreich um zu verstehen 'wie man' mit dem PIT arbeitet. --<a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Sebi2020</a> 22:00, 21. Nov. 2009 (CET)
+</p>
+<dl><dd>Kann ich machen --<a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Programm Noob</a> 01:35, 27. Dez. 2009 (CET)
+<dl><dd>Oh ja, cool, das wär praktisch. --<a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Sebi2020</a> 13:46, 27. Dez. 2009 (CET)</dd>
+<dd>Falls da mal was kommt... --<a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Sebi2020</a> 21:19, 9. Jan. 2010 (CET)</dd></dl></dd></dl>
+<p>Ich übernehme das mal, finde den Artikel sowieso etwas dürtig --<a href="../2155/index.html" title="Benutzer:Bjork">Bjork</a> 18:46, 5. Feb. 2010 (CET)
+</p>
+<h2><span class="mw-headline" id="Mode_2">Mode 2</span></h2>
+<p>"Es wird ein Zähler inkrementiert, bis dieser den Wert 1 enthält, dann wird der IRQ ausgelöst und der ursprüngliche Wert des Zählers wiederhergestellt." klingt für mich komisch. Soweit ich weiß, entspricht die Arbeitsweise in diesem Modus eher dem von dir beschriebenen Mode 1 (also Zahl wird reingeschrieben, so lange dekrementiert, bis es 0 ist, IRQ, Wert wird neugeladen). Denn so, wie du es beschreibst, müsste man mit Overflows arbeiten (also z. B. 0xFFFF reinschreiben, dann kommt nach zwei Takten ein IRQ (0xFFFF -&gt; 0x0000 -&gt; 0x0001) &amp;#150; eigentlich gilt aber, je kleiner der Wert, desto höher die Frequenz). --<a href="../1860/index.html" title="Benutzer:XanClic">XanClic</a> 21:42, 5. Feb. 2010 (CET)
+</p>
+<dl><dd>Da ist mir ein ganz kleiner Fehler unterlaufen, es heißt <i>dekrementiert</i> und nicht <i>inkrementiert</i>. Das habe ich leider noch an anderen Stellen verwechselt..., werd's gleich mal ausbessern. Erklärt das dann deine Frage? --<a href="../2155/index.html" title="Benutzer:Bjork">Bjork</a> 21:53, 5. Feb. 2010 (CET)</dd></dl>
+<dl><dd><dl><dd>Zumindestens einen Teil, nur dachte ich bisher, dass es bis 0 und nicht bis 1 ginge... Hm, da muss ich aber erstmal genauer nachschlagen, bevor ich mich da festlege. --<a href="../1860/index.html" title="Benutzer:XanClic">XanClic</a> 16:16, 6. Feb. 2010 (CET)</dd></dl></dd></dl>
+<dl><dd><dl><dd><dl><dd>Doch, dass ist auf jeden Fall 1, Intel sagt das auch:<br/></dd>
+<dd>"When the initial count has decremented to 1, OUT goes low for one CLK pulse. OUT then goes high again, the Counter reloads the initial count and the process is repeated."<br/></dd>
+<dd>OUT ist mit dem PIC verbunden, wenn dieser Pin low ist, dann wird der IRQ0 ausgelöst. --<a href="../2155/index.html" title="Benutzer:Bjork">Bjork</a> 18:14, 6. Feb. 2010 (CET)
+<dl><dd>OK, dann ist alles in Ordnung. ;-) --<a href="../1860/index.html" title="Benutzer:XanClic">XanClic</a> 14:23, 8. Feb. 2010 (CET)</dd></dl></dd></dl></dd></dl></dd></dl>
+<!-- 
+NewPP limit report
+Cached time: 20261109171037
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.003 seconds
+Real time usage: 0.004 seconds
+Preprocessor visited node count: 10/1000000
+Preprocessor generated node count: 16/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:1434-0!canonical and timestamp 20261109171037 and revision id 7040
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="../../revisions/7040/index.html">http://wiki.localhost:8080/w/index.php?title=Diskussion:Programmable_Interval_Timer&amp;oldid=7040</a>“</div>
+<div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks"></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="ca-nstab-main"><a accesskey="c" href="../1432/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="selected" id="ca-talk"><a accesskey="t" href="index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1434/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="../../revisions/7040/index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 8. Februar 2010 um 14:23 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

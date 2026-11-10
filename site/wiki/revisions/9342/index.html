@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Exception – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Exception rootpage-Exception skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1824/index.html">Aktueller Artikel</a> · <a href="../../history/1824/index.html">Versionsgeschichte</a> · <a href="../../source/9342.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Exception</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 16. Januar 2011, 06:19 Uhr von <a class="mw-userlink" href="../../pages/2377/index.html" title="Benutzer:PNoob"><bdi>PNoob</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Verlinkungen in der Liste zu den Erklärungen eingefügt)</span></div><div id="mw-revision-nav">(<a href="../../diffs/9341-9342.html" title="Exception">Unterschied</a>) <a href="../9341/index.html" title="Exception">← Nächstältere Version</a> | <a href="../../pages/1824/index.html" title="Exception">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../9343/index.html" title="Exception">Nächstjüngere Version →</a> (<a href="../../diffs/9342-9343.html" title="Exception">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Template_Stub">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #D0D8FF; margin: 0 0em; padding: 0 0px; border: 1px solid #b8c0e8" width="100%">
+<tbody><tr>
+<td>Diese Seite oder Abschnitt ist zwar komplett, es wird aber folgende Verbesserungen gewünscht:<br/>
+<p><i></i>
+</p>
+<ul><li>Einige Exceptions ausführlicher beschreiben</li>
+<li>Verlinkungen von der Tabelle zu den Beschreibungen</li>
+<li>Mehr praktische Hinweise</li>
+<li>Rechtschreibung korrigieren<i></i></li></ul>
+<p>Hilf Lowlevel, den Artikel zu verbessern.
+</p>
+</td></tr></tbody></table>
+</div>
+<p><br/>
+Als Exception (engl. Ausnahme) bezeichnet man einen Fehler, der während des Ausführens eines Programmes auftritt. Es entsteht also eine Ausnahmesituation, in der die Programmausführung nicht wie geplant fortgesetzt werden kann. Eine der bekanntesten Exception ist die 'Divide by Zero'-Exception, die auftritt, wenn man versucht durch Null zu teilen.
+Auf der x86-Architektur löst eine Exception, die nicht abgefangen wird, zunächst einen Double Fault aus, der selbst wieder eine Exception ist. Wird auch der Double Fault nicht abgefangen, führt dies zum Triple Fault und ein CPU-Reset wird durchgeführt.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Abfangen_von_Exceptions"><span class="tocnumber">1</span> <span class="toctext">Abfangen von Exceptions</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Behandeln_von_Exceptions"><span class="tocnumber">1.1</span> <span class="toctext">Behandeln von Exceptions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Arten_von_Exceptions"><span class="tocnumber">2</span> <span class="toctext">Arten von Exceptions</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Liste_der_Exceptions"><span class="tocnumber">3</span> <span class="toctext">Liste der Exceptions</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#N.C3.A4here_Erl.C3.A4uterung"><span class="tocnumber">4</span> <span class="toctext">Nähere Erläuterung</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Divide_By_Zero"><span class="tocnumber">4.1</span> <span class="toctext">Divide By Zero</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Debug"><span class="tocnumber">4.2</span> <span class="toctext">Debug</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Breakpoint"><span class="tocnumber">4.3</span> <span class="toctext">Breakpoint</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Overflow"><span class="tocnumber">4.4</span> <span class="toctext">Overflow</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Bound_Range"><span class="tocnumber">4.5</span> <span class="toctext">Bound Range</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Invalid_Opcode"><span class="tocnumber">4.6</span> <span class="toctext">Invalid Opcode</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Device_Not_Available"><span class="tocnumber">4.7</span> <span class="toctext">Device Not Available</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Double_Fault"><span class="tocnumber">4.8</span> <span class="toctext">Double Fault</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Coprocessor_Segment_Overrun"><span class="tocnumber">4.9</span> <span class="toctext">Coprocessor Segment Overrun</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Invalid_TSS"><span class="tocnumber">4.10</span> <span class="toctext">Invalid TSS</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Segment_not_Present"><span class="tocnumber">4.11</span> <span class="toctext">Segment not Present</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Stack_Fault"><span class="tocnumber">4.12</span> <span class="toctext">Stack Fault</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#General_Protection"><span class="tocnumber">4.13</span> <span class="toctext">General Protection</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#Page_Fault"><span class="tocnumber">4.14</span> <span class="toctext">Page Fault</span></a>
+<ul>
+<li class="toclevel-3 tocsection-20"><a href="#Planm.C3.A4.C3.9Figer_Einsatz_des_Page_Faults"><span class="tocnumber">4.14.1</span> <span class="toctext">Planmäßiger Einsatz des Page Faults</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-21"><a href="#x87_Floating_Point"><span class="tocnumber">4.15</span> <span class="toctext">x87 Floating Point</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#Alignment_Check"><span class="tocnumber">4.16</span> <span class="toctext">Alignment Check</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="#Machine_Check"><span class="tocnumber">4.17</span> <span class="toctext">Machine Check</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-24"><a href="#Weblinks"><span class="tocnumber">5</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Abfangen_von_Exceptions">Abfangen von Exceptions</span></h2>
+<p>Die Exceptions sind im Grunde wie <a href="../../pages/1596/index.html" title="Interrupt">Interrupts</a>. Sie werden aber nicht von der Software über die "int x"-Instruktion ausgelöst, sondern von der CPU selbst, wenn diese auf Fehler in der Codeausführung stößt. Die Exceptions werden den Interrupts 0 bis 31 zugeordnet. D.h., um Exceptions abzufangen, muss man die entsprechenden Interrupts abfangen und behandeln.
+</p>
+<h3><span class="mw-headline" id="Behandeln_von_Exceptions">Behandeln von Exceptions</span></h3>
+<p>Wie bei allen Interrupts legt die CPU die Werte der Register CS, EIP, EFLAGS, SS und ESP auf dem <a href="../../pages/2165/index.html" title="Stack">Stack</a> ab, bevor sie die in die <a class="mw-redirect" data-archive-original-href="../../pages/1882/index.html" href="../../pages/1857/index.html" title="ISR">Interrupt-Behandlungs-Routine</a> springt. Bei manchen Exceptions legt die CPU zusätzlich noch einen Fehlercode auf den Stack, der zusätzliche Informationen zum Fehler enthält. Wie dieser Fehlercode zu interpretieren ist, wird unten bei den Exceptions beschrieben. Zu beachten ist außerdem, dass das CS:EIP Registerpaar bei Exceptions des Typs Fault immer auf die Instruktion zeigen, die den Fehler verursachte, bei den anderen Exceptions muss dies nicht der Fall sein.
+</p>
+<h2><span class="mw-headline" id="Arten_von_Exceptions">Arten von Exceptions</span></h2>
+<p>Man teilt Exceptions in drei Arten ein:
+</p>
+<ul><li><b>Traps</b> (Fallen): Unterbrechen ein Programm nach einer bestimmten Instruktion oder nach einer Instruktion an einer bestimmten Stelle.</li>
+<li><b>Faults</b> (Fehler): Unterbrechen ein Programm, wenn eine Instruktion nicht ausgeführt werden kann. Der Kernel kann den Fehler aber ggf. beheben und dann das Programm fortfahren. Manche Fehler sind sogar planmäßig vom Kernel eingesetzt, so z.B der Page Fault.</li>
+<li><b>Aborts</b> (Abbrüche): Sind nicht behebbare Fehler.</li></ul>
+<h2><span class="mw-headline" id="Liste_der_Exceptions">Liste der Exceptions</span></h2>
+<table class="prettytable">
+<tbody><tr>
+<th>Vektor</th>
+<th>Bezeichnung</th>
+<th>Typ</th>
+<th>Fehlercode
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>#DE - <a href="../../pages/1824/index.html#Divide_By_Zero" title="Exception"> Divide by Zero</a></td>
+<td>Fault</td>
+<td>nein
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>#DB - <a href="../../pages/1824/index.html#Debug" title="Exception"> Debug</a></td>
+<td>Fault/Trap</td>
+<td>nein
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>#NMI - <a href="../../pages/1594/index.html" title="Non Maskable Interrupt">Non Maskable Interrupt</a></td>
+<td>-</td>
+<td>nein
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>#BP - <a href="../../pages/1824/index.html#Breakpoint" title="Exception"> Breakpoint</a></td>
+<td>Trap</td>
+<td>nein
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>#OF - <a href="../../pages/1824/index.html#Overflow" title="Exception"> Overflow</a></td>
+<td>Trap</td>
+<td>nein
+</td></tr>
+<tr>
+<td>0x05</td>
+<td>#BR - <a href="../../pages/1824/index.html#Bound_Range" title="Exception"> Bound Range</a></td>
+<td>Fault</td>
+<td>nein
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>#UD - <a href="../../pages/1824/index.html#Invalid_Opcode" title="Exception"> Invalid Opcode</a></td>
+<td>Fault</td>
+<td>nein
+</td></tr>
+<tr>
+<td>0x07</td>
+<td>#NM - <a href="../../pages/1824/index.html#Device_Not_Available" title="Exception"> Device Not Available</a></td>
+<td>Fault</td>
+<td>nein
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>#DF - <a href="../../pages/1824/index.html#Double_Fault" title="Exception"> Double Fault</a></td>
+<td></td>
+<td>ja
+</td></tr>
+<tr>
+<td>0x09</td>
+<td><a href="../../pages/1824/index.html#Coprocessor_Segment_Overrun" title="Exception"> Coprocessor Segment Overrun</a></td>
+<td></td>
+<td>nein
+</td></tr>
+<tr>
+<td>0x0a</td>
+<td>#TS - <a href="../../pages/1824/index.html#Invalid_TSS" title="Exception"> Invalid TSS</a></td>
+<td></td>
+<td>ja
+</td></tr>
+<tr>
+<td>0x0b</td>
+<td>#NP - <a href="../../pages/1824/index.html#Segment_not_Present" title="Exception"> Segment not Present</a></td>
+<td></td>
+<td>ja
+</td></tr>
+<tr>
+<td>0x0c</td>
+<td>#SS - <a href="../../pages/1824/index.html#Stack_Fault" title="Exception"> Stack Fault</a></td>
+<td></td>
+<td>ja
+</td></tr>
+<tr>
+<td>0x0d</td>
+<td>#GP - <a href="../../pages/1824/index.html#General_Protection" title="Exception"> General Protection</a></td>
+<td></td>
+<td>ja
+</td></tr>
+<tr>
+<td>0x0e</td>
+<td>#PF - <a href="../../pages/1824/index.html#Page_Fault" title="Exception"> Page Fault</a></td>
+<td></td>
+<td>ja
+</td></tr>
+<tr bgcolor="#bbb">
+<td>0x0f</td>
+<td><i>Reserviert</i></td>
+<td>-</td>
+<td>-
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>#MF - <a href="../../pages/1824/index.html#x87_Floating_Point" title="Exception"> x87 Floating Point</a></td>
+<td></td>
+<td>nein
+</td></tr>
+<tr>
+<td>0x11</td>
+<td>#AC - <a href="../../pages/1824/index.html#Alignment_Check" title="Exception"> Alignment Check</a></td>
+<td></td>
+<td>ja
+</td></tr>
+<tr>
+<td>0x12</td>
+<td>#MC - <a href="../../pages/1824/index.html#Machine_Check" title="Exception"> Machine Check</a></td>
+<td></td>
+<td>nein
+</td></tr>
+<tr>
+<td>0x13</td>
+<td>#XF - SIMD Floating Point</td>
+<td></td>
+<td>nein
+</td></tr>
+<tr bgcolor="#bbb">
+<td>0x14-0x1f</td>
+<td><i>Reserviert</i></td>
+<td>-</td>
+<td>-
+</td></tr></tbody></table>
+<h2><span id="Nähere_Erläuterung"></span><span class="mw-headline" id="N.C3.A4here_Erl.C3.A4uterung">Nähere Erläuterung</span></h2>
+<h3><span class="mw-headline" id="Divide_By_Zero">Divide By Zero</span></h3>
+<p>Tritt bei den DIV und IDIV Instruktionen auf, wenn der Teiler Null ist.
+</p>
+<h3><span class="mw-headline" id="Debug">Debug</span></h3>
+<p>Wird durch die <a href="../../pages/1928/index.html" title="Debug Register">Debug Register</a> gesteuert.
+</p>
+<h3><span class="mw-headline" id="Breakpoint">Breakpoint</span></h3>
+<p>Diese Exception wird durch die "int 3"-Instruktion ausgelöst und kann zu Debugging-Zwecken genutzt werden.
+Die "int 3"-Instruktion besitzt einen speziellen Opcode und ist nur ein Byte groß. Das CS:EIP Registerpaar auf dem Stack zeigt auf die Instruktion <b>nach</b> der "int 3"-Instruktion.
+</p>
+<h3><span class="mw-headline" id="Overflow">Overflow</span></h3>
+<p>Die Overflow-Exception wird durch die "into"-Instruktion ausgelöst. Die CPU überprüft das Overflow-Flag und löst dann diese Exception aus, wen es gesetzt ist.
+</p>
+<h3><span class="mw-headline" id="Bound_Range">Bound Range</span></h3>
+<p>Diese Exceptions wird durch die "bound"-Instruktion ausgelöst, die Arrays auf Grenzen überprüft.
+</p>
+<h3><span class="mw-headline" id="Invalid_Opcode">Invalid Opcode</span></h3>
+<p>Wird ausgelöst, wenn die CPU auf einen ungültigen Opcode oder einen gültigen Opcode mit ungültigen Parametern stößt.
+</p>
+<h3><span class="mw-headline" id="Device_Not_Available">Device Not Available</span></h3>
+<p>Wird ausgelöst, wenn ein FPU-Instruktion ausgeführt werden soll, obwohl an den Computer keine FPU angeschlossen ist. Dieser Fehler ist bei neueren Computern eher nicht mehr relevant.
+</p>
+<h3><span class="mw-headline" id="Double_Fault">Double Fault</span></h3>
+<p>Wenn eine Exception eintritt während die CPU versucht, den Handler für eine andere Exception aufzurufen, dann bezeichnet man dies als Double Fault. Dieser ist im Grunde der letzte Schritt vorm Triple Fault (Systemabsturtz) und kann nicht in irgendeiner Art behoben werden.
+</p>
+<h3><span class="mw-headline" id="Coprocessor_Segment_Overrun">Coprocessor Segment Overrun</span></h3>
+<p>???
+</p>
+<h3><span class="mw-headline" id="Invalid_TSS">Invalid TSS</span></h3>
+<p>Die Exception wird ausgelöst, wenn die CPU beim Taskswitch auf ein ungültiges TSS trifft. Sie übergibt auf dem Stack einen Errorcode:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bits</th>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>0</td>
+<td>Gesetzt: Die Exception hat ihren Ursprung außerhalb der CPU
+</td></tr>
+<tr>
+<td>1,2</td>
+<td>0: GDT, 1 und 3: IDT, 2: LDT
+</td></tr>
+<tr>
+<td>3-15</td>
+<td>Index in der GDT, IDT oder LDT,  je nach Wert von Bit 1 und 2
+</td></tr>
+<tr>
+<td>16-31</td>
+<td>reserviert
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Segment_not_Present">Segment not Present</span></h3>
+<p>Diese Exception wird ausgelöst, wenn die CPU ein Segmentregister (DS, ES, FS, GS, CS) mit einem ungültigen Wert füllt. Ungültige Werte meint hierbei einen Deskriptor, der als nicht aktiv oder in irgendeiner anderen Form ungültig ist. Beim Laden des SS Register tritt ein Stack Fault auf.
+</p>
+<h3><span class="mw-headline" id="Stack_Fault">Stack Fault</span></h3>
+<p>Der Stack Fault tritt auf, wenn der Stack seine maximale Größe erreicht hat oder das SS-Register mit einem ungültigen Wert geladen wird.
+</p>
+<h3><span class="mw-headline" id="General_Protection">General Protection</span></h3>
+<p><i>Hauptartikel: [[General Protection Fault</i>
+Der General Protection Fault tritt bei jeder Art von Rechteverletzung auf, die nicht von einer anderen Exception abgefangen wird.
+</p>
+<h3><span class="mw-headline" id="Page_Fault">Page Fault</span></h3>
+<p>Der Page Fault wird ausgelöst, wenn ein Programm...
+</p>
+<ul><li>auf eine Page zuzugreift, die nicht aktiv ist (Present-Bit gelöscht).</li>
+<li>Daten in eine Page schreibt, die als nur lesbar markiert ist.</li>
+<li>auf eine Page zuzugreift, dessen Reserved-Bit gesetzt ist.</li>
+<li>in Ring 3 (Usermode) läuft und auf eine Page zugreift, die nur für den Kernel (Ring 0) zugänglich ist.</li></ul>
+<p>Die CPU übergibt zusätzlich noch einen Errorcode auf dem Stack:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>0</td>
+<td>Wenn gelöscht, dann wurde der Fault durch eine nicht aktive Page ausgelöst
+</td></tr>
+<tr>
+<td>1</td>
+<td>Wenn gesetzt, dann wurde der Fault durch einen Schreibzugriff ausgelöst
+</td></tr>
+<tr>
+<td>2</td>
+<td>Wenn gestzt, dann hatte das Programm nur Usermode-Rechte
+</td></tr>
+<tr>
+<td>3</td>
+<td>Wenn gesetzt, dann hatte das Reserved-Feld den Wert 1
+</td></tr>
+<tr>
+<td>4</td>
+<td>Wenn gesetzt, dann wurde der Fault durch einen Zugriff auf Code ausgelöst, andernfalls auf Daten
+</td></tr></tbody></table>
+<p>Außerdem übergibt die CPU im <a href="../../pages/1610/index.html" title="Control Register">CR2</a> die Adresse, auf die zugegriffen wurde.
+</p>
+<h4><span id="Planmäßiger_Einsatz_des_Page_Faults"></span><span class="mw-headline" id="Planm.C3.A4.C3.9Figer_Einsatz_des_Page_Faults">Planmäßiger Einsatz des Page Faults</span></h4>
+<p>Der Page Fault ist oftmals nicht auf einen wirklichen Fehler zurückzuführen, sondern wird planmäßig eingesetzt.
+</p><p>Wenn bei aktiviertem <a href="../../pages/1496/index.html" title="Paging">Paging</a> eine Speicherseite nicht zugegriffen werden kann, kann das beispielsweise daran liegen, dass diese Seite auf die Festplatte ausgelagert worden ist. In diesem Fall lädt der Kernel die Seite wieder in den Speicher und springt zurück in das Programm. Diese Methode bezeichnet man als <a href="../../pages/2012/index.html" title="Swapping">Swapping</a>.
+</p><p>Eine weitere Anwendungsmöglichkeit ist Copy on Write. Es kommt zum Einsatz, wenn ganze Pages kopiert werden - z.B. bei unixoiden Systemen bei fork(), dem Klonen von Prozessen. Dabei werden alle zu kopierenden Seiten zunächst nicht wirklich kopiert, sondern sowohl im alten als auch neuen Prozess als schreibgeschützt markiert. Erst bei Bedarf, also wenn sich die Originalpage und Kopie zum ersten Mal unterscheiden, wird wirklich kopiert: Beim ersten Schreibzugriff auf eine solche Seite wird ein Page Fault abgefangen (der ausgelöst wird, weil der Bereich schreibgeschützt ist) und eine zweite Page für die Kopie alloziert.
+</p>
+<h3><span class="mw-headline" id="x87_Floating_Point">x87 Floating Point</span></h3>
+<p>???
+</p>
+<h3><span class="mw-headline" id="Alignment_Check">Alignment Check</span></h3>
+<p>Wenn auf nicht ausgerichtete Daten zugegriffen wird und daa AM Bit in CR0 sowie das AC in den EFLAGS sind gesetzt, dann wird diese Exception ausgelöst. In der Regel trifft man nicht auf diese Exception, weil Alignment Checks standartmäßig ausgeschaltet sind.
+</p>
+<h3><span class="mw-headline" id="Machine_Check">Machine Check</span></h3>
+<p>???
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<p><a class="external free" href="http://www.logix.cz/michal/doc/i386/chp09-08.htm" rel="nofollow">http://www.logix.cz/michal/doc/i386/chp09-08.htm</a> (Englisch)
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109165135
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.010 seconds
+Real time usage: 0.011 seconds
+Preprocessor visited node count: 111/1000000
+Preprocessor generated node count: 156/1000000
+Post‐expand include size: 566/2097152 bytes
+Template argument size: 153/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.267      1 -total
+ 47.84%    0.606      1 Vorlage:TODO
+ 36.54%    0.463      3 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Exception&amp;oldid=9342</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1820/index.html" title="Kategorie:TODO">TODO</a></li><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1824/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2372/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1824/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

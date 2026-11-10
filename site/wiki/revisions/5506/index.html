@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>D – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-D rootpage-D skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1863/index.html">Aktueller Artikel</a> · <a href="../../history/1863/index.html">Versionsgeschichte</a> · <a href="../../source/5506.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">D</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 8. August 2009, 22:36 Uhr von <a class="mw-userlink" href="../../pages/1489/index.html" title="Benutzer:Bluecode"><bdi>Bluecode</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Rechtschreibung, Adresse des Videospeichers, -nodefaultlibs erscheint mir überflüssig, da es bei -nostdlib dabei sein sollte)</span></div><div id="mw-revision-nav">(<a href="../../diffs/5191-5506.html" title="D">Unterschied</a>) <a href="../5191/index.html" title="D">← Nächstältere Version</a> | <a href="../../pages/1863/index.html" title="D">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../5665/index.html" title="D">Nächstjüngere Version →</a> (<a href="../../diffs/5506-5665.html" title="D">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="float:right; width:300px; padding-left:20px; padding-bottom: 20px; background-color:white">
+<div style="font-weight:normal; text-align:left; border:1px solid lightgray;">
+<table width="100%">
+<tbody><tr align="center" style="background:lightgray">
+<th colspan="2">Allgemeines
+</th></tr>
+<tr>
+<td>Name:</td>
+<td>D
+</td></tr>
+<tr>
+<td>Inlineassembler:</td>
+<td>Ja (Intel-Syntax)
+</td></tr>
+<tr>
+<td>Compiler:</td>
+<td>dmd (Digital Mars), gdc (GNU)
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Spracheneigenschaften
+</th></tr>
+<tr>
+<td>Plattformen:</td>
+<td>Alle
+</td></tr>
+<tr>
+<td>Beispielkernel in der Sprache:</td>
+<td>s.u.
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Homepage
+</th></tr>
+<tr>
+<td colspan="2"><center><a class="external free" href="http://www.digitalmars.com/d" rel="nofollow">http://www.digitalmars.com/d</a></center>
+</td></tr></tbody></table>
+</div>
+</div>
+<p>D ist eine prozedurale sowie objekorientierte und wird seit 1999 von Walter Bright entwickelt. Primäres Ziel der Entwicklung war dabei die Produktivität von Scriptsprachen wie Python mit der Abstraktion von <a href="../../pages/1486/index.html" title="C++">C++</a> und der Nähe zum System von <a href="../../pages/1526/index.html" title="C">C</a> zu vereinen.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#D_als_Sprache_f.C3.BCr_ein_Betriebssystem"><span class="tocnumber">1</span> <span class="toctext">D als Sprache für ein Betriebssystem</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Kernel_in_D"><span class="tocnumber">2</span> <span class="toctext">Kernel in D</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Konstruktoren.2FDestruktoren"><span class="tocnumber">2.1</span> <span class="toctext">Konstruktoren/Destruktoren</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#link.ld"><span class="tocnumber">2.1.1</span> <span class="toctext">link.ld</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-5"><a href="#Runtime"><span class="tocnumber">2.2</span> <span class="toctext">Runtime</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Der_eigentliche_Kernel"><span class="tocnumber">2.3</span> <span class="toctext">Der eigentliche Kernel</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#start.asm"><span class="tocnumber">2.4</span> <span class="toctext">start.asm</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Erstellung"><span class="tocnumber">2.5</span> <span class="toctext">Erstellung</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#D-Compiler"><span class="tocnumber">3</span> <span class="toctext">D-Compiler</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Weblinks"><span class="tocnumber">4</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span id="D_als_Sprache_für_ein_Betriebssystem"></span><span class="mw-headline" id="D_als_Sprache_f.C3.BCr_ein_Betriebssystem">D als Sprache für ein Betriebssystem</span></h2>
+<p>D kann primär als objektorientiertes C (ähnlich C++) gesehen werden. Mit D lässt sich genauso wie in C sehr systemnah programmieren, es sind Sprachmittel wie Pointer vorhanden und man kann per Inline-<a href="../../pages/1514/index.html" title="Assembler">Assembler</a> (Intel-Syntax) Assembler-Routinen einbauen. Einzig muss (z.B. für den <a href="../../pages/1478/index.html" title="Kernel">Kernel</a>) ein kleines Runtime implementiert werden, welcher Funktionen zum Überprüfen von Werten während der Laufzeit zur Verfügung stellt (mehr dazu weiter unten). Um Sprachmittel wie Konstruktoren und Destruktoren einzusetzen, bedarf es ebenfalls Laufzeitunterstützung.
+</p>
+<h2><span class="mw-headline" id="Kernel_in_D">Kernel in D</span></h2>
+<h3><span id="Konstruktoren/Destruktoren"></span><span class="mw-headline" id="Konstruktoren.2FDestruktoren">Konstruktoren/Destruktoren</span></h3>
+<p>Wer in D seinen Kernel programmiert, möchte vielleicht den Vorteil der Objektorientierung nicht missen. Dazu muss allerdings, wie in C++ auch, Code geschrieben werden, welcher die Konstruktoren/Destruktoren aufruft.
+</p><p>Für die Konstruktoren:
+&lt;asm&gt;
+static_ctors_loop:
+</p>
+<pre>  mov ebx, start_ctors
+  jmp .test
+</pre>
+<p>.body:
+</p>
+<pre>  call [ebx]
+  add ebx,4
+</pre>
+<p>.test:
+</p>
+<pre>  cmp ebx, end_ctors
+  jb .body
+</pre>
+<p>&lt;/asm&gt;
+</p><p>start_ctors ist dabei im <a class="mw-redirect" data-archive-original-href="../../pages/1934/index.html" href="../../pages/1932/index.html" title="Linkerscript">Linkerscript</a> angegeben.
+</p><p>Für die Destruktoren:
+&lt;asm&gt;
+static_dtors_loop:
+</p>
+<pre>  mov ebx, start_dtors
+  jmp .test
+</pre>
+<p>.body:
+</p>
+<pre>  call [ebx]
+  add ebx,4
+</pre>
+<p>.test:
+</p>
+<pre>  cmp ebx, end_dtors
+  jb .body
+</pre>
+<p>&lt;/asm&gt;
+</p><p>end_dtors ist hier auch im Linkerscript angegeben.
+</p><p>Das passende Linkerscript dazu:
+</p>
+<h4><span class="mw-headline" id="link.ld">link.ld</span></h4>
+<pre>OUTPUT_FORMAT(elf32-i386)
+ENTRY (start)
+
+SECTIONS{
+    . = 0x00100000;
+
+    .text :{
+        code = .; _code = .; __code = .;
+        *(.text)
+        *(.rodata)
+    }
+
+    .rodata ALIGN (0x1000) : {
+        *(.rodata)
+    }
+
+    .data ALIGN (0x1000) : {
+        data = .; _data = .; __data = .;
+        *(.data)
+        start_ctors = .; *(.ctors)   end_ctors = .;
+        start_dtors = .; *(.dtors)   end_dtors = .;
+    }
+    
+
+    .bss :{
+        sbss = .;
+        bss = .; _bss = .; __bss = .;
+        *(COMMON)
+        *(.bss)
+        ebss = .;
+    }
+    end = .; _end = .; __end = .;
+}
+</pre>
+<h3><span class="mw-headline" id="Runtime">Runtime</span></h3>
+<p>Wer in D einen Kernel schreibt wird bei der Benutzung von Arrays beim Linken schnell folgenden Fehler zu sehen bekommen:
+</p><p><tt>undefined reference to _d_array_bounds</tt>
+</p><p>_d_array_bounds ist dabei nicht anderes, als eine Funktion im D-Runtime, welche überprüft, ob Array-Grenzen eingehalten werden.
+Um diesen Fehler vorzubeugen, sollte also zumindest eine Stub-Funktion erstellt werden:
+</p><p>&lt;c&gt;
+extern(C) void _d_array_bounds(char filename, uint line) {}
+&lt;/c&gt;
+</p><p>Zu Debugging-Zwecken kann hier natürlich auch eine echte Überprüfung gemacht werden.
+</p><p>Wer allerdings keine Runtime-Überprüfung im Kernel braucht, der kann den Compiler auch so aufrufen:
+</p>
+<pre>$ gdc -no-bounds-check
+</pre>
+<h3><span class="mw-headline" id="Der_eigentliche_Kernel">Der eigentliche Kernel</span></h3>
+<p>Nichts weltbewegendes, wir geben ein einfaches 'D' auf dem Bildschirm aus:
+</p><p>&lt;c&gt;
+module kernel.main;
+</p><p>extern(C) void main(uint magic, uint addr) 
+{
+</p>
+<pre>   int ypos = 0; 
+   int xpos = 0;
+   const uint COLUMNS = 80; 
+   const uint LINES = 24;
+
+   ubyte* vidmem = cast(ubyte*)0x000B8000; 
+
+   for (int i = 0; i &lt; COLUMNS * LINES * 2; i++) { 
+       volatile *(vidmem + i) = 0;
+   }
+
+   volatile *(vidmem + (xpos + ypos * COLUMNS) * 2) = 'D' &amp; 0xFF; 
+   volatile *(vidmem + (xpos + ypos * COLUMNS) * 2 + 1) = 0x07; 
+
+   for (;;) { 
+   }
+</pre>
+<p>}
+&lt;/c&gt;
+</p><p>Man beachte das 'module kernel.main', wobei kernel der Name des Verzeichnisses ist, wo sich die Datei befindet.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="start.asm">start.asm</span></h3>
+<p>Und hier der Start-Code mit Multiboot-Signatur und dem Konstruktor/Destruktor-Code von oben:
+</p><p>&lt;asm&gt;
+global start
+extern main        
+extern start_ctors, end_ctors, start_dtors, end_dtors
+</p><p>MODULEALIGN        equ        1&lt;&lt;0
+MEMINFO            equ        1&lt;&lt;1
+FLAGS              equ        MODULEALIGN | MEMINFO
+MAGIC              equ        0x1BADB002
+CHECKSUM           equ        -(MAGIC + FLAGS)
+</p><p>section .text      
+</p><p>align 4
+MultiBootHeader:
+</p>
+<pre>      dd MAGIC
+      dd FLAGS
+      dd CHECKSUM
+
+</pre>
+<p>STACKSIZE equ 0x4000 
+</p><p>static_ctors_loop:
+</p>
+<pre>  mov ebx, start_ctors
+  jmp .test
+</pre>
+<p>.body:
+</p>
+<pre>  call [ebx]
+  add ebx,4
+</pre>
+<p>.test:
+</p>
+<pre>  cmp ebx, end_ctors
+  jb .body
+
+</pre>
+<p>start:
+</p>
+<pre>      mov esp, STACKSIZE+stack
+
+      push eax
+      push ebx
+
+      call main
+
+</pre>
+<p>static_dtors_loop:
+</p>
+<pre>  mov ebx, start_dtors
+  jmp .test
+</pre>
+<p>.body:
+</p>
+<pre>  call [ebx]
+  add ebx,4
+</pre>
+<p>.test:
+</p>
+<pre>  cmp ebx, end_dtors
+  jb .body
+
+
+</pre>
+<p>cpuhalt:
+</p>
+<pre>      hlt
+      jmp cpuhalt
+
+</pre>
+<p>section .bss
+align 32
+</p><p>stack:
+</p>
+<pre>     resb      STACKSIZE
+</pre>
+<p>&lt;/asm&gt;
+</p>
+<h3><span class="mw-headline" id="Erstellung">Erstellung</span></h3>
+<p>Erstellt wird das Ganze per
+</p>
+<pre>$ nasm -f elf -o ./obj/start.o ./src/kernel/start.asm
+</pre>
+<p>und
+</p>
+<pre>$ gdc -nostdlib -g -c -o ./obj/kernel.main.o ./src/kernel/kernel.main.d
+</pre>
+<p>gelinkt wird's so:
+</p>
+<pre>$ ld -T link.d -o dkernel ./obj/start.o ./obj/kernel.main.o
+</pre>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="D-Compiler">D-Compiler</span></h2>
+<ul><li><a class="external text" href="http://dgcc.sourceforge.net/gdc" rel="nofollow">gdc</a> aus der <a href="../../pages/1805/index.html" title="GNU Compiler Collection">GNU Compiler Collection</a></li>
+<li><a class="external text" href="http://www.digitalmars.com/d" rel="nofollow">dmd</a> Digital-Mars-D-Compiler</li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://www.digitalmars.com/d" rel="nofollow">Alles rund um die Sprache D</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165018
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.006 seconds
+Preprocessor visited node count: 80/1000000
+Preprocessor generated node count: 198/1000000
+Post‐expand include size: 731/2097152 bytes
+Template argument size: 83/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 638/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.694      1 Vorlage:Sprache
+100.00%    0.694      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=D&amp;oldid=5506</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1648/index.html" title="Kategorie:Programmiersprache">Programmiersprache</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1863/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1863/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

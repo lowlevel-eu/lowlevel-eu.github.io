@@ -1,0 +1,14 @@
+Cylinder Head Sector (Zylinder Köpf Sektor) kurz CHS genannte ist eine alte Adressierungsmethode für Massenspeichern wie Festplatten und Disketten. Das Gegenstück dazu ist die lineare Adressierung namens LBA.
+
+Der erste Sektor in CHS wird mit "Cylinder=0 Head=0 Sector=1" adressiert. NICHT mit "Cylinder=0 Head=0 Sector=0"!
+
+Umrechnung von CHS nach LBA: (aus Wikipedia)
+
+    LBA = ((CYL × HPC + HEAD) × SPT) + SECT − 1
+
+    * CYL : Zylinder
+    * HPC : Leseköpfe/Zylinder
+    * HEAD : Lesekopfnummer
+    * SPT : Sektoren/Track (Track ^= Zylinder)
+    * SECT : Sektornummer
+    * CL : Cluster

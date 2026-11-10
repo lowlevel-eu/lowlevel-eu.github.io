@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>EFLAGS – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-EFLAGS rootpage-EFLAGS skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="index.html">Aktueller Artikel</a> · <a href="../../history/1751/index.html">Versionsgeschichte</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">EFLAGS</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Das EFLAGS (Programmstatus und Kontrollregister) Register ist 32 Bit groß, wobei jedes Bit ein Flag repräsentiert. Es beinhaltet Status-Informationen über das laufende Programm und erlaubt anwendungsbasierte Prozessorkontrolle. Das Register kann nicht komplett verändert werden, es können nur die einzelnen Flags gesetzt oder gelöscht werden, meistens auch nur indirekt, in der Form das ein aufgerufener Befehl ein Flag als Nebeneffekt ändert.
+</p>
+<table align="right" class="prettytable">
+<caption>EFLAGS-Register
+</caption>
+<tbody><tr>
+<th>Bit</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>22-31</td>
+<td bgcolor="#bbb">Reserviert, nicht verändern
+</td></tr>
+<tr>
+<td>21</td>
+<td><a href="#ID_-_Identification_Flag_.28Bit_21.29">ID - ID Flag</a> (X)
+</td></tr>
+<tr>
+<td>20</td>
+<td><a href="#VIP_-_Virtual_Interrupt_Pending_Flag_.28Bit_20.29">VIP - <b>V</b>irtual <b>I</b>nterrupt <b>P</b>ending</a> (X)
+</td></tr>
+<tr>
+<td>19</td>
+<td><a href="#VIF_-_Virtual_Interrupt_Flag_.28Bit_19.29">VIF - <b>V</b>irtual <b>I</b>nterrupt <b>F</b>lag</a> (X)
+</td></tr>
+<tr>
+<td>18</td>
+<td><a href="#AC_-_Alignment_Check_Flag_.28Bit_18.29">AC - <b>A</b>lignment <b>C</b>heck</a> (X)
+</td></tr>
+<tr>
+<td>17</td>
+<td><a data-archive-original-href="#VM_-_Virtual-8086_Mode_Flag_.28Bit_17.29" href="index.html" title="Der ursprüngliche Abschnitt ist in dieser Momentaufnahme nicht verfügbar; stattdessen wird der Artikel angezeigt.">VM - <b>V</b>irtual 8086 <b>M</b>ode</a> (X)
+</td></tr>
+<tr>
+<td>16</td>
+<td><a href="#RF_-_Resume_Flag_.28Bit_16.29">RF - <b>R</b>esume <b>F</b>lag</a> (X)
+</td></tr>
+<tr>
+<td>15</td>
+<td bgcolor="#bbb">Reserviert, nicht ändern
+</td></tr>
+<tr>
+<td>14</td>
+<td><a href="#NT_-_Nested_Task_Flag_.28Bit_14.29">NT - <b>N</b>ested <b>T</b>ask Flag</a> (X)
+</td></tr>
+<tr>
+<td>13 - 12</td>
+<td><a href="#IOPL_-_I.2FO_Privilege_Field_.28Bits_12_und_13.29">IOPL - <b>I</b>/<b>O</b> <b>P</b>rivilege <b>L</b>evel</a> (X)
+</td></tr>
+<tr>
+<td>11</td>
+<td><a href="#OF_-_Overflow_Flag_.28Bit_11.29">OF - <b>O</b>verflow <b>F</b>lag</a> (S)
+</td></tr>
+<tr>
+<td>10</td>
+<td><a href="#DF_-_Direction_Flag_.28Bit_10.29">DF - <b>D</b>irection <b>F</b>lag</a> (C)
+</td></tr>
+<tr>
+<td>9</td>
+<td><a href="#IF_-_Interrupt_Enable_Flag_.28Bit_9.29">IF - <b>I</b>nterrupt <b>E</b>nable Flag</a> (X)
+</td></tr>
+<tr>
+<td>8</td>
+<td><a href="#TF_-_Trap_Flag_.28Bit_8.29">TF - <b>T</b>rap <b>F</b>lag</a> (X)
+</td></tr>
+<tr>
+<td>7</td>
+<td><a href="#SF_-_Sign_Flag_.28Bit_7.29">SF - <b>S</b>ign <b>F</b>lag</a> (S)
+</td></tr>
+<tr>
+<td>6</td>
+<td><a href="#ZF_-_Zero_Flag_.28Bit_6.29">ZF - <b>Z</b>ero <b>F</b>lag</a> (S)
+</td></tr>
+<tr>
+<td>5</td>
+<td bgcolor="#bbb">Reserviert, nicht ändern
+</td></tr>
+<tr>
+<td>4</td>
+<td><a href="#AF_-_Auxiliary_Carry_Flag_.28Bit_4.29">AF - <b>A</b>uxiliary Carry <b>F</b>lag</a> (S)
+</td></tr>
+<tr>
+<td>3</td>
+<td bgcolor="#bbb">Reserviert, nicht ändern
+</td></tr>
+<tr>
+<td>2</td>
+<td><a href="#PF_-_Parity_Flag_.28Bit_2.29">PF - <b>P</b>arity <b>F</b>lag</a> (S)
+</td></tr>
+<tr>
+<td>1</td>
+<td bgcolor="#bbb">Reserviert, nicht ändern
+</td></tr>
+<tr>
+<td>0</td>
+<td><a href="#CF_-_Carry_Flag_.28Bit_0.29">CF - <b>C</b>arry <b>F</b>lag</a> (S)
+</td></tr>
+<tr>
+<td colspan="2"><i>(X) Systemflag, (S) Statusflag, (C) Controlflag</i>
+</td></tr></tbody></table>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Statusflags"><span class="tocnumber">1</span> <span class="toctext">Statusflags</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#CF_-_Carry_Flag_.28Bit_0.29"><span class="tocnumber">1.1</span> <span class="toctext">CF - Carry Flag (Bit 0)</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#PF_-_Parity_Flag_.28Bit_2.29"><span class="tocnumber">1.2</span> <span class="toctext">PF - Parity Flag (Bit 2)</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#AF_-_Auxiliary_Carry_Flag_.28Bit_4.29"><span class="tocnumber">1.3</span> <span class="toctext">AF - Auxiliary Carry Flag (Bit 4)</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#ZF_-_Zero_Flag_.28Bit_6.29"><span class="tocnumber">1.4</span> <span class="toctext">ZF - Zero Flag (Bit 6)</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#SF_-_Sign_Flag_.28Bit_7.29"><span class="tocnumber">1.5</span> <span class="toctext">SF - Sign Flag (Bit 7)</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#OF_-_Overflow_Flag_.28Bit_11.29"><span class="tocnumber">1.6</span> <span class="toctext">OF - Overflow Flag (Bit 11)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Controlflags"><span class="tocnumber">2</span> <span class="toctext">Controlflags</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#DF_-_Direction_Flag_.28Bit_10.29"><span class="tocnumber">2.1</span> <span class="toctext">DF - Direction Flag (Bit 10)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Systemflags"><span class="tocnumber">3</span> <span class="toctext">Systemflags</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#TF_-_Trap_Flag_.28Bit_8.29"><span class="tocnumber">3.1</span> <span class="toctext">TF - Trap Flag (Bit 8)</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#IF_-_Interrupt_Enable_Flag_.28Bit_9.29"><span class="tocnumber">3.2</span> <span class="toctext">IF - Interrupt Enable Flag (Bit 9)</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#IOPL_-_I.2FO_Privilege_Field_.28Bits_12_und_13.29"><span class="tocnumber">3.3</span> <span class="toctext">IOPL - I/O Privilege Field (Bits 12 und 13)</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#NT_-_Nested_Task_Flag_.28Bit_14.29"><span class="tocnumber">3.4</span> <span class="toctext">NT - Nested Task Flag (Bit 14)</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#RF_-_Resume_Flag_.28Bit_16.29"><span class="tocnumber">3.5</span> <span class="toctext">RF - Resume Flag (Bit 16)</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#VM_-_Virtual_8086_Mode_Flag_.28Bit_17.29"><span class="tocnumber">3.6</span> <span class="toctext">VM - Virtual 8086 Mode Flag (Bit 17)</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#AC_-_Alignment_Check_Flag_.28Bit_18.29"><span class="tocnumber">3.7</span> <span class="toctext">AC - Alignment Check Flag (Bit 18)</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#VIF_-_Virtual_Interrupt_Flag_.28Bit_19.29"><span class="tocnumber">3.8</span> <span class="toctext">VIF - Virtual Interrupt Flag (Bit 19)</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#VIP_-_Virtual_Interrupt_Pending_Flag_.28Bit_20.29"><span class="tocnumber">3.9</span> <span class="toctext">VIP - Virtual Interrupt Pending Flag (Bit 20)</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#ID_-_Identification_Flag_.28Bit_21.29"><span class="tocnumber">3.10</span> <span class="toctext">ID - Identification Flag (Bit 21)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-21"><a href="#Befehle_zum_direkten_Ver.C3.A4ndern"><span class="tocnumber">4</span> <span class="toctext">Befehle zum direkten Verändern</span></a></li>
+<li class="toclevel-1 tocsection-22"><a href="#RFLAGS"><span class="tocnumber">5</span> <span class="toctext">RFLAGS</span></a></li>
+</ul>
+</div>
+<h3><span class="mw-headline" id="Statusflags">Statusflags</span></h3>
+<p>Die Statusflags (Bits 0, 2, 4, 6, 7, 11) geben das Ergebnis einer arithmetischen Operation an (z. B.: ADD, SUB, MUL, DIV). Verwendet werden sie normalerweise in Verbindung mit bedingten Sprüngen, sets, movs und loops (Jcc, SETcc, MOVcc, LOOPcc; cc = conditional code).
+</p>
+<h4><span id="CF_-_Carry_Flag_(Bit_0)"></span><span class="mw-headline" id="CF_-_Carry_Flag_.28Bit_0.29">CF - Carry Flag (Bit 0)</span></h4>
+<p>Zeigt einen Overflow bei vorzeichenlosen Berechnungen an.
+</p>
+<h4><span id="PF_-_Parity_Flag_(Bit_2)"></span><span class="mw-headline" id="PF_-_Parity_Flag_.28Bit_2.29">PF - Parity Flag (Bit 2)</span></h4>
+<p>Gesetzt, wenn das niederwertige Byte des Ergebnisses eine gerade Anzahl an gesetzten Bits enthält.
+</p>
+<h4><span id="AF_-_Auxiliary_Carry_Flag_(Bit_4)"></span><span class="mw-headline" id="AF_-_Auxiliary_Carry_Flag_.28Bit_4.29">AF - Auxiliary Carry Flag (Bit 4)</span></h4>
+<p>Gesetzt, wenn ein Übertrag von Bit 3 auf Bit 4 stattgefunden hat.<br/>
+Wird hauptsächlich für <a class="mw-redirect" data-archive-original-href="../1590/index.html" href="../1589/index.html" title="BCD">BCD</a>-Berechnungen verwendet.
+</p>
+<h4><span id="ZF_-_Zero_Flag_(Bit_6)"></span><span class="mw-headline" id="ZF_-_Zero_Flag_.28Bit_6.29">ZF - Zero Flag (Bit 6)</span></h4>
+<p>Gesetzt, wenn das Ergebnis 0 ist.
+</p>
+<h4><span id="SF_-_Sign_Flag_(Bit_7)"></span><span class="mw-headline" id="SF_-_Sign_Flag_.28Bit_7.29">SF - Sign Flag (Bit 7)</span></h4>
+<p>Entspricht dem höchstwertigen Bit des Ergebnisses, also dem Vorzeichenbit bei vorzeichenbehafteten Berechnungen.<br/>
+0 steht für einen positiven Wert und 1 für einen negativen.
+</p>
+<h4><span id="OF_-_Overflow_Flag_(Bit_11)"></span><span class="mw-headline" id="OF_-_Overflow_Flag_.28Bit_11.29">OF - Overflow Flag (Bit 11)</span></h4>
+<p>Gesetzt, wenn ein Overflow bei einer signed-Zahl stattgefunden hat.
+</p>
+<h3><span class="mw-headline" id="Controlflags">Controlflags</span></h3>
+<h4><span id="DF_-_Direction_Flag_(Bit_10)"></span><span class="mw-headline" id="DF_-_Direction_Flag_.28Bit_10.29">DF - Direction Flag (Bit 10)</span></h4>
+<p>Gibt die Richtung bei Stringoperationen an. Wenn 0 wird der Zeiger inkrementiert, bei 1 dekrementiert.<br/>
+Dieses Flag kann mit <b>CLD</b> (Clear Direction Flag) und <b>STD</b> (Set Direction Flag) verändert werden.
+</p>
+<h3><span class="mw-headline" id="Systemflags">Systemflags</span></h3>
+<h4><span id="TF_-_Trap_Flag_(Bit_8)"></span><span class="mw-headline" id="TF_-_Trap_Flag_.28Bit_8.29">TF - Trap Flag (Bit 8)</span></h4>
+<p>Für schrittweises Debuggen.
+</p>
+<h4><span id="IF_-_Interrupt_Enable_Flag_(Bit_9)"></span><span class="mw-headline" id="IF_-_Interrupt_Enable_Flag_.28Bit_9.29">IF - Interrupt Enable Flag (Bit 9)</span></h4>
+<p>Wenn es gesetzt ist, dann wird auf Interrupts reagiert, ist es gelöscht, so werden diese ignoriert (Ausnahme: <a href="../1594/index.html" title="Non Maskable Interrupt">Non Maskable Interrupt</a>).<br/>
+Kann mit <b>CLI</b> (Clear Interruptflag) und <b>STI</b> (Set Interruptflag) geändert werden.
+</p>
+<h4><span id="IOPL_-_I/O_Privilege_Field_(Bits_12_und_13)"></span><span class="mw-headline" id="IOPL_-_I.2FO_Privilege_Field_.28Bits_12_und_13.29">IOPL - I/O Privilege Field (Bits 12 und 13)</span></h4>
+<p>Gibt an, ab welcher Privilegstufe alle I/O-Ports (und nicht nur per I/O-Port-Bitmap ausgewählte) benutzt werden dürfen.
+</p>
+<h4><span id="NT_-_Nested_Task_Flag_(Bit_14)"></span><span class="mw-headline" id="NT_-_Nested_Task_Flag_.28Bit_14.29">NT - Nested Task Flag (Bit 14)</span></h4>
+<p>Gesetzt, wenn der akuelle Task eine Verbindung zum vorherigen hat.
+</p>
+<h4><span id="RF_-_Resume_Flag_(Bit_16)"></span><span class="mw-headline" id="RF_-_Resume_Flag_.28Bit_16.29">RF - Resume Flag (Bit 16)</span></h4>
+<p>Steuert die Reaktion des Prozessors auf eine Debug Exception.
+</p>
+<h4><span id="VM_-_Virtual_8086_Mode_Flag_(Bit_17)"></span><span class="mw-headline" id="VM_-_Virtual_8086_Mode_Flag_.28Bit_17.29">VM - Virtual 8086 Mode Flag (Bit 17)</span></h4>
+<p>Gesetzt, um im <a href="../1546/index.html" title="Virtual 8086 Mode">Virtual 8086 Mode</a> zu arbeiten.
+</p>
+<h4><span id="AC_-_Alignment_Check_Flag_(Bit_18)"></span><span class="mw-headline" id="AC_-_Alignment_Check_Flag_.28Bit_18.29">AC - Alignment Check Flag (Bit 18)</span></h4>
+<p>Wenn dieses Flag und das AM-Bit im <a href="../1610/index.html" title="Control Register">CR0-Register</a> gesetzt ist, wird auf Speicherausrichtung geprüft.
+</p>
+<h4><span id="VIF_-_Virtual_Interrupt_Flag_(Bit_19)"></span><span class="mw-headline" id="VIF_-_Virtual_Interrupt_Flag_.28Bit_19.29">VIF - Virtual Interrupt Flag (Bit 19)</span></h4>
+<p>Das Interruptflag für den Virtual 8086 Mode.
+</p>
+<h4><span id="VIP_-_Virtual_Interrupt_Pending_Flag_(Bit_20)"></span><span class="mw-headline" id="VIP_-_Virtual_Interrupt_Pending_Flag_.28Bit_20.29">VIP - Virtual Interrupt Pending Flag (Bit 20)</span></h4>
+<p>Gesetzt, um anzuzeigen, dass ein Interrupt abgearbeitet werden muss (Das Betriebssystem setzt und löscht dieses Flag, der Prozessor liest es nur). Genutzt wird es in Verbindung mit dem Virtual Interrupt Flag.
+</p>
+<h4><span id="ID_-_Identification_Flag_(Bit_21)"></span><span class="mw-headline" id="ID_-_Identification_Flag_.28Bit_21.29">ID - Identification Flag (Bit 21)</span></h4>
+<p>Wenn dieses Bit von Software verändert werden kann, dann unterstützt der Prozessor den <a href="../1739/index.html" title="CPUID">CPUID</a>-Befehl.
+</p>
+<h2><span id="Befehle_zum_direkten_Verändern"></span><span class="mw-headline" id="Befehle_zum_direkten_Ver.C3.A4ndern">Befehle zum direkten Verändern</span></h2>
+<ul><li>PUSHF</li>
+<li>PUSHFD</li>
+<li>POPF</li>
+<li>POPFD</li>
+<li>LAHF</li>
+<li>SAHF</li></ul>
+<h2><span class="mw-headline" id="RFLAGS">RFLAGS</span></h2>
+<p>Das RFLAGS Register ist die 64-Bit Variante von EFLAGS. Allerdings hat sich abgesehen von der Tatsache, dass das Register jetzt 64 Bit breit ist, nichts geändert. Die Bits 32-63 sind reserviert und geben immer 0 zurück.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109165052
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.009 seconds
+Real time usage: 0.010 seconds
+Preprocessor visited node count: 95/1000000
+Preprocessor generated node count: 110/1000000
+Post‐expand include size: 19/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.666      1 Vorlage:Prettytable
+100.00%    0.666      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:1751-0!canonical and timestamp 20261109165052 and revision id 7163
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="../../revisions/7163/index.html">http://wiki.localhost:8080/w/index.php?title=EFLAGS&amp;oldid=7163</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../1447/index.html" title="Kategorie:Hardware">Hardware</a></li><li><a href="../1874/index.html" title="Kategorie:X86">X86</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1751/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="../../revisions/7163/index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 23. Februar 2010 um 21:13 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

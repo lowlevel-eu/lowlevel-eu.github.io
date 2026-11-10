@@ -1,0 +1,58 @@
+{{Infobox OS
+| Name = COBE
+| Version = 0.1 Alpha
+| Entwickler = [[Benutzer:ChiSaw | Christian Hülsemeyer]]
+| Lizenz = [[ Lizenz#BSD-Lizenz | BSD]]
+| Kernel = [[Microkernel | Microkernel]]
+| API = Noch keine vorhanden
+| Binaerformat = [[ELF]]
+| Sprache = [[C]], [[Assembler]]
+| Plattform = [[x86]]
+| IPC = Noch keine
+| Homepage = http://chisaw.de/?page_id=17
+}}
+
+COBE (Computer Betriebsystem) ist ein System mit Ziel eines [[Kernel | Microkernels]]. Derzeit ist das System in den Sprachen [[C]] und [[Assembler]] geschrieben. Entwickelt wird es von Christian Hülsemeyer. Das Image des ersten Releases ist auf der Projektseite zu finden.
+
+==Aufbau==
+COBE besteht aus folgenden Elementen:
+*COBE besteht aus dem Kernel, da das System nun GRUB als Bootloader benutzt.
+*Eine [[Shell]] sorgt für die Kommunikation zum Benutzer. Derzeit werden an relevanten Befehlen nur folgende überstützt: ''help'', ''cd'', ''dir'', ''mkdir'', ''del'', ''rechne''
+
+==Kernel==
+Der Kernel von COBE verfolgt den Ansatz eines Mikrokernels. Dabei ist derzeit das System-nötigste im Kernel enthalten. Der Kernel von COBE beinhaltet System-Calls, welche über den Interrupt 0x30 erreichbar sind, eine genaue Dokumentation der System-Calls ist in Kürze auf der Projekt-Seite verfügbar.
+
+==Versionen==
+'''COBE 0.1 Alpha unstable:'''
+
+*Grundinitialisierung von COBE
+*[[GRUB]]
+*Bootscreen (derzeit ausgeschaltet)
+*[[GDT]]
+*[[IDT]], ISR
+*[[PIC]] Remap
+*[[ KBC | Keyboard-Treiber]]
+*Shell
+*[[CMOS]]
+*[[Multitasking]]
+*[[FDC]]
+*[[FAT | FAT12]]
+*[[DMA]]
+*[[Paging]]
+*Speicherverwaltung
+*System-Calls
+
+==Geplant==
+
+'''COBE 0.2:'''
+
+*[[FAT | FAT32]]
+*[[ATA]]
+*Dateistream
+*C Library
+*GUI-Demo
+*mehr Syscalls
+
+==Sourcecode==
+COBE steht unter der BSD-Lizenz, der Sourcecode ist [http://cobe.svn.sourceforge.net/viewvc/cobe/?view=tar hier herunterladbar].
+Eine Dokumentation dieses Sourcecodes ist hier [http://chisaw.de/docs/kernel_doc/index.html einsehbar]

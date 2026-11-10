@@ -1,0 +1,59 @@
+{{Infobox OS
+| Name = StefanOS
+| Version = 0.1
+| Entwickler = [[Benutzer:sfan|sfan]]
+| Lizenz = [http://creativecommons.org/licenses/by-nc-sa/2.0/de/ by-nc-sa 2.0]
+| Kernel = Monolithischer [[Kernel]]
+| API = -
+| Binaerformat = .bin und [[ELF]]
+| Sprache = [[C]] [[Assembler]]
+| IPC = -
+| Plattform = [[x86]]
+| Homepage = [http://sfan.funpic.de/StefanOS.html Website]<br />[http://sfan.funpic.de/StefanOS_source Quellcode]<br />[http://sfan.funpic.de/StefanOS_source/StefanOS.img Image]
+}}
+StefanOS hat die Aufgabe einen PC schnell und einfach zu benutzen.
+Das OS wird dafür (voraussichtlich) einen Dateisystemtreiber für [[FAT]] im Kernel haben.
+Die Shell wird als .elf oder .bin Datei von GRUB geladen.
+<br />
+<b>aktuelle Version: 0.1.1 Beta</b>
+== Programme ==
+=== LibStefanOS ===
+Für Programme kann man [http://sfan.funpic.de/StefanOS_source/libstefanos.h LibStefanOS] benutzen.
+<c>
+#include "libstefanos.h"
+
+int main() {
+  putc('H');
+  print("ello World!");
+  kill_process(get_pid());
+}
+</c>
+Das <i>kill_process(get_pid());</i> ist dabei zwingend notwendig um die Anwendung zu beenden.
+=== Funktionen ===
+Die [http://sfan.funpic.de/StefanOS_source/libstefanos.h LibStefanOS] besitzt 4 Funktionen, die im obigen Beispiel alle benutzt werden.
+Trotzdem ist hier nochaml eine Liste der Funktionen von [http://sfan.funpic.de/StefanOS_source/libstefanos.h LibStefanOS].
+<br  />
+<br />
+void putc(char <i>c</i>) : Gibt das Zeichen <i>c</i> auf dem Bildschirm aus<br  />
+void print(char *<i>str</i>) : Gibt die Zeichenkette <i>str</i> auf dem Bildschirm aus<br  />
+void kill_process(int <i>pid</i>) : Beendet den Prozess <i>pid</i><br  />
+int get_pid() : Gibt die Prozessnummer des laufenden Prozesses zurück<br  />
+== Features ==
+=== 0.1 ===
+* [[GDT]]/[[IDT]] wird geladen
+
+=== 0.1.1 (voraussichtlich) ===
+* [[GDT]]/[[IDT]] wird geladen
+* Multitasking
+* Tastaturtreiber
+* Loader für Binaries
+** flache Binärdateien (.bin)
+
+=== 0.1.2 (voraussichtlich) ===
+* [[GDT]]/[[IDT]] wird geladen
+* Multitasking
+* Tastaturtreiber
+* kleine Shell
+* Loader für Binaries
+** [[ELF]]
+** flache Binärdateien (.bin)

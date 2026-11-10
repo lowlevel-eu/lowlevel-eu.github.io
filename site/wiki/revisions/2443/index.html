@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>BIOS Data Area – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-BIOS_Data_Area rootpage-BIOS_Data_Area skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1564/index.html">Aktueller Artikel</a> · <a href="../../history/1564/index.html">Versionsgeschichte</a> · <a href="../../source/2443.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">BIOS Data Area</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 20. Dezember 2007, 12:20 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Livinskull</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Tastatur-statusflags)</span></div><div id="mw-revision-nav">(<a href="../../diffs/2442-2443.html" title="BIOS Data Area">Unterschied</a>) <a href="../2442/index.html" title="BIOS Data Area">← Nächstältere Version</a> | <a href="../../pages/1564/index.html" title="BIOS Data Area">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../2444/index.html" title="BIOS Data Area">Nächstjüngere Version →</a> (<a href="../../diffs/2443-2444.html" title="BIOS Data Area">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>In der <b>BIOS Data Area</b> (Abkürzung: <b>BDA</b>) werden wichtige Informationen über Hardware und andere Systemkomponenten gespeichert.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Aufbau_der_BIOS_Data_Area"><span class="tocnumber">1</span> <span class="toctext">Aufbau der BIOS Data Area</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Equipment_word"><span class="tocnumber">1.1</span> <span class="toctext">Equipment word</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Tastatur-Status-Flags"><span class="tocnumber">1.2</span> <span class="toctext">Tastatur-Status-Flags</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Weblinks"><span class="tocnumber">2</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Aufbau_der_BIOS_Data_Area">Aufbau der BIOS Data Area</span></h2>
+<p>Die BDA befindet sich im Segment 0x0040, d.h. an der physikalischen Adresse 0x0400. Die folgende Tabelle zeigt den Aufbau dieses Segments:
+</p>
+<table border="1">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe (Bytes)</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>2</td>
+<td>I/O-Port von <a href="../../pages/1561/index.html" title="Serielle Schnittstelle"> COM1</a>
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>2</td>
+<td>I/O-Port von <a href="../../pages/1561/index.html" title="Serielle Schnittstelle"> COM2</a>
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>2</td>
+<td>I/O-Port von <a href="../../pages/1561/index.html" title="Serielle Schnittstelle"> COM3</a>
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>2</td>
+<td>I/O-Port von <a href="../../pages/1561/index.html" title="Serielle Schnittstelle"> COM4</a>
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>2</td>
+<td>I/O-Port von LP1
+</td></tr>
+<tr>
+<td>0x0A</td>
+<td>2</td>
+<td>I/O-Port von LP2
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td>2</td>
+<td>I/O-Port von LP3
+</td></tr>
+<tr>
+<td>0x0E</td>
+<td>2</td>
+<td>I/O-Port von LP4 oder <br/> Segment der <a class="mw-redirect" data-archive-original-href="../../pages/1587/index.html" href="../../pages/1586/index.html" title="EBDA">EBDA</a> (bei PS/2)
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>2</td>
+<td><a href="#Equipment_word"> Equipment word</a>
+</td></tr>
+<tr>
+<td>0x12</td>
+<td>1</td>
+<td>Manufacturing test data
+</td></tr>
+<tr>
+<td>0x13</td>
+<td>2</td>
+<td>Speichergröße (in kB)
+</td></tr>
+<tr>
+<td>0x15</td>
+<td>2</td>
+<td>Manufacturing test data
+</td></tr>
+<tr>
+<td>0x17</td>
+<td>2</td>
+<td><a href="#Tastatur-Status-Flags"> Tastatur-Status-Flags</a>
+</td></tr>
+<tr>
+<td>0x19</td>
+<td>1</td>
+<td>Alt+Numpad-Data
+</td></tr>
+<tr>
+<td>0x1A</td>
+<td>2</td>
+<td>Keyboard buffer head
+</td></tr>
+<tr>
+<td>0x1C</td>
+<td>2</td>
+<td>Keyboard buffer tail
+</td></tr>
+<tr>
+<td>0x1E</td>
+<td>32</td>
+<td>Keyboard buffer
+</td></tr>
+<tr>
+<td>0x3E</td>
+<td>11</td>
+<td>Disk-Kontroller-Informationen
+</td></tr>
+<tr>
+<td>0x49</td>
+<td>30</td>
+<td>Grafik-Adapter-Informationen
+</td></tr>
+<tr>
+<td>0x67</td>
+<td>5</td>
+<td>Unbekannt
+</td></tr>
+<tr>
+<td>0x6C</td>
+<td>4</td>
+<td>Zähler
+</td></tr>
+<tr>
+<td>0x70</td>
+<td>1</td>
+<td>Zähler 24h Überlauf
+</td></tr>
+<tr>
+<td>0x71</td>
+<td>1</td>
+<td>Keyboard-Control-Flag
+</td></tr>
+<tr>
+<td>0x72</td>
+<td>2</td>
+<td>Soft-Reset-Flag
+</td></tr>
+<tr>
+<td>0x74</td>
+<td>4</td>
+<td>Disk-Kontroller-Informationen
+</td></tr>
+<tr>
+<td>0x78</td>
+<td>4</td>
+<td>LP-Timout-Werte
+</td></tr>
+<tr>
+<td>0x7C</td>
+<td>4</td>
+<td>COM-Timout-Werte
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>2</td>
+<td>Start des PS/2-Keyboard-Buffers
+</td></tr>
+<tr>
+<td>0x82</td>
+<td>2</td>
+<td>Ende des PS/2-Keyboard-Buffers
+</td></tr>
+<tr>
+<td>0x84</td>
+<td>7</td>
+<td>Grafik-Controller-Informationen
+</td></tr>
+<tr>
+<td>0x8B</td>
+<td>13</td>
+<td>Disk-Controller-Informationen
+</td></tr>
+<tr>
+<td>0x96</td>
+<td>2</td>
+<td>Keyboard-Status-Flag
+</td></tr>
+<tr>
+<td>0x98</td>
+<td>4</td>
+<td>Zeiger auf Benutzer-Flag
+</td></tr>
+<tr>
+<td>0x9C</td>
+<td>4</td>
+<td>Benutzer-Warte-Zähler
+</td></tr>
+<tr>
+<td>0xA0</td>
+<td>1</td>
+<td>Benutzer-Warte-Flag
+</td></tr>
+<tr>
+<td>0xA1</td>
+<td>7</td>
+<td>Reseviert für Netzwerk-Adapter
+</td></tr>
+<tr>
+<td>0xA8</td>
+<td>4</td>
+<td>Grafik-Adapter-Informationen
+</td></tr>
+<tr>
+<td>0xAC</td>
+<td>68</td>
+<td>Reserviert
+</td></tr>
+<tr>
+<td>0xF0</td>
+<td>16</td>
+<td>Inter-Application-Kommunikations-Bereich
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Equipment_word">Equipment word</span></h3>
+<table border="1">
+<tbody><tr>
+<th>Bits</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>15-14</td>
+<td>00b = 1 Parallelport vorhanden <br/> 01b = 2 Parallelports vorhanden <br/> 03b = 3 Parallelports vorhanden
+</td></tr>
+<tr>
+<td>13</td>
+<td>01b = internes Modem vorhanden
+</td></tr>
+<tr>
+<td>12</td>
+<td>01b = Joystick vorhanden
+</td></tr>
+<tr>
+<td>11-9</td>
+<td>Anzahl der vorhandenen <a href="../../pages/1561/index.html" title="Serielle Schnittstelle"> COM-Ports</a> 0-4
+</td></tr>
+<tr>
+<td>8</td>
+<td><a href="../../pages/1555/index.html" title="Direct Memory Access"> DMA</a>-Controller vorhanden (PC-junior)
+</td></tr>
+<tr>
+<td>7-6</td>
+<td>00b = 1 Floppylaufwerk vorhanden <br/> 01b = 2 Floppylaufwerke vorhanden
+</td></tr>
+<tr>
+<td>5-4</td>
+<td>00b = EGA oder älter <br/> 01b = Farbe 40x25 <br/> 10b = Farbe 80x25 <br/> 11b = Monochrom 80x25
+</td></tr>
+<tr>
+<td>3</td>
+<td>Reserviert
+</td></tr>
+<tr>
+<td>2</td>
+<td>Ob eine PS/2-Maus vorhanden ist
+</td></tr>
+<tr>
+<td>1</td>
+<td>Ob ein <a href="../../pages/1601/index.html" title="Mathematischer Koprozessor">mathematischer Koprozessor</a> vorhanden ist
+</td></tr>
+<tr>
+<td>0</td>
+<td>Ob ein Bootfloppy-Laufwerk vorhanden ist
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Tastatur-Status-Flags">Tastatur-Status-Flags</span></h3>
+<p>Hier werden die Tastatur-Flags gespeichert welche vom Interrupt 0x16 verwendet werden.<br/>
+</p>
+<table border="1">
+<tbody><tr>
+<th>Bits</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>7</td>
+<td>0 = Einfügen ausgeschaltet <br/> 1 = Einfügen angeschaltet
+</td></tr>
+<tr>
+<td>6</td>
+<td>0 = CapsLock aus <br/> 1 = CapsLock an
+</td></tr>
+<tr>
+<td>5</td>
+<td>0 = NumLock aus <br/> 1 = NumLock an
+</td></tr>
+<tr>
+<td>4</td>
+<td>0 = ScrollLock aus <br/> 1 = ScrollLock an
+</td></tr>
+<tr>
+<td>3</td>
+<td>0 = Alt nicht gedrückt <br/> 1 = Alt gedrückt
+</td></tr>
+<tr>
+<td>2</td>
+<td>0 = Strg nicht gedrückt <br/> 1 = Strg gedrückt
+</td></tr>
+<tr>
+<td>1</td>
+<td>0 = LShift nicht gedrückt <br/> 1 = LShift gedrückt
+</td></tr>
+<tr>
+<td>0</td>
+<td>0 = RShift nicht gedrückt <br/> 1 = RShift gedrückt
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external free" href="http://bioscentral.com/misc/bda.htm" rel="nofollow">http://bioscentral.com/misc/bda.htm</a></li>
+<li><a class="external free" href="http://www.geocities.com/riskyfriends/x86/os/bios.html" rel="nofollow">http://www.geocities.com/riskyfriends/x86/os/bios.html</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164701
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.007 seconds
+Real time usage: 0.008 seconds
+Preprocessor visited node count: 21/1000000
+Preprocessor generated node count: 32/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=BIOS_Data_Area&amp;oldid=2443</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1564/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1564/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

@@ -1,0 +1,105 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Grand Unified Bootloader — Änderungen 8475 → 8476</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Grand Unified Bootloader — Änderungen 8475 → 8476</h1><nav><a href="../revisions/8475/index.html">Version 8475</a> · <a href="../revisions/8476/index.html">Version 8476</a> · <a href="../history/1567/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l125" >Zeile 125:</td>
+<td colspan="2" class="diff-lineno">Zeile 125:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Modulares und objektorientiertes Framework für Dateisysteme etc.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Modulares und objektorientiertes Framework für Dateisysteme etc.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Cross-Plattform-Installation</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Cross-Plattform-Installation</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Disketten-Image erstellen ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">==== Linux ====</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Du benötigst ein Disketten Image mit GRUB Legacy drauf, wie man das erstellt, wird oben beschrieben.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;pre&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">mkdir mnt</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">sudo mount -oloop floppy.img mnt</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">cd mnt</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/pre&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Jetzt müssen alle Dateien und Ordner außer /boot/grub und seinem Inhalt gelöscht werden. Danach verändert man den Inhalt der Datei menu.lst folgendermaßen:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> timeout=0</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> title GRUB 2</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> kernel /boot/grub2/core.img</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> boot</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Als nächstes legt man unter boot ein Verzeichnis grub2 an und führt dann folgende Befehle aus, um die core.img für GRUB 2 zu erhalten:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;pre&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">cd /usr/lib/grub/i386-pc</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">grub-mkimage -p /boot/grub2 -o /tmp/grubimage/mnt/boot/grub2 *.mod</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/pre&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Erklärung:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">{| {{prettytable}}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">!Option</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">!Erklärung</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| -p /boot/grub2</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|Der Pfad auf dem Image, in welchem GRUB später nach der grub.cfg sucht, wenn dieser nicht angegeben wird /boot/grub</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| -o ...</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|Die Ausgabedatei, standardmäßig stdout</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|*.mod</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|Die Module, die eingefügt werden, folgende müssen mindestens vorhanden sein: fat sh multiboot ls ext2 configfile extcmd biosdisk (Zumindest hat mit diesen bei mir alles funktioniert)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Nun erstellt man noch eine grub.cfg mit folgendem Inhalt unter /boot/grub2 auf dem Image ein:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;pre&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> set timeout=10</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> set default=0</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> menuentry &quot;OS-Name&quot;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> {</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160;  multiboot /pfad/zu/kernel/kernel/datei</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&#160; &#160;  boot&#160; &#160; </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"> }</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/pre&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Anschließend kopiert man den Kernel und die dazugehörigen Dateien auf das Image und unmountet es:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;bash&gt;sudo umount mnt&lt;/bash&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Das Image ist danach fertig.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">==== Windows ====</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">// Todo kann man sich die GRUB2 Binary irgendwo runterladen?</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== CD-Image erstellen ===</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== CD-Image erstellen ===</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l131" >Zeile 131:</td>
+<td colspan="2" class="diff-lineno">Zeile 186:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wenn GRUB2 installiert ist, dann muss folgendes auf der Kommandozeile eingegeben werden:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wenn GRUB2 installiert ist, dann muss folgendes auf der Kommandozeile eingegeben werden:</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;<del class="diffchange diffchange-inline">code</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;<ins class="diffchange diffchange-inline">pre</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>grub-mkrescue --output=GRUB2.iso /boot/grub</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>grub-mkrescue --output=GRUB2.iso /boot/grub</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;/<del class="diffchange diffchange-inline">code</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;/<ins class="diffchange diffchange-inline">pre</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Diese muss dann noch mit dem eigenen Kernel und ggf. Modulen sowie der grub.cfg zusammengeführt werden.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Diese muss dann noch mit dem eigenen Kernel und ggf. Modulen sowie der grub.cfg zusammengeführt werden.</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l145" >Zeile 145:</td>
+<td colspan="2" class="diff-lineno">Zeile 200:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Die grub.cfg sollte folgenden inhalt haben:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Die grub.cfg sollte folgenden inhalt haben:</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;<del class="diffchange diffchange-inline">code</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;<ins class="diffchange diffchange-inline">pre</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>set timeout=15</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>set timeout=15</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>set default=0</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>set default=0</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l154" >Zeile 154:</td>
+<td colspan="2" class="diff-lineno">Zeile 209:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  boot&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;  &#160;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160;  boot&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;  &#160;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;/<del class="diffchange diffchange-inline">code</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;/<ins class="diffchange diffchange-inline">pre</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wenn das der Fall ist, UltraISO starten, den &quot;Weiterhin testen...&quot;-Button betätigen, &#160;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wenn das der Fall ist, UltraISO starten, den &quot;Weiterhin testen...&quot;-Button betätigen, &#160;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>auf Datei-&gt;Öffnen klicken und dann das GRUB2-Image auswählen und öffnen.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>auf Datei-&gt;Öffnen klicken und dann das GRUB2-Image auswählen und öffnen.</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l178" >Zeile 178:</td>
+<td colspan="2" class="diff-lineno">Zeile 233:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Beispielkonfigurationsdatei ===</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Beispielkonfigurationsdatei ===</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;<del class="diffchange diffchange-inline">code</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;<ins class="diffchange diffchange-inline">pre</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>menuentry &quot;OS_Name&quot;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>menuentry &quot;OS_Name&quot;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l185" >Zeile 185:</td>
+<td colspan="2" class="diff-lineno">Zeile 240:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; boot</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; boot</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;/<del class="diffchange diffchange-inline">code</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;/<ins class="diffchange diffchange-inline">pre</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Diese Beispielkonfigurationsdatei lädt die Datei &lt;tt&gt;kernel&lt;/tt&gt; aus dem Wurzelverzeichnis als Kernel in den Speicher, lädt die Datei &lt;tt&gt;modul.mod&lt;/tt&gt; als Modul in den Speicher und führt den Kernel danach aus.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Diese Beispielkonfigurationsdatei lädt die Datei &lt;tt&gt;kernel&lt;/tt&gt; aus dem Wurzelverzeichnis als Kernel in den Speicher, lädt die Datei &lt;tt&gt;modul.mod&lt;/tt&gt; als Modul in den Speicher und führt den Kernel danach aus.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+</table></body></html>

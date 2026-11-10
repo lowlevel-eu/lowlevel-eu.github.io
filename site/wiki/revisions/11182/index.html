@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>QEMU – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-QEMU rootpage-QEMU skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1505/index.html">Aktueller Artikel</a> · <a href="../../history/1505/index.html">Versionsgeschichte</a> · <a href="../../source/11182.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">QEMU</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 2. Januar 2014, 23:00 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Jidder</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#QEMU_unter_Windows_kompilieren">→</a>‎<span dir="auto"><span class="autocomment">QEMU unter Windows kompilieren: </span> pkg-config Download heißt jetzt "Tool"</span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/11115-11182.html" title="QEMU">Unterschied</a>) <a href="../11115/index.html" title="QEMU">← Nächstältere Version</a> | Aktuelle Version (Unterschied) | Nächstjüngere Version → (Unterschied)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="float:right; width:330px; padding-left:20px; padding-bottom: 20px; background-color:white">
+<div style="font-weight:normal; text-align:left; border:1px solid lightgray;">
+<table width="100%">
+<tbody><tr align="center" style="background:lightgray">
+<th colspan="2">Allgemeines
+</th></tr>
+<tr>
+<td>Name:</td>
+<td>QEMU
+</td></tr>
+<tr>
+<td>Entwickler:</td>
+<td>Fabrice Bellard u. a.
+</td></tr>
+<tr>
+<td>Akt. Version:</td>
+<td>1.5.0 <br/><small>(Stand 20.5.2013)</small>
+</td></tr>
+<tr>
+<td>Lizenz:</td>
+<td>GPL (tw. LGPL, BSD)
+</td></tr>
+<tr>
+<td>Betriebssystem(e):</td>
+<td>Linux, Windows, OS X, *BSD und andere
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Virtualisiertes System
+</th></tr>
+<tr>
+<td>Plattform:</td>
+<td>x86, x86-64, ARM, CRIS, MIPS(64)(el), M68000, PowerPC(64), SH4, Sparc32/64
+</td></tr>
+<tr>
+<td>SMP:</td>
+<td>bis zu 255 Prozessoren
+</td></tr>
+<tr>
+<td>Mechanismus:</td>
+<td>dynamische Übersetzung, KVM (nur Linux), Kernelunterstützung
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Homepage
+</th></tr>
+<tr>
+<td colspan="2"><center><a class="external free" href="http://wiki.qemu.org/Main_Page" rel="nofollow">http://wiki.qemu.org/Main_Page</a></center>
+</td></tr></tbody></table>
+</div>
+</div>
+<p>QEMU ist ein Emulator unter anderem für die Systeme <a href="../../pages/1641/index.html" title="Linux">Linux</a>, <a href="../../pages/1558/index.html" title="Windows">Windows</a>, MacOS, FreeBSD, OpenBSD und NetBSD. 
+Er emuliert eine Vielzahl von Architekturen.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Emulierte_Hardware"><span class="tocnumber">1</span> <span class="toctext">Emulierte Hardware</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#x86"><span class="tocnumber">1.1</span> <span class="toctext">x86</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#Massenspeicher"><span class="tocnumber">1.1.1</span> <span class="toctext">Massenspeicher</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="#Grafikkarte"><span class="tocnumber">1.1.2</span> <span class="toctext">Grafikkarte</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Netzwerkkarte_und_ein_DHCP-Server"><span class="tocnumber">1.1.3</span> <span class="toctext">Netzwerkkarte und ein DHCP-Server</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Sound"><span class="tocnumber">1.1.4</span> <span class="toctext">Sound</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#USB"><span class="tocnumber">1.1.5</span> <span class="toctext">USB</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Aktueller_Windows-Build"><span class="tocnumber">2</span> <span class="toctext">Aktueller Windows-Build</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#QEMU_unter_Windows_kompilieren"><span class="tocnumber">3</span> <span class="toctext">QEMU unter Windows kompilieren</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Siehe_auch"><span class="tocnumber">4</span> <span class="toctext">Siehe auch</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Weblinks"><span class="tocnumber">5</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Emulierte_Hardware">Emulierte Hardware</span></h2>
+<h3><span class="mw-headline" id="x86">x86</span></h3>
+<p>Auf einem x86-Prozessor werden neben dem Hauptprozessor folgende Komponenten emuliert:
+</p>
+<ul><li>PCI und ISA-System (i440FX host PCI bridge und PIIX3 PCI to ISA bridge)</li>
+<li>PS/2-Maus und -Tastatur</li>
+<li>Serielle Schnittstelle</li>
+<li>Parallele Schnittstelle</li></ul>
+<h4><span class="mw-headline" id="Massenspeicher">Massenspeicher</span></h4>
+<ul><li>Zwei PCI-ATA-Schnittstellen mit Unterstützung für maximal vier Festplatten-Images</li>
+<li>CD-ROM/DVD-Laufwerk über ISO-Abbild oder reales Laufwerk</li>
+<li>Diskettenlaufwerk</li>
+<li>SATA-Festplatten (AHCI)</li>
+<li>SCSI-Festplatten und SCSI-CD-ROM-Laufwerke</li>
+<li>virtio-blk (Paravirtualisierte Festplatte)</li>
+<li>Unterstützte Dateiformate für Images: Raw, das qemu-eigene Format qcow/qcow2, die Formate von VMware, VirtualBox, Parallels, VirtualPC, Bochs, Knoppix (cloop). Außerdem das Pseudoformat vvfat, das ein Verzeichnis auf dem Hostsystem als FAT-Image im Gast abbildet.</li></ul>
+<h4><span class="mw-headline" id="Grafikkarte">Grafikkarte</span></h4>
+<ul><li>Cirrus CLGD 5446 PCI VGA-Karte</li>
+<li>Standard-VGA-Grafikkarte mit Bochs-VESA-BIOS-Extensions (Hardware Level, inklusive aller Nichtstandardmodi, über einen experimentellen Patch auch mit einer vereinfachten 3D-Beschleunigung per OpenGL)</li></ul>
+<h4><span class="mw-headline" id="Netzwerkkarte_und_ein_DHCP-Server">Netzwerkkarte und ein DHCP-Server</span></h4>
+<ul><li>NE2000-Netzwerkadapter sowohl für ISA als auch PCI</li>
+<li><a href="../../pages/1533/index.html" title="RTL8139">Realtek 8139</a></li>
+<li>Intel eepro100 und e1000</li>
+<li><a href="../../pages/2025/index.html" title="AMD PCnet">AMD PCnet</a></li>
+<li>virtio (Paravirtualisiertes Netzwerk)</li></ul>
+<h4><span class="mw-headline" id="Sound">Sound</span></h4>
+<ul><li>Systemlautsprecher</li>
+<li>Soundblaster 16</li>
+<li>ES1370 PCI</li>
+<li><a href="../../pages/1862/index.html" title="AC97">AC97</a></li>
+<li>Intel HD Audio</li></ul>
+<h4><span class="mw-headline" id="USB">USB</span></h4>
+<ul><li>UHCI-/OHCI-/EHCI- und experimentell auch xHCI-Controller</li>
+<li>HID-Geräte: Tastatur, Maus und Grafiktablett</li>
+<li>USB-Massenspeicher</li>
+<li>USB-Soundkarte</li>
+<li>Durchleitung von USB-Geräten des Hosts</li></ul>
+<h2><span class="mw-headline" id="Aktueller_Windows-Build">Aktueller Windows-Build</span></h2>
+<p>Bereits seit einiger Zeit gibt es keine offiziellen Binärpakete von QEMU mehr, auch nicht für Windows. Aus diesem Grund werden unter Windows oft deutlich veraltete qemu-Versionen verwendet, deren Fehler gerade bei der Betriebssystementwicklung gelegentlich auffallen. Einigermaßen aktuelle inoffizielle Builds für Windows sind zum Beispiel auf <a class="external free" href="http://qemu.weilnetz.de/" rel="nofollow">http://qemu.weilnetz.de/</a> zu finden.
+</p><p>Ein Build von QEMU 1.2.0 ist ebenfalls auf <a class="external free" href="http://improved-madness.de/venom/qemu_1.2.0.7z" rel="nofollow">http://improved-madness.de/venom/qemu_1.2.0.7z</a> zu finden.
+</p>
+<h2><span class="mw-headline" id="QEMU_unter_Windows_kompilieren">QEMU unter Windows kompilieren</span></h2>
+<p>Um QEMU unter Windows zu kompilieren, werden MinGW und eine Reihe Bibliotheken, die man sich selbst zusammensuchen muss, benötigt:
+</p>
+<ul><li>MinGW über den Installer <i>mingw-get-inst</i> von <a class="external free" href="http://sourceforge.net/projects/mingw/" rel="nofollow">http://sourceforge.net/projects/mingw/</a> installieren.</li>
+<li>zlib kann anschließend mittels <tt>mingw-get install libz</tt> installiert werden.</li>
+<li>Die aktuelle Version von Python 2.7.x kann von <a class="external free" href="http://www.python.org/download/" rel="nofollow">http://www.python.org/download/</a> heruntergeladen werden. Für das Kompilieren von QEMU sollte Python zumindest vorübergehend mittels z. B. <tt>SET PATH=C:\Python27;%PATH%</tt> in den Suchpfad eingetragen werden.</li>
+<li>Von <a class="external free" href="http://www.gtk.org/download/win32.php" rel="nofollow">http://www.gtk.org/download/win32.php</a> die Pakete für GLib und Abhängigkeiten herunterladen und im MinGW-Ordner entpacken:
+<ol><li>pkg-config ("Tool")</li>
+<li>gettext-runtime ("Run-time")</li>
+<li>GLib ("Run-time" und "Dev")</li>
+<li>pixman ("Dev") ab 1.3.0. Wer das Paket selbst bauen will, kann den Quelltext von <a class="external free" href="http://pixman.org/" rel="nofollow">http://pixman.org/</a> herunterladen. Das Kompilieren sollte ausnahmsweise in <tt>sh</tt> erfolgen, damit der korrekte Pfad zum Installationsverzeichnis von MinGW automatisch bestimmt werden kann:</li></ol>
+<dl><dd><dl><dd><code>./configure --prefix=`cd /mingw; pwd -W` &amp;&amp; make &amp;&amp; make install</code></dd></dl></dd></dl></li>
+<li>Die SDL Development Libraries (SDL-devel-1.2.*-mingw32.tar.gz) von <a class="external free" href="http://www.libsdl.org/download-1.2.php" rel="nofollow">http://www.libsdl.org/download-1.2.php</a> herunterladen und in einem beliebigen Verzeichnis entpacken. In diesem Ordner <tt>make native</tt> ausführen, um SDL im MinGW-Ordner zu installieren.</li></ul>
+<p>Anschließend kann QEMU wie üblich konfiguriert und gebaut werden, indem die folgenden Befehle im Quelltextverzeichnis von QEMU ausgeführt werden:
+</p>
+<pre>sh configure --target-list=x86_64-softmmu --prefix=D:/installations/pfad/fuer/qemu
+make
+make install
+</pre>
+<p>Das baut ein QEMU, das für die Emulation von x86-PCs (32-/64-Bit) verwendet werden kann. Wenn der Parameter <tt>--target-list</tt> weggelassen wird, wird QEMU für alle Architekturen gebaut, was unter Umständen relativ lange dauert. Für eine Auflistung der unterstützten Architekturen <tt>sh configure --help</tt> ausführen.
+</p><p>Hinweise:
+</p>
+<ul><li>Wenn man <tt>--prefix</tt> beim <tt>configure</tt> weglässt, wird QEMU in den Programmordner (z. B. C:\Program Files\Qemu) installiert. Dann sind für <tt>make install</tt> Administratorrechte erforderlich, das heißt die Eingabeaufforderung muss für diesen Vorgang als Administrator gestartet werden.</li>
+<li>QEMU gibt unter Windows nur dann etwas auf der Konsole aus, wenn die Umgebungsvariable <tt>SDL_STDIO_REDIRECT</tt> auf <tt>0</tt> gesetzt ist. Deswegen könnte es sinnvoll sein eine Batch-Datei anzulegen, die <tt>SET SDL_STDIO_REDIRECT=0</tt> ausführt.</li></ul>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a href="../../pages/1544/index.html" title="Debugging">Debugging</a></li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://www.qemu.org" rel="nofollow">QEMU Homepage</a></li>
+<li><a class="external text" href="http://qemu.weilnetz.de/" rel="nofollow">QEMU-Binaries für Windows</a></li>
+<li><a class="external text" href="http://www.h7.dion.ne.jp/~qemu-win" rel="nofollow">QEMU unter Windows</a></li>
+<li><a class="external text" href="http://qemu-buch.de/de/index.php/Hauptseite" rel="nofollow">Einführung in QEMU</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170128
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.007 seconds
+Real time usage: 0.008 seconds
+Preprocessor visited node count: 76/1000000
+Preprocessor generated node count: 208/1000000
+Post‐expand include size: 967/2097152 bytes
+Template argument size: 313/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.987      1 Vorlage:Infobox_Virtualisierungssoftware
+100.00%    0.987      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:1505-0!canonical and timestamp 20261109170127 and revision id 11182
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=QEMU&amp;oldid=11182</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1408/index.html" title="Kategorie:Emulator">Emulator</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1505/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1505/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/QEMU" hreflang="en" lang="en" title="QEMU – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 2. Januar 2014 um 23:00 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

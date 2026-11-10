@@ -1,0 +1,49 @@
+Das Befehlspaar ''enter'' und ''leave'' adjustiert den [[Stack]] für die Verwendung von lokalen Variablen.
+
+
+== Funktionsweise ==
+Das Befehlspaar ''enter''/''leave'' war nicht zwingend notwendig, da man sie durch mehrere Befehle ersetzen kann. Da aber diese Befehlsfolge von vielen Hochsprachen häufig verwendet wurde, hat man dieses spezielle Befehlspaar eingeführt.
+
+=== enter ===
+''enter'' hat folgende Syntax:
+<syntaxhighlight lang=asm>enter operand1, operand2</syntaxhighlight>
+Sie lässt sich ersetzen durch:
+<syntaxhighlight lang=asm>push ebp
+mov ebp, esp
+sub esp, operand1</syntaxhighlight>
+''operand1'' gibt also an, wieviel Speicherplatz auf dem Stack für lokale Variablen freigehalten werden soll. ''operand2'' steht für die Verschachtelungstiefe und kann auf 0 gesetzt werden.
+
+Wird der zweite Operand verwende (sprich <> 0) wird die Struktur komplizierter. In dieser Kombination wird der Befehl kann dieser Befehl dazu genutzt werden, eine Verschachtelte Funktion. Dabei entspricht:
+
+<syntaxhighlight lang=asm>enter operand1, operand2</syntaxhighlight>
+Folgender Darstellung in einer Art Pseudocode (wobei "framePtr" ein internes Hilfregister ist):
+<syntaxhighlight lang=asm>
+push ebp
+mov framePtr, esp
+if (operand2 > 0) then
+    repeat (operand2 - 1) times
+        add ebp, 4
+        push ebp
+    end repeat
+    push framePtr
+end if
+mov ebp, framePtr
+sub esp, operand1
+</syntaxhighlight>
+
+Die Funktion schiebt also nach zwischen dem Framepointer (der Position auf die ebp nachher zeigt.) und dem Speicherplatz für lokale Variablen noch einen Block der die Framepointer von operant2 darüber liegenden Funktionen abschießend mit sich selbst.
+
+=== leave ===
+''leave'' macht die Änderungen von ''enter'' rückgängig, damit der Aufrufstack wiederhergestellt wird und die Funktion zum Aufrufer zurückkehren kann:
+<syntaxhighlight lang=asm>leave</syntaxhighlight>
+Sie lässt sich ersetzen durch:
+<syntaxhighlight lang=asm>mov esp, ebp
+pop ebp</syntaxhighlight>
+== Umsetzung in verschiedenen Compilern ==
+=== gcc ===
+[[gcc]] verwendet nur den ''leave''-Befehl, anstatt ''enter'' aber die obige Ersatzform.
+
+== siehe auch ==
+* [[Stack]]
+
+[[Kategorie:x86-Befehle]]

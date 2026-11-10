@@ -1,0 +1,10 @@
+== hlt ==
+
+Ist nach einem
+
+cli
+hlt
+
+eigentlich noch eine Schleife notwendig? Eigentlich müsste der Prozessor ja schön tief schlafen, sonst wäre er kaputt ...
+
+:[[NMI|NMIs]] werden von der CPU auch bei gelöschtem Interruptflag behandelt. Deshalb zumindest theoretisch ja. Ob praktisch ein NMI auftreten kann, musst du wissen, weil solche Interrupts in der Praxis, soweit ich weiß, nur dann passieren, wenn man den APIC entsprechend eingestellt hat (dass bei bestimmten Interrupts ein NMI ausgelöst wird) oder eine andere CPU einen IPI als NMI sendet. Aber so richtig weiß ich das nicht. ;-) —[[Benutzer:XanClic|Clici McXan]] 10:07, 15. Jul. 2011 (CEST)

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Erste Hilfe – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Erste_Hilfe rootpage-Erste_Hilfe skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="index.html">Aktueller Artikel</a> · <a href="../../history/2263/index.html">Versionsgeschichte</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Erste Hilfe</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Dieser Artikel richtet sich an verschiedene Personengruppen:
+</p><p><b>Anfänger</b>:
+Du hast es gerade geschafft deinen Kernel zu laden und möchtest einfach nur Text auf dem Bildschirm ausgeben. Der Code scheint einwandfrei, der Kernel wird auch geladen und… – der Emulator stürzt ab. Wahrscheinlich ist dir nur irgendwo ein kleiner Fehler unterlaufen, den schon tausende vor dir gemacht haben. Deswegen quäl dich nicht und lies einfach diesen Artikel, am besten behälst du die kleinen Tücken der Betriebssystem-Entwicklung, die hier aufgeführt werden, immer im Hinterkopf. Dann sparst du dir viel Zeit und Ärger.
+</p><p><b>Frustrierte</b>:
+Schon seit einer Woche hängst du an der einen Codestelle und findest den Fehler einfach nicht? Du möchtest dein Betriebssystemprojekt am liebsten aufgeben und nur dein Ehrgeiz hält dich davon ab? Bestimmt ist es nur ein kleiner Fehler, den du immer wieder überliest. Schau einfach mal in diesem Artikel, ob du nicht vielleicht hier die Rettung findest.
+</p><p><b>Doktoren</b>
+Du bist häufig im Forum unterwegs und hilfst gerne? Und da ist dieser eine Fehler, den alle immer wieder machen. Damit du ihn nicht tausendmal wieder korrigieren musst, schreib ihn einfach in diesen Artikel.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Allgemeine_Fehler"><span class="tocnumber">1</span> <span class="toctext">Allgemeine Fehler</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#.E2.80.9EIch_habe_die_fehlerhafte_Stelle_genau_gefunden.E2.80.9C"><span class="tocnumber">1.1</span> <span class="toctext">„Ich habe die fehlerhafte Stelle genau gefunden“</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Schon_im_Bootloader"><span class="tocnumber">1.2</span> <span class="toctext">Schon im Bootloader</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Der_Stack"><span class="tocnumber">1.3</span> <span class="toctext">Der Stack</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Hardware"><span class="tocnumber">2</span> <span class="toctext">Hardware</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Defekter_Sektor"><span class="tocnumber">2.1</span> <span class="toctext">Defekter Sektor</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#C-bezogene_Fehler"><span class="tocnumber">3</span> <span class="toctext">C-bezogene Fehler</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#volatile"><span class="tocnumber">3.1</span> <span class="toctext">volatile</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#attribute_.28.28packed.29.29"><span class="tocnumber">3.2</span> <span class="toctext">__attribute__((packed))</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Nur_ein_kleines_Zeichen.E2.80.A6"><span class="tocnumber">3.3</span> <span class="toctext">Nur ein kleines Zeichen…</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#.E2.80.9E.3D.3D.E2.80.9C_ist_ungleich_.E2.80.9E.3D.E2.80.9C"><span class="tocnumber">3.3.1</span> <span class="toctext">„==“ ist ungleich „=“</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Zahlensysteme"><span class="tocnumber">3.3.2</span> <span class="toctext">Zahlensysteme</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Wie_ging_nochmal_dieses_NOT.3F.21"><span class="tocnumber">3.3.3</span> <span class="toctext">Wie ging nochmal dieses NOT?!</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#C.2B.2B-bezogene_Fehler"><span class="tocnumber">4</span> <span class="toctext">C++-bezogene Fehler</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#Designated_initializers"><span class="tocnumber">4.1</span> <span class="toctext">Designated initializers</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Linker-bezogene_Fehler"><span class="tocnumber">5</span> <span class="toctext">Linker-bezogene Fehler</span></a>
+<ul>
+<li class="toclevel-2 tocsection-17"><a href="#Undefined_reference_to_.60funktionsname.27"><span class="tocnumber">5.1</span> <span class="toctext">Undefined reference to `funktionsname'</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Ladeadresse_nicht_ber.C3.BCcksichtigt"><span class="tocnumber">5.2</span> <span class="toctext">Ladeadresse nicht berücksichtigt</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#rodata_steht_am_Anfang"><span class="tocnumber">5.3</span> <span class="toctext">rodata steht am Anfang</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="#Emulator-bezogene_Fehler"><span class="tocnumber">6</span> <span class="toctext">Emulator-bezogene Fehler</span></a>
+<ul>
+<li class="toclevel-2 tocsection-21"><a href="#Bochs_verabschiedet_sich_mit_einer_Endlosschleife_der_Meldung:_.22math_abort:_MSDOS_compatibility_FPU_exception.22"><span class="tocnumber">6.1</span> <span class="toctext">Bochs verabschiedet sich mit einer Endlosschleife der Meldung: "math_abort: MSDOS compatibility FPU exception"</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Allgemeine_Fehler">Allgemeine Fehler</span></h2>
+<h3><span id="„Ich_habe_die_fehlerhafte_Stelle_genau_gefunden“"></span><span class="mw-headline" id=".E2.80.9EIch_habe_die_fehlerhafte_Stelle_genau_gefunden.E2.80.9C">„Ich habe die fehlerhafte Stelle genau gefunden“</span></h3>
+<p>NEIN! Es kann sein, dass die Stelle fehlerhaft ist, sie muss es aber nicht sein. Dafür ist die Betriebssystementwicklung einfach viel zu komplex. Vielmehr kann die Codestelle nur der Auslöser für einen Fehler sein, der sich schon viel früher eingeschlichen hat. Beispielsweise kann ein Fehler bei einem bestimmten Funktionsaufruf auftreten, aber nicht, weil die Funktion fehlerhaft ist, sondern weil der Stack zu groß wird.
+</p>
+<h3><span class="mw-headline" id="Schon_im_Bootloader">Schon im Bootloader</span></h3>
+<p>Viele schreiben ihren Bootloader zwar nicht selbst, aber die Unerschrockenen, die es tun, begeben sich gleich am Anfang in Gefahr:
+&lt;asm&gt;
+[org 0x7c00]
+</p><p>mov si, msg
+call write
+jmp $
+&lt;/asm&gt;
+Feiner Code, aber wer weiß, welche Registerzustände das BIOS uns überlässt. Wenn es zum Beispiel einen Farjump nach 0x0000:0x7C00 macht, dann ist alles in Ordnung. Ist es aber einer nach 0x07C0:0x0000, dann ist bei „call write“ Schluss, weil die Org-Directive erwartet, dass in IP ein 0x7C00 steht. Außerdem wissen wir auch nicht, wohin das BIOS den Stack gesetzt hat, also sollte man den auch noch verschieben. Deswegen hat am Anfang jedes Bootloaders folgender (oder ähnlicher) Code zu stehen:
+&lt;asm&gt;
+%define STACK_SEGMENT  0x1000
+%define STACK_OFFSET   0xFFFF
+</p><p>[org 0x7c00]
+cli
+xor ax, ax			; null segments
+mov ds, ax
+mov es, ax
+mov ax, STACK_SEGMENT
+mov ss, ax
+mov sp, STACK_OFFSET
+jmp 0x00:refresh
+refresh:
+sti
+</p><p>mov si, msg
+call write
+jmp $
+&lt;/asm&gt;
+So gibt es keine Komplikationen. (Die obige Adresse des Stacks ist natürlich nur beispielhaft)
+</p>
+<h3><span class="mw-headline" id="Der_Stack">Der Stack</span></h3>
+<p>Kommen wir jetzt zum einem der größten Biester in der Betriebssystemsentwicklung: dem Stack. Das erste, was viele vergessen, ist, dass der Stack nach <b>unten</b> hin wächst. Ein <i>push</i> vermindert also den Stackpointer! Und der Stack hat die unangenehme Eigenschaft, alles zu überschreiben, was sich ihm in den Weg stellt, also auch Code und Daten. Deswegen ist folgender Code zum Scheitern verurteilt:
+&lt;asm&gt;
+</p>
+<ol><li>define GDT_BASE   0x20000</li>
+<li>define STACK_TOP  0x20100</li></ol>
+<dl><dt>gdt mit 30 Einträgen anlegen</dt>
+<dt>...</dt>
+<dt>...</dt></dl>
+<p>mov esp, STACK_TOP
+xor eax, eax
+mov ss, ax
+</p><p>call ClearScreen
+</p>
+<dl><dt>...</dt></dl>
+<p>&lt;/asm&gt;
+</p><p>Und irgendwo in <i>ClearScreen</i> schmiert dann der Code ab, weil der Stack eben nach <b>unten</b> wächst und die GDT überschreibt. Also immer vorsichtig sein mit dem Stack, insbesondere wenn man irgendwann für jeden Prozess einen eigenen hat.
+</p>
+<h2><span class="mw-headline" id="Hardware">Hardware</span></h2>
+<h3><span class="mw-headline" id="Defekter_Sektor">Defekter Sektor</span></h3>
+<p>Es kann auch durchaus vorkommen das ein Sektor der Diskette, die zu zum Testen verwendest, defekt ist. Dieser Fehler ist besonders dann schwer zu finden, wenn man sein System primär auf realer Hardware testet.
+</p>
+<h2><span class="mw-headline" id="C-bezogene_Fehler">C-bezogene Fehler</span></h2>
+<h3><span class="mw-headline" id="volatile">volatile</span></h3>
+<p>Der Compiler hat die angenehme Eigenschaft den Code um sinnlose Passagen zu erleichtern. Aber manchmal ist das eben nicht hilfreich, vor allem wenn man inline-Assembler verwendet, wird dieser oft wegoptimiert. Dagegen hilft das <i>volatile</i> Schlüsselwort. Es fordert den Compiler dazu auf, den entsprechenden Code nicht zu optimieren:
+&lt;c&gt;
+asm volatile("mov %0, %%eax;" : : "a" (value) );
+&lt;/c&gt;
+Aber volatile kann noch mehr. Folgender Code könnte nicht funktionieren:
+&lt;c&gt;
+bool key_pressed=false;   //wird vom IRQ-handler gesetzt
+</p><p>void wait_keypress()
+{
+</p>
+<pre> while(!key_pressed);
+</pre>
+<p>}
+&lt;/c&gt;
+Aus der Schleife könnte der Compiler eine Endlosschleife machen, da er der Meinung ist, dass sich key_pressed in der Schleife nicht ändern kann. Aber <i>volatile</i> löst das Problem:
+&lt;c&gt;
+volatile bool key_pressed=false;   //wird vom IRQ-handler gesetzt
+</p><p>void wait_keypress()
+{
+</p>
+<pre> while(!key_pressed);
+</pre>
+<p>}
+&lt;/c&gt;
+Num wird bei jedem Schleifendurchlauf der Wert von key_pressed neu geladen und getestet.
+</p>
+<h3><span id="attribute_((packed))"></span><span class="mw-headline" id="attribute_.28.28packed.29.29">__attribute__((packed))</span></h3>
+<p>Und wieder macht uns der Compiler ein schönes Codekonstrukt kaputt, weil er structs „optimiert“. Folgender Code erstellt einen IDT-Eintrag:
+&lt;c&gt;
+VOID idt_set_entry(uint8_t n, uint16_t sel, void* handler, uint8_t flags)
+{
+</p>
+<pre>  idt_entry[n].resreved = 0;
+  idt_entry[n].flags   = flags;
+  idt_entry[n].sel     = sel;
+  idt_entry[n].baseLo  = (uintptr_t)(handler) &amp; 0x0000FFFF;
+  idt_entry[n].baseHi  = (uintptr_t)(handler) &gt;&gt; 16;
+  return;
+</pre>
+<p>}
+&lt;/c&gt;
+Diese (fehlerfreie) Funktion greift dabei auf ein Array aus folgendem struct zu:
+</p><p>&lt;c&gt;
+struct idt_entry
+{
+</p>
+<pre>   uint16_t baseLo;
+   uint16_t sel;
+   uint8_t always0;	//reserved
+   uint8_t flags;
+   uint16_t baseHi;
+</pre>
+<p>};
+&lt;/c&gt;
+Und genau an dieser Stelle produziert der Compiler mit seiner Optimierung einen Fehler und die CPU wird sich mit einem freundlichen Triple-Fault verabschieden. Denn der Compiler hat die Eigenart, die Elemente eines structs an DWORD-Grenzen auszurichten (auf i386), weil dann die CPU schneller arbeiten kann. Das hat in diesem Fall aber fatale Folgen, denn aus dem angegebenen WORDs/BYTEs macht der Compiler einfach mal DWORDs. Und damit ist natürlich der IDT-Eintrag komplett falsch. Glücklicherweise gibt es aber eine ganz einfache Lösung:
+&lt;c&gt;
+struct idt_entry
+{
+</p>
+<pre> //...
+</pre>
+<p>}__attribute__((packed));
+&lt;/c&gt;
+Das angehängte <i>__attribute__((packed))</i> vehindert, dass der Compiler die Elemente ausrichtet, wodurch schließlich der Code funktioniert.
+</p>
+<h3><span id="Nur_ein_kleines_Zeichen…"></span><span class="mw-headline" id="Nur_ein_kleines_Zeichen.E2.80.A6">Nur ein kleines Zeichen…</span></h3>
+<p>Die folgenden Fehler sind eigentlich zu banal für diesen Artikel. Leider passieren sie aber doch zu häufig. Außerdem überliest man sie bei längeren Codepassagen schneller, als einem lieb ist:
+</p>
+<h4><span id="„==“_ist_ungleich_„=“"></span><span class="mw-headline" id=".E2.80.9E.3D.3D.E2.80.9C_ist_ungleich_.E2.80.9E.3D.E2.80.9C">„==“ ist ungleich „=“</span></h4>
+<p>Es ist eigentlich ein totaler Anfängerfehler, in Bedingungen das Zuweisungszeichen „=“ mit dem Vergleichsoperator „==“ zu verwechseln. Also bitte aufpassen!
+</p>
+<h4><span class="mw-headline" id="Zahlensysteme">Zahlensysteme</span></h4>
+<p>Die Page Size Extension ist eine tolle Sache, also aktivieren wir sie doch mal. Dafür einfach in cr4 das 4. Bit setzen. Ganz simpel:
+&lt;asm&gt;
+mov eax, cr4
+or eax, 10
+mov cr4, eax
+&lt;/asm&gt;
+Mh, funktioniert nicht. Der Fehler ist allerdings leicht behoben:
+&lt;asm&gt;
+mov eax, cr4
+or eax, 0x10
+mov cr4, eax
+&lt;/asm&gt;
+Ein sehr ärgerlicher Schreibfehler!
+</p><p>Man sollte auch aufpassen, dass Zahlen mit führenden Nullen im Oktalsystem interpretiert werden, daher sollte man darauf verzichten.
+</p>
+<h4><span id="Wie_ging_nochmal_dieses_NOT?!"></span><span class="mw-headline" id="Wie_ging_nochmal_dieses_NOT.3F.21">Wie ging nochmal dieses NOT?!</span></h4>
+<p>Ganz einfache Aufgabe: Alle Bits in einer Maske umkippen, also ein bitweise NOT. Wie hieß nochmal der Operator? Achja:
+&lt;c&gt;int gekippt = !0xFA;&lt;/c&gt;
+Leider falsch geraten. Das Ausrufezeichen ist kein bitweises, sondern ein logisches Nicht und liefert nur Null (false) und Eins (true), egal welchen Operanden man ihm liefert. Zweiter Versuch:
+&lt;c&gt;int gekippt = -0xFA;&lt;/c&gt;
+Nein, wieder falsch. Das Minuszeichen negiert den Wert doch nur, bildet also das Zweierkomplement. Richtig gewsen wäre:
+&lt;c&gt;int gekippt = ~0xFA;&lt;/c&gt;
+Diese Operation liefert das gewünschte 0x05.
+</p>
+<h2><span id="C++-bezogene_Fehler"></span><span class="mw-headline" id="C.2B.2B-bezogene_Fehler">C++-bezogene Fehler</span></h2>
+<h3><span class="mw-headline" id="Designated_initializers">Designated initializers</span></h3>
+<p>Das Problem hier ist, dass C++ im Gegensatz zu C keine <i>designated initializers</i> (siehe <a class="external text" href="http://gcc.gnu.org/onlinedocs/gcc/Designated-Inits.html" rel="nofollow">GCC Manual</a> für eine Erklärung) unterstützt, beispielsweise wird der Code
+&lt;cpp&gt;
+struct
+{
+</p>
+<pre> uint16_t limit;
+ void* pointer;
+</pre>
+<p>} __attribute__((packed)) gdtp =
+{
+</p>
+<pre> .limit = GDT_ENTRIES * 8 - 1,
+ .pointer = gdt,
+</pre>
+<p>};
+&lt;/cpp&gt;
+beim Kompilieren eine Fehlermeldung namens <i>expected primary-expression before ‘.’ token</i> ausgeben.
+</p><p>Man kann allerdings den gleichen Effekt entweder durch Weglassen des Feldnamens erreichen (dann muss die Initialisierung in der Reihenfolge wie die Definition des Strukturtyps sein):
+&lt;cpp&gt;
+struct
+{
+</p>
+<pre> uint16_t limit;
+ void* pointer;
+</pre>
+<p>} __attribute__((packed)) gdtp =
+{
+</p>
+<pre> GDT_ENTRIES * 8 - 1,
+ gdt,
+</pre>
+<p>};
+&lt;/cpp&gt;
+Die andere Möglichkeit ist einen Konstruktor für die Struktur zu definieren – dafür muss aber die Struktur benannt werden:
+&lt;cpp&gt;
+struct gdt_register
+{
+</p>
+<pre> uint16_t limit;
+ void* pointer;
+</pre>
+<pre> gdt_register(uint16_t _limit,
+              void*    _pointer)
+   : limit(_limit), pointer(_pointer){}
+</pre>
+<p>} __attribute__((packed));
+</p><p>gdt_register gdtp(GDT_ENTRIES * 8 - 1, gdt);
+&lt;/cpp&gt;
+</p>
+<h2><span class="mw-headline" id="Linker-bezogene_Fehler">Linker-bezogene Fehler</span></h2>
+<h3><span id="Undefined_reference_to_`funktionsname'"></span><span class="mw-headline" id="Undefined_reference_to_.60funktionsname.27">Undefined reference to `funktionsname'</span></h3>
+<p>Diese Fehlermeldung wird vom Linker ausgegeben, wenn er kein Symbol mit dem Namen <i>funktionsname</i> findet. Dies kann vorkommen, wenn
+</p>
+<ul><li>du vergessen hast die Objektdatei mit der Definition der Funktion <i>funktionsname</i> zu kompilieren und mit zu linken</li>
+<li>du vergessen hast diese Funktion in der Sourcecodedatei zu definieren</li>
+<li>du aus Versehen die Funktion als <i>static</i> deklariert hast</li>
+<li>du <a href="../1486/index.html" title="C++">C++</a> verwendest und <i>funktionsname</i> in einer C++-Quellcodedatei definiert und von einer C/Assembler-Quellcodedatei verwendet wird, eine Lösung findet sich <a data-archive-original-href="../1486/index.html#C.2B.2B_Funktionen_aus_C.2FAssembler_nutzen" href="../1486/index.html" title="C++ — Der ursprüngliche Abschnitt ist in dieser Momentaufnahme nicht verfügbar; stattdessen wird der Artikel angezeigt."> hier</a></li>
+<li>du Archive (.a-Dateien) verwendest und die Reihenfolge der Kommandozeilenparameter von ld nicht richtig ist oder du vergessen hast <i>--start-group</i> und <i>--end-group</i> anzugeben, siehe hierfür auch das <a class="external text" href="http://sourceware.org/binutils/docs/ld/Options.html" rel="nofollow">ld-Manual</a></li></ul>
+<p>Falls nichts davon zutrifft, könntest du die Objektdatei, die die deiner Meinung nach entsprechende Funktion enthalten soll, disassemblieren und schauen, ob ein entsprechender Symbolname auftaucht. Alternativ kannst du dir auch mit dem Befehl <i>readelf</i> die Symbole der Objektdatei anzeigen lassen:
+</p>
+<pre> readelf -s objectfile.o
+</pre>
+<h3><span id="Ladeadresse_nicht_berücksichtigt"></span><span class="mw-headline" id="Ladeadresse_nicht_ber.C3.BCcksichtigt">Ladeadresse nicht berücksichtigt</span></h3>
+<p>Ein kleiner aber gemeiner Fehler: Man hat einen schönen Kernel, der von dem genauso schönen Bootloader in den RAM geladen wird, z. B. nach 0x10000. Dieser wird dann gelinkt:
+</p>
+<pre>OUTPUT_FORMAT("binary")
+INPUT("kernel.o")
+ENTRY(_main)
+SECTIONS {
+ .text : {
+    *(.text*)
+ }
+ .data : {
+    *(.data*)
+ }
+ .bss : {
+    *(.bss*)
+ }
+}
+</pre>
+<p>– die CPU verabschiedet sich, da man die Ladeadresse auch im Linkerscript berücksichtigen muss (die Standardadresse ist 0x00, aber das stimmt ja hier nicht). Deshalb:
+</p>
+<pre>OUTPUT_FORMAT("binary")
+INPUT("kernel.o")
+ENTRY(_main)
+SECTIONS {
+ .text (0x10000): {
+    *(.text*)
+ }
+ .data : {
+    *(.data*)
+ }
+ .bss : {
+    *(.bss*)
+ }
+}
+</pre>
+<h3><span class="mw-headline" id="rodata_steht_am_Anfang">rodata steht am Anfang</span></h3>
+<p>Über folgenden Fehler stolpert man meistens gleich zu Beginn, wenn man im Kernel nur ein wenig Text ausgeben möchte. Nehmen wir beispielsweise folgenden kleinen Kernel:
+&lt;c&gt;
+void main()
+{
+</p>
+<pre> clrscr;
+ kprintf("Hallo Welt!");
+ for(;;);
+</pre>
+<p>}
+&lt;/c&gt;
+</p><p>Der Kernel wird mit folgendem Linkerscript gelinkt:
+</p>
+<pre>OUTPUT_FORMAT("binary")
+INPUT("kernel.o")
+ENTRY(main)
+SECTIONS
+{
+ .text (0x10000):
+ {
+    *(.text*)
+ }
+ .data :
+ {
+    *(.data*)
+ }
+ .bss :
+ {
+    *(.bss*)
+ }
+}
+</pre>
+<p>Funktioniert natürlich nicht. Interessanterweise führt das Ändern des Textes zu ganz anderen Fehlern. Die Begründung ist simpel: Der Text („Hallo Welt!“) landet nicht etwa in der .data-Sektion sondern in der sogenannten .rodata-Sektion. Und da wir diese hier nicht im Linkerscript angeben, wird sie einfach an den Anfang der Ausgabedatei gesetzt. Das führt natürlich zwangsweise zu Fehlern, weil ein Text ja kein Code ist. Es gibt nun zwei Möglichkeiten:
+</p>
+<ol><li>Man ergänzt das Linkerscript um die .rodata-Sektion <i>oder noch besser</i></li>
+<li>Man schaltet eine Assemblerdatei vor den eigentlichen Kernel, die zum Label main springt. Da man irgendann sowieseo Assembler benötigt, bietet es sich an, das gleich hiermit zu erledigen.</li></ol>
+<p>Diese Assembler-Datei, die dann zu „start.o“ assembliert wird, könnte so aussehen:
+</p><p>&lt;asm&gt;
+extern main  ;das ist unser Einsprunglabel im eigentlichen Kernel
+global start
+</p><p>start:
+jmp main
+&lt;/asm&gt;
+</p><p>Dann noch das Linkerscript modifizieren und fertig:
+</p>
+<pre>OUTPUT_FORMAT("binary")
+INPUT("kernel.o","start.o")
+ENTRY(start)
+SECTIONS
+{
+ .text (0x10000):
+ {
+    *start.o(*)
+    *(.text*)
+ }
+ .data :
+ {
+    *(.data*)
+ }
+ .bss :
+ {
+    *(.bss*)
+ }
+}
+</pre>
+<h2><span class="mw-headline" id="Emulator-bezogene_Fehler">Emulator-bezogene Fehler</span></h2>
+<h3><span id='Bochs_verabschiedet_sich_mit_einer_Endlosschleife_der_Meldung:_"math_abort:_MSDOS_compatibility_FPU_exception"'></span><span class="mw-headline" id="Bochs_verabschiedet_sich_mit_einer_Endlosschleife_der_Meldung:_.22math_abort:_MSDOS_compatibility_FPU_exception.22">Bochs verabschiedet sich mit einer Endlosschleife der Meldung: "math_abort: MSDOS compatibility FPU exception"</span></h3>
+<p>Dieser Fehler tritt auf, wenn dein Code zur Berechnung von Fleißkommazahlen auf die <a class="mw-redirect" data-archive-original-href="../1615/index.html" href="../1601/index.html" title="FPU">FPU</a> zugreift, z.B. bei der Verwendung des Daentyps "float". Wenn du vorher die FPU nicht initialisiert hast, dann tritt in Bochs der obige Fehler auf. Die Behebung des Problems lässt sich mit folgendem einfachen Assembler-Befehl beheben, den du nur vor der ersten Verwendung der FPU aufrufen musst:
+&lt;asm&gt;finit&lt;/asm&gt;
+Achtung: Falls mehrere Prozesse die FPU verwenden, musst du die Inhalte der FPU-Register während dem Task-Switch mit sichern und wiederherstellen! Das lässt sich aber durch Nutzung des TS-Flag im CR0 optimieren.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109165128
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.008 seconds
+Real time usage: 0.009 seconds
+Preprocessor visited node count: 119/1000000
+Preprocessor generated node count: 168/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 706/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:2263-0!canonical and timestamp 20261109165128 and revision id 10119
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="../../revisions/10119/index.html">http://wiki.localhost:8080/w/index.php?title=Erste_Hilfe&amp;oldid=10119</a>“</div>
+<div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks"></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../2264/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2263/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="../../revisions/10119/index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 5. September 2011 um 19:31 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

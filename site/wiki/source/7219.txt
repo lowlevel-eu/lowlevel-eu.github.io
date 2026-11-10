@@ -1,0 +1,5 @@
+Hallo ich hab mal ne Frage "Diese Interrupts werden in SMP- und NUMA-Systemen dazu verwendet bestimmte Aktionen zwischen mehreren Prozessoren zu synchronisieren.", um welche Aktionen geht es dabei? --[[Benutzer:Erik.vikinger|Erik.vikinger]] 14:40, 28. Feb. 2010 (CET)
+
+:Zum einen wird es zum Starten der anderen Cores verwendet, andererseits auch (denke ich), um die virtuelle Speicherverwaltung zu realisieren. zB muss ein Eintrag der Page Table auf allen Cores die in dem Moment den Prozess ausführen (der TLB) invalidiert werden. Außerdem sollte beim Zerstören einer shared memory region das auch aus allen Prozessen rausfliegen (und damit auch auf jedem Core der einen der Prozesse ausführt).--[[Benutzer:Bluecode|Bluecode]] 15:31, 28. Feb. 2010 (CET)
+
+:: Also vorwiegend zum initialisieren/runterfahren aller CPUs und eben zur TLB-Verwaltung. Sonst nichts? --[[Benutzer:Erik.vikinger|Erik.vikinger]] 12:10, 1. Mär. 2010 (CET)

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>File Allocation Table – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-File_Allocation_Table rootpage-File_Allocation_Table skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1643/index.html">Aktueller Artikel</a> · <a href="../../history/1643/index.html">Versionsgeschichte</a> · <a href="../../source/4066.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">File Allocation Table</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 26. Februar 2009, 19:54 Uhr von <a class="mw-userlink" href="../../pages/1746/index.html" title="Benutzer:Be59"><bdi>Be59</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/3883-4066.html" title="File Allocation Table">Unterschied</a>) <a href="../3883/index.html" title="File Allocation Table">← Nächstältere Version</a> | <a href="../../pages/1643/index.html" title="File Allocation Table">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../4127/index.html" title="File Allocation Table">Nächstjüngere Version →</a> (<a href="../../diffs/4066-4127.html" title="File Allocation Table">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Vorlage:Stub" style="margin-bottom:1em">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #f6f6f6; margin: 0 0em; padding: 0 0px; border: 1px solid #d6d6d6;" width="100%">
+<tbody><tr>
+<td>Diese Seite ist ein Artikel, welcher <b>mehr</b> haben könnte..<br/>
+<p>Wenn du mehr darüber weißt oder recherchieren willst, bist <b>du</b> aufgerufen, dies zu tun. Wenn du dir in einer Sache nicht sicher bist, dann stell es auf die Diskussionsseite.
+</p>
+</td></tr></tbody></table>
+</div>
+<p>FAT ist das Filesystem, welches MS-DOS benutzt. Ursprünglich war es für Disketten entwickelt worden.
+Es gibt drei Varianten:
+</p>
+<ul><li>FAT12</li>
+<li>FAT16</li>
+<li>FAT32</li></ul>
+<p>Der einzige Unterschied zwischen diesen Dateisystemen ist die aufnehmbare Größe.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Aufbau_von_FAT"><span class="tocnumber">1</span> <span class="toctext">Aufbau von FAT</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Reserved_Region"><span class="tocnumber">1.1</span> <span class="toctext">Reserved Region</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#Boot_Sector_und_der_BIOS_Parameter_Block.28BPB.29"><span class="tocnumber">1.1.1</span> <span class="toctext">Boot Sector und der BIOS Parameter Block(BPB)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Siehe_auch"><span class="tocnumber">2</span> <span class="toctext">Siehe auch</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Links"><span class="tocnumber">3</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Aufbau_von_FAT">Aufbau von FAT</span></h2>
+<p>FAT wird in 4 Bereiche unterteilt:
+</p>
+<ul><li>Reserved Region</li>
+<li>FAT Region</li>
+<li>Root Directory Region (Exirstiert nicht unter FAT32)</li>
+<li>File and Directory Data Region</li></ul>
+<h3><span class="mw-headline" id="Reserved_Region">Reserved Region</span></h3>
+<h4><span id="Boot_Sector_und_der_BIOS_Parameter_Block(BPB)"></span><span class="mw-headline" id="Boot_Sector_und_der_BIOS_Parameter_Block.28BPB.29">Boot Sector und der BIOS Parameter Block(BPB)</span></h4>
+<p>In MS-DOS war kein BPB vorhanden. Stattdessen gab es zwei Typen von FAT:
+</p>
+<ul><li>Single-Sided: Dieser Typ war für einseitige Disketten da</li>
+<li>Double-Sided: Dieser Typ war dagegen für doppelseitige Disketten da.</li></ul>
+<p>Ab MS-DOS gab es den BPB, womit jetzt jedes FAT-System diesen braucht.
+(Die Verbreitung von MS-DOS 1.0 ist sehr gering. Deswegen wird nicht empfohlen,
+auf diese MS-DOS Version acht zu nehmen)
+Ursprünglich waren im BPB weniger als 65.536 Sektoren, womit insgesamt 32 MB bei 512-Byte Sektoren benutzt werden konnten.
+Ab Windows 95 mit den OEM Service Pack 2 wurde FAT32 verwendet. Während FAT16 nur 2 GB adressieren konnte, galt dies für FAT32 nicht.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Name</th>
+<th>Boot Sector oder BPB?</th>
+<th>Funktion</th>
+<th>Größe
+</th></tr>
+<tr>
+<td>0</td>
+<td>jmpBoot</td>
+<td>Boot Sector</td>
+<td>Enthält Instruktion zum Überspringen des Bootsektors.</td>
+<td>2
+</td></tr>
+</tbody></table>
+<p>(<i>Wird noch erweitert</i>)
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">FAT12</a></li></ul>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li><a class="external text" href="http://www.microsoft.com/whdc/system/platform/firmware/fatgen.mspx" rel="nofollow">FAT32 File System Specification</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165214
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.003 seconds
+Real time usage: 0.004 seconds
+Preprocessor visited node count: 28/1000000
+Preprocessor generated node count: 52/1000000
+Post‐expand include size: 504/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.082      1 -total
+ 52.95%    0.573      1 Vorlage:Stub
+ 41.41%    0.448      1 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=File_Allocation_Table&amp;oldid=4066</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1618/index.html" title="Kategorie:Stub">Stub</a></li><li><a href="../../pages/1659/index.html" title="Kategorie:Dateisystem">Dateisystem</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1643/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/1842/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1643/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

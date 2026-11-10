@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Interrupt Descriptor Table – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Interrupt_Descriptor_Table rootpage-Interrupt_Descriptor_Table skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1603/index.html">Aktueller Artikel</a> · <a href="../../history/1603/index.html">Versionsgeschichte</a> · <a href="../../source/9365.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Interrupt Descriptor Table</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 20. Januar 2011, 11:51 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Taljeth</bdi></a> <span class="mw-usertoollinks">(<a class="mw-usertoollinks-talk" href="../../pages/1728/index.html" title="Benutzer Diskussion:Taljeth">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/6997-9365.html" title="Interrupt Descriptor Table">Unterschied</a>) <a href="../6997/index.html" title="Interrupt Descriptor Table">← Nächstältere Version</a> | <a href="../../pages/1603/index.html" title="Interrupt Descriptor Table">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../9946/index.html" title="Interrupt Descriptor Table">Nächstjüngere Version →</a> (<a href="../../diffs/9365-9946.html" title="Interrupt Descriptor Table">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p><b>IDT</b> steht für <b>I</b>nterrupt <b>D</b>escriptor <b>T</b>able. Sie wird im <a href="../../pages/1464/index.html" title="Protected Mode">Protected Mode</a> und im <a href="../../pages/1666/index.html" title="Long Mode">Long Mode</a> des x86 verwendet, um <a href="../../pages/1596/index.html" title="Interrupt">Interrupts</a> ihre <a class="mw-redirect" data-archive-original-href="../../pages/1882/index.html" href="../../pages/1857/index.html" title="ISR"> Handler (ISRs)</a> zuzuordnen. Die Einträge in der Tabelle heißen <i>Interruptdeskriptoren</i>.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Aufbau"><span class="tocnumber">1</span> <span class="toctext">Aufbau</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Deskriptor"><span class="tocnumber">1.1</span> <span class="toctext">Deskriptor</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Interrupt-Arten_.28Typ.29"><span class="tocnumber">1.2</span> <span class="toctext">Interrupt-Arten (Typ)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Laden_einer_IDT"><span class="tocnumber">2</span> <span class="toctext">Laden einer IDT</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Siehe_auch"><span class="tocnumber">3</span> <span class="toctext">Siehe auch</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Aufbau">Aufbau</span></h2>
+<p>Die IDT besteht aus einem Speicherbereich, in dem direkt aufeinanderfolgend die bis zu 256 Interruptdeskriptoren abgelegt sind (d.h. in Hochsprachen aus einem gepackten Array von 256 Deskriptoren). Für die Behandlung des Interrupt 0 wird der erste Eintrag der Tabelle benutzt, für Interrupt 1 der zweite usw.
+</p><p>Die Tabelle kann weniger als 256 Einträge haben. Wenn einer der Interrupts ausgelöst wird, die dadurch nicht von der IDT beschrieben sind und deren Interrupthandler folglich nicht aufgerufen werden kann, wird stattdessen ein #GP (General Protection Fault, siehe <a href="../../pages/1824/index.html" title="Exception">Exception</a>) ausgelöst.
+</p>
+<h3><span class="mw-headline" id="Deskriptor">Deskriptor</span></h3>
+<p>Ein Deskriptor in der IDT ist im Protected Mode 64 Bit und im Long Mode 128 Bit lang. Die in der Tabelle grau hinterlegten Einträge gelten nur für den Long Mode.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0-15</td>
+<td>Offset 0-15</td>
+<td>Gibt das Offset des ISR innerhalb des Segments an. Wenn der entsprechende Interrupt auftritt, wird eip auf diesen Wert gesetzt.
+</td></tr>
+<tr>
+<td>15-31</td>
+<td>Selector</td>
+<td>Gibt den Selector des Codesegments an, in das beim Auftreten des Interrupts gewechselt werden soll. Im Allgemeinen ist dies das Kernel-Codesegment (Ring 0).
+</td></tr>
+<tr>
+<td style="background:lightgrey">32-34
+</td>
+<td style="background:lightgrey">000 / IST
+</td>
+<td style="background:lightgrey">Gibt im LM den Index in die IST an, <b>ansonsten 0</b>!
+</td></tr>
+<tr>
+<td>35-39</td>
+<td>Reserviert</td>
+<td>Wird ignoriert
+</td></tr>
+<tr>
+<td>40-42</td>
+<td>Typ</td>
+<td>Gibt die Art des Interrupts an
+</td></tr>
+<tr>
+<td style="background:lightgrey">43
+</td>
+<td style="background:lightgrey">D
+</td>
+<td style="background:lightgrey">Gibt an, ob es sich um ein 32bit- (1) oder um ein 16bit-Segment (0) handelt. Im LM: Für 64-Bit LDT 0, <b>ansonsten 1</b>
+</td></tr>
+<tr>
+<td>44</td>
+<td>0</td>
+<td>
+</td></tr>
+<tr>
+<td>45-46</td>
+<td>DPL</td>
+<td>Gibt das Descriptor Privilege Level an, das man braucht um diesen Interrupt aufrufen zu dürfen.
+</td></tr>
+<tr>
+<td>47</td>
+<td>P</td>
+<td>Gibt an, ob dieser Eintrag benutzt wird.
+</td></tr>
+<tr>
+<td>48-63</td>
+<td>Offset 16-31</td>
+<td>
+</td></tr>
+<tr>
+<td style="background:lightgrey">64-95
+</td>
+<td style="background:lightgrey">Offset 32-63
+</td>
+<td style="background:lightgrey">(Nur im Long Mode, <b>im Protected Mode hat der Deskriptor nur 64 Bit</b>!)
+</td></tr>
+<tr>
+<td style="background:lightgrey">96-127
+</td>
+<td style="background:lightgrey">Reserviert (0)
+</td>
+<td style="background:lightgrey">(Nur im Long Mode, <b>im Protected Mode hat der Deskriptor nur 64 Bit</b>!)
+</td></tr></tbody></table>
+<h3><span id="Interrupt-Arten_(Typ)"></span><span class="mw-headline" id="Interrupt-Arten_.28Typ.29">Interrupt-Arten (Typ)</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Wert</th>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>110b</td>
+<td><b>Interrupt Gate</b> - Beim Springen in den Interrupthandler wird eflags.if = 0 gesetzt, d.h. Hardwareinterrupts werden deaktiviert, solange der Handler läuft
+</td></tr>
+<tr>
+<td>111b</td>
+<td><b>Trap Gate</b> - Beim Sprung in den Interrupthandler bleiben Hardwareinerrupts aktiviert
+</td></tr>
+<tr>
+<td>101b</td>
+<td><b>Task Gate</b> - Beim Auftreten des Interrupts wird ein Hardware-Taskswitch durchgeführt. Der Selector zeigt in diesem Fall nicht auf ein Codesegment, sondern auf ein <a class="mw-redirect" data-archive-original-href="../../pages/1600/index.html" href="../../pages/1599/index.html" title="TSS">TSS</a>. Das Offset bleibt unbenutzt.
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Laden_einer_IDT">Laden einer IDT</span></h2>
+<p>Zum Laden einer IDT muss die Instruktion <i>lidt &lt;p&gt;</i> mit der Adresse einer 6 Bytes großen Datenstruktur aufgerufen werden. Die Datenstruktur sieht folgendermaßen aus:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>0-15</td>
+<td>Das Limit der IDT
+</td></tr>
+<tr>
+<td>16-47</td>
+<td>Die Base der IDT
+</td></tr></tbody></table>
+<p>Die Anfangsadresse (Basis) ist die <a class="mw-redirect" data-archive-original-href="../../pages/1943/index.html" href="../../pages/1496/index.html" title="Lineare Adresse">lineare Adresse</a> des ersten Eintrags in der IDT und das Limit ist die Größe der IDT verringert um 1.
+</p><p>Damit kann eine IDT beispielsweise mit Code wie dem folgenden geladen werden:
+</p><p>&lt;c&gt;static long long unsigned int idt[IDT_ENTRIES];
+</p><p>// ...
+</p><p>struct {
+</p>
+<pre>   unsigned short int limit;
+   void* pointer;
+</pre>
+<p>} __attribute__((packed)) idtp = {
+</p>
+<pre>   .limit = IDT_ENTRIES * 8 - 1,
+   .pointer = idt,
+</pre>
+<p>};
+asm volatile("lidt %0" : : "m" (idtp));&lt;/c&gt;
+</p><p>Oder in Assembler:
+&lt;asm&gt;lidt [idtr]
+</p><p>...
+</p><p>idtr:
+</p>
+<pre>   dw IDT_ENTRIES * 8 - 1,
+   dd idt
+</pre>
+<p>idt:
+</p>
+<pre>   ...&lt;/asm&gt;
+</pre>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a href="../../pages/1596/index.html" title="Interrupt">Interrupt</a></li>
+<li><a href="../../pages/1824/index.html" title="Exception">Exception</a></li>
+<li><a href="../../pages/1465/index.html" title="Programmable Interrupt Controller">Programmable Interrupt Controller</a></li>
+<li><a class="external text" href="http://www.osdever.net/bkerndev/Docs/idt.htm" rel="nofollow">Bran's Kernel-Development Tutorial ... IDT</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165504
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.005 seconds
+Real time usage: 0.005 seconds
+Preprocessor visited node count: 29/1000000
+Preprocessor generated node count: 50/1000000
+Post‐expand include size: 57/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.616      1 -total
+ 85.37%    0.526      3 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Interrupt_Descriptor_Table&amp;oldid=9365</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li><li><a href="../../pages/1874/index.html" title="Kategorie:X86">X86</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1603/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1603/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

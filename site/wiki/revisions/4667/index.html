@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Video Graphics Array – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Video_Graphics_Array rootpage-Video_Graphics_Array skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1516/index.html">Aktueller Artikel</a> · <a href="../../history/1516/index.html">Versionsgeschichte</a> · <a href="../../source/4667.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Video Graphics Array</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 17. Juli 2009, 10:27 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Sebihepp</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Attribut_Controller">→</a>‎<span dir="auto"><span class="autocomment">Attribut Controller</span></span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/4666-4667.html" title="Video Graphics Array">Unterschied</a>) <a href="../4666/index.html" title="Video Graphics Array">← Nächstältere Version</a> | <a href="../../pages/1516/index.html" title="Video Graphics Array">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../4668/index.html" title="Video Graphics Array">Nächstjüngere Version →</a> (<a href="../../diffs/4667-4668.html" title="Video Graphics Array">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Vorlage:Stub" style="margin-bottom:1em">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #f6f6f6; margin: 0 0em; padding: 0 0px; border: 1px solid #d6d6d6;" width="100%">
+<tbody><tr>
+<td>Diese Seite ist ein Artikel, welcher <b>mehr</b> haben könnte..<br/>
+<p>Wenn du mehr darüber weißt oder recherchieren willst, bist <b>du</b> aufgerufen, dies zu tun. Wenn du dir in einer Sache nicht sicher bist, dann stell es auf die Diskussionsseite.
+</p>
+</td></tr></tbody></table>
+</div>
+<p><b>Video Graphics Array</b> (<b>VGA</b>) ist ein Grafikstandard der seit 1987 benutzt wird. Heutige PC-Grafikkarten sind noch immer zum VGA Standard kompatibel.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Modi"><span class="tocnumber">1</span> <span class="toctext">Modi</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Textmodus"><span class="tocnumber">1.1</span> <span class="toctext">Textmodus</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Grafikmodus"><span class="tocnumber">1.2</span> <span class="toctext">Grafikmodus</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Modus_13h"><span class="tocnumber">1.2.1</span> <span class="toctext">Modus 13h</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Einleitung"><span class="tocnumber">2</span> <span class="toctext">Einleitung</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Warnung.21"><span class="tocnumber">3</span> <span class="toctext">Warnung!</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Voraussetzungen"><span class="tocnumber">4</span> <span class="toctext">Voraussetzungen</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Aufbau"><span class="tocnumber">5</span> <span class="toctext">Aufbau</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Attribut_Controller"><span class="tocnumber">5.1</span> <span class="toctext">Attribut Controller</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Siehe_auch"><span class="tocnumber">6</span> <span class="toctext">Siehe auch</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Weblinks"><span class="tocnumber">7</span> <span class="toctext">Weblinks</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Quellen"><span class="tocnumber">8</span> <span class="toctext">Quellen</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Modi">Modi</span></h2>
+<p>Die Grafikdarstellung von VGA kann grob in Text- und Grafikmodus unterteilen werden. <br/>
+</p>
+<h3><span class="mw-headline" id="Textmodus">Textmodus</span></h3>
+<p>Im Textmodus werden meistens 80*25 Zeichen verwendet. Diese Aufösung wird z.B. fast immer beim Starten eines PCs benutzt. Eine andere oft benutzte Zeichendarstellung ist 80*50. Speicheradresse: 0xB8000h.
+</p>
+<h3><span class="mw-headline" id="Grafikmodus">Grafikmodus</span></h3>
+<p>Im Grafikmodus werden die Werte der einzelnen Pixel direkt verändert. Ein Modus besteht aus vertikaler und horizontaler Pixelanzahl und der Anzahl darstellbarer Farben.
+</p>
+<h4><span class="mw-headline" id="Modus_13h">Modus 13h</span></h4>
+<p>320x200 Punkte bei 256 Farben
+</p><p>Speicheradresse: 0xA0000
+</p><p>Speichergröße: 64000 Bytes
+</p>
+<h2><span class="mw-headline" id="Einleitung">Einleitung</span></h2>
+<p>Irgendwann ist man an einem Punkt angelangt, an dem man nicht nur den voreingestellten Textmodus des BIOSes benutzen möchte. Man möchte in den Grafikmodus wechseln, die Auflösung anpassen und vielleicht auch die Farbtiefe anpassen. Oder auch einfach nur die Schriftart (Den Font) ändern. Der erste Station auf diesem Weg (Anfangs besser die erste Hürde) nennt sich VGA (Video Graphics Array).
+</p><p>Man könnte für jede Grafikkarte einen eigenen Treiber schreiben. Dann hätte man natürlich die volle Kontrolle über alles. Allerdings hat wahrscheinlich keiner die Zeit dazu, noch den Zugriff auf die Dokumentationen, die die Hersteller wie einen Schatz hüten, aus Angst man konnte daraus Rückschlüsse auf das Design des Grafikchips schließen. Und die wenigsten könnten auch alle Treiber testen, da man dazu ja jede Grafikkarte bräuchte. ;)
+</p><p>Die zweite Möglichkeit wären die VESA BIOS Extensions (VBE). Diese unterstützen viel höhere Auflösungen und Farbtiefen wie VGA mit seinen popeligen 640 mal 480 Pixeln bei 4 Bit (16 Farben) als Maximum. Der Nachteil dabei ist, dass man auf die Video-BIOS Routinen angewiesen ist, und damit deb 16 Bit Modus benötigt. Die meisten von Ihnen haben wahrscheinlich schon den Protected Mode initialisiert (oder von Grub initialisieren lassen), Interrupts zum arbeiten gebracht und vielleicht sogar einen Speichermanager geschrieben. Der Wechsel in den Real Mode würde da vieles durcheinander bringen und viel einfacher sind die VBEs auch nicht zu benutzen, sodass man erst mal mit VGA anfangen kann.
+</p><p>VGA wird von fast allen Grafikkarten unterstützt (Mir ist keine bekannt die VGA nicht unterstützt, aber ich denke Grafikkarten vor der Einführung von VGA dürften da Probleme haben... ;) ), bietet 256KByte Speicher auf der Karte (Kein direkter Zugriff, Nur Memory Mapped IO (MMIO), später mehr dazu) und kann im Textmodus und dem Grafikmodus betrieben werden. Folgende Modi sind vom Standard vorgeschrieben: 720x400 Textmodus (80x25 Zeichen, ein Zeichen 9x16), 640x480 Textmodi (80x30 Zeichen, ein Zeichen 8x16), 320x200 bei 8 Bit Farbtiefe (Paletten basiert), 320x200 bei 16 Bit Farbtiefe, 640x480 mit 4 Bit Farbtiefe.
+</p>
+<h2><span id="Warnung!"></span><span class="mw-headline" id="Warnung.21">Warnung!</span></h2>
+<p>Wenn Sie die Timings des CRTC (später mehr dazu) ändern und Ihr Monitor diese Frequenzen nicht unterstützt, besteht die Chance auf einen Defekt an ihm. Testen Sie am besten alle Änderungen vorher auf einem Emulator Ihrer Wahl (Bochs, QEmu, ...) und rechnen Sie besser zweimal nach. Normalerweise haben Heute die meisten Monitore einen Schutzmechanismus intus und zeigen bei Fehlerhaften Timings etwa "Modus wird nicht unterstützt" oder so ähnlich an. Versprechen kann ich Ihnen aber nichts. Die Benutzung des Wissens und der Codebeispiele geschieht auf eigene Gefahr. Weder der Autor noch die Lowlevel Community und auch nicht die Betreiber dieser Webseite Haften für entstandene Schäden.
+</p>
+<h2><span class="mw-headline" id="Voraussetzungen">Voraussetzungen</span></h2>
+<p>Generell wird nur je eine Routine zum Lesen und Schreiben von einem Byte auf IO-Ports benötigt. Diese Routinen sollten auch noch eine Verzögerung beinhalten, damit die Hardware auf Änderungen reagieren kann. Bevor man sich aber ernsthaft mit VGA beschäftigt wäre es hilfreich in den Protected Mode zu wechseln. Sämtliche Speicheradressen die ich hier aufzähle sind sofern nichts anderes dabei steht physisch.
+</p>
+<h2><span class="mw-headline" id="Aufbau">Aufbau</span></h2>
+<p>Ein VGA Adapter besteht aus folgenden Komponenten: Dem Grafikcontroller, Speicher (256KByte aufgeteilt auf Ebene 0 bis Ebene 3 mit jeweils 64KByte), dem Sequenzer, dem CRT Controller (CRT - Cathode Ray Tube, technische Bezeichnung für Röhrenmonitor), dem Attribut Controller und dem DAC (Palette).
+Der Grafikcontroller regelt wie genau in den Videospeicher geschrieben und der Sequenzer wie die Daten weiter an den CRT Controller geschickt werden. Der CRT Controller kümmert sich um das Timing der Daten, die zum Monitor gehen und der Attribute Controller regelt ein paar wenige Dinge wie zum Beispiel das aktivieren oder deaktivieren des Monitors, etc. Mit dem DAC kann man die Palette anpassen, wenn man sich im 8 Bit Modus befindet.
+</p>
+<h3><span class="mw-headline" id="Attribut_Controller">Attribut Controller</span></h3>
+<p>Der Attribut Controller wird über die Ports 0x3C0 und 0x3C1 gesteuert. Ersterer übernimmt dabei den Index und die zu schreibenden Daten und letzterer enthält die zu lesenden Daten. Wie? Über nur zwei Ports hat man Zugriff auf mehrere Register? Und über ein und denselben Port werden Index und Daten geschrieben? Wie geht denn das? Nun, die Register werden durchnummeriert. Möchte man Daten ins Register 1 schreiben oder lesen, dann schreibt man zuerst die 1 das Index Register 0x3C0 und kann anschließend über denselben Port Daten senden oder über Port 0x3C1 das Register lesen. Dabei merkt sich der Controller, ob als nächstes ein Index oder Daten anstehen. Leider ist zu beginn nicht definiert was erwartet wird. Glücklicherweise kann man durch Lesen eines Bytes von Port 0x3DA (Das ist das externe Status Register 1) die Logik zurücksetzen, sodass als nächstes ein Index erwartet wird. Man sollte also vor jedem Zugriff zuerst mal Port 0x3DA lesen, dann den Index schreiben und anschließend die Daten lesen/schreiben.
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a href="../../pages/1549/index.html" title="Textausgabe">Textausgabe</a></li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://de.wikipedia.org/wiki/Video_Graphics_Array" rel="nofollow">Wikipedia: VGA</a></li></ul>
+<h2><span class="mw-headline" id="Quellen">Quellen</span></h2>
+<ul><li><a class="external text" href="http://wiki.osdev.org/VGA_Hardware" rel="nofollow">wiki.osdev.org/VGA_Hardware</a></li>
+<li><a class="external text" href="http://www.osdever.net/FreeVGA/vga/vga.htm" rel="nofollow">www.osdever.net/FreeVGA/vga/vga.htm</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170714
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.004 seconds
+Real time usage: 0.005 seconds
+Preprocessor visited node count: 52/1000000
+Preprocessor generated node count: 70/1000000
+Post‐expand include size: 485/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.552      1 Vorlage:Stub
+100.00%    0.552      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Video_Graphics_Array&amp;oldid=4667</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1618/index.html" title="Kategorie:Stub">Stub</a></li><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li><li><a href="../../pages/1447/index.html" title="Kategorie:Hardware">Hardware</a></li><li><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Lizenz ungeklärt</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1516/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2312/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1516/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

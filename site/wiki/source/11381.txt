@@ -1,0 +1,100 @@
+{{Infobox OS
+| Name = týndur
+| Version = 0.2.2
+| Entwickler = [[týndur/Team|Lowlevel-Community]]
+| Lizenz = BSD
+| Kernel = Microkernel
+| API = Nativ, teilw. [[POSIX]]
+| Binaerformat = [[ELF]]
+| Sprache = [[C]], [[Pascal]]
+| IPC = RPC (asynchron)
+| Plattform = [[x86|i386]]
+| Homepage = [http://www.tyndur.org/ http://www.tyndur.org/]
+}}
+týndur ist das Community-Betriebssystem von Lowlevel. Es entstand als Idee im Jahr 2005 und wird seitdem von verschiedenen Mitgliedern der Lowlevel-Community gepflegt und erweitert. Zielsetzung des Systems ist es, verständlich zum Lernen, aber auch zum Arbeiten gut benutzbar zu sein. Jeder ist eingeladen mitzuhelfen!
+
+== Download ==
+Die übliche Variante, týndur ans Laufen zu bekommen, ist, eine aktuelle Entwicklerversion aus dem git herunterzuladen und den Quellcode selbst zu kompilieren. Für alle, die daran interessiert sind, mitzuhelfen, ist das auch die einzig sinnvolle Möglichkeit. Wer das System nur antesten und sich dazu keine Entwicklungsumgebung aufsetzen möchte, kann auf die stabilen Releases zurückgreifen, die in der Regel ein- bis zweimal im Jahr veröffentlicht werden. Sie stehen für die aktuelle Version als Festplatten- und Live-CD-Image zur Verfügung.
+
+* Releases: [http://download.tyndur.org/releases/0.2/ http://download.tyndur.org/releases/0.2/]
+* Entwicklerversionen: Siehe [[Týndur/Entwicklung]]
+
+== Kurzeinführung ==
+''→ Hauptartikel: [[Týndur/Konzepte und Benutzung]]''
+
+== Features ==
+* [[Mikrokernel]]
+* Speichermedien: Festplatte, CD-ROM, Diskette
+* Dateisysteme: [[ext2]], [[FAT]], [[ISO9660]]
+* Netzwerkkarten: [[RTL8139|rtl8139]], sis900, ne2k, e1000, [[AMD PCnet|pcnet]]
+* So gut wie alle Treiber benutzen das [[CDI|Common Driver Interface]], um Treiber mit anderen Betriebssystemen austauschen zu können
+* Eigene Programme:
+** losh (Shell)
+** kedit (Texteditor)
+** kirc (IRC-Programm)
+** lpt (Paketmanager)
+** setup (Konfigurationsprogramm)
+* Portierte Programme:
+** Entwicklung: gcc, FPC, binutils, nasm, yasm, fasm, Subversion
+** Editor: nano
+** Netzwerk: lynx, wget, dropbear
+
+== Funktionsweise des Kernels ==
+Beim Design kann man in einem Kernel wohl auf zwei verschiedene Dinge abheben: Einmal auf die innere Struktur, die verschiedenen Einheiten, die zusammen den Kernel bilden; zum anderen die Schnittstelle zu den Userspace-Programmen, also die Syscalls.
+
+Fangen wir mal mit dem ganz grundsätzlichen an: tyndur benutzt einen Mikrokernel, Hardwaretreiber laufen üblicherweise als ganz gewöhnliche Userspace-Prozesse. Die drei großen Einheiten im Kernel sind, wie ich das auch im [[OS-Dev_für_Einsteiger#Die_Aufgaben_des_Kernels|Einführungsartikel im Wiki]] dargestellt habe, die Speicherverwaltung, Prozessverwaltung und IPC. Dazu kommen natürlich noch so Geschichten wie Low-Level-Interrupthandling und Verwaltung der IO-Ports, also Zeug, was direkt Einfluss auf die CPU hat.
+
+Die Speicherverwaltung benutzt auf i386 (kernel2 sieht theoretisch auch andere Architekturen vor) die hier üblichen und als richtig dargestellten Mechanismen. Speicherschutz wird über Paging erreicht, jeder Prozess hat seinen eigenen Speicherkontext, und Segmentierung wird nicht benutzt.
+
+Die Prozessverwaltung macht nichts aufregendes - sie verwaltet eben Tasks. In kernel gibt es nur Prozesse, kernel2 kann auch Threads. Der Scheduler ist eine einfache Round-Robin-Variante. Der Kernel läuft in Ring 0, die Tasks in Ring 3. Ring 1 und 2 sind wie üblich unbenutzt.
+
+Etwas interessanter ist vielleicht die IPC, bei einem Mikrokernel ist es ja nicht ganz unwichtig, wie die Prozesse miteinander kommunizieren. Hier sind zwei Möglichkeiten unterstützt, zum einen Shared Memory und zum anderen RPC. RPCs sind asynchron und können Daten als Parameter enthalten. Für den aufgerufenen Prozess sieht das ähnlich aus wie ein Signal unter *nix: Er wird unterbrochen, wo er gerade ist, bekommt die RPC-Daten auf den Stack gepackt und macht mit seinem RPC-Handler weiter. Wenn er fertig ist, springt er wieder zurück, wo er herkommt. Damit in kritischen Abschnitten nichts böses passiert, kann der RPC-Empfang auch blockiert werden.
+
+Das war's eigentlich schon, was die zentralen Themen angeht. Vielleicht noch einen Blick auf die [http://git.tyndur.org/?p=tyndur.git;a=blob;f=src/include/syscallno.h;h=b56ad45801c88d3140ea019c2278d6824b859fb9;hb=HEAD Liste der Syscalls]. Viel aufregendes ist dort nicht zu sehen, mehr oder weniger sind das die erwarteten Funktionen für den beschrieben Umfang. Was vielleicht noch interessant ist, ist der Start von Programmen und das Interrupthandling.
+
+Der Loader für die Programme sitzt ebenfalls im Userspace und zwar momentan in init. Was der Kernel bereitstellt ist eine Funktion, um einen "leeren" Task zu erstellen. Der Loader lädt anschließend das Programm erst einmal in seinen Speicher und tritt die entsprechenden Pages dann an den neuen Task ab. Wenn er damit fertig ist, lässt er ihn loslaufen.
+
+Für Hardware-Interrupts registriert sich der Treiber beim Kernel als zuständig. Wenn die Hardware jetzt einen IRQ feuert, sendet der Kernel einen RPC an den Treiber, der die passenden Maßnahmen ergreift, gleichzeitig sendet er aber auch ein EOI an den PIC. Damit der Interrupt nicht sofort wieder feuert, wird er maskiert. Erst wenn der Treiber aus dem RPC-Handler zurückkehrt und damit den Grund für den Interrupt hoffentlich behoben hat, wird der Interrupt wieder demaskiert.
+
+Ansonsten könnte man zu LostIO, dem VFS, auch noch ganze Romane schreiben. Es spielt eine ziemlich zentrale Rolle, weil in tyndur sehr viel über das Dateisystem läuft. Momentan ist es komplett im Userspace (wird über RPCs implementiert), wandert aber in Zukunft als letztendlich fast wichtigste IPC-Variante in tyndur nach kernel2.
+
+== Geschichte ==
+Erste Planungen für ein Community-OS, welches als Idee vorher bereits mehrmals abgelehnt worden war, starteten am 31. März 2005. Allgemeine Zustimmung fand hierbei ein Team-Ansatz: Wer wollte konnte sich für ein Thema melden, sobald alles erledigt war wovon man abhing konnte man seine Arbeit starten. Allerdings entstand im Endeffekt kaum brauchbarer Code, viele die mitarbeiten wollten verschwanden, taten nichts, oder konnten mangels eines richtigen Anfangs nicht mitarbeiten. Zwischenzeitlich wechselte die Projektführung von mastermesh (dem Gründer des Lowlevel-Magazins) und Roshl (einem sehr aktiven und langjährigem Mitglied der Community) zu T0ast3r. In dieser Zeit entstand auch erster Kernelcode in der Form in der er in aktuellen Versionen noch verwendet wird. Aufgrund von Unzufriedenheit und einiger persönlicher Differenzen kam es zum nächsten Führungswechsel, in welchem T0ast3r seine Position am 13. Juni 2006 an den aktuellen Projektleiter [[Benutzer:taljeth|taljeth]] abgab.
+
+In den folgenden Monaten nahm die Arbeit am Kernel an Fahrt auf. Ein wichtiger Meilenstein hierbei ist der Anfang von Multitasking, welches am 9. Oktober 2006 Einzug in die Entwicklerversion hielt. Die Hauptarbeit bis dahin wurde von taljeth und [[Benutzer:Jidder|Jidder]] geleistet, weiterer Code wurde von Damian/seeker und [[Benutzer:stultus|stultus]] beigesteuert. Der nächste Meilenstein war die Entwicklung eines RPC-Mechanismus und des koordinierenden Init-Dienstes, welche so seit Ende Februar 2007 funktionieren. Seitdem sind taljeth und [[Benutzer:FreakyPenguin|FreakyPenguin]] unangefochten die Hauptprogrammierer, auf die der größte Teil des Codes zurückgeht. 
+
+Mit Einführung von RPC zwischen Prozessen begann die Implementierung von LostIO, einer Abstraktionsschicht für Virtuelle Dateisysteme, mit welcher jeder Prozess der sich bei init registriert hat ein Dateisystem anbieten kann. Hierdurch wurde die Grundlage für jede Treiberentwicklung gelegt (jeder Treiber stellt seine Dienste über LostIO bereit, die direkte Verwendung von RPC ist sehr selten). Infolge hiervon ist eine Anzahl verschiedener Treiber und Anwendungen von verschiedenen Entwicklern (siehe [[týndur/Team]]) entstanden.
+
+Weitere Meilensteine der Entwicklung sind die Veröffentlichung der Versionen 0.1 am 3. Mai 2007, 0.1.1 an Weihnachten 2007, sowie der aktuellen Version 0.2 an Weihnachten 2008. Mit der Version 0.2 erfolgte auch die Umbenennung des Projektes von LOST (Lowlevel Operating System T) zu týndur (der isländischen Übersetzung des alten Namens). Gründe für die Umbenennung waren der Mangel an gescheiten Domains, schlechter Trefferchancen in Suchmaschinen sowie einer generellen Verwechslunggefahr mit der TV-Serie.
+
+Seit dem 27. Mai 2007 ist ein neuer Kernel (kernel2 genannt) in Arbeit, welcher eine neue Version der [[VFS]]-Schnittstelle [[LostIO]] implementieren soll. Weitere geplante oder bereits implementierte Features sind Unterstützung für andere Architekturen (in erster Linie [[x86-64]]), Mehrprozessorsysteme nach [[SMP]]-Standard, sowie Threading. Aktuell werden die Arbeiten an kernel2 intensiviert, da dieser mit Version 0.3 zum Standardkernel werden soll. 
+
+== Versionen == 
+
+''→ Hauptartikel: [[Týndur/Versionen]]''
+
+{| {{Prettytable}}
+! Version || Datum || Wesentliche Merkmale || Download
+|-
+| 0.1.0 || 03.05.2007 || Einfacher Mikrokernel mit Speicherverwaltung, Multitasking und RPC. Im Usermode Tastatur-, Disketten- und FAT-Treiber und eine einfache Shell. || {{Floppy|http://vs6503.vserver4free.de/lost/download/lost-0.1.0.img.gz}}
+|-
+| 0.1.1 || 24.12.2007 || Texteditor, experimentelle Netzwerkunterstützung, Performance || {{Floppy|http://vs6503.vserver4free.de/lost/download/lost-0.1.1.img.gz}}
+|-
+| 0.2.0 || 24.12.2008 || Festplatten- und ext2-Treiber. Portierte Programme wie FPC, gcc und nano. Erstes Release mit der Treiberschnittstelle [[CDI]]. || {{Floppy|http://download.tyndur.org/releases/0.2/tyndur-0.2.0-gothmog-floppy.img.bz2}} {{HD|http://download.tyndur.org/releases/0.2/tyndur-0.2.0-gothmog-hd.img.bz2}}
+|-
+| 0.2.1 || 05.07.2009 || CD-ROM, UTF-8, zusätzliche portierte Programme (lynx, dropbear, Subversion) || {{Floppy|http://download.tyndur.org/releases/0.2/tyndur-0.2.1-gothmog-floppy.img.bz2}} {{HD|http://download.tyndur.org/releases/0.2/tyndur-0.2.1-gothmog-hd.img.bz2}}
+|-
+| 0.2.2 || 25.12.2009 || Erstes Release mit Live-CD und Internationalisierung. setup ist neu. Erstes Release, das seinen eigenen Kernel kompilieren kann. || {{CD|http://download.tyndur.org/releases/0.2/tyndur-0.2.2-gothmog-livecd-full.iso.bz2}} {{HD|http://download.tyndur.org/releases/0.2/tyndur-0.2.2-gothmog-hd.img.bz2}}
+|}
+
+== Screenshots ==
+Siehe [[Týndur/Screenshots|Screenshots]].
+
+== Links ==
+* [http://git.tyndur.org/ WebGit]
+* [http://list.tyndur.org/ Mailingliste] ([http://list.tyndur.org/tyndur-devel/threads.html Archiv])
+* [http://lpt.tyndur.org/cdi/ Revisionsaktuelle Dokumentation von CDI]
+* [http://download.tyndur.org/ Downloads]
+
+[[Category:týndur|!Ttýndur]]
+[[Category:Betriebssystem]]

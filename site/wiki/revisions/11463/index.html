@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Grafikmodus – Lowlevel</title>
+<link href="../../../assets/wiki/f138d3504f3e3790060d6ac1.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Grafikmodus rootpage-Grafikmodus skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2639/index.html">Aktueller Artikel</a> · <a href="../../history/2639/index.html">Versionsgeschichte</a> · <a href="../../source/11463.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Grafikmodus</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 2. August 2020, 23:32 Uhr von <a class="mw-userlink" href="../../pages/2674/index.html" title="Benutzerin:Littlefox"><bdi>Littlefox</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Typofix)</span></div><div id="mw-revision-nav">(<a href="../../diffs/11462-11463.html" title="Grafikmodus">Unterschied</a>) <a href="../11462/index.html" title="Grafikmodus">← Nächstältere Version</a> | Aktuelle Version (Unterschied) | Nächstjüngere Version → (Unterschied)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Template_Stub">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #D0D8FF; margin: 0 0em; padding: 0 0px; border: 1px solid #b8c0e8" width="100%">
+<tbody><tr>
+<td>Diese Seite oder Abschnitt ist zwar komplett, es wird aber folgende Verbesserungen gewünscht:<br/>
+<p><i>Bitte generische Infos über Grafikmodus und mehr Algorithmen dazu. <a class="mw-redirect" data-archive-original-href="../../pages/1651/index.html" href="../../pages/1511/index.html" title="GUI">GUI</a> und diesen hier splitten, dieser hier allgemeines zum Pixel schubsen</i>
+</p><p>Hilf Lowlevel, den Artikel zu verbessern.
+</p>
+</td></tr></tbody></table>
+</div>
+<p><br/>
+Auch wenn die meisten Hobby-<a href="../../pages/1479/index.html" title="Betriebssystem">Betriebssysteme</a> "nur" über eine <a class="mw-redirect" data-archive-original-href="../../pages/1947/index.html" href="../../pages/1864/index.html" title="Command Line Interface">Kommandozeile</a> verfügen, ist die Entwicklung einer <a class="mw-redirect" data-archive-original-href="../../pages/1651/index.html" href="../../pages/1511/index.html" title="GUI">grafischen Benutzeroberfläche</a> ab einem gewissen Entwicklungsstand des Kernels auch ein interessantes Projekt.
+</p><p>Allerdings kann man dem Bildschirm nicht einfach sagen, dass er einen Kreis oder eine Linie zeichnen soll. Man kann nur einzelne Pixel setzen, deshalb muss man sich um die Darstellung komplexerer - da zweidimensionaler - Formen selbst kümmern (Lowlevel-Zeichnen eben).
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Voraussetzungen">Voraussetzungen</span></h2>
+<p>Dieses Tutorial soll nicht erklären, wie man den Bildschirm ansteuert oder arithmetische Berechnungen durchführt. Aus diesem Grund werden auch Funktionen wie putpixel() (s.u.) oder sin() nicht genau erläutert, sondern nur die hier verwendete Signatur kurz erklärt. Die Funktionen sind auf das Nötigste beschränkt, weshalb die Beispiele für den praktischen Einsatz durchaus noch erweitert werden können (z.B. Farben bei <code>putpixel()</code> o.ä.).
+</p><p>Im Folgenden wird eine Funktion <code>putpixel()</code> verwendet, die folgendermaßen definiert ist:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="kt">void</span> <span class="nf">putpixel</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
+</pre></div>
+<p>Diese Funktion stellt nur das absolut notwendigste dar, und zwar geht sie von einem schwarzen Bildschirm aus und setzt beim Aufruf das Pixel an der angegebenen Koordinate auf weiß. Die Koordinaten sind, wie üblich, in Pixeln gezählt, wobei das Pixel in der linken oberen Ecke die Koordinaten (0|0) hat.
+</p><p>Eine weitere Funktion heißt round():
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">round</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">double</span> <span class="n">number</span><span class="p">);</span> <span class="c1">// Rundet die Zahl, z.B. round(4.2) = 4 und round(5.7) = 6</span>
+</pre></div>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Linien">Linien</span></h2>
+<p>Wir beginnen mit dem Zeichnen von einfachen Linien. Gerade Linien zu zeichnen, ist nicht das Problem - bei schiefen wird es dagegen schwieriger. Wir beschränken uns auf den letzteren Fall, da der Algorithmus universell einsetzbar sein soll.
+</p><p>Für das Zeichnen von Linien benötigt man das Wissen über lineare Funktionen aus der Schule. Der Bresenham-Algorithmus basiert auf genau diesem Prinzip. Und zwar: Es gibt zwei Punkte <code>P(x1|y1)</code> und <code>Q(x2|y2)</code>, zwischen denen die Linie verlaufen soll. Dazu denken wir uns ein Koordinatensystem, bei dem die x-Achse nach rechts und die y-Achse nach unten verläuft (Ursprung links oben).
+</p><p>Zur Erinnerung hier noch einmal die Grundform einer linearen Funktion:
+<code>
+f(x) = mx + t
+</code>
+Hier ist <code>m</code> die Steigung und <code>t</code> der y-Achsenabschnitt oder Offset.
+</p><p><code>t</code> ist sehr einfach zu "berechnen": <code>t = y1</code>, da die Linie hier anfängt.
+</p><p><code>m</code> bekommt man mit der Formel <code>m = (x2 - x1) / (y2 - y1)</code>.
+</p><p>Nun kann man das ganze zu einer Funktion zusammensetzen:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="kt">void</span> <span class="nf">linie</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x1</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y1</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x2</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="kt">double</span> <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">);</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x1</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">x2</span><span class="p">;</span> <span class="o">++</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">putpixel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span> <span class="o">+</span> <span class="n">round</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="n">x</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a href="../../pages/2600/index.html" title="Double Buffering">Double Buffering</a></li>
+<li><a class="mw-redirect" data-archive-original-href="../../pages/1517/index.html" href="../../pages/1516/index.html" title="VGA">VGA</a></li>
+<li><a href="../../pages/1743/index.html" title="Cirrus Logic">Cirrus Logic</a></li>
+<li><a class="mw-redirect" data-archive-original-href="../../pages/2613/index.html" href="../../pages/2612/index.html" title="UEFI">UEFI</a></li>
+<li><a class="mw-redirect" data-archive-original-href="../../pages/2304/index.html" href="../../pages/2303/index.html" title="VBE">VBE</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165318
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.008 seconds
+Real time usage: 0.341 seconds
+Preprocessor visited node count: 44/1000000
+Preprocessor generated node count: 106/1000000
+Post‐expand include size: 500/2097152 bytes
+Template argument size: 144/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 2669/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.897      1 Vorlage:TODO
+100.00%    0.897      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:2639-0!canonical and timestamp 20261109165318 and revision id 11463
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Grafikmodus&amp;oldid=11463</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1820/index.html" title="Kategorie:TODO">TODO</a></li><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2639/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2642/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2639/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 2. August 2020 um 23:32 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

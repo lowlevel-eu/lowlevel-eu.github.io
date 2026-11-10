@@ -1,0 +1,47 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Common Driver Interface — Änderungen 5965 → 6635</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Common Driver Interface — Änderungen 5965 → 6635</h1><nav><a href="../revisions/5965/index.html">Version 5965</a> · <a href="../revisions/6635/index.html">Version 6635</a> · <a href="../history/1622/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l113" >Zeile 113:</td>
+<td colspan="2" class="diff-lineno">Zeile 113:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== Funktionen ====</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== Funktionen ====</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">===== cdi.h =====</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;void cdi_init(void);&lt;/c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;void cdi_init(void);&lt;/c&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Initialisiert die CDI-Strukturen des Betriebssystems, muss vor Benutzung anderer CDI-Funktionen aufgerufen werden - wiederholte Aufrufe müssen ohne Effekt bleiben.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Initialisiert die CDI-Strukturen des Betriebssystems, muss vor Benutzung anderer CDI-Funktionen aufgerufen werden - wiederholte Aufrufe müssen ohne Effekt bleiben.</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l123" >Zeile 123:</td>
+<td colspan="2" class="diff-lineno">Zeile 125:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;void cdi_driver_register(struct cdi_driver *driver);&lt;/c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;void cdi_driver_register(struct cdi_driver *driver);&lt;/c&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Registriert einen CDI-Treiber. Es bietet sich an, ihn in einer globalen Liste einzutragen und diese Liste dann beim cdi_run_drivers()-Aufruf abzuarbeiten.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Registriert einen CDI-Treiber. Es bietet sich an, ihn in einer globalen Liste einzutragen und diese Liste dann beim cdi_run_drivers()-Aufruf abzuarbeiten.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">===== cdi/misc.h =====</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;void cdi_register_irq(uint8_t irq, void (*handler)(struct cdi_device*), struct cdi_device *device);&lt;/c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;void cdi_register_irq(uint8_t irq, void (*handler)(struct cdi_device*), struct cdi_device *device);&lt;/c&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Registriert eine ISR &quot;handler&quot; für den angegebenen IRQ &quot;irq&quot;. Der ISR muss beim Aufruf das angegebene CDI-Gerät &quot;device&quot; als Parameter übergeben werden.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Registriert eine ISR &quot;handler&quot; für den angegebenen IRQ &quot;irq&quot;. Der ISR muss beim Aufruf das angegebene CDI-Gerät &quot;device&quot; als Parameter übergeben werden.</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l139" >Zeile 139:</td>
+<td colspan="2" class="diff-lineno">Zeile 143:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;void cdi_sleep_ms(uint32_t ms);&lt;/c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;void cdi_sleep_ms(uint32_t ms);&lt;/c&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wartet &quot;ms&quot; Millisekunden.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wartet &quot;ms&quot; Millisekunden.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">===== cdi/pci.h =====</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;void cdi_pci_get_all_devices(cdi_list_t list);&lt;/c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;void cdi_pci_get_all_devices(cdi_list_t list);&lt;/c&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Fügt alle vorhandenen PCI-Geräte in die Liste &quot;list&quot; ein.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Fügt alle vorhandenen PCI-Geräte in die Liste &quot;list&quot; ein.</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l151" >Zeile 151:</td>
+<td colspan="2" class="diff-lineno">Zeile 157:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;void cdi_pci_free_memory(struct cdi_pci_device *device);&lt;/c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;void cdi_pci_free_memory(struct cdi_pci_device *device);&lt;/c&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Gibt selbigen Speicher wieder frei.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Gibt selbigen Speicher wieder frei.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">===== cdi/io.h =====</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;uint8_t cdi_inb(uint16_t port);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;uint8_t cdi_inb(uint16_t port);</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>uint16_t cdi_inw(uint16_t port);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>uint16_t cdi_inw(uint16_t port);</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l159" >Zeile 159:</td>
+<td colspan="2" class="diff-lineno">Zeile 167:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>void cdi_outl(uint16_t port, uint32_t data);&lt;/c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>void cdi_outl(uint16_t port, uint32_t data);&lt;/c&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Gibt ein Byte/Word/DWord am angegebenen I/O-Port aus.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Gibt ein Byte/Word/DWord am angegebenen I/O-Port aus.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">===== cdi/lists.h =====</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;cdi_list_t cdi_list_create(void);&lt;/c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;cdi_list_t cdi_list_create(void);&lt;/c&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Erstellt eine Linked-List (gibt NULL bei Fehler zurück).</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Erstellt eine Linked-List (gibt NULL bei Fehler zurück).</div></td></tr>
+</table></body></html>

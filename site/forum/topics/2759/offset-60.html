@@ -1,0 +1,1124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="SLAB-Allocator als Basis fuer kmalloc?" name="description"/>
+<title>SLAB-Allocator als Basis fuer kmalloc?</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:30</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>SLAB-Allocator als Basis fuer kmalloc?</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg32322"></a>
+<div class="nextlinks"><a href="../2770/index.html#msg32500">« vorheriges</a> <a href="../2185/offset-60.html#msg32143">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: <a class="navPages" href="index.html">1</a> <a class="navPages" href="offset-20.html">2</a> <a class="navPages" href="offset-40.html">3</a> [<strong>4</strong>] <a class="navPages" href="offset-80.html">5</a> <a class="navPages" href="offset-100.html">6</a> <a class="navPages" href="offset-120.html">7</a>
+</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/0f01c9c83ac67395064654f9.gif"/>
+<span id="author">Autor</span>
+						Thema: SLAB-Allocator als Basis fuer kmalloc?  (Gelesen 227950 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32322_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #60 am:</strong> 25. May 2011, 21:41 »</div>
+<div class="posttile"><h5 id="subject_32322">
+<a href="offset-60.html#msg32322" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32322_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32322">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-40.html#msg32321">Zitat von: FlashBurn am 25. May 2011, 19:52</a></div></div><blockquote class="bbc_standard_quote">aber um sicher zu gehen, würde ich das in die Anforderungen an den Slab-Allocator mit aufnehmen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Jo, besser is das.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-40.html#msg32321">Zitat von: FlashBurn am 25. May 2011, 19:52</a></div></div><blockquote class="bbc_standard_quote">Zumal mir auch nichts anderes einfällt außer OOM, was da in einem Konstruktor schief gehen könnte (im Kernel)!?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Hm, stimmt auch wieder, zumindest in einem Micro-Kernel.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-40.html#msg32321">Zitat von: FlashBurn am 25. May 2011, 19:52</a></div></div><blockquote class="bbc_standard_quote">Naja, das mit der Magazinverwaltung ist nicht das Problem, weil mein Slab-Allocator erstmal nur einzelne Objekte rausgibt</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Aber was ist wenn Deine Magazinverwaltung ein neues Magazin voll machen möchte und von den X SLAB-Allocator-Aufrufen 2 Aufrufe schief gingen? Dann ist ja das Magazin gar nicht voll, wie gehst Du damit um?<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-40.html#msg32321">Zitat von: FlashBurn am 25. May 2011, 19:52</a></div></div><blockquote class="bbc_standard_quote">da ich ein oder zwei Objekte habe die den Magazinlayer nicht benutzen sollen (zwecks Verschwendung).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, ich wollte den Thread-Descriptor (wegen einem extra Cache-Mechanismus für komplette Threads) und den Process-Descriptor (wird zu selten benötigt) nicht über so einen Magazinlayer laufen lassen, alles andere wohl schon (wenn ich denn mal sowas einbaue).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-40.html#msg32321">Zitat von: FlashBurn am 25. May 2011, 19:52</a></div></div><blockquote class="bbc_standard_quote">Aber ich sehe da erstmal nicht so das Problem (kann aber gut sein, das es da welche gibt, dann immer her damit), zumal du eh irgendwann anfangen musst die IDs zu recyceln.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Bei guter SW sollte es überhaupt keine Probleme machen wenn IDs schnell recycelt werden aber da kann man sich ja nie ganz drauf verlassen, weswegen ich IDs lieber global in eine sortierte Kette packen möchte (also immer vorne weg nehmen und hinten dran hängen). Bei den Thread-IDs könnte man es ja so machen das immer beim Auffüllen des CPU-lokalen Cache-Mechanismus gleich X IDs auf einmal geholt werden welche dann beim tatsächlichen Ausliefern der Threads der Reihe nach benutzt werden und auch beim Abgeben von Threads werden immer erst X IDs gesammelt bevor diese dann gebündelt in den ID-Pool zurück kommen, das macht zumindest die zugehörigen Aufrufe seltener und reduziert damit die Kosten (ich hoffe einfach mal dass das reicht).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-40.html#msg32321">Zitat von: FlashBurn am 25. May 2011, 19:52</a></div></div><blockquote class="bbc_standard_quote">aber dann muss ich meine Thread-Struktur vergrößern, weil da ja dann alle Register mit drin gespeichert werden müssen</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Was bei x86 ja so enorm viel ist, da hast Du echt mein vollstes Mitleid. Was soll ich da erst mit meinen 64 Registern (von denen ich 8 Stück noch aus speziellen Schattenregistern holen muss weil die CPU die beim Wechsel vom User-Mode in den System-Mode einfach nur schnell ausblendet) + 16 Segmentregistern sagen? Das ist einer der Gründe warum ich beim synchronen IPC direkt vom Aufrufenden Thread in den PopUp-Thread wechseln möchte, da brauch ich dann vom aufrufenden Thread nur die Callee-Saves in dessen Thread-Descriptor zu packen bzw. beim Ende vom PopUp-Thread wiederherstellen um dann da das IRET zu machen. Für den PopUp-Thread muss ich fast gar nichts vorbereiten (außer dafür sorgen das keine Register vom Caller oder vom Kernel für den PopUp-Thread sichtbar sind) so das wenn der PopUp-Thread noch innerhalb der Zeitscheibe des Caller-Threads fertig wird und er nicht geschedult werden muss gar keine Register überhaupt in dessen Thread-Descriptor landen. Eben weil der PopUp-Thread ja u.a. einen leeren Kontext bekommt ist dessen Thread-Erstellung ja so billig.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-40.html#msg32321">Zitat von: FlashBurn am 25. May 2011, 19:52</a></div></div><blockquote class="bbc_standard_quote">und was viel schwieriger sein wird, ich müsste zusehen, dass ich so ziemlich alle Spinlocks wegbekomme.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, da muss man halt von Anfang an entsprechend aufpassen. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32322">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32322_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32323"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32323_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #61 am:</strong> 25. May 2011, 21:56 »</div>
+<div class="posttile"><h5 id="subject_32323">
+<a href="offset-60.html#msg32323" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32323_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32323"><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Aber was ist wenn Deine Magazinverwaltung ein neues Magazin voll machen möchte und von den X SLAB-Allocator-Aufrufen 2 Aufrufe schief gingen? Dann ist ja das Magazin gar nicht voll, wie gehst Du damit um?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Gegenfrage, wie gehst du mit nem nicht ganz vollem Magazin um? Ich benutze es einfach, bis es leer ist <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/>Bei mir gibt es nicht so richtig Magazine wie es im Slab-Allocator Design vorgesehen ist. Bei mir ist ein Magazin einfach nur ein kleiner Stack (im Mom von 4 Objekten) und wenn das Magazin (bzw. in meinem Fall beide) leer ist, wird es halt wieder aufgefüllt. Wenn das Auffüllen nicht klappt (womit ich ja rechnen muss) ist das nicht weiter wild, es sei denn es konnte gar kein Objekt aufgefüllt werden.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Bei guter SW sollte es überhaupt keine Probleme machen wenn IDs schnell recycelt werden aber da kann man sich ja nie ganz drauf verlassen<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Naja, das ich als OS Programmierer um Hardwarefehler drumrum programmieren muss, ok das sehe ich noch ein, aber das ich um Softwarefehler drumrum programmieren muss, sehe ich nicht ein.<br/><br/>Was die Spinlocks betrifft, sind die nicht das eigentliche Problem, sondern das ich Spinlocks immer mit Algos verbinde die nicht skalieren und wenn man dann einen nicht unterbrechbaren Kernel hat, kann das schonmal in Zeiten ausarten wo es anfängt mit wehtun.<br/>Auf der anderen Seite, würde das die Performance auf Single-CPU System (vorallem auf alten, wo cli/sti richtig teuer sind) doch ganz schön verbessern.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32323">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32327"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32327_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #62 am:</strong> 26. May 2011, 12:16 »</div>
+<div class="posttile"><h5 id="subject_32327">
+<a href="offset-60.html#msg32327" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32327_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32327">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32323">Zitat von: FlashBurn am 25. May 2011, 21:56</a></div></div><blockquote class="bbc_standard_quote">Gegenfrage, wie gehst du mit nem nicht ganz vollem Magazin um?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Gute Frage, hab ich noch nicht allzu gründlich drüber nachgedacht.<br/>Ich schätze ich werde mich für Variante 3 entscheiden, da ich ja Bündelanfragen an den SLAB-Allocator geben möchte wird dieser eh entweder ein Magazin komplett befüllen (wenn er genug Objekte hat bzw. einen neuen SLAB-Block vom VMM bekommen kann) oder er wird nichts tun (wenn er keinen weiteren SLAB-Block vom VMM bekommt) und einen Fehler zurück melden. Ich schätze ich werde daher wohl nicht mit nur halb befüllten Magazinen umgehen müssen.<br/><br/>Wobei ich immer noch nicht erkennen kann worin Du den Vorteil der direkten Konstruktor-Aufrufe durch den SLAB-Allocator siehst. Ich bin eher der Meinung das Du Dir damit vor allem zusätzliche Probleme in die Speicherverwaltung holst.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32323">Zitat von: FlashBurn am 25. May 2011, 21:56</a></div></div><blockquote class="bbc_standard_quote">Naja, das ich als OS Programmierer um Hardwarefehler drumrum programmieren muss, ok das sehe ich noch ein, aber das ich um Softwarefehler drumrum programmieren muss, sehe ich nicht ein.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>lol    (das mit der Hardware siehst Du ja auch nur so weil Du die Hardware nicht ändern kannst)<br/><br/>Wenn Du die IDs nicht so schnell recycelst hat das OS weniger potentielle Angriffsfläche weil (absichtlich) fehlerhafte Syscall dann eher ins Leere laufen weil die IDs ja ungültig sind. Etwas "Security by Obscurity" ist auf jeden Fall besser als gar nichts.<br/><br/>Was schätzt Du denn wie viele IDs insgesamt (also alles inklusive Prozess-IDs, Thread-IDs, Port-IDs ....) Du so überhaupt pro Tag Laufzeit mit ordentlicher Last benötigen wirst?<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32323">Zitat von: FlashBurn am 25. May 2011, 21:56</a></div></div><blockquote class="bbc_standard_quote">und wenn man dann einen nicht unterbrechbaren Kernel hat, kann das schonmal in Zeiten ausarten wo es anfängt mit wehtun.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das einztigste was mir in einem Micro-Kernel einfällt was auch mal erheblich Zeit kosten kann ist die Speicherverwaltung aber da davon ja wieder fast alles abhängig ist sind wohl auch fast alle Syscalls betroffen. Ich denke hier sollte man die Speicherverwaltung so gut bauen das die in den meisten Fällen schnell arbeitet und eben nur möglichst selten mal ein langsamer Fall eintritt. Wenn man das gut genug hinbekommt sollte es sich wieder rechnen.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32327">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32327_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32328"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32328_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #63 am:</strong> 26. May 2011, 12:37 »</div>
+<div class="posttile"><h5 id="subject_32328">
+<a href="offset-60.html#msg32328" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32328_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32328"><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Wobei ich immer noch nicht erkennen kann worin Du den Vorteil der direkten Konstruktor-Aufrufe durch den SLAB-Allocator siehst.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Die Anzahl der Konstruktor Aufrufe ist bei meinem Design wesentlich geringer als bei dir.<br/><br/>Bei mir wird ein neue Objectcache erstellt und alle Objekte werden gleich konstruiert (wo ich dann wirklich so Sachen wie ID und im Falle von Threads noch den Kernel-Stack machen will).<br/>Bei dir muss jedes Mal wenn ein Objekt rausgegeben wird, erst ne ID geholt und der Stack geholt werden. Wenn du dein Objekt wieder freigibst, gibst du also auch die ID und den Stack wieder frei.<br/>Bei mir werden ID und Stack erst wieder freigegeben, wenn der Objectcache freigegeben wird.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">das mit der Hardware siehst Du ja auch nur so weil Du die Hardware nicht ändern kannst<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Jein, weil man solche Hardwarefehler im Allgemeinen nur durch neue Hardware und nicht durch ein Softwareupdate beheben kann.<br/><br/>Um es mal überspitzt zu sagen, du hast nen Programm wo du eine bestimmte Funktion nutzen willst. Diese Funktion kannst du aber immer nur nutzen kurz nachdem du das Programm gestartet hast, sprich jedes Mal wenn du diese Funktion nutzen willst, musst du das Programm beenden und dann wieder neustarten um dann schnell die Funktion zu nutzen.<br/>Das ist für mich ganz klar ein Bug/Softwarefehler und um sowas programmieren oder "nutze" ich nicht herum. Das kann man durch nen Update beheben.<br/>Ich meine stell dir mal vor, nur weil irgendein Programm nen Bug hat, muss der Kernel geändert werden, damit das Programm läuft?!<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Was schätzt Du denn wie viele IDs insgesamt (also alles inklusive Prozess-IDs, Thread-IDs, Port-IDs ....) Du so überhaupt pro Tag Laufzeit mit ordentlicher Last benötigen wirst?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich habe keine Ahnung, aber bei mir ist das durch meinen Algo schon nicht einfach oder praktikabel die IDs nicht schnell oder gleich wiederzuverwenden. ID Recycling ist ohnehin nicht so einfach, wenn man dann auch noch möchte das die IDs erst nach nem Überlauf wiederverwendet werden (das sollte unter POSIX so sein glaub ich).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Das einztigste was mir in einem Micro-Kernel einfällt was auch mal erheblich Zeit kosten kann ist die Speicherverwaltung aber da davon ja wieder fast alles abhängig ist sind wohl auch fast alle Syscalls betroffen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Richtig, deswegen muss das auch am meisten optimiert werden und ich denke mal meine Speicherverwaltung ist noch nicht so die Bombe.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32328">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32329"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32329_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #64 am:</strong> 26. May 2011, 15:03 »</div>
+<div class="posttile"><h5 id="subject_32329">
+<a href="offset-60.html#msg32329" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32329_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32329"><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32328">Zitat von: FlashBurn am 26. May 2011, 12:37</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_alternate_quote">Das einztigste was mir in einem Micro-Kernel einfällt was auch mal erheblich Zeit kosten kann ist die Speicherverwaltung aber da davon ja wieder fast alles abhängig ist sind wohl auch fast alle Syscalls betroffen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Richtig, deswegen muss das auch am meisten optimiert werden und ich denke mal meine Speicherverwaltung ist noch nicht so die Bombe.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist richtig, allerdings bin ich erstmal lieber für eine langsame, aber zuverlässige Speicherverwaltung. Dann kann man anderes, für ein OS wichtigeres Zeug drauf implementieren (z.B. Userspace) und schauen, wie es im realen Leben performt.<br/><br/>Optimieren kann man später immernoch, wenn es zu langsam ist.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32329">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32330"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32330_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #65 am:</strong> 26. May 2011, 15:53 »</div>
+<div class="posttile"><h5 id="subject_32330">
+<a href="offset-60.html#msg32330" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32330_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32330">Das Problem mit der späteren Optimierung ist, dass ich bestimmte Design Entscheidung treffen muss/will und dazu muss ich dann woanders auch wieder Entscheidungen treffen und ganz konkret heißt dass, wenn ich meinen Kernel nicht unterbrechbar machen will, muss der worst-case bestimmten Anforderungen gerecht werden.<br/>Erst später den Kernel nicht unterbrechbar zu machen, wäre dann doch ein wenig viel Arbeit, würde schon in die Richtung rewrite gehen <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Das würde ich gerne vermeiden.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32330">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32333"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32333_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #66 am:</strong> 26. May 2011, 17:24 »</div>
+<div class="posttile"><h5 id="subject_32333">
+<a href="offset-60.html#msg32333" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32333_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32333">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32328">Zitat von: FlashBurn am 26. May 2011, 12:37</a></div></div><blockquote class="bbc_standard_quote">Die Anzahl der Konstruktor Aufrufe ist bei meinem Design wesentlich geringer als bei dir.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Hä, ich hab gar keine Konstruktoren. Ich sehe darin auch keinen echten Sinn da sich der meiste Inhalt für ein neues Objekt IMHO erst dann ergibt wenn es wirklich konkret eingesetzt werden soll. Außerdem ist der Performance-Verlust durch das Schreiben weiterer Daten ziemlich klein wenn das Objekt eh schon im lokalen CPU-Cache ist, da Du ja auf jeden Fall zumindest etwas in das neue Objekt schreiben wirst muss es eh in den CPU-Cache geladen werden und von daher ist das kein großes Problem mehr ob da nun 70% oder 100% der Daten geschrieben werden. Dafür muss mein SLAB-Allocator gar nicht in die Objekte rein greifen.<br/>Das nächste ist das ich einige der Objekt-Größen(Typen) für unterschiedliche Dinge einsetzen möchte so das der SLAB-Allocator gar nicht einen bestimmten Konstruktor aufrufen kann. Warum sollte ich auch für 2 unterschiedliche Objekt-Typen die aber die selbe Größe haben unterschiedliche SLABs einsetzen, macht doch gar keinen Sinn.<br/><br/>Der Fall mit den Thread-Descriptoren ist tatsächlich etwas anders aber da habe ich doch auch beschrieben das ich dafür einen extra Cache-Mechanismus bauen möchte der eben nicht nur den nackten Thread-Descriptor sondern auch noch den Stack und passende IDs vorrätig hält.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32328">Zitat von: FlashBurn am 26. May 2011, 12:37</a></div></div><blockquote class="bbc_standard_quote">Ich meine stell dir mal vor, nur weil irgendein Programm nen Bug hat, muss der Kernel geändert werden, damit das Programm läuft?!</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist schon richtig, was ich meinte ist eher das Dein Kernel eine geringere Angriffsfläche hat wenn die IDs nicht so einfach vorhersehbar sind. Wenn Du für Threads immer wieder die selben IDs benutzt dann könnte es sein das für einen Thread eine Aktion ausgeführt wird die eigentlich für einen anderen Thread gedacht war aber dieser andere Thread sich kurz vorher beendet hat. Wenn man die IDs nicht sofort sondern erst später recycelt dann fallen solche Bugs eher auf und es ist auch schwieriger mit diesem Wissen einen Angriff auf andere Threads zu unternehmen.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32333">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32333_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32364"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32364_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #67 am:</strong> 29. May 2011, 09:57 »</div>
+<div class="posttile"><h5 id="subject_32364">
+<a href="offset-60.html#msg32364" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32364_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32364">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32328">Zitat von: FlashBurn am 26. May 2011, 12:37</a></div></div><blockquote class="bbc_standard_quote">Bei mir wird ein neue Objectcache erstellt und alle Objekte werden gleich konstruiert (wo ich dann wirklich so Sachen wie ID und im Falle von Threads noch den Kernel-Stack machen will).<br/>Bei dir muss jedes Mal wenn ein Objekt rausgegeben wird, erst ne ID geholt und der Stack geholt werden. Wenn du dein Objekt wieder freigibst, gibst du also auch die ID und den Stack wieder frei.<br/>Bei mir werden ID und Stack erst wieder freigegeben, wenn der Objectcache freigegeben wird.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da fällt mir gerade noch ein Problem auf: wenn Du den Stack sofort recycelst dann sind da ja noch die Daten des vorherigen Threads drin und das könnte ein ernstes Sicherheitsrisiko sein. Aus diesem Grund möchte ich den Prozessen nur Speicher geben der vorher zu 100% mit 0x00 überschrieben wurde.<br/>Effizientes Recyceln ist sicher ein wesentlicher Faktor zu hoher Performance aber das darf keine Sicherheitslöcher aufreißen.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32364">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32364_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32368"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32368_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #68 am:</strong> 29. May 2011, 12:36 »</div>
+<div class="posttile"><h5 id="subject_32368">
+<a href="offset-60.html#msg32368" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32368_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32368"><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Da fällt mir gerade noch ein Problem auf: wenn Du den Stack sofort recycelst dann sind da ja noch die Daten des vorherigen Threads drin und das könnte ein ernstes Sicherheitsrisiko sein.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich recycle sofort den KernelStack! Wieso sollte das ein Sicherheitsrisiko sein? Ich gehe doch mal davon aus, das wir unseren Kerneln vertrauen können <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/>Zumal kein Programm Zugrif auf diese Daten hat, sondern nur der Kernel.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32368">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32372"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32372_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #69 am:</strong> 29. May 2011, 21:18 »</div>
+<div class="posttile"><h5 id="subject_32372">
+<a href="offset-60.html#msg32372" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32372_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32372">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32368">Zitat von: FlashBurn am 29. May 2011, 12:36</a></div></div><blockquote class="bbc_standard_quote">Ich recycle sofort den KernelStack!</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Äh, stimmt. Hab ich doch glatt übersehen, sorry. Wie machst Du das eigentlich mit dem User-Mode-Stack? Ich gehe doch mal davon aus das die Mehrheit Deiner Threads dazu dient den User-Mode mit Leben zu füllen.<br/><br/>Ich möchte ja die User-Mode-Stacks cachen aber eben zwischen das Recyceln noch den Memory-Cleaner stellen. Wobei das alles natürlich auch ne ganz schöne Speicherverschwendung wird. Stell sich mal einer vor: 8 CPUs mit je 32 User-Mode-Stacks a 8 kB (oder auch mehr falls mal ein Stack vergrößert werden musste) auf Vorrat und dazu noch das was so im Memory-Cleaner und sonstwo gerade steckt, das macht locker mal 2 bis 3 MB Speicher und das alles nur für die Performance. Ich schätze unter 32 MB wird es mein OS erst gar nicht machen.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32372">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32372_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32373"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32373_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #70 am:</strong> 29. May 2011, 21:24 »</div>
+<div class="posttile"><h5 id="subject_32373">
+<a href="offset-60.html#msg32373" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32373_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32373">Ich handhabe es so, wenn ein Prozess der Meinung ist das er so wichtige Daten hat, das andere Prozesse diese nicht sehen dürfen, dann muss er ein Flag setzen und alle Pages aus diesem Prozess werden genullt, aber für alle anderen Prozesse mache ich mir da keinen Kopf.<br/><br/>Was die UserMode Stacks angeht, wie stellst du dir das bei nem normalen System vor? Problem ist ja, das ich immer nur per Prozess cachen könnte (ist ne Möglichkeit, aber da verschwendest du dann richtig Speicher, weil stell dir vor ein Prozess braucht nur einen Thread und du cachest aber immer 8!).<br/>Eine andere Möglichkeit (habe ich so bei Haiku gesehen) ist, dass man einfach alle Threads die beendet wurden in eine Art Cache an den Prozess heftet und wenn der Prozess mal wieder nen Thread braucht ist schon alles da. Das kostet allerdings auch Speicher, aber wäre wahrscheinlich sogar für Services sehr vorteilhaft.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32373">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32375"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32375_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #71 am:</strong> 29. May 2011, 21:52 »</div>
+<div class="posttile"><h5 id="subject_32375">
+<a href="offset-60.html#msg32375" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32375_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32375">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32373">Zitat von: FlashBurn am 29. May 2011, 21:24</a></div></div><blockquote class="bbc_standard_quote">Ich handhabe es so, wenn ein Prozess der Meinung ist das er so wichtige Daten hat, das andere Prozesse diese nicht sehen dürfen, dann muss er ein Flag setzen ....</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Is ne Variante aber damit rechnet wohl kaum ein Programm. Wimre sichert Windows zu das neuer Speicher immer genullt ist, wie das unter Linux läuft weiß ich jetzt nicht aber ich vermute mal in etwa ähnlich. Das nächste ist das viele Programme ja gar nicht wissen ob sie wichtige Daten bearbeiten oder nicht (das Office-Paket kann ja nicht ahnen ob Du nur nen langweiligen Brief an Deine Oma schreibst (soll keine Abwertung Deiner Oma sein) oder wichtige Firmendaten oder gar Top-Secret-Forschungsergebnisse aufbereitest).<br/>Wenn dann würde ich Sicherheit als Default-Vorgabe benutzen oder willst Du ein weiteres Windows bauen? <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/>Das einzigste wo ich das andersrum machen möchte ist das Swappen, per Default darf alles geswappt werden und nur dann wenn ein Prozess das für ein Segment verbietet wird dieses Segment eben nicht geswappt. So wird das wimre auch unter Windows und Linux gehandhabt (dort kann man gezielt einzelne Pages vom Swapping ausschließen).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32373">Zitat von: FlashBurn am 29. May 2011, 21:24</a></div></div><blockquote class="bbc_standard_quote">Was die UserMode Stacks angeht, wie stellst du dir das bei nem normalen System vor?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Na der lineare Speicher wird einfach nicht freigegeben (bei Dir dann der physische Speicher) und bei Bedarf in den richtigen Prozess als neues Segment eingeblendet indem in dessen LDT ein passender Segment-Descriptor eingetragen wird (bei Dir in dem in das richtige Paging-Directory ein paar passende Einträge kommen). Ich kann da erstmal keine Probleme sehen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32373">Zitat von: FlashBurn am 29. May 2011, 21:24</a></div></div><blockquote class="bbc_standard_quote">Problem ist ja, das ich immer nur per Prozess cachen könnte</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Warum? Wo siehst Du da das Problem?<br/>Davon würde ich eben wegen der Speicherverschwendung abraten. Die Threads möchte ich auch pro CPU cachen um eben eine möglichst hohe Cache-Trefferquote zu bekommen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32373">Zitat von: FlashBurn am 29. May 2011, 21:24</a></div></div><blockquote class="bbc_standard_quote">aber wäre wahrscheinlich sogar für Services sehr vorteilhaft.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>So eine Situation möchte ich bei meinen IPC-PopUp-Threads (für die Handler) benutzen. Wenn ein Handler fertig ist und sein Ergebnis dem Aufrufer mitteilen möchte dann schau ich kurz nach ob noch weitere Anfragen gequeued wurden und erstelle dann sofort einen neuen Thread (der aber nicht gleich los läuft sondern nur in die runnable-Liste kommt) für den ich auch den Stack direkt recyceln möchte, ich denke innerhalb des selben Prozesses ist das auch kein Sicherheitsrisiko.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32375">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32375_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32376"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32376_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #72 am:</strong> 29. May 2011, 22:07 »</div>
+<div class="posttile"><h5 id="subject_32376">
+<a href="offset-60.html#msg32376" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32376_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32376"><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Das nächste ist das viele Programme ja gar nicht wissen ob sie wichtige Daten bearbeiten oder nicht (das Office-Paket kann ja nicht ahnen ob Du nur nen langweiligen Brief an Deine Oma schreibst (soll keine Abwertung Deiner Oma sein) oder wichtige Firmendaten oder gar Top-Secret-Forschungsergebnisse aufbereitest).<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Der Punkt geht an dich <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Also doch alles nullen, aber das würde ich dann den PMM machen lassen.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Warum? Wo siehst Du da das Problem?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Naja, wenn ich nen Stack alloziere, dann brauche ich dafür physischen Speicher (Pages) und auch virtuelle Adressen und bei mir geht es um die virtuellen (oder sind die physischen Pages vom Cache her wichtiger?) und das kann ich ja nur per Prozess cachen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32376">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32377"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32377_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #73 am:</strong> 29. May 2011, 22:29 »</div>
+<div class="posttile"><h5 id="subject_32377">
+<a href="offset-60.html#msg32377" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32377_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32377">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32376">Zitat von: FlashBurn am 29. May 2011, 22:07</a></div></div><blockquote class="bbc_standard_quote">aber das würde ich dann den PMM machen lassen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Zum einen hab ich keinen PMM und zum anderen möchte ich das die Hardware machen lassen (lauter dumme Null-Bytes zu schreiben finde ich zu langweilig für ne wertvolle CPU die mit ihrer Zeit auch was besseres anfangen kann). Wäre ja cool wenn der klassische PC-DMA-Controller das könnte aber ich fürchte mal eher nicht.<br/><br/>Die virtuellen Adressen für den neuen Stack sollten sich doch recht schnell finden lassen, an die Position und Ausrichtung von Stack werden in einem Flat-Memory-OS doch üblicherweise bestimmte Kriterien gestellt. Zur Not könntest Du genau das ja dann in einer Prozess-spezifischen Struktur cachen, ich meine Du betrachtest einfach den physischen Speicher von den virtuellen Adressen getrennt und cachest beides unabhängig von einander.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32377">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32377_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32379"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32379_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #74 am:</strong> 30. May 2011, 10:27 »</div>
+<div class="posttile"><h5 id="subject_32379">
+<a href="offset-60.html#msg32379" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32379_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32379"><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Die virtuellen Adressen für den neuen Stack sollten sich doch recht schnell finden lassen, an die Position und Ausrichtung von Stack werden in einem Flat-Memory-OS doch üblicherweise bestimmte Kriterien gestellt.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Naja, üblicherweise heißt für mich immer klassische Unix-Architektur <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Sprich der Stack wächst vom Ende des Adressraum nach unten und der Heap nach oben (vom Ende des Programms).<br/><br/>Erstens ist das seit sowas wie ALR nicht mehr drin und diese alte Architektur (wie Unix insgesamt da so seine "Probleme" hat) ist nicht gerade für Multithreading geeignet.<br/><br/>Von daher gibt es bei mir in dem Sinne gar keine Anforderungen an den Stack, nur das er wahrscheinlich eine festgelegte Größe haben wird (die man zur Erstellungszeit angeben kann), aber der nicht unbedingt größer werden kann.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Zur Not könntest Du genau das ja dann in einer Prozess-spezifischen Struktur cachen, ich meine Du betrachtest einfach den physischen Speicher von den virtuellen Adressen getrennt und cachest beides unabhängig von einander.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Naja, den physischen Speicher zu cachen halte ich für überflüssig. Denn wenn man nen Stack für die freien Pages nimmt, ist das nicht wirklich ein Performanceproblem (kann zu einem werden, wenn zu viele auf einmal Pages haben wollen).<br/><br/>Noch was anderes zur Sicherheit, wo liegt eigentlich das Problem wenn noch die alten Daten in den Pages stehen? Ich meine woher will das Programm wissen ob das jetzt zufällige Daten sind, die in menschlich lesbarer Form zufällig Sinn ergeben oder ob das genau die Daten sind?<br/>Treiber können ohnehin den ganzen Speicher auslesen, wenn sie denn wollen und von daher können ja nur Programme ein Sicherheitsrisiko sein.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32379">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32380"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32380_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #75 am:</strong> 30. May 2011, 11:18 »</div>
+<div class="posttile"><h5 id="subject_32380">
+<a href="offset-60.html#msg32380" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32380_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32380">Hallo,<br/><br/><br/>Das mit dem nicht mehr ganz so starren Stack ist auch wieder wahr. Dann würde ich eventuell doch den virtuellen Adressraum des Stacks (den wirst Du doch sicher immer gleich komplett allozieren und dann später nach Bedarf mit echten Pages hinterlegen) prozess-spezifisch cachen. Wenn Du in Deinen Prozessen einfach ein paar MB virtuellen Speicher für die potentielle Benutzung als Stack zur Seite legst sollte das mMn kein Problem darstellen, echten Speicher kostet das zumindest nicht (im Gegensatz zu all den anderen Beschleunigungsmaßnahmen).<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32379">Zitat von: FlashBurn am 30. May 2011, 10:27</a></div></div><blockquote class="bbc_standard_quote">Naja, den physischen Speicher zu cachen halte ich für überflüssig. Denn wenn man nen Stack für die freien Pages nimmt, ist das nicht wirklich ein Performanceproblem (kann zu einem werden, wenn zu viele auf einmal Pages haben wollen).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Okay, vom dem Problem der Gleichzeitigkeit mal abgesehen hast Du es da natürlich einfacher als ich. Ich muss User-Segmente (und eben auch Stack) immer vom Kernel-VMM (der bei mir den einen globalen linearen Adressraum managed) holen und das ist nicht ganz so schnell wie einfach eine beliebige Page vom Stapel zu nehmen (wobei Du das IMHO auch CPU-lokal cachen solltest). Deswegen ist bei mir das Cachen von Threads gerade auch das Cachen des zugehörigen User-Mode-Stacks.<br/>Da fällt mir ein: was ist mit dem TLS-Speicher? Möchtest Du denn auch in irgendeiner Form cachen? (Falls der Prozess überhaupt TLS benutzt aber da das jetzt auch Bestandteil der offiziellen C/C++-Spezifikation ist/wird dürfte man das in Zukunft häufiger antreffen)<br/><br/>Das Ausnullen des physischen Speichers bevor er verwendet wird ist eher eine Art vorbeugende Vorsichtsmaßnahme. Klar könnte man sich jetzt die Frage stellen ob das in einem Hobby-OS überhaupt lohnt oder nicht eher nur eine unnütze Zusatzkomplexität darstellt (ich denke die überwiegende Mehrheit der OS-Dever hat sich für letzteres entschieden und einfach drauf verzichtet). Das Problem ist das Computer für gewöhnlich streng deterministische Systeme sind und sich daher aus solchen Lücken oft doch gut funktionierende Angriffe bauen lassen. Ich bin zwar der Meinung das sich das Ausnullen des Speichers beim Recyceln in den selben Prozess nicht lohnt aber theoretisch könnte ja in einem Service-Handler ein Bug sein der für den Aufrufer den Stack ausließt und so vielleicht die Daten eines anderen Service-Nutzers sichtbar macht (auch wenn die Daten so nicht manipulierbar sind aber selbst die Sichtbarkeit kann schon eine ernst Lücke sein). An dieser Stelle bin ich aber eben der Meinung das ich besser den Bug im Service fixen sollte anstatt da mit Hilfe des OS-Kernels etwas zu kaschieren.<br/><br/>In einem Micro-Kernel-OS sollten eigentlich auch Treiber nicht in der Lage sein beliebigen Speicher zu Lesen/Schreiben und mit einer anständigen IO-MMU (die nur vom Kernel selber bedient wird) sollte das noch nicht mal mit Hilfe von Hardware möglich sein.<br/><br/>Das Ausnullen ansich wollte ich mit einem kleinen Hintergrund-Mechanismus erledigen der für die HW eine einfach verkettete Liste aufbaut welche dann von der HW (im Chipsatz) abgearbeitet wird. Dieses Ausnullen wird dabei auch den Speicher aus allen CPU-Caches werfen so das es auch keine Rolle spielt in welchen CPU-lokalen Thread-Cache der dann kommt (nebst dessen das bei Stack auch eh aggressiver gecachet werden kann, also Dinge wie Write-Allocation usw. da immer voll genutzt werden). Auf dem PC kenne ich leider keine Standard-Komponente die das machen könnte so dass das eben in SW erledigt werden muss und damit auch etwas Performance kostet. Und wenn dann muss das in einem Flat-Memory-OS natürlich auch in den PMM.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32380">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32380_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32385"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32385_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #76 am:</strong> 30. May 2011, 22:16 »</div>
+<div class="posttile"><h5 id="subject_32385">
+<a href="offset-60.html#msg32385" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32385_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32385">Das mit dem Stack und seiner Größe ist so ein Sache. Obwohl ich da der Meinung bin, das man als OS Dever ein paar Grenzwerte festlegen sollte (so dass wahrscheinlich die meisten Programme ohne Probleme laufen) und alles andere muss der Programmierer des Programms selber wissen und festlegen (er weiß am ehesten wieviel Threads laufen werden und wieviel Speicher ansonsten vom Heap benötigt wird).<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">Da fällt mir ein: was ist mit dem TLS-Speicher?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Mit TLS habe ich mich länger nicht befasst. Mein Problem damit ist, das ich eigentlich immer dachte, das jeder Thread ne Art private Tabelle hat, wo er Adressen reinschreiben kann und da der Index für jeden Thread gleich ist, greift jeder Thread auf seine eigene Datenstruktur zu.<br/>Allerdings kommt es mir so vor (und ich möchte meinen was darüber gelesen zu haben), dass es jetzt mehr so zu sein scheint, dass jeder Thread nen anderes PD hat, aber die gleichen Pages benutzt, bis auf den TLS Bereich, der ist für jeden Thread unterschiedlich. Das empfinde ich einfach nur als falsch. Gut man könnte jetzt argumentieren das es eh unwahrscheinlich ist, dass 2 Threads des selben Prozessen nacheinander laufen werden, so dass der TLB nicht gelöscht wird. Allerdings kann man dann auch gleich einfach mehrere Prozesse laufen lassen und über shared Memory miteinander arbeiten.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_standard_quote">In einem Micro-Kernel-OS sollten eigentlich auch Treiber nicht in der Lage sein beliebigen Speicher zu Lesen/Schreiben<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Was (wie du schon richtig sagst) aber nur klappt wenn eine IO-MMU vorhanden ist und das trifft nur auf neuere PCs zu und dort auch nicht auf alle (das war doch sowas was nicht alle Intel CPUs haben?).<br/>Ansonsten ist auch ein Treiber von nem MikroKernel sehr wohl in der Lage den gesamten Speicher auszulesen. Ich meine was hält ihn davon ab, einfach alle physikalischen Pages durchzugehen und zu senden?<br/><br/>Was mir noch zum ausnullen einfällt, ist das nicht der Cache-Trasher schlecht hin?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32385">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32387"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Svenska</a>
+</h4>
+<ul class="reset smalltext" id="msg_32387_extra_info">
+<li class="postcount">Beiträge: 1 792</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #77 am:</strong> 31. May 2011, 01:22 »</div>
+<div class="posttile"><h5 id="subject_32387">
+<a href="offset-60.html#msg32387" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32387_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32387">Hallo,<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32385">Zitat von: FlashBurn am 30. May 2011, 22:16</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: erik</div></div><blockquote class="bbc_alternate_quote">In einem Micro-Kernel-OS sollten eigentlich auch Treiber nicht in der Lage sein beliebigen Speicher zu Lesen/Schreiben</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Was (wie du schon richtig sagst) aber nur klappt wenn eine IO-MMU vorhanden ist und das trifft nur auf neuere PCs zu und dort auch nicht auf alle (das war doch sowas was nicht alle Intel CPUs haben?).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das stimmt so einfach nicht. Eine IOMMU verhindert, dass ein Treiber den gesamten Speicher ausliest, indem er die Hardware anweist, per DMA von allen Adressen zu lesen und die gleichen Daten wieder per DMA oder PIO zurückzuschreiben. Performance ist was anderes, außerdem kann das nicht jede Hardware.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32385">Zitat von: FlashBurn am 30. May 2011, 22:16</a></div></div><blockquote class="bbc_standard_quote">Ansonsten ist auch ein Treiber von nem MikroKernel sehr wohl in der Lage den gesamten Speicher auszulesen. Ich meine was hält ihn davon ab, einfach alle physikalischen Pages durchzugehen und zu senden?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ein General Protection Fault? Wenn der Treiber auf Speicher oder Adressen zugreift, der ihm nicht gehört, dann gibt das nunmal eine Exception: In einem Mikrokernel sind Treiber auch "nur" (Ring3-)Tasks.<br/><br/>Gruß,<br/>Svenska</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32387">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32388"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_32388_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #78 am:</strong> 31. May 2011, 10:22 »</div>
+<div class="posttile"><h5 id="subject_32388">
+<a href="offset-60.html#msg32388" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32388_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32388"><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_standard_quote">Das stimmt so einfach nicht. Eine IOMMU verhindert, dass ein Treiber den gesamten Speicher ausliest, indem er die Hardware anweist, per DMA von allen Adressen zu lesen und die gleichen Daten wieder per DMA oder PIO zurückzuschreiben.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ist doch genau das was ich gesagt habe <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: Svenska</div></div><blockquote class="bbc_standard_quote">Ein General Protection Fault? Wenn der Treiber auf Speicher oder Adressen zugreift, der ihm nicht gehört, dann gibt das nunmal eine Exception: In einem Mikrokernel sind Treiber auch "nur" (Ring3-)Tasks.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Davon abgesehen das wir das Thema schonmal diskutiert hatten, versteht ihr beide mich nicht <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/> Der Treiber kann den gesamten Speicher auslesen, weil er halt Zugriff auf die Hardware hat und diese anweisen kann per DMA den gesamten Speicher auslesen. Das war das was ich meinte!</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32388">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg32389"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_32389_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #79 am:</strong> 31. May 2011, 10:31 »</div>
+<div class="posttile"><h5 id="subject_32389">
+<a href="offset-60.html#msg32389" rel="nofollow">Re:SLAB-Allocator als Basis fuer kmalloc?</a>
+</h5></div>
+<div id="msg_32389_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_32389">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32385">Zitat von: FlashBurn am 30. May 2011, 22:16</a></div></div><blockquote class="bbc_standard_quote">Das mit dem Stack und seiner Größe ist so ein Sache.....</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja, das stimmt. Das Problem bei Flat-Memory-System ist eben das all das aus einem einzigen Adressraum kommen muss und daher alles voneinander abhängig ist. Der typische Programmierer wird sich aber nur wenig Gedanken über die Bedürfnisse des von ihm getippten Codes machen so dass das OS mit nur sehr wenigen Informationen eine möglichst gute Automatik füttern muss. Ich persönlich bin auch ehrlich der Meinung das es nicht unbedingt Aufgabe des Programmierers ist sich darum zu kümmern <em>wie</em> das System dafür sorgt das sein Programm erwartungsgemäß läuft. Gerade dieser Denkansatz ist einer der wesentlichen Gründe dafür das ich mich für Segmentierung entschieden hab. Aber auch ich muss mit Grenzen kämpfen, z.B. mit der festen Größe der LDT welche die maximale Anzahl an Segmenten und damit auch an Stacks für Threads pro Prozess begrenzt. Mehr als knapp 15000 Threads kann ich pro Prozess nicht zulassen (es sind doppelt so viele wenn der Prozess kein TLS benutzt).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32385">Zitat von: FlashBurn am 30. May 2011, 22:16</a></div></div><blockquote class="bbc_standard_quote">Mit TLS habe ich mich länger nicht befasst....</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Die Idee mit einem extra Paging-Directory pro Thread wird extrem viel Speicher kosten (vor allem unnützen da ja eigentlich fast alles Redundant ist) und auch Performance wenn bei jeder Änderung im virtuellen Adressraum des Prozess X Paging-Directorys angefasst werden müssen (von den vielen TLB-Flushs mal ganz abgesehen). Auf x86 wird man für TLS eher ein Register opfern und zwar ein Segment-Register (meist wohl FS oder GS, die selbst im Long-Mode noch gerade so genug vorhanden sind damit man damit TLS realisieren kann). Auf den meisten anderen Plattformen wird man wohl ebenfalls eines der normalen Register opfern. Man könnte aber auch eine Funktion oder einen Syscall benutzen der die TLS-Adresse des aktuellen Threads aus einer Tabelle holt aber auch das ist nicht allzu performant. Für meine Plattform habe ich mich daher ebenfalls für das Opfern eines Segment-Registers entschieden aber da ich davon 16 Stück habe ist das nur ein sehr kleines Opfer.<br/><br/><br/>Die IOMMU ist nicht Teil der CPU sondern des Chipsatzes bzw. des PCI-(Express-)Root-Controllers (okay das wird bei neueren Intel-CPUs doch wieder auf dem selben Silizium wie die CPU sein), aber es stimmt natürlich das sowas tolles nicht immer vorhanden ist.<br/><br/>Mit dem Auslesen des gesamten Speichers bei Treibern meinte ich eigentlich das direkte Auslesen durch Software, was ja eben eine Exception auslösen sollte, und nicht das Missbrauchen der Hardware (dagegen hilft eben nur eine IOMMU).<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32385">Zitat von: FlashBurn am 30. May 2011, 22:16</a></div></div><blockquote class="bbc_standard_quote">Was mir noch zum ausnullen einfällt, ist das nicht der Cache-Trasher schlecht hin?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Nein eigentlich nicht. Wenn Du das in SW machst dann ist diese Page komplett im Cache der aktuellen CPU und genau deswegen würde ich freie physische Pages auch CPU-lokal cachen. Auf meiner Plattform ist das Ausnullen aber tatsächlich ein echter Cache-Trasher und zwar für alle CPUs, die entsprechenden Cache-Lines werden in allen CPUs invalidiert ohne das sie zurückgeschrieben werden und der entsprechende Heimat-Speicher-Controller kennzeichnet diese Cache-Lines wieder als "nicht entliehen" und als "leer" (so das beim nächsten Zugriff erst gar nicht auf die Speicherchips zugegriffen wird sondern einfach nur eine Antwort die nur aus 0x00-Bytes besteht an die anfragende CPU geschickt wird, erst mit einem Schreibzugriff wird diese Cache-Line im Speicher-Controller wieder als "befüllt" gekennzeichnet). Aber gerade bei Stack macht das mit dem Cache-Trashing auch nichts (auf keiner CPU) da ja beim Stack üblicherweise nur die Daten gelesen werden die auch selber vor kurzem dort hin geschrieben wurden. Es erfolgt auf eine bestimmte Speicherstelle also zumeist erst ein Schreibzugriff und danach dann Lesezugriffe und die Schreibzugriffe können mit Write-Allocation ganz gut abgefangen werden ohne das der CPU-Kern für die Dauer der Speicher-Latenz blockiert werden muss.<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-60.html#msg32387">Zitat von: Svenska am 31. May 2011, 01:22</a></div></div><blockquote class="bbc_standard_quote">Performance ist was anderes</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Auch in einer IOMMU kann man einen TLB implementieren. Klar kostet eine IOMMU immer ein paar Nanosekunden zusätzliche Latenz (der Durchsatz sollte davon nicht betroffen sein) bei Hardware-Zugriffen auf den normalen RAM, aber so viel ist das nun auch wieder nicht und man bekommt dafür eben einiges an Sicherheit.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_32389">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_32389_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: <a class="navPages" href="index.html">1</a> <a class="navPages" href="offset-20.html">2</a> <a class="navPages" href="offset-40.html">3</a> [<strong>4</strong>] <a class="navPages" href="offset-80.html">5</a> <a class="navPages" href="offset-100.html">6</a> <a class="navPages" href="offset-120.html">7</a>
+</div></div>
+<div class="nextlinks_bottom"><a href="../2770/index.html#msg32500">« vorheriges</a> <a href="../2185/offset-60.html#msg32143">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>SLAB-Allocator als Basis fuer kmalloc?</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.03 Sekunden mit 269 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

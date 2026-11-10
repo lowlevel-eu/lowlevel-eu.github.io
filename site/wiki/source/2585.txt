@@ -1,0 +1,86 @@
+Peripheral Component Interconnect (kurz PCI) ist ein Bus zur leichten Verbindung von Peripheriegeräten mit mit der CPU.
+
+== Konfigurations-Register ==
+Jedes PCI-Gerät besitzt ein Konfigurations-Register, welches 256 Byte groß ist. Gelesen und beschrieben wird es 32bit-weise mithilfe eines Adress-I/O-Ports (0xCF8) und eines Daten-I/O-Ports (0xCFC).
+
+=== Aufbau des Adress-I/O-Ports ===
+{| border="1"
+! 31         || 30-24      || 23-16     || 15-11        || 10-8            || 7-0
+|-
+| Enable Bit || Reserviert || Busnummer || Gerätenummer || Funktionsnummer || Registernummer
+|}
+<br />
+
+=== Aufbau des Konfigurations-Register ===
+{| border="1"
+! Register || 31-24       || 23-16         || 15-8          || 7-0
+|-
+| 00       || colspan="2" | Device ID      || colspan="2" | Vendor ID
+|-
+| 04       || colspan="2" | Status         || colspan="2" | Command
+|-
+| 08       || Classcode   || Subclass      || colspan="2" | Revision ID
+|-
+| 0x0C     || BIST        || Header Type   || Latency Timer || Cache Line Size
+|-
+| 0x10     || colspan="4" | Base Address 0 (BAR0)
+|-
+| 0x14     || colspan="4" | Base Address 1 (BAR1)
+|-
+| 0x18     || colspan="4" | Base Address 2 (BAR2)
+|-
+| 0x1C     || colspan="4" | Base Address 3 (BAR3)
+|-
+| 0x20     || colspan="4" | Base Address 4 (BAR4)
+|-
+| 0x24     || colspan="4" | Base Address 5 (BAR5)
+|-
+| 0x28     || colspan="4" | Cardbus CIS Pointer
+|-
+| 0x2C     || colspan="2" | Subsystem ID || colspan="2" | Subsystem Vendor ID
+|-
+| 0x30     || colspan="4" | Expansion ROM base address
+|-
+| 0x34     || colspan="4" | Reserviert
+|-
+| 0x38     || colspan="4" | Reserviert
+|-
+| 0x3C     || Max Latency || Min Grant || Interrupt Pin     || Interrupt Line
+|}
+<br />
+
+=== Codebeispiel ===
+<c>
+#define PCI_CONFIG_DATA    0xCFC
+#define PCI_CONFIG_ADDRESS 0xCF8
+
+/**
+ * Liest ein Dword aus einem PCI-Konfigurations-Register
+ *  @param bus Bus
+ *  @param dev Gerät
+ *  @param func Funktion
+ *  @param offset Registernummer
+ *  @return Register content
+ */
+int pci_config_readd(int bus,int dev,int func,int offset) {
+  int val;
+  int address = 0x80000000|(bus<<16)|(dev<<11)|(func<<8)|(offset&0xFC);
+  outl(PCI_CONFIG_ADDRESS,address);
+  val = inl(PCI_CONFIG_DATA);
+  return val;
+}
+
+/**
+ * Schreibt ein Dword in in ein PCI-Konfigurations-Register
+ *  @param bus Bus
+ *  @param dev Gerät
+ *  @param func Funktion
+ *  @param offset Registernummer
+ *  @param val Wert zum Schreiben
+ */
+void pci_config_writed(int bus,int dev,int func,int offset,int val) {
+  int address = 0x80000000|(bus<<16)|(dev<<11)|(func<<8)|(offset&0xFC);
+  outl(PCI_CONFIG_ADDRESS,address);
+  outl(PCI_CONFIG_DATA,val);
+}
+</c>

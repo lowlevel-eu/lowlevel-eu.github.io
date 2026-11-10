@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>VirtualBox – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-VirtualBox rootpage-VirtualBox skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1553/index.html">Aktueller Artikel</a> · <a href="../../history/1553/index.html">Versionsgeschichte</a> · <a href="../../source/10140.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">VirtualBox</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 19. September 2011, 19:48 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Mr. X</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Informationen zum VBox-Debugger hinzugefügt, Ergänzugen und Aktualisierung des Ausgangsartikels)</span></div><div id="mw-revision-nav">(<a href="../../diffs/9874-10140.html" title="VirtualBox">Unterschied</a>) <a href="../9874/index.html" title="VirtualBox">← Nächstältere Version</a> | <a href="../../pages/1553/index.html" title="VirtualBox">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../10145/index.html" title="VirtualBox">Nächstjüngere Version →</a> (<a href="../../diffs/10140-10145.html" title="VirtualBox">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="float:right; width:330px; padding-left:20px; padding-bottom: 20px; background-color:white">
+<div style="font-weight:normal; text-align:left; border:1px solid lightgray;">
+<table width="100%">
+<tbody><tr align="center" style="background:lightgray">
+<th colspan="2">Allgemeines
+</th></tr>
+<tr>
+<td>Name:</td>
+<td>VirtualBox
+</td></tr>
+<tr>
+<td>Entwickler:</td>
+<td>Oracle (ehemals Innotek &amp; Sun)
+</td></tr>
+<tr>
+<td>Akt. Version:</td>
+<td>4.1.2 <br/><small>(Stand 19.09.2011)</small>
+</td></tr>
+<tr>
+<td>Lizenz:</td>
+<td>GPL 2, Proprietär (Extension Packs)
+</td></tr>
+<tr>
+<td>Betriebssystem(e):</td>
+<td>Linux, Windows, OS X, Solaris
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Virtualisiertes System
+</th></tr>
+<tr>
+<td>Plattform:</td>
+<td>x86, x86-64
+</td></tr>
+<tr>
+<td>SMP:</td>
+<td>bis zu 255 Prozessoren
+</td></tr>
+<tr>
+<td>Mechanismus:</td>
+<td>dynamische Übersetzung, Hardwareunterstützung
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Homepage
+</th></tr>
+<tr>
+<td colspan="2"><center><a class="external text" href="http://www.virtualbox.org/" rel="nofollow">http://www.virtualbox.org/</a></center>
+</td></tr></tbody></table>
+</div>
+</div>
+<p><b>VirtualBox</b> ist ein x86-Emulator für x86-Systeme. Ursprünglich entwickelt von innotek, kaufte Sun das Programm auf, stellte zugleich aber eine der beiden Versionen als OpenSource-Software frei zur Verfügung. Nach der Übernahme durch Oracle wurden beide Versionen zu einer Open-Source-Version zusammengeführt und proprietäre Erweiterungen als "Extension Packs" angeboten. Das Besondere an VirtualBox ist sicherlich die ausgereifte grafische Benutzerschnittstelle, die die Bedienung weitaus einfacher macht.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Besondere_Features"><span class="tocnumber">1</span> <span class="toctext">Besondere Features</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Emulierte_Hardware"><span class="tocnumber">2</span> <span class="toctext">Emulierte Hardware</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Debugger"><span class="tocnumber">3</span> <span class="toctext">Debugger</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Den_Debugger_aktivieren_und_starten"><span class="tocnumber">3.1</span> <span class="toctext">Den Debugger aktivieren und starten</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Benutzung"><span class="tocnumber">3.2</span> <span class="toctext">Benutzung</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Informationen_beschaffen"><span class="tocnumber">3.2.1</span> <span class="toctext">Informationen beschaffen</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Links"><span class="tocnumber">4</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Besondere_Features">Besondere Features</span></h2>
+<ul><li>iSCSI für Blockgeräte</li>
+<li>Fernsteuerung der VM via RDP, inklusive Support für USB über RDP</li>
+<li>Gastunterstützung, um unter offiziell unterstützen Betriebssystemen Geschwindigkeitsvorteile und weitere Features anbieten zu können.</li>
+<li>OpenGL-Unterstützung (derzeit nur für die 32-Bit-Versionen von Windows XP und Windows Vista sowie Linux und Solaris)</li>
+<li>Experimenteller Support für <a class="mw-redirect" data-archive-original-href="../../pages/2615/index.html" href="../../pages/2612/index.html" title="Extensible Firmware Interface"> EFI (Extensible Firmware Interface)</a></li>
+<li>Debugger</li></ul>
+<p>Befehlssatzerweiterungen für Gäste:
+</p>
+<ul><li>PAE/NX (falls vom Host unterstützt)</li></ul>
+<h2><span class="mw-headline" id="Emulierte_Hardware">Emulierte Hardware</span></h2>
+<ul><li>ACPI, inklusive ACPI Power Status (mit Anbindung an Host)</li>
+<li>I/O APIC</li>
+<li>VGA- und VBE-kompatible Grafikkarte</li>
+<li><a href="../../pages/1443/index.html" title="Floppy Disk Controller"> Floppy</a></li>
+<li>IDE Controller:
+<ul><li>PIIX3</li>
+<li>PIIX4</li></ul></li>
+<li>SATA AHCI Controller Intel ICH8M/ICH8M-E</li>
+<li><a href="../../pages/1862/index.html" title="AC97"> AC'97</a> Audio (Intel)</li>
+<li><a href="../../pages/1826/index.html" title="Kategorie:Netzwerkkarte"> Netzwerkkarten</a>:
+<ul><li>PCnet FAST III</li>
+<li>PCnet-PCI II</li>
+<li>Intel PRO/1000 MT Desktop</li>
+<li>Intel PRO/1000 T Server</li></ul></li>
+<li><a href="../../pages/1690/index.html" title="Universal Serial Bus"> USB</a>-Controller:
+<ul><li><a href="../../pages/1577/index.html" title="Enhanced Host Controller Interface"> EHCI</a> (USB 2.0)</li>
+<li><a href="../../pages/1575/index.html" title="Open Host Controller Interface"> OHCI</a></li></ul></li>
+<li>Serielle Schnittstellen (max. 2)</li></ul>
+<h2><span class="mw-headline" id="Debugger">Debugger</span></h2>
+<p>Seit einiger Zeit bietet VirtualBox einen integrierten Debugger, der Informationen zum Zustand der VM, der emulierten CPU, der emulierten Geräte ausgeben kann und zudem Breakpoints und die schrittweise Ausführung des Codes ermöglicht. Im Folgenden soll kurz dargestellt werden, wie diese (versteckte) Funktion aktiviert wird, was sie bringt und wie man sie nutzt.
+</p>
+<h3><span class="mw-headline" id="Den_Debugger_aktivieren_und_starten">Den Debugger aktivieren und starten</span></h3>
+<p>Oracle hat den Debugger - mit der Begründung, er sei nur was für "advanced users" - gut versteckt, denn standardmäßig ist er nicht aktiviert und seine Existenz über die GUI auch nicht zu erkennen.
+Es gibt 3 Wege, diesen zu aktivieren:
+</p>
+<ul><li>In der Konfigurationsdatei von VirtualBox (Unter Windows zu finden unter C:/Benutzer/&lt;Benutzer&gt;/.VirtualBox/VirtualBox.xml (Windows 7) bzw. C:/Dokumente und Einstellungen/&lt;Benutzer&gt;/.VirtualBox (Windows XP)) zum Knoten "VirtualBox/Global/ExtraData" dies hinzufügen: <pre>&lt;ExtraDataItem name="GUI/Dbg/Enabled" value="true"/&gt;</pre>VBox muss neu gestartet werden, damit die Änderung übernommen wird.</li>
+<li>Die Umgebungsvariable VBOX_GUI_DBG_ENABLED oder VBOX_GUI_DBG_AUTO_SHOW auf true setzen, bevor VBox gestartet wird</li>
+<li>VirtualBox mit den Kommandozeilenparametern --dbg, --debug, oder --debug-command-line starten</li></ul>
+<p>Anschließend kann der Debugger aus der laufenden VM gestartet werden. In der laufenden Maschine sollte der Menüpunkt "Debug" hinzugekommen sein. Wählen dessen Unterpunkt "Kommandozeile". Sie erhalten dann eine Konsole, über die die weitere Steuerung erfolgt.
+</p>
+<h3><span class="mw-headline" id="Benutzung">Benutzung</span></h3>
+<h4><span class="mw-headline" id="Informationen_beschaffen">Informationen beschaffen</span></h4>
+<p>Die wichtigsten Befehle, um Infos über das System zu erhalten:
+</p>
+<table cellpadding="8" class="prettytable">
+<tbody><tr>
+<th>Befehl</th>
+<th>Wirkung
+</th></tr>
+<tr>
+<td>r</td>
+<td>Gibt den Inhalt der Register der CPU aus
+</td></tr>
+<tr>
+<td>u</td>
+<td>Disassembliert den Code, der als nächstes ausgeführt wird
+</td></tr>
+<tr>
+<td>k</td>
+<td>Gibt einen Stacktrace aus
+</td></tr>
+<tr>
+<td>dg</td>
+<td>GDT
+</td></tr>
+<tr>
+<td>di</td>
+<td>IDT
+</td></tr>
+<tr>
+<td>dl</td>
+<td>LDT
+</td></tr>
+<tr>
+<td>dt</td>
+<td>TSS
+</td></tr>
+<tr>
+<td>da/db/dw/dd/dq</td>
+<td>Gibt den Speicher an der angegebenen Addresse aus, als ASCII-Text, in Bytes/Words/Doublewords/Quadwords
+</td></tr>
+<tr>
+<td>info &lt;arg&gt;</td>
+<td>Gibt Infos zum angegebenen Gerät aus. Übersicht über diese Geräte: info help. Beispiele: pcnet0, pit, pic, ohci, ehci, vbe, ioport, ...
+</td></tr>
+</tbody></table>
+<p><br/>
+</p>
+<div id="Template_Stub">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #D0D8FF; margin: 0 0em; border: 1px solid #b8c0e8" width="100%">
+<tbody><tr>
+<td>Folgende Informationen fehlen dem Artikel an dieser Stelle:
+<ul><li>Ergänzungen zum Debugger, d.h. zum Setzen von Breakpoints und zur schrittweisen Code-Ausführung</li></ul>
+<p>Hilf Lowlevel, den Artikel zu verbessern.
+</p>
+</td></tr></tbody></table>
+</div>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li><a class="external text" href="http://www.virtualbox.org/" rel="nofollow">VirtualBox Homepage</a></li>
+<li><a class="external text" href="http://www.virtualbox.org/wiki/Changelog" rel="nofollow">Changelog</a></li>
+<li><a class="external text" href="http://www.virtualbox.org/manual/ch12.html#idp6083456" rel="nofollow">VirtualBox-Dokumentation über den Debugger</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170718
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.007 seconds
+Preprocessor visited node count: 74/1000000
+Preprocessor generated node count: 224/1000000
+Post‐expand include size: 958/2097152 bytes
+Template argument size: 285/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 69/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.563      1 -total
+ 55.35%    0.865      1 Vorlage:Infobox_Virtualisierungssoftware
+ 36.39%    0.569      1 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=VirtualBox&amp;oldid=10140</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1408/index.html" title="Kategorie:Emulator">Emulator</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1553/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1553/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

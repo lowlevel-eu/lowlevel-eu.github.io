@@ -1,0 +1,64 @@
+Die Streaming SIMD Extensions (oder kurz SSE genannt), ist ein eine Befehlserweiterung für die x86-Architektur, die Intel mit dem Pentium III eingeführt hat. SSE stellt neue 128-Bit-Register zur Verfügung, welche oft zum verrechnen von vierdimensionalen Vektoren genutzt werden, wohingegen MMX die vorhandenen FPU-Register nutzt. Wie auch MMX folgt SSE dem SIMD-Prinzip: Single Instruction, Multiple Data.
+
+== Unterstützung feststellen ==
+
+== Register ==
+
+=== 32-Bit ===
+Im 32-Bit-Modus stehen 8 Register (xmm0 bis xmm7) zur Verfügung. 
+
+
+=== 64-Bit ===
+Im 64-Bit-Modus gibt es 8 zusätzliche Register (xmm8 bis xmm15).
+
+{| {{Prettytable}}
+! colspan="16" align="center" | Bytes
+|-
+! width="30pt" | 15
+! width="30pt" | 14
+! width="30pt" | 13
+! width="30pt" | 12
+! width="30pt" | 11
+! width="30pt" | 10
+! width="30pt" | 9
+! width="30pt" | 8
+! width="30pt" | 7
+! width="30pt" | 6
+! width="30pt" | 5
+! width="30pt" | 4
+! width="30pt" | 3
+! width="30pt" | 2
+! width="30pt" | 1
+! width="30pt" | 0
+|-
+| colspan="16" align="center" | XMM?
+|-
+| colspan="16" style="background:lightgrey" align="center" | ? = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+|}
+
+== Befehle ==
+=== Arithmetische Befehle ===
+Hinweis: Das zuerst angegebene Register enthält das Ergebnis.
+
+{| {{Prettytable}}
+! Befehl || Funktion || Beispiel
+|-
+| ADDPS || Addiert die Komponenten von zwei Registern || <asm>ADDPS xmm0, xmm1</asm>
+|-
+| SUBPS || Subtrahiert die Komponenten von zwei Registern || <asm>SUBPS xmm0, xmm1</asm>
+|-
+| MULPS || Multipliziert die Komponenten von zwei Registern || <asm>MULPS xmm0, xmm1</asm>
+|-
+| DIVPS || Dividiert die Komponenten von zwei Registern || <asm>DIVPS xmm0, xmm1</asm>
+|-
+|-
+| ADDSS || Addiert Skalar zu Komponenten eines Registers || 
+|-
+| SUBSS || Subtrahiert Skalar von den Komponenten eines Registers || 
+|-
+| MULSS || Multipliziert die Komponenten eines Registers mit Skalar || 
+|-
+| DIVSS || Dividiert die Komponenten eines Registers durch Skalar || 
+|-
+
+|}

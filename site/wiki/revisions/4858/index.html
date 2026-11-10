@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>C – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-C rootpage-C skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1526/index.html">Aktueller Artikel</a> · <a href="../../history/1526/index.html">Versionsgeschichte</a> · <a href="../../source/4858.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">C</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 30. Juli 2009, 14:28 Uhr von <a class="mw-userlink" href="../../pages/1871/index.html" title="Benutzer:DickHuuhn"><bdi>DickHuuhn</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(icc kann man doch auch mal erwähnen, oder?)</span></div><div id="mw-revision-nav">(<a href="../../diffs/4798-4858.html" title="C">Unterschied</a>) <a href="../4798/index.html" title="C">← Nächstältere Version</a> | <a href="../../pages/1526/index.html" title="C">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../5139/index.html" title="C">Nächstjüngere Version →</a> (<a href="../../diffs/4858-5139.html" title="C">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="float:right; width:300px; padding-left:20px; padding-bottom: 20px; background-color:white">
+<div style="font-weight:normal; text-align:left; border:1px solid lightgray;">
+<table width="100%">
+<tbody><tr align="center" style="background:lightgray">
+<th colspan="2">Allgemeines
+</th></tr>
+<tr>
+<td>Name:</td>
+<td>C
+</td></tr>
+<tr>
+<td>Inlineassembler:</td>
+<td>Ja
+</td></tr>
+<tr>
+<td>Compiler:</td>
+<td><a class="mw-redirect" data-archive-original-href="../../pages/1807/index.html" href="../../pages/1805/index.html" title="Gcc">gcc</a>, <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">icc</a>, ...
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Spracheneigenschaften
+</th></tr>
+<tr>
+<td>Plattformen:</td>
+<td>Alle
+</td></tr>
+<tr>
+<td>Beispielkernel in der Sprache:</td>
+<td><a href="../../pages/1604/index.html" title="C-Kernel mit GRUB">C-Kernel mit GRUB</a>
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Homepage
+</th></tr>
+<tr>
+<td colspan="2"><center></center>
+</td></tr></tbody></table>
+</div>
+</div>
+<p><br/>
+C ist eine bekannte, ältere Programmiersprache. Sie verfolgt das Ziel, bei vergleichbarer Ausführungsgeschwindigkeit plattformunabhängiger und abstrakter als <a href="../../pages/1514/index.html" title="Assembler">Assembler</a> zu sein. Direkte Weiterentwicklung von C ist <a href="../../pages/1486/index.html" title="C++">C++</a>.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Kernelprogrammierung_mit_C"><span class="tocnumber">1</span> <span class="toctext">Kernelprogrammierung mit C</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Eigenschaften_von_C"><span class="tocnumber">2</span> <span class="toctext">Eigenschaften von C</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Assemblercode_in_C"><span class="tocnumber">2.1</span> <span class="toctext">Assemblercode in C</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Zeiger_in_C"><span class="tocnumber">2.2</span> <span class="toctext">Zeiger in C</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Bekannte_C-Compiler"><span class="tocnumber">3</span> <span class="toctext">Bekannte C-Compiler</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Weblinks"><span class="tocnumber">4</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Kernelprogrammierung_mit_C">Kernelprogrammierung mit C</span></h2>
+<p>Da man mit C sehr hardwarenah programmieren kann, eignet sich die Sprache zur Programmierung eines Kernels. Es ist sogar die überwiegende Anzahl der Betriebssystemkernel in C geschrieben. Für andere Bereiche ist C jedoch nicht sonderlich geeignet, um Beispiel für einen Bootsektor. Empfehlenswert ist – wie bei jeder anderen Sprache, die im Bereich der Kernelprogrammierung verwendet werden soll – ein Compiler, der Inlineassembler unterstützt. Hierfür eignet sich der <a class="mw-redirect" data-archive-original-href="../../pages/1807/index.html" href="../../pages/1805/index.html" title="Gcc">gcc</a>.
+Für Einsteiger gibt es ein <a class="external text" href="http://www.cheebi.de/c-kernel-tutorial.pdf" rel="nofollow">Tutorial</a>, welches beschreibt, wie man in den <a href="../../pages/1464/index.html" title="Protected Mode">Protected Mode</a> schaltet und in C geschriebenen Code ausführt.
+</p>
+<h2><span class="mw-headline" id="Eigenschaften_von_C">Eigenschaften von C</span></h2>
+<h3><span class="mw-headline" id="Assemblercode_in_C">Assemblercode in C</span></h3>
+<p>Während es möglich ist, den allergrößten Teil des Kernels in C zu schreiben, sind für einige wenige Aufgaben nach wie vor einige Zeilen Assemblercode notwendig. Es gibt dabei im Wesentlichen zwei Ansätze:
+</p>
+<ul><li><p><b>Inline-Assembler</b>: Assemblercode wird direkt in den C-Code eingebettet. Die konkrete Syntax dafür unterscheidet sich von Compiler zu Compiler, im Allgemeinen wird der Assemblercode durch das Schlüsselwort <i>asm</i> eingeleitet. Ein Vorteil dieser Methode ist, dass ein direkter Zugriff auch auf lokale C-Variablen möglich ist. Sie eignet sich daher für sehr kleine Codestücke besonders gut.</p><p>Siehe auch <a href="../../pages/1472/index.html" title="Inline-Assembler mit GCC">Inline-Assembler mit GCC</a></p></li>
+<li><b>Externe Assemblerdatei</b>: Der Assemblercode wird in eine eigene Datei ausgelagert und vom C-Code als eigenständige Funktion aufgerufen. Die Übergabe von Parametern und des Rückgabewerts wird im Artikel <a href="../../pages/1525/index.html" title="Aufrufkonventionen">Aufrufkonventionen</a> beschrieben.</li></ul>
+<h3><span class="mw-headline" id="Zeiger_in_C">Zeiger in C</span></h3>
+<p>Zeiger sind einzigartig in C. Mit Zeigern kann man wie bei Assembler direkt auf den Arbeitsspeicher zugreifen. (Allerdings nicht auf Register)
+Folgender Beispielcode verdeutlicht dies:
+</p>
+<pre>/* Standardfunktionen für die Shell */
+/***********************************************************************************
+* Funktion Oneletter: Zeigt ein Buchstaben an einer bestimmten Position
+* Groundcolour: Vordergrundfarbe
+* Backcolour: Hintergrundfarbe
+* Letter: Der Buchstabe
+* Zeile: Die Zeile des Buchstaben
+* Position: Welche Position der Buchstabe in der Zeile hat
+***********************************************************************************
+*/
+void OneLetter(unsigned char Groundcolour, unsigned char Backcolour, unsigned char Letter, unsigned char Zeile, unsigned char   Position)
+{
+	char Colour;
+	unsigned short int Atribut;
+	unsigned short int *Text = 0xB8000;
+	/* Prüfen ob überhaupt Farben möglich sind */
+	if(Groundcolour &gt; 16)
+	{
+		End();
+	}
+	if(Backcolour &gt; 16)
+	{
+		End();
+	}
+	/* Zusammlegen der Farbe */
+	Colour = Groundcolour * 16 + Backcolour;
+	Atrribut = Colour &lt;&lt;8;
+	Atrribut = Atrribut | Letter;
+	/* Adress für die richtige Positionierung finden */
+	Text += y * 80 + x;
+	*Text = Atrribut;
+}
+</pre>
+<p>Es handelt sich um den Code für die Textausgabe aus <a href="../../pages/1762/index.html" title="FiKe">FiKe</a>.
+Die Zeile 3 beinhaltet einen Zeiger, der für die Textausgabe essentiell ist. Dieser Zeiger kann erhöht werden(Zeile 18) oder
+auf dem zeigende Wert verändert werden(Zeile 19).<br/>
+Bei <b>sehr</b> fortgeschrittenen Betriebsystemen sollte jedoch auch ein Aspekt auf die Sicherheit getan werden. (Nur nötig bei Netzwerkfähigkeit)
+</p>
+<h2><span class="mw-headline" id="Bekannte_C-Compiler">Bekannte C-Compiler</span></h2>
+<ul><li>gcc aus der <a class="external text" href="http://gcc.gnu.org/" rel="nofollow">GNU Compiler Collection</a></li>
+<li><a class="external text" href="http://bellard.org/tcc/" rel="nofollow">tcc</a> (Tiny C Compiler)</li>
+<li>Borland <a class="external text" href="http://dn.codegear.com/article/20841" rel="nofollow">Turbo C</a> für DOS (16 Bit/Real Mode)</li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://openbook.galileocomputing.de/c_von_a_bis_z/c_000Vorwort_000.htm#Xxx999266" rel="nofollow">Allgemeines C-Tutorial</a></li>
+<li><a class="external text" href="http://www.open-std.org/JTC1/SC22/WG14/www/docs/n1124.pdf" rel="nofollow">Draft des C Standards</a></li>
+<li><a class="external text" href="http://www.c-howto.de/" rel="nofollow">C-Tutorial</a></li>
+<li><a class="external text" href="http://www.cheebi.de/c-kernel-tutorial.pdf" rel="nofollow">C-Kernel-Tutorial</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164740
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.007 seconds
+Preprocessor visited node count: 48/1000000
+Preprocessor generated node count: 146/1000000
+Post‐expand include size: 697/2097152 bytes
+Template argument size: 49/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.762      1 Vorlage:Sprache
+100.00%    0.762      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=C&amp;oldid=4858</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1648/index.html" title="Kategorie:Programmiersprache">Programmiersprache</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1526/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1526/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

@@ -1,0 +1,43 @@
+Ein Interrupt ist ein Ereignis, welches die Arbeit der CPU unterbricht, um eine andere Routine auszuführen. Die CPU kann durch verschiedene Ursachen unterbrochen werden:
+* ein Peripheriegerät fordert die Behandlung eines Interrupts ([[IRQ]])
+* im Programmfluss wird mit der Instruktion ''int <n>'' ein Software-Interrupt ausgelöst
+* im Programm tritt eine [[Exception]] auf
+
+== Arten von Interrupts ==
+Es wird zwischen synchronen und asynchronen Unterbrechungen unterschieden. Als asynchrone Unterbrechungen werden Interrupts bezeichnet, die nicht vorhersagbar und nicht reproduzierbar sind. Sie treten bei wiederholter Ausführung des Programms nicht wieder oder nicht an der selben Stelle auf. Synchrone Interrupts werden hingegen ausgelöst, wenn die CPU genau definierte Bedingungen vorfindet, während sie eine Instruktion ausführt. Sie sind somit reproduzierbar und vorhersagbar.
+
+=== Synchrone Interrupts ===
+Synchrone Interrupts werden bei der Intel Architektur in 3 Klassen aufgeteilt:
+* Traps: Breakpoints, Overflow (INTO)
+* Exceptions: z.B. Division durch 0, Page Faults
+* Aborts: Double Fault
+
+=== Asynchrone Interrupts ===
+Asynchrone Interrupts treten bei Ereignissen auf, die nicht vom Programm gezielt hervorgerufen wurden. Darunter fallen [[IRQ]]s, die von Peripheriegeräten ausgelöst werden, und z.B. (aus Sicht eines Programms) Page Faults in Folge einer Auslagerung von Seiten aus dem RAM auf die Festplatte durch das Betriebssystem. <!-- wo erzählen wir, dass asynchrone interrupts probleme bei präzisen zeitmessungen machen? </rhetorische frage> -> wayne? (need große edits^^) -->
+
+== Interrupt-Behandlung ==
+Wenn ein Interrupt ausgelöst wird, sichert die CPU die Register [[EFLAGS]], CS und EIP auf dem Stack. Danach wird eine Behandlungsroutine angesprungen, die in der [[IDT]] (Protected Mode) bzw. in der [[IVT]] (Real Mode) angegeben ist. Diese kehrt nach ihrer Ausführung im Allgemeinen mit dem Befehl ''iret'' zur Stelle, an der unterbrochen wurde, zurück.
+
+In Interrupt-Behandlungsroutinen sollte je nach Art des Interrupts reagiert werden:
+* In IRQs muss in der Regel das entsprechende Gerät ausgelesen werden. Außerdem muss der Erhalt der IRQs beim [[PIC]] quittiert werden.
+* Bei Software Interrupts sollte z.B. eine Systemfunktion im Kernel ausgeführt werden
+* Exceptions müssen entweder gelöst werden, oder zum Abbruch des Programms führen
+
+== Sperrung der Interrupts ==
+Interrupts können mit Hilfe der Instruktionen ''sti'' und ''cli'' ein- bzw. ausgeschaltet werden. Dabei wird das [[EFLAGS#IF_-_Interrupt_Enable_Flag_.28Bit_9.29|Interrupt Flag]] im Register EFLAGS gesetzt bzw. zurückgesetzt. Der Aufruf von Software-Interrupts, sowie Non-Maskable Interrupts können damit nicht unterbunden werden.
+
+== Siehe auch ==
+* [[Programmable Interrupt Controller]]
+* [[Interrupt Vector Table]]
+* [[Interprocessor Interrupt]]
+* [[Non Maskable Interrupt]]
+* [[Interrupt 13h]]
+* [[Message Signaled Interrupt]]
+* Intel Manuals Volume 1A - Chapter 6 und Volume 3A - Chapter 5
+
+== Links ==
+[http://www.cs.cmu.edu/afs/cs/user/ralf/pub/WWW/files.html Liste von BIOS-Interrupts]
+[http://www.ctyme.com/intr/int.htm Tabelle zu BIOS-Interrupts]
+
+
+[[Category:Glossar]]

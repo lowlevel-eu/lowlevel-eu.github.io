@@ -1,0 +1,106 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Binäre Datentypen — Änderungen 7670 → 10257</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Binäre Datentypen — Änderungen 7670 → 10257</h1><nav><a href="../revisions/7670/index.html">Version 7670</a> · <a href="../revisions/10257/index.html">Version 10257</a> · <a href="../history/2043/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l208" >Zeile 208:</td>
+<td colspan="2" class="diff-lineno">Zeile 208:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Seltsam, oder? Selbst wenn die Addition erfolgreich gewesen &lt;b&gt;wäre&lt;/b&gt;, dann wäre diese Phänomen immer noch sehr fragwürdig.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Seltsam, oder? Selbst wenn die Addition erfolgreich gewesen &lt;b&gt;wäre&lt;/b&gt;, dann wäre diese Phänomen immer noch sehr fragwürdig.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>===<del class="diffchange diffchange-inline">2k</del>-Zahlen===</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>=== <ins class="diffchange diffchange-inline">Das Einerkomplement ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Die Sache mit dem Vorzeichenbit hat immer noch ein Problem.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Was machen wir, wenn wir die Zahl der Bits vergrößern wollen?</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Wir müssen immer wissen, das MSB nicht zur Zahl selber, sondern zum Vorzeichen gehört.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> Denn:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color=red&gt;1&lt;/font&gt;&lt;font color=blue&gt;011&lt;/font&gt; ist </ins>-<ins class="diffchange diffchange-inline">3</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> Aber:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> &lt;font color=green&gt;0000&lt;/font&gt;&lt;font color=red&gt;1&lt;/font&gt;&lt;font color=blue&gt;011&lt;/font&gt; ist 11</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> Es müsst aber heißen:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> &lt;font color=red&gt;1&lt;/font&gt;&lt;font color=green&gt;0000&lt;/font&gt;&lt;font color=blue&gt;011&lt;/font&gt; ist 11</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Das kopieren eines einzelnen Bits ist ziemlich aufwendig. Also probieren wir doch mal folgenes:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Wir sagen einfach:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">{| {{Prettytable}}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">! Bedeutung || Darstellung</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">| positive Zahl || einfache Binärzahl wobei das MSB 0 bleiben sollte</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">| 1&lt;sub&gt;(2)&lt;/sub&gt;&#160; || Logisches Komplent des Betrags.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">|}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Also zum Beispiel:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> 0100 = +4</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> 1011 = -4 </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> 0011 = +3</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Dadurch das das logische Komplement des MSB 1 ergeben muss, lässt sich das Vorzeichen dort ablesen.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Die Addition funktioniert doch schon ganz gut:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&lt;pre&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> 1011 (-4)&#160; &#160; &#160; &#160;  1001 (-6)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">+0011 (+3)&#160; &#160; &#160; &#160; +0011 (+3)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">---------&#160; &#160; &#160; &#160;  ----------</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> 1110 (-1)&#160; &#160; &#160; &#160;  1100 (-3)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&lt;/pre&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Aber wehe man überschreitet den Nullpunkt (Wir schmeißen den Übertrag raus):</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&lt;pre&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> 1100 (-3)&#160; &#160; &#160; &#160;  1001 (-6)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">+0101 (+5)&#160; &#160; &#160; &#160; +0111 (+7)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">---------&#160; &#160; &#160; &#160;  ----------</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> 0001 (+1)&#160; &#160; &#160; &#160;  0000 (+0)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">&lt;/pre&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Das Problem ist klar. Sobald man versucht, 0 zu überschreiten, wird das Ergebnis um eins kleiner als es sein sollte. Ist ja auch logisch, schließlich liegen zwischen -1 und 1 auch zwei </ins>Zahlen<ins class="diffchange diffchange-inline">, nämlich:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> 1111 = -0</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline"> 0000 = +0</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Wir müssen also versuchen wie wir das Problem gelöst bekommen.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">=== Das Zweierkomplement </ins>===</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Ich hoffe, ihr habt noch nicht die Hoffnung aufgegeben eine geeignete Codierung für ganze Zahlen zu finden – ich kann euch beruhigen: Dieser Ansatz wird zum Erfolg führen!</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Ich hoffe, ihr habt noch nicht die Hoffnung aufgegeben eine geeignete Codierung für ganze Zahlen zu finden – ich kann euch beruhigen: Dieser Ansatz wird zum Erfolg führen!</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Was <del class="diffchange diffchange-inline">heißt „2k-Zahl“ überhaupt</del>? &#160;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Das mit dem Einerkomplement war schon kleine Schlechte Idee. </ins>Was <ins class="diffchange diffchange-inline">ist, wenn wir einfach sagen, das man zu jeder negativen Zahl die fehlenden 1 schon mal nach dem Komplementieren dazu zählen</ins>?</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">2k-Zahl ist eine abkürzende Schreibweise für „Zweierkomplement-Zahl“. </del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">Alle Zahlen von 0 bis 2&lt;sup&gt;n-1&lt;/sup&gt; werden wieder genau so codiert, wie </del>wir <del class="diffchange diffchange-inline">es von den natürlichen Zahlen gewohnt sind. Um nun zu einer Zahl </del>das <del class="diffchange diffchange-inline">negative Gegenstück zu finden, muss man folgendermaßen vorgehen</del>:</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Dann haben </ins>wir das <ins class="diffchange diffchange-inline">Zweierkomplement (2k)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Wir müssen also folgendes tun</ins>:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;ul&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;ul&gt;</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l222" >Zeile 222:</td>
+<td colspan="2" class="diff-lineno">Zeile 287:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/ul&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/ul&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Praktischerweise ergibt sich bei dieser Codierung, dass das MSB negativer Zahlen 1 und das von positiven Zahlen gleich 0 ist.</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Praktischerweise ergibt sich bei dieser Codierung, dass das MSB negativer Zahlen 1 und das von positiven Zahlen gleich 0 ist<ins class="diffchange diffchange-inline">, da ja das Vorzeichen nur bei -0 (1111) zu 0000 gewechselt wird</ins>. <ins class="diffchange diffchange-inline">(0 ist also immer eine Positive Zahl)</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>====Beispiel====</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>====Beispiel====</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l243" >Zeile 243:</td>
+<td colspan="2" class="diff-lineno">Zeile 309:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Durch das selbe Verfahren lässt sich aus der -5 auch wieder die +5 gewinnen!</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Durch das selbe Verfahren lässt sich aus der -5 auch wieder die +5 gewinnen!</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Wenn wir das ganze zu Fuß machen wollen, gibt es da noch einen Weg:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"># Alle Bits vom LSB bis zum ersten gesetzten Bit (=1) einschließlich übernehmen.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"># Alle höherwertigen Bits negieren.</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Fließkommazahlen==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Fließkommazahlen==</div></td></tr>
+</table></body></html>

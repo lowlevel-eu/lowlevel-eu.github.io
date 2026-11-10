@@ -1,0 +1,39 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Protected Mode — Änderungen 2031 → 2033</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Protected Mode — Änderungen 2031 → 2033</h1><nav><a href="../revisions/2031/index.html">Version 2031</a> · <a href="../revisions/2033/index.html">Version 2033</a> · <a href="../history/1464/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l545" >Zeile 545:</td>
+<td colspan="2" class="diff-lineno">Zeile 545:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>'''Anmerkung:''' Da der Code davon ausgeht, dass er am Anfang eines Segmentes steht, sollte man ihn mit einem geeigeneten Bootloader laden, der dies beachtet. Ein schlankes Beispiel wäre:</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>'''Anmerkung <ins class="diffchange diffchange-inline">1</ins>:''' Da der Code davon ausgeht, dass er am Anfang eines Segmentes steht, sollte man ihn mit einem geeigeneten Bootloader laden, der dies beachtet. Ein schlankes Beispiel wäre:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;asm&gt;mov ax,cs</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;asm&gt;mov ax,cs</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l556" >Zeile 556:</td>
+<td colspan="2" class="diff-lineno">Zeile 557:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>sti</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>sti</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>mov ax,0x9000</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>mov ax,<ins class="diffchange diffchange-inline">'''</ins>0x9000<ins class="diffchange diffchange-inline">'''</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>mov es,ax</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>mov es,ax</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>mov bx,0x0</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>mov bx,0x0</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l567" >Zeile 567:</td>
+<td colspan="2" class="diff-lineno">Zeile 568:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>int 13h</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>int 13h</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>jmp 0x9000:0x0</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>jmp <ins class="diffchange diffchange-inline">'''</ins>0x9000<ins class="diffchange diffchange-inline">'''</ins>:0x0</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>times 510-($-$$) db 0</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>times 510-($-$$) db 0</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>dw 0aa55h&lt;/asm&gt;© by PMTheQuick</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>dw 0aa55h&lt;/asm&gt;© by PMTheQuick</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Die beiden fett gedruckten 0x9000 können natürlich durch irgendeine andere Adresse ersetzt werden, jenachdem wohin man seinen Kernel laden will. </ins>Dann <ins class="diffchange diffchange-inline">kann man </ins>die Dateien assemblieren + zusammenkopieren um ein funktionierendes Image zu erhalten:</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Dann die Dateien assemblieren + zusammenkopieren um ein funktionierendes Image zu erhalten:</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;pre&gt;nasm -f bin -o kernel16.bin kernel16.asm</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;pre&gt;nasm -f bin -o kernel16.bin kernel16.asm</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>nasm -f bin -o bootsec.bin bootsec.asm</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>nasm -f bin -o bootsec.bin bootsec.asm</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>copy /B bootsec.bin + /B kernel16.bin PM_OS.img&lt;/pre&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>copy /B bootsec.bin + /B kernel16.bin PM_OS.img&lt;/pre&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">'''Anmerkung 2:''' Eine weitere, etwas weniger komplizierte Variante in den Protected Mode zu schalten wird [[Umschalten in Protected Mode|hier]] erklärt.</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Category:Tutorials]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Category:Tutorials]]</div></td></tr>
+</table></body></html>

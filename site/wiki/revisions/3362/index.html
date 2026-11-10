@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>GRUB Installation auf einem USB-Stick – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-GRUB_Installation_auf_einem_USB-Stick rootpage-GRUB_Installation_auf_einem_USB-Stick skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1737/index.html">Aktueller Artikel</a> · <a href="../../history/1737/index.html">Versionsgeschichte</a> · <a href="../../source/3362.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">GRUB Installation auf einem USB-Stick</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 16. September 2008, 17:34 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>ChristianF</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Testen_auf_einer_realen_Maschine">→</a>‎<span dir="auto"><span class="autocomment">Testen auf einer realen Maschine</span></span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/3361-3362.html" title="GRUB Installation auf einem USB-Stick">Unterschied</a>) <a href="../3361/index.html" title="GRUB Installation auf einem USB-Stick">← Nächstältere Version</a> | <a href="../../pages/1737/index.html" title="GRUB Installation auf einem USB-Stick">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../3363/index.html" title="GRUB Installation auf einem USB-Stick">Nächstjüngere Version →</a> (<a href="../../diffs/3362-3363.html" title="GRUB Installation auf einem USB-Stick">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Vorbemerkung"><span class="tocnumber">1</span> <span class="toctext">Vorbemerkung</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Der_USB-Stick"><span class="tocnumber">2</span> <span class="toctext">Der USB-Stick</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#L.C3.B6schen_der_Dateien"><span class="tocnumber">2.1</span> <span class="toctext">Löschen der Dateien</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#L.C3.B6schen_der_Daten_unter_Linux.2FUnix"><span class="tocnumber">2.1.1</span> <span class="toctext">Löschen der Daten unter Linux/Unix</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#L.C3.B6schen_der_Daten_unter_Windows"><span class="tocnumber">2.1.2</span> <span class="toctext">Löschen der Daten unter Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6"><a href="#Partitionieren_des_Sticks"><span class="tocnumber">2.2</span> <span class="toctext">Partitionieren des Sticks</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Partitionieren_unter_Linux.2FUnix"><span class="tocnumber">2.2.1</span> <span class="toctext">Partitionieren unter Linux/Unix</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Partitionieren_unter_Windows"><span class="tocnumber">2.2.2</span> <span class="toctext">Partitionieren unter Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#Formatieren_des_Sticks"><span class="tocnumber">2.3</span> <span class="toctext">Formatieren des Sticks</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#Formatieren_der_Partition_des_Sticks_unter_Linux.2FUnix"><span class="tocnumber">2.3.1</span> <span class="toctext">Formatieren der Partition des Sticks unter Linux/Unix</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Formatieren_der_Partition_des_Sticks_unter_Windows"><span class="tocnumber">2.3.2</span> <span class="toctext">Formatieren der Partition des Sticks unter Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-12"><a href="#Installieren_von_GRUB"><span class="tocnumber">2.4</span> <span class="toctext">Installieren von GRUB</span></a>
+<ul>
+<li class="toclevel-3 tocsection-13"><a href="#Installation_unter_Linux.2FUnix"><span class="tocnumber">2.4.1</span> <span class="toctext">Installation unter Linux/Unix</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#Installation_unter_Windows"><span class="tocnumber">2.4.2</span> <span class="toctext">Installation unter Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-15"><a href="#Testen_des_USB-Sticks"><span class="tocnumber">2.5</span> <span class="toctext">Testen des USB-Sticks</span></a>
+<ul>
+<li class="toclevel-3 tocsection-16"><a href="#Testen_mit_Bochs"><span class="tocnumber">2.5.1</span> <span class="toctext">Testen mit Bochs</span></a>
+<ul>
+<li class="toclevel-4 tocsection-17"><a href="#Testen_unter_Linux.2FUnix"><span class="tocnumber">2.5.1.1</span> <span class="toctext">Testen unter Linux/Unix</span></a></li>
+<li class="toclevel-4 tocsection-18"><a href="#Testen_unter_Windows"><span class="tocnumber">2.5.1.2</span> <span class="toctext">Testen unter Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-19"><a href="#Testen_mit_qemu"><span class="tocnumber">2.5.2</span> <span class="toctext">Testen mit qemu</span></a>
+<ul>
+<li class="toclevel-4 tocsection-20"><a href="#Testen_unter_Linux.2FUnix_2"><span class="tocnumber">2.5.2.1</span> <span class="toctext">Testen unter Linux/Unix</span></a></li>
+<li class="toclevel-4 tocsection-21"><a href="#Testen_unter_Windows_2"><span class="tocnumber">2.5.2.2</span> <span class="toctext">Testen unter Windows</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-22"><a href="#Testen_auf_einer_realen_Maschine"><span class="tocnumber">2.5.3</span> <span class="toctext">Testen auf einer realen Maschine</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1><span class="mw-headline" id="Vorbemerkung">Vorbemerkung</span></h1>
+<p>Nun da ich mich seit einiger Zeit damit beschäftige, auf meinem USB-Stick GRUB zu installieren möchte ich hier eine Schrit für Schritt Anleitung geben, wie man GRUB installiert.<br/>
+</p>
+<h1><span class="mw-headline" id="Der_USB-Stick">Der USB-Stick</span></h1>
+<p><b>ACHTUNG: Sichert vorher alle Daten von dem Stick, denn spätestens nach dem überschreiben des Stick-Inhalts mit Null-Bytes werden diese nicht wiederherstellbar sein!</b>
+</p>
+<h2><span id="Löschen_der_Dateien"></span><span class="mw-headline" id="L.C3.B6schen_der_Dateien">Löschen der Dateien</span></h2>
+<p>In diesem Abschnitt werden der Inhalt des USB-Sticks mit Null-Bytes überschrieben, damit überhaupt nichts mehr darauf vorhanden ist.
+</p>
+<h3><span id="Löschen_der_Daten_unter_Linux/Unix"></span><span class="mw-headline" id="L.C3.B6schen_der_Daten_unter_Linux.2FUnix">Löschen der Daten unter Linux/Unix</span></h3>
+<p>Zuerst sollte man nachschauen, wo der USB-Stick hin gemountet wurde, falls das automatisch geschehen ist. Dies kann man mit dem Befehl mount machen:
+</p>
+<pre>mount
+/dev/sda1 on /mnt type vfat (rw)
+</pre>
+<p>Zumeist liegt der Stick an der Stelle /dev/sda1 o.ä. zumindest war es bei mir so. Bevor der Inhalt des Sticks allerdings überschrieben werden kann, sollte er ausgehängt werden, damit kein Programm auf diesen zugreifen kann. Dies geschieht wie folgt:
+</p>
+<pre>umount /dev/sda1
+</pre>
+<p>Nun wird der komplette Stick mit Null-Bytes überschrieben. Dies wird wie folgt gemacht:
+</p>
+<pre>cat /dev/zero &gt; /dev/sda1
+cat: write error: No space left on device
+</pre>
+<p>Wird die untere Fehlermeldung ausgegeben, so heißt das, dass der USB-Stick komplett überschrieben wurde. Ab hier gibt es denke ich mal keine Möglichkeit mehr noch eventuelle Daten zu sichern, da alles überschrieben wurde.<br/>
+Ein anderer Weg, den Stick von den Daten zu befreien, wäre der folgende:
+</p>
+<pre>dd if=/dev/zero of=/dev/sda1
+cat: write error: No space left on device
+</pre>
+<h3><span id="Löschen_der_Daten_unter_Windows"></span><span class="mw-headline" id="L.C3.B6schen_der_Daten_unter_Windows">Löschen der Daten unter Windows</span></h3>
+<p>dd wurde nach Windows portiert und ist hier erhältlich: <a class="external free" href="http://www.chrysocome.net/dd" rel="nofollow">http://www.chrysocome.net/dd</a> <br/>
+Um zu schauen, welches Laufwerk der USB-Stick ist, muss dd mit dem Parameter --list aufgerufen werden. Dieser existiert allerdings nur in der Version für Windows
+</p>
+<pre>dd --list
+</pre>
+<p>In der Auflistung muss man nun nach dem Laufwerksbuchstabe schauen, an dem der Stick von Windows abgelegt wurde. Bei mir war das G! Als nächstes müssen nun die kompletten Daten gelöscht werden:
+</p>
+<pre>dd if=/dev/zero of=\\.\g: -count=1G -bs=1M --progress
+</pre>
+<p><i>Anmerkung: Diese Aktion kann je nach größe des USB-Sticks einige Zeit in Anspruch nehmen.</i><br/>
+</p>
+<h2><span class="mw-headline" id="Partitionieren_des_Sticks">Partitionieren des Sticks</span></h2>
+<p>Um auf dem Stick den Bootloader GRUB zu installieren, muss vor dem Formatieren des Sticks eine Partition angelegt werden. Dies ist möglich, da es sich bei dem USB-Stick um eine kleine externe Festplatte handelt.
+</p>
+<h3><span id="Partitionieren_unter_Linux/Unix"></span><span class="mw-headline" id="Partitionieren_unter_Linux.2FUnix">Partitionieren unter Linux/Unix</span></h3>
+<p>Um den USB-Stick zu partitionieren, muss einfach nur cfdisk oder fdisk mit der Stelle angeben, unter der der Stick von der jeweiligen Maschine verwaltet wird, was in dieser Anleitung /dev/sda1 ist.
+Also lautet der Aufruf wie folgt:
+</p>
+<pre>cfdisk /dev/sda
+.... oder ....
+fdisk /dev/sda
+</pre>
+<p><b>Anmerkung:</b> /dev/sda stellt den Stick dar, /dev/sda1 die erste Partition.<br/>
+Nun muss mit dem jeweiligen Programm eine Partition erstellt werden. Nach dem Schreiben der Partitions-Tabelle, wird eben jene neu eingelesen. Beim neuen Einlesen der Partitions-Tabelle kann unter umständen der Fehler auftreten, das der Stick nicht wieder eingelesen werden konnte, was allerdings vernachlässigt werden kann.
+</p>
+<h3><span class="mw-headline" id="Partitionieren_unter_Windows">Partitionieren unter Windows</span></h3>
+<p><i>ToDo</i>
+</p>
+<h2><span class="mw-headline" id="Formatieren_des_Sticks">Formatieren des Sticks</span></h2>
+<p>In diesem zweiten Abschnitt bekommt der USB-Stick ein neues Dateisystem. Das Dateisystem meiner Wahl ist ext2, kann aber durchaus auch ein anderes, wie FAT32 oder so sein.
+</p>
+<h3><span id="Formatieren_der_Partition_des_Sticks_unter_Linux/Unix"></span><span class="mw-headline" id="Formatieren_der_Partition_des_Sticks_unter_Linux.2FUnix">Formatieren der Partition des Sticks unter Linux/Unix</span></h3>
+<p>Im nächsten Schritt muss der Stick nun mit einem Dateisystem "formatiert" werden.
+</p>
+<pre>mkfs.ext2 /dev/sda1
+</pre>
+<p>Hier wird der Stick, nach drücken der Return-Taste, mit dem Ext2 Dateisystem formatiert.<br/>
+</p>
+<h3><span class="mw-headline" id="Formatieren_der_Partition_des_Sticks_unter_Windows">Formatieren der Partition des Sticks unter Windows</span></h3>
+<p><i>ToDo</i>
+</p>
+<h2><span class="mw-headline" id="Installieren_von_GRUB">Installieren von GRUB</span></h2>
+<h3><span id="Installation_unter_Linux/Unix"></span><span class="mw-headline" id="Installation_unter_Linux.2FUnix">Installation unter Linux/Unix</span></h3>
+<p>Nun muss der Formatierte Stick wieder gemountet werden:
+</p>
+<pre>mount /dev/sda1 /media/usb
+</pre>
+<p>Im nächsten Schritt sollten nun die nötigen Ordner für GRUB erstellt werden:
+</p>
+<pre>mkdir -p /media/usb/boot/grub
+</pre>
+<p>Nun müssen die Bootdateien von GRUB in den erstellten Ordner /media/usb/boot/grub kopiert werden.
+</p>
+<pre>cp /usr/lib/grub/i386-pc/* /media/usb/boot/grub/
+</pre>
+<p>Sollte obige Anweisung nicht funktionieren, weil das Verzeichnis nicht existiert, so ist ein anderer möglicher Pfad in der nun folgenden Anweisung. Man muss eigentlich nur das /usr entfernen.
+</p>
+<pre>cp /lib/grub/i386-pc/* /media/usb/boot/grub/
+</pre>
+<p>Nun werden alle Dateien, die von GRUB benötigt werden auf den USB-Stick kopiert. Im letzten Schritt muss nun eine Datei mit dem Namen device.map erstellt werden, damit GRUB weiß, welche Laufwerksangabe für den USB-Stick gilt. Dies geschieht wie folgt:
+</p>
+<pre>echo '(hd0)     /dev/sda1' &gt; /media/usb/boot/grub/device.map
+</pre>
+<p>Als letzter Schritt muss nun nur noch GRUB auf dem Stick installiert werden, was wie folgt gemacht wird:
+</p>
+<pre>/sbin/grub-install --root-directory=/media/usb/ /dev/sda1
+</pre>
+<p>Nun ist GRUB auf dem USB-Stick installiert und es kann von diesem gebootet werden.<br/>
+<b>Anmerkung:</b> Jeder USB-Stick kann bootbar gemacht werden. Im Internet herrscht der irrglaube, dass nur einige wenige Sticks bootbar sind, und zwar diese, wo das draufsteht. Das ist jedoch einfach gesagt Schwachsinn, da ein USB-Stick ein Speichermedium ist und solange das BIOS mit dem booten von USB-Sticks klar kommt wird das funktionieren.
+</p>
+<h3><span class="mw-headline" id="Installation_unter_Windows">Installation unter Windows</span></h3>
+<p><i><b>Bis jetzt habe ich noch keine Möglichkeit gefunden, GRUB vernünftig unter Windows zu installieren.</b></i>
+</p>
+<h2><span class="mw-headline" id="Testen_des_USB-Sticks">Testen des USB-Sticks</span></h2>
+<p><i>ToDo</i>
+</p>
+<h3><span class="mw-headline" id="Testen_mit_Bochs">Testen mit Bochs</span></h3>
+<p><i>ToDo</i>
+</p>
+<h4><span id="Testen_unter_Linux/Unix"></span><span class="mw-headline" id="Testen_unter_Linux.2FUnix">Testen unter Linux/Unix</span></h4>
+<p><i>ToDo</i>
+</p>
+<h4><span class="mw-headline" id="Testen_unter_Windows">Testen unter Windows</span></h4>
+<p><i>ToDo</i>
+</p>
+<h3><span class="mw-headline" id="Testen_mit_qemu">Testen mit qemu</span></h3>
+<p><i>ToDo</i>
+</p>
+<h4><span id="Testen_unter_Linux/Unix_2"></span><span class="mw-headline" id="Testen_unter_Linux.2FUnix_2">Testen unter Linux/Unix</span></h4>
+<p>Das booten des USB-Sticks unter Linux ist im Gegensatz zu der Vorgehensweise unter Windows viel einfacher. Es wird einfach das Devicenode, das vom Kernel vergeben wird, benötigt. In diesem Beispiel ist das /dev/sda, da /dev/sda1 die Partition auf dem USB-Stick ist! Der Aufruf von qemu würde dann also so aussehen:
+</p>
+<pre>qemu -L . -m 32 -localtime -boot c -hda /dev/sda
+</pre>
+<p><b>Anmerkung: </b>Die obige Befehls-Zeile muss noch von mir getestet werden, sollte allerdings funktionieren.
+</p>
+<h4><span class="mw-headline" id="Testen_unter_Windows_2">Testen unter Windows</span></h4>
+<p>Um unter qemu von dem USB-Stick booten zu lassen, muss der Stick als Festplatte angegeben werden. Dazu wird jedoch allerdings der Name des Geräts benötigt. Dieser ist wie folgt zu finden:
+</p>
+<pre>Start-&gt;Ausführen
+</pre>
+<p>Hier wird dann "diskmgmt.msc" eingegeben und mittels Klick auf "OK" geöffnet. Hier muss nun der USB-Stick herausgesucht werden. Dieser hat den Titel "Datenträger" und dann noch eine Nummer, in diesem Fall die 5. Diese Nummer wird für qemu gebraucht, damit das richtige Gerät angesprochen werden kann. Welcher Eintrag nun der USB-Stick ist, kann mit mehreren Kriterien herausgefunden werden. Zum einen wäre da der Mountpunkt, also der buchstabe, z.B. "D:", zum anderen wird der Stick von Windows als Wechselmedium gespeichert, wodurch man einige Einträge ausschließen kann, wie z.B. interne Festplatten oder CD/DVD-Laufwerke.
+Der Aufruf von qemu könnte dann wie folgt aussehen:
+</p>
+<pre>qemu -L . -m 32 -localtime -boot c -hda \\\\.\\PhysicalDrive5
+</pre>
+<p><b>Anmerkung:</b> Der Stick wird mit "PhysicalDrive" und der entsprechenden Nummer dahinter angesprochen. PhysicalDrive ist einfach nur der Englische Name für "Datenträger". Die vielen \ sind aus dem Grund, da eben dieses Zeichen für die Verwendung mit qemu escaped werden muss.<br/>
+Wird dies so ausgeführt, sollte, falls nichts schief gelaufen ist, unter qemu dann GRUB vom USB-Stick geladen werden.
+</p>
+<h3><span class="mw-headline" id="Testen_auf_einer_realen_Maschine">Testen auf einer realen Maschine</span></h3>
+<p>Der Test auf einer realen Maschine sollte nicht unbedingt so schwer sein.<br/>
+Die einzige Vorraussetzung ist, dass das BIOS von einer USB-Festplatte booten können muss. Das heißt, man muss um dies zu aktivieren im BIOS bei den Geräten von denen gebootet werden soll den Eintrag "USB-HDD" einfügen, insofern dieser vorhanden ist. Andere Einstellungen, wie z.B. "USB-FDD" oder "USB-CDROM" funktionieren leider nicht.<br/>
+Ist dieser Eintrag ("USB-HDD") nicht vorhanden, muss ein BIOS-Update vorgenommen werden, wo dieser dann hoffentlich vorhanden ist.<br/>
+<b>Anmerkung: </b> Dieser Part steht hier unter vorbehalt, da ich schauen muss, ob nicht eventuell irgendwo noch eine Option vorhanden ist, mit der man das bootem von USB Festplatten verbieten kann. Dieser Part sollte dem zufolge also erst einmal _<b>IGNORIERT</b>_ werden
+</p><p><br/>
+<i><b>Dieser Artikel ist unvollständig, wird noch erweitert und korrigiert</b></i>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109165301
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.007 seconds
+Preprocessor visited node count: 249/1000000
+Preprocessor generated node count: 452/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 937/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=GRUB_Installation_auf_einem_USB-Stick&amp;oldid=3362</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1737/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/1738/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1737/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

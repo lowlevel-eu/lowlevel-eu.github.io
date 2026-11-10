@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Long Mode – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Long_Mode rootpage-Long_Mode skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1666/index.html">Aktueller Artikel</a> · <a href="../../history/1666/index.html">Versionsgeschichte</a> · <a href="../../source/5780.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Long Mode</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 28. August 2009, 11:05 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>MNemo</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Aktivierung_des_Long_Mode">→</a>‎<span dir="auto"><span class="autocomment">Aktivierung des Long Mode</span></span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/5511-5780.html" title="Long Mode">Unterschied</a>) <a href="../5511/index.html" title="Long Mode">← Nächstältere Version</a> | <a href="../../pages/1666/index.html" title="Long Mode">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../6437/index.html" title="Long Mode">Nächstjüngere Version →</a> (<a href="../../diffs/5780-6437.html" title="Long Mode">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Der <b>Long Mode</b> ist ein CPU-Modus neuerer CPUs, in dem erstmals <a data-archive-original-href="../../pages/1881/index.html#Allzweckregister_2" href="../../pages/1881/index.html" title="Register — Der ursprüngliche Abschnitt ist in dieser Momentaufnahme nicht verfügbar; stattdessen wird der Artikel angezeigt.">64-Bit-Allzweckregister</a> zur Verfügung stehen. Wie auch beim <a href="../../pages/1464/index.html" title="Protected Mode">Protected Mode</a> starten Prozessoren, die diesen Modus unterstützen, aus Kompatibilitätsgründen zunächst im <a href="../../pages/1665/index.html" title="Real Mode">Real Mode</a> mit deaktiviertem <a href="../../pages/1462/index.html" title="A20-Gate">A20-Gate</a>.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Eigenschaften"><span class="tocnumber">1</span> <span class="toctext">Eigenschaften</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.C3.9Cberpr.C3.BCfung_der_Unterst.C3.BCtzung"><span class="tocnumber">2</span> <span class="toctext">Überprüfung der Unterstützung</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Aktivierung_des_Long_Mode"><span class="tocnumber">3</span> <span class="toctext">Aktivierung des Long Mode</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Es_geht_auch_anders"><span class="tocnumber">4</span> <span class="toctext">Es geht auch anders</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Links"><span class="tocnumber">5</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Eigenschaften">Eigenschaften</span></h2>
+<ul><li>Address-/Registerbreite beträgt 64 Bit</li>
+<li>Viele neue Register (z.B. R8-R15, CR8-CR15, ...)</li>
+<li>...</li></ul>
+<h2><span id="Überprüfung_der_Unterstützung"></span><span class="mw-headline" id=".C3.9Cberpr.C3.BCfung_der_Unterst.C3.BCtzung">Überprüfung der Unterstützung</span></h2>
+<p>CPUs, die den Long Mode unterstützen, setzen bei einem Aufruf der <a href="../../pages/1739/index.html#Funktion_0x8000_0001" title="CPUID">CPUID Funktion 0x80000001</a> das <a href="../../pages/1739/index.html#EDX_-_Erweiterte_Featureflags" title="CPUID">Long-Mode-Capable-Bit (Bit 29)</a> im EDX-Register auf 1. Sicherheitshalber sollte man auch noch überprüfen, <a href="../../pages/1982/index.html" title="Physical Address Extension">Physical Address Extensions</a> unterstützt werden.
+</p><p>&lt;asm&gt;
+mov eax, 0x80000001
+cpuid                 ; CPUID Funktion 0x8000_0001 aufrufen
+and edx, 0x20000000   ; LM-Bit isolieren
+test edx, edx         ; Wenn EDX jetzt 0 ist, war das LM-Bit nicht gesetzt
+jz long_unsupported   ; Long Mode nicht unterstützt!
+</p><p>mov eax, 0x00000001
+cpuid                 ; CPUID Funktion 0x0000_0001 aufrufen
+and edx, 0x00000040   ; PAE-Bit isolieren
+test edx, edx         ; Wenn EDX jetzt 0 ist, war das PAE-Bit nicht gesetzt
+jz long_unsupported   ; Long Mode nicht unterstützt!
+jmp long_supported    ; Long Mode unterstützt!
+&lt;/asm&gt;
+</p>
+<h2><span class="mw-headline" id="Aktivierung_des_Long_Mode">Aktivierung des Long Mode</span></h2>
+<p>Um in den Long Mode umschalten zu können, muss erst einmal der <a href="../../pages/1464/index.html" title="Protected Mode">Protected Mode</a> aktiviert werden (<a data-archive-original-href="../../pages/1666/index.html#Es_geht_auch_anders" href="../../pages/1666/index.html" title="Long Mode — Der ursprüngliche Abschnitt ist in dieser Momentaufnahme nicht verfügbar; stattdessen wird der Artikel angezeigt.">Es geht auch anders</a>). Eine weitere Voraussetzung ist, dass das <b><a href="../../pages/1982/index.html" title="Physical Address Extension">Physical Address Extension</a></b>-Bit (Bit 5) im <a href="../../pages/1610/index.html#CR4" title="Control Register">CR4</a> Register gesetzt und <b><a href="../../pages/1496/index.html" title="Paging">Paging</a></b> aktiviert ist. Jetzt kann der Long Mode mit dem Setzen des LME-Bits (Bit 8) im <b>MSR 0xC00000080</b> aktiviert werden. Im eigentlichen Long Mode befindet man sich aber erst, wenn man in ein 64-Bit-Code-Segment wechselt, das im Vergleich zu den 32-Bit-Code-Segmenten in seinem Descriptor das L-Bit (Bit 21) im 2. DWord gesetzt hat.
+</p>
+<div style="padding: 2px 2px 2px 9px; background-color: #ffffff; color: #000000; border: 2px solid #bf111b; text-align:left; margin: 0.5em 0">
+<p style="color: #bf111b"><b>Achtung!</b></p>
+<p>Das Paging funktioniert im Long Mode ein wenig anders als im Protected Mode.
+</p>
+</div>
+<p>Sobald man diesen Beispielcode um ein paar Pagingstrukturen erweitert, aktiviert er den Long Mode.
+</p><p>&lt;asm&gt;
+mov eax, cr4            ; CR4 einlesen
+or eax, 0x20            ; Physical Address Extension-Bit setzen
+mov cr4, eax            ; CR4 beschreiben
+</p>
+<dl><dt>~~~~~~~~~             ; Pagingstrukturen initialisieren</dt></dl>
+<p>mov eax, PML4_ADDRESS   ; Die Adresse des Page Map Level 4 hier eintragen
+mov cr3, eax
+</p><p>mov ecx, 0xC0000080     ; Wir brauchen Zugriff aus das MSR-Register 0xC0000080
+rdmsr                   ; MSR-Register einlesen
+or eax, 0x00000100	; Long Mode einschalten
+wrmsr                   ; MSR-Register beschreiben
+</p><p>mov eax, cr0            ; CR0 einlesen
+or eax, 0x80000000      ; Das Paging-Bit setzen
+mov cr0, eax	        ; CR0 beschreiben, ab jetzt sind wir im Long Mode
+</p><p>jmp 0x30:kernel.longmode; Far Jmp in 64-Bit Code Segment
+</p><p><br/>
+[bits 64]
+kernel.longmode:	; Jetzt führen wir auch endlich 64-Bit Code aus
+jmp $                   ; Endlosschleife xD
+&lt;/asm&gt;
+</p>
+<h2><span class="mw-headline" id="Es_geht_auch_anders">Es geht auch anders</span></h2>
+<div style="padding: 2px; padding-left: 9px; padding-right: 9px; background-color: #ffffff; color: #000000; border: 2px solid #efbf00; text-align:left;">
+<div style="color: #efbf00">
+<p><b>Hinweis:</b>
+</p>
+</div>
+<p>Hier folgt in Kürze eine Beschreibung, wie man den Long Mode auch direkt vom Real Mode aus aktivieren kann.
+</p>
+</div>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li><a class="external free" href="http://www.osdev.org/wiki/X86-64" rel="nofollow">http://www.osdev.org/wiki/X86-64</a></li>
+<li><a class="external free" href="http://www.sandpile.org/aa64/index.htm" rel="nofollow">http://www.sandpile.org/aa64/index.htm</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165653
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.004 seconds
+Real time usage: 0.005 seconds
+Preprocessor visited node count: 37/1000000
+Preprocessor generated node count: 84/1000000
+Post‐expand include size: 591/2097152 bytes
+Template argument size: 184/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.324      1 -total
+ 52.19%    0.691      1 Vorlage:Achtung
+ 43.58%    0.577      1 Vorlage:Hinweis
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Long_Mode&amp;oldid=5780</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1913/index.html" title="Kategorie:X86-64">X86-64</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1666/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1666/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

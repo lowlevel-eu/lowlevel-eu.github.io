@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Microsoft Portable Executable and Common Object File Format – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Microsoft_Portable_Executable_and_Common_Object_File_Format rootpage-Microsoft_Portable_Executable_and_Common_Object_File_Format skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1644/index.html">Aktueller Artikel</a> · <a href="../../history/1644/index.html">Versionsgeschichte</a> · <a href="../../source/11304.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Microsoft Portable Executable and Common Object File Format</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 12. Oktober 2015, 06:03 Uhr von <a class="mw-userlink" href="../../pages/2234/index.html" title="Benutzer:Sur3"><bdi>Sur3</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#COFF_Dateiheader">→</a>‎<span dir="auto"><span class="autocomment">COFF Dateiheader: </span> Wenn der Computer ein Theater wäre... ^^</span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/10374-11304.html" title="Microsoft Portable Executable and Common Object File Format">Unterschied</a>) <a href="../10374/index.html" title="Microsoft Portable Executable and Common Object File Format">← Nächstältere Version</a> | Aktuelle Version (Unterschied) | Nächstjüngere Version → (Unterschied)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Vorlage:Stub" style="margin-bottom:1em">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #f6f6f6; margin: 0 0em; padding: 0 0px; border: 1px solid #d6d6d6;" width="100%">
+<tbody><tr>
+<td>Diese Seite ist ein Artikel, welcher <b>mehr</b> haben könnte..<br/>
+<p>Wenn du mehr darüber weißt oder recherchieren willst, bist <b>du</b> aufgerufen, dies zu tun. Wenn du dir in einer Sache nicht sicher bist, dann stell es auf die Diskussionsseite.
+</p>
+</td></tr></tbody></table>
+</div>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Aufbau"><span class="tocnumber">1</span> <span class="toctext">Aufbau</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#MS-DOS-Stub"><span class="tocnumber">1.1</span> <span class="toctext">MS-DOS-Stub</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#EXE_Header"><span class="tocnumber">1.1.1</span> <span class="toctext">EXE Header</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-4"><a href="#PE_Kennzeichnung"><span class="tocnumber">1.2</span> <span class="toctext">PE Kennzeichnung</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#COFF_Dateiheader"><span class="tocnumber">1.3</span> <span class="toctext">COFF Dateiheader</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Plattformtypen_f.C3.BCr_den_COFF-Header"><span class="tocnumber">1.3.1</span> <span class="toctext">Plattformtypen für den COFF-Header</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Flags_des_COFF-Headers"><span class="tocnumber">1.3.2</span> <span class="toctext">Flags des COFF-Headers</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Informationen_zum_.22optionalen.22_Header"><span class="tocnumber">1.3.3</span> <span class="toctext">Informationen zum "optionalen" Header</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#Sektorentabelle"><span class="tocnumber">1.4</span> <span class="toctext">Sektorentabelle</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#Eigenschaften_f.C3.BCr_Sektionen"><span class="tocnumber">1.4.1</span> <span class="toctext">Eigenschaften für Sektionen</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Weblinks"><span class="tocnumber">2</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Aufbau">Aufbau</span></h2>
+<h3><span class="mw-headline" id="MS-DOS-Stub">MS-DOS-Stub</span></h3>
+<p>Aus Gründen der Abwährskompatiblität, beginnt auch heute jedes Programm unter Windows mit dem sogenannten MS-DOS-Stub. Das ist ein kleines MZ-EXE Programm, das am Beginn der PE/COFF Datei steht und aufgerufen wird, wenn man versuchen sollte es unter DOS aufzurufen.
+</p>
+<h4><span class="mw-headline" id="EXE_Header">EXE Header</span></h4>
+<p>Dieser Header ist der Basisheader jeder Datei im EXE-Format (auch DLL und andere abgeleitete Dateien), worauf sich der PE/COFF-Header aufbaut. Da aber die Informationen für solche Dateien nicht mehr im EXE-Header abgelegt werden, könnte man theoretisch den EXE-Header weglassen. Leider ist dem aber nicht so, weil dieser die Offsetadresse zu unserem PE/COFF-Header enthält.
+</p><p>Die folgende Tabelle zeigt, was noch vom EXE-Header benötigt wird (Einzelheiten können in <a href="../../pages/2375/index.html" title="MZ EXE">MZ EXE</a> nachgelesen werden.)
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>2 Bytes</td>
+<td>EXE-Datei Signatur ("MZ")
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>6 Bytes</td>
+<td><i>Unbedeutend</i>
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>2 Bytes</td>
+<td>Größe des EXE-Header in 16-Byte-Paragraphen (Wert: 0x0004)
+</td></tr>
+<tr>
+<td>0x0A</td>
+<td>50 Bytes</td>
+<td><i>Unbedeutend</i>
+</td></tr>
+<tr>
+<td>0x3C</td>
+<td>4 Bytes</td>
+<td>Dateioffset des PE/COFF-Header
+</td></tr></tbody></table>
+<p>Hierauf folgt, meist ab Offset 0x40 der eigentliche Stub. Er dient meist nur noch dazu, um unter DOS nur die Meldung "This programm cannot be run in DOS mode" auszugeben. 
+</p><p>Die Struktur und der Inhalt des DOS-Stubs ist bei den meisten heutigen Programmen gleich (Wer will, kann sich mal irgendein Programm im Hex Editor ansehen). Der DOS Stub ist in der Regel 216 Byte lang, wodurch die PE-Kenzeichnung dann am Offset 0x000000D8 liegt. Trozdem sollte man sich nicht darauf verlassen sondern den Wert aus 0x3C prüfen.
+</p>
+<h3><span class="mw-headline" id="PE_Kennzeichnung">PE Kennzeichnung</span></h3>
+<p>Dem DOS Stub folgt die eigentliche PE Datei. Sie beginnt mit der Signatur, die 4 Byte Lang ist und den Wert 0x00004550 enthält, was dem Wort "PE", gefolgt von zwei Nullbytes entspricht.
+</p>
+<h3><span class="mw-headline" id="COFF_Dateiheader">COFF Dateiheader</span></h3>
+<p>Hier ist der Common Object File Format Header:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>2 Bytes</td>
+<td>Hier wird beschrieben, für welche Plattform diese ausführbare Datei geeignet ist
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>2 Bytes</td>
+<td>Die Anzahl der Sektoren
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>4 Bytes</td>
+<td>Die ersten 32 Bits der Sekundenanzahl vom 1. Januar 1970 00:00 bis zur Erstellung der Datei
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>4 Bytes</td>
+<td>In der Objektdatei der Offset zur Symboltabelle. Sollte in der Executable 0 sein.
+</td></tr>
+<tr>
+<td>0x0B</td>
+<td>4 Bytes</td>
+<td>Die Anzahl der Eintragungen von der Symboltabelle
+</td></tr>
+<tr>
+<td>0x0F</td>
+<td>2 Bytes</td>
+<td>Größe des "optionalen" Headers in der Executable. Sollte in einer Objektdatei 0 sein.
+</td></tr>
+<tr>
+<td>0x12</td>
+<td>2 Bytes</td>
+<td>Flags für Eigenschaften der Datei
+</td></tr></tbody></table>
+<h4><span id="Plattformtypen_für_den_COFF-Header"></span><span class="mw-headline" id="Plattformtypen_f.C3.BCr_den_COFF-Header">Plattformtypen für den COFF-Header</span></h4>
+<p>In dieser Tabelle werden die Werte für die Plattformentypen des COFF-Headers erläutert.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Wert</th>
+<th>Plattform
+</th></tr>
+<tr>
+<td>0x0000</td>
+<td>Nicht bekannt oder auf jeder Plattform lauffähig.
+</td></tr>
+<tr>
+<td>0x01D3</td>
+<td>Matsushita AM33
+</td></tr>
+<tr>
+<td>0x8664</td>
+<td><a class="mw-redirect" data-archive-original-href="../../pages/1759/index.html" href="../../pages/1758/index.html" title="X64">x64</a>
+</td></tr>
+<tr>
+<td>0x01C0</td>
+<td>ARM little endian
+</td></tr>
+<tr>
+<td>0x0EBC</td>
+<td>EFI Bytecode
+</td></tr>
+<tr>
+<td>0x014C</td>
+<td><a href="../../pages/1749/index.html" title="X86">x86</a> kompatible Prozessoren
+</td></tr>
+<tr>
+<td>0x0200</td>
+<td>Intel Itanium Prozessorfamilie
+</td></tr>
+<tr>
+<td>0x9041</td>
+<td>Mitsubishi M32R little endian
+</td></tr>
+<tr>
+<td>0x0266</td>
+<td>MIPS16
+</td></tr>
+<tr>
+<td>0x0366</td>
+<td>MIPS mit FPU
+</td></tr>
+<tr>
+<td>0x0466</td>
+<td>MIPS16 mit FPU
+</td></tr>
+<tr>
+<td>0x01f0</td>
+<td>Power PC little endian
+</td></tr>
+<tr>
+<td>0x00f1</td>
+<td>Power PC mit Floating Point Support
+</td></tr>
+<tr>
+<td>0x0166</td>
+<td>MIPS little endian
+</td></tr>
+<tr>
+<td>0x01A2</td>
+<td>Hitachi SH3
+</td></tr>
+<tr>
+<td>0x01A3</td>
+<td>Hitachi SH3 DSP
+</td></tr>
+<tr>
+<td>0x01A6</td>
+<td>Hitachi SH4
+</td></tr>
+<tr>
+<td>0x01A8</td>
+<td>Hitachi SH5
+</td></tr>
+<tr>
+<td>0x01C2</td>
+<td>ARM Thumb
+</td></tr>
+<tr>
+<td>0x0169</td>
+<td>MIPS little endian WCE v2
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="Flags_des_COFF-Headers">Flags des COFF-Headers</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Funktion
+</th></tr>
+<tr>
+<td>1</td>
+<td>Nur für Windows wichtig
+</td></tr>
+<tr>
+<td>2</td>
+<td>Muss Eins sein. Wenn nicht, dann hat der Linker einen Fehler
+</td></tr>
+<tr>
+<td>3</td>
+<td>Obsolet. Sollte Null sein
+</td></tr>
+<tr>
+<td>4</td>
+<td>Obsolet. Sollte Null sein
+</td></tr>
+<tr>
+<td>5</td>
+<td>Obsolet. Sollte Null sein
+</td></tr>
+<tr>
+<td>6</td>
+<td>Das Programm kann mit mehr als 2GB umgehen. In naher Zukunft wird dieser Eintrag obsolet sein
+</td></tr>
+<tr>
+<td>7</td>
+<td>Reserviert
+</td></tr>
+<tr>
+<td>8</td>
+<td>Obsolet. Sollte Null sein
+</td></tr>
+<tr>
+<td>9</td>
+<td>Plattform basiert auf 32-Bit-Ausdrücken
+</td></tr>
+<tr>
+<td>10</td>
+<td>Debuginformationen wurden entfernt
+</td></tr>
+<tr>
+<td>11</td>
+<td>Diese Datei stammt aus dem Internet oder von einem Wechselmedium
+</td></tr>
+<tr>
+<td>12</td>
+<td>Diese Datei ist eine Systemdatei und kein Anwendungsprogramm
+</td></tr>
+<tr>
+<td>13</td>
+<td>Diese Datei ist eine DLL
+</td></tr>
+<tr>
+<td>14</td>
+<td>Diese Datei sollte auf einem Einprozessor-System laufen
+</td></tr>
+<tr>
+<td>15</td>
+<td>Obsolet. Sollte Null sein
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h4><span id='Informationen_zum_"optionalen"_Header'></span><span class="mw-headline" id="Informationen_zum_.22optionalen.22_Header">Informationen zum "optionalen" Header</span></h4>
+<p>Keiner weiß warum der Optionale Header so heißt, wie er heißt denn jede ausführbare PE Datei hat ein "optionalen" Header.
+Der optionale Header wird in drei Abschnitte unterteilt (Zu PE32 und PE32+ siehe unten):
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset PE32/PE32+</th>
+<th>Größe</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0</td>
+<td>28/24</td>
+<td>Zeigt allgemeine Informationen an
+</td></tr>
+<tr>
+<td>28/24</td>
+<td>68/88</td>
+<td>Windows-spezifische Informationen
+</td></tr>
+<tr>
+<td>96/112</td>
+<td>Variabel</td>
+<td>Sind Adressen oder Teile von Tabellen, die für das Betriebsystem wichtig sind
+</td></tr></tbody></table>
+<p>Der erste Abschnitt wird wiederum in folgendermaßen unterteilt:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>2 Bytes</td>
+<td>Hier wird angegeben, ob es sich um PE32(0x10B) oder PE32+(0x20B) handelt. Bei PE32+ wird ein 64-Bit-Namensraum verwendet. Unter Windows gibt es trotzdem eine Beschränkung auf 2 GiB. Möglich ist es auch, die Datei als ROM Image( 0x107) zu kennzeichen, aber es geht nicht hervor, was die Unterschiede sind.
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>1 Byte</td>
+<td>Hauptversion des Linkers
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>1 Byte</td>
+<td>Nebenversion des Linkers
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>4 Bytes</td>
+<td>Hier soll die Größe des Quellcodes hin
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>4 Bytes</td>
+<td>Die Summe aller initialisierten Datensektionen
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td>4 Bytes</td>
+<td>Die Summe aller nicht initialisierten Datensektionen (BSS)
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>4 Bytes</td>
+<td>Die Adresse des Entry Points (Einsprungpunktes) bezogen auf den Anfang der Datei. Im Fall einer Anwengung ist dies die Position des ersten Befehls, bei Gerätetreibern die Adresse der Initialisierungsfunktion. Für DLL-Dateien ist der Entrypoint optional; sollte keiner erwünscht sein, muss dieser Wert 0 sein.
+</td></tr>
+<tr>
+<td>0x14</td>
+<td>4 Bytes</td>
+<td>Die Adresse, die relativ zum ersten Sektor der ausführbaren Datei steht
+</td></tr>
+<tr>
+<td>0x18</td>
+<td>4 Bytes</td>
+<td>Die Adresse, die relativ zum ersten Sektor der ausführbaren Datei steht. (Nur bei PE32 nötig).
+</td></tr></tbody></table>
+<p><br/>
+Den Windows spezifischen Teil wird hier nicht erklärt, weil dies für lowlevel nicht wichtig ist. Der geneigte Leser kann die Spezifikation ab Seite 12 durchlesen. 
+<br/>
+Im dritten Teil können Strings oder Tabellen angegeben werden, damit sie das Betriebsystem verwenden kann. Es können beliebig viele
+Resourcen angegeben werden. Jede Resourcenangabe besteht aus zwei Feldern, die jede beide 4-Byte groß sind:
+</p>
+<ul><li>Die Adresse der Tabelle relativ zum ersten Sektor der ausführbaren Datei zum Zeitpunkt des Laden der Tabelle</li>
+<li>Ihre Größe in Bytes</li></ul>
+<h3><span class="mw-headline" id="Sektorentabelle">Sektorentabelle</span></h3>
+<p>Die Sektorentabelle kommt immer nach dem optimalen Header. Die Headergröße wird im COFF-Header festgelegt.
+Ebenfalls wird die Größe der Tabelle im COFF-Header festgelegt.
+Jeder Sektor besteht aus folgenden Abschnitten:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset</th>
+<th>Größe</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>8</td>
+<td>Ist ein 8-Byte-String auf UTF-8 Basis. Wenn genau 8-Bytes verwendet wird, dann ist kein Nullbyte nötig.
+<p>Bei Objektdateien darf dieser länger sein, bei ausführbaren Dateien ist dies verboten.
+</p>
+</td></tr>
+<tr>
+<td>0x08</td>
+<td>4</td>
+<td>Die endgültige Größe eines Sektors, wenn es geladen wird. Bei Objektdateien ist dieser Abschnitt voller Nullen.
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td>4</td>
+<td>Für ausführbare Dateien die Adresse des ersten Bytes der Sektion relativ zum Image Basis(?).
+<p>Bei Objektdateien ist die Adresse des ersten angelegten Bytes, bevor die Verlagerung abgeschlossen ist.
+</p>
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>4</td>
+<td>Dies Feld ist gerundet. Entweder die Größe des Sektors(Objektdateien) oder die Größe des initialisierten Daten auf der Festplatte(Bei Imagedateien) Ist dieser Teil kleiner als das Offset 8, dann sind der Rest der Sektorentabelle Nullen. Wenn diese Sektion nur uninitialisierte Daten enthält, dann ist dieser Teil Null.
+</td></tr>
+<tr>
+<td>0x14</td>
+<td>4</td>
+<td>Der Dateipointer zur ersten Sektion innerhalb des COFF-Headers. Für Objektdateien sollte dieser Teil an einer 4-Byte-Grenze ausgerichtet sein. Enthält die Sektion nur uninitialisierte Daten, dann ist dieser Teil Null.
+</td></tr>
+<tr>
+<td>0x18</td>
+<td>4</td>
+<td><i>nicht verwendet (PointerToRelocations)</i><sup>1</sup>
+</td></tr>
+<tr>
+<td>0x1C</td>
+<td>4</td>
+<td><i>nicht verwendet (PointerToLinenumbers)</i><sup>1</sup>
+</td></tr>
+<tr>
+<td>0x20</td>
+<td>2</td>
+<td><i>nicht verwendet (PointerToLinenumbers)</i><sup>1</sup>
+</td></tr>
+<tr>
+<td>0x22</td>
+<td>2</td>
+<td><i>nicht verwendet (PointerToLinenumbers)</i><sup>1</sup>
+</td></tr>
+<tr>
+<td>0x24</td>
+<td>4</td>
+<td>Eigenschaften der Sektion
+</td></tr></tbody></table>
+<p><sup>1</sup> Die Felder 0x18 bis 0x23 stammen aus Coff und haben in PE keine Bedeutung. Sie sind auf 0 zu setzten.
+</p>
+<h4><span id="Eigenschaften_für_Sektionen"></span><span class="mw-headline" id="Eigenschaften_f.C3.BCr_Sektionen">Eigenschaften für Sektionen</span></h4>
+<p>Es gibt folgende Eigneschaftflags von 0 bis 31:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Nummber</th>
+<th>Sektionstyp
+</th></tr>
+<tr>
+<td>5</td>
+<td>Code Sektion
+</td></tr>
+<tr>
+<td>6</td>
+<td>Initialisierte Daten Section (.data)
+</td></tr>
+<tr>
+<td>7</td>
+<td>Unnitialisierte Daten Section (.bss)
+</td></tr>
+<tr>
+<td>26</td>
+<td>Sektion, kann nicht gecached werden.
+</td></tr>
+<tr>
+<td>27</td>
+<td>nicht pagebare Sektion
+</td></tr>
+<tr>
+<td>28</td>
+<td>gemeinsame Sektion
+</td></tr>
+<tr>
+<td>29</td>
+<td>Ausführbare Sektion
+</td></tr>
+<tr>
+<td>30</td>
+<td>Lesbare Sektion
+</td></tr>
+<tr>
+<td>31</td>
+<td>Schreibbare Sektion
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://www.microsoft.com/whdc/system/platform/firmware/PECOFF.mspx" rel="nofollow">Microsoft Portable Executable and Common Object File Format Specification</a></li>
+<li><a class="external autonumber" href="http://www.csn.ul.ie/~caolan/publink/winresdump/winresdump/doc/pefile.html" rel="nofollow">[1]</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165735
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.010 seconds
+Real time usage: 0.011 seconds
+Preprocessor visited node count: 73/1000000
+Preprocessor generated node count: 132/1000000
+Post‐expand include size: 637/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.452      1 -total
+ 42.36%    0.615      1 Vorlage:Stub
+ 35.87%    0.521      8 Vorlage:Prettytable
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:1644-0!canonical and timestamp 20261109165735 and revision id 11304
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Microsoft_Portable_Executable_and_Common_Object_File_Format&amp;oldid=11304</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1618/index.html" title="Kategorie:Stub">Stub</a></li><li><a href="../../pages/1647/index.html" title="Kategorie:Dateityp">Dateityp</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1644/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/1774/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1644/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/PE" hreflang="en" lang="en" title="PE – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 12. Oktober 2015 um 06:03 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

@@ -1,0 +1,15 @@
+Ich habe mal eine Makefile geschrieben, die das olle buildmk.sh ersetzen soll. Ziel meiner Makefile ist den Kompiliervorgang zu beschleunigen, und dabei trotzdem möglichst flexibel und einfach zu handhaben wie buildmk.sh zu sein.
+
+Die Makefile ist so gebaut, dass am Quelltextbaum kaum Änderungen nötig sind. Ein paar Sachen, die man allerdings beachten muss:
+*.nobuild-Dateien müssen jetzt folgenden Inhalt haben:
+ $(eval $(NOBUILD))
+
+Diese Makefile erfordert mindestens GNU Make Version 3.80. (MinGW-Nutzer haben nur Version 3.79.1. Workaround: Das von Make von cygwin mit dem zusätzlichen Parameter CC=gcc)
+
+== Usage ==
+*make -f Makefile.Jidder
+*Den Reflex einen Kaffee zu holen unterdrücken, denn es dauert gar nicht so lang
+*Die Dateien in build irgendwie auf ein Image popeln.
+
+== Todo ==
+*Dependencies

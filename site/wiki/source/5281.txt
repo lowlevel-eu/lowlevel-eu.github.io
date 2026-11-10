@@ -1,0 +1,99 @@
+{{Infobox OS
+| Name = meinOS
+| Version = noch keine
+| Entwickler = [[Benutzer:Jgraef | Janosch Gräf]]
+| Lizenz = GPL, LGPL, BSD
+| Kernel = Microkernel
+| API = [[POSIX]], Nativ
+| Binaerformat = [[ELF]]
+| Sprache = [[C]]
+| IPC = [[RPC]] (synchron), [[MessageQueue|Message Queues]] (SysV), [[Semaphore|Semaphores]] (SysV), [[Shared Memory]] (SysV), [[Signale]]
+| Plattform = [[x86]]
+| Homepage = http://jgraef.dyndns.org/meinos/
+}}
+
+meinOS ist ein [[Ausgabe_2#Der_Microkernel | Microkernel]]-Betriebssystem für x86-Systeme. Es wird von [[Benutzer:Jgraef | jgraef]] entwickelt.
+
+== Entwicklung ==
+Dank zweier 12h-Programmier-Sessions ist meinOS ein ganzes Stück weiter. Fork() und execute() funktionieren. Init startet alle Treiber und sonstige Programme (/etc/init.d). Stdin, stdout ud stderr werden nicht mehr zum Kernel geleitet, sondern über Unnamed Pipes zum Elternprozess. Außerdem läuft jetzt eine Shell. Leider funktionieren die Unnamed Pipes aber noch nicht so gut und der Keyboard-Treiber macht auch Probleme. Deswegen kann ich niemanden empfehlen andere Programme als "true" und "false" in der Shell zu starten.
+
+=== Komplett ===
+* [[Kernel]]
+** [[Speicherverwaltung]]
+** [[Prozessverwaltung]]
+** IPC
+*** [[Message Queue|Message Queues]] (SysV)
+*** [[Shared Memory]] (SysV)
+*** [[Semaphore | Semaphores]] (SysV)
+*** [[Remote Procedure Call]]
+*** [[Signale]]
+** [[Multiboot]]-Kompatibilität
+
+* Server (Treiber)
+** Console-Server (umfasst Keyboard-Treiber und Screen-Treiber)
+** [[ATA]] (mit ATAPI)
+** CDROM
+** [[Cirrus Logic]]
+** [[COM]]
+** Console ([[Keyboard Controller | Tastatur]]
+** DevFS
+** [[DMA]]
+** [[FAT]]
+** [[Floppy]]
+** [[ISO9660]]
+** [[PCI]]
+** Pseudo-Geräte (/dev/null, /dev/zero/ und /dev/urandom)
+** Ramdisk
+** VFS
+
+* Bibliotheken
+** libmeinos
+*** [[CMOS]]
+*** DevFS
+*** [[DMA]]
+*** [[RPC]]
+*** Linked List
+*** Lock (Spinlock)
+*** Path (zum parsen von Dateipfaden)
+*** [[PCI]]
+*** Process (Kontrolle über Prozesse)
+** stdlibc (großer Teil schon portiert)
+** [[CDI|libcdi]]
+*** [[BIOS]]
+*** Cache
+*** [[DMA]]
+*** FS
+*** Generic (noch kein Standard)
+*** Net
+*** [[PCI]]
+*** SCSI
+*** Storage
+*** Video
+** libfuse
+* Nenneswerte Programme
+** init
+** login
+** shell (noch in Arbeit)
+** gzip
+** mount
+
+=== Planung ===
+* NTFS-Treiber
+* Standard-Unix-Toolchain: echo,cat,mv,cp,... und GCC-Toolchain
+
+== Crosscompiler ==
+Zum Bauen von meinOS wird der meinOS-Crosscompiler benötigt. Die Patches können hier gedownloadet werden:
+* [http://repo.or.cz/w/meinos.git?a=blob;f=gcc-4.2.2-meinos.patch gcc-4.2.2]
+* [http://repo.or.cz/w/meinos.git?a=blob;f=binutils-2.18-meinos.patch binutils-2.18]
+
+== Download ==
+Das aktuelle CD-Image kann hier gedownloadet werden: [http://jgraef.bplaced.net/meinos/downloads/meinos_cd_20081207.iso.gz meinos_cd_20081207.iso.gz]
+
+== Screenshot (07.12.2008) ==
+http://jgraef.bplaced.net/meinos/screenshots/meinos.gif
+
+== Weblinks ==
+* [http://jgraef.dyndns.org/meinos Website von meinOS]
+* [http://repo.or.cz/w/meinos.git GIT-Repository]
+
+[[Category:Betriebssystem]]

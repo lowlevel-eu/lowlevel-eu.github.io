@@ -1,0 +1,27 @@
+Solange es keinen Artikel zu [[GRUB 2]] gibt, werde ich meine Experimente unter MinGW damit mal hier festhalten. Ich hab im Prinzip keine Ahnung, einige Ideen von [http://www.rtems.org/wiki/index.php/MinGW:Grub2:VMWare_Development_Environment_Setup hier] geklaut.
+
+Ich habe das ganze mit Version 1.97 getestet (Download: [ftp://alpha.gnu.org/gnu/grub/]). Die Umgebung war MinGW mit GCC 4.4.0 und MSYS 1.0.11. Außerdem wird das Programm mktemp benötigt, das in meiner MSYS-Installation nicht dabei war. Ich hab es nachinstalliert (Download: [http://sourceforge.net/projects/mingw/files/MSYS%20mktemp/]). Außerdem werden vermutlic die Coreutils (insbesondere dd) benötigt, die im MSYS Base System enthalten sind (Download: [http://sourceforge.net/projects/mingw/files/MSYS%20Base%20System/])
+
+Kompilieren und Installieren funktioniert ohne Modifikationen und wie üblich mit den drei Befehlen:
+ sh configure
+ make
+ make install
+
+Es gibt da wohl ein paar Probleme mit GRUBs printf-Implementierung und MinGWs Meinung, wie die Formatspezifizierer für 64-Bit-Integers auszusehen haben. Ich hab deswegen aus der Datei include/grub/misc.h von allen printf-Funktionen das __attribute__ ((format (printf, x, y))); gelöscht, um die Warnungen (die ab und zu mal zum Abbruch führen) zu unterbinden.
+
+Zunächst muss ein Verzeichnis erstellt werden, dass den Inhalt der Diskette enthält. Ich habe es ''image'' genannt. Der Kernel und die Module müssen in das Verzeichnis boot/ kopiert werden. Zumindest ich konnte GRUB nicht dazu bewegen, aus dem Wurzelverzeichnis zu lesen. Außerdem nutzt GRUB 2 als Konfigurationsdatei die Datei boot/grub/grub.cfg. Diese Datei muss ebenfalls im Verzeichnis image existieren. 
+Die grub.cfg muss dann im neuen Format sein, das in etwa so aussieht:
+ menuentry "Test Kernel" {
+  multiboot /boot/kernel.bin
+ }
+Damit sieht bei mir die Dateistruktur wie folgt aus:
+ +-image
+   +-boot
+     +-grub
+     | +-grub.cfg
+     +-kernel.bin
+     +-module1.bin
+Um daraus ein Image namens test.img zu erstellen, muss man dann nur noch diesen Befehl im Verzeichnis, das image enthält, ausführen:
+ sh /usr/local/bin/grub-mkrescue --image-type=floppy --overlay=image test.img
+
+GRUB nutzt wohl (unkomprimierte) tar-Archive als Dateisystem für das Overlay. Mounten ist deswegen wohl nicht drin.

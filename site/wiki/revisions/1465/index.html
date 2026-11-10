@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Ausgabe 2 – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Ausgabe_2 rootpage-Ausgabe_2 skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1415/index.html">Aktueller Artikel</a> · <a href="../../history/1415/index.html">Versionsgeschichte</a> · <a href="../../source/1465.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Ausgabe 2</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 12. September 2006, 17:31 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>DarkThing</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Leserbriefe">→</a>‎<span dir="auto"><span class="autocomment">Leserbriefe</span></span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/1463-1465.html" title="Ausgabe 2">Unterschied</a>) <a href="../1463/index.html" title="Ausgabe 2">← Nächstältere Version</a> | <a href="../../pages/1415/index.html" title="Ausgabe 2">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../1467/index.html" title="Ausgabe 2">Nächstjüngere Version →</a> (<a href="../../diffs/1465-1467.html" title="Ausgabe 2">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Vorwort"><span class="tocnumber">1</span> <span class="toctext">Vorwort</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#News"><span class="tocnumber">2</span> <span class="toctext">News</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Leserbriefe"><span class="tocnumber">3</span> <span class="toctext">Leserbriefe</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#OS-Dev-Tutorial.2C_Teil_2"><span class="tocnumber">4</span> <span class="toctext">OS-Dev-Tutorial, Teil 2</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Der_monolithische_Kernel"><span class="tocnumber">4.1</span> <span class="toctext">Der monolithische Kernel</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Der_Microkernel"><span class="tocnumber">4.2</span> <span class="toctext">Der Microkernel</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Der_Exokernel"><span class="tocnumber">4.3</span> <span class="toctext">Der Exokernel</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Abschlie.C3.9Fende_Worte"><span class="tocnumber">4.4</span> <span class="toctext">Abschließende Worte</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Lowlevel-Grundlagen.2C_Teil_2"><span class="tocnumber">5</span> <span class="toctext">Lowlevel-Grundlagen, Teil 2</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Polling"><span class="tocnumber">5.1</span> <span class="toctext">Polling</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Interrupts"><span class="tocnumber">5.2</span> <span class="toctext">Interrupts</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Interrupt_Vector_Table"><span class="tocnumber">5.3</span> <span class="toctext">Interrupt Vector Table</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Vorwort">Vorwort</span></h2>
+<p>Das ist nun die zweite Ausgabe von Lowlevel. Nach der doch sehr positiven Resonanz von Ausgabe 1 habe ich beschlossen, das Projekt fort zu führen. Und ich hoffe, dass ich es nicht umsonst mache...
+</p><p>Eine Bitte habe ich jedoch: ich habe nicht ewig Zeit, um an Lowlevel zu schreiben. Wenn ihr also Content habt, den ihr mir zu Verfügung stellen könnt - egal was, Hauptsache OS Dev-mäßig - dann schickt es mir! Ich mache mir wirklich extrem viel Mühe, um die Zeitschrift regelmäßig voll zu kriegen, also... ihr könntet mir ein wenig Arbeit abnehmen ;-)
+</p><p>Aber auf jeden Fall danke ich allen, die mich unterstützen und die mir ihre Meinung gemailt haben.
+</p><p>Und ich bitte um Entschuldigung wegen den zahlreichen Verspätungen, denn die deutsche Terrorkom hatte mir irrtümlicherweise das Internet gesperrt.
+</p>
+<h2><span class="mw-headline" id="News">News</span></h2>
+<p>Sorry, keine News diesmal... leider keine Zeit. Wer Newsredakteur bei Lowlevel werden will, kann mir eine Mail schreiben.
+</p>
+<h2><span class="mw-headline" id="Leserbriefe">Leserbriefe</span></h2>
+<p><b>Hallo, ich habe gerade auf www.coder-area.de deine Werbung zu deiner Zeitschrift gelesen und gleich einmal reingeschnuppert. Da ich bisher wenig Ahnung vom Aufbau eines Betriebssystems habe, kommt mir diese Gelegenheit gerade recht, um mein Wissen in dieser Beziehung ein wenig aufzufrischen. Weiter so! [...]</b>
+</p><p>Freut mich, dass es dir gefallen hat! Ich werde auf jeden Fall weitermachen!
+</p><p><br/>
+<b>[...] Sehr schönes Magazin. Die erste Ausgabe hat mich sehr begeistert. Leider beherrsche ich noch nicht all zu Viel Grundlagen von Assembler, um ganz durchzusteigen, hast du mir da nicht ein Paar Adressen die sich mit Assembler-Programmierung beschäftigen? [...]</b>
+</p><p>Tja... da wäre zum Beispiel Snakebytes berühmtes Assembler-Tutorial: <a class="external free" href="http://kryptocrew.de/archiv/coding/asm/Asmtut.html" rel="nofollow">http://kryptocrew.de/archiv/coding/asm/Asmtut.html</a>, hier eine Art "Referenz":<a class="external free" href="http://webster.cs.ucr.edu/" rel="nofollow">http://webster.cs.ucr.edu/</a> und Andre Müllers Tutorial, von dem wir auch Teile hier abdrucken: <a class="external free" href="http://andremueller.gmxhome.de/toc.html" rel="nofollow">http://andremueller.gmxhome.de/toc.html</a>
+</p>
+<h2><span id="OS-Dev-Tutorial,_Teil_2"></span><span class="mw-headline" id="OS-Dev-Tutorial.2C_Teil_2">OS-Dev-Tutorial, Teil 2</span></h2>
+<p>Bevor man ein Betriebssystem programmiert, sollte man sich überlegen, wie das Ganze aufgebaut werden soll. Die zur Zeit wichtigsten Modelle sind:
+</p>
+<pre>  1. Monolithischer Kernel
+  2. Microkernel
+  3. Exokernel
+</pre>
+<p>Jeder dieser Kernels hat seine eigenen Vor- und Nachteile, die ich hier kurz darstellen möchte.
+</p>
+<h3><span class="mw-headline" id="Der_monolithische_Kernel">Der monolithische Kernel</span></h3>
+<p>Der monolithische Kernel ist noch die meistgenutzte Architektur. OSes wie z.B. Windows benutzen diese traditionelle Form des Kernels. Der größte Teil des Hardware-Interfaces und der Interrupts sind direkt im Kernel implementiert.
+</p><p>Einen monolithischen Kernel zu schreiben, kann ganz schön schwierig sein, da die einzelnen Module des OSes untereinander kommunizieren müssen, und das ist wegen der fehlenden Hardware-Abstraktion recht schwierig. Im Idealfall bietet jedes Modul eine Art <b>Interface</b>, über das andere Module mit ihm kommunizieren können.
+</p><p>Leider ist dies leichter gesagt als getan. Da bei einem monolithischen Kernel meistens alle Module in einem Speicherbereich liegen, kann ein Bug gleich den gesamten Kernel zum Absturz bringen.
+</p><p>Beispiele für monolithische Kernels: <b>Windows</b> und <b>Linux</b>.
+</p>
+<h3><span class="mw-headline" id="Der_Microkernel">Der Microkernel</span></h3>
+<p>Der Microkernel wurde erfunden, um die Probleme zu lösen, die bei einem monolithischen Kernel auftreten. Ein Microkernel wird, wie der Name schon sagt, möglichst klein gehalten. Er hat nur die Aufgabe der Verwaltung von <b>Ressourcen</b>: er bestimmt lediglich, wann ein Programm welche Teile des Systems nutzen darf.Das Nutzen der Ressourcen, also die eigentliche Arbeit übernehmen dann <b>Treiber</b> oder <b>Server</b>.
+</p><p>Das hat den Vorteil, dass man den Microkernel in Supercomputern genauso wie in kleinsten Geräten, zum Beispiel einem Handy verwenden kann, weil der Kernel selbst nichts von den vorhandenen Ressourcen weiß oder wissen muss.
+</p><p>Da also Kernel und die verschiedenen Treiber/Server getrennt laufen, ist ein Microkernel sehr viel stabiler als ein monolithischer Kernel, weil ein Fehler in einem Modul lediglich das Modul zum Absturz bringt, aber nicht gleich den ganzen Kernel.
+</p><p>Ein Beispiel für einen Microkernel ist <b>QNX RTOS</b>, das man als Privatanwender kostenlos downloaden kann. Für kommerzielle Entwickler kostet es, soweit ich weiß, 3000 €.
+</p><p><a class="external free" href="http://www.qnx.com" rel="nofollow">http://www.qnx.com</a>
+</p>
+<h3><span class="mw-headline" id="Der_Exokernel">Der Exokernel</span></h3>
+<p>Der Exokernel ist dem Microkernel in dem Punkt, dass die Hardwareabstraktion vom Kernel getrennt wird, sehr ähnlich. Allerdings wird das Hardwareinterface bei dieser Architektur nicht in Programmen mit Kernelrechten, sondern in einer Art von <b>DLLs</b> (oder für Linux-User: <b>Shared Librarys</b>) implementiert, die auf der User-Ebene laufen.
+</p><p>Diese Vorgehensweise hat den Vorteil, dass Anwendungsprogrammierer, wenn sie das wünschen, direkt auf die Hardware zugreifen können. Normale Anwendungen, beispielsweise Windowsprogramme, brauchen die Hardwareabstraktion natürlich. Sie können auf die "DLL", das sogenannte <b>LibOS</b> zugreifen. LibOSes können z.B. harmonisch nebeneinander ein Windows- und ein Linux-System simulieren, auf denen dann gewöhnliche Programme laufen.
+</p><p>Soweit ich weiß, ist das bisher einzige Exo OS für den PC <b>"xok/ExOS"</b>, das man kostenlos herunterladen kann. Das libOS ExOS simuliert ein Unix-System, auf dem Anwendungen wie gcc laufen.
+<a class="external free" href="http://www.pdos.lcs.mit.edu/exo/" rel="nofollow">http://www.pdos.lcs.mit.edu/exo/</a>
+</p>
+<h3><span id="Abschließende_Worte"></span><span class="mw-headline" id="Abschlie.C3.9Fende_Worte">Abschließende Worte</span></h3>
+<p>Leute, die sich ernsthaft mit OS Dev beschäftigen, sollten dieses wichtige Kapitel - nämlich das Design des Kernels - auf keinen Fall überspringen. Ich kann aus Erfahrung sagen, dass ein OS umso stabiler, sicherer und schneller läuft, je mehr man sich vor der eigentlichen Implementierung Gedanken über den Kernel macht.
+</p><p>Denn wenn man einfach so drauflos programmiert, kommt man vielleicht am Anfang schnell weiter, doch irgendwann steht man vor einem riesigen Designproblem und man weißt nicht, wo man anpacken soll. Deshalb befolgt meinen Ratschlag und plant eure Software genau aus.
+</p><p><br/>
+</p>
+<h2><span id="Lowlevel-Grundlagen,_Teil_2"></span><span class="mw-headline" id="Lowlevel-Grundlagen.2C_Teil_2">Lowlevel-Grundlagen, Teil 2</span></h2>
+<p>Die CPU ist kein Alleskönner. Auf einem IBM-PC gibt es noch andere Einheiten, die unabhängig von der CPU arbeiten. Um an die Daten zu kommen, die diese Geräte an die CPU senden, gibt es zwei Methoden, die ich kurz darstellen möchte.
+</p>
+<h3><span class="mw-headline" id="Polling">Polling</span></h3>
+<p>Die CPU stoppt nach bestimmten Zeitabschnitten die Ausführung des Programms (oder des Betriebssystems), und checkt bei jedem Gerät, ob Daten angekommen sind und ob diese verarbeitet werden müssen. Wenn ja, wird eine entsprechende Routine gecallt, die die jeweilige Verarbeitung aufnimmt.
+</p><p>Leider ist diese Methode sehr ineffizient, da sie sehr viel Rechenkapazität in Anspruch nimmt und dadurch die CPU völlig ausbremsen kann. Außerdem besteht die Gefahr, dass Daten verloren gehen, wenn größere Datenmengen von verschiedenen Ports an die CPU gesendet werden.
+</p>
+<h3><span class="mw-headline" id="Interrupts">Interrupts</span></h3>
+<p>Eine sehr viel bessere Methode ist die Methode der Interrupts. Bei diesem Konzept bekommt jedes Gerät, das mit der CPU kommuniziert, eine Art "Signalgeber", mit der es der CPU signalisieren kann, dass Daten gesendet wurden und die CPU nun die Daten verarbeiten muss. Die CPU unterbricht (<b>interrupts</b>) nun das Programm und verarbeitet die Daten mit einer Routine, die vorher festgelegt wurde. Wie diese System genau funktioniert, werden wir uns später anschauen.
+</p><p>Diese Methode hat einige Vorteile. Zum Beispiel kann die CPU das Programm, das geladen ist, permanent ausführen, und das Programm wird nur dann unterbrochen, wenn es wirklich sein muss.
+</p><p>So, Schluss jetzt mit dem theoretischen Gelaber. Schauen wir uns an, wie das genau funktioniert und wie das auf dem IBM-PC implementiert ist ;-)
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:182px;"><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Datei:Ausgabe1/irq2.gif</a> <div class="thumbcaption">Implementierung auf dem IBM-PC</div></div></div></div>
+<p>Intel hat für diese Zwecke extra einen neuen Chip gebaut, den <b>8259 Interrupt Controller</b> (auch <b>PIC</b> genannt, <b>Programmable Interrupt Controller</b>). Dieser Chip hat 8 Leitungen (IRQ 0 - 7) für jedes einzelne Gerät, das der CPU etwas mitteilen muss. Die einzelnen Leitungen nennt man <b>IRQ Lines</b> (Interrupt ReQuest). Da jedoch 8 IRQs zuwenig waren, baute Intel einen zweiten Interrupt Controller in den IBM-PC, der über IRQ 2 mit dem ersten verbunden war.
+</p><p>Wie man sieht, ist IRQ 2 nicht als solches verwendbar, sondern dient lediglich zur Kommunikation. Aus Kompatibilitätsgründen wurde deshalb IRQ 2 mit IRQ 9 des 2. Controllers verbunden.
+</p><p>Zu kompliziert? Ganz einfach: wenn ein Gerät IRQ 2 benutzt, dann benutzt es in Wirklichkeit IRQ 9.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:182px;"><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Datei:Ausgabe1/irq3.gif</a> <div class="thumbcaption"></div></div></div></div>
+<p>Was passiert nun, wenn ein Gerät einen Interrupt Request über eine IRQ Line sendet? Als erstes gelangt das Signal ins Interrupt <b>Mask Register (IMR)</b>. Hier wird festgestellt, ob der IRQ überhaupt verarbeitet werden muss oder nicht (Masking, darauf werde ich allerdings nicht näher eingehen).
+</p><p>Als nächstes gelangt das Signal in den <b>Priority Resolver</b>. Dieser findet heraus, welche IRQs zuerst, bzw. welche zuletzt verarbeitet werden müssen. Je niedriger die IRQ-Nummer, desto mehr Priorität hat das Signal (IRQ 0 hat also am meisten Priorität, gefolgt von IRQ 1 usw.)
+</p><p>Nun ist der Interrupt Controller mit allen Vorarbeiten fertig und muss der CPU sagen, dass ein Interrupt ausgelöst wurde. Dies geschieht durch ein <b>INT-Signal</b> (Interrupt-Signal), das durch die Interrupt-Leitung des Prozessors gesendet wird. Der Prozessor wird die Anweisung beenden, die er gerade ausführt, und anschließend ein <b>INTA (Interrupt Acknowledge)</b> zurücksenden, das den Erhalt des IRQs bestätigt.
+</p><p>Wenn der PIC das INTA-Signal bekommt, wird die Nummer des IRQs im <b>In Service Register (ISR)</b> gespeichert, welches also zeigt, welcher IRQ gerade aktiv ist. Außerdem wird es aus dem Interrupt Request Register gelöscht, weil der Prozessor sich ja schon um den IRQ kümmert.
+</p><p>Der Prozessor wird nun ein weiteres INTA-Signal an den PIC senden, um ihm zu sagen, dass er einen 8 Bit-Pointer mit der Nummer des ausgelösten IRQs in den Daten-Bus stellen soll. Die CPU muss schließlich wissen, welcher Interrupt ausgelöst wurde.
+</p><p>Anschließend wird der Prozessor den Interrupt Handler (auch <b>ISR, Interrupt Service Routine</b> genannt, aber nicht mit dem In Service Register verwechseln!) aufrufen, der zum jeweiligen Interrupt dazugehört.
+</p><p>Nur: woher weiß der Prozessor, wo der Interrupt Handler ist?
+</p>
+<h3><span class="mw-headline" id="Interrupt_Vector_Table">Interrupt Vector Table</span></h3>
+<p>8086-Prozessoren benötigen eine so genannte <b>Interrupt Vector Table</b>, an der Adresse 0000:0000, die 1024 Bytes lang ist. Diese Tabelle beinhaltet die Adressen der Interrupt Handler, die aufgerufen werden, wenn ein Interrupt ausgelöst wird. Jede dieser Adressen ist 4 Bytes lang, deshalb kommen wir auf 1024 / 4 = 256 Interrupts, die in der Tabelle sein können.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109164618
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.007 seconds
+Preprocessor visited node count: 46/1000000
+Preprocessor generated node count: 52/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Ausgabe_2&amp;oldid=1465</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten mit defekten Dateilinks</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1415/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1415/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

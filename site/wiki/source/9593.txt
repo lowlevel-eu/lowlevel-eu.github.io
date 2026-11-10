@@ -1,0 +1,38 @@
+Ich würde gut finden, wenn hier (im Artikel natürlich!) was dazu stehen würde, was ein Cluster ist, und wie man eine Datei auf dem Datenträger findet, und komplett einliest. Und was sonst noch fehlt, um die Leute davon abzuhalten, ihre eigenen Dateisysteme zu schreiben, weil sie diesen Artikel nicht verstehen. --[[Benutzer:Jidder|Jidder]] 23:52, 23. Apr. 2009 (CEST)
+
+== VFAT ==
+
+"Außerdem werden auch das Erstelldatum und das Datum des letzten Zugriffs durch VFAT gespeichert." Passiert das nicht auch ohne VFAT? Zumindest sagt der Artikel das. --[[Benutzer:XanClic|XanClic]] 21:42, 11. Dez. 2009 (CET)
+:Die 3 Zeitstempel sind nur in dem normalen Verzeichniseintrag enthalten (und funktionieren daher auch ohne lange Dateinamen), die zusätzlichen VFAT-Einträge dienen nur dazu den korrekten/langen Dateinamen zu speichern.--[[Benutzer:Erik.vikinger|Erik.vikinger]] 13:25, 21. Feb. 2011 (CET)
+
+"Wenn die ersten 4 Bits (Bitmaske: 0x0F) gesetzt sind, handelt es sich um einen VFAT-Eintrag" sollte das nicht "die untersten 4 Bits" heißen? Was in einem Byte zuerst und zuletzt kommt ist recht subjektiv aber die Wertigkeit der Bits ist IMHO fest.--[[Benutzer:Erik.vikinger|Erik.vikinger]] 13:25, 21. Feb. 2011 (CET)
+
+== Fat12 ==
+
+Sollte man die Weiterleitung von fat12 auf ausgabe 4 nicht auf diesen Artikel hier umstellen?--user94 16:12, 3. Feb. 2010 (CET)
+: IMHO noch nicht, in der Ausgabe 4 sind einige Infos die noch nicht im FAT-Artikel sind. --[[Benutzer:Erik.vikinger|Erik.vikinger]] 12:09, 29. Nov. 2010 (CET)
+
+== "Verbotene" FAT-Einträge ==
+"Die Einträge 0 und 1 in der FAT werden für spezielle Zwecke benutzt und sollten nicht verändert werden." Mal ehrlich, so eine Aussage gehört sich vielleicht für ein Windows-Anwenderforum, aber im OS-Dev-Kontext will man doch nicht nur wissen, dass man die Finger von etwas lassen soll, sondern vor allem, was diese speziellen Zwecke sind, oder? --[[Benutzer:Taljeth|Taljeth]] 11:00, 28. Nov. 2010 (CET)
+: Ich kenne den Zweck dieser Infos ehrlich nicht und da ist mir erst mal kein besserer Satz zu eingefallen, aber ich schau mal nach ob ich dazu was finde. --[[Benutzer:Erik.vikinger|Erik.vikinger]] 11:36, 28. Nov. 2010 (CET)
+: Ich hab leider nichts dazu gefunden, sorry. Wenn jemand was weiß wäre es cool wenn er das einfügt, tät mich auch mal interessieren. --[[Benutzer:Erik.vikinger|Erik.vikinger]] 19:53, 28. Nov. 2010 (CET)
+:: Im ersten Eintrag steht der Wert in BPB_Media in den unteren 8-Bits. Im zweiten wird kodiert, ob das Dateisystem dismounted wurde und ob möglicherweise defekte Sektoren gefunden wurden. --[[Benutzer:Jidder|Jidder]] 20:06, 28. Nov. 2010 (CET)
+
+== Dateigröße ==
+Ist die Maximalgröße von 4GiB wirklich ein Sache des FS?
+Ich dachte das läge am FAT-Treiber von Windows, der zwar nur bis 4GiB schreibt, aber durchaus mehr lesen kann.
+--[[Benutzer:Dem epOS sein Linus|DesL]] 13:50, 28. Nov. 2010 (CET)
+:Schau dir doch an, wie so ein Verzeichniseintrag aussieht. Mit 4 Bytes für die Dateigröße kommst du eben nur auf 4 GB. Aber kann es sein, dass Windows schon bei 2 GB Schluss macht? --[[Benutzer:Taljeth|Taljeth]] 17:01, 28. Nov. 2010 (CET)
+:: Theoretisch könnte man aber eine größere Datei schreiben und beim lesen, zählt man einfach die gelesenen sectoren und daraus kann man die dateigröße berechnen. --[[Benutzer:PNoob|PNoob]] 00:14, 29. Nov. 2010 (CET)
+::: Das würde bedeuten das die Größe einer Datei immer auf ein Vielfaches der Cluster-Größe aufgerundet werden müsste. Wenn ein Programm eine Datei mit 4GB+20 Bytes anlegt und beim nächsten Öffnen ist die Datei dann 4GB+8kB groß was für Daten sollen in den fast 8kB zusätzlichen Bytes drin sein? Einfach mit 0x00 auffüllen dürfte sicher für die meisten Programme okay sein aber das kann man eben nicht garantieren. Ich persönlich fände es doof wenn das Dateisystem einfach so die Größe meiner Dateien aufrundet (mal ganz davon abgesehen das dann hinten ein paar zufällige Bytes drin sind). Außerdem müsste man nur um die Dateigröße zu ermitteln der gesamten Cluster-Kette folgen was schon etwas Aufwand bedeutet (vor allem bei großen Dateien mit sehr vielen Clustern). --[[Benutzer:Erik.vikinger|Erik.vikinger]] 12:16, 29. Nov. 2010 (CET)
+:::: Wenn (angegebene Größe) kongruent (tatsächliche Größe) modulo (cluster Größe), dann lässt sich auch die exakte Dateigröße bestimmen. Und ich gehe davon aus das MS das so beim lesen macht. Die überprüfen einfach nicht wie Groß die Datei laut angaben sein soll. Aber das ist nur eine Vermutung.--[[Benutzer:MNemo|MNemo]] 13:34, 29. Nov. 2010 (CET)
+
+== Zählung der Cluster ==
+
+Im Verzeichniseintrag steht "Erster Cluster +2 (man muss 2 subtrahieren um die eigentliche Clusternummer zu erhalten)", das finde ich verwirrend. Es stimmt zwar das man beim Zugriff auf die eigentlichen Daten 2 abziehen muss aber wenn man aus der FAT lesen will sollte man das nicht tun (dort gibt es ja die Einträge 0 und 1). Ich würde den Text ab "+2" entfernen damit sich im gesamten Artikel eine einheitliche Zählart ergibt. Meinungen? --[[Benutzer:Erik.vikinger|Erik.vikinger]] 12:35, 29. Nov. 2010 (CET)
+: Hm, ich würde den Hinweis drin lassen. Ich persönlich schaue beim Implementieren erstmal die Tabellen an und ignoriere den Text, wenn ich die Funktionsweise grob kenne und nur das genaue Datenformat nicht (mehr) weiß. Aber vielleicht kann man es etwas deutlicher formulieren, dass sich das nur auf den Zugriff auf die Daten bezieht. --[[Benutzer:Taljeth|Taljeth]] 14:36, 29. Nov. 2010 (CET)
+:: Ich denke es ist jetzt besser formuliert. Das mit den Clustern 0 und 1 ist schon eine komische Angelegenheit im FAT-Dateisystem, da kommen sicher einige Leute erst einmal durcheinander. --[[Benutzer:Erik.vikinger|Erik.vikinger]] 15:46, 29. Nov. 2010 (CET)
+
+== OEM-Name im Boot-Sektor ==
+
+Den Satz "Manche nicht-Windows-Betriebssysteme verlangen, dass hier "MSWIN4.1" steht." kann ich nicht nachvollziehen, üblicherweise werden diese 8 Bytes komplett ignoriert (und das auch von MS-Tools). Es gibt aber wohl nicht-MS-Tools die hier einfach "MSWIN4.1" eintragen obwohl das Feld ja eindeutig dazu dient den wahren Ersteller des Laufwerks zu brandmarken.--[[Benutzer:Erik.vikinger|Erik.vikinger]] 13:29, 21. Feb. 2011 (CET)

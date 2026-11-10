@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Local Advanced Programmable Interrupt Controller – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Local_Advanced_Programmable_Interrupt_Controller rootpage-Local_Advanced_Programmable_Interrupt_Controller skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1581/index.html">Aktueller Artikel</a> · <a href="../../history/1581/index.html">Versionsgeschichte</a> · <a href="../../source/2476.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Local Advanced Programmable Interrupt Controller</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 23. Dezember 2007, 16:46 Uhr von <a class="mw-userlink" href="../../pages/1550/index.html" title="Benutzer:Jgraef"><bdi>Jgraef</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Tabelle aller Register; Local APIC ID Register und Version Register erleutert.)</span></div><div id="mw-revision-nav">(<a href="../../diffs/2475-2476.html" title="Local Advanced Programmable Interrupt Controller">Unterschied</a>) <a href="../2475/index.html" title="Local Advanced Programmable Interrupt Controller">← Nächstältere Version</a> | <a href="../../pages/1581/index.html" title="Local Advanced Programmable Interrupt Controller">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../2477/index.html" title="Local Advanced Programmable Interrupt Controller">Nächstjüngere Version →</a> (<a href="../../diffs/2476-2477.html" title="Local Advanced Programmable Interrupt Controller">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Die <b>LAPIC</b> oder <b>Local APIC</b> (= <b>Local Advanced Programmable Interrupt Controller</b>) nimmt <a href="../../pages/1596/index.html" title="Interrupt"> Interrupts</a> von der <a class="mw-redirect" data-archive-original-href="../../pages/1821/index.html" href="../../pages/1574/index.html" title="I/O APIC">I/O APIC</a> (oder auch von der <a class="mw-redirect" data-archive-original-href="../../pages/1466/index.html" href="../../pages/1465/index.html" title="PIC">PIC</a>) und anderen prozessorinternen Einheiten an und leitet diese an den Prozessorkern zum Abarbeiten weiter. Außerdem ist es nur über die LAPIC möglich <a class="mw-redirect" data-archive-original-href="../../pages/1583/index.html" href="../../pages/1582/index.html" title="IPI"> IPIs</a> zu senden und zu empfangen.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Register"><span class="tocnumber">1</span> <span class="toctext">Register</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Local_APIC_ID_Register"><span class="tocnumber">1.1</span> <span class="toctext">Local APIC ID Register</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Local_APIC_Version_Register"><span class="tocnumber">1.2</span> <span class="toctext">Local APIC Version Register</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Weblinks"><span class="tocnumber">2</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Register">Register</span></h2>
+<p>Die Register liegen normalerweise an der Adresse 0xFEE00000, es ist allerdings sicherer diesen Wert z.B aus dem MP-Header zu entnehmen. Außerdem können sie auch umplatziert werden. Alle Register sind 32bit groß und sind 128bit-aligned.
+</p>
+<table border="1">
+<tbody><tr>
+<th>Offset</th>
+<th>Name
+</th></tr>
+<tr>
+<td>0x20</td>
+<td><a href="#Local_APIC_ID_Register"> Local APIC ID Register</a>
+</td></tr>
+<tr>
+<td>0x30</td>
+<td><a href="#Local_APIC_Version_Register"> Local APIC Version Register</a>
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>Task Priority Register (TPR)
+</td></tr>
+<tr>
+<td>0x90</td>
+<td>Arbitration Priority Register¹ (APR)
+</td></tr>
+<tr>
+<td>0xA0</td>
+<td>Processor Priority Register (PPR)
+</td></tr>
+<tr>
+<td>0xB0</td>
+<td>EOI Register
+</td></tr>
+<tr>
+<td>0xD0</td>
+<td>Logical Destination Register
+</td></tr>
+<tr>
+<td>0xE0</td>
+<td>Destination Format Register
+</td></tr>
+<tr>
+<td>0xF0</td>
+<td>Spurious Interrupt Vector Register
+</td></tr>
+<tr>
+<td>0x100</td>
+<td>In-Service Register (ISR) (0-31)
+</td></tr>
+<tr>
+<td>0x110</td>
+<td>In-Service Register (ISR) (32-63)
+</td></tr>
+<tr>
+<td>0x120</td>
+<td>In-Service Register (ISR) (64-95)
+</td></tr>
+<tr>
+<td>0x130</td>
+<td>In-Service Register (ISR) (96:-27)
+</td></tr>
+<tr>
+<td>0x140</td>
+<td>In-Service Register (ISR) (128-159)
+</td></tr>
+<tr>
+<td>0x150</td>
+<td>In-Service Register (ISR) (160-191)
+</td></tr>
+<tr>
+<td>0x160</td>
+<td>In-Service Register (ISR) (192-223)
+</td></tr>
+<tr>
+<td>0x170</td>
+<td>In-Service Register (ISR) (224-255)
+</td></tr>
+<tr>
+<td>0x180</td>
+<td>Trigger Mode Register (TMR) (0-31)
+</td></tr>
+<tr>
+<td>0x190</td>
+<td>Trigger Mode Register (TMR) (32-63)
+</td></tr>
+<tr>
+<td>0x1A0</td>
+<td>Trigger Mode Register (TMR) (64-95)
+</td></tr>
+<tr>
+<td>0x1B0</td>
+<td>Trigger Mode Register (TMR) (96-127)
+</td></tr>
+<tr>
+<td>0x1C0</td>
+<td>Trigger Mode Register (TMR) (128-159)
+</td></tr>
+<tr>
+<td>0x1D0</td>
+<td>Trigger Mode Register (TMR) (160-191)
+</td></tr>
+<tr>
+<td>0x1E0</td>
+<td>Trigger Mode Register (TMR) (192-223)
+</td></tr>
+<tr>
+<td>0x1F0</td>
+<td>Trigger Mode Register (TMR) (224-255)
+</td></tr>
+<tr>
+<td>0x200</td>
+<td>Interrupt Request Register (IRR) (0-31)
+</td></tr>
+<tr>
+<td>0x210</td>
+<td>Interrupt Request Register (IRR) (32-63)
+</td></tr>
+<tr>
+<td>0x220</td>
+<td>Interrupt Request Register (IRR) (64-95)
+</td></tr>
+<tr>
+<td>0x230</td>
+<td>Interrupt Request Register (IRR) (96-127)
+</td></tr>
+<tr>
+<td>0x240</td>
+<td>Interrupt Request Register (IRR) (128-159)
+</td></tr>
+<tr>
+<td>0x250</td>
+<td>Interrupt Request Register (IRR) (160-191)
+</td></tr>
+<tr>
+<td>0x260</td>
+<td>Interrupt Request Register (IRR) (192-223)
+</td></tr>
+<tr>
+<td>0x270</td>
+<td>Interrupt Request Register (IRR) (224-255)
+</td></tr>
+<tr>
+<td>0x280</td>
+<td>Error Status Register
+</td></tr>
+<tr>
+<td>0x300</td>
+<td>Interrupt Command Register (ICR) (0-31)
+</td></tr>
+<tr>
+<td>0x310</td>
+<td>Interrupt Command Register (ICR) (32-63)
+</td></tr>
+<tr>
+<td>0x320</td>
+<td>LVT Timer Register
+</td></tr>
+<tr>
+<td>0x330</td>
+<td>LVT Thermal Register²
+</td></tr>
+<tr>
+<td>0x340</td>
+<td>LVT Performance Register³
+</td></tr>
+<tr>
+<td>0x350</td>
+<td>LVT LINT0 Register
+</td></tr>
+<tr>
+<td>0x360</td>
+<td>LVT LINT1 Register
+</td></tr>
+<tr>
+<td>0x370</td>
+<td>LVT Error Register
+</td></tr>
+<tr>
+<td>0x380</td>
+<td>Initial Count Register (für Timer)
+</td></tr>
+<tr>
+<td>0x390</td>
+<td>Current Count Register (für Timer)
+</td></tr>
+<tr>
+<td>0x3E0</td>
+<td>Divide Configuration Register (für Timer)
+</td></tr></tbody></table>
+<p>1) Nicht unterstützt in Pentium 4 und Intel Xeon Prozessoren
+2) Eingeführt mit dem Pentium 4 und Intel Xeon Prozessoren. Dieses Register ist implementations-abhängig und muss in Zukunft nicht mehr vorhanden sein.
+3) Eingeführt mit dem Pentium Pro Prozessor. Dieses Register ist implementations-abhängig und muss in Zukunft nicht mehr vorhanden sein.
+<br/>
+</p>
+<h3><span class="mw-headline" id="Local_APIC_ID_Register">Local APIC ID Register</span></h3>
+<p>P6-Prozessorfamilie und Pentium-Prozessoren:
+</p>
+<table border="1" cellpadding="2">
+<tbody><tr>
+<th>31-28</th>
+<th>27-24</th>
+<th>23-0
+</th></tr>
+<tr>
+<td>Reserviert</td>
+<td>Local APIC ID</td>
+<td>Reserviert
+</td></tr></tbody></table>
+<p>Pentium4, IntelXeon und spätere Prozessoren:
+</p>
+<table border="1" cellpadding="2">
+<tbody><tr>
+<th>31-24</th>
+<th>23-0
+</th></tr>
+<tr>
+<td>Local APIC ID</td>
+<td>Reserviert
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Local_APIC_Version_Register">Local APIC Version Register</span></h3>
+<table border="1" cellpadding="2">
+<tbody><tr>
+<th>31-24</th>
+<th>23-16</th>
+<th>15-8</th>
+<th>7-0
+</th></tr>
+<tr>
+<td>Reserviert</td>
+<td>Max. LVT-Einträge</td>
+<td>Reserviert</td>
+<td>Version
+</td></tr></tbody></table>
+<p>Wenn beim Version-Byte das HighNibble 1 ist, ist es ein Local APIC. Andernfalls ein externer APIC. Bei Pentium 4 und Intel Xeon wird als LocalApic 0x14 zurückgegeben. Bei einem externen APIC entspricht das LowNibble X dem Chip 82489DX.
+</p><p>Das Feld "Max. LVT-Einträge" gibt die Anzahl an maximalen LVT-Einträgen minus 1 an. Das Feld muss bei Pentium 4 und Intel Xeon also auf 5 gesetzt sein, da es maximal 6 LVT-Einträge gibt. Bei der P6-Familie gibt es maximal 5 LVT-Einträge. Pentium-Prozessoren haben nur 4 LVT-Einträge.
+<br/>
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://www.intel.com/products/processor/manuals/index.htm" rel="nofollow">Intel® 64 and IA-32 Architectures Software Developer's Manual Volume 3A: System Programming Guide</a> (Kapitel 8)</li>
+<li><a class="external text" href="http://www.amd.com/us-en/Processors/DevelopWithAMD/0,,30_2252_739_7044,00.html" rel="nofollow">AMD64 Architecture Programmer's Manual Volume 2: System Programming</a> (Kapitel 16)</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165648
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.005 seconds
+Real time usage: 0.006 seconds
+Preprocessor visited node count: 18/1000000
+Preprocessor generated node count: 26/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Local_Advanced_Programmable_Interrupt_Controller&amp;oldid=2476</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1447/index.html" title="Kategorie:Hardware">Hardware</a></li><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li><li><a href="../../pages/1618/index.html" title="Kategorie:Stub">Stub</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1581/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1581/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

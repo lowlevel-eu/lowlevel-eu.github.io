@@ -1,0 +1,63 @@
+Hier bitte alle Wünsche für týndur (nach Möglichkeit sortiert nach Zielgebiet) eintragen.
+
+==Kernel==
+* Syscall damit Prozess für jeden abgestorbenen Prozess einen RPC erhält (Wichtig u.a. um bei unsauber beendeten Programmen aufräumen zu können - alternativ folgt irgendwann ein OOM)
+* Mehr Dokumentation in kernel2, auf týndur wird oft als Beispiel verwiesen und eines seiner ursprünglichen Ziele ist auch, dass es dabei hilfreich sein soll. In den Code könnte man oft fast eine Art Tutorial als Kommentar einbetten.
+:* Idee: Eine Art "Code-Walkthrough". Das habe ich mal bei einem Open-Source-Spiel gesehen ([http://www.unknown-horizons.org Unknown Horizons] falls es wen interessiert), da werden im Code halt Kommentarmarken platziert, die einen neuen Programmierer in logisch sinnvoller Reihenfolge durch den Kern-Code führen, um den Einstieg zu erleichtern. Ist wohl schwer zu warten, aber das ist ja eh nur eine Wunschliste.
+* LostIOv2 als neues, kernelbasiertes virtuelles Dateisystem soll das bisherige LostIO, das im Userspace läuft, ablösen und sowohl eine sauberere Schnittstelle bereitstellen als auch die Performance verbessern
+* Portierung auf amd64
+* FPU-Unterstützung
+
+==Allgemeines==
+* Mehr Hardwareunterstützung
+* Shared Libraries
+* POSIX-kompatible Shell
+* libc:
+** fork/exec
+* Buildsystem überarbeiten (oder für Neulinge erklären)
+
+==Module==
+* Tastaturtreiber
+** Deadkeys
+* Framebufferkonsole für mehr als 80x25
+
+
+
+==Treiber==
+===Netzwerk===
+* nVidia MCP67 [10de:054c]
+* Atheros AR8132 PCI-E Fast Ethernet Controller [1969:1062]
+* PCIe Gigabit Ethernet Family Controller [10EC:8168]
+===Sonstiges===
+* SD-Kartentreiber
+
+==Anwendungen==
+* help
+** Kommando um von den Hilfsunterseiten wieder zurück zur Einleitung zu springen (Hilfe neu Starten)
+* kedit
+** Suchen
+** Markieren, Kopieren/Ausschneiden, Einfügen
+*** Idealerweise über eine systemweite Zwischenablage, so dass man von einer kedit-Instanz in eine andere kopieren kann
+** build-Integration
+** vim-Befehlsmodus
+* lpt
+** Upgrades
+** aptitude-ähnliche TUI
+** Liste von Bereits instalierter Software
+** Liste von vorhandener aber noch nicht instalierter Software
+* Setup (Installation)
+* Mail-Client
+* git-Client
+* kirc
+** Unterstuetzung fuer mehrere Channels
+** Irgendwie sinnvoll ein /ns identify erlauben
+** Hochscrollen
+* fbc (FreeBasic Compiler)
+** (infos hier http://www.freebasic.net/ )
+
+==LostIO==
+* Berechtigungen setzen und abfragen
+* ioctl/fcntl um kompatibler zu bestehenden Systemen und Anwendungen zu werden (und um alternativ weitere Files im vfs einzusparen)
+* Dokumentation/SDK
+
+[[Kategorie:týndur|Wunschliste]]

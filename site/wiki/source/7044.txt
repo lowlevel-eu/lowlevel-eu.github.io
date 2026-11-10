@@ -1,0 +1,27 @@
+== EOI? ==
+
+Was bedeutet den EOI. Diese Abkürzungen finde ich, sollte man nur in Tutorials verwenden, wenn man den vollständigen Begriff vorher schon mal genannt hat. --[[Benutzer:Sebi2020|Sebi2020]] 16:28, 16. Dez. 2009 (CET)
+
+
+'''E'''nd '''o'''f '''I'''nterrupt --[[Benutzer:Bluecode|Bluecode]] 17:19, 16. Dez. 2009 (CET)
+
+== add esp,4 ==
+
+na<h dem call interupt_handler, wozu soll dass add esp,4 da? ich versteh nicht was da vom stack genommen wird. ich mein die funktion gibt doch nichts zurück -.-. ich mein der aufruf parameter wird doch automatisch von c wieder vom stack genommen, oder täusche ich mich da? <small>(''Der vorstehende, nicht signierte Beitrag stammt von'' [[Benutzer:Sebi2020|Sebi2020]] 13:50, 22. Dez. 2009 (CET))</small>
+
+:Genau, da täuschst du dich: http://de.wikipedia.org/wiki/Aufrufkonvention#cdecl ;-) --[[Benutzer:XanClic|XanClic]] 15:56, 22. Dez. 2009 (CET)
+:: Also der verlinkte beitrag wiederspricht dir und sagt, dass c dass sehr wohl tut. --[[Benutzer:Sebi2020|Sebi2020]] 20:09, 22. Dez. 2009 (CET)
+:::Natürlich tut C das, irgendwie muss es ja runter. Aber die Funktion macht das nicht für dich, das macht immer der Aufrufer. Und wenn der Aufrufer kein C-Code ist, dann passiert es eben ''nicht'' automatisch. Das entsprechende Zitat im Artikel ist: "Um wieder auf die Position von vorher zu kommen, muss im Anschluss an den Aufruf wieder 12 auf den Wert im ESP-Register addiert werden." --[[Benutzer:XanClic|XanClic]] 21:15, 22. Dez. 2009 (CET)
+:::: Dann musst du dass auch sagen, dass es um den Aufrufer geht --[[Benutzer:Sebi2020|Sebi2020]] 10:46, 23. Dez. 2009 (CET)
+:::::Muss ich nicht, weil das meiner Meinung nach klar war. Wenn du zu einem Assemblerstub sagst, der eine C-Funktion aufruft: "Das macht C doch automatisch", dann war es aus meiner Sicht korrekt zu sagen, "macht es nicht", weil hier nur die aufgerufene Funktion in C geschrieben ist und die macht es eben nicht. --[[Benutzer:XanClic|XanClic]] 12:40, 23. Dez. 2009 (CET)
+
+== pusha/popa ==
+Ich habe den Code grad mal überflogen, da ist mir aufgefallen, dass da 
+    push %ebp
+    push %edi
+    push %esi
+    push %edx
+    push %ecx
+    push %ebx
+    push %eax
+steht. Wie wäre es mit einem einfachen "pusha" und entsprechend dazu popa weiter unten?! --[[Benutzer:Bjork|Bjork]] 21:12, 8. Feb. 2010 (CET)

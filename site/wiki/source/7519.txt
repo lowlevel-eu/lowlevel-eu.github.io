@@ -1,0 +1,38 @@
+Wie sinnvoll ist dieses Tutorial eigentlich? Das hier behandelte Programm ist einfach ein Realmode-„Kernel“ und hat nichts mit „Booten“ zu tun. Oder habe ich den zweiten Teil verpasst?
+
+Also ich finde, hier müsste entweder der besagte zweite Teil geschrieben werden oder der Artikel komplett überarbeitet bzw. erweitert werden, sodass ein echter Bootloader draus wird (mindestens chainloadermäßig ein paar vordefinierte Blöcke laden, von FAT12 oder ELF wage ich ja fast gar nicht zu sprechen). —[[Benutzer:XanClic|Clici McXan]] 14:19, 29. Mär. 2010 (CEST)
+
+:: Ich würde mich diesem hier gerne annehmen und ein allgemeines Tutorial schreiben (beinhaltet Bootsektor und Bootloader), welches in erster Linie die allgemeinen Vorgehensweisen beinhaltet, egal ob für FAT (FAT12, FAT16, FAT32), NTFS, CDFS, ROFS. Wer sich mit EXT, RaiserFS und Co auskennt, kann gerne dazu eine Ableitung verfassen. Bin nämlich eh grad dabei einen universellen Aufbau für meinen Bootsektor (inkl. Bootloader) zu entwickeln. --[[Benutzer:ScollPi|ScollPi]] 16:47, 29. Mär. 2010 (CEST)
+
+----
+
+Ist der Artikelname nicht eigentlich falsch? Der Begriff "Boot Record" bezeichnet doch nur den ersten Sektor einer Speichermediums. Schlauer wäre es doch, den Artikel in "Eigener Bootloader" umzubenennen. --[[Benutzer:Bjork|Bjork]] 16:52, 29. Mär. 2010 (CEST)
+
+:: Denke ich auch, da ja ein Tutorial nur für einen Bootsektor nicht viel nützen würde, da dessen Platz mit seinen 512 Bytes doch ehrlich gesagt recht eng sind. OK, bei den neuen HDDs mit 4k-Sektoren sieht das schon anders aus. Außerdem soll ja der Kernel eines OS geladen werden und eventuelle Module, ergo, "Eigener Bootloader" wäre da angemessen. --[[Benutzer:ScollPi|ScollPi]] 17:00, 29. Mär. 2010 (CEST)
+
+::: Das hier ist aber eigentlich schon ein Tutorial für ein "Programm im Bootsektor", wie es in dem Artikel heißt, nicht für einen Bootloader. Ich denke der Sinn dieses Artikels ist doch überhaupt erstmal Code auf der Maschine laufen zu haben. Meinetwegen kann jemand einen Artikel "Eigener Bootloader" schrieben. Aber trotzdem kann dieser Artikel doch zumindest in seiner alten Bestimmung erhalten werden. --[[Benutzer:Jidder|Jidder]] 18:04, 29. Mär. 2010 (CEST)
+
+== Tutorial zu komplex? ==
+Wollen wir wirklich die Sache komplizierter machen als nötig? Im Grunde geht es in diesem Turorial doch darum, einen einfachen Bootloader für eine Diskette zu schreiben. Und das Tutorial ist doch auch eher an Anfänger gerichtet. Deswegen würde ich auch
+
+ Unser Ziel ist aber keineswegs für jedes Dateisystem einen eigenen Bootloader (ausschließlich dem Bootsektor) zu entwickeln,  sondern viel mehr ein universelles Modell auf die Beine zu stellen, bei dem nur der Bootsektor individuell dem Dateisystem vorliegt und der Bootloader (Binärdatei) für alle unterstützten Dateisystemen gleich bleibt.
+
+weglassen und den Loader nur auf EIN Dateisystem beschränken (FAT würde ich vorschlagen). Dann kann man die Sache mit dem MBR auch vorerst weglassen. Würde uns viel Arbeit ersparen und dem geneigten Leser Nerven. --[[Benutzer:Bjork|Bjork]] 23:09, 31. Mär. 2010 (CEST)
+
+: Also für Anfänger ist Real-Mode-Programmierung mit starrer Segmentierung in Assembler sicher nicht geeignet! Die Anfänger werden da nur verdorben und haben dann im Protected-Mode mit dem Flat-Memory Probleme. --[[Benutzer:Erik.vikinger|Erik.vikinger]] 12:54, 1. Apr. 2010 (CEST)
+
+:: Mh, ich hatte damit damals eigentlich kein Problem. Vielleicht sollte man aber einen Hinweis über den Artikel setzen, dass dieser nicht für 'Anfänger' (blöde Bezeichnung für jemanden, der ein OS programmieren möchte...) geeignet ist. Bleibt noch die Frage, ob man hier einen universellen Bootloader für viele Dateisysteme/Datenträger oder doch nur einen speziellen für EIN Dateisystem/Datenträger erklären möchte. --[[Benutzer:Bjork|Bjork]] 17:50, 1. Apr. 2010 (CEST)
+
+:: Man könnte auf [[GRUB#Warum GRUB?]] verweisen--[[Benutzer:Bluecode|Bluecode]] 18:48, 1. Apr. 2010 (CEST)
+
+::: Zu komplex??? Dann schau dir mal den USB-Artikel an. Dieses Tutorial ist für die gedacht, die es nach etlichen Empfehlungen trotzdem nicht lassen können und umbedingt einen eigenen Bootloader (und ausdrücklich keinen Boot-Manager) programmieren wollen. Um genau zu sein wird dieses Tutorial keine Komplettlösung, sondern viel mehr ein Wegweise. Ein Anfänger sollte sich sowieso mal einen originalen Bootsektor diassemblert anschauen. Aber letztenende wird er nicht drum herum kommen und selbst experiementieren müssen, wenn er eigenen Code (also nicht abgetippt) erzeugen will. Und genau dahin soll dieses Tutorial gehen, d.h. den Bootloader zu laden, der den eigentlichen Kernel lädt. Protect Mode zum Beispiel ist dabei nicht bestandteil dieses Tutorial, denn es geht nur um einen Bootloader. Denn welche Funktionalitäten ihr in den Bootloader baut, ist eurer Fantasie und Kreativität überlassen. Ein OS zu schreiben ist eben nun mal nicht mit einem "Hello World!" Programm zu vergleichen. Das es komplex wird, sollte einem sowieso klar sein. -- [[Benutzer:ScollPi|ScollPi]] 17:42, 3. Apr. 2010 (CEST)
+
+:::: Ich wollte doch nur auf das Dateisystem für den BL hinaus. Welches denn nun? --[[Benutzer:Bjork|Bjork]] 21:24, 6. Apr. 2010 (CEST)
+
+::::: In diesem Tutorial beziehe ich mich ausschließlich auf FAT12, FAT16 & FAT32. ISO9660 (CDFS), NTFS und ROFS werde ich optional per Link anbieten, sonst würde das zu sehr ausarten, besonders bei NTFS. -- [[Benutzer:ScollPi|ScollPi]] 21:29, 6. Apr. 2010 (CEST)
+
+:::::: Danke, mehr wollte ich doch gar nicht :) --[[Benutzer:Bjork|Bjork]] 17:39, 7. Apr. 2010 (CEST)
+
+:Könnte man den Teil unter der Überschrift Tools nicht entfernen bzw. in die Einleitung packen welche Tools verwendet werden und da nur auf die Artikel zu den jeweiligen Tools verweisen (und falls hier Teile sind die in dem Artikel zu dem jeweiligen Tool nicht zu finden sind die dorthin verschieben)? --[[Benutzer:Bluecode|Bluecode]] 16:46, 7. Apr. 2010 (CEST)
+
+::Ich finde auch, dass das nicht in dieses Tutorial gehört. --[[Benutzer:Bjork|Bjork]] 17:39, 7. Apr. 2010 (CEST)

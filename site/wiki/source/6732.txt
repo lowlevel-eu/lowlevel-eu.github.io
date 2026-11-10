@@ -1,0 +1,53 @@
+{{TODO|
+* Ein Diagramm zur Registerarchitektur hinzufügen<br>
+* Ergänzungen zur Handhabung von Interrupts<br>
+* Eingehen auf verschiedene Befehlssätze}}
+Die x86-Architektur galt lange Zeit als quasi Standard für so gut wie alle Prozessoren. Sie wurde von Intel ins Leben gerufen und nach den Prozessoren der Baureihe 8086/8088 benannt. Der wirkliche Durchbruch begann allerdings erst mit dem ersten 32 Bit Prozessor, dem 80386, oder auch kurz 386 genannt. Der grundlegende Prozessoraufbau ist seitdem gleichgeblieben, alle neueren Prozessoren sind seitdem abwärtskompatibel zum 386 bzw 486. Intel selbst nennt diese Architektur heute IA-32 (<b>I</b>ntel <b>A</b>rchitecture with <b>32</b> Bit).
+In absehbarer Zukunft wird der x86 Standard aber wohl durch den [[x64]]-Standard ersetzt werden.
+
+
+== Aufbau einer 32-Bit-CPU ==
+Details siehe [[Register]].
+=== Mehrzweckregister ===
+Die 32 Bit x86 Prozessoren verfügen über 4 je 32 Bit breite Mehrzweck-Register, wobei das 'E' jeweils für ''Extended'' steht:
+* EAX (engl.: <b>A</b>ccumulator Register) wird in [[C]] für Rückgabewerte von Funktionen verwendet
+* EBX (engl.: <b>B</b>ase Register) 
+* ECX (engl.: <b>C</b>ounter Register) meistens als Zähler verwendet
+* EDX (engl.: <b>D</b>ata Register)
+
+Diese Mehrzweck-Register (engl.: General Purpose Registers) sind vielseitig verwendbar.
+ 
+Des Weiteren gibt es:
+* ESI (engl.: <b>S</b>ource <b>I</b>ndex) zeigt bei Stringoperationen auf die Quelle
+* EDI (engl.: <b>D</b>estination <b>I</b>ndex) zeigt bei Stringoperationen auf das Ziel
+* EBP (engl.: <b>B</b>ase <b>P</b>ointer) Pointer auf den Start des Speichers für ein (Unter-) Programm 
+* ESP (engl.: <b>S</b>tack <b>P</b>ointer) zeigt auf das aktuelle Element des Stacks, sollte nicht verändert werden wenn man nicht weiß was man tut
+
+=== Segmentregister ===
+* DS (engl.: <b>D</b>ata <b>S</b>egment) 
+* CS (engl.: <b>C</b>ode <b>S</b>egment)
+* SS (engl.: <b>S</b>tack <b>S</b>egment)
+* FS 
+* GS
+* ES
+
+=== Zusätzliche Spezialregister ===
+* EIP (engl.: <b>I</b>nstruction <b>P</b>ointer) zeigt auf den nächsten auszuführenden Befehl
+* [[EFLAGS]] (engl.: Flag Register) die einzelnen Bits haben unterschiedliche Bedeutung und werden für bedingte Sprungbefehle eingesetzt
+* GDTR (engl.: <b>G</b>lobal <b>D</b>escriptor <b>T</b>able <b>R</b>egister) gibt die Position der [[GDT]] an
+* LDTR (engl.: <b>L</b>ocal <b>D</b>escriptor <b>T</b>able <b>R</b>egister) gibt die Position der [[LDT]] an
+* IDTR (engl.: <b>I</b>nterrupt <b>D</b>escriptor <b>T</b>able <b>R</b>egister) gibt die Position der [[IDT]] an
+* CR0, CR1, CR2 und CR3 (engl.: [[Control Register]]) werden im [[Protected Mode]] zum [[Paging]] benutzt
+* TR6 – TR7 (engl.: <b>T</b>est <b>R</b>egister) zum Überprüfen des [[Paging#Translation_Lookaside_Buffer|Translation Lookaside Buffers]] (TR0-TR5 gibt es beim 80386 nicht)
+* DR0 – DR7 (engl.: [[Debug Register|<b>D</b>ebug <b>R</b>egister]]) zum Setzen von [[Breakpoint]]s
+* TR (engl.: <b>T</b>ask <b>R</b>egister) Segment-Selektor des [[TSS]]
+* [[MSR]]s (engl.: '''M'''achine-'''S'''pecific '''R'''egister)
+
+== Erkennen der CPU ==
+Mit dem Befehl [[CPUID]] kann man Daten wie Hersteller der CPU auslesen.
+== Weblinks ==
+* [http://de.wikipedia.org/wiki/X86 Wikipedia x86]
+* [http://www.intel.com/products/processor/manuals/ Download der x86-Manuals von Intel]
+
+[[Kategorie:Hardware]]
+[[Kategorie:x86|!x86]]

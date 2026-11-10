@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>TAR – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-TAR rootpage-TAR skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2073/index.html">Aktueller Artikel</a> · <a href="../../history/2073/index.html">Versionsgeschichte</a> · <a href="../../source/5947.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">TAR</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 22. September 2009, 11:17 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>ChristianF</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Etwas erweitert und ein wenig Struktur eingebaut *g*)</span></div><div id="mw-revision-nav">(<a href="../../diffs/5945-5947.html" title="TAR">Unterschied</a>) <a href="../5945/index.html" title="TAR">← Nächstältere Version</a> | <a href="../../pages/2073/index.html" title="TAR">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../5948/index.html" title="TAR">Nächstjüngere Version →</a> (<a href="../../diffs/5947-5948.html" title="TAR">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Template_Stub">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #D0D8FF; margin: 0 0em; padding: 0 0px; border: 1px solid #b8c0e8" width="100%">
+<tbody><tr>
+<td>Diese Seite oder Abschnitt ist zwar komplett, es wird aber folgende Verbesserungen gewünscht:<br/>
+<p><i>Tutorial fertigschreiben</i>
+</p><p>Hilf Lowlevel, den Artikel zu verbessern.
+</p>
+</td></tr></tbody></table>
+</div>
+<p><br/>
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Allgemeines"><span class="tocnumber">1</span> <span class="toctext">Allgemeines</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Worum_geht_es_in_diesem_Artikel.3F"><span class="tocnumber">1.1</span> <span class="toctext">Worum geht es in diesem Artikel?</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Was_ist_TAR_und_welche_Vorteile_habe_ich_damit.3F"><span class="tocnumber">1.2</span> <span class="toctext">Was ist TAR und welche Vorteile habe ich damit?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Aufbau_eines_TAR-Archivs"><span class="tocnumber">2</span> <span class="toctext">Aufbau eines TAR-Archivs</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Allgemeines_2"><span class="tocnumber">2.1</span> <span class="toctext">Allgemeines</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Unterschied_TAR-USTAR"><span class="tocnumber">2.2</span> <span class="toctext">Unterschied TAR-USTAR</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#TAR"><span class="tocnumber">2.3</span> <span class="toctext">TAR</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#Header"><span class="tocnumber">2.3.1</span> <span class="toctext">Header</span></a>
+<ul>
+<li class="toclevel-4 tocsection-9"><a href="#name"><span class="tocnumber">2.3.1.1</span> <span class="toctext">name</span></a></li>
+<li class="toclevel-4 tocsection-10"><a href="#mode"><span class="tocnumber">2.3.1.2</span> <span class="toctext">mode</span></a></li>
+<li class="toclevel-4 tocsection-11"><a href="#uid"><span class="tocnumber">2.3.1.3</span> <span class="toctext">uid</span></a></li>
+<li class="toclevel-4 tocsection-12"><a href="#gid"><span class="tocnumber">2.3.1.4</span> <span class="toctext">gid</span></a></li>
+<li class="toclevel-4 tocsection-13"><a href="#size"><span class="tocnumber">2.3.1.5</span> <span class="toctext">size</span></a></li>
+<li class="toclevel-4 tocsection-14"><a href="#mtime"><span class="tocnumber">2.3.1.6</span> <span class="toctext">mtime</span></a></li>
+<li class="toclevel-4 tocsection-15"><a href="#chksum"><span class="tocnumber">2.3.1.7</span> <span class="toctext">chksum</span></a></li>
+<li class="toclevel-4 tocsection-16"><a href="#link"><span class="tocnumber">2.3.1.8</span> <span class="toctext">link</span></a></li>
+<li class="toclevel-4 tocsection-17"><a href="#linkaname"><span class="tocnumber">2.3.1.9</span> <span class="toctext">linkaname</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-18"><a href="#USTAR-Header"><span class="tocnumber">2.4</span> <span class="toctext">USTAR-Header</span></a>
+<ul>
+<li class="toclevel-3 tocsection-19"><a href="#Header_2"><span class="tocnumber">2.4.1</span> <span class="toctext">Header</span></a>
+<ul>
+<li class="toclevel-4 tocsection-20"><a href="#name_2"><span class="tocnumber">2.4.1.1</span> <span class="toctext">name</span></a></li>
+<li class="toclevel-4 tocsection-21"><a href="#mode_2"><span class="tocnumber">2.4.1.2</span> <span class="toctext">mode</span></a></li>
+<li class="toclevel-4 tocsection-22"><a href="#uid_2"><span class="tocnumber">2.4.1.3</span> <span class="toctext">uid</span></a></li>
+<li class="toclevel-4 tocsection-23"><a href="#gid_2"><span class="tocnumber">2.4.1.4</span> <span class="toctext">gid</span></a></li>
+<li class="toclevel-4 tocsection-24"><a href="#size_2"><span class="tocnumber">2.4.1.5</span> <span class="toctext">size</span></a></li>
+<li class="toclevel-4 tocsection-25"><a href="#mtime_2"><span class="tocnumber">2.4.1.6</span> <span class="toctext">mtime</span></a></li>
+<li class="toclevel-4 tocsection-26"><a href="#chksum_2"><span class="tocnumber">2.4.1.7</span> <span class="toctext">chksum</span></a></li>
+<li class="toclevel-4 tocsection-27"><a href="#link_2"><span class="tocnumber">2.4.1.8</span> <span class="toctext">link</span></a></li>
+<li class="toclevel-4 tocsection-28"><a href="#linkaname_2"><span class="tocnumber">2.4.1.9</span> <span class="toctext">linkaname</span></a></li>
+<li class="toclevel-4 tocsection-29"><a href="#magic"><span class="tocnumber">2.4.1.10</span> <span class="toctext">magic</span></a></li>
+<li class="toclevel-4 tocsection-30"><a href="#version"><span class="tocnumber">2.4.1.11</span> <span class="toctext">version</span></a></li>
+<li class="toclevel-4 tocsection-31"><a href="#uname"><span class="tocnumber">2.4.1.12</span> <span class="toctext">uname</span></a></li>
+<li class="toclevel-4 tocsection-32"><a href="#gname"><span class="tocnumber">2.4.1.13</span> <span class="toctext">gname</span></a></li>
+<li class="toclevel-4 tocsection-33"><a href="#devmajor"><span class="tocnumber">2.4.1.14</span> <span class="toctext">devmajor</span></a></li>
+<li class="toclevel-4 tocsection-34"><a href="#devminor"><span class="tocnumber">2.4.1.15</span> <span class="toctext">devminor</span></a></li>
+<li class="toclevel-4 tocsection-35"><a href="#prefix"><span class="tocnumber">2.4.1.16</span> <span class="toctext">prefix</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1><span class="mw-headline" id="Allgemeines">Allgemeines</span></h1>
+<p>Zuerst einmal ein paar allgemeine Informationen zu TAR und diesem Artikel.
+</p>
+<h2><span id="Worum_geht_es_in_diesem_Artikel?"></span><span class="mw-headline" id="Worum_geht_es_in_diesem_Artikel.3F">Worum geht es in diesem Artikel?</span></h2>
+<p>Da ich selbst als InitRD-Image das TAR-Format erwählt habe, möchte ich dieses nun hier beschreiben. Zwischendrinne werden dann noch ein paar Code-Abschnitte eingebaut, um zu zeigen, wie man alle Dateien in einem solchen Archiv durchläuft oder nur bestimmte Dateien innerhalb eines Ordners im Archiv.
+</p>
+<h2><span id="Was_ist_TAR_und_welche_Vorteile_habe_ich_damit?"></span><span class="mw-headline" id="Was_ist_TAR_und_welche_Vorteile_habe_ich_damit.3F">Was ist TAR und welche Vorteile habe ich damit?</span></h2>
+<p><i>ToDo: Allgemeine Beschreibung von TAR</i><br/>
+Der Vorteil von TAR ist, dass hierfür unter bestehenden System wie Windows oder *nix bereits Tools vorhanden sind, die Archive in diesem Format erstellen können. Das heißt, dass dadurch zum einen der Aufwand minimiert wird, da das Programm an sich bereits vorhanden ist und zum anderen dadurch die Fehlerquellen minimiert werden, da die bereits vorhandenen Programme wie "tar" oder "7-zip" Fehlerfrei laufen <i>sollten</i>.
+</p><p><br/>
+</p>
+<h1><span class="mw-headline" id="Aufbau_eines_TAR-Archivs">Aufbau eines TAR-Archivs</span></h1>
+<p><i>ToDo: Text schreiben</i>
+</p>
+<h2><span class="mw-headline" id="Allgemeines_2">Allgemeines</span></h2>
+<p><i>ToDo: Text schreiben</i>
+</p>
+<h2><span class="mw-headline" id="Unterschied_TAR-USTAR">Unterschied TAR-USTAR</span></h2>
+<p><i>ToDo: Text schreiben</i>
+</p>
+<h2><span class="mw-headline" id="TAR">TAR</span></h2>
+<h3><span class="mw-headline" id="Header">Header</span></h3>
+<p>Dieser Header ist vor jeder Datei/jedem Verzeichnis/jedem Link und gibt uns Informationen wie z.B. wie Groß ist die Datei oder handelt es sich um einen symbolischen Link.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Byte</th>
+<th>Länge</th>
+<th>Name
+</th></tr>
+<tr>
+<td>0</td>
+<td>100</td>
+<td>name
+</td></tr>
+<tr>
+<td>100</td>
+<td>8</td>
+<td>mode
+</td></tr>
+<tr>
+<td>108</td>
+<td>8</td>
+<td>uid
+</td></tr>
+<tr>
+<td>116</td>
+<td>8</td>
+<td>gid
+</td></tr>
+<tr>
+<td>124</td>
+<td>12</td>
+<td>size
+</td></tr>
+<tr>
+<td>136</td>
+<td>12</td>
+<td>mtime
+</td></tr>
+<tr>
+<td>148</td>
+<td>8</td>
+<td>chksum
+</td></tr>
+<tr>
+<td>156</td>
+<td>1</td>
+<td>link
+</td></tr>
+<tr>
+<td>157</td>
+<td>100</td>
+<td>linkname
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="name">name</span></h4>
+<p>Hier liegt der Name der archivierten Datei. Dieser String kann 0-Terminiert sein, muss es aber nicht. Sollten tatsächlich alle 100 Zeichen des Feldes für den Name gebraucht werden, muss daran gedacht werden, die 0-Terminierung anzuhängen, wenn man diesen Ausgeben möchte.
+</p>
+<h4><span class="mw-headline" id="mode">mode</span></h4>
+<h4><span class="mw-headline" id="uid">uid</span></h4>
+<h4><span class="mw-headline" id="gid">gid</span></h4>
+<h4><span class="mw-headline" id="size">size</span></h4>
+<p>Dieses Feld enthält die Größe der eigentlichen Datei. Allerdings werden alle Zahlen in einem TAR-Archiv zum einen als String abgelegt und zum anderen Oktal. Möchte man also die Größe der Datei z.B. leserlich ausgeben, so muss man die Oktalzahl zuerst in eine Dezimalzahl umwandeln.
+</p>
+<h4><span class="mw-headline" id="mtime">mtime</span></h4>
+<h4><span class="mw-headline" id="chksum">chksum</span></h4>
+<h4><span class="mw-headline" id="link">link</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th>Wert</th>
+<th>
+</th></tr>
+<tr>
+<td>0</td>
+<td>normale Datei
+</td></tr>
+<tr>
+<td>1</td>
+<td>verlinkte Datei
+</td></tr>
+<tr>
+<td>2</td>
+<td>symbolischer Link
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="linkaname">linkaname</span></h4>
+<p>Handelt es sich bei der Datei um einen Link, so ist der Name der verlinkten Datei in diesem Feld. Wie auch beim Attribut "name" kann es sein, dass die 0-Terminierung vorhanden ist, es muss aber nicht.
+</p>
+<h2><span class="mw-headline" id="USTAR-Header">USTAR-Header</span></h2>
+<h3><span class="mw-headline" id="Header_2">Header</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>Byte</th>
+<th>Länge</th>
+<th>Name</th>
+<th>
+</th></tr>
+<tr>
+<td>0</td>
+<td>100</td>
+<td>name</td>
+<td>
+</td></tr>
+<tr>
+<td>100</td>
+<td>8</td>
+<td>mode</td>
+<td>
+</td></tr>
+<tr>
+<td>108</td>
+<td>8</td>
+<td>uid</td>
+<td>
+</td></tr>
+<tr>
+<td>116</td>
+<td>8</td>
+<td>gid</td>
+<td>
+</td></tr>
+<tr>
+<td>124</td>
+<td>12</td>
+<td>size</td>
+<td>
+</td></tr>
+<tr>
+<td>136</td>
+<td>12</td>
+<td>mtime</td>
+<td>
+</td></tr>
+<tr>
+<td>148</td>
+<td>8</td>
+<td>chksum</td>
+<td>
+</td></tr>
+<tr>
+<td>156</td>
+<td>1</td>
+<td>link
+</td></tr>
+<tr>
+<td>157</td>
+<td>100</td>
+<td>linkname</td>
+<td>
+</td></tr>
+<tr>
+<td>156</td>
+<td>6</td>
+<td>magic
+</td></tr>
+<tr>
+<td>156</td>
+<td>2</td>
+<td>version
+</td></tr>
+<tr>
+<td>156</td>
+<td>32</td>
+<td>uname
+</td></tr>
+<tr>
+<td>156</td>
+<td>32</td>
+<td>gname
+</td></tr>
+<tr>
+<td>156</td>
+<td>8</td>
+<td>devmajor
+</td></tr>
+<tr>
+<td>156</td>
+<td>8</td>
+<td>devminor
+</td></tr>
+<tr>
+<td>156</td>
+<td>155</td>
+<td>prefix
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="name_2">name</span></h4>
+<h4><span class="mw-headline" id="mode_2">mode</span></h4>
+<h4><span class="mw-headline" id="uid_2">uid</span></h4>
+<h4><span class="mw-headline" id="gid_2">gid</span></h4>
+<h4><span class="mw-headline" id="size_2">size</span></h4>
+<h4><span class="mw-headline" id="mtime_2">mtime</span></h4>
+<h4><span class="mw-headline" id="chksum_2">chksum</span></h4>
+<h4><span class="mw-headline" id="link_2">link</span></h4>
+<h4><span class="mw-headline" id="linkaname_2">linkaname</span></h4>
+<h4><span class="mw-headline" id="magic">magic</span></h4>
+<h4><span class="mw-headline" id="version">version</span></h4>
+<h4><span class="mw-headline" id="uname">uname</span></h4>
+<h4><span class="mw-headline" id="gname">gname</span></h4>
+<h4><span class="mw-headline" id="devmajor">devmajor</span></h4>
+<h4><span class="mw-headline" id="devminor">devminor</span></h4>
+<h4><span class="mw-headline" id="prefix">prefix</span></h4>
+<!-- 
+NewPP limit report
+Cached time: 20261109170334
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.010 seconds
+Real time usage: 0.010 seconds
+Preprocessor visited node count: 155/1000000
+Preprocessor generated node count: 200/1000000
+Post‐expand include size: 437/2097152 bytes
+Template argument size: 24/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.892      1 -total
+ 54.28%    1.027      1 Vorlage:TODO
+ 32.60%    0.617      3 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=TAR&amp;oldid=5947</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1820/index.html" title="Kategorie:TODO">TODO</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2073/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2073/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

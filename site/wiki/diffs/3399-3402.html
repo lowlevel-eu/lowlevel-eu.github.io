@@ -1,0 +1,24 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cirrus Logic — Änderungen 3399 → 3402</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Cirrus Logic — Änderungen 3399 → 3402</h1><nav><a href="../revisions/3399/index.html">Version 3399</a> · <a href="../revisions/3402/index.html">Version 3402</a> · <a href="../history/1743/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l19" >Zeile 19:</td>
+<td colspan="2" class="diff-lineno">Zeile 19:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Über VESA lässt sich die Karte dagegen sehr einfach einrichten, es reicht aus, über den int10 (entweder mit vm86, einem Emulator oder im Realmode bei Betriebssystemstart) eine größere Auflösung zu wählen.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Über VESA lässt sich die Karte dagegen sehr einfach einrichten, es reicht aus, über den int10 (entweder mit vm86, einem Emulator oder im Realmode bei Betriebssystemstart) eine größere Auflösung zu wählen.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Ist die Karte einmal in dem Videomodus, muss noch die Beschleunigung aktiviert werden. Dies geschieht durch Schreiben in das Graph-Register <del class="diffchange diffchange-inline">33</del>:</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Ist die Karte einmal in dem Videomodus, muss noch die Beschleunigung aktiviert werden. Dies geschieht durch Schreiben in das Graph-Register <ins class="diffchange diffchange-inline">0E</ins>:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;c&gt;</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l25" >Zeile 25:</td>
+<td colspan="2" class="diff-lineno">Zeile 25:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#define VGA_GRAPH_DATA 0x3CF</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>#define VGA_GRAPH_DATA 0x3CF</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>outb(VGA_GRAPH_INDEX, <del class="diffchange diffchange-inline">0x33</del>);</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>outb(VGA_GRAPH_INDEX, <ins class="diffchange diffchange-inline">0x0E</ins>);</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>outb(VGA_GRAPH_DATA, <del class="diffchange diffchange-inline">0x04</del>);</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>outb(VGA_GRAPH_DATA, <ins class="diffchange diffchange-inline">0x20</ins>);</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>// Oder</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>// Oder</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>outw(VGA_GRAPH_INDEX, <del class="diffchange diffchange-inline">0x0433</del>);</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>outw(VGA_GRAPH_INDEX, <ins class="diffchange diffchange-inline">0x200E</ins>);</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/c&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/c&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+</table></body></html>

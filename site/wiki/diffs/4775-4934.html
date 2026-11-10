@@ -1,0 +1,65 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AT Attachment — Änderungen 4775 → 4934</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>AT Attachment — Änderungen 4775 → 4934</h1><nav><a href="../revisions/4775/index.html">Version 4775</a> · <a href="../revisions/4934/index.html">Version 4934</a> · <a href="../history/1522/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l16" >Zeile 16:</td>
+<td colspan="2" class="diff-lineno">Zeile 16:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Falls keine der vorherigen Prüfungen fehlgeschlagen ist, müsste jetzt mindestens ein Gerät am Bus vorhanden sein. Das wird jetzt sichergestellt und genauer ermittelt, welche Geräte wirklich vorhanden sind. Dies wird mit dem IDENTIFY DEVICE Befehl gemacht. Beim Senden dieses Befehls ist es sehr wichtig, dass man die ATA-Spezifikation genau befolgt, und sich an die dort erwähnten Protokolle hält. Wenn das korrekt gemacht wird, geht das Erkennen ohne ewig lange Timeouts und co. von statten. Falls das Identifizieren eines Gerätes fehlschlägt, heißt das noch nicht, dass kein Gerät vorhanden ist. Denn es könnte auch sein, dass es sich um ein Gerät mit PACKET Interface handelt. Diese Geräte lassen sich mit dem IDENTIFY PACKET DEVICE identifizieren.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Falls keine der vorherigen Prüfungen fehlgeschlagen ist, müsste jetzt mindestens ein Gerät am Bus vorhanden sein. Das wird jetzt sichergestellt und genauer ermittelt, welche Geräte wirklich vorhanden sind. Dies wird mit dem IDENTIFY DEVICE Befehl gemacht. Beim Senden dieses Befehls ist es sehr wichtig, dass man die ATA-Spezifikation genau befolgt, und sich an die dort erwähnten Protokolle hält. Wenn das korrekt gemacht wird, geht das Erkennen ohne ewig lange Timeouts und co. von statten. Falls das Identifizieren eines Gerätes fehlschlägt, heißt das noch nicht, dass kein Gerät vorhanden ist. Denn es könnte auch sein, dass es sich um ein Gerät mit PACKET Interface handelt. Diese Geräte lassen sich mit dem IDENTIFY PACKET DEVICE identifizieren.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">== Register ==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">{| {{Prettytable}}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">! Beschreibung !! 1. Kanal || 2. Kanal || 3. Kanal || 4. Kanal</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| Datenregister || 0x1F0 || 0x170 || 0x1E8 || 0x168</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| Fehlerregister || 0x1F1 || 0x171 || 0x1E9 || 0x169</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| Sektoranzahl || 0x1F2 || 0x172 || 0x1EA || 0x16A</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| LBA niedrig || 0x1F3 || 0x173 || 0x1EB || 0x16B</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| LBA mittel || 0x1F4 || 0x174 || 0x1EC || 0x16C</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| LBA hoch || 0x1F5 || 0x175 || 0x1ED || 0x16D</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| Geräteauswahl || 0x1F6 || 0x176 || 0x1EE || 0x16E</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| Status/Kommandoregister || 0x1F7 || 0x177 || 0x1EF || 0x16F</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| Status2/Steuerregister || 0x3F6 || 0x376 || 0x3EE || 0x36E</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Datenregister ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Das Datenregister dient zur Übermittlung der Lese/Schreib-Words(!).</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Fehlerregister ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">{| {{Prettytable}}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Sektoranzahl ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== LBA niedrig ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== LBA mittel ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== LBA hoch ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Geräteauswahl ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">{| {{Prettytable}}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">! width=&quot;60pt&quot; | 7 !! width=&quot;60pt&quot; | 6 !! width=&quot;60pt&quot; | 5 !! width=&quot;60pt&quot; | 4 !! width=&quot;60pt&quot; | 3 !! width=&quot;60pt&quot; | 2!! width=&quot;60pt&quot; | 1 !! width=&quot;60pt&quot; | 0</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| r||r||r||r||r || SRST || nIEN || 0</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* r: reserviert</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* SRST: Software Reset</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* nIEN: ???</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* 0: Immer 0</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Status/Kommandoregister ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Status2/Steuerregister ===</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Fehlerquellen ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Fehlerquellen ==</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l29" >Zeile 29:</td>
+<td colspan="2" class="diff-lineno">Zeile 76:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* [http://t13.org/Documents/UploadedDocuments/project/d1321r3-ATA-ATAPI-5.pdf Working-Drafts der aktuellen Spezifikationen zu ATA(PI)]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* [http://t13.org/Documents/UploadedDocuments/project/d1321r3-ATA-ATAPI-5.pdf Working-Drafts der aktuellen Spezifikationen zu ATA(PI)]</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>[[Kategorie:Hardware]]</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>[[Kategorie:Hardware<ins class="diffchange diffchange-inline">]][[Kategorie:Stub</ins>]]</div></td></tr>
+</table></body></html>

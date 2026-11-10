@@ -1,0 +1,20 @@
+{{Stub}}
+
+Der RTL8169 ist neben dem [[RTL8139]] ein weiterer Netzwerkchip der Firma Realtek. Er kann Daten im Bereich von 10/100/1000 Megabits pro Sekunde übertragen.
+
+== MAC-Adresse herausfinden ==
+Die MAC-Adresse des Geräts besteht aus 6 "Einzelteilen" und ist 6 Bytes lang. Die Adresse, unter die MAC-Adresse erfragt werden kann, ist nicht genau festgelegt und muss daher vom [[PCI]]-Treiber herausgefunden werden. Wenn man die Basisadresse hat, kann man mit folgendem Code die MAC-Adresse herausfinden:
+
+<c>
+int i;
+char mac_addr[6];
+for(i = 0; i < 6; ++i)
+{
+    mac_addr[i] = inb(pci_port + i); //Funktion zum Einlesen eines Bytes vom angegebenen Port
+}
+</c>
+
+Nun ist die MAC-Adresse in dem char-Array gespeichert.
+
+== Siehe auch ==
+* [http://wiki.osdev.org/RTL8169 OSDev-Artikel]

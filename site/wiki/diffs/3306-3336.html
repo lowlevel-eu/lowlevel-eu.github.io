@@ -1,0 +1,151 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ISO9660 — Änderungen 3306 → 3336</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>ISO9660 — Änderungen 3306 → 3336</h1><nav><a href="../revisions/3306/index.html">Version 3306</a> · <a href="../revisions/3336/index.html">Version 3336</a> · <a href="../history/1730/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l6" >Zeile 6:</td>
+<td colspan="2" class="diff-lineno">Zeile 6:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== BothEndian ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== BothEndian ==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Viele Multibytewerte werden bei iso9660 also BothEndian gespeichert. D.h erst kommt der Wert in LittleEndian dann in BigEndian. Multibytewerte werden in diesem Artikel wie folgt bezeichnet:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Viele Multibytewerte werden bei iso9660 also BothEndian gespeichert. D.h erst kommt der Wert in LittleEndian dann in BigEndian. Multibytewerte werden in diesem Artikel wie folgt bezeichnet:</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline"> </del>* Little Endian (LE)</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>* Little Endian (LE)</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline"> </del>* Big Endian (BE)</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>* Big Endian (BE)</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline"> </del>* Both Endian (XE)</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>* Both Endian (XE)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Zu beachten ist natürlich dass z.B ein 4byte großer BothEndian-Wert nur ein Word ist.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Zu beachten ist natürlich dass z.B ein 4byte großer BothEndian-Wert nur ein Word ist.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Allgemeiner Aufbau ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Allgemeiner Aufbau ==</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Die ersten 16 Sektoren sind <del class="diffchange diffchange-inline">Systemspezifisch</del>, danach folgen in einigen Sektoren die sogenannten Volume-Deskriptoren. Ein Sektor hat normalerweise eine Größer von 2048 Bytes, kann aber auch eine Andere Größe haben.</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Die ersten 16 Sektoren sind <ins class="diffchange diffchange-inline">systemspezifisch</ins>, danach folgen in einigen Sektoren die sogenannten Volume-Deskriptoren. Ein Sektor hat normalerweise eine Größer von 2048 Bytes, kann aber auch eine Andere Größe haben.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Nach den Volume-Deskriptoren liegen Pathtables und Datensektoren (Sektoren die Datei oder Verzeichnis-Informationen enthalten).</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Nach den Volume-Deskriptoren liegen Pathtables und Datensektoren (Sektoren die Datei oder Verzeichnis-Informationen enthalten).</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Volume-Deskriptoren ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Volume-Deskriptoren ==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Es gibt 2 wichtige Typen an Volume Deskriptoren:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Es gibt 2 wichtige Typen an Volume Deskriptoren:</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline"> </del>* Primäre Volume-Deskriptoren: Enthalten wichtige Informationen über das Dateisystem</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>* Primäre Volume-Deskriptoren: Enthalten wichtige Informationen über das Dateisystem</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline"> </del>* Terminierender Volume-Deskriptor: Zeigt das Ende der Volume-Deskriptoren an.</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>* Terminierender Volume-Deskriptor: Zeigt das Ende der Volume-Deskriptoren an<ins class="diffchange diffchange-inline">.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Ein Volume-Deskriptor füllt dabei einen ganzen Sektor</ins>.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Volume-Deskriptoren füllen immer einen ganzen Sektor aus und fangen mit dem Typ und der Signatur an:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Volume-Deskriptoren füllen immer einen ganzen Sektor aus und fangen mit dem Typ und der Signatur an:</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l102" >Zeile 102:</td>
+<td colspan="2" class="diff-lineno">Zeile 103:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Terminierender Volume-Deskriptor ===</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Terminierender Volume-Deskriptor ===</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">{| border=&quot;1&quot;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">! Offset || Größe || Beschreibung</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x00&#160;  || 1&#160; &#160;  || Typ</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x01&#160;  || 6&#160; &#160;  || Signature</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Dieser Volume-Deskriptor enthält keine Informationen. Er ist nur zum Anzeigen des Ende der Volume-Deskriptoren da.</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Verzeichniseintrag ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Verzeichniseintrag ==</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Ein Verzeichniseintrag enthält Metainformationen zu den Dateien bzw. Verzeichnissen auf der CD. Der Root-Verzeichniseintrag befindet sich im primären Volume-Deskriptor. Jedes Verzeichnis (somit auch das Rootverzeichnis) enthält eine Liste an Verzeichniseinträgen im Datenbereich.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">{| border=&quot;1&quot;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">! Offset&#160;  || Größe || Beschreibung</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x00&#160; &#160;  || 1&#160; &#160;  || Größe des gesamten Verzeichniseintrags</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x01&#160; &#160;  || 1&#160; &#160;  || Anzahl an Sektoren im erweiterten Attributeintrag</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x02&#160; &#160;  || 8&#160; &#160;  || Erster Sektor des Datenbereichs (XE)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x0A&#160; &#160;  || 8&#160; &#160;  || Größe des Datenbereichs (XE)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x13&#160; &#160;  || 1&#160; &#160;  || Erstellungsjahr (seit 1900)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x14&#160; &#160;  || 1&#160; &#160;  || Erstellingsmonat (1=Januar, 2=Februar,...)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x15&#160; &#160;  || 1&#160; &#160;  || Erstellungstag (Tag des Monats)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x16&#160; &#160;  || 1&#160; &#160;  || Erstellungsstunde</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x17&#160; &#160;  || 1&#160; &#160;  || Erstellungsminute</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x18&#160; &#160;  || 1&#160; &#160;  || Erstellungssekunde</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x19&#160; &#160;  || 1&#160; &#160;  || GMT Verschiebung (in 15min-Intervallen)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x1A&#160; &#160;  || 1&#160; &#160;  || Flags</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x1B&#160; &#160;  || 1&#160; &#160;  || Einheitengröße für Interleaved-Dateien</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x1C&#160; &#160;  || 1&#160; &#160;  || Abstand zwischen Blöcken von Interleaved-Dateien</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x1D&#160; &#160;  || 4&#160; &#160;  || Volume-Sequenz-Nummer (XE)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x22&#160; &#160;  || 1&#160; &#160;  || Länge des Identifizierers</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x23&#160; &#160;  || X&#160; &#160;  || Identifizierer</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x23+X&#160;  || (1)&#160;  || Padding-Byte. Füllt so, dass die System Use Area mit einem geraden Offset anfängt.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x23+X+Y || Rest&#160; || Für Erweiterungen (System Use Area)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|}</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Rockridge ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Rockridge ==</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Rockridge ist eine Erweiterung von ISO9660 für POSIX-Systeme. Rockridge erweitert dabei ISO9660 um:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* lange Dateinamen</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Zugriffsrechte</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Gerätedateien</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Symbolische Links</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Timestamps</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* weiteres</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Rockridge teilt sich die System Use Are (Ab jetzt SUA genannt) in jeden Verzeichniseintrags nach den SUSP-Standard ein. Dabei wird die SUA in Einträge gegliedert, die hintereinander liegen. Jeder Eintrag beginnt mit einem Kopf, mit dem er eindeutig indentifizierbar ist.&lt;br&gt;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Kopf eines Eintrags ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">{| border=&quot;1&quot;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">! Offset&#160;  || Größe || Beschreibung</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x00&#160; &#160;  || 2&#160; &#160;  || Signatur</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x02&#160; &#160;  || 1&#160; &#160;  || Größe des Eintrags</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x03&#160; &#160;  || 1&#160; &#160;  || Version (1)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Die Signatur entspricht der Abkürzung (z.B &quot;PX&quot; entspricht 'P'|('X'&lt;&lt;8)).</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">== SP-Eintrag ==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Der SP-Eintrag sollte nach dem SUSP-Standart eigentlich der erste Eintrag sein. Er zeigt an, dass diese SUA SUSP verwendet. Auf meinen ISOs hab ich bis jetzt nur RR-Einträge am Anfang der SUA gefunden. Wegen diesen Umstimmigkeiten wird hier nicht weiter auf den Inhalt dieser Einträge eingegangen. Sie können außerdem problemlos übersprungen werden.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">== ST-Eintrag ==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Der ST-Eintrag terminiert die Liste der Einträge in einer SUA. Er sollte immer vorhanden sein, außer wenn nur noch 4 oder weniger Bytes im SUA verbleiben. Dieser Eintrag hat keinen speziellen Inhalt.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== PX-Eintrag ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Der PX-Eintrag enthält Informationen zu den Zugriffsrechten und weitere Daten.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">{| border=&quot;1&quot;</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">! Offset&#160;  || Größe || Beschreibung</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x00&#160; &#160;  || 2&#160; &#160;  || Signatur</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x02&#160; &#160;  || 1&#160; &#160;  || Größe des Eintrags</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x03&#160; &#160;  || 1&#160; &#160;  || Version (1)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x04&#160; &#160;  || 8&#160; &#160;  || Mode (XE)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x0C&#160; &#160;  || 8&#160; &#160;  || Number of Links (XE)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x14&#160; &#160;  || 8&#160; &#160;  || UID (XE)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x1C&#160; &#160;  || 8&#160; &#160;  || GID (XE)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x24&#160; &#160;  || 8&#160; &#160;  || Serielle Nummer (XE)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Diese Felder stimmen mit denen aus struct stat überein.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== PN-Eintrag ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== SL-Eintrag ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== NM-Eintrag ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== TF-Eintrag ===</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Links ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== Links ==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* [http://www.ecma-international.org/publications/standards/Ecma-119.htm Standard ECMA-119 - Volume and File Structure of CDROM for Information Interchange (2nd edition)]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* [http://www.ecma-international.org/publications/standards/Ecma-119.htm Standard ECMA-119 - Volume and File Structure of CDROM for Information Interchange (2nd edition)]</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* [ftp://ftp.ymi.com/pub/rockridge/rrip112.ps RRIP Draft Standard 1.12]</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* [ftp://ftp.ymi.com/pub/rockridge/susp112.ps SUSP Draft Standard 1.12]</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Dateisystem]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Dateisystem]]</div></td></tr>
+</table></body></html>

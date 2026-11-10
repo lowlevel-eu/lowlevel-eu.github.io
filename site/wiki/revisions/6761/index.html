@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>AMD PCnet – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-AMD_PCnet rootpage-AMD_PCnet skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2025/index.html">Aktueller Artikel</a> · <a href="../../history/2025/index.html">Versionsgeschichte</a> · <a href="../../source/6761.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">AMD PCnet</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 4. Januar 2010, 22:14 Uhr von <a class="mw-userlink" href="../../pages/1860/index.html" title="Benutzer:XanClic"><bdi>XanClic</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Die negative Länge steht nur in den Bits 0 bis 11, mehr nicht)</span></div><div id="mw-revision-nav">(<a href="../../diffs/6760-6761.html" title="AMD PCnet">Unterschied</a>) <a href="../6760/index.html" title="AMD PCnet">← Nächstältere Version</a> | <a href="../../pages/2025/index.html" title="AMD PCnet">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../7205/index.html" title="AMD PCnet">Nächstjüngere Version →</a> (<a href="../../diffs/6761-7205.html" title="AMD PCnet">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="padding: 2px; padding-left: 9px; padding-right: 9px; background-color: #ffffff; color: #000000; border: 2px solid #efbf00; text-align:left;">
+<div style="color: #efbf00">
+<p><b>Hinweis:</b>
+</p>
+</div>
+<p>Ich kenne mich mit der PCnet-Karte nicht besonders aus. Ich habe diesen Artikel auf Basis des týndur-Treibers und der drei unten genannten Spezifikationen erstellt, da diese Seite schon sehr lange auf der TODO-Liste steht, sich jedoch niemand darum gekümmert hat.
+</p><p>Wenn <b>du</b> dich mit dieser Netzwerkkarte einigermaßen auskennst, dann bist du <b>jetzt</b> aufgerufen, diesen Artikel zu erweitern und/oder zu korrigieren (oder natürlich diesen Hinweis zu entfernen, wenn du den Artikel für korrekt befindest)!
+</p>
+</div>
+<p>Dieser Artikel beschäftigt sich mit der Programmierung der AMD-PCnet-FAST-III-Netzwerkkarte (Am79C973).
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Einf.C3.BChrung"><span class="tocnumber">1</span> <span class="toctext">Einführung</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Vorwort"><span class="tocnumber">1.1</span> <span class="toctext">Vorwort</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Grundlagen"><span class="tocnumber">1.2</span> <span class="toctext">Grundlagen</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Verwendete_Resourcen"><span class="tocnumber">1.3</span> <span class="toctext">Verwendete Resourcen</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Zugriff"><span class="tocnumber">2</span> <span class="toctext">Zugriff</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Grundlagen_2"><span class="tocnumber">2.1</span> <span class="toctext">Grundlagen</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Initialisierung"><span class="tocnumber">2.2</span> <span class="toctext">Initialisierung</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Konstanten"><span class="tocnumber">2.3</span> <span class="toctext">Konstanten</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Die_ISR"><span class="tocnumber">2.4</span> <span class="toctext">Die ISR</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Senden_eines_Pakets"><span class="tocnumber">2.5</span> <span class="toctext">Senden eines Pakets</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Empfangen_von_Paketen"><span class="tocnumber">2.6</span> <span class="toctext">Empfangen von Paketen</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Siehe_auch"><span class="tocnumber">3</span> <span class="toctext">Siehe auch</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Weblinks"><span class="tocnumber">4</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span id="Einführung"></span><span class="mw-headline" id="Einf.C3.BChrung">Einführung</span></h2>
+<h3><span class="mw-headline" id="Vorwort">Vorwort</span></h3>
+<p>Wenn ich hier von "Bytes" spreche, meine ich acht Bit große Einheiten. Zwei Bytes (16 Bit) sind ein Word und vier Bytes (32 Bit) ein DWord. Acht Bytes (64 Bit) sind ein QWord. Wenn ich keine Endianess explizit angebe, dann ist Little Endian gemeint.
+</p>
+<h3><span class="mw-headline" id="Grundlagen">Grundlagen</span></h3>
+<p>Wie beim <a href="../../pages/1533/index.html" title="RTL8139">RTL8139</a>-Tutorial gilt auch hier: Euer Betriebssystem sollte bereits einen gewissen Stand aufweisen, um die Karte erkennen und bedienen zu können. Dies sind also <a href="../../pages/1857/index.html" title="Interrupt Service Routine">ISRs</a> für <a class="mw-redirect" data-archive-original-href="../../pages/1667/index.html" href="../../pages/1465/index.html#IRQ_Tabelle" title="IRQ">IRQs</a>, eine <a href="../../pages/1591/index.html" title="Speicherverwaltung">Speicherverwaltung</a> und eine Möglichkeit, die <a class="mw-redirect" data-archive-original-href="../../pages/1741/index.html" href="../../pages/1543/index.html" title="I/O-Ports">I/O-Ports</a> eines bestimmten (anhand von Vendor- und Device-ID) <a href="../../pages/1626/index.html" title="Peripheral Component Interconnect">PCI</a>-Gerätes herauszufinden.
+</p><p>Mögliche Emulatoren für PCnet sind sowohl <a href="../../pages/1505/index.html" title="QEMU">QEMU</a> als auch <a href="../../pages/1553/index.html" title="VirtualBox">VirtualBox</a>. Um die Karte unter QEMU zu benutzen, können zum Beispiel die folgenden Kommandozeilenoptionen angegeben werden:
+</p>
+<pre>qemu -net user -net nic,model=pcnet</pre>
+<p>Dadurch erstellt QEMU eine virtuelle PCnet-Karte. An der IP-Adresse 10.0.2.2 gibt es einen virtuellen Gateway ins Internet. Um mit VirtualBox die gleiche Konfiguration zu erreichen, muss die PCnet-FAST III (Am79C973) an NAT angeschlossen werden.
+</p><p>Die Netzwerkkarte hat die PCI-Vendor-ID 0x1022 und die Geräte-ID 0x2000.
+</p>
+<h3><span class="mw-headline" id="Verwendete_Resourcen">Verwendete Resourcen</span></h3>
+<ul><li>I/O-Ports: Es gibt einen I/O-Raum, der dazu dient, einige Register der Netzwerkkarte anzusprechen und die weiteren zu erreichen.</li>
+<li>IRQ: Per IRQ wird der Treiber über eine Statusänderung der Netzwerkkarte informiert (zum Beispiel ist ein Paket eingetroffen oder wurde versendet)</li></ul>
+<h2><span class="mw-headline" id="Zugriff">Zugriff</span></h2>
+<h3><span class="mw-headline" id="Grundlagen_2">Grundlagen</span></h3>
+<p>Die "direkt" erreichbaren Register (ein Portzugriff) sind nur ein kleiner Teil der gesamten Register der Karte. Neben ihnen gibt es noch die CSR (Control and Status Register) und die BCR (Bus Control Register). Um auf sie zuzugreifen, muss zuerst die Adresse des Registers in den 16-Bit-I/O-Port RAP (Register Address Port) geschrieben werden. Betrifft diese Adresse eines der CSR, so kann der Wert anschließend am 16-Bit-I/O-Port RDP (Register Data Port) ausgelesen oder verändert werden. Betrifft die Adresse eines der BCR, so handelt es sich nicht um den RDP, sondern um den BDP (BCR Data Port).
+</p>
+<h3><span class="mw-headline" id="Initialisierung">Initialisierung</span></h3>
+<p>1. IRQ und I/O-Ports vom PCI-Treiber holen und gegebenenfalls registrieren
+</p><p>2. MAC-Adresse herausfinden; diese steht in drei 16-Bit-Registern ab 0x00 (APROM0, APROM2 und APROM4) in Little-Endian-Reihenfolge (also in APROM0 (0x00) die niederwertigsten 16 Bit und in APROM4 (0x04) die höchstwertigen 16 Bit).
+</p><p>3. Die Karte zurücksetzen; es muss ein Word vom Resetregister (0x14) eingelesen werden, um einen Software-Reset durchzuführen. Anschließend empfiehlt es sich, zehn Millisekunden zu warten, bis der Reset beendet ist. Danach sollte das BCR20-Register auf 0x0102 gesetzt werden, dies verändert den Softwarestyle zu PCnet-PCI, dadurch werden 32-Bit- und nicht 16-Bit-Strukturen verwendet. Außerdem wird dadurch das SSIZE32-Bit gesetzt, auch dadurch werden 32-Bit-Strukturen aktiviert.
+</p><p>4. Nun muss ein STOP-Reset ausgeführt werden. Dies wird erreicht, indem 0x04 nach CSR0 geschrieben wird.
+</p><p>5. Puffer zum Senden und Empfangen initialisieren; beide müssen 2 kB groß und physisch kontinuierlich sein.
+</p><p>6. Nun muss die Karte initialisiert werden. Dies geschieht mittels eines Initialization Block, der folgendermaßen aussieht:
+&lt;c&gt;struct initialization_block
+{
+</p>
+<pre>   uint16_t mode;
+   unsigned reserved1 : 4;
+   unsigned receive_length : 4;
+   unsigned reserved2 : 4;
+   unsigned transfer_length : 4;
+   uint64_t physical_address : 48;
+   uint16_t reserved3;
+   uint64_t logical_address;
+   uint32_t receive_descriptor;
+   uint32_t transmit_descriptor;
+</pre>
+<p>} __attribute__((packed));&lt;/c&gt;
+"reservedX"-Felder sind reserviert. "mode" ist 0x8000, wenn die Karte in den Promiscuous-Mode geschaltet werden soll (Alle Pakete empfangen, nicht nur Broadcasts und die für die eigene MAC-Adresse), sonst 0x0000. "receive_length" gibt die Anzahl der Empfangsdeskriptoren an, dazu später. "transfer_length" enthält im Gegensatz dazu die Anzahl der Sendedeskriptoren. Beide Werte können auf 3 gesetzt werden, dies entspricht jeweils acht Deskriptoren. "physical_address" enthält die MAC-Adresse der Karte. "logical_address" kann auf 0 gesetzt werden. "receive_descriptor" enthält die physische Adresse zu einem 2-kB-Puffer, "transmit_descriptor" zu einem anderen. Beide Puffer müssen physisch kontinuierlich sein und an 16-Bytes-Grenzen ausgerichtet.
+</p><p>7. Jetzt müssen die Empfangs- und Sendedeskriptoren initialisiert werden. So ein Deskriptor sieht so aus:
+&lt;c&gt;struct descriptor
+{
+</p>
+<pre>   uint32_t address;
+   uint32_t flags;
+   uint32_t flags2;
+   uint32_t avail;
+</pre>
+<p>} __attribute__((packed));&lt;/c&gt;
+"address" gibt die physische Adresse eines 2-kB-Puffers (physisch kontinuierlich) an, "flags" und "flags2" enthalten Flags (siehe unten), "avail" kann vom Benutzer (also von dir) frei verwendet werden. Bei den Empfangsdeskriptoren muss das OWN-Bit (0x80000000) im "flags"-Feld gesetzt werden, zudem müssen die Bits 0 bis 11 des "flags"-Feldes auf 0x7FF gesetzt werden (negative Länge des Puffers, also -2048). Außerdem müssen in beiden Deskriptortypen die Bits 12 bis 15 (0x0000F000) im "flags"-Feld gesetzt werden. Die acht Empfangsdeskriptoren müssen hintereinander in den Puffer geschrieben werden, der in das "receive_descriptor"-Feld des Initialization Blocks eingetragen wurde. Die acht Sendedeskriptoren müssen analog dazu in den Puffer geschrieben werden, der in das "transmit_descriptor"-Feld eingetragen wurde.
+</p><p>8. Wenn auch die Deskriptoren initialisiert sind, sollte der Initialization Block bei der Karte registriert werden. Hierzu werden die niederwertigen 16 Bits der physischen Adresse in das CSR1-Register und die höherwertigen in das CSR2-Register geschrieben.
+</p><p>9. Danach muss 0x0041 nach CSR0 geschrieben werden. Das initialisiert die Karte und aktiviert Interrupts. Gleich darauf wird ein IRQ eintreffen. Die ISR sollte einfach den Wert von CSR0 nach CSR0 (sic!) schreiben, um den Interrupt anzunehmen.
+</p><p>10. Wenn der Interrupt empfangen wurde, sollte der Inhalt von CSR4 mit 0xC00 ge-OR-t und wieder nach CSR4 geschrieben werden. Dadurch werden Pakete, die kleiner als 64 Bytes sind, automatisch auf diese größe vergrößert und einige relativ überflüssige Informationen von empfangenen Paketen entfernt.
+</p><p>11. Jetzt ist die Initialisierung endlich abgeschlossen und die Karte darf in Betrieb genommen werden, indem 0x42 nach CSR0 geschrieben wird.
+</p>
+<h3><span class="mw-headline" id="Konstanten">Konstanten</span></h3>
+<p>&lt;c&gt;//Die Werte, auf die RAP gesetzt werden muss, um dieses Register zu benutzen
+</p>
+<ol><li>define CSR0   0</li>
+<li>define CSR1   1</li>
+<li>define CSR2   2</li>
+<li>define CSR4   4</li>
+<li>define BCR20 20</li></ol>
+<p>//Aliasnamen, damit man auch weiß, was es bedeutet
+</p>
+<ol><li>define CSR_STATUS                    CSR0</li>
+<li>define CSR_INITIALIZATION_BLOCK_LOW  CSR1</li>
+<li>define CSR_INITIALIZATION_BLOCK_HIGH CSR2</li>
+<li>define CSR_TEST_AND_FEATURES         CSR4</li>
+<li>define BCR_SOFTWARE_STYLE            BCR20</li></ol>
+<p>//16-Bit-I/O-Ports (bzw. Offsets zum Beginn des I/O-Raums)
+</p>
+<ol><li>define APROM0 0x00</li>
+<li>define APROM2 0x02</li>
+<li>define APROM4 0x04</li>
+<li>define RDP    0x10</li>
+<li>define RAP    0x12</li>
+<li>define RESET  0x14</li>
+<li>define BDP    0x16&lt;/c&gt;</li></ol>
+<h3><span class="mw-headline" id="Die_ISR">Die ISR</span></h3>
+<p>Wenn ein Interrupt eintrifft, dann zeigt das CSR0-Register den Grund dafür an. Ist das ERR-Bit (0x00008000) gesetzt, so trat ein Fehler auf.
+</p><p>Wenn das TINT-Flag (0x00000200) gesetzt ist, dann wurde ein Sendedeskriptor abgearbeitet. Ob erfolgreich oder nicht, dass steht im entsprechenden Deskriptor. Ist im "flags"-Feld das ERROR-Bit gesetzt (0x40000000), dann trat ein Fehler auf, ansonsten wurde das Paket gesendet. Die "flags"-Felder (also "flags" und "flags2") des Deskriptors sollten dann auf 0 gesetzt werden.
+</p><p>Sollte das RINT-Flag (0x00000400) gesetzt sein, dann wurde ein Paket abgearbeitet. Siehe dazu "Empfangen von Paketen".
+</p><p>Am Ende der ISR sollte der Inhalt des CSR0-Registers dorthin zurückgeschrieben werden, um der Karte anzuzeigen, dass der Interrupt abgearbeitet wurde.
+</p>
+<h3><span class="mw-headline" id="Senden_eines_Pakets">Senden eines Pakets</span></h3>
+<p>Um ein Paket zu senden, muss die physische Adresse des entsprechenden Datenpuffers in das "address"-Felds des nächsten Sendedeskriptors geschrieben werden (zuerst Deskriptor 0, dann 1 und so weiter bis Deskriptor 7 (also der achte), danach wieder von vorn beginnen). "flags2" zeigt ein, ob ein Fehler beim Senden geschehen ist, sollte daher vom Treiber auf 0 gesetzt werden. Im "flags"-Feld muss nun das OWN-Bit gesetzt werden (0x80000000), um der Karte den Deskriptor zu "übergeben". Desweiteren sollten STP (Start of Packet, 0x02000000) und ENP (End of Packet, 0x01000000) gesetzt werden - dies zeigt an, dass die Daten nicht aufgeteilt werden, sondern dass es sich um ein einzelnes Ethernetpaket handelt. Weiterhin müssen die Bits 12-15 gesetzt werden (0x0000F000, sind wohl reserviert) und die Bits 0-11 geben die <b>negative</b> Größe des Pakets an.
+</p><p>Nun könnte man einfach warten, bis die Karte sich das Paket abholt. Alternativ dazu kann man auch das TDMD-Bit (0x08) in CSR0 setzen (Also 0x48 nach CSR0 schreiben, um die Interrupts aktiviert zu lassen), um diese Wartezeit abzukürzen.
+</p><p>Dazu ein Codebeispiel:
+&lt;c&gt;void write_csr(struct pcnet_card *ncard, uint16_t csr, uint16_t val)
+{
+</p>
+<pre> outw(ncard-&gt;port_base + RAP, csr);
+ outw(ncard-&gt;port_base + RDP, val);
+</pre>
+<p>}
+</p><p>uint16_t read_csr(struct pcnet_card *ncard, uint16_t csr)
+{
+</p>
+<pre> outw(ncard-&gt;port_base + RAP, csr);
+ return inw(ncard-&gt;port_base + RDP);
+</pre>
+<p>}
+</p><p>void send_packet(struct pcnet_card *ncard, void *buffer, size_t length)
+{
+</p>
+<pre> int current_descriptor;
+</pre>
+<pre> //Achtung, Beginn eines kritischen Abschnitts!
+ if (ncard-&gt;current_transmit_descriptor &gt; 7)
+   ncard-&gt;current_transmit_descriptor = 0;
+ current_descriptor = ncard-&gt;current_transmit_descriptor++;
+ if (current_descriptor == 7) //ncard-&gt;current_transmit_descriptor ist also 8
+   ncard-&gt;current_transmit_descriptor = 0;
+ //Ende des Abschnitts
+</pre>
+<pre> if (length &gt; 1518) //Maximale Länge eines Ethernetframes
+   length = 1518;
+</pre>
+<pre> //ncard-&gt;linear_transmit_buffer enthält die lineare Adresse des Puffers
+ memcpy(ncard-&gt;linear_transmit_buffer[current_descriptor], buffer, length);
+ //Die physische Adresse (also ncard-&gt;physical_transmit_buffer[current_descriptor]) sollte schon bei der
+ //Initialisierung in das "address"-Feld geschrieben worden sein
+ ncard-&gt;linear_transmit_descriptor[current_descriptor].flags2 = 0;
+ ncard-&gt;linear_transmit_descriptor[current_descriptor].flags = 0x8030F000 | ((-length) &amp; 0x7FF);
+ write_csr(ncard, CSR0, 0x48);
+</pre>
+<p>}&lt;/c&gt;
+</p>
+<h3><span class="mw-headline" id="Empfangen_von_Paketen">Empfangen von Paketen</span></h3>
+<p>Sobald ein Paket empfangen wurde (das heißt, die ISR wurde aufgerufen und das RINT-Flag im CR0-Register ist gesetzt), müssen alle Empfangsdeskriptoren ab dem aktuellen abgearbeitet werden, bis das OWN-Bit (0x80000000 im "flags"-Feld) bei einem gesetzt ist. Denn alle Deskriptoren mit gelöschtem OWN-Bit wurden gerade von der Karte bearbeitet. Zum Abholen der Daten sollte dann das OWN-Bit gesetzt werden und die Daten können aus dem im Deskriptor angegebenen Puffer kopiert werden. Die Anzahl der Bytes steht in den Bits 0 bis 11 des "flags2"-Feldes. Zu diesen Daten gehört auch eine 4 Bytes lange CRC32-Checksumme am Ende des Pakets.
+</p><p>Die Daten sollten nur dann gelesen werden, wenn das ERROR-Bit (0x40000000) im "flags"-Feld nicht gesetzt ist. Außerdem sollten die Bits STP und ENP (0x02000000 bzw. 0x01000000) - ebenfalls im "flags"-Feld - beide gesetzt sein.
+</p><p>Beispielcode:
+&lt;c&gt;size_t size_of_packet;
+</p><p>while ((ncard-&gt;linear_receive_descriptor[ncard-&gt;receive_descriptor].flags &amp; 0x80000000) == 0)
+{
+</p>
+<pre> if (!(ncard-&gt;linear_receive_descriptor[netcard-&gt;receive_descriptor].flags &amp; 0x40000000) &amp;&amp;
+      (ncard-&gt;linear_receive_descriptor[netcard-&gt;receive_descriptor].flags &amp; 0x03000000) == 0x03000000)
+ {
+   size_of_packet = netcard-&gt;linear_receive_descriptor[netcard-&gt;receive_descriptor].flags2 &amp; 0xFFF;
+   if (size_of_packet &gt; 64)
+     size_of_packet -= 4; //CRC32 nicht mitkopieren
+   //Mach mit den Daten, was du willst!
+   //Sie stehen in der virtuellen Version von netcard-&gt;linear_receive_descriptor[netcard_receive_descriptor].address
+   //und sind [size_of_packet] Bytes lang
+ }
+ ncard-&gt;linear_receive_descriptor[netcard-&gt;receive_descriptor].flags = 0x8000F7FF; //OWN-Bit und Standardwerte setzen
+ ncard-&gt;linear_receive_descriptor[netcard-&gt;receive_descriptor++].flags2 = 0;
+ if (netcard-&gt;last_receive_descriptor == 8)
+   netcard-&gt;last_receive_descriptor = 0;
+</pre>
+<p>}&lt;/c&gt;
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a href="../../pages/1876/index.html" title="Ethernet">Ethernet</a></li>
+<li><a href="../../pages/1937/index.html" title="Address Resolution Protocol">Address Resolution Protocol</a></li>
+<li><a href="../../pages/1970/index.html" title="Internet Protocol">Internet Protocol</a></li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://www.amd.com/us-en/assets/content_type/white_papers_and_tech_docs/21510.pdf" rel="nofollow">Umfangreiche Spezifikation für die Am79C973 (PCnet-FAST III) und Am79C975</a></li>
+<li><a class="external text" href="http://www.amd.com/us-en/assets/content_type/DownloadableAssets/22351.pdf" rel="nofollow">AMD-Hardware-Spezifikation</a></li>
+<li><a class="external text" href="http://www.amd.com/us-en/assets/content_type/white_papers_and_tech_docs/21485_pt1.pdf" rel="nofollow">Umfangreiche Spezifikation für die Am79C972 (PCnet-FAST+)</a> - sollte zur Am79C973 (PCnet-FAST III) kompatibel sein</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164502
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.007 seconds
+Real time usage: 0.008 seconds
+Preprocessor visited node count: 68/1000000
+Preprocessor generated node count: 106/1000000
+Post‐expand include size: 727/2097152 bytes
+Template argument size: 515/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 46/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.606      1 Vorlage:Hinweis
+100.00%    0.606      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=AMD_PCnet&amp;oldid=6761</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li><li><a href="../../pages/1826/index.html" title="Kategorie:Netzwerkkarte">Netzwerkkarte</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2025/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2025/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

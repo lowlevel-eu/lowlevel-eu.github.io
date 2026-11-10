@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>ARM-OS-Dev Teil 8 – Ein erstes Programm – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-ARM-OS-Dev_Teil_8_–_Ein_erstes_Programm rootpage-ARM-OS-Dev_Teil_8_–_Ein_erstes_Programm skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="index.html">Aktueller Artikel</a> · <a href="../../history/2427/index.html">Versionsgeschichte</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">ARM-OS-Dev Teil 8 – Ein erstes Programm</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><table style="width:100%; background-color: #D0D8FF; border: 1px solid #b8c0e8; text-align:center; margin-bottom: 10px;">
+<tbody><tr>
+<td style="width:33%; text-align:left;">« <a href="../2426/index.html" title="ARM-OS-Dev Teil 7 – Physische Speicherverwaltung">ARM-OS-Dev Teil 7 – Physische Speicherverwaltung</a></td>
+<td style="width:33%; text-align:center;"><b>Navigation</b></td>
+<td style="width:33%; text-align:right;"><a href="../2432/index.html" title="ARM-OS-Dev Teil 9 – Paging">ARM-OS-Dev Teil 9 – Paging</a> »</td>
+</tr>
+</tbody></table>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Ein_erstes_Testprogramm"><span class="tocnumber">1</span> <span class="toctext">Ein erstes Testprogramm</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Das_Programm_laden"><span class="tocnumber">2</span> <span class="toctext">Das Programm laden</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Syscalls"><span class="tocnumber">3</span> <span class="toctext">Syscalls</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#ELF"><span class="tocnumber">4</span> <span class="toctext">ELF</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Weitere_Quellen"><span class="tocnumber">5</span> <span class="toctext">Weitere Quellen</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Ein_erstes_Testprogramm">Ein erstes Testprogramm</span></h2>
+<p>Wie in der <a href="../2241/index.html#Ein_kleines_Testprogramm" title="Teil 8 - Ein erstes Programm">x86-Reihe</a> auch soll das erste Testprogramm einfach die Zahlen 0 bis 2 ausgeben. Auch hier geschieht das durch direkten Hardwarezugriff:
+&lt;c&gt;#include &lt;stdint.h&gt;
+</p>
+<ol><li>define SERIAL_DR *((volatile uint8_t  *)0x16000000)</li>
+<li>define SERIAL_FR *((volatile uint32_t *)0x16000018)</li>
+<li>define SERIAL_BUFFER_FULL (1 &lt;&lt; 5)</li></ol>
+<p>static void putchar(char c)
+{
+</p>
+<pre>   while (SERIAL_FR &amp; SERIAL_BUFFER_FULL);
+</pre>
+<pre>   SERIAL_DR = c;
+</pre>
+<p>}
+</p><p>void _start(void)
+{
+</p>
+<pre>   for (int i = 0; i &lt; 3; i++)
+       putchar('0' + i);
+</pre>
+<pre>   for (;;);
+</pre>
+<p>}&lt;/c&gt;
+</p><p>Das Linkerscript kann fast aus der x86-Reihe übernommen werden, außer, dass der ARM-LD kein Verständnis dafür zu haben scheint, wenn man ELFs zu einer Binary linken möchte. Daher muss die Zeile „OUTPUT_FORMAT(binary)“ entfernt werden, sodass LD eine ELF erstellt, die anschließend mit objcopy zu einer Binary umgewandelt werden kann.
+</p>
+<h2><span class="mw-headline" id="Das_Programm_laden">Das Programm laden</span></h2>
+<p>Leider haben wir keinen Bootloader, der unser Programm laden könnte – normalerweise würde man es auf den Flashspeicher laden und dann davon lesen, aber QEMU unterstützt so einen Speicher nicht. Daher müssen wir ein wenig tricksen und das Programm in den Kernel linken. Dies geschieht wieder mit einem objcopy-Aufruf.
+</p><p>Nehmen wir an, LD hat eine ELF-Datei namens <i>usertest</i> erstellt und unser ARM-objcopy heißt <i>arm-elf-objcopy</i>, dann könnte man mit dem folgenden Aufruf eine Binary namens <i>usertest.bin</i> erstellen:
+</p>
+<pre>arm-elf-objcopy -O binary usertest usertest.bin</pre>
+<p>Diese muss nun wieder in eine Objektdatei umgewandelt werden, damit wir sie in den Kernel linken können:
+</p>
+<pre>arm-elf-objcopy -I binary -O elf32-littlearm -B armv5t --rename-section .data=.rodata,alloc,load,readonly,data,contents usertest.bin usertest.incelf</pre>
+<p>Das Ergebnis ist eine Datei namens <i>usertest.incelf</i>, die die ursprüngliche Binary in einer .rodata-Section enthält. Den Anfang der Daten markiert ein Symbol namens <i>_binary_usertest_bin_start</i>, das Ende <i>_binary_usertest_bin_end</i>. Um die Binärdaten im Kernel zu laden, müssen diese Symbole also lediglich als <i>extern const void</i> (oder ähnlich) definiert werden und dann genügen folgende zwei Zeilen, um die Datei nach 0x00200000 zu laden und auszuführen:
+&lt;c&gt;memcpy((void *)0x00200000, &amp;_binary_usertest_bin_start, &amp;_binary_usertest_bin_end - &amp;_binary_usertest_bin_start);
+init_task((void *)0x00200000);&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Syscalls">Syscalls</span></h2>
+<p>Als nächstes soll der direkte Hardwarezugriff durch einen Systemaufruf ersetzt werden. Systemaufrufe werden auf ARM-Prozessoren mit dem SWI-Befehl ausgeführt, er enthält eine 24-Bit-Zahl, mit der normalerweise angegeben wird, welche Funktion ausgeführt werden soll. Wir werden Funktion 0 (wird mit <i>swi #0</i> aufgerufen) als eine <i>putc</i>-Funktion nutzen.
+</p><p>Parameter werden übergeben, wie das bei ARM üblich ist: Die ersten vier Parameter liegen in den Registern <i>r0</i> bis <i>r3</i> und mehr werden wir hier sowieso nicht benötigen. Nun müssen wir uns aber überlegen, wie wir die Systemaufrufsnummer in den Opcode bekommen: An sich könnten wir einfach konstant <i>swi #0</i> benutzen, aber das wird unschön, wenn wir noch andere Systemaufrufe haben wollen. Ich habe mich hier für selbstmodifizierenden Code entschieden. Die Syscallnummer wird also vor dem SWI-Aufruf in den Opcode hineingeschrieben. Dazu benötigen wir ein Array aus zwei ARM-Befehlen, die zusammen eine einfache Funktion darstellen, ein <i>swi</i> und ein <i>bx r14</i>. Auf dieses Array kann man einen Funktionspointer zeigen lassen und damit den Code ausführen:
+&lt;c&gt;static uint32_t swi[] = {
+</p>
+<pre>   0xEF000000, // SWI #0
+   0xE12FFF1E  // BX R14
+</pre>
+<p>};
+</p><p>static uint32_t (*do_swi)(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) = (uint32_t (*)(uint32_t, uint32_t, uint32_t, uint32_t))(uintptr_t)swi;&lt;/c&gt;
+</p><p>Aufgabe der <i>putchar</i>-Funktion ist es dann, <i>swi[0]</i> zu verändern (der <i>swi</i>-Opcode) und <i>do_swi</i> mit den entsprechenden Parametern aufzurufen:
+&lt;c&gt;swi[0] = 0xEF000000 | 0; // Syscall #0
+do_swi(c, 0, 0, 0)&lt;/c&gt;
+</p><p>Für den Syscall Nummer 1 würde man dementsprechend <i>0xEF000000 | 1</i> benutzen.
+</p><p>Damit der Kernel Syscalls erlaubt, müssen wir zunächst zur Taskerstellung zurückkommen: Entgegen unseres Kommentars brauchen wir nämlich jetzt doch einen Supervisorstack (Erinnerung: Syscalls laufen im Supervisormodus ab). Um den einzurichten, brauchen wir nur ein
+&lt;c&gt;uint8_t *svc_stack = (uint8_t *)pmm_alloc();&lt;/c&gt;
+und ein
+&lt;c&gt;.svc_r13 = (uintptr_t)(svc_stack + STACK_SIZE),&lt;/c&gt;
+an den entsprechenden Stellen.
+</p><p>Dann müssen wir den Systemaufruf noch abfangen. Dazu installieren wir in <i>start.S</i> einen Exceptionhandler, indem das zweite <i>b .</i> von oben durch ein <i>b asm_handle_swi</i> ersetzt wird (oben ist dann natürlich noch ein <i>.extern asm_handle_swi</i> nötig). Dieser Assembler-SWI-Handler kann dann zum Beispiel so aussehen:
+</p>
+<pre>.arm
+.extern syscall
+.global asm_handle_swi
+
+asm_handle_swi:
+push    {r14}
+bl      syscall
+pop     {r14}
+movs    r15, r14</pre>
+<p>Nun wird noch die <i>syscall</i>-Funktion benötigt. Deren erste vier Parameter sind <i>r0</i> bis <i>r3</i>, also die Syscallparameter aus dem Userspace. Wir lassen sie allerdings noch einen fünften Parameter nehmen. Dieser wird nach der ARM-Calling-Convention vom Stack genommen, wo <i>r14</i> liegt. Dies ist dann unsere Möglichkeit, die Nummer des Syscalls herauszufinden, da der SWI-Opcode an der Adresse <i>r14 - 4</i> liegt und wir ihn damit auslesen können:
+&lt;c&gt;uint32_t syscall(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3, uint32_t r14)
+{
+</p>
+<pre>   uint32_t syscall_id = ((uint32_t *)r14)[-1] &amp; 0xFFFFFF;
+</pre>
+<pre>   switch (syscall_id)
+   {
+       case 0: // putc
+           kprintf("%c", r0);
+           return 0;
+   }
+</pre>
+<pre>   return 0;
+</pre>
+<p>}&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="ELF">ELF</span></h2>
+<p>Anstatt einer rohen Binärdatei wäre ein richtiges Format wie ELF für das Userprogramm schön. Eine ELF statt der Binärdatei einzubinden ist erstmal nicht schwer, dazu müssen wir lediglich den objcopy-Aufruf weglassen, der aus der ELF eben eine rohe Binärdatei macht. Das Laden der ELF kann genauso wie in der <a href="../2241/index.html#ELF" title="Teil 8 - Ein erstes Programm">x86-Reihe</a> geschehen (da in dem dort gezeigten ELF-Loader darauf verzichtet wird, zu überprüfen, für welche Architektur die ELF gebaut wurde – im Grunde der einzige Unterschied zwischen i386- und ARM-ELFs, wenn man Executables betrachtet).
+</p><p>Geladen und ausgeführt wird die ELF dementsprechend mit:
+&lt;c&gt;init_elf32(&amp;_binary_usertest_start);&lt;/c&gt;
+</p><p>Man beachte, dass das Label jetzt nicht mehr <i>_binary_usertest_<b>bin</b>_start</i> heißt, sondern nur noch <i>_binary_usertest_start</i> (es wird nach dem Dateinamen benannt; da jetzt direkt aus der <i>usertest</i>-ELF eine in den Kernel linkbare Objektdatei gemacht wird, heißt also auch das Label anders).
+</p>
+<h2><span class="mw-headline" id="Weitere_Quellen">Weitere Quellen</span></h2>
+<p>Der fertige Code bis zum ersten Userprogramm befindet sich <a class="external text" href="https://gitorious.org/arm-os-dev/kernel/trees/a55784076e5ee62cf744362c1004442001ecc0c0" rel="nofollow">hier</a>, der mit SWI <a class="external text" href="https://gitorious.org/arm-os-dev/kernel/trees/c22abdb3f0c57ffc066885c0380c8bb098641499" rel="nofollow">hier</a> und der mit ELF-Loader <a class="external text" href="https://gitorious.org/arm-os-dev/kernel/trees/b0808e5398b36b764b2557df19376527fea0517b" rel="nofollow">hier</a>.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109164511
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.007 seconds
+Preprocessor visited node count: 65/1000000
+Preprocessor generated node count: 180/1000000
+Post‐expand include size: 502/2097152 bytes
+Template argument size: 172/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 349/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.097      1 Vorlage:Navigation
+100.00%    1.097      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:2427-0!canonical and timestamp 20261109164511 and revision id 9789
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="../../revisions/9789/index.html">http://wiki.localhost:8080/w/index.php?title=ARM-OS-Dev_Teil_8_–_Ein_erstes_Programm&amp;oldid=9789</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../1895/index.html" title="Kategorie:OS-Dev für Einsteiger">OS-Dev für Einsteiger</a></li><li><a href="../2100/index.html" title="Kategorie:ARM">ARM</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2427/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="../../revisions/9789/index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 14. Mai 2011 um 21:25 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

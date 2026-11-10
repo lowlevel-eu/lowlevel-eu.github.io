@@ -1,0 +1,23 @@
+{{Stub}}
+
+Der RTL8169 ist neben dem [[RTL8139]] ein weiterer Netzwerkchip der Firma Realtek. Er kann Daten im Bereich von 10/100/1000 Megabits pro Sekunde übertragen. Der Chip RTL8168 ist als PCI-Express-Version nahezu identisch anzusteuern.
+
+== IO/MMIO ==
+RTL8168 und RTL8169 unterstützen MMIO. Die Basisadresse kann über die [[PCI]]-BARs ausgelesen werden. Sollten mehrere MMIO-BARs angegeben sein, ist die erste zu nutzen.
+
+== MAC-Adresse herausfinden ==
+Die 6 Bytes lange MAC-Adresse des Geräts kann aus den ersten 6 Registern (ausgehend von der o.g. Basisadresse) ausgelesen werden. Folgender Code implementiert dies über die IO-Ports, für MMIO kann analog vorgegangen werden:
+
+<c>int i;
+char mac_addr[6];
+for(i = 0; i < 6; ++i)
+{
+    mac_addr[i] = inb(pci_port + i); // Funktion zum Einlesen eines Bytes vom angegebenen Port
+}
+</c>
+
+==Weblinks==
+* [http://www.iitg.ernet.in/asahu/cs421/RealTek.pdf RTL8169 Datenblatt]
+
+[[Kategorie:Netzwerkkarte]]
+[[en:RTL8169]]

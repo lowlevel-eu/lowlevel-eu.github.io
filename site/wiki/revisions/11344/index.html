@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>PXE – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-PXE rootpage-PXE skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2659/index.html">Aktueller Artikel</a> · <a href="../../history/2659/index.html">Versionsgeschichte</a> · <a href="../../source/11344.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">PXE</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 2. Mai 2016, 23:23 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>MasterQ32</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Die Seite wurde neu angelegt: „== Motivation == Wenn man seinen Kernel oder sein OS auch mal auf einer realen Plattform testen möchte, ist es durchaus praktisch, nicht nach jedem Build einen n…“)</span></div><div id="mw-revision-nav">(Unterschied) ← Nächstältere Version | <a href="../../pages/2659/index.html" title="PXE">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../11345/index.html" title="PXE">Nächstjüngere Version →</a> (<a href="../../diffs/11344-11345.html" title="PXE">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Motivation"><span class="tocnumber">1</span> <span class="toctext">Motivation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Vorarbeit"><span class="tocnumber">2</span> <span class="toctext">Vorarbeit</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#DHCP"><span class="tocnumber">2.1</span> <span class="toctext">DHCP</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#TFTP"><span class="tocnumber">2.2</span> <span class="toctext">TFTP</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#gPXE"><span class="tocnumber">2.3</span> <span class="toctext">gPXE</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Setup"><span class="tocnumber">3</span> <span class="toctext">Setup</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Bereitstellung_von_pxelinux.0"><span class="tocnumber">3.1</span> <span class="toctext">Bereitstellung von pxelinux.0</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Testen.21"><span class="tocnumber">3.2</span> <span class="toctext">Testen!</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Bereitstellen_unseres_Kernels"><span class="tocnumber">3.3</span> <span class="toctext">Bereitstellen unseres Kernels</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Motivation">Motivation</span></h2>
+<p>Wenn man seinen Kernel oder sein OS auch mal auf einer realen Plattform testen möchte, ist es durchaus praktisch, nicht nach jedem Build einen neuen Bootstick zu erstellen.
+</p><p>Eine mögliche Lösung dafür ist <a class="external text" href="https://de.wikipedia.org/wiki/Preboot_Execution_Environment" rel="nofollow">PXE</a>, welches einen Boot über Netzwerk erlaubt. Damit kann man dann folgenden Workflow nutzen:
+</p>
+<ol><li>Compilieren</li>
+<li>Kernel in einen Ordner kopieren</li>
+<li>Testrechner rebooten</li></ol>
+<p>Die folgende Anleitung ist unter der Annahme, dass man einen Multiboot-Kernel booten möchte. Wenn man ein anderes Kernelformat verwenden möchte, sollte man sich die Anleitung für SYSLINUX durchlesen.
+</p>
+<h2><span class="mw-headline" id="Vorarbeit">Vorarbeit</span></h2>
+<p>Um einen PXE-Boot im lokalen Netzwerk zu ermöglichen, benötigt man einen <a class="external text" href="https://de.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol" rel="nofollow">DHCP-Server</a> unter der eigenen Kontrolle und einen <a class="external text" href="https://de.wikipedia.org/wiki/Trivial_File_Transfer_Protocol" rel="nofollow">TFTP-Server</a>. Wenn man ein Gerät besitzt, welches keinen PXE-Support besitzt, benötigt man noch ein <a class="external text" href="http://etherboot.org/wiki/index.php" rel="nofollow">gPXE</a>-Bootmedium, welches den PXE-Support quasi nachrüstet.
+</p>
+<h3><span class="mw-headline" id="DHCP">DHCP</span></h3>
+<p>Es gibt verschiedene Implementierungen für einen DHCP-Server, ich verwende hier den "klassischen" <a class="external text" href="https://wiki.archlinux.de/title/Dhcpd" rel="nofollow">dhcp</a> auf Arch Linux, das Paket sollte aber auch auf anderen Linux-Distributionen verfügbar sein.
+</p><p>Um den DHCP-Server zu installieren und zu konfigurieren ließt man sich am besten den verlinkten Artikel zum Arch-Wiki durch, dort ist die Installation ausführlich erklärt. Man darf auch nicht vergessen, den dementsprechenden Daemon zu starten.
+</p><p>Um euch die Konfiguration etwas zu erleichtern, hier einmal mein dhcp-Konfigurations-File:
+<code>authoritative;
+</code></p><p><code>allow booting;
+allow bootp;
+</code></p><p><code>subnet 192.168.2.0 netmask 255.255.255.0
+{
+</code></p><code><pre>       range 192.168.2.100 192.168.2.199;
+       option routers 192.168.2.1;
+       option domain-name-servers 8.8.8.8, 8.8.4.4;
+       default-lease-time 600;
+       max-lease-time 7200;
+</pre></code><code><pre>       # Das hier ist wichtig: Lege den TFTP-Server auf 192.168.2.11 fest und
+       # sage PXE, es soll "pxelinux.0" im Root-Verzeichnes eben dessen laden.
+       next-server 192.168.2.11;
+       filename "/pxelinux.0";
+</pre></code><code></code><p><code>}
+</code>
+</p><p>Man möchte vor dem Start des DHCP-Servers nochmal daran denken, dass es nur einen DHCP-Server in einem Netzwerk geben darf. Von daher empfiehlt es sich, den DHCP-Server des Routers zwischendurch auszuschalten oder einen getrennten Port für den hier verwendeten DHCP zu verwenden.
+</p>
+<h3><span class="mw-headline" id="TFTP">TFTP</span></h3>
+<p>Als TFTP-Server habe ich <a class="external text" href="https://wiki.archlinux.de/title/Tftp-hpa" rel="nofollow">tftp-hpa</a> verwendet, ein sehr einfacher TFTP-Server. Die Installation ist durchaus einfach, man installiert das Paket und startet den entsprechenden Daemon (tftpd).
+</p><p>Wer sein TFTP-Root-Verzeichnis ändern möchte, passt die Datei /etc/conf.d/tftpd an und ersetzt den dort angegebenen Pfad durch den eigenen.
+</p>
+<h3><span class="mw-headline" id="gPXE">gPXE</span></h3>
+<p><b> To be done </b>
+</p><p>Ein passendes gPXE-Bootimage lässt sich praktisch unter <a class="external text" href="http://rom-o-matic.net/" rel="nofollow">rom-o-matic.net</a> generieren.
+</p>
+<h2><span class="mw-headline" id="Setup">Setup</span></h2>
+<p>Nach der Installation der benötigten Services muss man noch ein paar Vorbereitungen treffen:
+</p>
+<h3><span class="mw-headline" id="Bereitstellung_von_pxelinux.0">Bereitstellung von pxelinux.0</span></h3>
+<p>pxelinux ist eine modifizierte Variante des Bootloaders <a class="external text" href="https://de.wikipedia.org/wiki/SYSLINUX" rel="nofollow">SYSLINUX</a>, welche einen Boot über Netzwerk ermöglicht und via PXE gebootet werden kann.
+</p><p>Ein passendes pxelinux-Image erhält man unter <a class="external text" href="https://www.kernel.org/pub/linux/utils/boot/syslinux/" rel="nofollow">https://www.kernel.org/pub/linux/utils/boot/syslinux/</a>. Einfach die gewünschte Zip-Datei runterladen und entpacken.
+</p><p>Um jetzt unseren Netzwerk-Bootloader bereitzustellen, kopieren wir folgende Dateien aus der Zip-Datei in das TFTP-Verzeichnis (Normalerweise /srv/tftp/):
+</p>
+<ul><li>$ZIP/bios/com32/mboot/mboot.c32</li>
+<li>$ZIP/bios/com32/elflink/ldlinux/ldlinux.c32</li>
+<li>$ZIP/bios/com32/lib/libcom32.c32</li>
+<li>$ZIP/bios/core/pxelinux.0</li></ul>
+<p>Jetzt benötigen wir noch eine Konfigurationsdatei für pxelinux. Dafür erstellen wir einen Ordner mit dem Namen <i>pxelinux.cfg</i> in unserem TFTP-Verzeichnis und erstellen darin eine Datei mit dem Namen <i>default</i>. In diese Datei schreiben wir folgende Konfiguration:
+</p><p><code>DEFAULT default</code>
+</p><p>Unser TFTP-Verzeichnis sollte also jetzt folgenden Inhalt haben:
+</p><p><code>
+[felix@qlaptop ~]$ ls /srv/tftp/
+ldlinux.c32  libcom32.c32  mboot.c32  pxelinux.0  pxelinux.cfg
+</code></p><p><code>[felix@qlaptop ~]$ ls /srv/tftp/pxelinux.cfg/
+default
+</code>
+</p>
+<h3><span id="Testen!"></span><span class="mw-headline" id="Testen.21">Testen!</span></h3>
+<p>Wenn wir jetzt unser TFTP-Verzeichnis erstellt haben und alle Daemons gestartet wurden, können wir jetzt mal unsere Installation testen.
+</p><p>Zuerst fangen wir damit an, zu prüfen, ob unser TFTP-Server auch wirklich läuft und Dateien ausspuckt:
+</p><p><code>
+[felix@qlaptop ~]$ tftp 192.168.2.11
+tftp&gt; get /pxelinux.0
+tftp&gt; quit
+[felix@qlaptop ~]$ ls
+pxelinux.0 ...
+</code>
+</p><p>Wenn das <i>get</i> länger braucht als eine Sekunde, solltest du deine Installation nochmal prüfen. TFTP gibt leider keine sonderlich zuverlässigen Fehlermeldungen aus, von daher kann ein bisschen Ausprobieren nicht schaden.
+</p><p>Nachdem unser TFTP läuft, prüfen wir, ob der DHCP-Server richtig tut und auch schön brav Leases verteilt. Dazu schnappt man sich einfach ein zweites netzwerkfähiges Gerät und ruft dort 'dhcpcd' oder ähnliche Tools auf, um ein DHCP-Lease zu erhalten.
+Wenn man jetzt eine passende IP-Adresse hat, sollte dieser Schritt auch klappen.
+</p><p>Falls kein oder ein falsches Lease vergeben wird, kann es daran liegen, dass zwei DHCP-Server im Netzwerk laufen. Dies sollte vermieden werden, da sonst viele Geräte nicht mehr richtig funktionieren werden und die Nachvollziehbarkeit dieser Fehler doch sehr niedrig ist.
+</p><p>Wenn wir soweit gekommen sind, starten wir zum ersten mal unser PXE-fähiges Gerät und warten ein bisschen. Wenn alles gut läuft, springt der PXE-Boot an und wir erhalten folgende Ausgabe auf dem Bildschirm:
+</p><p><code>
+Loading default... failed:
+No such file or directory
+</code>
+</p><p>Damit sagt uns pxelinux, dass es die von uns angegebene Konfiguration "default" nicht gefunden hat. Wir sind ready to go!
+</p>
+<h3><span class="mw-headline" id="Bereitstellen_unseres_Kernels">Bereitstellen unseres Kernels</span></h3>
+<p>Jetzt kommen wir zum spannenden Teil: Die Bereitstellung unseres eigenen Kernels.
+</p><p>Unser erster Schritt hier ist die Kopie unseres Kernels in das TFTP-Verzeichnis. Dabei ist der Name der Datei nicht ausschlaggebend, wir können die Datei also nennen wie wir wollen. Wichtig ist, dass es hier eine Datei sein muss und keine symbolische Verknüpfung!
+</p><p>Nachdem wir den Kernel in das Verzeichnis kopiert haben, öffnen wir wieder unser Konfigurationsfile <i>/srv/tftp/pxelinux.cfg/default</i> und ändern den Inhalt wiefolgt ab:
+</p><p><code>
+DEFAULT kernel-base
+</code></p><p><code>LABEL kernel-base
+</code></p><code><pre>       KERNEL mboot.c32
+       APPEND /kernel-base.ker
+</pre></code><code></code><p><code></code>
+</p><p>DEFAULT gibt hier an, welches der folgenden LABEL wir booten möchten. LABEL definiert einen bestimmten Boot-Einstiegspunkt.
+Die Option KERNEL bei einem LABEL gibt an, welches Kernelmodul gestartet wird. Hier geben wir nicht unseren Kernel an, sondern verwenden die mboot.c32, welches ein Multiboot-Bootloader ist.
+APPEND gibt dann die Parameter für mboot.c32 an, es muss in dem Fall mindestens der Dateiname unseres Kernels angeben werden.
+</p><p>Wenn diese zwei Schritte erledigt sind, starten wir einfach die PXE-Maschine neu und sollten dann wenige Sekunden später unseren eigenen Kernel gebootet haben.
+</p><p>Voilà!
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109165953
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.006 seconds
+Preprocessor visited node count: 34/1000000
+Preprocessor generated node count: 40/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=PXE&amp;oldid=11344</a>“</div>
+<div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks"></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2659/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2659/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

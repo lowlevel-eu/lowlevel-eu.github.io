@@ -1,0 +1,29 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Common Driver Interface — Änderungen 3862 → 3863</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Common Driver Interface — Änderungen 3862 → 3863</h1><nav><a href="../revisions/3862/index.html">Version 3862</a> · <a href="../revisions/3863/index.html">Version 3863</a> · <a href="../history/1622/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l12" >Zeile 12:</td>
+<td colspan="2" class="diff-lineno">Zeile 12:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Ein Betriebssystem muss dabei nicht zwingend die Schnittstellen aller Module implementieren. Alle Treiber benutzen Funktionen aus ''core'', aber es ist ohne weiteres möglich, z.B. neben ''core'' nur die Schnittstelle für Netzwerktreiber zu implementieren.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Ein Betriebssystem muss dabei nicht zwingend die Schnittstellen aller Module implementieren. Alle Treiber benutzen Funktionen aus ''core'', aber es ist ohne weiteres möglich, z.B. neben ''core'' nur die Schnittstelle für Netzwerktreiber zu implementieren.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">=== Core ===</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Die Kernfunktionalität umfasst die folgenden Punkte:</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Verwaltung der Treiber und Geräte</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Zugriff auf I/O-Ports</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Zugriff auf Physischen Speicher</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* PCI</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* Verkettete Listen</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Net ===</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== Net ===</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l17" >Zeile 17:</td>
+<td colspan="2" class="diff-lineno">Zeile 26:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* '''send_packet'''(device, buffer, size)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* '''send_packet'''(device, buffer, size)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Die Implementierung stellt dem Treiber eine Funktion zur Verfügung um empfangene Pakete abzuliefern.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Die Implementierung stellt dem Treiber eine Funktion zur Verfügung um empfangene Pakete abzuliefern.</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== FS ===</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>=== FS ===</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Das Interface für Dateisystemtreiber ist komplexer als bei den anderen Treibern. Hier müssen Funktionen für alle möglichen Dateioperationen zur Verfügung gestellt werden.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Das Interface für Dateisystemtreiber ist komplexer als bei den anderen Treibern. Hier müssen Funktionen für alle möglichen Dateioperationen zur Verfügung gestellt werden.</div></td></tr>
+</table></body></html>

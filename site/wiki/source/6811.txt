@@ -1,0 +1,120 @@
+Hier ein Entwurf eines neuen Kategoriebaums. Alles andere als perfekt, noch nichtmal gut.
+
+== Entwurf 1 ==
+* Internes
+** TODO
+** Stub
+** Sammlung
+*** Glossar
+*** Tutorial
+**** Magazin
+**** OS-Dev für Einsteiger
+
+* Software
+** Betriebssystem
+*** Týndur
+** Betriebssystemkomponente
+*** Dateisystem
+*** Speicherverwaltung
+*** Netzwerk
+** Entwicklung
+*** Spezifikation
+**** Dateityp
+**** API-Standard
+*** Programmiersprache
+*** Werkzeug
+**** Emulator
+**** Versionsverwaltung
+**** Editor
+
+* Hardware
+** Netzwerkkarte
+** Soundkarte
+** Grafikkarte
+** Bus
+** Prozessorarchitektur
+*** x86-64
+*** x86
+**** x86-Befehl
+
+=== Bekannte Macken ===
+* Eigentlich sollte der Kategoriebaum als ordentlicher Baum auch in einer einzelnen Wurzel zusammenlaufen, wie bei Wikipedia. (womöglich ist die Abhilfe, auch einfach eine Kategorie:Objekt drüberzuhauen?)
+* Sortierung nach "Software", "Hardware" und "Sonstiges" kommt mir irgendwie sehr künstlich und sehr starr vor. Wenn wir schon einmal alle Artikel rekategorisieren müssen, dann sollte das nachher auch mindestens ein paar Jahre halten.
+
+
+== Angepasster OSDev.org-Entwurf ==
+
+* Kategorien
+** Hauptseitenthemen
+*** Definitionen
+*** Hardware
+**** Bus
+***** ATA (warum als Kategorie?)
+***** USB
+**** Standardgeräte ''(Common Devices)''
+**** Human Interface Device
+**** <strike>Interrupts (warum als Kategorie? was ist mit IRQ?) (Was ist mit [[PIC]], [[APIC]], [[ISR]], [[Exception]]? --[[Benutzer:DickHuuhn|DickHuuhn]] 22:56, 5. Jan. 2010 (CET))</strike>
+**** Interrupthandling (oder Interruptverarbeitung? Falls jemand nenn besseren Namen hat gerne :-) ) mit [[Interrupt]], [[Exception]], [[IRQ]] und [[ISR]], wobei das auch irgendwie in Hardware nicht so ganz passt, finde ich, das kommt für mich fast eher in Betriebssystemtheorie (die Unterkategorie Interruptcontroller natürlich nicht!) --[[Benutzer:Bluecode|Bluecode]] 09:25, 6. Jan. 2010 (CET)
+***** Interruptcontroller mit [[PIC]] und [[APIC]]
+**** Netzwerkhardware
+**** Plattformen
+***** ARM
+***** Itanium2
+***** MIPS
+***** PowerPC
+***** Sparc
+***** x86
+***** x86-64
+**** Soundhardware
+**** Massenspeicher
+***** ATA
+**** Video
+***** VGA
+*** Programmiersprachen (warum sollten die Unterpunkte Kategorien sein?) (Dann findet man alle Anleitungen, die z.B. für Assembler oder C geschrieben sind, in einer Stelle --[[Benutzer:DickHuuhn|DickHuuhn]] 22:56, 5. Jan. 2010 (CET)) (Prinzipiell ok, wenn es nicht in dem Sinne ausartet, dass alles was beispielsweise C-Code enthält in der Kategorie C landet, es sollte sich dann wohl eher auf [[C-Kernel mit GRUB]], [[C]] ansich und [[:Kategorie:OS-Dev für Einsteiger]] beschränken würde ich sagen --[[Benutzer:Bluecode|Bluecode]] 09:25, 6. Jan. 2010 (CET) )
+**** Assembler
+**** C
+**** C++
+*** Betriebssystementwicklung
+**** FAQ
+**** Troubleshooting
+**** Tutorials
+***** OS-Dev für Einsteiger
+***** Bare Bones
+*** Betriebssystemtheorie
+**** Algorithmen (Bin mir nicht sicher, ob man das nicht eher in konkrete Artikel wie zB [[physische Speicherverwaltung]] packt) (Ja, und die Artikel werden dann hier einsortiert ;-) --[[Benutzer:DickHuuhn|DickHuuhn]] 22:56, 5. Jan. 2010 (CET))
+**** Executable-Formate (Das erscheint mir hier falsch aufgehoben zu sein) (Mag sein, ich würde jetzt am ehesten für ne Unterkategrie in Standards stimmen --[[Benutzer:DickHuuhn|DickHuuhn]] 22:56, 5. Jan. 2010 (CET)) (Ich würde für Betriebssystementwicklung plädieren, zumindest klingt das nacht Praxis bzw. Implementierung und dort sind Executable-Formate sicherlich relevant --[[Benutzer:Bluecode|Bluecode]] 09:25, 6. Jan. 2010 (CET) )
+**** Dateisystem
+***** Netzwerkdateisystem
+**** Grafische Benutzeroberfläche
+**** Kernel
+**** Betriebssystem (war das mit Kernel so gemeint?)
+***** Betriebssystem mit Source
+**** Speicherverwaltung (warum als Kategorie? Warum nicht unterhalb von Kernel?) (Siehe dazu [http://wiki.osdev.org/Category:Memory_management], ich habe keine Lust, alles nochmal neu zu kategorisieren, wenn mal jemand zwei, drei neue Artikel schreibt, oder irgendwann der große [[Memory Management]] Artikel groß genug wird, dass der aufgeteilt wird --[[Benutzer:DickHuuhn|DickHuuhn]] 22:56, 5. Jan. 2010 (CET)) (aber unterhalb von Kernel wäre ok oder? --[[Benutzer:Bluecode|Bluecode]] 09:25, 6. Jan. 2010 (CET) )
+**** Netzwerk
+***** <strike>Netzwerkhardware</strike> (die ist schon oben und da weit besser aufgehoben) (Na und? Kategorien können doch auch zwei Oberkategorien haben --[[Benutzer:DickHuuhn|DickHuuhn]] 22:56, 5. Jan. 2010 (CET)) (in einem Kategorien-'''Baum''' eigentlich nicht, aber das sind Korinthen, trotzdem hat Netzwerk'''hardware''' nicht in Betriebssystemtheorie zu suchen finde ich --[[Benutzer:Bluecode|Bluecode]] 09:25, 6. Jan. 2010 (CET) )
+***** Netzwerkprotokoll
+**** Prozesse und Threads (eventuell [[Prozessverwaltung]]? Warum nicht unterhalb von Kernel?)
+***** IPC
+***** Synchronisation
+***** Taskmodelle (was genau soll das sein?) (In OSDev sind dadrin die Artikel zu Monotasking, Multitasking und Echtzeitbetriebssysteme --[[Benutzer:DickHuuhn|DickHuuhn]] 22:56, 5. Jan. 2010 (CET))
+**** Sicherheit
+*** Ressourcen
+**** Standards
+*** Tools
+**** Assembler
+**** Bootloader
+**** Compiler
+**** Debugger
+**** Plattenimagetools
+**** Emulatoren
+**** IDEs
+**** Linker
+** Wiki-Verwaltung
+*** Umstritten
+*** In Arbeit
+*** Stub
+
+
+FAQ und Troubleshooting ist btw. eine sehr gute Idee!--[[Benutzer:Bluecode|Bluecode]] 22:21, 4. Jan. 2010 (CET)
+
+[[Kategorie:Internes]]

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>OS-Dev für Einsteiger – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-OS-Dev_für_Einsteiger rootpage-OS-Dev_für_Einsteiger skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1619/index.html">Aktueller Artikel</a> · <a href="../../history/1619/index.html">Versionsgeschichte</a> · <a href="../../source/2576.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">OS-Dev für Einsteiger</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 16. Februar 2008, 11:55 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Taljeth</bdi></a> <span class="mw-usertoollinks">(<a class="mw-usertoollinks-talk" href="../../pages/1728/index.html" title="Benutzer Diskussion:Taljeth">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(PM-Initialisierung (GDT))</span></div><div id="mw-revision-nav">(<a href="../../diffs/2573-2576.html" title="OS-Dev für Einsteiger">Unterschied</a>) <a href="../2573/index.html" title="OS-Dev für Einsteiger">← Nächstältere Version</a> | <a href="../../pages/1619/index.html" title="OS-Dev für Einsteiger">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../2795/index.html" title="OS-Dev für Einsteiger">Nächstjüngere Version →</a> (<a href="../../diffs/2576-2795.html" title="OS-Dev für Einsteiger">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Okay, Du hast also beschlossen, dass Du Dein eigenes Betriebssystem schreiben willst? Dann bist du hier genau richtig.
+</p><p>Dieser Artikel versucht, Dir einen Überblick zu geben, welche Fragen Du Dir stellen solltest und wie Du die Sache am geschicktesten angehst. Er soll sozusagen einen Wegweiser durch das Wiki darstellen, der Dir am Anfang hilft, die relevanten Themen auf Anhieb zu finden.
+</p><p>Auf der anderen Seite wird er sicher auch die eine oder andere Frage offen lassen. Zögere nicht, Dich im <a class="external text" href="http://lowlevel.brainsware.org/forum" rel="nofollow">Forum</a> anzumelden und nachzufragen. Der harte Kern der Community ist auch im <a href="../../pages/1463/index.html" title="IRC">IRC</a> anzutreffen. Falls Du Probleme mit der Anmeldung im Forum haben solltest, kannst Du Dich dort melden.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Vor_dem_Start"><span class="tocnumber">1</span> <span class="toctext">Vor dem Start</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Willst_Du_wirklich_ein_OS_schreiben.3F"><span class="tocnumber">1.1</span> <span class="toctext">Willst Du wirklich ein OS schreiben?</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Die_Programmiersprache"><span class="tocnumber">1.2</span> <span class="toctext">Die Programmiersprache</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Entwicklungsumgebung_und_Tools"><span class="tocnumber">1.3</span> <span class="toctext">Entwicklungsumgebung und Tools</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Wo_anfangen.3F"><span class="tocnumber">2</span> <span class="toctext">Wo anfangen?</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Der_Bootloader"><span class="tocnumber">2.1</span> <span class="toctext">Der Bootloader</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Hello_World_und_weiter"><span class="tocnumber">2.2</span> <span class="toctext">Hello World und weiter</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Protected_Mode"><span class="tocnumber">2.3</span> <span class="toctext">Protected Mode</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Vor_dem_Start">Vor dem Start</span></h2>
+<p>Frisch ans Werk, Editor und Compiler ausgepackt - aber halt! Bevor es wirklich losgeht, solltest Du Dir einige Fragen beantworten, damit Du weißt, was Du überhaupt entwickeln willst und worüber Du Informationen suchen musst.
+</p>
+<h3><span id="Willst_Du_wirklich_ein_OS_schreiben?"></span><span class="mw-headline" id="Willst_Du_wirklich_ein_OS_schreiben.3F">Willst Du wirklich ein OS schreiben?</span></h3>
+<p>Die Frage klingt vielleicht seltsam, aber sie ist genau so gemeint, wie sie da steht. Willst Du wirklich ein OS entwickeln? Ist Dir klar, was ein <a href="../../pages/1479/index.html" title="Betriebssystem">Betriebssystem</a> macht?
+</p><p>Wenn Du in erster Linie an eine grafische Oberfläche denkst, bist Du hier womöglich falsch. Grafische Oberflächen sind ein interessantes Thema - aber eine vollkommen andere Baustelle. Ein OS ist die Schnittstelle zur Hardware. Das heißt, Du wirst eine Speicherverwaltung bauen, einen Scheduler, Treiber für störrische Hardware. Du wirst alles tun, nur keine bunten Pixel auf den Bildschirm bringen - oder falls doch, wird dir direkt anschließend die saubere Basis fehlen, damit man mit diesen Pixeln auch etwas sinnvolles anfangen kann.
+</p><p>Wer sich nicht mit Hardware herumschlagen möchte, kann sich ein DOS oder ein abgespecktes Linux als Grundlage nehmen und seine Oberfläche darauf aufbauen.
+</p>
+<h3><span class="mw-headline" id="Die_Programmiersprache">Die Programmiersprache</span></h3>
+<p>Ein weit verbreitetes Vorurteil ist, dass man ein Betriebssystem komplett in <a href="../../pages/1514/index.html" title="Assembler">Assembler</a> schreiben muss. Quatsch. Man kann, wenn man es möchte, aber man muss nicht. Wahr ist, dass man um einige wenige Zeilen Assembler nicht herumkommen wird. Ein grundlegendes Verständnis der Sprache wäre daher hilfreich, jahrelange Erfahrung ist aber nicht nötig.
+</p><p>Ein übliches Vorgehen ist es, nur das nötigste in Assembler zu schreiben und für den Rest eine Hochsprache zu benutzen. Für die Wahl dieser Hochsprache gibt es im großen und ganzen zwei Alternativen:
+</p>
+<ul><li>Du nimmst C. Fast jeder spricht diese Sprache und Du bekommst Unmengen an Beispielcode in C. Dein Betriebssystem ist eins von vielen und im Forum oder im IRC wird dir fast jeder helfen können.</li>
+<li>Du nimmst nicht C. Du wirst Dich vor allem am Anfang wesentlich seltener beim Kopieren von Code erwischen, weil es einfach nicht geht, ohne ihn in deine Sprache zu übersetzen. Ja, das ist durchaus positiv. Auf der anderen Seite bist du ein Außenseiter und erhältst vielleicht nicht ganz so umfangreich Hilfe und musst Dich möglicherweise öfter selbst durchschlagen - gerade wenn es um Besonderheiten deiner Sprache oder Deines Compilers geht.</li></ul>
+<p>Von Mitgliedern der Lowlevel-Community benutzte Alternativen zu <a href="../../pages/1526/index.html" title="C">C</a> sind beispielsweise <a href="../../pages/1486/index.html" title="C++">C++</a> oder <a href="../../pages/1623/index.html" title="Pascal">Pascal</a> (mit FreePascal oder mit Tricks auch Delphi als Compiler). Theoretisch würde auch <a href="../../pages/1624/index.html" title="FreeBASIC">FreeBASIC</a> funktionieren. Andere Sprachen hat hier meines Wissens noch niemand versucht, könnten natürlich aber trotzdem funktionieren.
+</p>
+<h3><span class="mw-headline" id="Entwicklungsumgebung_und_Tools">Entwicklungsumgebung und Tools</span></h3>
+<p>Um Dein eigenes Betriebssystem zu entwickeln, brauchst Du ein paar Werkzeuge. Auf die wichtigsten davon gehe ich in diesem Abschnitt kurz ein.
+</p><p>Fangen wir vorne an: Du brauchst einen PC. Ja, Du hast recht, Du brauchst natürlich strenggenommen keinen PC. Aber es wäre geschickt, denn ich nehme an, Du willst ein x86-Betriebssystem schreiben. Wenn Du wider Erwarten für eine andere Plattform entwickeln möchtest, teil Dich im Forum mit, das wird auch andere interessieren - allerdings bist dann Du derjenige, der erklären darf. Aber zurück zum PC: Am besten hat dieser ein Diskettenlaufwerk, denn Disketten sind für den Anfang das handlichste. Und ein 386er oder höher sollte es schon sein - aber das sollte heutzutage machbar sein.
+</p><p>Eine Stufe weiter kommen wir zum Betriebssystem. Da Dein eigenes Betriebssystem noch nicht fertig ist, wirst Du vorerst mit einem bestehenden vorlieb nehmen müssen. Hast Du ein Linux installiert? Wunderbar, nimm das. Ich möchte hier nicht lügen, deshalb: Ja, man kann auch Windows nehmen. Aber dazu braucht es schon eine gewisse masochistische Veranlagung. Unter Windows wirst du aller Voraussicht nach eine Weile mit der Umgebung basteln müssen, während es unter Linux einfach läuft. Man könnte jetzt versuchen, einen Kausalzusammenhang herzustellen, warum die Windowsbenutzer häufiger bei Assembler steckenbleiben - aber lassen wir das...
+</p><p>Dann brauchst du Editor und Compiler. Als Editor hast du sicher schon Deinen eigenen Favoriten (nämlich vim) und auch beim Compiler ist die Sache relativ klar: Wenn du C nimmst, wird der Compiler im Allgemeinen gcc sein und unter Linux ist damit alles geklärt. Wenn du gcc unter Windows benutzt, solltest du dir überlegen, ob du nicht einen Crosscompiler benutzt, der ELF-Dateien erzeugt. Bahnhof? Macht nichts, vertrau mir, installier ihn Dir einfach. (Oder natürlich einfach ein Linux)
+</p>
+<ul><li><a href="../../pages/1450/index.html" title="Crosscompiler für Windows">Crosscompiler_für_Windows</a></li></ul>
+<p>Schließlich brauchst Du auch noch eine Möglichkeit, Dein Werk zu testen. Ja, ich weiß, der PC. Aber du willst nicht nach jeder kleinen Änderungen neu booten müssen, richtig? Besorg dir einen Emulator. VMware ist ganz nett, aber hilft Dir beim Debuggen nicht besonders weiter. Nimm qemu oder bochs - oder am besten beides. Wenn Dein System in beiden Emulatoren funktioniert, ist immer noch genug Zeit, es auf den echten PC loszulassen.
+</p>
+<ul><li><a class="external text" href="http://www.qemu.org" rel="nofollow">http://www.qemu.org</a></li>
+<li><a class="external text" href="http://bochs.sourceforge.net" rel="nofollow">http://bochs.sourceforge.net</a></li></ul>
+<h2><span id="Wo_anfangen?"></span><span class="mw-headline" id="Wo_anfangen.3F">Wo anfangen?</span></h2>
+<h3><span class="mw-headline" id="Der_Bootloader">Der Bootloader</span></h3>
+<p>Dein eigenes Betriebssystem möchte am Anfang irgendwie von der Festplatte oder Diskette in den Speicher geladen werden, bevor es irgendwas macht. Daher brauchst du einen Bootloader.
+</p><p>Hier gibt es die großen zwei Möglichkeiten, etwas fertiges zu nehmen oder selbst einen Bootloader zu schreiben. Ein guter Bootloader ist ein Projekt für sich, daher empfehle ich grundsätzlich, GRUB zu benutzen und sich auf das eigentliche Betriebssystem zu konzentrieren. GRUB lädt Dir Deinen <a href="../../pages/1478/index.html" title="Kernel">Kernel</a> und möglicherweise weitere Module vom Dateisystem auf der Platte oder Diskette, initialisiert Dir den <a href="../../pages/1464/index.html" title="Protected Mode">Protected Mode</a>, bietet ein Bootmenü und einiges mehr.
+</p><p>Die folgenden beiden Artikel werden Dir bei den ersten Schritten mit GRUB helfen:
+</p>
+<ul><li><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">C-Kernel mit Grub</a></li>
+<li><a href="../../pages/1449/index.html" title="GRUB-Image erstellen">GRUB-Image erstellen</a></li></ul>
+<p>Wenn Du trotz diesen Vorteilen darauf bestehst, Deinen Bootloader selbst zu schreiben - so sei es. In den ersten Ausgaben des <a href="../../pages/1411/index.html" title="Kategorie:Magazin">Magazins</a> findest Du die dazu nötigen Informationen. In den folgenden Abschnitten gehe ich allerdings davon aus, dass GRUB benutzt wird. Du solltest also sicherstellen, dass Du eine vergleichbare Umgebung herstellst - insbesondere, dass Du im <a href="../../pages/1464/index.html" title="Protected Mode">Protected Mode</a> bist.
+</p>
+<h3><span class="mw-headline" id="Hello_World_und_weiter">Hello World und weiter</span></h3>
+<p>Die allererste Aufgabe für ein neues Betriebssystem ist es selbstverständlich, ein "Hello world!" auf den Bildschirm auszugeben. Wenn Du nach dem oben genannten Artikel vorgegangen bist, hast Du diesen Schritt schon erreicht. Wenn nicht: Text gibst du aus, indem Du in der Videospeicher schreibst. Er beginnt für den Textmodus an der Adresse 0xB8000 und enthält für jedes Zeichen (insgesamt 80x25) auf dem Bildschirm je zwei Bytes. Das erste enthält den ASCII-Code des Zeichens selbst, das zweite Attribute wie Farbe. Experimentiere am besten ein bisschen damit herum.
+</p><p>Hey, mein Kernel läuft und gibt was aus, vielleicht wäre jetzt der Grafikmodus...? Nein! Ein wesentlicher Grund dafür ist, dass Du in der nächsten Zeit viele kritische Änderungen und dabei auch viele Fehler machen wirst. Du wirst daher um <a href="../../pages/1544/index.html" title="Debugging">Debugging</a> nicht herumkommen. Am einfachsten geht das über Textausgaben, die leider im Grafikmodus nicht mehr ganz so leicht gehen.
+</p><p>Aber mit dieser Erkenntnis hast du auch schon eine schöne Aufgabe für den nächsten Schritt: Du brauchst Ausgaberoutinen, in C wäre das beispielsweise ein printf (die meistens etwas weniger mächtige Variante im Kernel wird übrigens gern printk oder kprintf genannt).
+</p>
+<h3><span class="mw-headline" id="Protected_Mode">Protected Mode</span></h3>
+<p>Wenn Du GRUB benutzt, bist Du zwar bereits am Anfang im Protected Mode, allerdings mit einem Standardsatz von Deskriptortabellen. Es wäre jetzt an der Zeit, das zu ändern. 
+</p><p>Oh, Du hast keine Ahnung, was Du Dir unter Deskriptortabellen vorzustellen hast? Lies Dir am besten den Artikel zum Protected Mode durch. Wenn Du Deinen Bootloader selbst schreibst, findest Du dort auch Informationen, wie Du selbst in den Protected Mode umschaltest. Außerdem ist das Protected-Mode-Tutorial auf den Seiten der FH Zwickau zu empfehlen.
+</p>
+<ul><li><a href="../../pages/1464/index.html" title="Protected Mode">Protected Mode</a></li>
+<li><a href="../../pages/1537/index.html" title="Umschalten in Protected Mode">Umschalten in Protected Mode</a></li>
+<li><a class="external text" href="http://www.fh-zwickau.de/doc/prmo/start.htm" rel="nofollow">Protected-Mode-Tutorial der FH Zwickau</a></li></ul>
+<p>Was Du zunächst machen musst, ist, eine GDT im Speicher aufzubauen. Mit der Beschreibung auf den genannten Seiten sollte das kein Problem darstellen (aber gräme Dich nicht, wenn es nicht im ersten Versuch hinhaut - das ist für viele die erste Stelle, wo sie erst einmal eine Weile hängen).
+</p><p>Wenn Du die GDT aufgebaut hast, kannst Du sie anschließend laden. Das ist einer der wenigen Fälle, wo Du tatsächlich Assembler brauchst. Wenn Du C benutzt, könnte dir der Artikel über <a href="../../pages/1472/index.html" title="Inline-Assembler mit GCC">Inline-Assembler mit GCC</a> helfen. Ansonsten schlag in der Dokumentation deines Compilers nach, wie es dort funktioniert.
+</p><p>Anschließend musst du die Segmentregister neu laden, damit die GDT auch benutzt wird. An dieser Stelle zeigt sich dann, ob Du es richtig gemacht hast. Wenn die Einträge in deiner GDT falsch sind, und beispielsweise das Codesegment nicht korrekt ist, wirst du mit höchster Wahrscheinlichkeit einen GPF auslösen. GPF steht übrigens für <i>General Protection Fault</i> und ist Dir vielleicht als <i>Allgemeine Schutzverletzung</i> besser bekannt. Weil Du noch keine <a href="../../pages/1824/index.html" title="Exception">Exceptions</a> verarbeitest, wird das zu einem <i>Triple Fault</i> führen, was auf einem echten PC einen Reset bewirkt, qemu wird sich mit einer Fehlermeldung beenden.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109165926
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.004 seconds
+Real time usage: 0.005 seconds
+Preprocessor visited node count: 31/1000000
+Preprocessor generated node count: 36/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=OS-Dev_für_Einsteiger&amp;oldid=2576</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1619/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/1654/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1619/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Ausgabe 9 – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Ausgabe_9 rootpage-Ausgabe_9 skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1409/index.html">Aktueller Artikel</a> · <a href="../../history/1409/index.html">Versionsgeschichte</a> · <a href="../../source/1436.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Ausgabe 9</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 18. August 2006, 13:52 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Taljeth</bdi></a> <span class="mw-usertoollinks">(<a class="mw-usertoollinks-talk" href="../../pages/1728/index.html" title="Benutzer Diskussion:Taljeth">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/1435-1436.html" title="Ausgabe 9">Unterschied</a>) <a href="../1435/index.html" title="Ausgabe 9">← Nächstältere Version</a> | <a href="../../pages/1409/index.html" title="Ausgabe 9">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../1438/index.html" title="Ausgabe 9">Nächstjüngere Version →</a> (<a href="../../diffs/1436-1438.html" title="Ausgabe 9">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Einleitung"><span class="tocnumber">1</span> <span class="toctext">Einleitung</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#News"><span class="tocnumber">2</span> <span class="toctext">News</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Ein_OS_auf_einer_CD-ROM"><span class="tocnumber">3</span> <span class="toctext">Ein OS auf einer CD-ROM</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Index"><span class="tocnumber">3.1</span> <span class="toctext">Index</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Einleitung_2"><span class="tocnumber">3.2</span> <span class="toctext">Einleitung</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Praxis:_Ahead_Nero"><span class="tocnumber">3.3</span> <span class="toctext">Praxis: Ahead Nero</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Theorie:_Das_ISO_El-Torito_Format"><span class="tocnumber">3.4</span> <span class="toctext">Theorie: Das ISO El-Torito Format</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Nachwort"><span class="tocnumber">3.5</span> <span class="toctext">Nachwort</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Dateisystemvergleiche"><span class="tocnumber">4</span> <span class="toctext">Dateisystemvergleiche</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#ext2"><span class="tocnumber">5</span> <span class="toctext">ext2</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Worum_geht_es_in_diesem_Tutorial.3F"><span class="tocnumber">5.1</span> <span class="toctext">Worum geht es in diesem Tutorial?</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Was_ist_ext2.3F"><span class="tocnumber">5.2</span> <span class="toctext">Was ist ext2?</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Wie_ist_ext2_aufgebaut.3F"><span class="tocnumber">5.3</span> <span class="toctext">Wie ist ext2 aufgebaut?</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Bl.C3.B6cke"><span class="tocnumber">5.4</span> <span class="toctext">Blöcke</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Zugriffsrechte"><span class="tocnumber">5.5</span> <span class="toctext">Zugriffsrechte</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#OS-Showcase:_FreeBSD"><span class="tocnumber">6</span> <span class="toctext">OS-Showcase: FreeBSD</span></a>
+<ul>
+<li class="toclevel-2 tocsection-17"><a href="#Screenshots"><span class="tocnumber">6.1</span> <span class="toctext">Screenshots</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Geschichte"><span class="tocnumber">6.2</span> <span class="toctext">Geschichte</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#Features"><span class="tocnumber">6.3</span> <span class="toctext">Features</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#Daten.2FKontakt_zum_Projekt"><span class="tocnumber">6.4</span> <span class="toctext">Daten/Kontakt zum Projekt</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Einleitung">Einleitung</span></h2>
+<p>Hi,
+</p><p>wie ihr sicher auch schon gemerkt habt, ist das Weiterführen vom Magazin nicht immer unproblematisch. Deshalb haben N00B und ich vor, einige Änderungen durchzuführen. Im Wesentlichen betrifft das das Kategoriesystem. Es wird keine 10 Kategorien mehr geben, die in allen Ausgaben vorhanden sind. Stattdessen hat jede Ausgabe einen Thmenschwepunkt. Das könnten z.B. Protected Mode Features sein, mit Tutorials über Paging, Hardware MT, usw. Natürlich gibt es trotzdem noch einige Standard Kategorien, nämlich die News, das OS-Showcase, usw.
+In dieser Ausgabe wird der Schwerpunkt bei Speichergeräten liegen, wir haben dazu eine IDE-Übersicht, ein ext2-Tutorial, und noch einiges mehr.
+</p><p>Dies wird außerdem die erste Ausgabe sein, die nicht nur als PDF File sondern auch im Wiki erscheint. Das hat natürlich den Vorteil, dass Fehler schnell verbessert werden können.
+</p><p>Wir wünschen euch viel Spaß mit der neuen Ausgabe!
+</p>
+<h2><span class="mw-headline" id="News">News</span></h2>
+<p>Viel neues ist passiert seit der letzten Ausgabe - auch nicht weiter verwunderlich, wenn man  bedenkt wieviel Zeit ins Land gegangen ist ;) . Vor wenigen Wochen, am 22.7 ist QEMU 0.8.2  herausgekommen. Als einer der wenigen Emulatoren verfügt er über ein Kernelmodul um die  Ausführung der ganzen VM erheblich zu beschleunigen - mir fällt sonst nur VMWare ein, dass  diese Möglichkeit nutzt. Neu in der aktuellen Version sind u.a. ACPI Support und einige  Verbesserungen der USB-Fähigkeiten.
+</p><p>Auch beim längst totgeglaubten Community-OS LOST gibt es Fortschritte. Seitdem taljeth die  Projektleitung übernommen hat, sind einige Fortschritte zu beobachten. Mittlerweile  funktioniert sogar eine erste Form des Multitasking, welche Jidder/PorkChicken zusammen mit  dem Phys. Speichermanagment entwickelt hat. Es fehlt also nicht mehr viel bis die ersten  Treiberprogramme (Für die die es nicht wissen, LOST ist ein Microkernel) geschrieben werden  können.
+</p>
+<h2><span class="mw-headline" id="Ein_OS_auf_einer_CD-ROM">Ein OS auf einer CD-ROM</span></h2>
+<h3><span class="mw-headline" id="Index">Index</span></h3>
+<ul><li>Einleitung</li>
+<li>Praxis: Ahead Nero</li>
+<li>Theorie: Das ISO El-Torito Format</li>
+<li>Nachwort</li></ul>
+<h3><span class="mw-headline" id="Einleitung_2">Einleitung</span></h3>
+<p>Irgendwie ist es halb drei Uhr in der Früh und ich kann nicht mehr
+schlafen, darum will ich jetzt mal was sinnvolles machen und anderen
+versuchen zu erklären, wie man ein Betriebssystem auf eine CD-ROM
+bekommt, und wie das BIOS dieses ISO El-Torito Format ließt. Nun gut,
+auf gehts...
+</p>
+<h3><span class="mw-headline" id="Praxis:_Ahead_Nero">Praxis: Ahead Nero</span></h3>
+<p>Wenn wir unser Betriebssystem geschrieben haben und in einer .IMG Datei
+compiliert haben, schreiben wir es normalerweise mit RaWrite (oder einem
+ähnlichen Programm) 1 zu 1 auf eine Diskette. Da aber in unserer 'modernen'
+Welt selbst PCs existieren, die keine Diskettenlaufwerke mehr haben (tja,
+scheisse :D) haben wir Pech gehabt. Oder? Anstatt das Betriebssystem auf
+einer Diskette anzubieten, können wir es auch auf eine CD-ROM schreiben
+(ein CD-ROM Laufwerk hat beinahe jeder PC/Laptop), und wir sind dieses
+Problem los. Wie schreibt man nun ein Betriebssystem auf eine CD-ROM.
+Ich werde das nun versuchen Schritt für Schritt zu erklären:
+</p>
+<ol><li>Man compiliert sein Betriebssystem ganz normal, und erstellt eine .IMG Datei - wie es auch für Disketten-Betriebssysteme gemacht wird.</li>
+<li>Man öffnet 'Ahead Nero Burning ROM' (btw: ich finde den Namen sehr gelungen :D).</li>
+<li>Neue Zusammenstellung -&gt; 'CD-ROM (Boot)'</li>
+<li>Das Options-Feld 'Image-Datei' anklicken und den Pfad zum Image des Betriebssystems eingeben. 'Neu' klicken.</li>
+<li>Dann, schlussendlich, das Dialogfeld 'CD Brennen' klicken und die CD-ROM brennen.</li></ol>
+<p>Wenn wir nun den Computer neu starten, und im BIOS die Option "von CD-ROM
+Booten" auswählen, startet unser Betriebssystem als wäre es eine Diskette.
+OK, wir wissen nun, wie es gemacht wird, aber nicht, warum es das macht.
+</p>
+<h3><span class="mw-headline" id="Theorie:_Das_ISO_El-Torito_Format">Theorie: Das ISO El-Torito Format</span></h3>
+<p>Eine bootfähige CD-ROM hat in den meisten Fällen ein Dateisystem namens
+"ISO El-Torito". Das ist der gängige Standard für bootfähige CD-ROMs, die
+fast alle BIOS-Systeme erkennen.
+</p><p>Zuerst ist wichtig: Ein Sektor auf einem ISO-Datenträger ist 0x800 Byte groß
+(im Gegensatz zu Sektoren auf FAT Systemen, die grundsätzlich 0x200 Byte groß
+sind).
+</p><p>Bei El-Torito CD-ROM wird im Grunde nichts anderes gemacht als eine Diskette
+emuliert, die das bootfähige Image beinhaltet.
+Das ISO-El-Torito Format ist grundsätzlich so aufgebaut:
+</p>
+<pre>               +-------------------------+
+    Sector 0:  |          SYSTEM         |
+               |         (UNUSED)        |
+               |-------------------------|
+    Sector 16: |      Primary Volume     |
+               |-------------------------|
+    Sector 17: |    Boot Record Volume   |-------+
+               |-------------------------|       |
+               |                         |       |
+               |-------------------------|       |
+               |                         |       |
+               |-------------------------|       |
+               |                         |       |
+               |-------------------------|       |
+               | Set Termination Volume  |       |
+               |-------------------------|       |
+               |     Boot Catalog        | &lt;-----+ 
+               |                         |-------+
+               |-------------------------|       |
+               |  Bootable Disk Image    | &lt;-----+
+               |-------------------------|
+               |      CD-ROM Image       |
+               +-------------------------+
+</pre>
+<p>Das bedeutet im Sektor 17 (an der Adresse 17 * 0x800) ist das Boot-Record Volume.
+Dieses hat einen Zeiger auf den Boot-Catalog, und sieht folgendermaßen aus:
+</p><p><br/>
+</p>
+<table border="1">
+<tbody><tr>
+<td>Offset
+</td>
+<td>Type
+</td>
+<td>Description
+</td></tr>
+<tr>
+<td>0</td>
+<td>Byte</td>
+<td>Boot Record Indicator
+</td></tr>
+<tr>
+<td>1-5</td>
+<td>Byte</td>
+<td>ISO-9660 Identifier, must be 'CD001'
+</td></tr>
+<tr>
+<td>6</td>
+<td>Byte</td>
+<td>Version of the descriptor, must be 1
+</td></tr>
+<tr>
+<td>7-26</td>
+<td>Byte</td>
+<td>Boot System Identifier, must be 'EL TORITO SPECIFICATION" padded with 0's.
+</td></tr>
+<tr>
+<td>27-46</td>
+<td>Byte</td>
+<td>Unused, must be 0.
+</td></tr>
+<tr>
+<td>47-4A</td>
+<td>DWord</td>
+<td>Absolute pointer to first sector of Boot Catalog.
+</td></tr>
+<tr>
+<td>4A-7FF</td>
+<td>Byte</td>
+<td>Unused, must be 0.
+</td></tr></tbody></table>
+<p>Wie wir hier deutlich erkennen können, ist an der Adresse 0x47-0x4A im
+17. CD-ROM Sektor der Pointer zum Boot-Catalog. Wir folgen nun diesem
+Pointer und sehen uns den Boot Catalog an:
+</p>
+<table border="1">
+<tbody><tr>
+<td>Offset
+</td>
+<td>Type
+</td>
+<td>Description
+</td></tr>
+<tr>
+<td>0</td>
+<td>Byte</td>
+<td>Header ID, must be 01.
+</td></tr>
+<tr>
+<td>1</td>
+<td>Byte</td>
+<td>Platform ID.
+</td></tr>
+<tr>
+<td>2-3</td>
+<td>Word</td>
+<td>Reserved, must be 0.
+</td></tr>
+<tr>
+<td>4-1B</td>
+<td>Char</td>
+<td>ID-String.
+</td></tr>
+<tr>
+<td>1C-1D</td>
+<td>Int</td>
+<td>Checksum Word.
+</td></tr>
+<tr>
+<td>1E</td>
+<td>Byte</td>
+<td>Key Byte, must be 55.
+</td></tr>
+<tr>
+<td>1F</td>
+<td>Byte</td>
+<td>Key Byte, must be AA.
+</td></tr></tbody></table>
+<p>Hier sehen wir zuerst einige Standard-Strings und Zeichen ("0x55, 0xAA"
+sollten wir schon kennen). 0x20 Byte weiter (also 32 Bytes weiter) im selben
+Sektor befindet sich dann der "Initial/Default Entry", der auch den Pointer
+zu unserem Boot-Image beinhaltet:
+</p>
+<table border="1">
+<tbody><tr>
+<td>Offset
+</td>
+<td>Type
+</td>
+<td>Description
+</td></tr>
+<tr>
+<td>0</td>
+<td>Byte</td>
+<td>00=not bootable)
+</td></tr>
+<tr>
+<td>1</td>
+<td>Byte</td>
+<td>Boot media Type
+</td></tr>
+<tr>
+<td>2-3</td>
+<td>Word</td>
+<td>Load segment (standard is 0x7C0)
+</td></tr>
+<tr>
+<td>4</td>
+<td>Byte</td>
+<td>System Type.
+</td></tr>
+<tr>
+<td>5</td>
+<td>Byte</td>
+<td>Unused, must be 0.
+</td></tr>
+<tr>
+<td>6-7</td>
+<td>Word</td>
+<td>Sector count.
+</td></tr>
+<tr>
+<td>8-0B</td>
+<td>DWord</td>
+<td>Load RBA. This is the start address of the virtual disk.
+</td></tr>
+<tr>
+<td>0C-1F</td>
+<td>Byte</td>
+<td>Unused, must be 0.
+</td></tr></tbody></table>
+<p>An der Adresse 0x08-0x0B befindet sich schließlich der Pointer zum Image
+unseres Betriebssystems. Hier befindet sich also das Image - und wir
+wissen nun auch ein bisschen, wie unser Betriebssystem auf einer CD-ROM
+gespeichert ist.
+</p><p>Wer mehr wissen möchte, sollte folgende Dokumente lesen:
+</p>
+<ul><li>FAT: Gerneral Overview of On-Disk Formation by Microsoft Corporation</li>
+<li>Volume and File Structure of CDROM for Information Interchange</li>
+<li>"El Torito" Bootable CD-ROM Format Specification</li></ul>
+<h3><span class="mw-headline" id="Nachwort">Nachwort</span></h3>
+<p>Das wars auch schon wieder - ich hoffe man konnte einige nützliche Informationen
+im Artikel finden. Falls nicht, mir egal - ich bin endlich müde und kann vielleicht
+weiterschlafen ;).
+</p><p>Also, schön weiterprogrammieren, lernen, Ideen entwickeln und so weiter.
+Und: Von nichts und niemandem vom Kurs abbringen lassen ;)
+</p>
+<h2><span class="mw-headline" id="Dateisystemvergleiche">Dateisystemvergleiche</span></h2>
+<p>Bestimmt hast du auch schon das eine oder andere Dateisystem implementiert, oder planst dies in näherer Zukunft zu tun. Da nicht jeder Lust hat sein eigenes System zu entwerfen, hier mal einige Infos über verschiedene Dateisysteme, für einen schnellen Vergleich ordentlich in einer Tabelle dargestellt. Ich hoffe ich erleichtere euch eure Arbeit hiermit ein bisschen, und verkompliziere sie nicht noch eher weil es so viele interessante Systeme gibt *g*. Viel Spaß, stultus/N00b
+<br/><br/>
+</p>
+<table border="1">
+<tbody><tr>
+<td>
+</td>
+<td>ext2
+</td>
+<td>ReiserFS
+</td>
+<td>Fat32
+</td></tr>
+<tr>
+<td>Zugriffskontrolle</td>
+<td>chmod</td>
+<td>?</td>
+<td>keine
+</td></tr>
+<tr>
+<td>Blockgröße</td>
+<td>2 kB - 8 kB</td>
+<td>4 kB</td>
+<td>4 kB (Standard)
+</td></tr>
+<tr>
+<td>Max. Dateigröße</td>
+<td>Je nach Blockgröße 16 GB bis 2 TB</td>
+<td>2 GB – 1 Byte (Allerdings 1 Exabyte bei Version 3.6) *</td>
+<td>4 GB – 1 Byte
+</td></tr>
+<tr>
+<td>Max. Dateisystemgröße</td>
+<td>Je nach Blockgröße 2 TB bis 32 TB *</td>
+<td>16 TB *</td>
+<td>8 TB (unter Windows XP maximal 32 GB formatierbar, aber unbegrenzt lesbar)
+</td></tr>
+<tr>
+<td>Max. Unterverzeichnisse</td>
+<td>32.768</td>
+<td>?</td>
+<td>268435456 (inkl. Dateien im Verzeichniss)
+</td></tr>
+<tr>
+<td>Max. Dateien je Verzeichnisse</td>
+<td>Ca. 130 Trillionen (10^18), Warnungen ab 10.000 Dateien in einem Verzeichnis</td>
+<td>518701895 (limitiert durch eine Hash-Funktion)</td>
+<td>268435456 (inkl. Unterverzeichnissen)
+</td></tr>
+<tr>
+<td>Max. Dateien gesamt</td>
+<td>?</td>
+<td>2^32 – 3 (4.294.967.293)</td>
+<td>?
+</td></tr>
+<tr>
+<td>Besonderheiten</td>
+<td>Erweiterbar ohne dass das System ein bestimmtes Feature zwingend können MUSS, möglich wird dis durch die COMPAT, RO_COMPAT und INCOMAT – Felder im Superblock
+<p>Journaling-Erweiterung (ext3) 
+</p>
+</td>
+<td>Erstes Journaling-Dateisystem das unter Linux komplett unterstützt wurde.
+</td>
+<td>Kann von allen gängigen Systemen (Linux, Mac OS, Windows) gelesen und geschrieben werden.
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<ul><li>Anmerkung: Größen jenseits 2 Terabyte (TB) sind nicht möglich, da die maximale Länge einer Partition bei aktuellen Partitionstabellen 2 TB nicht übersteigen kann (und das Laufwerk maximal 4 TB groß sein kann).</li></ul>
+<p><br/><br/>
+Quellen: <a class="external text" href="http://de.wikipedia.org/wiki/" rel="nofollow">Wikipedia</a>
+</p>
+<h2><span class="mw-headline" id="ext2">ext2</span></h2>
+<h3><span id="Worum_geht_es_in_diesem_Tutorial?"></span><span class="mw-headline" id="Worum_geht_es_in_diesem_Tutorial.3F">Worum geht es in diesem Tutorial?</span></h3>
+<p>Es geht hier um den Aufbau von ext2! Hier werdet ihr KEINEN Code bekommen!
+</p>
+<h3><span id="Was_ist_ext2?"></span><span class="mw-headline" id="Was_ist_ext2.3F">Was ist ext2?</span></h3>
+<p>ext2 ist das Standarddateisystem von Linux. Es gehört zu den stabilsten am Markt, wenn auch nicht zu den schnellsten. Leider bietet es noch kein Journaling-Funktion. Es ist, logischerweise, der Nachfolger von ext1 (bzw. ext).
+</p>
+<h3><span id="Wie_ist_ext2_aufgebaut?"></span><span class="mw-headline" id="Wie_ist_ext2_aufgebaut.3F">Wie ist ext2 aufgebaut?</span></h3>
+<p>Einige Daten:
+</p>
+<table border="1">
+<tbody><tr>
+<td>Maximale Dateigröße</td>
+<td>2 GB (im 62-Bit-Modus 16 GB)
+</td></tr>
+<tr>
+<td>Maximale Dateinamenslänge</td>
+<td>255 Zeichen
+</td></tr></tbody></table>
+<p><br/>
+In ext2 besteht eine Datei aus zwei Teilen: Kopf (I-node) und Rumpf.
+In der I-Node-Table ist die Information über die physikalische Position einer Datei. Im Rumpf die eigentliche Datei.
+<br/><br/>
+Sehen Sie sich folgende Abbildung an:
+<br/>
+<a class="external text" href="http://myemu.masen-inhabitants.com/lowlevel_temp/ext2_pic1.png" rel="nofollow">ext2 Aufbau</a>
+<br/>
+Die kleinste adressierbare Einheit ist ein Block. Er ist bei ext2 immer 4096 Byte groß. Eigentlich kann man sie anpassen, aber das sollte man nicht. Jeder Block erhält eine eindeutige Nummer. Der I-node ist bei jeder Datei vorhanden, die I-Node-Table ist mit der FAT zu vergleichen.
+<br/><br/>
+</p>
+<h3><span id="Blöcke"></span><span class="mw-headline" id="Bl.C3.B6cke">Blöcke</span></h3>
+<p>Solange eine Datei nicht größer als 10 Blöcke ist, kann sie in ext2 noch mit dem I-node adressiert werden. Wenn sie größer ist, wird ein Indirektionsblock angelegt, der im I-node steht und in diesen werden wieder weitere Blocks adressiert. Man könnte also mit dem Indirektionsblock weitere Indirektionsblöcke adressieren und so weiter, bis die Datei 2 GB groß ist.
+<br/><br/>
+</p>
+<h3><span class="mw-headline" id="Zugriffsrechte">Zugriffsrechte</span></h3>
+<p>Wen ihr euch in der Abbildung die I-Node-Table angesehen habt, werdet ihr euch gedacht haben, was das bedeutet. 
+Das Beispiel ober war unvollstängig!
+Nehmen wir ein richtigen mit mehreren Einträgen:
+</p>
+<pre>   -rwx-rw-r 1root root Jun 11 12:45 Text1
+   drw-x 1root root Jun 11 12:46 Programm3
+   cx 1root root Jun 11 12:46 Device5
+   bx 1root root Jun 11 12:47 Device8
+   l 1root root Jun 11 12:48 ..
+   p 1root root Jun 11 12:59 test5
+</pre>
+<p><br/>
+So:
+In der 1. Zeile das erste Zeichen, hier -, heißt in diesem Fall, dass es eine Normale Datei ist. Das erste Zeichen gibt immer den Typ an:
+<br/>
+</p>
+<table border="1">
+<tbody><tr>
+<td>Zeichen</td>
+<td>Bedeutung
+</td></tr>
+<tr>
+<td>Normale Datei</td>
+<td>-
+</td></tr>
+<tr>
+<td>Verzeichniss</td>
+<td>d
+</td></tr>
+<tr>
+<td>Zeichenorientierte Gerätedatei</td>
+<td>c
+</td></tr>
+<tr>
+<td>Blockorientierte Gerätedatei</td>
+<td>b
+</td></tr>
+<tr>
+<td>Link</td>
+<td>l
+</td></tr>
+<tr>
+<td>Pipe</td>
+<td>p
+</td></tr></tbody></table>
+<p><br/>
+Was was ist, dürfte klar sein, wenn man diese Tutorial ließt.<br/>
+Nun, die weiteren Zeichen bis zur ersten Leerstelle sind die Zugriffsrechte.
+Im Beispiel: rwx-rw-r = Dateibesitzer darf Lesen(r), schreiben(w) und ausführen(x), die Gruppe der der Besitzer angehört, darf lesen und schreiben und alle anderen Benutzer dürfen nur lesen. Der root darf selbstverständlich alles. Also heißt beispielsweise in Beispiel 3 wo steht:
+cx = Datei ist eine zeichenorientierte Gerätedatei und darf nur vom Besitzer ausgeführt werden.
+<br/><br/>
+Zugriffsrechttabelle:
+<br/>
+</p>
+<table border="1">
+<tbody><tr>
+<td>Zeichen</td>
+<td>Bedeutung
+</td></tr>
+<tr>
+<td>r</td>
+<td>Lesen
+</td></tr>
+<tr>
+<td>w</td>
+<td>Schreiben
+</td></tr>
+<tr>
+<td>x</td>
+<td>Ausführen
+</td></tr></tbody></table>
+<p><br/>
+Der nächste String, 1root, ist der Dateibesitzer. Der nächste ist dann die Gruppe, der der Besitzer angehört. Danach kommt das Datum, hier 11. Juni und dann die Uhrzeit der Erstellung. Zum Schluss noch der Dateiname.
+<br/><br/>
+In ext2 wird das FS in Gruppen eingeteilt. Jede Gruppe ist 8192 Blöcke groß. Jede Gruppe enthält eine Kopie das Superblocks und einen Gruppenblock. Der Superblock ist der I-Node-Table und der Gruppenblock behandelt die Gruppe wie eine eigene Partition.
+<br/><br/>
+Beim Anbinden von Dateisystemen löscht ext2 im Superblock einen für jede verschiedene Partition die vorhanden ist angelegten valid-Flag. Wenn das FS die Partition wieder Aushängt setzt ext2 den valid-Flag wieder.<br/>
+So sollte der Kernel erkennen, dass das System nicht ordnungsgemäß heruntergefahren wurde und das Dateisystem prüfen.
+</p>
+<h2><span class="mw-headline" id="OS-Showcase:_FreeBSD">OS-Showcase: FreeBSD</span></h2>
+<h3><span class="mw-headline" id="Screenshots">Screenshots</span></h3>
+<table border="1">
+<tbody><tr>
+<td>* TODO</td>
+<td>* TODO
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Geschichte">Geschichte</span></h3>
+<p>Die erste Version von FreeBSD (1.0) erschien im November 1993, basierend auf den Quelltexten von 386BSD, 4.3BSD-Lite (Net/2) und dem dazu existierenden Patchkit. Die Entwicklung begann allerdings schon im Juli 1993. Im November 1994 erschien dann die Version 2.0, die jetzt auf den Quelltexten von 4.4BSD-Lite basiert. Version 3.0 erschien dann erst 1998 und Version 4.0 dann 2000. Im Jahre 2003 erschien dann die Version 5.0. Die aktuelle Version, die es seit November 2004 gibt, ist FreeBSD 5.3. <br/>
+FreeBSD ist vor allem bei Internet-Providern weit verbreitet. So setzt auch das ziemlich bekannte Internet-Portal und Suchmaschine Yahoo! auf diese Technologie.
+</p>
+<h3><span class="mw-headline" id="Features">Features</span></h3>
+<p>Die Version 1.0 von FreeBSD gibt es seit November 1993. Seit November 2004 gibt es schon die Version 5.3, welche sehr viel Funktionen hat, die ich jetzt nicht alle aufzählen will. Nähere Informationen bekommt man auf der Homepage. Das OS  läuft auf neun verschiedenen Plattformen:
+</p>
+<ul><li>alpha</li>
+<li>amd64</li>
+<li>i386</li>
+<li>ia64</li>
+<li>pc98</li>
+<li>sparc64</li>
+<li>MIPS</li>
+<li>ppc</li>
+<li>ARM</li></ul>
+<p>FreeBSD besitzt heute schon Funktionen im Bereich Netzwerk, Leistungsfähigkeit, Sicherheit und Kompatibilität, die andere Systeme, auch kommerzielle, nicht besitzen. So kann man zum Beispiel durch Kompatibilitäts-Module Programme von anderen Systemen, wie zum Beispiel Linux, SCO UNIX und System V Release 4, auf FreeBSD laufen lassen. Aber auch für die Sicherheit im Netzwerk ist gesorgt, da IPsec und IPv6 unterstützt werden.
+</p><p>Da unter FreeBSD viele Anwendungen laufen, ist es eine gute Alternative zu kommerziellen UNIX® Workstations und kann sowohl für Arbeitsplätze wie auch als Server benutzt werden.
+</p>
+<h3><span id="Daten/Kontakt_zum_Projekt"></span><span class="mw-headline" id="Daten.2FKontakt_zum_Projekt">Daten/Kontakt zum Projekt</span></h3>
+<p>Wer weitere Informationen über das Projekt benötigt, erhält diese auf www.freebsd.org. Die Seite ist in vielen Sprachen erhältlich und hat ein gutes Design, durch welches man sich recht schnell auf der Seite fortbewegen kann.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109164651
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.011 seconds
+Real time usage: 0.012 seconds
+Preprocessor visited node count: 78/1000000
+Preprocessor generated node count: 84/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Ausgabe_9&amp;oldid=1436</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1411/index.html" title="Kategorie:Magazin">Magazin</a></li><li><a href="../../pages/1423/index.html" title="Kategorie:Tutorials">Tutorials</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1409/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1409/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

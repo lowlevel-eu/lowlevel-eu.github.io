@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>NiwohlOS – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-NiwohlOS rootpage-NiwohlOS skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2095/index.html">Aktueller Artikel</a> · <a href="../../history/2095/index.html">Versionsgeschichte</a> · <a href="../../source/8020.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">NiwohlOS</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 26. Juli 2010, 17:02 Uhr von <a class="mw-userlink" href="../../pages/1860/index.html" title="Benutzer:XanClic"><bdi>XanClic</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Überschrift)</span></div><div id="mw-revision-nav">(<a href="../../diffs/8019-8020.html" title="NiwohlOS">Unterschied</a>) <a href="../8019/index.html" title="NiwohlOS">← Nächstältere Version</a> | <a href="../../pages/2095/index.html" title="NiwohlOS">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../8021/index.html" title="NiwohlOS">Nächstjüngere Version →</a> (<a href="../../diffs/8020-8021.html" title="NiwohlOS">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="float:right; width:300px; padding-left:20px; padding-bottom: 20px; background-color:white">
+<div style="font-weight:normal; text-align:left; border:1px solid lightgray;">
+<table width="100%">
+<tbody><tr align="center" style="background: lightgray;">
+<th colspan="2">niwohlOS<br/> <i>"In God we trust – Da hilft nur noch beten"</i>
+</th></tr>
+<tr align="center">
+<td colspan="2" style="padding: 0px;" width="100%">
+</td></tr>
+<tr>
+<td valign="top">Entwickler:</td>
+<td><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Cjreek</a><br/><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">cra1n</a><br/><a href="../../pages/1865/index.html" title="Benutzer:Hartmut">DerHartmut</a><br/><a href="../../pages/1871/index.html" title="Benutzer:DickHuuhn">DickHuuhn</a><br/><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Paddy</a><br/><a href="../../pages/2097/index.html" title="Benutzer:Pocky">pocky</a><br/><a href="../../pages/1785/index.html" title="Benutzer:SHyx0rmZ">SHyx0rmZ</a><br/><a href="../../pages/1860/index.html" title="Benutzer:XanClic">XanClic</a>
+</td></tr>
+<tr>
+<td valign="top">Akt. Version:</td>
+<td>0.1.0
+</td></tr>
+<tr>
+<td valign="top"><a href="../../pages/1552/index.html" title="Lizenzen">Lizenz</a>:</td>
+<td>MIT/X11
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">OS-Eigenschaften
+</th></tr>
+<tr>
+<td valign="top">Plattform:</td>
+<td><a href="../../pages/1749/index.html" title="X86">i386</a>/<a class="mw-redirect" data-archive-original-href="../../pages/1759/index.html" href="../../pages/1758/index.html" title="X64">x86-64</a>
+</td></tr>
+<tr>
+<td valign="top"><a href="../../pages/1478/index.html" title="Kernel">Kernelart</a>:</td>
+<td><a class="mw-redirect" data-archive-original-href="../../pages/1655/index.html" href="../../pages/1478/index.html#Mikrokernel" title="Microkernel">Micro</a><a class="mw-redirect" data-archive-original-href="../../pages/1825/index.html" href="../../pages/1478/index.html#Monolithischer_Kernel" title="Monolithischer Kernel">monolithischer</a> Modular<a href="../../pages/1478/index.html#Makrokernel" title="Kernel">hybrid</a>
+</td></tr>
+<tr>
+<td valign="top"><a href="../../pages/1648/index.html" title="Kategorie:Programmiersprache">Sprache</a>:</td>
+<td>C, Assembler (Syntax: Intel und Falschrum)
+</td></tr>
+<tr>
+<td valign="top">API:</td>
+<td>POSIX (nur besser, weil noch kaputter)
+</td></tr>
+<tr>
+<td valign="top">Binärformat:</td>
+<td><a class="mw-redirect" data-archive-original-href="../../pages/1650/index.html" href="../../pages/1528/index.html" title="ELF">ZWÖLF</a>
+</td></tr>
+<tr>
+<td valign="top"><a class="mw-redirect" data-archive-original-href="../../pages/1519/index.html" href="../../pages/1530/index.html" title="IPC">IPC-Methode</a>:</td>
+<td>V.O.M.I.T. (<b>V</b>erbose <b>O</b>bject-oriented <b>M</b>achine-readable <b>I</b>nformation <b>T</b>ransfer)
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Homepage
+</th></tr>
+<tr>
+<td colspan="2"><center><a class="external free" href="http://gitorious.org/niwohlos" rel="nofollow">http://gitorious.org/niwohlos</a></center>
+</td></tr></tbody></table>
+</div>
+</div>
+<dl><dd><i>„Ich verstehe Ihre Frage so, dass es Benutzer gibt, die wünschen, dass wir die Entwickler von niwohlOS dazu mobilisieren, um einen Paketfilter zu implementieren. Mir ist nicht bekannt, dass eine solche Absicht besteht. Die Entwickler kooperieren zur Sicherung von niwohlOS eifrig mit dem BSI, und ihre Arbeitskraft wird dafür voll eingesetzt. Niemand hat die Absicht, eine Firewall zu errichten!“</i><br/></dd>
+<dd>— <a href="../../pages/1641/index.html" title="Linux">Linus Torvalds</a>, der alte <a href="../../pages/1552/index.html#GNU_General_Public_License" title="Lizenzen">Kommunist</a>, äußert sich zu niwohlOS.<b></b></dd></dl>
+<p><br/>
+<b>niwohlOS</b> (Hochprofessionellisch für: Niveau-L-OS) ist ein hochmodernes Betriebssystem für die x86-Architektur. Es wird von bekannten hochprofessionellen Entwicklern aus dem <a href="../../pages/1463/index.html" title="IRC">IRC</a>-Channel #niwohlos im euIRC entwickelt.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Inside_niwohlOS"><span class="tocnumber">1</span> <span class="toctext">Inside niwohlOS</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Bootvorgang"><span class="tocnumber">1.1</span> <span class="toctext">Bootvorgang</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#Phase_Ia:_GRUB"><span class="tocnumber">1.1.1</span> <span class="toctext">Phase Ia: GRUB</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="#Phase_Ib:_NILO"><span class="tocnumber">1.1.2</span> <span class="toctext">Phase Ib: NILO</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Phase_II:_niwohunloader"><span class="tocnumber">1.1.3</span> <span class="toctext">Phase II: niwohunloader</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6"><a href="#Kernel"><span class="tocnumber">1.2</span> <span class="toctext">Kernel</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Allgemeines_Konzept"><span class="tocnumber">1.2.1</span> <span class="toctext">Allgemeines Konzept</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#32-Bit:_stoiber32"><span class="tocnumber">1.2.2</span> <span class="toctext">32-Bit: stoiber32</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#64-Bit:_stoiber64"><span class="tocnumber">1.2.3</span> <span class="toctext">64-Bit: stoiber64</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Namensherkunft"><span class="tocnumber">1.2.4</span> <span class="toctext">Namensherkunft</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-11"><a href="#Treiber"><span class="tocnumber">1.3</span> <span class="toctext">Treiber</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="#Interfaces"><span class="tocnumber">1.3.1</span> <span class="toctext">Interfaces</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="#Interprozesskommunikation"><span class="tocnumber">1.4</span> <span class="toctext">Interprozesskommunikation</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#GUI"><span class="tocnumber">1.5</span> <span class="toctext">GUI</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#Die_Entwickler"><span class="tocnumber">2</span> <span class="toctext">Die Entwickler</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="#niwohlose-developers"><span class="tocnumber">2.1</span> <span class="toctext">niwohlose-developers</span></a>
+<ul>
+<li class="toclevel-3 tocsection-17"><a href="#XanClic_alias_Crazy-OS-names"><span class="tocnumber">2.1.1</span> <span class="toctext">XanClic alias Crazy-OS-names</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#DerHartmut_alias_PleaseCallMeToGetTheRequestedInformation"><span class="tocnumber">2.1.2</span> <span class="toctext">DerHartmut alias PleaseCallMeToGetTheRequestedInformation</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#SHyx0rmZ_alias_HardcoreProgger"><span class="tocnumber">2.1.3</span> <span class="toctext">SHyx0rmZ alias HardcoreProgger</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="#DickHuuhn_alias_DickHuuhn"><span class="tocnumber">2.1.4</span> <span class="toctext">DickHuuhn alias DickHuuhn</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-21"><a href="#Die_Committer"><span class="tocnumber">2.2</span> <span class="toctext">Die Committer</span></a>
+<ul>
+<li class="toclevel-3 tocsection-22"><a href="#pocky_alias_1337h4x0r"><span class="tocnumber">2.2.1</span> <span class="toctext">pocky alias 1337h4x0r</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="#Cjreek_alias_Sado-Masochist_aka_Windows-User"><span class="tocnumber">2.2.2</span> <span class="toctext">Cjreek alias Sado-Masochist aka Windows-User</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="#Paddy_alias_Paddynator"><span class="tocnumber">2.2.3</span> <span class="toctext">Paddy alias Paddynator</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="#cra1n_alias_Ich-kenn-ihn-erst-zwei-Minuten-und-mach-ihn-direkt-zum-Committer"><span class="tocnumber">2.2.4</span> <span class="toctext">cra1n alias Ich-kenn-ihn-erst-zwei-Minuten-und-mach-ihn-direkt-zum-Committer</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-26"><a href="#Frequently_Asked_Questions_.28FAQ.29"><span class="tocnumber">3</span> <span class="toctext">Frequently Asked Questions (FAQ)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-27"><a href="#Mal_ehrlich.2C_seid_ihr_eigentlich_4chan_oder_so.3F"><span class="tocnumber">3.1</span> <span class="toctext">Mal ehrlich, seid ihr eigentlich 4chan oder so?</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="#Wie_werde_ich_eigentlich_Entwickler_bei_niwohlOS.3F"><span class="tocnumber">3.2</span> <span class="toctext">Wie werde ich eigentlich Entwickler bei niwohlOS?</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="#Wie_bewirbt_man_sich_als_Committer.3F"><span class="tocnumber">3.3</span> <span class="toctext">Wie bewirbt man sich als Committer?</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="#Was_ist_V.O.M.I.T..3F"><span class="tocnumber">3.4</span> <span class="toctext">Was ist V.O.M.I.T.?</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="#Ist_niwohlOS_in_safe_language_geschrieben.3F"><span class="tocnumber">3.5</span> <span class="toctext">Ist niwohlOS in safe language geschrieben?</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="#Habt_ihr_eigentlich_Angst_vor_der_Konkurrenz.3F"><span class="tocnumber">3.6</span> <span class="toctext">Habt ihr eigentlich Angst vor der Konkurrenz?</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="#Was_war_an_der_GUI_nochmal_so_besonders.3F"><span class="tocnumber">3.7</span> <span class="toctext">Was war an der GUI nochmal so besonders?</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="#Was_f.C3.BCr_Tabletten_nehmt_ihr_eigentlich.3F_Und_warum_nehmt_ihr_nicht_genug_davon.3F"><span class="tocnumber">3.8</span> <span class="toctext">Was für Tabletten nehmt ihr eigentlich? Und warum nehmt ihr nicht genug davon?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-35"><a href="#Kritik"><span class="tocnumber">4</span> <span class="toctext">Kritik</span></a></li>
+<li class="toclevel-1 tocsection-36"><a href="#Fertig_implementiert"><span class="tocnumber">5</span> <span class="toctext">Fertig implementiert</span></a></li>
+<li class="toclevel-1 tocsection-37"><a href="#Teilweise_implementiert"><span class="tocnumber">6</span> <span class="toctext">Teilweise implementiert</span></a></li>
+<li class="toclevel-1 tocsection-38"><a href="#Rudiment.C3.A4r_implementiert"><span class="tocnumber">7</span> <span class="toctext">Rudimentär implementiert</span></a></li>
+<li class="toclevel-1 tocsection-39"><a href="#To-Do"><span class="tocnumber">8</span> <span class="toctext">To-Do</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Inside_niwohlOS">Inside niwohlOS</span></h2>
+<h3><span class="mw-headline" id="Bootvorgang">Bootvorgang</span></h3>
+<h4><span class="mw-headline" id="Phase_Ia:_GRUB">Phase Ia: GRUB</span></h4>
+<p>Als Bootloader wird der hochprofessionelle Bootloader <a class="mw-redirect" data-archive-original-href="../../pages/1960/index.html" href="../../pages/1567/index.html" title="GRUB">GRUB</a> verwendet. Dieser wird von zahlreichen professionellen Firmen und Betriebssystemen seit Jahren mit Erfolg eingesetzt und verspricht eine optimale Grundlage für jedes Betriebssystem. GRUB richtet eine standardisierte und standartisierte Umgebung ein und übergibt der zweiten Phase, dem niwohunloader, alle nötigen Daten, die sie benötigt. Auch lädt GRUB dank hochperformanter Lademechnismen unsere beiden Kernel stoiber32 und stoiber64 in den Speicher. 
+</p>
+<h4><span class="mw-headline" id="Phase_Ib:_NILO">Phase Ib: NILO</span></h4>
+<p>Alternativ zu GRUB kann der NIwohLOader, kurz NILO eingesetzt werden. Dieser ist ein hochperformanter und hochkomplexer multiboot-kompatibler Bootloader, mit dessen Hilfe der niwohunloader geladen wird.
+</p>
+<h4><span class="mw-headline" id="Phase_II:_niwohunloader">Phase II: niwohunloader</span></h4>
+<p>Um dem User unnötige und komplexe Konfiguration abzunehmen, wird nach dem eigentlichen Bootloader ein Zwischenloader, der niwohunloader, geladen. Dieser entscheidet anhand komplexer und hochperformanter Algorithmen, welche Systemarchitektur der entsprechende Computer besitzt und lädt daraufhin alle passenden Komponenten nach. Hierdurch ist ein voll-automatisierter Ablauf des Ladeprozesses bei optimaler Perfomance und höchster Stabilität garantiert.
+</p>
+<h3><span class="mw-headline" id="Kernel">Kernel</span></h3>
+<h4><span class="mw-headline" id="Allgemeines_Konzept">Allgemeines Konzept</span></h4>
+<p>Die Kernel sind micromonolithische Modularhybride. Im Klartext bedeutet das: niwohlOS hat monolithische Kernel, die zur Laufzeit Module einbinden können. Diese laufen dann mit speziellen Privilegien im Usermode. Dadurch kann das Grundsystem beliebig erweitert werden und auf die individuellen Bedürfnisse jedes einzelnen Users ausgerichtet werden. Gleichzeitig wird aber auch die hohe Performance und die extreme Stabilität gewährleistet. Der monolithische Teil wird so klein wie möglich gehalten, um die vorausgesetzte optimale Performance zu garantieren.
+</p>
+<h4><span class="mw-headline" id="32-Bit:_stoiber32">32-Bit: stoiber32</span></h4>
+<p>Für alle Computer mit bewährten und dennoch hochperformanten 32-Bit-Prozessoren dient der 32-Bit-Kernel stoiber32. Dieser zeichnet sich durch eine extrem leistungsfähige Speicherverwaltung und ein auch unter Extrembedingungen noch optimal arbeitendes Multitasking aus, welches bis zu zwei Prozesse mit unglaublicher Geschwindigkeit nahezu parallel ausführen kann. Stoiber32 verfügt über ein Linux-Subsystem, mit dessen Hilfe es möglich ist, Linux-Module in den Kernel einzubinden.
+</p>
+<h4><span class="mw-headline" id="64-Bit:_stoiber64">64-Bit: stoiber64</span></h4>
+<p>Hochmoderne Computer mit hochperformanten und hochkomplexen 64-Bit-Prozessoren stehen dank stoiber64 neue Möglichkeiten zur Verfügung. Der 64-Bit-Kernel verfügt ebenfalls über eine hochoptimierte und auf 64-Bit-Systeme mit mehr als 4 Petabyte Arbeitsspeicher ausgelegte Speicherverwaltung, welche garantiert, dass ein Programm nie zu wenig Speicher hat, auch wenn zu wenig Speicher vorhanden ist. Win-Win-Situation wird dieses Verfahren im professionellem Umfeld genannt. Auch stoiber64 verfügt über hochperformantes Multitasking, welches ebenfalls bis zu zwei Programme nahezu gleichzeitig und in einer atemberaubenden Geschwindigkeit ausführen kann.
+</p>
+<h4><span class="mw-headline" id="Namensherkunft">Namensherkunft</span></h4>
+<p>Da der Kernel emmmh (ein micromonolithischer Modularhybrid) ist, wird er auch als „Stoiber“ bezeichnet. Hierin soll auch das Ziel KISS (Keep it simple, stupid) zum Ausdruck kommen (in Anerkennung der Leistungen Edmund Stoibers beim Bürokratieabbau in Europa).
+</p><p>tl;dr: Wie Linux, nur geiler.
+</p>
+<h3><span class="mw-headline" id="Treiber">Treiber</span></h3>
+<p>Es gibt zwei Sorten von Treibern in niwohlOS: Ring-0-Treiber und Ring-3-Treiber (oder auch Kernel- und Usertreiber). Kerneltreiber werden direkt in den Kernel miteingelinkt und laufen mit der gleichen Privilegsstufe wie der Kernel, Usertreiber können zur Laufzeit nachgeladen werden und laufen im Ring 3, also mit Privilegien, die jedes normale Programm auch besitzt. Durch eine ausgeklügelte und hochmoderne HAL, der niwohlosenHAL, können Usertreiber die gleiche Funktionalität wie Kerneltreiber nutzen, ohne jedoch bei Instabilität die Ausführung des Systems zu behindern. Durch den perfekten Mix aus extrem stabilen Kerneltreibern und hochoptimierten Usertreibern kann ein sicheres, stabiles und gleichzeitig hochperformantes System garantiert werden.
+</p>
+<h4><span class="mw-headline" id="Interfaces">Interfaces</span></h4>
+<p>Das Interface zu Treibern ist dual ausgelegt, als hochprofessioneller und berufserfahrener Treiberprogrammierer hat man somit die Wahl zwischen dem <s>naiven</s> nativen Treiberinterface von niwohlOS, welches mit erstaunlichen Datendurchsatzraten besticht, und dem bewährten <a class="external text" href="http://de.wikipedia.org/wiki/Unión_Demócrata_Independiente" rel="nofollow">UDI</a>. Dessen Vorteile liegen ganz klar auf der Hand:
+</p>
+<ul><li>Unterstützung durch die Industrie aufgrund der einheitlichen ABI und der damit verbundenen Möglichkeit, Closed-Source-Treiber zu implementieren. Die Vertreter großer Hardwarehersteller wünschen sich schon seit langem einen einheitlichen Weg, alle Hobbybetriebssysteme (was niwohlOS eigentlich nicht ist) mit Treibern für ihre Hardware zu versorgen. Dies ist dank UDI nun endlich möglich.</li>
+<li>Unterstützung durch die extrem kompetenten Entwickler von osdev.org. Diese bereichern die Spezifikation immer wieder durch lebhafte Diskussionen. Außerdem werden sie nicht müde zu betonen, welch großartige Leistung von UDI-Treibern aufgrund der bisher von anderen Interfaces unübertroffenen Skalierbarkeit erreicht werden kann.</li></ul>
+<h3><span class="mw-headline" id="Interprozesskommunikation"><a href="../../pages/1530/index.html" title="Interprozesskommunikation">Interprozesskommunikation</a></span></h3>
+<p>Wie es sich für jedes anständige micromonolithische Modulahybridsystem gehört, implementiert natürlich auch niwohlOS einen Mechanismus der Interprozesskommunikation. Dabei wird, inspiriert von <a href="../../pages/1796/index.html" title="Týndur">týndur</a>, eine abgewandelte Form des <a class="mw-redirect" data-archive-original-href="../../pages/1679/index.html" href="../../pages/1530/index.html#RPC_.28.3DRemote_procedure_call.29" title="Remote Procedure Call">Remote Procedure Calls</a> eingesetzt: In die Kernel wird eine Untermenge eines generischen XML-Parsers implementiert, welcher XML-RPCs, welche durch Sockets übertragen werden, parst und dementsprechend an ein Eventsystem weiterleitet, welches von da aus alles weitere koordiniert.
+</p>
+<h3><span class="mw-headline" id="GUI">GUI</span></h3>
+<p>Wie für alle größenwahnsinnigen Systeme wird natürlich auch in der relativ jungen Entwicklungsgeschichte von niwohlOS über eine grafische Benutzeroberfläche nachgedacht. Hier soll nicht allzuviel verraten werden, nur dass wir ein System namens D.U.M.M., inspiriert von Windows-Usern, entwickeln werden.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Die_Entwickler">Die Entwickler</span></h2>
+<p>Das Entwicklerteam besteht aus auf dem Gebiet der Betriebssystementwicklung hocherfahrenen Informatikern mit jahrelanger Programmiererfahrung, welche sicherlich zu den zukünftigen Leistungsträgern gehören, und DickHuuhn. Die Entwickler genießen zur Zeit eine Ausbildung bei der Elite der Betriebssystementwicklung im IRC-Channel #lost im euIRC. Durch monatelange Arbeit an dem hochkomplexen Betriebssystem <a href="../../pages/1796/index.html" title="Týndur">týndur</a> wissen sie, wie ein hochperfomantes und extrem stabiles System aufgebaut sein muss.
+</p>
+<h3><span class="mw-headline" id="niwohlose-developers">niwohlose-developers</span></h3>
+<p>Die „niwohlose-developers“ sind das Entwicklerteam rund um niwohlOS sowie anderen Projekten. Es besteht aus vier hochoptimierten, äh, hochintelligenten Programmierern und Softwareentwicklern.
+</p>
+<h4><span class="mw-headline" id="XanClic_alias_Crazy-OS-names">XanClic alias Crazy-OS-names</span></h4>
+<p><a href="../../pages/1860/index.html" title="Benutzer:XanClic">XanClic</a> (hochkomplexes Hybridakrobackronym) ist einer der Top-Entwickler von niwohlOS. Er besitzt auf dem Gebiet der Betriebssystementwicklung höchste Kompetenzen, entwickelte er doch schon mehrere Betriebssysteme im Alleingang (<a href="../../pages/1861/index.html" title="MyXomycota">MyXomycota</a>, <a href="../../pages/2045/index.html" title="Paloxena">Paloxena</a>) und reichte schon zahlreiche Patches für <a href="../../pages/1796/index.html" title="Týndur">týndur</a> ein, wie einen AC97-Treiber, USB-Treiber und die hochkomplexe libmaumau, die es den Anwendern ermöglicht, Mau-Mau zu spielen. XanClic ist für den <s>fragilen</s> soliden Aufbau, das Grundgerüst in niwohlOS zuständig.
+</p>
+<h4><span class="mw-headline" id="DerHartmut_alias_PleaseCallMeToGetTheRequestedInformation">DerHartmut alias PleaseCallMeToGetTheRequestedInformation</span></h4>
+<p><a href="../../pages/1865/index.html" title="Benutzer:Hartmut">DerHartmut</a> (kein hochkomplexes Hybridakrobackronym) ist ebenfalls einer der Top-Entwickler von niwohlOS. Er besitzt jahrelange Erfahrung auf dem Gebiet der Betriebssystementwicklung und daher beste Reputationen auf diesem Gebiet. Er entwickelte ebenfalls sein eigenes Betriebssystem im Alleingang (<a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">nusskuchen</a>) und arbeitet an einem neuen, hochoptimierten Betriebssystem, quasi als „Hobby“ neben niwohlOS. Er reichte bisher wenige, aber dafür umso wichtigere Patches bei <a href="../../pages/1796/index.html" title="Týndur">týndur</a> ein, darunter zwei hochperformante Interpreter für die wohl wichtigsten Sprachen im industriellen Umfeld, Malbolge und hq9+, er halb-portierte den extrem komplexen Mailclient mutt und implementierte einer der wichtigsten Features unter týndur: lpt moo. Er ist bei niwohlOS für alle <s>kaputten</s> hochoptimierten Stellen zuständig. Seine mannigfaltigen Pflichten in vielfältigen anderen Gebieten zwingen ihn allerdings bisweilen, die entsprechende Arbeit <s>monatelang</s> zeitweilig zu suspendieren.
+</p>
+<h4><span class="mw-headline" id="SHyx0rmZ_alias_HardcoreProgger">SHyx0rmZ alias HardcoreProgger</span></h4>
+<p><a href="../../pages/1785/index.html" title="Benutzer:SHyx0rmZ">SHyx0rmZ</a> (hochoptimierter Buchstabenkomplex) ist auch einer der Top-Entwickler von niwohlOS. Er programmiert seit sage und schreibe 11 Jahren und weist in diesem Feld höchste Kompetenzen auf. Er wird oft als „Hardcore-Informatiker“ bezeichnet, denn er schafft, was andere nicht schaffen: Er hat sein hochperformantes und hochoptimiertes Betriebssystem <a href="../../pages/1750/index.html" title="Nuke">Nuke</a> mit gleich <b>drei</b> Kerneln ausgestattet, um aus jedem erdenklichen System das höchste Maß an Leistung herauszukitzeln. Des Weiteren schrieb er Vortex, einen Loader, der unter anderem in <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">qultics</a> eingesetzt wird und womöglich von Microsoft patentiert wird. Er ist bei niwohlOS für die ganz komplexen Sachen zuständig.
+</p>
+<h4><span class="mw-headline" id="DickHuuhn_alias_DickHuuhn">DickHuuhn alias DickHuuhn</span></h4>
+<p><a href="../../pages/1871/index.html" title="Benutzer:DickHuuhn">DickHuuhn</a> (kein hochkomplexes Hybridakrobackronym und auch kein hochoptimierter Buchstabenkomplex) ist ein Chiken.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Die_Committer">Die Committer</span></h3>
+<p>Neben dem Entwicklerteam gibt es zahlreiche hochprofessionelle Commiter, die wertvollen Code und wertvolle Ideen tagtäglich committen.
+</p>
+<h4><span class="mw-headline" id="pocky_alias_1337h4x0r">pocky alias 1337h4x0r</span></h4>
+<p><a href="../../pages/2097/index.html" title="Benutzer:Pocky">pocky</a> (kein hochkomplexes Hybridakrobackronym und kein hochoptimierter Buchstabenkomplex, dafür aber der Wahrheit) ist vor allem für die noch nicht vorhandene, noch nicht geplante und wahrscheinlich auch gar nicht realsiert-werdende GUI zuständig. So ganz nebenbei ist er auch für die mooraalische Unterstützung zu gebrauchen. Er betreut also sozusagen die GUI und die Mooraale. Und die GUI.
+</p>
+<h4><span class="mw-headline" id="Cjreek_alias_Sado-Masochist_aka_Windows-User">Cjreek alias Sado-Masochist aka Windows-User</span></h4>
+<p><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Cjreek</a> (kein Mensch weiß, was das heißen soll) ist ebenfalls ein hochprofessionelle Entwickler, der zur Zeit bei einem Tierversuch teilnimmt, bei welchem getestet wird, wie sich die dauerhafte ernsthafte Nutzung des sogenannten <s>Außer</s>Betriebssystems „Windows“ auf Mensch und Maschine auswirkt. Er hat ebenfalls weitreichende Erfahrungen in der Betriebssystementwicklung und entwickelt den multiboot-kompatiblen Bootloader NILO, der irgendwann als Ersatz für den hochprofessionellen GRUB dienen soll.
+</p>
+<h4><span class="mw-headline" id="Paddy_alias_Paddynator">Paddy alias Paddynator</span></h4>
+<p><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Paddy</a> (kein Mensch weiß, wer das ist) ist ein geheminisvoller Entwickler, der sich zu unserem Projekt gesellt hat. Auf einmal war er da, wie aus dem Nichts tauchte er in #lost und #niwohlos auf. Keiner weiß wer er ist, keiner weiß, ob er was kann. Man weiß nur, dass er was gegen kwolf zu haben scheint...
+</p>
+<h4><span class="mw-headline" id="cra1n_alias_Ich-kenn-ihn-erst-zwei-Minuten-und-mach-ihn-direkt-zum-Committer">cra1n alias Ich-kenn-ihn-erst-zwei-Minuten-und-mach-ihn-direkt-zum-Committer</span></h4>
+<p><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">cra1n</a> (auch hier weiß keiner, wer das ist) ist Schüler mit Informatik als Leistungskurs. Mehr weiß ich auch nicht.
+</p><p><br/>
+</p>
+<h2><span id="Frequently_Asked_Questions_(FAQ)"></span><span class="mw-headline" id="Frequently_Asked_Questions_.28FAQ.29">Frequently Asked Questions (FAQ)</span></h2>
+<p>Da niwohlOS so avantgardistisch ist, ist es natürlich ganz klar, dass beim durchschnittlichen Betrachter direkt einige Fragen auftauchen. Dafür muss man sich nicht schämen. Also, eigentlich doch.  Aber nur ein bisschen. Für diese Leute haben wir ein praktisches FAQ aufgesetzt.
+</p>
+<h3><span id="Mal_ehrlich,_seid_ihr_eigentlich_4chan_oder_so?"></span><span class="mw-headline" id="Mal_ehrlich.2C_seid_ihr_eigentlich_4chan_oder_so.3F">Mal ehrlich, seid ihr eigentlich 4chan oder so?</span></h3>
+<p>Nein, die meisten Entwickler haben immer wesentlich mehr als vier IRC-Channels offen.
+</p>
+<h3><span id="Wie_werde_ich_eigentlich_Entwickler_bei_niwohlOS?"></span><span class="mw-headline" id="Wie_werde_ich_eigentlich_Entwickler_bei_niwohlOS.3F">Wie werde ich eigentlich Entwickler bei niwohlOS?</span></h3>
+<p>Grundsätzlich darf jeder, der genug Freizeit hat und die gewissen Portion an Wahnsinn besitzt für niwohlOS entwickeln. Man schreibt dazu einen Patch und gesellt sich in den Channel niwohlOS. Der Patch wird dann mit Sicherheit nicht angenommen und niemals commited, außer es ist ein Super-Mööögaaa-Pätsch (Diese Aussage ist Copyright © 2009 by XanClic). Ansonsten kann man sich als Committer bewerben.
+</p>
+<h3><span id="Wie_bewirbt_man_sich_als_Committer?"></span><span class="mw-headline" id="Wie_bewirbt_man_sich_als_Committer.3F">Wie bewirbt man sich als Committer?</span></h3>
+<p>Sag ich nicht. Könnt’ ja jeder kommen. Nene.
+</p>
+<h3><span id="Was_ist_V.O.M.I.T.?"></span><span class="mw-headline" id="Was_ist_V.O.M.I.T..3F">Was ist V.O.M.I.T.?</span></h3>
+<p>V.O.M.I.T. steht für „Verbose object-oriented machine-readable information transfer“. Unsere besten Designer verbrachten Monate damit, ein ansprechendes und elegeantes Design für diese neue Art der Interprozesskommunikation zu entwerfen.
+</p><p>Dann haben wir aber doch XML-RPC genommen, weil das auch auf die Beschreibung passt.
+</p>
+<h3><span id="Ist_niwohlOS_in_safe_language_geschrieben?"></span><span class="mw-headline" id="Ist_niwohlOS_in_safe_language_geschrieben.3F">Ist niwohlOS in safe language geschrieben?</span></h3>
+<p>niwohlOS wird natürlich in C und Assembler geschrieben. Außerdem wird es einen PHP-Intepreter geben, damit wir unseren IPC-Code von Wordpress klauen können. Also kann man beruhigt sein: niwohlOS ist fast so sicher wie die Rente!
+</p>
+<h3><span id="Habt_ihr_eigentlich_Angst_vor_der_Konkurrenz?"></span><span class="mw-headline" id="Habt_ihr_eigentlich_Angst_vor_der_Konkurrenz.3F">Habt ihr eigentlich Angst vor der Konkurrenz?</span></h3>
+<p>Es gibt Konkurrenz?
+</p><p>Okay, um ehrlich zu sein: Ja, es gibt ein System. Das System heißt <a href="../../pages/2096/index.html" title="PrettyOS">PrettyOS</a> (<i>Personally retarded ethymology table-tennis, yeah, operating system</i> (dass es so heißt, ist allerdings nur eine Vermutung!)) und ist ein hochoptimiertes Betriebssystem mit einigen vollkommenen Neuerungen und Innovationen. Welche, das wissen wir auch nicht. Ach ja, und dann gibt es noch dieses „týndur“, aber der stellt ja eher keine Gefahr dar bei genauerer Betrachtung (und nachdem man die rosa-rote Naivitätsbrille abgenommen hat).
+</p>
+<h3><span id="Was_war_an_der_GUI_nochmal_so_besonders?"></span><span class="mw-headline" id="Was_war_an_der_GUI_nochmal_so_besonders.3F">Was war an der GUI nochmal so besonders?</span></h3>
+<p>Das Konzept der GUI ist recht simpel, denn es ist einfach nur D.U.M.M.. Da viele User bereits Erfahrung im Umganng mit D.U.M.M.-heit besitzen, haben wir uns für dieses tolle Konzept entschieden. Falls du dumm bist und darum nicht genug Erfahrung mit D.U.M.M.-heit hast, hier die Auflösung: D.U.M.M. steht für „Deutsches Userinterface mit Mauszeiger“.
+</p>
+<h3><span id="Was_für_Tabletten_nehmt_ihr_eigentlich?_Und_warum_nehmt_ihr_nicht_genug_davon?"></span><span class="mw-headline" id="Was_f.C3.BCr_Tabletten_nehmt_ihr_eigentlich.3F_Und_warum_nehmt_ihr_nicht_genug_davon.3F">Was für Tabletten nehmt ihr eigentlich? Und warum nehmt ihr nicht genug davon?</span></h3>
+<p>Natürlich nur $WIRKSTOFF von $FIRMA. $WERBESPRUCH. <br/><small>(Dieser Absatz wurde zensiert, weil Markenrechtler meistens Weicheier ohne Leben und/oder Freunde sind und keinen Spaß verstehen.)</small>
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Kritik">Kritik</span></h2>
+<p>Zahlreiche professionelle Entwickler haben eine Kritik zu niwohlOS abgegeben:
+</p>
+<ul><li><a href="../../pages/1871/index.html" title="Benutzer:DickHuuhn">Hochprofessioneller, neutraler, unvoreingenommener Entwickler #1</a>: <i>„Jo“</i></li>
+<li><a href="../../pages/1860/index.html" title="Benutzer:XanClic">Hochprofessioneller, neutraler, unvoreingenommener Entwickler #2</a>: <i>„Super *Applaus*“</i></li>
+<li><a href="../../pages/1865/index.html" title="Benutzer:Hartmut">Hochprofessioneller, neutraler, unvoreingenommener Entwickler #3</a>: <i>„Astrein.“</i></li>
+<li>Zufriedener Benutzer: <i>„Wer sind Sie, und wie sind Sie in mein Haus gekommen?“</i></li>
+<li>Zufriedener Black Hat: <i>„Oh EXPLOITABLE!“</i></li>
+<li><a href="../../pages/2274/index.html" title="Benutzer:Ehenkes">ehenkes</a>: <i>„niwohlOS &lt;-- Name finde ich gut, ein Os, das sich nie Wohl fühlt...‚niw‘ rückwärts erinnert allerdings an ‚win‘“</i></li></ul>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Fertig_implementiert">Fertig implementiert</span></h2>
+<p>Folgende Teile sind fertig implementiert:
+</p>
+<ul><li>Repository erfolgreich angelegt</li>
+<li>Ausgeklügelte Verzeichnisstruktur des Quelltextes</li>
+<li>State-of-the-art Makefile</li></ul>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Teilweise_implementiert">Teilweise implementiert</span></h2>
+<p>Folgende Teile sind in Arbeit und schon teilweise implementiert:
+</p>
+<ul><li>niwohunloader: Kann beide Kernel laden</li>
+<li>SMP: APs werden niwohlosisiert und laufen in Ermangelung genügender Tasks bisher noch im Leerlauf – theoretisch ist ein Multiprozessorbetrieb aber bereits möglich</li></ul>
+<p><br/>
+</p>
+<h2><span id="Rudimentär_implementiert"></span><span class="mw-headline" id="Rudiment.C3.A4r_implementiert">Rudimentär implementiert</span></h2>
+<p>Folgende Teile hat irgendwer halb-besoffen runtergetippt und trotzdem eingecheckt:
+</p>
+<ul><li>stoiber32: Kann schon Exceptions, Interrupts, Paging, APIC, Multitasking, Syscalls, SMP, …</li>
+<li>stoiber64: Kann auch schon Exceptions und lernt gerade physische Speicherverwaltung.</li></ul>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="To-Do">To-Do</span></h2>
+<p>Folgende Teile müssen noch implementiert werden:
+</p>
+<ul><li>printf gut machen</li>
+<li>kprintf gut machen</li>
+<li>vsprintf gut machen</li>
+<li><strike>printf mit Zahlen</strike></li>
+<li><strike>Eine Funktion zum Ausgeben von Zahlen</strike> <strike>Hexzahlen ausgeben</strike></li>
+<li><strike>puts mit Zahlen</strike> (nennt sich printf)</li>
+<li><strike>Zahlenausgabefunktion</strike> <strike>Hex ausgeben</strike></li>
+<li><strike>%i</strike></li>
+<li>Professionelle Homepage (verzögert sich leider aufgrund der Schließung von Geocities)</li>
+<li>Geeignetes Logo <strike>von 4chan klauen</strike> erstellen</li>
+<li>Kernel</li>
+<li>libc.hiken</li>
+<li>Signifanten</li>
+<li>Unicode-Support (für ẞ und です)</li>
+<li>Programme</li>
+<li>Einfach alles</li>
+<li>SMP ganz machen</li></ul>
+<p><br/>
+</p>
+<hr/>
+<p><font size="0.7em">Disclaimer: Dieses OS ist ein <b>echtes</b> Projekt und wird von uns aktiv entwickelt. Die genauen Beschreibungen zur Performance und Stabilität im Artikel könnten allerdings von der Wirklichkeit abweichen. Theoretisch. Natürlich stehlen wir auch keinen GPL-Code von Wordpress: Bei der Herstellung dieses OS wurden keine GNUs gequält.</font>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109165849
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.015 seconds
+Real time usage: 0.016 seconds
+Preprocessor visited node count: 207/1000000
+Preprocessor generated node count: 444/1000000
+Post‐expand include size: 1642/2097152 bytes
+Template argument size: 689/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.936      1 Vorlage:Infobox_OS
+100.00%    0.936      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=NiwohlOS&amp;oldid=8020</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1649/index.html" title="Kategorie:Betriebssystem">Betriebssystem</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2095/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2542/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2095/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

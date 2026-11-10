@@ -1,0 +1,26 @@
+Solange es keinen Artikel zu [[GRUB 2]] gibt, werde ich meine Experimente unter MinGW damit mal hier festhalten. Ich hab im Prinzip keine Ahnung, einige Ideen von [http://www.rtems.org/wiki/index.php/MinGW:Grub2:VMWare_Development_Environment_Setup hier] geklaut, und überhaupt funktioniert das bei mir auch nicht. Keine Ahnung ob GRUB 2 noch das alte Multiboot-Format kann. Wenn nicht dann liegts vielleicht daran ;)
+
+Ich habe das ganze mit Version 1.97~beta3 getestet (Download: [ftp://alpha.gnu.org/gnu/grub/]). Die Umgebung war MinGW mit GCC 4.4.0 und MSYS 1.0.11. Außerdem wird das Programm mktemp benötigt, das in meiner MSYS-Installation nicht dabei war. Ich hab es nachinstalliert (Download: [http://sourceforge.net/projects/mingw/files/MSYS%20mktemp/]). Außerdem werden vermutlic die Coreutils (insbesondere dd) benötigt, die im MSYS Base System enthalten sind (Download: [http://sourceforge.net/projects/mingw/files/MSYS%20Base%20System/])
+
+Kompilieren und Installieren funktioniert ohne Modifikationen und wie üblich mit den drei Befehlen:
+ sh configure
+ make
+ make install
+
+Zunächst muss ein Verzeichnis erstellt werden, dass den Inhalt der Diskette enthält. Ich habe es ''image'' genannt, in das ich einfach meinen Kernel und die Module kopiert habe. Außerdem nutzt GRUB 2 als Konfigurationsdatei die Datei boot/grub/grub.cfg. Diese Datei muss ebenfalls im Verzeichnis image existieren. 
+Die grub.cfg muss dann im neuen Format sein, das in etwa so aussieht:
+ menuentry "Test Kernel" {
+  multiboot /kernel.bin
+  module /module1.bin
+ }
+Damit sieht bei mir die Dateistruktur wie folgt aus:
+ +-image
+   +-boot
+   | +-grub
+   |   +-grub.lst
+   +-kernel.bin
+   +-module1.bin
+Um daraus ein Image namens test.img zu erstellen, muss man dann nur noch diesen Befehl im Verzeichnis, das image enthält, ausführen:
+ sh /usr/local/bin/grub-mkrescue --image-type=floppy --overlay=image test.img
+
+Keine Ahnung welches Dateisystem das Diskettenimage benutzt, oder ob überhaupt eins benutzt wird. Windows kann es jedenfalls nicht lesen, also wirds wohl nicht FAT sein. Also nachträgliches ändern ist damit nicht möglich.

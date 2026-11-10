@@ -1,0 +1,15 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Interrupt Vector Table — Änderungen 4865 → 8660</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Interrupt Vector Table — Änderungen 4865 → 8660</h1><nav><a href="../revisions/4865/index.html">Version 4865</a> · <a href="../revisions/8660/index.html">Version 8660</a> · <a href="../history/1540/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l31" >Zeile 31:</td>
+<td colspan="2" class="diff-lineno">Zeile 31:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;asm&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;asm&gt;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>xor ax, ax</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>xor ax, ax <ins class="diffchange diffchange-inline">&#160; &#160; ;ax = 0x00 (mov ax, 0x00 wäre ein Byte mehr)</ins></div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>mov es, ax</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>mov es, ax <ins class="diffchange diffchange-inline">&#160; &#160; ;es = ax (also 0)</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>; IRQs deaktivieren: Dies ist nur notwendig, damit nicht während des Anpassens der IVT ein IRQ auftritt, welcher für den Fall, dass</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>; IRQs deaktivieren: Dies ist nur notwendig, damit nicht während des Anpassens der IVT ein IRQ auftritt, welcher für den Fall, dass</div></td></tr>
+</table></body></html>

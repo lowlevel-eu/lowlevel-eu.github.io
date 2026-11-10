@@ -1,0 +1,108 @@
+Ein Cross-Compiler ist ein [[:Kategorie:Compiler | Compiler]], der Objektdateien für eine andere Plattform (Zielplattform oder target) als die verwendete (Hostsystem, kurz host) erzeugt. Die Zielplattform kann sich dabei sowohl bezüglich des[[Betriebssystems]] als auch des verwendeten Prozessors unterscheiden. 
+
+
+== Allgemeines ==
+Ein Cross-Compiler wird immer dann benötigt, wenn man Programme oder generell Code für eine andere Architektur als die eigene entwickeln und in den entsprechenden Maschinencode übersetzen will. Aber auch, wenn das Host-Betriebssystem bzw. die für dieses System verfügbaren Compiler nativ bestimmte Dateiformate nicht unterstützen, muss ein Cross-Compiler genutzt werden.
+
+Typische Fälle, in denen man einen Cross-Compiler benötigt:
+
+* Man hat einen 32-Bit-Prozessor und möchte Code für einen 64-Bit-Prozessor übersetzen (und vice versa)
+* Man hat einen x86-Prozessor und möchte Code für die ARM- oder PPC-Architektur entwickeln
+* Man nutzt MS Windows und möchte [[ELF]]-Binaries erstellen
+
+In diesen Fällen muss man einen Cross-Compiler erstellen bzw. verwenden.
+
+
+== Bau eines Cross-Compilers ==
+Der Bau eines Cross-Compilers gestaltet sich recht einfach. Meistens gilt es, sich die aktuellen binutils und den gcc herunterzuladen. Die Befehle zum Übersetzen gleichen sich unter Linux und Windows/Cygwin.
+
+=== Linux ===
+Unter Linux braucht man dazu [http://ftp.gnu.org/gnu/binutils/binutils-2.20.tar.gz dieses] Paket mit den binutils und [http://ftp.gnu.org/gnu/gcc/gcc-4.4.2/gcc-core-4.4.2.tar.bz2 dieses] Paket mit dem gcc. Will man Unterstützung für mehr Sprachen als C müssen weitere Pakete [http://ftp.gnu.org/gnu/gcc hier] heruntergeladen werden. Die einzelnen Sprachen müssen anschließend beim Konfigurieren angegeben werden, aber dazu später mehr.
+
+Unter Linux kann es passieren, dass spätestens beim Konfigurieren vom gcc selbiges mit der Fehlermeldung abbricht, dass zwei Libraries nicht installiert seien: GMP und MPFR. Diese sind dann aus der Paketverwaltung der Distribution zu beziehen oder können [ftp://ftp.gmplib.org/pub/gmp-4.3.1/gmp-4.3.1.tar.bz2 hier] und [http://www.mpfr.org/mpfr-current/mpfr-2.4.1.tar.bz2 hier] heruntergeladen werden. Diese müssen nur entpackt und mit dem in Linux bekannten Dreisatz ''./configure, make, make install'' gebaut und installiert werden.
+
+
+=== MS Windows ===
+Unter MS Windows gibt es zwei Möglichkeiten zum Bau eines Cross-Compilers:
+
+==== Cygwin ====
+Cygwin kann als "emulierte Linux-Umgebung" unter MS Windows angesehen werden. Cygwin lässt sich leicht installieren: [http://www.cygwin.com/setup.exe diese] Setup-Datei reicht, den Rest erledigt der Installer. Es können dann alle benötigten Pakete heruntergeladen und ebenfalls installiert werden. Besonders wichtig sind folgende Pakete: 
+
+* Devel -> gcc4
+* Devel -> make
+* Libs  -> libgmp-devel
+* Libs  -> libmpfr-devel
+* Web   -> wget
+
+optional:
+* Devel -> [[Netwide Assembler | nasm]]
+
+Ist Cygwin erfolgreich eingerichtet, können die binutils sowie der gcc entsprechend der Vorgehensweise unter Linux konfiguriert und kompiliert werden. Hierfür müssen ebenfalls die  [http://ftp.gnu.org/gnu/binutils/binutils-2.20.tar.gz binutils] und der [http://ftp.gnu.org/gnu/gcc/gcc-4.4.2/gcc-core-4.4.2.tar.bz2 gcc] heruntergeladen werden.
+
+==== minGW ====
+MinGW ist ein auf MS Windows portierter gcc. Für mehr Informationen siehe [[Crosscompiler_für_Windows|Cross-Compiler für Windows]]
+
+
+=== Ablauf ===
+Der Ablauf ist fast immer der gleiche: Die Pakete müssen ausgepackt und mit speziellen Parametern konfiguriert werden. Der Einfachheit halber sollte man dabei folgende Parameter setzen:
+
+ $ export TARGET=ziel-plattform
+ $ export PREFIX=wo-die-crossutils-landen-sollen
+
+Dann reicht es, beim configure --target=$TARGET und --prefix=$PREFIX anzugeben. Auch ist es sinnvoll, die binutils und den gcc außerhalb ihrer entpackten Verzeichnisse zu bauen, also immer separate Verzeichnisse zu erstellen (gcc-ARCHITEKTUR und binutils-ARCHITEKTUR eignen sich beispielsweise hierfür ).
+
+Beide Pakete (eventuell noch weitere, je nachdem ob weitere Sprachen gewünscht sind) werden dann mittels
+
+ $ tar -xjf paket.tar.endung
+
+entpackt, wobei paket mit dem Namen des Pakets und endung mit der entsprechenden Endung zu ersetzen ist.
+
+
+== Targets ==
+=== x86-64 ===
+Wer einen 32-Bit-Prozessor (oder ein 32-Bit-Betriebssystem) verwendet und Code für 64-Bit-Prozessoren und Betriebssysteme schreiben will, muss sich wie folgt seine Umgebung aufsetzen:
+
+ $ export TARGET=x86_64-elf
+ $ export TARGET=wo-die-crossutils-landen-sollen
+
+Die binutils müssen dann entsprechend konfiguriert werden.
+
+ $ ../binutils-2.20.0/configure --target=$TARGET --prefix=$PREFIX
+
+Nach erfolgreichem Konfigurieren können die binutils dann mittels
+
+ $ make
+ # make install
+
+gebaut werden. Mit dem gcc wird analog verfahren: Er wird wie folgt konfiguriert.
+
+ $ ../gcc-4.4.2/configure --target=$TARGET --prefix=$PREFIX --enable-languages=c
+
+Falls, wie im [[Cross-Compiler#Linux|Linux-Abschnitt]] erwähnt, das Konfigurieren mit einer Fehlermeldung abbricht, müssen die entsprechenden Libraries (Bibliotheken) heruntergeladen, gebaut und installiert werden.
+
+Nach erfolgreichem Konfigurieren reicht abschließend ein
+
+ $ make all-gcc
+ # make install-gcc
+
+zur Installation des gcc. Weitere Informationen zum Bau eines x86-64-Cross-Compilers findet man [[X86-64_Cross-Compiler|hier]].
+
+
+=== ARM ===
+Wer einen x86-Prozessor verwendet, um Code für die ARM-Architektur zu entwickeln, verfährt analog. Einzig das Target muss geändert werden:
+
+ $ export TARGET=arm-unknown-linux-gnu
+
+Dann verfährt man gleichartig wie beim Bau eines x86-64-Cross-Compilers. Einen ausführlicheren Artikel dazu und weitere Informationen finden sich [[ARM_Cross-Compiler|hier]].
+
+
+=== ELF ===
+Windows unterstützt nativ kein [[ELF]]-Format. Hier kann man sich leicht Abhilfe schaffen, in dem man den eigens von [[Benutzer:Jidder|Jidder]] erstellten Cross-Compiler herunterlädt und sich seine Umgebung dementsprechend konfiguriert. Mehr Informationen dazu [[Crosscompiler_für_Windows|hier]].
+
+
+== Siehe auch ==
+* [[X86-64_Cross-Compiler|Cross-Compiler für x86-64-Systeme]]
+* [[ARM_Cross-Compiler|Cross-Compiler für ARM-Systeme]]
+* [[Crosscompiler_für_Windows|Cross-Compiler für Windows (erzeugt ELF-Dateien)]]
+
+[[Kategorie:Compiler]]

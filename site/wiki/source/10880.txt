@@ -1,0 +1,33 @@
+== PUSHA/POPA ==
+
+"Ist es schneller jedes Register einzeln zu pushen, oder besser pusha?" &#150; ich denke schon, dass pusha/popa schneller sind, die Frage ist für mich eher, ob es schneller ist, sieben Register (eax, ebx, ecx, edx, esi, edi, ebp) zu pushen/popen statt acht (also mit esp) mit pusha/popa auf einmal... --[[Benutzer:XanClic|XanClic]] 18:02, 19. Feb. 2010 (CET)
+
+:Stimmt, daran habe ich noch gar nicht gedacht. Ich selbst nehme immer pusha/popa, aber eher aus Faulheit, weil ich nicht jedes Register einzeln hinschreiben will :) --[[Benutzer:Bjork|Bjork]] 18:35, 19. Feb. 2010 (CET)
+::Laut AMD braucht ein pusha gerade einmal doppelt solange wie ein einfaches push, pusha ist daher wohl um einiges schneller(das Gleich gilt für pop)--[[Benutzer:MNemo|MNemo]] 18:47, 19. Feb. 2010 (CET)
+
+:::Deshalb ist es ja noch "die Frage" und keine Tatsache. ;-) --[[Benutzer:XanClic|XanClic]] 20:42, 19. Feb. 2010 (CET)
+
+
+Es sind nicht 7 Register, sondern 8 Register die auf den Stack (PUSHA) gebracht bzw. vom Stack (POPA) geholt werden.
+
+Siehe: http://www.coding-wiki.de/wiki/index.php?title=ASM/PUSHA 
+--[[Benutzer:ScollPi|ScollPi]] 18:41, 19. Feb. 2010 (CET)
+
+----
+
+"Ebenso sollte der Stack 64KB aligned sein, und die Größe seiner Elemente gleich bleiben." Ist doch Quark. Ich denke es sollte 16Byte sein, bin mir aber nicht sicher. --[[Benutzer:Bluecode|Bluecode]] 10:45, 6. Feb. 2011 (CET)
+:Das muss richtig sein, weil ich das aus den Intel Manuals habe. Siehe http://www.intel.com/Assets/PDF/manual/248966.pdf, Kapitel 3.6.3 (Alignment):
+  The size of a cache line is 64 bytes in the Pentium 4 and other recent Intel processors, including processors based on Intel
+  Core microarchitecture. An access to data unaligned on 64-byte boundary leads to two memory accesses and
+  requires several μops to be executed (instead of one).
+Ich muss allerdings zugeben, dass ich für diesen Artikel damals nur diese Quelle verwendet habe und mich nicht so perfekt mit dem Thema auskenne.--[[Benutzer:Bjork|Bjork]] 15:30, 6. Feb. 2011 (CET)
+::Da ist aber von 64 Bytes die Rede, nicht KB. Und das Zitat enthält keine Aussage, dass die Größe der Elemente gleich bleiben sollte. --[[Benutzer:TheThing|TheThing]] 15:51, 6. Feb. 2011 (CET)
+:::Stimmt, es sollten natürlich 64 Bytes sein :) Und die Größe der Elemente stand doch gar nicht zur Debatte, oder? Aber von mir aus können wir auch gerne so einen Hinweis über den Artikel setzen, dass "der Autor sich nicht besonders auskannte" (wie bei [[USB]]) oder irgendjemand liest sich die obige Anleitung einfach mal richtig durch und verbessert den Artikel entsprechend.--[[Benutzer:Bjork|Bjork]] 16:24, 6. Feb. 2011 (CET)
+::Dass Speicherzugriffe keine 64-Byte-Grenze überschreiten sollen, bedeutet effektiv, dass alle Daten auf ihr natürliches Alignment ausgerichtet sein sollen. Also 4-Byte-Wörter auf 4-Byte-Grenzen, und 8-Byte-Wörter auf 8-Byte-Grenzen. Etwas Aufmerksamkeit ist lediglich erforderlich, wenn man 8-Byte-Zugriffe mit 4-Byte-Zugriffen mischt. Wenn ein 4-Byte-Wort auf einer 8-Byte-Grenze ausgerichtet ist, sollte man darauf achten, dass entweder Padding auf eine 8-Byte-Grenze oder ein weiteres 4-Byte-Wort folgt. Für Stackzugriffe wird (vom Compiler) immer die Variante Padding verwendet, für structs hat man das selbst oder der Compiler in der Hand. Das 16-Byte-Alignment ist soweit ich weiß eine ABI-Konvention, und keine Optimierung. --[[Benutzer:Jidder|Jidder]] 16:43, 6. Feb. 2011 (CET)
+:::Das 16Byte Alignment ist afaik aber auch erst mit x86-64 eine ABI-Konvention. Zumindest habe ich es in dem Zusammenhang das erste Mal gelesen.--[[Benutzer:Bluecode|Bluecode]] 19:02, 6. Feb. 2011 (CET)
+::Das mit dem natürlichen Aligment ist auf jeden Fall richtig. Das der Stack (beim betreten und verlassen einer Funktion) möglichst auf 16Bytes ausgerichtet sein soll hat eher den Grund das der Compiler sich drauf verlassen kann das wenn er z.B. ein Struct das SSE-Typen enthält dort ablegt das auch auf die möglichst ausgerichtet zugegriffen werden kann. Außerdem erhöht sich damit die Wahrscheinlichkeit das nebeneinander liegende Variablen auf dem Stack auch die selbe Cache-Line teilen, also wenn der Compiler 2 int64_t-Variablen passend ausgerichtet (in Relation zum Stack-Pointer bei Funktionseintritt) auf den Stack legt dann liegen die auch immer beide in der selben Cache-Line wenn der Stack-Pointer beim Funktionseintritt wirklich ausgerichtet war.--[[Benutzer:Erik.vikinger|Erik.vikinger]] 17:09, 6. Feb. 2011 (CET)
+
+== Stub? ==
+
+Ist diese Seite wiklich ein Stub? Sie ist doch schon recht umfangreich... --[[Benutzer:BeanMe|BeanMe]] 17:06, 24. Sep. 2012 (CEST)
+:IMO Nein. Ich habe das jetzt mal erledigt aber: "Du weißt schon, dass das hier ein Wiki ist und man Sachen auch selber ändern darf?" ([http://www.lowlevel.eu/w/index.php?title=Benutzer:BeanMe&diff=10860&oldid=10855 Zitat von deiner Benutzer Seite]). Für nächstes mal also: [http://de.wikipedia.org/wiki/Wikipedia:Sei_mutig "Sei mutig!"] --[[Benutzer:MNemo|MNemo]] 18:29, 24. Sep. 2012 (CEST)

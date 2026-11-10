@@ -1,0 +1,6 @@
+Dieses Feature von [[x86]]-Prozessoren wurde mit dem Pentium-Prozessor eingeführt. Es ermöglicht [[Paging]] mit Pages, die größer als 4 kB sind - nämlich 4 MB. Dadurch wird weniger Speicherplatz für Page Tables verbraucht und außerdem kann der Translation Lookaside Buffer besser arbeiten, da es weniger Pages gibt. Außerdem können, wenn PSE aktiviert ist, gleichzeitig 4-kB- und 4-MB-Pages verwendet werden.
+
+Ein großer Nachteil ist, dass eine 4-MB-Page einfach auch 4 MB Speicher benötigt. Wird z. B. nur ein Megabyte benötigt, dann werden drei Megabyte verschwendet. PSE kann im [[Long Mode]] nicht verwendet werden, da dort automatisch PAE genutzt wird.
+
+== Funktionsweise ==
+Um PSE zu aktivieren, muss das Bit 4 (PSE) im [[Control Register|Kontrollregister]] CR4 gesetzt werden. Anschließend wird das Bit 7 (S-Bit) im [[Paging#Page-Directory|Page Directory]] gültig. Ist es nicht gesetzt, so zeigt der jeweilige Eintrag auf eine Page Table, welche wiederum 4-kB-Pages enthält, ist es gesetzt, so zeigt er direkt auf eine 4-MB-Page.

@@ -1,0 +1,51 @@
+{{Infobox OS
+| Name = COBE
+| Version = 0.1 Alpha
+| Entwickler = [[Benutzer:ChiSaw | Christian Hülsemeyer]]
+| Lizenz = BSD
+| Kernel = [[Monolithischer Kernel | Monolith]]
+| API = Noch keine vorhanden
+| Binaerformat = [[ELF]]
+| Sprache = [[C]] [[Assembler]]
+| Plattform = [[x86]]
+| IPC = Noch keine
+| Homepage = http://cobe.sourceforge.net
+}}
+
+COBE (Computer Betriebsystem) ist ein System mit Ziel eines monolithischen [[Kernel | Kernels]]. Derzeit ist das System in den Sprachen [[C]] und [[Assembler]] geschrieben. Entwickelt wird es von Christian Hülsemeyer.
+
+==Aufbau==
+COBE besteht aus folgenden Elementen:
+*COBE besteht mittlerweile nur noch aus dem Kernel, da das System nun GRUB als Bootloader benutzt.
+
+==Kernel==
+Der Kernel wird auf monolithischer Basis aufgebaut werden. Derzeit ist der Kernel in einem noch recht instabilem Zustand, jedoch ist zu erwarten, dass der Kernel bereits in der Version 0.2 wesentlich stabiler laufen wird. Die GDT ist bei COBE nicht im Kernel enthalten, sondern in dem Kernelloader, dafür ist aber bereits die [[IDT]], [[ISR]], und ein Remap der [[PIC]] im Kernel enthalten.
+
+==Versionen==
+'''COBE 0.1 Alpha:'''
+
+*Grundinitialisierung von COBE
+*eigener Bootloader
+*Bootscreen
+*GDT
+*IDT, ISR
+*PIC Remap
+*Keyboard-Treiber
+*Mini-Shell im Kernel
+*stabiler Kernel
+*[[Shell]]
+*[[CMOS]] implementieren
+*[[Multitasking]]
+*[[FDC]]
+*[[Paging]]
+*Speicherverwaltung
+*ELF-Programme
+
+==Geplant==
+
+'''COBE 0.2:'''
+
+noch in Planung
+
+==Sourcecode==
+COBE steht unter der BSD-Lizenz, der Sourcecode ist [http://cobe.svn.sourceforge.net/viewvc/cobe/?view=tar hier herunterladbar].

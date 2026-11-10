@@ -1,0 +1,19 @@
+<!-- Dieser Artikel ist noch nicht besonders lang und auch nicht besonders hochwertig. Bitte auf Rechtschreibfehler korrigieren. Wahrscheinlich gibt es noch inhaltliche Fehler, diese bitte auch korrigieren.-->
+
+Die Interrupt Vector Table (kurz IVT) ist besteht aus dem ersten Kilobyte des Arbeitsspeichers. Ihre Aufgabe besteht darin, die Adressen für die Interrupts bereitzustellen.<br />
+Die IVT stellt für jeden Interrupt 2 Addressen zur Verfügung. Daraus folgt, dass genau 256 Interrupts in der IVT platz haben können. Die erste Addresse ist die, an die die CPU springen muss um den Interrupt auszuführen, also die Startaddresse des Interrupt Codes. Die zweite Addresse ist die, an die die CPU nach Ausführung des Interrupts zurückspringen soll.<br />
+Nach dem Start des Computers wird die IVT automatisch geschrieben. Die Addressen zeigen auf Funktionen, die das BIOS für diese Interrupts bereitstellt. Nach dem Start ist daher sinnvoll diese durch eigene zu ersetzen. Beispielsweiße will man bei einer "Division durch 0" ganz bestimmte Dinge tun. So ersetzt man die Addressen des Interrupts 0h durch eigene.
+So zum Beispiel:
+ xor ax, ax
+ mov es, ax
+ cli; disable interrupt
+ mov WORD [es:0x04*0x0h], __int0x00 ; Unsere Interrupt Routine
+ mov WORD [es:0x04*0x0h+2], __int0x00_back ; Rücksprungaddresse, man kann hier auch einfach das Register cs angeben
+ sti
+
+
+== Quellen ==
+*http://lowlevel.brainsware.org/wiki/index.php/Ausgabe_2 - Ausgabe 2 des Lowlevel Magazins
+*http://lowlevel.brainsware.org/wiki/index.php/Ausgabe_3 - Ausgabe 3 des Lowlevel Magazins
+
+[[Category:Glossar]]

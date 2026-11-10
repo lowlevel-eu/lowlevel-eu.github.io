@@ -1,0 +1,3 @@
+Cool, dass sich hier mal wieder was tut. Das Beispiel mit lock xchg finde ich allerdings ein wenig seltsam. Ich dachte xchg hat ein implizites lock. Oder hat das lock einen anderen Grund? Auf jeden Fall immer schön weiter machen mit Sachen zu Mehrprozessorzeug. ;) --[[Benutzer:Jidder|Jidder]] 00:11, 23. Mai 2009 (CEST)
+
+Ich hatte auch gedacht, dass xchg implizit einen Lock ausführt. Allerdings führen "xchg" und "lock xchg" zu verschiedenen opcodes (habs ausprobiert). Außerdem habe ich versucht, Mutexe ohne das "lock" zu implementieren und es hat nur funktioniert, als ich den lock-Präfix benutzt habe. Wäre mir recht, wenn das jemand klarstellen könnte, denn genau weiß ich es leider auch nicht.

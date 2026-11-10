@@ -1,0 +1,91 @@
+In der '''BIOS Data Area''' (Abkürzung: '''BDA''') werden wichtige Informationen über Hardware und andere Systemkomponenten gespeichert.
+
+==Aufbau der BIOS Data Area==
+Die BDA befindet sich im Segment 0x0040, d.h. an der physikalischen Adresse 0x0400. Die folgende Tabelle zeigt den Aufbau dieses Segments:
+
+{| border="1"
+! Offset || Größe (Bytes) || Beschreibung
+|-
+| 0x00   || 2             || I/O-Port von [[Serielle Schnittstelle | COM1]]
+|-
+| 0x02   || 2             || I/O-Port von [[Serielle Schnittstelle | COM2]]
+|-
+| 0x04   || 2             || I/O-Port von [[Serielle Schnittstelle | COM3]]
+|-
+| 0x06   || 2             || I/O-Port von [[Serielle Schnittstelle | COM4]]
+|-
+| 0x08   || 2             || I/O-Port von LP1
+|-
+| 0x0A   || 2             || I/O-Port von LP2
+|-
+| 0x0C   || 2             || I/O-Port von LP3
+|-
+| 0x0E   || 2             || I/O-Port von LP4 oder <br> Segment der [[EBDA]] (bei PS/2)
+|-
+| 0x10   || 2             || Equipment word
+|-
+| 0x12   || 1             || Manufacturing test data
+|-
+| 0x13   || 2             || Speichergröße (in kB)
+|-
+| 0x15   || 2             || Manufacturing test data
+|-
+| 0x17   || 2             || Keyboard-Status-Flag
+|-
+| 0x19   || 1             || Alt+Numpad-Data
+|-
+| 0x1A   || 2             || Keyboard buffer head
+|-
+| 0x1C   || 2             || Keyboard buffer tail
+|-
+| 0x1E   || 32            || Keyboard buffer
+|-
+| 0x3E   || 11            || Disk-Kontroller-Informationen
+|-
+| 0x49   || 30            || Grafik-Adapter-Informationen
+|-
+| 0x67   || 5             || Unbekannt 
+|-
+| 0x6C   || 4             || Zähler
+|-
+| 0x70   || 1             || Zähler 24h Überlauf
+|-
+| 0x71   || 1             || Keyboard-Control-Flag
+|-
+| 0x72   || 2             || Soft-Reset-Flag
+|-
+| 0x74   || 4             || Disk-Kontroller-Informationen
+|-
+| 0x78   || 4             || LP-Timout-Werte
+|-
+| 0x7C   || 4             || COM-Timout-Werte
+|-
+| 0x80   || 2             || Start des PS/2-Keyboard-Buffers
+|-
+| 0x82   || 2             || Ende des PS/2-Keyboard-Buffers
+|-
+| 0x84   || 7             || Grafik-Controller-Informationen
+|-
+| 0x8B   || 13            || Disk-Controller-Informationen
+|-
+| 0x96   || 2             || Keyboard-Status-Flag
+|-
+| 0x98   || 4             || Zeiger auf Benutzer-Flag
+|-
+| 0x9C   || 4             || Benutzer-Warte-Zähler
+|-
+| 0xA0   || 1             || Benutzer-Warte-Flag
+|-
+| 0xA1   || 7             || Reseviert für Netzwerk-Adapter
+|-
+| 0xA8   || 4             || Grafik-Adapter-Informationen
+|-
+| 0xAC   || 68            || Reserviert 
+|-
+| 0xF0   || 16            || Inter-Application-Kommunikations-Bereich
+|}
+
+==Weblinks==
+* http://www.geocities.com/riskyfriends/x86/os/bios.html
+
+[[Category:Glossar]]

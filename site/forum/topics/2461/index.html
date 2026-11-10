@@ -1,0 +1,803 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="Sysenter vs. Interrupts" name="description"/>
+<title>Sysenter vs. Interrupts</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:29</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Sysenter vs. Interrupts</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg27597"></a>
+<div class="nextlinks"><a href="../2497/index.html#msg28004">« vorheriges</a> <a href="../2457/index.html#msg27570">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] 
+				</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/d4e7b293435eb0f7983a825d.gif"/>
+<span id="author">Autor</span>
+						Thema: Sysenter vs. Interrupts  (Gelesen 27856 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">AGGROStar1991</a>
+</h4>
+<ul class="reset smalltext" id="msg_27597_extra_info">
+<li class="postcount">Beiträge: 29</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong> am:</strong> 13. March 2010, 12:17 »</div>
+<div class="posttile"><h5 id="subject_27597">
+<a href="index.html#msg27597" rel="nofollow">Sysenter vs. Interrupts</a>
+</h5></div>
+<div id="msg_27597_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_27597">Ich bin nun an einem Punkt wo ich für mein OS(soll übrigens idealer weise ein Exokernel werden, nur so btw) Syscalls implementieren will und mir stellt sich eine Frage: Warum zum geier nutzen so viele Betriebssysteme Interrupts als API anstatt die Funktion Sysenter? Bei der 2. Seh ich persöhnlich nur Vorteile,ausser vllt das das nur auf neueren Prozessoren funzelt.<br/><br/><br/>mfg</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_27597">
+								« <em>Letzte Änderung: 13. March 2010, 12:19 von AGGROStar1991</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg27598"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_27598_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #1 am:</strong> 13. March 2010, 12:24 »</div>
+<div class="posttile"><h5 id="subject_27598">
+<a href="index.html#msg27598" rel="nofollow">Re: Sysenter vs. Interrupts</a>
+</h5></div>
+<div id="msg_27598_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_27598">Wenn ich raten soll: Manche wegen der Kompatibilität, einige mehr weil man Interrupts sowieso schon braucht und der Syscall quasi als Nebenprodukt dabei abfällt und der große Rest, weil alle Tutorials es so machen. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_27598">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_27598_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg27599"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">AGGROStar1991</a>
+</h4>
+<ul class="reset smalltext" id="msg_27599_extra_info">
+<li class="postcount">Beiträge: 29</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #2 am:</strong> 13. March 2010, 12:28 »</div>
+<div class="posttile"><h5 id="subject_27599">
+<a href="index.html#msg27599" rel="nofollow">Re: Sysenter vs. Interrupts</a>
+</h5></div>
+<div id="msg_27599_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_27599">also grad das letzte halte ich für ne schlüssige erklärung xD<br/>sollte man vllt mal in die tuts aufnehmen das es auch sysenter gibt^^</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_27599">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg27600"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_27600_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #3 am:</strong> 13. March 2010, 12:34 »</div>
+<div class="posttile"><h5 id="subject_27600">
+<a href="index.html#msg27600" rel="nofollow">Re: Sysenter vs. Interrupts</a>
+</h5></div>
+<div id="msg_27600_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_27600">Eine Zeit lang waren hier im Forum auch Call Gates große Mode. Darüber redet im Moment auch keiner mehr. Müssen wir jetzt alle Tutorials darauf umbauen, dass mindestens drei verschiedene Syscallmechanismen unterstützt werden? <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_27600">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_27600_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg27601"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">AGGROStar1991</a>
+</h4>
+<ul class="reset smalltext" id="msg_27601_extra_info">
+<li class="postcount">Beiträge: 29</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #4 am:</strong> 13. March 2010, 12:59 »</div>
+<div class="posttile"><h5 id="subject_27601">
+<a href="index.html#msg27601" rel="nofollow">Re: Sysenter vs. Interrupts</a>
+</h5></div>
+<div id="msg_27601_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_27601">nönö war eig eher ne scherzhafte parodie darauf wie einfach man mit medien alle beeinflussen kann xD<br/><br/> <img alt=":P" class="smiley" src="../../../assets/forum/7d770ef9789e478248a64dfd.gif" title="Tongue"/><br/><br/>mfg</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_27601">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg27602"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_27602_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #5 am:</strong> 13. March 2010, 13:31 »</div>
+<div class="posttile"><h5 id="subject_27602">
+<a href="index.html#msg27602" rel="nofollow">Re: Sysenter vs. Interrupts</a>
+</h5></div>
+<div id="msg_27602_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_27602">Pssst... Unsere Tuts sind doch von vorne bis hinten voll mit Propaganda! <img alt=":-D" class="smiley" src="../../../assets/forum/40e5b6b3635b5359f55907e5.gif" title="grin"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_27602">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_27602_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg27604"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">AGGROStar1991</a>
+</h4>
+<ul class="reset smalltext" id="msg_27604_extra_info">
+<li class="postcount">Beiträge: 29</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #6 am:</strong> 13. March 2010, 14:47 »</div>
+<div class="posttile"><h5 id="subject_27604">
+<a href="index.html#msg27604" rel="nofollow">Re: Sysenter vs. Interrupts</a>
+</h5></div>
+<div id="msg_27604_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_27604">mist nu werdet ihr mich töten weil ich euer dunkles geheimnis kenne, oder? xD<br/><br/><br/>mfg</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_27604">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg27609"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_27609_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #7 am:</strong> 13. March 2010, 15:23 »</div>
+<div class="posttile"><h5 id="subject_27609">
+<a href="index.html#msg27609" rel="nofollow">Re: Sysenter vs. Interrupts</a>
+</h5></div>
+<div id="msg_27609_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_27609">Hallo,<br/><br/><br/>sysenter funktioniert nur auf Intel-CPUs richtig, AMD hat was eigenes (eigentlich das selbe nur mit nem anderen OpCode), insofern ist das Argument mit der Kompatibilität schon recht wichtig.<br/>Auf allen anderen relevanten CPU-Architekturen gibt es sowas von Anfang an, nur x86 brauchte mehrere Jahrzehnte dafür und dann auch noch mit 2 inkompatiblen Wegen.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_27609">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_27609_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg27742"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_27742_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #8 am:</strong> 26. March 2010, 17:12 »</div>
+<div class="posttile"><h5 id="subject_27742">
+<a href="index.html#msg27742" rel="nofollow">Re: Sysenter vs. Interrupts</a>
+</h5></div>
+<div id="msg_27742_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_27742">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg27609">Zitat von: erik.vikinger am 13. March 2010, 15:23</a></div></div><blockquote class="bbc_standard_quote">.... und dann auch noch mit 2 inkompatiblen Wegen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich hab dazu noch was interessantes gefunden <a class="bbc_link" href="http://www.agner.org/optimize/blog/read.php?i=25" target="_blank">http://www.agner.org/optimize/blog/read.php?i=25</a>, bitte denkt darüber mal nach!!<br/>Ein OS arbeitet an unterster Front und ist somit von diesem Problem auch sehr direkt betroffen, der Syscall-Mechanismus ist da nur die Spitze des Eisbergs.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_27742">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_27742_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg27802"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_27802_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #9 am:</strong> 31. March 2010, 22:55 »</div>
+<div class="posttile"><h5 id="subject_27802">
+<a href="index.html#msg27802" rel="nofollow">Re: Sysenter vs. Interrupts</a>
+</h5></div>
+<div id="msg_27802_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_27802">Sysenter hat noch den Nachteil, dass das User ESP Register nicht gespeichert wird, das muss man selber machen (bevor sysenter ausgeführt wird) und da kann es zu Problemen kommen, weil man dann auch testen muss, ob die Page wo der Stack drin liegen soll auch wirklich ne User-Page ist und ob sie wirklich geladen ist. Ein weiterer Nachteil (auch von Syscall - AMDs Variante) ist das die Rückgabe eines 64bit Wertes nicht mehr Standardkonform gelöst werden kann, da das EDX Register bereits anders verwendet wird.<br/><br/>Ansonsten profitieren gerade Programme die oft die Syscalls aufrufen davon.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_27802">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg27803"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">XanClic</a>
+</h4>
+<ul class="reset smalltext" id="msg_27803_extra_info">
+<li class="avatar">
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<img alt="" class="avatar" height="80" src="http://www.gravatar.com/avatar/a58df05ee8307b45b002f52b55bd2e4e" width="80"/>
+</a>
+</li>
+<li class="postcount">Beiträge: 261</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://www.github.com/XanClic" target="_blank" title="github"><img alt="github" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #10 am:</strong> 31. March 2010, 23:52 »</div>
+<div class="posttile"><h5 id="subject_27803">
+<a href="index.html#msg27803" rel="nofollow">Re: Sysenter vs. Interrupts</a>
+</h5></div>
+<div id="msg_27803_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_27803">Ich weiß nicht, was das Problem mit 64-Bit-Werten ist. Ich kann doch eax und ebx nutzen? Ich persönlich würde das sowieso in einen Assemblerstub auslagern, der dann ja ebx sichern kann und am Ende ebx nach edx schiebt.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_27803">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_27803_signature"><img alt="" class="bbc_img" src="http://www.greensmilies.com/smile/smiley_emoticons_xmas2_biggrin.gif"/></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg27810"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_27810_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #11 am:</strong> 01. April 2010, 19:53 »</div>
+<div class="posttile"><h5 id="subject_27810">
+<a href="index.html#msg27810" rel="nofollow">Re: Sysenter vs. Interrupts</a>
+</h5></div>
+<div id="msg_27810_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_27810"><div class="quoteheader"><div class="topslice_quote">Zitat von: XanClic</div></div><blockquote class="bbc_standard_quote">Ich weiß nicht, was das Problem mit 64-Bit-Werten ist. Ich kann doch eax und ebx nutzen? Ich persönlich würde das sowieso in einen Assemblerstub auslagern, der dann ja ebx sichern kann und am Ende ebx nach edx schiebt. <br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da gebe ich dir recht. Im Moment habe ich meine Syscalls aber soweit optimiert das ich nicht in einen Stub zurückkehre sondern direkt an die Instruktion die nach dem Call kommt. Aber ich habe schon geplant dies zu ändern, da ich mir damit einige Fehler in den Kernel holen kann und das möchte ich vermeiden. Ich meine ganz konkret, das er als Rücksprung Adresse ne falsche angibt und ich dann ne Exception im Kernel bekomme, was weniger schön. Springe ich zu nem Stub zurück und führe dort dann ein ret aus, dann wird die Exception im User-Mode geworfen was weniger problematisch ist und ich könnte gleichzeitig die von die beschriebene Methode zur Rückgabe von 64bit Werten nutzen.<br/><br/>So aber wie würdet ihr das Problem mit dem User-Stack lösen. Ich meine das der Aufrufer ne falsche Adresse im ESP stehen hat oder er einfach sysenter ohne den vom Betriebssystem bereitgestellten Stub nutzt?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_27810">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg27812"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_27812_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #12 am:</strong> 01. April 2010, 19:59 »</div>
+<div class="posttile"><h5 id="subject_27812">
+<a href="index.html#msg27812" rel="nofollow">Re: Sysenter vs. Interrupts</a>
+</h5></div>
+<div id="msg_27812_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_27812">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg27810">Zitat von: FlashBurn am 01. April 2010, 19:53</a></div></div><blockquote class="bbc_standard_quote">So aber wie würdet ihr das Problem mit dem User-Stack lösen. Ich meine das der Aufrufer ne falsche Adresse im ESP stehen hat oder er einfach sysenter ohne den vom Betriebssystem bereitgestellten Stub nutzt?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Auf einen frei nutzbaren OS ist das IMHO ein ernstes Problem das <span class="bbc_u">im</span> Kernel zuverlässig gelöst werden sollte.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_27812">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_27812_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: [<strong>1</strong>] 
+				</div></div>
+<div class="nextlinks_bottom"><a href="../2497/index.html#msg28004">« vorheriges</a> <a href="../2457/index.html#msg27570">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Sysenter vs. Interrupts</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.014 Sekunden mit 45 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

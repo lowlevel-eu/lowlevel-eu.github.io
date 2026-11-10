@@ -1,0 +1,9 @@
+Der Programmable Interval Timer, manchmal auch falsch als Programmable Interrupt Timer bezeichnet, erzeugt ein Signal mit der Frequenz von ~1193181Hz. Diese Signal zählt 3 Register herunter, welche jedes Mal eine Aktion auslösen sobald sie null erreichen.<br>
+
+Zählregister 1: das auslösend des IRQ0 (Dient dem Betriebsystem zur Zeitmessung und Multitasking)<br>
+Zählregister 2: dient in alten XT-PCs, zusammen mit dem DMA-Kanal 0, der Speicherauffrischung<br>
+Zählregister 3: Signal für den PC-Lautsprecher (also die Tonfrequenz)<br>
+
+Die Frequenz für das Auslösen errechnet sich aus der Grundfrequenz (1193181Hz) und dem Teiler (word). Wobei der Teilerwert 0 für die Zahl 65536 steht. Also 1193181/0 würde wie 1193181/65536 gerechnet werden.<br>
+
+1193181 Hz / Teiler = Frequenz

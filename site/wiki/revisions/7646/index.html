@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>ARM – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-ARM rootpage-ARM skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2101/index.html">Aktueller Artikel</a> · <a href="../../history/2101/index.html">Versionsgeschichte</a> · <a href="../../source/7646.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">ARM</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 3. Mai 2010, 15:50 Uhr von <a class="mw-userlink" href="../../pages/1860/index.html" title="Benutzer:XanClic"><bdi>XanClic</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Typo; GB und GBC benutzen Z80, nur GBA benutzt ARM)</span></div><div id="mw-revision-nav">(<a href="../../diffs/6234-7646.html" title="ARM">Unterschied</a>) <a href="../6234/index.html" title="ARM">← Nächstältere Version</a> | <a href="../../pages/2101/index.html" title="ARM">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../7648/index.html" title="ARM">Nächstjüngere Version →</a> (<a href="../../diffs/7646-7648.html" title="ARM">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Vorlage:Stub" style="margin-bottom:1em">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #f6f6f6; margin: 0 0em; padding: 0 0px; border: 1px solid #d6d6d6;" width="100%">
+<tbody><tr>
+<td>Diese Seite ist ein Artikel, welcher <b>mehr</b> haben könnte..<br/>
+<p>Wenn du mehr darüber weißt oder recherchieren willst, bist <b>du</b> aufgerufen, dies zu tun. Wenn du dir in einer Sache nicht sicher bist, dann stell es auf die Diskussionsseite.
+</p>
+</td></tr></tbody></table>
+</div>
+<p><b>ARM</b> (<b>A</b>corn <b>R</b>isc <b>M</b>achine) sind 32-Bit-Prozessoren nach dem <a class="mw-redirect" data-archive-original-href="../../pages/2109/index.html" href="../../pages/2108/index.html" title="RISC">RISC</a>-Prinzip. 
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Eigenschaften"><span class="tocnumber">1</span> <span class="toctext">Eigenschaften</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Einsatzgebiete"><span class="tocnumber">2</span> <span class="toctext">Einsatzgebiete</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Programmierung"><span class="tocnumber">3</span> <span class="toctext">Programmierung</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Register"><span class="tocnumber">3.1</span> <span class="toctext">Register</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Prozessor-Modi"><span class="tocnumber">4</span> <span class="toctext">Prozessor-Modi</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Siehe_auch"><span class="tocnumber">5</span> <span class="toctext">Siehe auch</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Weblinks"><span class="tocnumber">6</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Eigenschaften">Eigenschaften</span></h2>
+<p>Als ARM wird primär das Design des Prozessors bzw. der Prozessor-Architektur bezeichnet. Jedoch bezeichnet man Prozessoren, die nach ARM gebaut wurden als "ARM-Prozessoren". ARM-Prozessoren zeichnen sich durch einen reduzierten und effizienten Befehlssatz und einem geringen Stromverbrauch aus.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Einsatzgebiete">Einsatzgebiete</span></h2>
+<p>ARM-Prozessoren sind zwar vor allem bei PC-Anwendern nicht in aller Munde, stecken aber in erstaunlich vielen Geräten: In fast jedem Router ist ein ARM-Prozessor zu finden, der Apple iPod läuft mit einem ARM-Prozessor und der Game Boy Advance von Nintendo ermöglicht mobiles Spielen mit eben diesen ARM-Prozessoren (im Nintendo DS stecken sogar zwei dieser Sorte, einen für DS-Programme und einen für die GBA-Emulation).
+</p>
+<h2><span class="mw-headline" id="Programmierung">Programmierung</span></h2>
+<p>Die „Lowlevel-Programmierung“ eines ARM-Prozessors mit Assembler unterscheidet sich signifikant von der eines x86-Prozessors. Ein ARM-Prozessor kennt drei Kategorien an Befehlen:
+</p>
+<ul><li>Befehle zum Zugriff auf den Speicher</li>
+<li>Arithmetische oder logische Befehle auf Werte in Registern</li>
+<li>Befehle zum Ändern des Programmflusses (Sprünge, Subroutinen)</li></ul>
+<p>Anders als die x86-Architektur verfügt der ARM über einen Drei-Register-Befehlssatz, welcher ermöglicht, einen Ziel- sowie zwei Quellregister anzugeben:
+</p><p>&lt;asm&gt;
+</p>
+<pre>add r0, r1, r2   ; r0 := r1 + r2
+</pre>
+<p>&lt;/asm&gt;
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Register">Register</span></h3>
+<p>Es stehen 15 Allzweckregister zur Verfügung (ähnlich *ax-Register der x86-Prozessoren): r0 bis r14. das Register r13 wird allerdings standardmäßig als Stackpointer genutzt und das Registger r14 als „Link-Register“, in welchem die Rücksprungadresse bei Prozeduraufrufen gespeichert wird. Das Register r15 dient als „Programmzähler“. Daneben gibt es ein Register namens CPSR (Current Program Status Register), in welchem Informationen wie der aktuelle Programm-Status gespeichert werden.
+</p><p>Die Register r13, r14 und das Statusregister werden „gespiegelt“, sodass man sich bei einer Exception und der dazugehörigen Behandlung nicht um die Sicherung des Stackpointers und des Instruction-Pointers kümmern muss.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Prozessor-Modi">Prozessor-Modi</span></h2>
+<p>Bei ARM-Prozessoren gibt es keinen Real-Mode und Protected-Mode. Auch das Konzept der Privileg-Ringe fällt weg, stattdessen wird selbiges als Prozessor-Modus implementiert. Hier die Modi des ARM-Prozessors:
+</p>
+<ul><li>Supervisor-Mode (SVC): Entspricht dem Ring 0 bei x86-Prozessoren, hier läuft das Betriebssystem</li>
+<li>User Mode: Entspricht dem Ring 3 bei x86-Prozessoren. hier laufen normale User-Programme</li>
+<li>Interrupt-Mode (IRQ): Wird ein Interrupt ausgelöst oder eine Exception geworfen, so wird der Prozessor in diesen Modus umgeschaltet</li>
+<li>Undefined Instruction Exception (UND): Wird ein unbekannter Befehl ausgeführt, wird der Prozessor in diesen Modus geschaltet und bei Bedarf der Befehl emuliert</li>
+<li>Memory Abort (ABT): Kann eine Datenanforderung nicht verarbeitet werden, wird der Prozessor in diesen Modus geschaltet</li>
+<li>Fast Interrupt-Mode (FIQ): Wird durch einen sogenannten „Fast-Interrupt-Request“ ausgelöst, findet meist bei Echtzeit-Betriebssystemen Verwendung</li></ul>
+<p>In jedem Modus hat der gerade auführende Code andere Privilegien, sofern er nicht schon im Supervisor-Mode arbeitet.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a href="../../pages/2099/index.html" title="ARM Cross-Compiler">Cross-Compiler unter Linux für ARM</a></li>
+<li><a class="mw-redirect" data-archive-original-href="../../pages/2109/index.html" href="../../pages/2108/index.html" title="RISC">RISC</a></li></ul>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://infocenter.arm.com/help/index.jsp?noscript=1" rel="nofollow">Offizielle ARM-Seite</a> – Spezifikationen und weitere Informationen</li>
+<li><a class="external text" href="http://www.embedded.com/columns/technicalinsights/200900043" rel="nofollow">Erstellen einer „nackten“ ARM-Umgebung</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164506
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.004 seconds
+Real time usage: 0.004 seconds
+Preprocessor visited node count: 32/1000000
+Preprocessor generated node count: 50/1000000
+Post‐expand include size: 485/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.647      1 Vorlage:Stub
+100.00%    0.647      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=ARM&amp;oldid=7646</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1618/index.html" title="Kategorie:Stub">Stub</a></li><li><a href="../../pages/2100/index.html" title="Kategorie:ARM">ARM</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2101/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2433/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2101/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

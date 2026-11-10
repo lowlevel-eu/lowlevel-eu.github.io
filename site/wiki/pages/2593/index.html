@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>RTL8169 – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-RTL8169 rootpage-RTL8169 skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="index.html">Aktueller Artikel</a> · <a href="../../history/2593/index.html">Versionsgeschichte</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">RTL8169</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Der RTL8169 ist neben dem <a href="../1533/index.html" title="RTL8139">RTL8139</a> ein weiterer Netzwerkchip der Firma Realtek. Er kann Daten im Bereich von 10/100/1000 Megabits pro Sekunde übertragen. Der Chip RTL8168 ist als PCI-Express-Version nahezu identisch anzusteuern.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Initialisierung"><span class="tocnumber">1</span> <span class="toctext">Initialisierung</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#PCI"><span class="tocnumber">1.1</span> <span class="toctext">PCI</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#IO.2FMMIO"><span class="tocnumber">1.2</span> <span class="toctext">IO/MMIO</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#MAC-Adresse_herausfinden"><span class="tocnumber">1.3</span> <span class="toctext">MAC-Adresse herausfinden</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Reset"><span class="tocnumber">1.4</span> <span class="toctext">Reset</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Transfer-Deskriptoren"><span class="tocnumber">1.5</span> <span class="toctext">Transfer-Deskriptoren</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Konfiguration"><span class="tocnumber">1.6</span> <span class="toctext">Konfiguration</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Senden"><span class="tocnumber">2</span> <span class="toctext">Senden</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Empfangen"><span class="tocnumber">3</span> <span class="toctext">Empfangen</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Weblinks"><span class="tocnumber">4</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Initialisierung">Initialisierung</span></h2>
+<h3><span class="mw-headline" id="PCI">PCI</span></h3>
+<p>Die Karte unterstützt die PCI-Funktionen Fast Back-to-Back Transactions sowie Memory Write and Invalidate. Diese können im PCI-Command-Register aktiviert werden. Die RTL8168 kann Message Signaled Interrupts (MSI) unterstützen. Die entsprechenden Informationen stehen dann in der PCI-Capabilities-Liste.
+</p>
+<h3><span id="IO/MMIO"></span><span class="mw-headline" id="IO.2FMMIO">IO/MMIO</span></h3>
+<p>RTL8168 und RTL8169 unterstützen MMIO. Die Basisadresse kann über die <a class="mw-redirect" data-archive-original-href="../1627/index.html" href="../1626/index.html" title="PCI">PCI</a>-BARs ausgelesen werden. Sollten mehrere MMIO-BARs angegeben sein, ist die erste zu nutzen. Im Folgenden wird die Karte über IO-Ports angesteuert, für eine Ansteuerung über MMIO kann analog vorgegangen werden.
+</p><p>Die Offsets der im Folgenden verwendeten Register sind wie folgt definiert:
+&lt;c&gt;
+</p>
+<ol><li>define RTL8168_IDR0                0x00        // Mac address</li>
+<li>define RTL8168_TXDESC              0x20        // Tx descriptors (32bit)</li>
+<li>define RTL8168_RXDESC              0xE4        // Tx descriptors (32bit)</li>
+<li>define RTL8168_CHIPCMD             0x37        // Command register</li>
+<li>define RTL8168_TPPOLL              0x38        // Transmit Priority Polling</li>
+<li>define RTL8168_INTRMASK            0x3C        // Interrupt mask</li>
+<li>define RTL8168_INTRSTATUS          0x3E        // Interrupt status</li>
+<li>define RTL8168_TXCONFIG            0x40        // Tx config</li>
+<li>define RTL8168_RXCONFIG            0x44        // Rx config</li>
+<li>define RTL8168_RPS                 0xDA        // Max Receive Packet Size</li>
+<li>define RTL8168_ETTHR               0xEC        // Early transmit threshold</li></ol>
+<p>&lt;/c&gt;
+</p>
+<h3><span class="mw-headline" id="MAC-Adresse_herausfinden">MAC-Adresse herausfinden</span></h3>
+<p>Die 6 Bytes lange MAC-Adresse des Geräts kann aus den ersten 6 Registern (ausgehend von der o.g. Basisadresse) ausgelesen werden:
+</p><p>&lt;c&gt;char mac_addr[6];
+for(int i = 0; i &lt; 6; ++i)
+{
+</p>
+<pre>   mac_addr[i] = inb(port_base + RTL8168_IDR0 + i); // Funktion zum Einlesen eines Bytes vom angegebenen Port
+</pre>
+<p>}
+&lt;/c&gt;
+</p>
+<h3><span class="mw-headline" id="Reset">Reset</span></h3>
+<p>Durch das Setzen von Bit 8 im Command-Register (0x37) wird ein Reset der Karte ausgelöst. Der Abschluss des Vorgangs wird von der Karte mit dem Löschen dieses Bits quittiert.
+</p>
+<h3><span class="mw-headline" id="Transfer-Deskriptoren">Transfer-Deskriptoren</span></h3>
+<p>Sende- und Empfangsdeskriptoren sind wie folgt definiert:
+&lt;c&gt;
+typedef struct
+{
+</p>
+<pre>   uint32_t command;  // command/status dword
+   uint32_t vlan;
+   uint32_t low_buf;  // low 32-bits of physical buffer address
+   uint32_t high_buf; // high 32-bits of physical buffer address
+</pre>
+<p>} __attribute__((packed)) RTL8168_Desc;
+&lt;/c&gt;
+</p><p>Die Deskriptoren sind an 256-Bytes-Grenzen auszurichten und bilden einen Ring, dessen Ende durch das Setzen von Bit 30 des command-Felds indiziert wird. In dieses Feld werden außerdem die Länge des Puffers (Bits 0-15) so wie das OWN-Bit (Bit 31) geschrieben. Die Sende- bzw. Empfangspuffer können maximal 64 KiB groß sein (allerdings kann die Karte höchstens 16 KiB große Pakete empfangen), ihre physische Adresse wird in low_buf und high_buf gespeichert. Die Puffer sind an 8-Bytes-Grenzen auszurichten.
+</p><p>Die Karte verfügt über drei Ringe von je maximal 1024 Deskriptoren, einen Empfangsring, einen Sendering mit normaler und einen Sendering mit hoher Priorität (letzterer ist analog zum normalen Sendering anzusteuern; im Folgenden wird nur auf den normalen Sendering eingegangen).
+</p>
+<h3><span class="mw-headline" id="Konfiguration">Konfiguration</span></h3>
+<p>Dieser Beispielcode konfiguriert die Karte für das Senden und Empfangen von Paketen. Hierbei wird die Karte in den sog. "promiscuous mode" gesetzt, in dem alle Pakete akzeptiert werden, auch solche, die nicht an das Gerät gerichtet sind. Weiterhin werden Interrupts aktiviert.
+&lt;c&gt;
+outl(port_base + RTL8168_RXCONFIG, 0x0000E70F); // RxConfig = Rx FIFO threshold: no; Max DMA burst size: unbeschränkt; Promiscuous mode
+outb(port_base + RTL8168_CHIPCMD, 0x04); // Aktiviere Tx, bevor TxConfig gesetzt wird
+outl(port_base + RTL8168_TXCONFIG, 0x03000700); // TxConfig = InterFrameGap time: normal, Max DMA burst size: unbeschränkt
+outw(port_base + RTL8168_RPS, 0x1FFF); // Maximale Größe empfangener Pakete (hier: 8 KiB)
+outb(port_base + RTL8168_ETTHR, 0x3F); // Early transmit threshold: Keine vorzeitige Übertragung
+</p><p>outl(port_base + RTL8168_TXDESC, paging_getPhysAddr(rAdapter-&gt;Tx_Descriptors)); // Adresse des ersten Tx-Descriptors (normale Priorität)
+outl(port_base + RTL8168_RXDESC, paging_getPhysAddr(rAdapter-&gt;Rx_Descriptors)); // Adresse des ersten Rx-Descriptors
+</p><p>outw(port_base + RTL8168_INTRMASK, 0xC3FF); // Aktiviere alle Interrupts
+outb(port_base + RTL8168_CHIPCMD, 0x0C); // Aktivere Senden und Empfangen
+&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Senden">Senden</span></h2>
+<p>Um ein Paket zu senden, sind zunächst die Parameter im command-Feld des Sendedeskriptors zu setzen. Hierbei sind das OWN-Bit, Bits 28 und 29 zu setzen und die Länge des Pakets in Bits 0-15 zu schreiben. Durch das Schreiben von Bit 6 in das Transmit-Priority-Polling-Register wird der Karte das Vorliegen eines zu sendenen Pakets mitgeteilt.
+</p><p>RTL8168 und RTL8169 können, um die CPU zu entlasten, die Prüfsummen der wichtigsten Protokolle selbst berechnen. Um diese Funktion zu verwenden, ist das Prüfsummenfeld im Protokollheader zu löschen und stattdessen das entsprechende Bit im command-Feld des Sendedeskriptors zu setzen. Unterstützt werden IPv4 (Bit 18), UDP (Bit 17) und TCP (Bit 16). Neuere Varianten dieser Netzwerkkarte beherrschen auch IPv6.
+</p>
+<h2><span class="mw-headline" id="Empfangen">Empfangen</span></h2>
+<p>Ist bei einem Interrupt Bit 0 des Interrupt-Statusregisters gesetzt, hat die Karte ein Paket empfangen. Es ist nun durch den Ring der Empfangsdeskriptoren zu iterieren und nach Deskriptoren zu suchen, deren OWN-Bit gelöscht ist. Die Länge des empfangenen Pakets steht in Bits 0-15 des command-Felds. Nach Nutzung der empfangenen Daten ist der Deskriptor wieder in den Ursprungszustand (OWN-Bit gesetzt, Länge des Puffers in Bits 0-15 des command-Felds) zu versetzen.
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://www.iitg.ernet.in/asahu/cs421/RealTek.pdf" rel="nofollow">RTL8169 Datenblatt</a></li>
+<li><a class="external text" href="http://sourceforge.net/p/prettyos/code/HEAD/tree/trunk/Source/kernel/network/rtl8168.c" rel="nofollow">RTL8168/RTL8169-Treiber von PrettyOS, auf dem der Artikel basiert</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170144
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.004 seconds
+Real time usage: 0.005 seconds
+Preprocessor visited node count: 39/1000000
+Preprocessor generated node count: 44/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key lowlevel_wiki:pcache:idhash:2593-0!canonical and timestamp 20261109170144 and revision id 11328
+ -->
+</div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="../../revisions/11328/index.html">http://wiki.localhost:8080/w/index.php?title=RTL8169&amp;oldid=11328</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../1826/index.html" title="Kategorie:Netzwerkkarte">Netzwerkkarte</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2593/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="../../revisions/11328/index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/RTL8169" hreflang="en" lang="en" title="RTL8169 – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="lastmod"> Diese Seite wurde zuletzt am 30. Dezember 2015 um 21:00 Uhr bearbeitet.</li><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

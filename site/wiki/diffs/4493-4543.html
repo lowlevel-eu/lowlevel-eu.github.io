@@ -1,0 +1,49 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MyXomycota — Änderungen 4493 → 4543</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>MyXomycota — Änderungen 4493 → 4543</h1><nav><a href="../revisions/4493/index.html">Version 4493</a> · <a href="../revisions/4543/index.html">Version 4543</a> · <a href="../history/1861/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l54" >Zeile 54:</td>
+<td colspan="2" class="diff-lineno">Zeile 54:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Treiber im Usermode laden können</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* Treiber im Usermode laden können</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* StdCLib vervollständigen, POSIX-Kompatibilität stark verbessern</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>* StdCLib vervollständigen, POSIX-Kompatibilität stark verbessern</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">* sysenter-Unterstützung</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">== Syscalls (Auszug) ==</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Syscalls geschehen über den Interrupt 0x80. Die Parameter werden in Registern übergeben, eax enthält die Funktionsnummer. An sich sind die Systemfunktionen für eine StdCLib und nicht für POSIX ausgelegt.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">{| {{Prettytable}}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">! Nummer (eax) || Funktion || Beschreibung</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x00000000 || &lt;c&gt;FILE *eax = fopen(const char *ebx, const char *esi)&lt;/c&gt; || StdCLib (öffnet eine Datei)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x00000001 || &lt;c&gt;fclose(FILE *edx)&lt;/c&gt;&#160; || StdCLib (schließt eine Datei)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x00000002 || &lt;c&gt;size_t eax = fread(void *edi, size_t ebx, size_t ecx, FILE *edx)&lt;/c&gt;&#160; || StdCLib (liest Daten aus einer Datei)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x00000003 || &lt;c&gt;size_t eax = fwrite(void *esi, size_t ebx, size_t ecx, FILE *edx)&lt;/c&gt;&#160; || StdCLib (schreibt Daten in eine Datei)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x00000100 || &lt;c&gt;void *eax = malloc(size_t ecx)&lt;/c&gt;&#160; || StdCLib (reserviert einen Speicherbereich)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x00000101 || &lt;c&gt;free(void *ebx)&lt;/c&gt;&#160; || StdCLib (gibt einen Speicherbereich frei)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x00000200 || &lt;c&gt;exit(int edx)&lt;/c&gt;&#160; || StdCLib (beendet das Programm)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x00000202 || &lt;c&gt;pid_t eax = exec(char *ebx, char **esi)&lt;/c&gt;&#160; || Erstellt einen neuen Prozess und führt darin das Programm ebx mit der Parameterliste esi aus.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x0000020A || &lt;c&gt;sleep(int ecx)&lt;/c&gt;&#160; || Legt den Prozess für (mindestens) ecx Millisekunden schlafen.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0x00000300 || &lt;c&gt;int eax = mount(const char *esi, const char *edi, const char *ebx)&lt;/c&gt;&#160; || Hängt die Gerätedatei esi in den Ordner edi ein. ebx gibt das Dateisystem an, wenn ebx==NULL, dann wird versucht, ein passendes Dateisystem zu finden.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0xFFFFFF00 || &lt;c&gt;int eax = rand()&lt;/c&gt;&#160; || StdCLib (Liefert eine Zufallszahl)</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">| 0xFFFFFFFF || &lt;c&gt;reboot()&lt;/c&gt;&#160; || Startet das System neu, funktioniert nur, wenn der aufrufende Prozess zum Benutzer root gehört.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|-</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">|}</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange"></ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">Die ersten sechs Stellen der Hexfunktionsnummer (also Funktionsnummer&amp;0xFFFFFF00) geben den Typ an: 0x000000xx sind Dateifunktionen, 0x000001xx sind Speicherfunktionen, 0x000002xx sind Prozessfunktionen, 0x000003xx sind Gerätefunktionen und 0xFFFFFFxx sind andere Funktionen.</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Betriebssystem]]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[[Kategorie:Betriebssystem]]</div></td></tr>
+</table></body></html>

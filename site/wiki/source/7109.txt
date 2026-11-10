@@ -1,0 +1,53 @@
+Durch die Optimierung des Quellcodes eines Programms kann dieses schneller, effektiver und platzsparender arbeiten.
+== Allgemeines ==
+=== Datengrößen ===
+Wordgröße des Prozessors verwenden, ist oft besser, als dies nicht zu tun (DWords bei i386, QWords bei x86-64).
+=== Alignment ===
+
+== Assembler ==
+
+=== Reduzierung der Codegröße ===
+Die nachfolgenden Tricks eignen sich besonders zum Programmieren in [[Assembler]], wie es z.&nbsp;B. im [[Bootloader]] nötig ist.
+
+{| {{prettytable}}
+!Beschreibung
+!Optimierter Code
+|-
+|Register 0 setzen
+|<asm>xor eax, eax</asm>
+|-
+|Prüfen, ob Register 0 ist
+|<asm>test eax, eax
+jz ...</asm>
+|-
+|Multiplikation mit einer Zweierpotenz
+|<asm>shl eax, log<sub>2</sub>Faktor</asm>
+|-
+|Division durch eine Zweierpotenz
+|<asm>shr eax, log<sub>2</sub>Divisor</asm>
+|-
+|Beliebige Multiplikation
+|<asm>imul eax, [Faktor_1], [Faktor_2]</asm>
+|-
+|Schleife
+|<asm>mov ecx, [Anzahl_Wiederholungen]
+von_vorn:
+; ...
+loop von_vorn</asm>
+|}
+
+=== Steigerung der Effektivität ===
+==== PUSHA / POPA ====
+Ist es schneller jedes Register einzeln zu pushen, oder besser pusha?
+
+== Hochsprachen ==
+=== Optimierungstools ===
+TODO
+
+== siehe auch ==
+* [[Ausgabe_8#Tipps_.26_Tricks|Ausgabe 8]]
+
+== Weblinks ==
+*http://www.intel.com/Assets/PDF/manual/248966.pdf
+
+[[Kategorie:Stub]]

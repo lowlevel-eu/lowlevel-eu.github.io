@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>PrettyOS – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-PrettyOS rootpage-PrettyOS skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2096/index.html">Aktueller Artikel</a> · <a href="../../history/2096/index.html">Versionsgeschichte</a> · <a href="../../source/10193.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">PrettyOS</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 1. November 2011, 20:00 Uhr von <a class="mw-userlink" href="../../pages/2274/index.html" title="Benutzer:Ehenkes"><bdi>Ehenkes</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Kernel">→</a>‎<span dir="auto"><span class="autocomment">Kernel</span></span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/10192-10193.html" title="PrettyOS">Unterschied</a>) <a href="../10192/index.html" title="PrettyOS">← Nächstältere Version</a> | <a href="../../pages/2096/index.html" title="PrettyOS">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../10223/index.html" title="PrettyOS">Nächstjüngere Version →</a> (<a href="../../diffs/10193-10223.html" title="PrettyOS">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="float:right; width:300px; padding-left:20px; padding-bottom: 20px; background-color:white">
+<div style="font-weight:normal; text-align:left; border:1px solid lightgray;">
+<table width="100%">
+<tbody><tr align="center" style="background: lightgray;">
+<th colspan="2">PrettyOS
+</th></tr>
+<tr align="center">
+<td colspan="2" style="padding: 0px;" width="100%">
+</td></tr>
+<tr>
+<td valign="top">Entwickler:</td>
+<td><a href="../../pages/2274/index.html" title="Benutzer:Ehenkes">ehenkes</a> et. al.
+</td></tr>
+<tr>
+<td valign="top">Akt. Version:</td>
+<td>0.0.3.0
+</td></tr>
+<tr>
+<td valign="top"><a href="../../pages/1552/index.html" title="Lizenzen">Lizenz</a>:</td>
+<td>2-Klausel-BSD
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">OS-Eigenschaften
+</th></tr>
+<tr>
+<td valign="top">Plattform:</td>
+<td><a href="../../pages/1749/index.html" title="X86">i386</a>
+</td></tr>
+<tr>
+<td valign="top"><a href="../../pages/1478/index.html" title="Kernel">Kernelart</a>:</td>
+<td><a class="mw-redirect" data-archive-original-href="../../pages/1825/index.html" href="../../pages/1478/index.html#Monolithischer_Kernel" title="Monolithischer Kernel">Monolith</a>
+</td></tr>
+<tr>
+<td valign="top"><a href="../../pages/1648/index.html" title="Kategorie:Programmiersprache">Sprache</a>:</td>
+<td>C, Assembler
+</td></tr>
+<tr>
+<td valign="top">API:</td>
+<td>Nativ
+</td></tr>
+<tr>
+<td valign="top">Binärformat:</td>
+<td><a class="mw-redirect" data-archive-original-href="../../pages/1650/index.html" href="../../pages/1528/index.html" title="ELF">ELF</a>, <a class="mw-redirect" data-archive-original-href="../../pages/1645/index.html" href="../../pages/1644/index.html" title="PE">PE</a> (Userprogramme)
+</td></tr>
+<tr>
+<td valign="top"><a class="mw-redirect" data-archive-original-href="../../pages/1519/index.html" href="../../pages/1530/index.html" title="IPC">IPC-Methode</a>:</td>
+<td>-
+</td></tr>
+<tr align="center" style="background:lightgray">
+<th colspan="2">Homepage
+</th></tr>
+<tr>
+<td colspan="2"><center><a class="external autonumber" href="http://www.c-plusplus.de/forum/viewforum-var-f-is-62.html" rel="nofollow">[1]</a></center>
+</td></tr></tbody></table>
+</div>
+</div>
+<p>PrettyOS ist das Betriebssystem der Projektgruppe OS-Development bei <a class="external free" href="http://www.c-plusplus.de/forum/" rel="nofollow">http://www.c-plusplus.de/forum/</a>. Es entstand als Idee im März 2009, führte zu einem vierteiligen Tutorial, das für Einsteiger in die Materie beginnend beim ersten Boot-Vorgang gedacht war, und wird seit Mitte Oktober 2009 von interessierten Entwicklern diskutiert, umgebaut, gepflegt und erweitert. Zielsetzung ist, verständlich zum Lernen und zum Experimentieren verwendbar zu sein. Das ist bisher hervorragend gelungen.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Ziel"><span class="tocnumber">1</span> <span class="toctext">Ziel</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Genereller_Aufbau"><span class="tocnumber">2</span> <span class="toctext">Genereller Aufbau</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Bootloader"><span class="tocnumber">2.1</span> <span class="toctext">Bootloader</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Kernel"><span class="tocnumber">2.2</span> <span class="toctext">Kernel</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Userprogramme"><span class="tocnumber">2.3</span> <span class="toctext">Userprogramme</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Entwicklung"><span class="tocnumber">3</span> <span class="toctext">Entwicklung</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Links"><span class="tocnumber">4</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Ziel">Ziel</span></h2>
+<p>PrettyOS soll Einsteiger in die Betriebssystementwicklung dabei unterstützen, den gesamten Prozess des Bootens, Startens eines C-Kernels, einer Shell sowie Applikationen (C oder C++) an einem noch überschaubaren praktischen Beispiel zu verstehen. Als Entwicklungs-Plattform ist Linux, MacOS und MS Windows einsetzbar.
+</p>
+<h2><span class="mw-headline" id="Genereller_Aufbau">Genereller Aufbau</span></h2>
+<p>PrettyOS besteht momentan aus den Bereichen Bootloader (Stage 1 und 2), Kernel und User-Space.
+</p>
+<h3><span class="mw-headline" id="Bootloader">Bootloader</span></h3>
+<p>Der Bootloader ist in Assembler (NASM) geschrieben und besteht aus zwei Stufen. BL1 (in Sektor 1) lädt BL2 (Datei boot2.bin). Dieser wiederum startet den Kernel (kernel.bin). Als Dateisystem für das Bootlaufwerk wird FAT12 vorausgesetzt. Der Bootloader soll <a href="../../pages/1560/index.html" title="Multiboot">Multiboot</a>-konform werden.
+Als Alternative zum nativen Bootloader kann mit Einschränkungen GRUB verwendet werden.
+</p>
+<h3><span class="mw-headline" id="Kernel">Kernel</span></h3>
+<p>Der monolithische Kernel ist in der Programmiersprache C mit wenigen Teilen Assembler (NASM und GCCs Inline-Assembler) gehalten. Er verfügt über grundlegende Fähigkeiten wie Interrupt-Handling, Paging, Kernel- und User-Heap, Multitasking, Multithreading, Syscalls, VM86 und enthält unter anderem Treiber für PCspeaker, Serielle Schnittstelle, Diskettenlaufwerke, <a class="mw-redirect" data-archive-original-href="../../pages/1695/index.html" href="../../pages/1577/index.html" title="EHCI">EHCI</a> (USB 2), <a class="mw-redirect" data-archive-original-href="../../pages/1693/index.html" href="../../pages/1575/index.html" title="OHCI">OHCI</a> und <a class="mw-redirect" data-archive-original-href="../../pages/1694/index.html" href="../../pages/1576/index.html" title="UHCI">UHCI</a> (USB 1.1 und USB 2.0), <a href="../../pages/2303/index.html" title="VESA BIOS Extensions">VESA BIOS Extensions</a> und die Netzwerkkarten <a href="../../pages/1533/index.html" title="RTL8139">RTL8139</a> und <a href="../../pages/2025/index.html" title="AMD PCnet">AMD PCnet</a>. Mittels <a class="mw-redirect" data-archive-original-href="../../pages/1625/index.html" href="../../pages/1622/index.html" title="CDI">CDI</a> werden auch andere Treiber eingebunden, z.B. e1000 (Netzwerkkarte Intel PRO/1000). Die Netzwerkprotokolle ethernet, ip, arp, icmp, dhcp, udp und tcp werden unterstützt. Als Dateisysteme werden gegenwärtig FAT12, FAT16 und FAT32 auf Floppydisk und usb-Stick eingesetzt.
+</p>
+<h3><span class="mw-headline" id="Userprogramme">Userprogramme</span></h3>
+<p>Der User-Space dient bisher nur als Demonstration für die API (syscalls). Bisher sind nur eine einfache Shell sowie ein paar simple Programme vorhanden, die u.a. zum Test neuer Features dienen. Programme für den Userspace können in diversen Sprachen geschrieben werden. Als Hilfe stehen die Dummy-makefiles, eine C-Userlib (Syscalls sowie einige wenige Funktionen der C-Standardlib) und eine C++-Userlib, die die C-Userlib als Untermenge hat und zudem ein paar C++-spezifische Funktionen bietet (new, delete) zur Verfügung.
+</p><p>Userprogramme können auf drei verschiedenen Wegen eingebunden werden:
+Mittels incbin direkt in den Kernel, von wo es dann über die vom Linker generierte Adresse gestartet werden kann (derzeit für die VM86-Programme für VBE und APM genutzt), über die Ramdisk (so wie es derzeit mit der Shell gemacht wird), oder auf dem herkömmlichen Weg als Executable im ELF- oder PE-Format auf einem von PrettyOS unterstützten Speichermedium, wodurch das Programm für den Nutzer von der Shell aus aufrufbar wird.
+</p>
+<h2><span class="mw-headline" id="Entwicklung">Entwicklung</span></h2>
+<p>PrettyOS ist als freie Experimentierbasis für Ideen der OS-Projektgruppe bei c-plusplus.de gedacht und wird von einer aktiven Community gepflegt und erweitert. Inzwischen entwickeln bis zu 10 Personen (allerdings nur zwei bis drei wirklich aktiv) an PrettyOS.
+IRC Channel: #PrettyOS auf euirc.net und im Forum (siehe Links). Tester und Entwickler sind immer gerne gesehen. PrettyOS wird das führende Hobby-OS in Europa werden.
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li>SVN-Repository: <a class="external free" href="https://prettyos.svn.sourceforge.net/svnroot/prettyos/trunk/Source" rel="nofollow">https://prettyos.svn.sourceforge.net/svnroot/prettyos/trunk/Source</a></li>
+<li>Forum: <a class="external free" href="http://www.c-plusplus.de/forum/viewforum-var-f-is-62.html" rel="nofollow">http://www.c-plusplus.de/forum/viewforum-var-f-is-62.html</a></li>
+<li>Tutorial: <a class="external free" href="http://www.henkessoft.de/OS_Dev/OS_Dev1.htm" rel="nofollow">http://www.henkessoft.de/OS_Dev/OS_Dev1.htm</a></li>
+<li>IRC: irc.euirc.net, #PrettyOS</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170058
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.006 seconds
+Real time usage: 0.007 seconds
+Preprocessor visited node count: 66/1000000
+Preprocessor generated node count: 290/1000000
+Post‐expand include size: 1171/2097152 bytes
+Template argument size: 218/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.967      1 Vorlage:Infobox_OS
+100.00%    0.967      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=PrettyOS&amp;oldid=10193</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1649/index.html" title="Kategorie:Betriebssystem">Betriebssystem</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2096/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2459/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2096/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

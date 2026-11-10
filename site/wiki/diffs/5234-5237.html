@@ -1,0 +1,193 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CPUID — Änderungen 5234 → 5237</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>CPUID — Änderungen 5234 → 5237</h1><nav><a href="../revisions/5234/index.html">Version 5234</a> · <a href="../revisions/5237/index.html">Version 5237</a> · <a href="../history/1739/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l140" >Zeile 140:</td>
+<td colspan="2" class="diff-lineno">Zeile 140:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{cs|8}} Brand ID</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{cs|8}} Brand ID</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{Achtung|Text='''APIC ID''' ist nur gültig wenn das '''[[#<del class="diffchange diffchange-inline">EDX_2</del>|APIC-Flag]]''' gesetzt ist.&lt;br/&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{Achtung|Text='''APIC ID''' ist nur gültig wenn das '''[[#<ins class="diffchange diffchange-inline">EDX_-_Featureflags</ins>|APIC-Flag]]''' gesetzt ist.&lt;br/&gt;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Die Anzahl der logischen Prozessoren ist nur bei gesetztem '''[[#<del class="diffchange diffchange-inline">EDX_2</del>|Hyper-Threading-Flag]]''' gültig.&lt;br/&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Die Anzahl der logischen Prozessoren ist nur bei gesetztem '''[[#<ins class="diffchange diffchange-inline">EDX_-_Featureflags</ins>|Hyper-Threading-Flag]]''' gültig.&lt;br/&gt;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>'''CLFLUSH Size''' gibt die Größe einer Cache line in 8 Byte Blöcken an. Das Feld ist nur gültig in Verbindung mit einem gesetzten '''[[#<del class="diffchange diffchange-inline">EDX_2</del>|CFLUSH-Flag]]'''.</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>'''CLFLUSH Size''' gibt die Größe einer Cache line in 8 Byte Blöcken an. Das Feld ist nur gültig in Verbindung mit einem gesetzten '''[[#<ins class="diffchange diffchange-inline">EDX_-_Featureflags</ins>|CFLUSH-Flag]]'''.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}}</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>==== ECX ====</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>==== ECX <ins class="diffchange diffchange-inline">- Featureflags </ins>====</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| {{prettytable32bit|size=&quot;30pt&quot;}}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| {{prettytable32bit|size=&quot;30pt&quot;}}</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csamd|1}} RAZ</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csamd|1}} RAZ</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l187" >Zeile 187:</td>
+<td colspan="2" class="diff-lineno">Zeile 187:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 0 || Verfügbarkeit von SSE3</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>| 0 || Verfügbarkeit von SSE3</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>==== EDX ====</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>==== EDX <ins class="diffchange diffchange-inline">- Featureflags</ins>====</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">Dies sind die Featureflags. Wenn ein Bit gesetzt(=1) ist, dann wird das entsprechende Feature unterstützt.</ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| {{prettytable32bit|size=&quot;30pt&quot;}}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| {{prettytable32bit|size=&quot;30pt&quot;}}</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csintel|1}} PBE</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csintel|1}} PBE</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l224" >Zeile 224:</td>
+<td colspan="2" class="diff-lineno">Zeile 227:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| {{prettytable}}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{| {{prettytable}}</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>! Bit</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>! <ins class="diffchange diffchange-inline">width=&quot;30pt&quot; | </ins>Bit</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>! Funktion</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>! Funktion</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l279" >Zeile 279:</td>
+<td colspan="2" class="diff-lineno">Zeile 282:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 14</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 14</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{csl|1}}</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{csl|1}} <ins class="diffchange diffchange-inline">Unterstützt die Machine-Check Architektur (Besonders das '''MTRR_CAP'''-Register)</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 13</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 13</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{csl|1}}</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{csl|1}} <ins class="diffchange diffchange-inline">Unterstützt das [[Paging|Page-Global-Bit]]</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 12</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 12</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{csl|1}}</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{csl|1}} <ins class="diffchange diffchange-inline">Unterstützt MTRR-Register (Besonders das '''MTRR_CAP'''-Register)</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 11</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 11</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{csl|1}}</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{csl|1}} <ins class="diffchange diffchange-inline">Unterstützt schnelle [[Systemcall|Systemcalls]] durch die Befehle '''SYSENTER''' und '''SYSEXIT'''</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 10</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 10</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{csr|1}}</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{csr|1}} &#160;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 9</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 9</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{csl|1}}</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{csl|1}} <ins class="diffchange diffchange-inline">Besitzt einen lokalen [[APIC]]</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 8</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 8</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{csl|1}}</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{csl|1}} <ins class="diffchange diffchange-inline">Unterstützt den '''CMPXCHG8B''' Befehl</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 7</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 7</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{csl|1}}</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{csl|1}} <ins class="diffchange diffchange-inline">Unterstützt Machine-Check-[[Exception|Exceptions]]</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 6</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 6</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{csl|1}}</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{csl|1}} <ins class="diffchange diffchange-inline">Unterstützt physische Adressen, die größer als 32-Bit sind</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 5</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 5</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{csl|1}}</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{csl|1}} <ins class="diffchange diffchange-inline">Implementiert Modellspezifische Register über die Befehle '''RDMSR''' und '''WRMSR'''</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 4</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 4</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{csl|1}}</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{csl|1}} <ins class="diffchange diffchange-inline">Unterstützt den '''RDTSC''' Befehl und CR4.TSD-Bit</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 3</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 3</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{csl|1}}</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{csl|1}} <ins class="diffchange diffchange-inline">Unterstützt 4-MiB [[Paging|Pages]]</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 2</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 2</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{csl|1}}</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{csl|1}} <ins class="diffchange diffchange-inline">Unterstützt I/O-Breakpoints, das CR4.DE-Bit und die DR4- und DR5-Register</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 1</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 1</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{csl|1}}</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{csl|1}} <ins class="diffchange diffchange-inline">Unterstützt den [[Virtual 8086 Mode]]</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|-</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 0</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{{csh|1}} 0</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>{{csl|1}}</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>{{csl|1}} <ins class="diffchange diffchange-inline">Besitzt </ins>eine [[<ins class="diffchange diffchange-inline">FPU</ins>]], die den <ins class="diffchange diffchange-inline">x87</ins>-<ins class="diffchange diffchange-inline">Befehlssatz implementiert</ins></div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|}</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">Dies sind die Featureflags. Wenn ein Bit gesetzt(=1) ist, dann wird das entsprechende Feature unterstützt.</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">{| {{Prettytable}}</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">! Bit&#160; || Funktion&#160; </del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 31 - 30 || bgcolor=&quot;#bbb&quot; | Reserviert</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 29 || Wenn eins, dann wird das Thermal Monitor unterstützt</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 28 || Der Prozessor unterstützt Hyper-Threading.</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 27 || Der Prozessor unterstützt Self-Snoop</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 26 || Der Prozessor kann SSE2</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 25 || Der Prozessor kann SSE</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 24 || Der Prozessor unterstützt FXSAVE und FXSTOR, womit er einen Floatzusammenhang(?) speichern und wiederherstellen kann</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 23 || Der Prozessor kann MMX</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 22 || Die Temperatur und der Prozessortakt kann durch eine Software verändert und überwacht werden</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 21 || Der Prozessor hat die Fähigkeit, die Entwicklung eines Ablegers in </del>eine <del class="diffchange diffchange-inline">Adresse zu schreiben</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 20 || bgcolor=&quot;#bbb&quot; | Reserviert</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 19 || Der Prozessor kann CSFLUSH</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 18 || Der 12-Byte ProzessorID ist aktiviert und vorhanden</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 17 || Der Prozessor kann im Protected Mode mehr als 4 GByte adressieren. (PSE)</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 16 || Der Prozessor unterstützt die Page Attribute Table</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 15 || Der Prozessor untersützt CMOVcc, und wenn Bit 0 gesetzt ist, dann kann er FCMOVCC und FCOMI</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 14 || Der Prozessor unterstützt die Machine Check Architecture und MCG_CAP Register</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 13 || Der Prozessor unterstützt die Page Entry Table, die Page Directory Table und das TLB muss nicht erneuert werden</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 12 || Der Prozessor unterstützt die Memory Type Range Register, speziell das MTRR_CAP Register</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 11 || Der Prozessor unterstützt die Fast System Call Befehle, den SYSENTER Befehl und SYSEXIT Befehl</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 10 || bgcolor=&quot;#bbb&quot; | Reserviert</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 9 || Der Prozessor beinhaltet ein </del>[[<del class="diffchange diffchange-inline">Local APIC</del>]]</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 8 || Der Prozessor unterstützt den CMPXCHG8 Befehl</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 7 || Der Prozessor unterstützt die Machine Check Exception</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 6 || Der Prozessor unterstützt Physical Adress Extension</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 5 || Der Prozessor unterstützt die Model Specific Register</del>, <del class="diffchange diffchange-inline">den RDMSR Befehl und den WRMSR Befehl</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 4 || Der Prozessor unterstützt den RDTSC Befehl, zudem den CR4.TSD-Bit für Rechtekontrolle</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 3 || Der Prozessor unterstützt 4-MByte-Pages</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 2 || Der Prozessor unterstützt I/O-Breakpoints, das CR4.DE Bit und </del>die <del class="diffchange diffchange-inline">DR4 und DR5 Register</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 1 || Der Prozessor unterstützt Erweiterungen für </del>den <del class="diffchange diffchange-inline">Virtual-8086-Modus</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">|-</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">| 0 || Der Prozessor unterstützt die Intel857</del>-<del class="diffchange diffchange-inline">Gleitkommeoperationen</del></div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>|}</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">=</del>== EAX = 0x00000002 <del class="diffchange diffchange-inline">=</del>==</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>== EAX = 0x00000002 ==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wenn in EAX statt Null Zwei steht, dann werden bei Intelprozessoren</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wenn in EAX statt Null Zwei steht, dann werden bei Intelprozessoren</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Informationen über den Cache und die TLB-Deskriptoren ausgegeben.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Informationen über den Cache und die TLB-Deskriptoren ausgegeben.</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">=</del>== EAX = 0x00000003 <del class="diffchange diffchange-inline">=</del>==</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>== EAX = 0x00000003 ==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wenn in EAX statt Null Drei steht, wird bei Intelprozessoren</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wenn in EAX statt Null Drei steht, wird bei Intelprozessoren</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>stattdessen folgendes ausgegeben:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>stattdessen folgendes ausgegeben:</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l413" >Zeile 413:</td>
+<td colspan="2" class="diff-lineno">Zeile 349:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Erweiterte Funktionen von Intel:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Erweiterte Funktionen von Intel:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">=</del>== EAX = 0x80000000 <del class="diffchange diffchange-inline">=</del>==</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>== EAX = 0x80000000 ==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== EAX ====</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== EAX ====</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Enthält maximale erweiterte Funktionsnummer.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Enthält maximale erweiterte Funktionsnummer.</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l423" >Zeile 423:</td>
+<td colspan="2" class="diff-lineno">Zeile 359:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Reserviert</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Reserviert</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">=</del>== EAX = 0x80000001 <del class="diffchange diffchange-inline">=</del>==</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>== EAX = 0x80000001 ==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== EAX ====</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== EAX ====</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Reserviert</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Reserviert</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l433" >Zeile 433:</td>
+<td colspan="2" class="diff-lineno">Zeile 369:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wenn Bit 29 gesetzt, dann ist Intel64-Technologie verfügbar</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wenn Bit 29 gesetzt, dann ist Intel64-Technologie verfügbar</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">=</del>== EAX = 0x80000002 <del class="diffchange diffchange-inline">=</del>==</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>== EAX = 0x80000002 ==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== EAX ====</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== EAX ====</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Eingebrannter String</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Eingebrannter String</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l443" >Zeile 443:</td>
+<td colspan="2" class="diff-lineno">Zeile 379:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Eingebrannter String (Fortsetzung)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Eingebrannter String (Fortsetzung)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">=</del>== EAX = 0x80000003 <del class="diffchange diffchange-inline">=</del>==</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>== EAX = 0x80000003 ==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== EAX ====</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== EAX ====</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Eingebrannter String (Fortsetzung)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Eingebrannter String (Fortsetzung)</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l453" >Zeile 453:</td>
+<td colspan="2" class="diff-lineno">Zeile 389:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Eingebrannter String (Fortsetzung)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Eingebrannter String (Fortsetzung)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div><del class="diffchange diffchange-inline">=</del>== EAX = 0x80000004 <del class="diffchange diffchange-inline">=</del>==</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>== EAX = 0x80000004 ==</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== EAX ====</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==== EAX ====</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Eingebrannter String (Fortsetzung)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Eingebrannter String (Fortsetzung)</div></td></tr>
+</table></body></html>

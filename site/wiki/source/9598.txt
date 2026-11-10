@@ -1,0 +1,23 @@
+Ich würde gut finden, wenn hier (im Artikel natürlich!) was dazu stehen würde, was ein Cluster ist, und wie man eine Datei auf dem Datenträger findet, und komplett einliest. Und was sonst noch fehlt, um die Leute davon abzuhalten, ihre eigenen Dateisysteme zu schreiben, weil sie diesen Artikel nicht verstehen. --[[Benutzer:Jidder|Jidder]] 23:52, 23. Apr. 2009 (CEST)
+
+== VFAT ==
+
+"Außerdem werden auch das Erstelldatum und das Datum des letzten Zugriffs durch VFAT gespeichert." Passiert das nicht auch ohne VFAT? Zumindest sagt der Artikel das. --[[Benutzer:XanClic|XanClic]] 21:42, 11. Dez. 2009 (CET)
+:Die 3 Zeitstempel sind nur in dem normalen Verzeichniseintrag enthalten (und funktionieren daher auch ohne lange Dateinamen), die zusätzlichen VFAT-Einträge dienen nur dazu den korrekten/langen Dateinamen zu speichern.--[[Benutzer:Erik.vikinger|Erik.vikinger]] 13:25, 21. Feb. 2011 (CET)
+
+"Wenn die ersten 4 Bits (Bitmaske: 0x0F) gesetzt sind, handelt es sich um einen VFAT-Eintrag" sollte das nicht "die untersten 4 Bits" heißen? Was in einem Byte zuerst und zuletzt kommt ist recht subjektiv aber die Wertigkeit der Bits ist IMHO fest.--[[Benutzer:Erik.vikinger|Erik.vikinger]] 13:25, 21. Feb. 2011 (CET)
+
+== Fat12 ==
+
+Sollte man die Weiterleitung von fat12 auf ausgabe 4 nicht auf diesen Artikel hier umstellen?--user94 16:12, 3. Feb. 2010 (CET)
+: IMHO noch nicht, in der Ausgabe 4 sind einige Infos die noch nicht im FAT-Artikel sind. --[[Benutzer:Erik.vikinger|Erik.vikinger]] 12:09, 29. Nov. 2010 (CET)
+
+== "Verbotene" FAT-Einträge ==
+"Die Einträge 0 und 1 in der FAT werden für spezielle Zwecke benutzt und sollten nicht verändert werden." Mal ehrlich, so eine Aussage gehört sich vielleicht für ein Windows-Anwenderforum, aber im OS-Dev-Kontext will man doch nicht nur wissen, dass man die Finger von etwas lassen soll, sondern vor allem, was diese speziellen Zwecke sind, oder? --[[Benutzer:Taljeth|Taljeth]] 11:00, 28. Nov. 2010 (CET)
+: Ich kenne den Zweck dieser Infos ehrlich nicht und da ist mir erst mal kein besserer Satz zu eingefallen, aber ich schau mal nach ob ich dazu was finde. --[[Benutzer:Erik.vikinger|Erik.vikinger]] 11:36, 28. Nov. 2010 (CET)
+: Ich hab leider nichts dazu gefunden, sorry. Wenn jemand was weiß wäre es cool wenn er das einfügt, tät mich auch mal interessieren. --[[Benutzer:Erik.vikinger|Erik.vikinger]] 19:53, 28. Nov. 2010 (CET)
+:: Im ersten Eintrag steht der Wert in BPB_Media in den unteren 8-Bits. Im zweiten wird kodiert, ob das Dateisystem dismounted wurde und ob möglicherweise defekte Sektoren gefunden wurden. --[[Benutzer:Jidder|Jidder]] 20:06, 28. Nov. 2010 (CET)
+
+== OEM-Name im Boot-Sektor ==
+Den Satz "Manche nicht-Windows-Betriebssysteme verlangen, dass hier "MSWIN4.1" steht." kann ich nicht nachvollziehen, üblicherweise werden diese 8 Bytes komplett ignoriert (und das auch von MS-Tools). Es gibt aber wohl nicht-MS-Tools die hier einfach ganz frech "MSWIN4.1" eintragen obwohl das Feld ja eindeutig dazu dient den '''wahren''' Ersteller des Laufwerks zu brandmarken.--[[Benutzer:Erik.vikinger|Erik.vikinger]] 13:29, 21. Feb. 2011 (CET)
+:Ich sehe das ähnlich wie Erik. Ein Dateisystemtreiber sollte doch so fehlerresistent wie möglich sein. Warum sollte er dann gerade bei solch einem Feld überhaupt eine Prüfung durchführen? Meine Meinung: den Satz streichen! --[[Benutzer:Bjork|Bjork]] 19:43, 21. Feb. 2011 (CET)

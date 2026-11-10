@@ -1,0 +1,97 @@
+{{Vorlage:Sprache
+|Name = C
+|Inlineassembler = Ja
+|Compiler = [[gcc]], icc, ...
+|Plattformen = Alle
+|Kernel = [[C-Kernel mit GRUB]]
+|Homepage = 
+}} 
+C ist eine bekannte, ältere Programmiersprache. Sie verfolgt das Ziel, bei vergleichbarer Ausführungsgeschwindigkeit plattformunabhängiger und abstrakter als [[Assembler]] zu sein. Direkte Weiterentwicklung von C ist [[C++]].
+
+== Geschichte ==
+
+C wurde 1971–1973 von Dennis Ritchie in den Bell Laboratories entwickelt, er stützte sich dabei auf die Programmiersprache B, die Ken Thompson in den Jahren 1969/70 geschrieben hatte. Ritchie schrieb auch den ersten Compiler für C. 1973 war die Sprache so weit ausgereift, dass man nun den Unix-Kernel in C neu schreiben konnte.
+
+== häufiger Verwendungszweck ==
+
+C wird häufig in der Systemprogrammierung eingesetzt. z.B. Der Linuxkernel, ist bis auf Ausnahmen vollständig in C geschrieben. C wird auch sehr häufig in der Anwendungsentwicklung eingesetzt.
+
+== Kernelprogrammierung mit C ==
+Da man mit C sehr hardwarenah programmieren kann, eignet sich die Sprache zur Programmierung eines Kernels hervorragend. Es ist sogar die überwiegende Anzahl der Betriebssystemkernel in C geschrieben. Für andere Bereiche ist C jedoch nicht sonderlich geeignet, um Beispiel für einen Bootsektor. Empfehlenswert ist – wie bei jeder anderen Sprache, die im Bereich der Kernelprogrammierung verwendet werden soll – ein Compiler, der Inlineassembler unterstützt. Hierfür eignet sich der [[gcc]].
+Für Einsteiger gibt es ein [http://www.cheebi.de/c-kernel-tutorial.pdf Tutorial], welches beschreibt, wie man in den [[Protected Mode]] schaltet und in C geschriebenen Code ausführt.
+
+== Eigenschaften von C ==
+=== Assemblercode in C ===
+Während es möglich ist, den allergrößten Teil des Kernels in C zu schreiben, sind für einige wenige Aufgaben nach wie vor einige Zeilen Assemblercode notwendig. Es gibt dabei im Wesentlichen zwei Ansätze:
+
+* <p>'''Inline-Assembler''': Assemblercode wird direkt in den C-Code eingebettet. Die konkrete Syntax dafür unterscheidet sich von Compiler zu Compiler, im Allgemeinen wird der Assemblercode durch das Schlüsselwort ''asm'' eingeleitet. Ein Vorteil dieser Methode ist, dass ein direkter Zugriff auch auf lokale C-Variablen möglich ist. Sie eignet sich daher für sehr kleine Codestücke besonders gut.</p><p>Siehe auch [[Inline-Assembler mit GCC]]</p>
+* '''Externe Assemblerdatei''': Der Assemblercode wird in eine eigene Datei ausgelagert und vom C-Code als eigenständige Funktion aufgerufen. Die Übergabe von Parametern und des Rückgabewerts wird im Artikel [[Aufrufkonventionen]] beschrieben.
+
+=== Zeiger in C ===
+Zeiger sind einzigartig in C. Mit Zeigern kann man wie bei Assembler direkt auf den Arbeitsspeicher zugreifen (allerdings nicht auf Register).
+Folgender Beispielcode verdeutlicht dies:
+<c>
+ int console_attr = 7, console_x = 0, console_y = 0;
+
+ void putchar(int c)
+ {
+     unsigned char *console = (unsigned char *)0xB8000;
+
+     if ((c != '\n') && (c != '\r'))
+     {
+         console += (console_y * 80 + console_x) * 2;
+         *(console++) = c;
+         *console = console_attr;
+         console_x++;
+     }
+     else if (c == '\r')
+     {
+         console_x = 0;
+     }
+
+     while ((console_x >= 80) || (c == '\n'))
+     {
+         if (console_x >= 80)
+         {
+             console_x -= 80;
+         }
+         console_y++;
+         while (console_y >= 25)
+         {
+             console_y--;
+             memmove((void *)0xB8000, (void *)0xB80A0, 3840);
+             memset((void *)0xB8F00, 0, 160);
+         }
+         c = 0;
+     }
+ }
+</c>
+<!-- Urheber ist XanClic, Code steht unter der WTFPL - ungetestet! -->
+Hierbei handelt es sich um einen Beispielcode, der zeigt, wie eine putchar()-Funktion beispielsweise aussehen könnte.
+Die Zeile 5 beinhaltet einen Zeiger, der für die Textausgabe essentiell ist. Dieser Zeiger kann erhöht werden (Zeile 7) oder
+auf dem zeigende Wert verändert werden (Zeile 9). In Zeile 8 wird zuerst der Wert, auf den console zeigt, verändert und dann der Zeiger um eins erhöht.<br>
+ 
+== Beispielprogramm ==
+<c>
+ #include <stdio.h>
+ 
+ int main(void)
+ {
+     printf("Hallo Welt!\n");
+     return 0;
+ } /* end main() */
+</c>
+
+== Bekannte C-Compiler ==
+* gcc aus der [http://gcc.gnu.org/ GNU Compiler Collection]
+* [http://bellard.org/tcc/ tcc] (Tiny C Compiler)
+* [http://dir.filewatcher.com/d/FreeBSD/4.2-release/i386/bcc-1995.03.12.tgz.79915.html bcc] ein 16Bit Compiler für Linux (im dev86-Paket enthalten)
+* Borland [http://dn.codegear.com/article/20841 Turbo C] für DOS (16 Bit/Real Mode)
+
+== Weblinks ==
+* [http://openbook.galileocomputing.de/c_von_a_bis_z/c_000Vorwort_000.htm#Xxx999266 Allgemeines C-Tutorial]
+* [http://www.open-std.org/JTC1/SC22/WG14/www/docs/n1124.pdf Draft des C Standards]
+* [http://www.c-howto.de/ C-Tutorial]
+* [http://www.cheebi.de/c-kernel-tutorial.pdf C-Kernel-Tutorial]
+
+[[Kategorie:Programmiersprache]]

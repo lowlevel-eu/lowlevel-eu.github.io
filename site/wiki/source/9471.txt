@@ -1,0 +1,25 @@
+== PUSHA/POPA ==
+
+"Ist es schneller jedes Register einzeln zu pushen, oder besser pusha?" &#150; ich denke schon, dass pusha/popa schneller sind, die Frage ist für mich eher, ob es schneller ist, sieben Register (eax, ebx, ecx, edx, esi, edi, ebp) zu pushen/popen statt acht (also mit esp) mit pusha/popa auf einmal... --[[Benutzer:XanClic|XanClic]] 18:02, 19. Feb. 2010 (CET)
+
+:Stimmt, daran habe ich noch gar nicht gedacht. Ich selbst nehme immer pusha/popa, aber eher aus Faulheit, weil ich nicht jedes Register einzeln hinschreiben will :) --[[Benutzer:Bjork|Bjork]] 18:35, 19. Feb. 2010 (CET)
+::Laut AMD braucht ein pusha gerade einmal doppelt solange wie ein einfaches push, pusha ist daher wohl um einiges schneller(das Gleich gilt für pop)--[[Benutzer:MNemo|MNemo]] 18:47, 19. Feb. 2010 (CET)
+
+:::Deshalb ist es ja noch "die Frage" und keine Tatsache. ;-) --[[Benutzer:XanClic|XanClic]] 20:42, 19. Feb. 2010 (CET)
+
+
+Es sind nicht 7 Register, sondern 8 Register die auf den Stack (PUSHA) gebracht bzw. vom Stack (POPA) geholt werden.
+
+Siehe: http://www.coding-wiki.de/wiki/index.php?title=ASM/PUSHA 
+--[[Benutzer:ScollPi|ScollPi]] 18:41, 19. Feb. 2010 (CET)
+
+----
+
+"Ebenso sollte der Stack 64KB aligned sein, und die Größe seiner Elemente gleich bleiben." Ist doch Quark. Ich denke es sollte 16Byte sein, bin mir aber nicht sicher. --[[Benutzer:Bluecode|Bluecode]] 10:45, 6. Feb. 2011 (CET)
+:Das muss richtig sein, weil ich das aus den Intel Manuals habe. Siehe http://www.intel.com/Assets/PDF/manual/248966.pdf, Kapitel 3.6.3 (Alignment):
+  The size of a cache line is 64 bytes in the Pentium 4 and other recent Intel processors, including processors based on Intel
+  Core microarchitecture. An access to data unaligned on 64-byte boundary leads to two memory accesses and
+  requires several μops to be executed (instead of one).
+Ich muss allerdings zugeben, dass ich für diesen Artikel damals nur diese Quelle verwendet habe und mich nicht so perfekt mit dem Thema auskenne.--[[Benutzer:Bjork|Bjork]] 15:30, 6. Feb. 2011 (CET)
+::Da ist aber von 64 Bytes die Rede, nicht KB. Und das Zitat enthält keine Aussage, dass die Größe der Elemente gleich bleiben sollte. --[[Benutzer:TheThing|TheThing]] 15:51, 6. Feb. 2011 (CET)
+:::Stimmt, es sollten natürlich 64 Bytes sein :) Und die Größe der Elemente stand doch gar nicht zur Debatte, oder? Aber von mir aus können wir auch gerne so einen Hinweis über den Artikel setzen, dass "der Autor sich nicht besonders auskannte" (wie bei [[USB]]) oder irgendjemand liest sich die obige Anleitung einfach mal richtig durch und verbessert den Artikel entsprechend.--[[Benutzer:Bjork|Bjork]] 16:24, 6. Feb. 2011 (CET)

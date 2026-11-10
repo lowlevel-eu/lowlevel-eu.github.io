@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Peripheral Component Interconnect – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Peripheral_Component_Interconnect rootpage-Peripheral_Component_Interconnect skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1626/index.html">Aktueller Artikel</a> · <a href="../../history/1626/index.html">Versionsgeschichte</a> · <a href="../../source/2854.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Peripheral Component Interconnect</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 25. März 2008, 04:54 Uhr von <a class="mw-userlink" href="../../pages/1489/index.html" title="Benutzer:Bluecode"><bdi>Bluecode</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Kategorie:Hardware)</span></div><div id="mw-revision-nav">(<a href="../../diffs/2592-2854.html" title="Peripheral Component Interconnect">Unterschied</a>) <a href="../2592/index.html" title="Peripheral Component Interconnect">← Nächstältere Version</a> | <a href="../../pages/1626/index.html" title="Peripheral Component Interconnect">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../3070/index.html" title="Peripheral Component Interconnect">Nächstjüngere Version →</a> (<a href="../../diffs/2854-3070.html" title="Peripheral Component Interconnect">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Peripheral Component Interconnect (kurz PCI) ist ein Bus zur leichten Verbindung von Peripheriegeräten mit mit der CPU.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Konfigurations-Register"><span class="tocnumber">1</span> <span class="toctext">Konfigurations-Register</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Aufbau_des_Adress-I.2FO-Ports"><span class="tocnumber">1.1</span> <span class="toctext">Aufbau des Adress-I/O-Ports</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Aufbau_des_Konfigurations-Register"><span class="tocnumber">1.2</span> <span class="toctext">Aufbau des Konfigurations-Register</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Codebeispiel"><span class="tocnumber">1.3</span> <span class="toctext">Codebeispiel</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Classcodes"><span class="tocnumber">2</span> <span class="toctext">Classcodes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Subclasses_-_Pre_2.0"><span class="tocnumber">2.1</span> <span class="toctext">Subclasses - Pre 2.0</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Subclasses_-_Massenspeicher"><span class="tocnumber">2.2</span> <span class="toctext">Subclasses - Massenspeicher</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Subclasses_-_Netzwerk-Controller"><span class="tocnumber">2.3</span> <span class="toctext">Subclasses - Netzwerk-Controller</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Subclasses_-_Bildschirm-Controller"><span class="tocnumber">2.4</span> <span class="toctext">Subclasses - Bildschirm-Controller</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Subclasses_-_Multimedia-Ger.C3.A4te"><span class="tocnumber">2.5</span> <span class="toctext">Subclasses - Multimedia-Geräte</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Subclasses_-_Speicher-Controller"><span class="tocnumber">2.6</span> <span class="toctext">Subclasses - Speicher-Controller</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Subclasses_-_Bridge-Ger.C3.A4te"><span class="tocnumber">2.7</span> <span class="toctext">Subclasses - Bridge-Geräte</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Subclasses_-_Controller_zur_einfachen_Kommunikation"><span class="tocnumber">2.8</span> <span class="toctext">Subclasses - Controller zur einfachen Kommunikation</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Subclasses_-_System-Peripherie"><span class="tocnumber">2.9</span> <span class="toctext">Subclasses - System-Peripherie</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Subclasses_-_Input-Ger.C3.A4te"><span class="tocnumber">2.10</span> <span class="toctext">Subclasses - Input-Geräte</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Subclasses_-_Docking-Stationen"><span class="tocnumber">2.11</span> <span class="toctext">Subclasses - Docking-Stationen</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Subclasses_-_Processors"><span class="tocnumber">2.12</span> <span class="toctext">Subclasses - Processors</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Subclasses_-_Seriell-Bus-Controller"><span class="tocnumber">2.13</span> <span class="toctext">Subclasses - Seriell-Bus-Controller</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="#Weblinks"><span class="tocnumber">3</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Konfigurations-Register">Konfigurations-Register</span></h2>
+<p>Jedes PCI-Gerät besitzt ein Konfigurations-Register, welches 256 Byte groß ist. Gelesen und beschrieben wird es 32bit-weise mithilfe eines Adress-I/O-Ports (0xCF8) und eines Daten-I/O-Ports (0xCFC).
+</p>
+<h3><span id="Aufbau_des_Adress-I/O-Ports"></span><span class="mw-headline" id="Aufbau_des_Adress-I.2FO-Ports">Aufbau des Adress-I/O-Ports</span></h3>
+<table border="1">
+<tbody><tr>
+<th>31</th>
+<th>30-24</th>
+<th>23-16</th>
+<th>15-11</th>
+<th>10-8</th>
+<th>7-0
+</th></tr>
+<tr>
+<td>Enable Bit</td>
+<td>Reserviert</td>
+<td>Busnummer</td>
+<td>Gerätenummer</td>
+<td>Funktionsnummer</td>
+<td>Registernummer
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Aufbau_des_Konfigurations-Register">Aufbau des Konfigurations-Register</span></h3>
+<table border="1">
+<tbody><tr>
+<th>Register</th>
+<th>31-24</th>
+<th>23-16</th>
+<th>15-8</th>
+<th>7-0
+</th></tr>
+<tr>
+<td>00</td>
+<td colspan="2">Device ID</td>
+<td colspan="2">Vendor ID
+</td></tr>
+<tr>
+<td>04</td>
+<td colspan="2">Status</td>
+<td colspan="2">Command
+</td></tr>
+<tr>
+<td>08</td>
+<td>Classcode</td>
+<td>Subclass</td>
+<td colspan="2">Revision ID
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td>BIST</td>
+<td>Header Type</td>
+<td>Latency Timer</td>
+<td>Cache Line Size
+</td></tr>
+<tr>
+<td>0x10</td>
+<td colspan="4">Base Address 0 (BAR0)
+</td></tr>
+<tr>
+<td>0x14</td>
+<td colspan="4">Base Address 1 (BAR1)
+</td></tr>
+<tr>
+<td>0x18</td>
+<td colspan="4">Base Address 2 (BAR2)
+</td></tr>
+<tr>
+<td>0x1C</td>
+<td colspan="4">Base Address 3 (BAR3)
+</td></tr>
+<tr>
+<td>0x20</td>
+<td colspan="4">Base Address 4 (BAR4)
+</td></tr>
+<tr>
+<td>0x24</td>
+<td colspan="4">Base Address 5 (BAR5)
+</td></tr>
+<tr>
+<td>0x28</td>
+<td colspan="4">Cardbus CIS Pointer
+</td></tr>
+<tr>
+<td>0x2C</td>
+<td colspan="2">Subsystem ID</td>
+<td colspan="2">Subsystem Vendor ID
+</td></tr>
+<tr>
+<td>0x30</td>
+<td colspan="4">Expansion ROM base address
+</td></tr>
+<tr>
+<td>0x34</td>
+<td colspan="4">Reserviert
+</td></tr>
+<tr>
+<td>0x38</td>
+<td colspan="4">Reserviert
+</td></tr>
+<tr>
+<td>0x3C</td>
+<td>Max Latency</td>
+<td>Min Grant</td>
+<td>Interrupt Pin</td>
+<td>Interrupt Line
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Codebeispiel">Codebeispiel</span></h3>
+<p>&lt;c&gt;
+</p>
+<ol><li>define PCI_CONFIG_DATA    0xCFC</li>
+<li>define PCI_CONFIG_ADDRESS 0xCF8</li></ol>
+<p>/**
+</p>
+<pre>* Liest ein Dword aus einem PCI-Konfigurations-Register
+*  @param bus Bus
+*  @param dev Gerät
+*  @param func Funktion
+*  @param offset Registernummer
+*  @return Register content
+*/
+</pre>
+<p>int pci_config_readd(int bus,int dev,int func,int offset) {
+</p>
+<pre> int val;
+ int address = 0x80000000|(bus&lt;&lt;16)|(dev&lt;&lt;11)|(func&lt;&lt;8)|(offset&amp;0xFC);
+ outl(PCI_CONFIG_ADDRESS,address);
+ val = inl(PCI_CONFIG_DATA);
+ return val;
+</pre>
+<p>}
+</p><p>/**
+</p>
+<pre>* Schreibt ein Dword in in ein PCI-Konfigurations-Register
+*  @param bus Bus
+*  @param dev Gerät
+*  @param func Funktion
+*  @param offset Registernummer
+*  @param val Wert zum Schreiben
+*/
+</pre>
+<p>void pci_config_writed(int bus,int dev,int func,int offset,int val) {
+</p>
+<pre> int address = 0x80000000|(bus&lt;&lt;16)|(dev&lt;&lt;11)|(func&lt;&lt;8)|(offset&amp;0xFC);
+ outl(PCI_CONFIG_ADDRESS,address);
+ outl(PCI_CONFIG_DATA,val);
+</pre>
+<p>}
+&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Classcodes">Classcodes</span></h2>
+<table border="1">
+<tbody><tr>
+<th>Class</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td><a href="#Subclasses_-_Pre_2.0"> Alle Geräte die gebaut wurden bevor Classcodes eingeführt wurden </a>
+</td></tr>
+<tr>
+<td>0x01</td>
+<td><a href="#Subclasses_-_Massenspeicher"> Massenspeicher</a>
+</td></tr>
+<tr>
+<td>0x02</td>
+<td><a href="#Subclasses_-_Netzwerk-Controller"> Netzwerk-Controller</a>
+</td></tr>
+<tr>
+<td>0x03</td>
+<td><a href="#Subclasses_-_Bildschirm-Controller"> Bildschirm-Controller</a>
+</td></tr>
+<tr>
+<td>0x04</td>
+<td><a href="#Subclasses_-_Multimedia-Ger.C3.A4te"> Multimedia-Geräte</a>
+</td></tr>
+<tr>
+<td>0x05</td>
+<td><a href="#Subclasses_-_Speicher-Controller"> Speicher-Controller</a>
+</td></tr>
+<tr>
+<td>0x06</td>
+<td><a href="#Subclasses_-_Bridge-Ger.C3.A4te"> Bridge-Geräte</a>
+</td></tr>
+<tr>
+<td>0x07</td>
+<td><a href="#Subclasses_-_Controller_zur_einfachen_Kommunikation"> Controller zur einfachen Kommunikation</a>
+</td></tr>
+<tr>
+<td>0x08</td>
+<td><a href="#Subclasses_-_System-Peripherie"> System-Peripherie</a>
+</td></tr>
+<tr>
+<td>0x09</td>
+<td><a href="#Subclasses_-_Input-Ger.C3.A4te"> Input-Geräte</a>
+</td></tr>
+<tr>
+<td>0x0A</td>
+<td><a href="#Subclasses_-_Docking-Stationen"> Docking-Stationen</a>
+</td></tr>
+<tr>
+<td>0x0B</td>
+<td><a data-archive-original-href="#Subclasses_-_Prozessoren" href="index.html" title="Der ursprüngliche Abschnitt ist in dieser Momentaufnahme nicht verfügbar; stattdessen wird der Artikel angezeigt."> Prozessoren</a>
+</td></tr>
+<tr>
+<td>0x0C</td>
+<td><a href="#Subclasses_-_Seriell-Bus-Controller"> Seriell-Bus-Controller</a>
+</td></tr>
+<tr>
+<td>0x0D-0xFE</td>
+<td>Reserviert
+</td></tr>
+<tr>
+<td>0xFF</td>
+<td>Sonstige
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Subclasses_-_Pre_2.0">Subclasses - Pre 2.0</span></h3>
+<table border="1">
+<tbody><tr>
+<th>Subclass</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>Alle nicht-VGA-Geräte
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>VGA-Geräte
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Subclasses_-_Massenspeicher">Subclasses - Massenspeicher</span></h3>
+<table border="1">
+<tbody><tr>
+<th>Subclass</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>SCSI
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>IDE
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>Floppy
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>IPI
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>RAID
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>Anderer Massenspeicher
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Subclasses_-_Netzwerk-Controller">Subclasses - Netzwerk-Controller</span></h3>
+<table border="1">
+<tbody><tr>
+<th>Subclass</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>Ethernet
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>Token Ring
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>FDDI
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>ATM
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>Anderer Netzwerk-Controller
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Subclasses_-_Bildschirm-Controller">Subclasses - Bildschirm-Controller</span></h3>
+<table border="1">
+<tbody><tr>
+<th>Subclass</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>VGA-Kompatibel
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>XGA
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>Anderer Bildschirm-Controller
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span id="Subclasses_-_Multimedia-Geräte"></span><span class="mw-headline" id="Subclasses_-_Multimedia-Ger.C3.A4te">Subclasses - Multimedia-Geräte</span></h3>
+<table border="1">
+<tbody><tr>
+<th>Subclass</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>Video-Gerät
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>Audio-Gerät
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>Anderes Multimedia-Gerät
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Subclasses_-_Speicher-Controller">Subclasses - Speicher-Controller</span></h3>
+<table border="1">
+<tbody><tr>
+<th>Subclass</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>RAM
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>Flash-Speicher
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>Anderer Speicher
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span id="Subclasses_-_Bridge-Geräte"></span><span class="mw-headline" id="Subclasses_-_Bridge-Ger.C3.A4te">Subclasses - Bridge-Geräte</span></h3>
+<table border="1">
+<tbody><tr>
+<th>Subclass</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>Host/PCI-Bridge
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>PCI/ISA-Bridge
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>PCI/EISA-Bridge
+</td></tr>
+<tr>
+<td>0x03</td>
+<td>PCI/MicroChannel-Bridge
+</td></tr>
+<tr>
+<td>0x04</td>
+<td>PCI/PCI-Bridge
+</td></tr>
+<tr>
+<td>0x05</td>
+<td>PCI/PCMCIA-Bridge
+</td></tr>
+<tr>
+<td>0x06</td>
+<td>PCI/NuBus-Bridge
+</td></tr>
+<tr>
+<td>0x07</td>
+<td>PCI/CardBus-Bridge
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>Anderer Bridge-Typ
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Subclasses_-_Controller_zur_einfachen_Kommunikation">Subclasses - Controller zur einfachen Kommunikation</span></h3>
+<table border="1">
+<tbody><tr>
+<th>Subclass</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>Serielle Schnittstelle
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>Parallelport
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>Andere
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Subclasses_-_System-Peripherie">Subclasses - System-Peripherie</span></h3>
+<table border="1">
+<tbody><tr>
+<th>Subclass</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td><a href="../../pages/1465/index.html" title="Programmable Interrupt Controller">Programmable Interrupt Controller</a>
+</td></tr>
+<tr>
+<td>0x01</td>
+<td><a href="../../pages/1555/index.html" title="Direct Memory Access">Direct Memory Access</a>
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>Timer
+</td></tr>
+<tr>
+<td>0x03</td>
+<td><a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Realtime Clock</a>
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>Andere System-Peripherie
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span id="Subclasses_-_Input-Geräte"></span><span class="mw-headline" id="Subclasses_-_Input-Ger.C3.A4te">Subclasses - Input-Geräte</span></h3>
+<table border="1">
+<tbody><tr>
+<th>Subclass</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>Tastatur
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>Digitizer (Stift)
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>Maus
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>Anderes Input-Gerät
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Subclasses_-_Docking-Stationen">Subclasses - Docking-Stationen</span></h3>
+<table border="1">
+<tbody><tr>
+<th>Subclass</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>Normale Docking-Station
+</td></tr>
+<tr>
+<td>0x80</td>
+<td>Andere Docking-Station
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Subclasses_-_Processors">Subclasses - Processors</span></h3>
+<table border="1">
+<tbody><tr>
+<th>Subclass</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>386
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>486
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>Pentium
+</td></tr>
+<tr>
+<td>0x10</td>
+<td>Alpha
+</td></tr>
+<tr>
+<td>0x20</td>
+<td>PowerPC
+</td></tr>
+<tr>
+<td>0x40</td>
+<td>Co-Processor
+</td></tr>
+</tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Subclasses_-_Seriell-Bus-Controller">Subclasses - Seriell-Bus-Controller</span></h3>
+<table border="1">
+<tbody><tr>
+<th>Subclass</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0x00</td>
+<td>Firewire (IEEE 1394)
+</td></tr>
+<tr>
+<td>0x01</td>
+<td>ACCESS-Bus
+</td></tr>
+<tr>
+<td>0x02</td>
+<td>SSA (Serial Storage Architecture)
+</td></tr>
+<tr>
+<td>0x03</td>
+<td><a class="mw-redirect" data-archive-original-href="../../pages/1689/index.html" href="../../pages/1690/index.html" title="USB">USB</a> (Universal Serial Bus)
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://pci-ids.ucw.cz/iii/" rel="nofollow">Linux PCI ID Repositorium</a> - Enthält viele VendorIDs und die dazugehörigen DeviceIDs</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170044
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.011 seconds
+Real time usage: 0.011 seconds
+Preprocessor visited node count: 91/1000000
+Preprocessor generated node count: 112/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Peripheral_Component_Interconnect&amp;oldid=2854</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1447/index.html" title="Kategorie:Hardware">Hardware</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1626/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2192/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1626/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

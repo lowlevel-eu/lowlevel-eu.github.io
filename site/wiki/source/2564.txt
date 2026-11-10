@@ -1,0 +1,23 @@
+Paging ist ein Mechanismus, der auf vielen Architekturen zum Einsatz kommt. Dabei wird zwischen physikalischem und virtuellem Speicher unterschieden. Der virtuelle Speicher wird in gleich große Blocke, so genannte Pages, unterteilt. Dann kann jeder Page ein physikalischer Speicherbereich zugeordnet werden.
+
+Durch das Paging lassen sich weitere Features, wie z.B. [[Swapping]], leichter implementieren. Auch ist durch Paging Speicherschutz gewährleistet, da jeder Prozess einen eigenen virtuellen Adressraum bekommt und somit von den anderen Prozessen abgeschirmt ist.
+
+== Einschalten des Paging-Mechanismus ==
+Zum Einschalten des Paging-Mechanismus auf der x86-Architektur muss man Bit-31 im CR0-Register setzen. Davor muss aber ein gültiges Page-Directory angelegt und dessen Physikalische Adresse im CR3-Register abgelegt worden sein.
+
+== Page-Directory ==
+
+== Page-Tables ==
+
+== Translation Lookaside Buffer ==
+Zu beachten ist, dass bei einer Änderung des Page-Directory oder einer Page-Table, der TLB (Translation Lookaside Buffer) invalidiert werden muss, sonst können unerwartete Ereignisse auftreten.
+Man invalidiert den TLB mit "invlpg <address>". Wobei <address> eine beliebige Adresse im RAM ist, der TLB, der zugehörigen Page, wird dann invalidiert.
+
+== Links ==
+* [http://www.homix-online.de/Tutorials/32PMode-Paging.php Paging Tutorial]
+* [http://www.fh-zwickau.de/doc/prmo/pmtutor/text/p_spez1.htm Paging im PM-Tutorial der FH Zwickau]
+* [[Ausgabe_8#Paging|Ausgabe 8]]
+* http://osdever.net/tutorials/pdf/basic_paging.pdf
+
+[[Category:Glossar]]
+[[Category:Hardware]]

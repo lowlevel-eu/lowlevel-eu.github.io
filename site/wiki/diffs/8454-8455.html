@@ -1,0 +1,30 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Grand Unified Bootloader — Änderungen 8454 → 8455</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Grand Unified Bootloader — Änderungen 8454 → 8455</h1><nav><a href="../revisions/8454/index.html">Version 8454</a> · <a href="../revisions/8455/index.html">Version 8455</a> · <a href="../history/1567/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l41" >Zeile 41:</td>
+<td colspan="2" class="diff-lineno">Zeile 41:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wir brauchen also zunächst einmal ein Image:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Wir brauchen also zunächst einmal ein Image:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;pre&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;pre&gt;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div># dd if=/dev/zero of=<del class="diffchange diffchange-inline">/tmp/testimg </del>bs=1024 count=1440</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div># dd if=/dev/zero of=<ins class="diffchange diffchange-inline">test.img </ins>bs=1024 count=1440</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div># mkdosfs /<del class="diffchange diffchange-inline">tmp/testimg</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div># mkdosfs /<ins class="diffchange diffchange-inline">test.img</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/pre&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/pre&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Danach <del class="diffchange diffchange-inline">muß </del>dieses Image gemountet und alle nötigen Dateien <del class="diffchange diffchange-inline">draufkopiert </del>werden:</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>Danach <ins class="diffchange diffchange-inline">muss </ins>dieses Image gemountet und alle nötigen Dateien <ins class="diffchange diffchange-inline">auf das Image kopiert werden </ins>werden:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;pre&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;pre&gt;</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div># mount -oloop <del class="diffchange diffchange-inline">/tmp/testimg </del>/mnt</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div># <ins class="diffchange diffchange-inline">sudo </ins>mount -oloop <ins class="diffchange diffchange-inline">test.img </ins>/mnt</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div># mkdir /mnt/grub</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div># mkdir /mnt/grub</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div># cp /boot/grub/stage* /mnt/grub</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div># cp /boot/grub/stage* /mnt/grub</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div># cp <del class="diffchange diffchange-inline">lost.krn </del>/mnt</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div># cp <ins class="diffchange diffchange-inline">kernel </ins>/mnt</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div># umount /mnt</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div># umount /mnt</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/pre&gt;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;/pre&gt;</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l58" >Zeile 58:</td>
+<td colspan="2" class="diff-lineno">Zeile 58:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div># grub</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div># grub</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>grub&gt; device (fd0) <del class="diffchange diffchange-inline">/tmp/testimg</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>grub&gt; device (fd0) <ins class="diffchange diffchange-inline">test.img</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>grub&gt; root (fd0)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>grub&gt; root (fd0)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>grub&gt; setup (fd0)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>grub&gt; setup (fd0)</div></td></tr>
+</table></body></html>

@@ -1,0 +1,228 @@
+Die Programmierung eines [[Kernel|Kernels]] in [[C++]] unterscheidet sich in einigen Punkten von der mit [[C]]. Einen ausführlicheren Überblick zu den relevanten Unterschieden zu C gibt der Artikel [[C++]]. Dieses Tutorial arbeitet genau wie [[C-Kernel mit GRUB]] mit dem Bootloader [[GRUB]].
+
+== Kernel ==
+Wir werden mit [[GCC]] und [[NASM]] arbeiten. Es kann auch Windows verwendet werden, allerdings ist dazu etwas Vorarbeit in Bezug auf die Tools von Nöten, siehe dazu [[C-Kernel_mit_GRUB#Hinweis_f.C3.BCr_Windowsianer|C-Kernel mit GRUB]].
+
+=== Kernel.cpp ===
+Da wir ja schon mit C++ arbeiten, wäre auch etwas OOP angebracht. Deshalb erstellen wir ein Klasse namens Video, die wir in einen Header stecken. Dadurch ist unsere kernel.cpp sehr übersichtlich:
+<cpp>
+#include "Video.h" 							// Einbinden unseres Header
+
+void main() {
+	Video screen;							// Screen instanzieren
+	screen.color(0x7000); 						// Vordergrund schwarz, Hintergrund hellgrau
+	screen.clear();							// Bildschirm leeren
+	screen.write("Willkommen im C++-TestKernel!"); 			// Textausgabe
+}
+</cpp>
+
+=== Video.h ===
+
+Der Header ist dann doch etwas umfangreicher:
+
+<cpp>
+#ifndef VIDEO_H
+#define VIDEO_H
+
+class Video
+{
+	public:
+		Video();						// Konstruktor
+		~Video();						// Destruktor
+		void clear();						// Leeren des Bildschirms, die Größe beträgt 80x25 Zeichen
+		void write(const char* cp);				// Textausgabe
+		void put(char c);					// Ausgabe eines einzelnen Zeichens
+		void color(int color);					// Setzen der FG/BG-Farben
+	private:
+		unsigned short* videomem;				// Zeiger auf den Videospeicher
+		unsigned int off;					// Y-Position der Textausgabe, je volle Zeile +80
+		unsigned int pos;					// X-Position der Textausgabe, ab Zeilenanfang
+		unsigned int screen_color;				// FB/BG-Farbe
+};
+
+#endif
+</cpp>
+
+=== Video.cpp ===
+
+Die Implementierung der in Video.h definierten Memberfunktionen kommt in eine eigene Quellcodedatei:
+
+<cpp>
+#include "Video.h"
+
+Video::Video(){
+	screen_color = 0x0700;						// Setzen der Farbe auf Hellgrau auf Schwarz
+	pos = 0;							// Setzen der Textausgabe auf
+	off = 0;							// links oben.
+	videomem = (unsigned short*) 0xb8000;				// Startadresse des Videospeichers
+}
+
+Video::~Video(){
+}
+
+void Video::clear(){
+	for(int i = 0;i < (80*25);i++)
+	{
+		videomem[i] = (unsigned char)' ' | screen_color;	// Füllen des Bildschirms mit Leerzeichen
+	}
+	pos = 0;							// Zurücksetzen der Textausgabe nach links oben
+	off = 0;							
+}
+
+void Video::write(const char *cp){
+	while (*cp != '\0'){
+		put(*cp++);						// Für jedes einzelne Zeichen wird put() aufgerufen
+	}
+}
+
+void Video::put(char c){
+	if(pos >= 80){							// Wenn die Textausgabe den rechten...
+		pos = 0;
+		off += 80;
+	}
+	if(off >= (80*25)){						// ...oder den unteren Bildschirmrand erreicht, gibt es einen 
+		clear();						// Umbruch bzw. es wird aufgeräumt.
+	}
+	videomem[off + pos] = (unsigned char)c | screen_color;  	// Setzen des Zeichens und der Farbe in den Videospeicher
+	pos++;
+}
+
+void Video::color(int color){
+	screen_color = color;
+}
+</cpp>
+
+=== Startup.c ===
+
+Um die Konstruktoren bzw. die Destruktoren von globalen/statischen Objekten aufzurufen (siehe auch [[C++#globale.2Fstatische_Objekte|C++]]), werden diese beiden Funktionen später mit in den Kernel gelinkt und in der asmKernel.asm aufgerufen:
+
+<cpp>
+void constructors()
+{
+	extern void (*__CTOR_LIST__)();
+	void (**constructor)() = &__CTOR_LIST__;
+	int total = *(int *) constructor;
+	constructor++;
+	while(total){
+		(*constructor)();
+		total--;
+		constructor++;
+	}
+}
+
+void destructors()
+{
+	extern void (*__DTOR_LIST__)();
+	void (**deconstructor)() = &__DTOR_LIST__;
+	deconstructor++;
+	int total = *(int *) deconstructor;
+	while(total)
+	{
+		(*deconstructor)();
+		total--;
+		deconstructor++;
+	}
+}
+</cpp>
+
+=== asmKernel.asm ===
+Auch bei C++ kommen wir nicht um ein wenig Assembler herum:
+
+<asm>
+ 
+global loader					; Unser Einsprungspunkt
+extern main					; main() aus Kernel.cpp
+extern destructors				; aus Startup.c
+extern constructors				; aus Startup.c
+ 
+FLAGS    equ 0
+MAGIC    equ 0x1BADB002       	; Magicnumber - Erkennungsmerkmal für GRUB
+CHECKSUM equ -(MAGIC + FLAGS) 	; Checksum
+ 
+section .text
+align 4
+MultiBootHeader:
+  dd MAGIC       				; Magic number
+  dd FLAGS       				; Flags
+  dd CHECKSUM    				; Checksum
+ 
+loader:
+  mov esp,0x200000 				; Stack an die 2MB-Grenze platzieren
+  push eax         				; Multiboot-Magicnumber auf den Stack legen
+  push ebx         				; Adresse der Multiboot-Structure auf den Stack legen
+  call constructors      			; Konstruktoren aufrufen
+  call main       				; main aufrufen
+  call destructors    				; Destruktoren aufrufen
+
+stop:
+  jmp stop					; Endlosschleife nach Beendigung unseres Kernels
+ 
+</asm>
+
+== Kompilieren und Linken ==
+Die asmKernel.asm:
+
+ nasm -f elf -o asmKernel.o asmKernel.asm
+
+Video.cpp:
+
+ gcc -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -ffreestanding -fno-exceptions -fno-leading-underscore -c -o Video.o Video.cpp
+
+Kernel.cpp:
+
+ gcc -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -ffreestanding -fno-exceptions -fno-leading-underscore -c -o Kernel.o Kernel.cpp
+
+Startup.c:
+
+ gcc -m32 -nostdlib -fno-builtin -ffreestanding -fno-leading-underscore -std=c99 -c -o Startup.o Startup.c
+
+
+Nun zu einer der wichtigsten Stellen, dem Linkvorgang:
+Wir müssen asmKernel.o, Startup.o, Video.o und Kernel.o zu einer kernel.bin linken, die dann von GRUB geladen werden kann.
+
+Unser Linkerscript (link.txt)
+<pre>
+ENTRY(loader)
+OUTPUT_FORMAT(elf32-i386)
+OUTPUT_ARCH(i386:i386)
+
+SECTIONS
+{
+  .text  0x0100000 : {
+    code = .; _code = .; __code = .;
+    *(.text)
+    . = ALIGN(1);
+  }
+  .data  : {
+    __CTOR_LIST__ = .; LONG((__CTOR_END__ - __CTOR_LIST__) / 4 - 2) *(.ctors) LONG(0) __CTOR_END__ = .;
+    __DTOR_LIST__ = .; LONG((__DTOR_END__ - __DTOR_LIST__) / 4 - 2) *(.dtors) LONG(0) __DTOR_END__ = .;
+
+    data = .; _data = .; __data = .;
+    *(.data)
+    . = ALIGN(1);
+  }
+  .bss  :
+  {
+    bss = .; _bss = .; __bss = .;
+    *(.bss)
+    . = ALIGN(1);
+  }
+  end = .; _end = .; __end = .;
+}
+</pre>
+
+Wir teilen dem Linker mit, dass wir die Labels __CTOR_LIST__, __CTOR_END__, __DTOR_LIST__ und __DTOR_END__ in der Datei cKernel.c haben und er diese beim Linken berücksichtigen soll.
+Nur noch ein kurzer Aufruf von LD, und wir haben unseren fertigen Kernel in der Hand (bzw. Maus ;-)):
+
+ ld -T link.txt -o kernel.bin asmKernel.o Startup.o Video.o Kernel.o
+
+Und fertig ist unser Kernel! Wie der Kernel nun mitsamt GRUB auf einer Diskette landet, kann im Artikel [[C-Kernel_mit_GRUB|C-Kernel mit GRUB]] nachgelesen werden, dort verfährt man einfach analog.
+
+== Siehe auch ==
+* [[C-Kernel_mit_GRUB|C-Kernel mit GRUB]]
+* [[GRUB]]
+* [[C++]]
+* [[Multiboot]]
+* [[Linkerscript]]
+
+[[Kategorie:Tutorials]]

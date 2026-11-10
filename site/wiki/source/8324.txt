@@ -1,0 +1,67 @@
+{{TODO|Kontrolllesen, außerdem meine TODOs im Text abarbeiten bitte :) }}
+
+'''Subversion''' (oft abgekürzt als '''SVN''') ist ein zentrales [[Versionsverwaltung|Versionskontrollsystem]].
+
+== Entwicklungsziel ==
+Die Arbeiten am Subversionprojekt wurden 2000 begonnen. Das Ziel war es, Probleme bei [[CVS]] zu umgehen: Ein Beispiel dafür ist das Branching, welches jetzt in konstanter Laufzeit vonstatten geht. Dieser Ansatz brachte dem Projekt schnell den Slogan "CVS done right" ein. Darum wird [[CVS]] heutzutage auch meistens nur noch genutzt, wenn die Entwickler Subversion nicht kennen, oder die Umstellung auf ein neues System scheuen.
+
+== Installation ==
+=== Linux ===
+Subversion lässt sich bei jeder größeren Distribution aus den Paketquellen installieren. Meist heißt das Paket ''subversion''.
+
+Es gibt jedoch, wie unter Windows, einen grafischen SVN Clienten namens kdesvn, der sehr komfortabel ist.
+
+=== Windows ===
+Unter Windows ist die Arbeit mit der Shell oft weniger bequem als unter Linux, darum empfiehlt sich die Installation von TortoiseSVN, welches sich sehr gut in den Windows Explorer integiert.
+
+Dazu lädt man zunächst das aktuelle Paket von [http://tortoisesvn.net/downloads dieser Seite] herunter, und installiert es. Nach der Installation stehen im Kontextmenü des Windows Explorers die unten genannten Befehle für SVN zur Verfügung.
+
+== Schnellstart ==
+Für einen reibungslosen Einsteig in Subversion gibt es hier eine Auflistung der wichtigsten Befehle. Jedoch empfiehlt sich auf jedem Fall ein genaues Studium der [http://svnbook.red-bean.com/nightly/en/index.html Dokumentation], da hier nur die wirklich grundlegendsten Befehle aufgelistet werden.
+
+Bei Windows ist das Prinzip genau gleich, nur muss man die Befehle im Kontextmenü auswählen, und erhält für die Befehlsparameter praktische Eingabefenster.
+
+=== Archiv herunterladen (checkout) ===
+Um an der Entwicklung eines bestehenden Projektes teilzunehmen muss man oft erst die Entwicklerversion herunterladen. Subversion bietet dafür den Befehl <tt>checkout</tt>, den man oft auch <tt>co</tt> abkürzt.
+
+Beispiel (Kopie des Tyndur-Archives):
+<pre>
+# Archiv herunterladen
+svn co svn://overgames.de/lost 
+</pre>
+
+=== Archiv aktualisieren (update) ===
+Wenn sich das Archiv auf dem Server verändert hat, weil ein anderer Entwickler einen Commit gemacht hat, dann ist es nötig, seine Arbeitskopie auf den selben Stand zu bringen. Das geschieht durch den Befehl <tt>update</tt> (oder kurz <tt>up</tt>).
+
+Bei einem Update kann es passieren, dass Konflikte entstehen. Diese korrigiert man einfach, indem man die diff-ähnlichen Kommentare in den Dateien, welche in Konflikt stehen, von Hand auflöst.
+
+<pre>
+# Alle Änderungen herunterladen
+svn up
+</pre>
+
+=== Änderungen übertragen (commit) ===
+Irgendwann kommt der Zeitpunkt, an dem man seine Änderungen öffentlich machen will. Das geschieht mit dem Befehl <tt>commit</tt> (kurz <tt>ci</tt>).
+
+Im Gegensatz zu [[Git]] werden alle Änderungen an getrackten Dateien standardmäßig automatisch übertragen, ohne dass man sie explizit zu einem Commit hinzufügen muss, also Vorsicht.
+
+<pre>
+# Alle Änderungen hochladen
+svn ci
+</pre>
+
+=== Ausblick ===
+''TODO: Ein svn-affiner Mensch bitte die anderen wichtigen Befehle hier erwähnen, danke''
+
+== Kostenloses Subversion-Hosting ==
+Hier eine Liste von Anbietern, bei denen man sein Subversion-Archiv kostenlos hosten kann, um es für die Öffentlichkeit zugängig zu machen.
+
+* [http://sourceforge.net SourceForge]: Bietet auch Hosting für Git und CVS
+
+== Weblinks ==
+* [http://de.wikipedia.org/wiki/Apache_Subversion Subversion bei Wikipedia]
+* [http://subversion.tigris.org/ Subversion Homepage]
+* [http://svnbook.red-bean.com/nightly/de/index.html Subversion-Dokumentation]
+* [http://svnbook.red-bean.com/nightly/en/index.html Aktuellere Dokumentation (englisch)]
+
+[[Kategorie:Versionsverwaltung]]

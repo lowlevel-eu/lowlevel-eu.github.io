@@ -1,0 +1,1082 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="Optimale Baumstrukturen fuer malloc/free" name="description"/>
+<title>Optimale Baumstrukturen fuer malloc/free</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:30</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Optimale Baumstrukturen fuer malloc/free</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg33406"></a>
+<div class="nextlinks"><a href="../2945/offset-20.html#msg34561">« vorheriges</a> <a href="../2948/offset-20.html#msg34516">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: <a class="navPages" href="index.html">1</a> [<strong>2</strong>] 
+				</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/0f01c9c83ac67395064654f9.gif"/>
+<span id="author">Autor</span>
+						Thema: Optimale Baumstrukturen fuer malloc/free  (Gelesen 74904 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_33406_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #20 am:</strong> 05. September 2011, 08:37 »</div>
+<div class="posttile"><h5 id="subject_33406">
+<a href="offset-20.html#msg33406" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33406_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33406"><div class="quoteheader"><div class="topslice_quote">Zitat von: rizor</div></div><blockquote class="bbc_standard_quote">Ich habe mir nun auch noch überlegt, ob ich es vllt noch lock-free schaffe.<br/>Dabei ist mir halt leider aufgefallen, dass es ein Patent gibt, dass einen lock-free Baum beschreibt...<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also von nem lock-free AVL Baum habe ich noch nichts gehört, aber von nem lock-free RB-Baum (was mir auch einleuchtet). Wenn du irgendwelche Informationen dazu hast, dann immer her damit.<br/>Was die Patente angeht, ist dass tatsächlich ein Problem mit den lock-free Sachen (im Sinne von, fast alle Algos sind irgendwie patentiert), aber in Dtl. dürfte das doch eigentlich kein Ding sein, da bei uns ja Softwarepatente meines Wissens nach nicht gelten.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat von: rizor</div></div><blockquote class="bbc_standard_quote">Das Problem taucht natürlich auf, aber man kann das ja durch direkte Links lösen.<br/>Dadurch erspart man sich sogar das Suchen, da du ja weißt, wo du löschen musst.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ansich ja, aber das erhöht ja wieder den Speicherverbrauch. Ich meine bei meinem VMM geht das ja noch, aber eigentlich würde ich bei einem malloc() andere Algos verwenden (guck dir dochmal dlmalloc() an).</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33406">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33413"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_33413_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #21 am:</strong> 05. September 2011, 12:37 »</div>
+<div class="posttile"><h5 id="subject_33413">
+<a href="offset-20.html#msg33413" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33413_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33413">Ich kenne nur eine Implementation die iirc software transactional memory benutzt um einen Baum hinzukriegen (<a class="bbc_link" href="http://www.cl.cam.ac.uk/research/srg/netos/lock-free/" target="_blank">von hier</a>). Mit (einfachem) CAS alleine erscheint mir das prinzipiell nicht möglich bzw. nur wenn man sich erstmal ein CAS für mehrere Speicherstellen daraus zusammenbaut (was soweit ich weiß möglich ist).<br/>Wie du auf Patente auf Algorithmen kommst weiß ich nicht, aber laut <a class="bbc_link" href="http://en.wikipedia.org/wiki/Algorithm#Legal_issues" target="_blank">Wikipedia</a> ist das unmöglich (selbst in den USA) und ich glaube auch nicht, dass das einen Europäer zu interessieren hat.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33413">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33413_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33419"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_33419_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #22 am:</strong> 05. September 2011, 23:09 »</div>
+<div class="posttile"><h5 id="subject_33419">
+<a href="offset-20.html#msg33419" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33419_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33419"><div class="quoteheader"><div class="topslice_quote">Zitat von: bluecode</div></div><blockquote class="bbc_standard_quote">Wie du auf Patente auf Algorithmen kommst weiß ich nicht, aber laut Wikipedia ist das unmöglich (selbst in den USA) und ich glaube auch nicht, dass das einen Europäer zu interessieren hat.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Softwarepatente? Zumal ja sogar in dem Eintrag drin steht, das es durchaus Bsp. gibt wo es halt doch passiert ist, das Algos patentiert wurden.<br/><br/>Allerdings würde ich auch mal sagen, dass das ganze für ein Hobby OS eher uninteressant ist, für Linux dürfte das schon problematisch werden (warum eigentlich?).</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33419">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33420"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_33420_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #23 am:</strong> 05. September 2011, 23:28 »</div>
+<div class="posttile"><h5 id="subject_33420">
+<a href="offset-20.html#msg33420" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33420_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33420"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg33419">Zitat von: FlashBurn am 05. September 2011, 23:09</a></div></div><blockquote class="bbc_standard_quote">Allerdings würde ich auch mal sagen, dass das ganze für ein Hobby OS eher uninteressant ist, für Linux dürfte das schon problematisch werden (warum eigentlich?).<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das Problem besteht bei allen Projekten, die irgendwie in den USA vertreten sind.<br/>Wenn nur etwas Code davon in die Staaten kommt, könnte der Programmierer bei der Einreise Probleme bekommen.<br/><br/>Für Linux gilt das ganze natürlich auch.<br/>Es wird sogar angenommen, dass Linux gegen mehrere Patente verstößt.<br/>Habe da mal eine Artikel drüber gelesen, habe ihn nur leider nicht auf die Schnelle gefunden.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33420">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33420_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33421"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_33421_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #24 am:</strong> 06. September 2011, 08:47 »</div>
+<div class="posttile"><h5 id="subject_33421">
+<a href="offset-20.html#msg33421" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33421_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33421"><div class="quoteheader"><div class="topslice_quote">Zitat von: rizor</div></div><blockquote class="bbc_standard_quote">Das Problem besteht bei allen Projekten, die irgendwie in den USA vertreten sind.<br/>Wenn nur etwas Code davon in die Staaten kommt, könnte der Programmierer bei der Einreise Probleme bekommen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Daran dachte ich zwar auch, aber dann gilt das für alles was im Internet ist oder?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33421">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33422"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_33422_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #25 am:</strong> 06. September 2011, 09:30 »</div>
+<div class="posttile"><h5 id="subject_33422">
+<a href="offset-20.html#msg33422" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33422_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33422"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg33421">Zitat von: FlashBurn am 06. September 2011, 08:47</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat von: rizor</div></div><blockquote class="bbc_alternate_quote">Das Problem besteht bei allen Projekten, die irgendwie in den USA vertreten sind.<br/>Wenn nur etwas Code davon in die Staaten kommt, könnte der Programmierer bei der Einreise Probleme bekommen.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Daran dachte ich zwar auch, aber dann gilt das für alles was im Internet ist oder?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Richtig. Das ist ja grade das bekloppte an diesen Softwarepatenten.<br/><br/>Hier ist einer der Artikel. Ich weiß nicht, ob es genau der war, aber er beschreibt das Ding mit Linux recht gut.<br/><a class="bbc_link" href="http://www.welt.de/wirtschaft/webwelt/article873934/Microsoft_klagt_ueber_Linux_Patentverstoesse.html" target="_blank">http://www.welt.de/wirtschaft/webwelt/article873934/Microsoft_klagt_ueber_Linux_Patentverstoesse.html</a></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33422">
+								« <em>Letzte Änderung: 06. September 2011, 09:34 von rizor</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33422_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33423"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_33423_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #26 am:</strong> 06. September 2011, 09:35 »</div>
+<div class="posttile"><h5 id="subject_33423">
+<a href="offset-20.html#msg33423" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33423_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33423">Zumal es unrealistisch ist, dass jemand alle Patente aus allen Ländern kennt (was ja auch die rechtliche Situation mit betrifft). Ich wette sogar, dass man dafür mehr als nur einen Anwalt braucht um sowas weltweit prüfen zu lassen und damit wären eigentlich alle kleinen "Firmen" raus, weil die sich das gar nicht leisten können.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33423">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33424"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_33424_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #27 am:</strong> 06. September 2011, 09:37 »</div>
+<div class="posttile"><h5 id="subject_33424">
+<a href="offset-20.html#msg33424" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33424_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33424">Naja, du als Entwickler bist dazu verpflichtet dich über die Patentlage zu informieren.<br/>Kleinere Firmen sind vermutlich kaum im Interesse eines großen Konzerns.<br/>Der geht ja mit jeder Patentklage das Risiko ein, dass ihm Patente aberkannt werden (z.B. Oracle vs. Google).<br/>Erst wenn die Firmen größer werden, kriegen sie ärger (z.B. HTC)</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33424">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33424_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33425"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">FlashBurn</a>
+</h4>
+<ul class="reset smalltext" id="msg_33425_extra_info">
+<li class="postcount">Beiträge: 844</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #28 am:</strong> 06. September 2011, 09:47 »</div>
+<div class="posttile"><h5 id="subject_33425">
+<a href="offset-20.html#msg33425" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33425_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33425"><div class="quoteheader"><div class="topslice_quote">Zitat von: rizor</div></div><blockquote class="bbc_standard_quote">Naja, du als Entwickler bist dazu verpflichtet dich über die Patentlage zu informieren.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist schon klar, aber halt unrealistisch. Genauso wie bei unserem Steuerrecht. Nicht mal das Finanzamt kennt sich da wirklich aus, aber der dumme durchschnitts Bürger soll sich auskennen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33425">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33426"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_33426_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #29 am:</strong> 06. September 2011, 10:02 »</div>
+<div class="posttile"><h5 id="subject_33426">
+<a href="offset-20.html#msg33426" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33426_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33426">Stimmt, das ist ja leider das allgemeine Problem.<br/>Es tritt sich halt immer leichter von oben nach unten <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/>.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33426">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33426_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg33428"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">rizor</a>
+</h4>
+<ul class="reset smalltext" id="msg_33428_extra_info">
+<li class="postcount">Beiträge: 521</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #30 am:</strong> 06. September 2011, 12:00 »</div>
+<div class="posttile"><h5 id="subject_33428">
+<a href="offset-20.html#msg33428" rel="nofollow">Re:Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_33428_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_33428">Was mir bei dlmalloc aufgefallen ist... das ist doch so eine Art SLAB-Allocator, oder?<br/>Davon würde ich ganz gerne weggehen, da mir da der Speicheroverhead zu groß ist.<br/>Der Kernel soll natürlich auch einen haben, aber halt wirklich nur für feste Allokationen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_33428">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_33428_signature">Programmiertechnik:<br/>Vermeide in Assembler zu programmieren wann immer es geht.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34523"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Dimension</a>
+</h4>
+<ul class="reset smalltext" id="msg_34523_extra_info">
+<li class="postcount">Beiträge: 155</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #31 am:</strong> 06. January 2012, 19:07 »</div>
+<div class="posttile"><h5 id="subject_34523">
+<a href="offset-20.html#msg34523" rel="nofollow">Re: Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_34523_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34523">Baumstrukturen sind meiner Ansicht nach nicht sehr robust. Es gibt zu viele Faktoren, welche das Verhalten beeinflussen könnten. Man sollte meiner Ansicht nach immer mit einem Fehler oder Defekt der Hardware rechnen und die Auswirkungen minimieren. Im Zweifelsfall kann das Risiko auch durch Redundanz weiter verringert werden.<br/><br/>Aus diesem Grund verwende ich lieber Vektor-Arrays als verlinkte Listen bzw. lieber Hashmaps als Baumstrukturen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34523">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34524"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_34524_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #32 am:</strong> 06. January 2012, 19:52 »</div>
+<div class="posttile"><h5 id="subject_34524">
+<a href="offset-20.html#msg34524" rel="nofollow">Re: Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_34524_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34524">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34523">Zitat von: Dimension am 06. January 2012, 19:07</a></div></div><blockquote class="bbc_standard_quote">Man sollte meiner Ansicht nach immer mit einem Fehler oder Defekt der Hardware rechnen und die Auswirkungen minimieren.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das würde ich persönlich nur dann bejahen wenn Performance eine höhere Priorität hat, als SW-Entwickler sollte man IMHO die HW als Fehlerfrei ansehen dürfen. Wenn man z.B. mit Problemen im RAM rechnet dann gibt es ECC, aber gegen ein falsches Rechenergebnis in der CPU kann man nichts unternehmen. Bei Dingen wo es wirklich drauf ankommt (Medizin oder Raumfahrt) werden einfach ganze Systeme mehrfach aufgebaut und redundant betrieben.<br/><br/>Ein Dateisystem sollte sich meiner persönlichen Meinung nach auch keine Gedanken über defekte Sektoren machen sondern das Block-Device einfach als riesiges Array betrachten und fertig, wenn defekte Sektoren nich zum Problem werden dürfen dann gibt es RAID und wenn die Daten "Mission-Critical" sind dann liegen sie mit guten Prüfsummen abgesichert auf mehreren unabhängigen System an verschiedenen Orten.<br/><br/>Ich habe nichts dagegen wenn auch der SW-Entwickler sich Gedanken über HW-Sicherheit macht, hier ist Redundanz immer gut, aber es ist IMHO nicht seine vordringlichste Aufgabe. Wenn ich mich zwischen Performance und Robustheit gegen HW-Fehler entscheiden muss nehme ich immer Performance.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34524">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_34524_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34526"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Dimension</a>
+</h4>
+<ul class="reset smalltext" id="msg_34526_extra_info">
+<li class="postcount">Beiträge: 155</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #33 am:</strong> 06. January 2012, 20:15 »</div>
+<div class="posttile"><h5 id="subject_34526">
+<a href="offset-20.html#msg34526" rel="nofollow">Re: Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_34526_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34526">Für den Heimrechner sicherlich keine unvorteilhafte Alternative. Wer sein System allerdings professionell einsetzen möchte, wird sich lieber 2x überlegen, ob er günstige Performance haben möchte, oder lieber mehrere Systeme verbindet um zu parallelisieren und somit die Performance erhöht bzw. das Risiko vermindert.<br/><br/>Edit: das setzt natürlich voraus, dass sowohl die verwendete Plattform als auch seine Aufgabenstellung massive Parallelisierung unterstützen und sein Code vom Compiler nach Abhängigkeiten analysiert und auf mehre Cores oder das Netzwerk verteilt werden kann.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34526">
+								« <em>Letzte Änderung: 06. January 2012, 20:39 von Dimension</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34528"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Dimension</a>
+</h4>
+<ul class="reset smalltext" id="msg_34528_extra_info">
+<li class="postcount">Beiträge: 155</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #34 am:</strong> 06. January 2012, 20:51 »</div>
+<div class="posttile"><h5 id="subject_34528">
+<a href="offset-20.html#msg34528" rel="nofollow">Re: Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_34528_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34528">Btw: man kann die Elemente einer Baumstruktur auch in einer Tabelle halten und mit Indices auf diese zugreifen, oder zum Pfad eines Elements den Hash bilden und über Hashtables gehen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34528">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34529"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_34529_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #35 am:</strong> 06. January 2012, 20:56 »</div>
+<div class="posttile"><h5 id="subject_34529">
+<a href="offset-20.html#msg34529" rel="nofollow">Re: Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_34529_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34529">Hallo,<br/><br/><br/>sorry wenn ich das so direkt schreibe aber ich finde Du übertreibst ein ganz klein wenig.<br/>Gerade im professionellen Umfeld ist Zeit oft gleich Geld und damit spielt dort Performance eine sehr wichtige Rolle. Ich hab z.B. beruflich (und auch privat) sehr viel mit FPGA-Programmierung zu tun und ein kompletter Synthese-Durchlauf kann da schon mal ne Stunde dauern und viele Simulationen (die oft nur wenige µs an Real-Zeit simulieren) laufen mehrere Stunden bis ein Ergebnis vorliegt. Aus diesem Grund hatte ich bei diesen Tätigkeiten immer einen Top-PC vor der Nase zu stehen, einfach weil ein paar Stunden Untätigkeit teurer sind als der PC. Wegen der Wichtigkeit der erzeugten Ergebnisse waren diese PCs auch immer mit ECC-tauglichem Speicher und Chipsatz ausgestattet, auch wenn das wieder einen Teil der Performance gekostet hat (ECC verursacht beim Speicherzugriff immer ein paar Takte zusätzliche Latenz).<br/><br/>Ich persönlich hab es noch nicht erlebt das eine ordentlich betriebene CPU (ohne Übertaktung und mit angemessener Kühlung auf einen anständigen Main-Board mit adäquater Energieversorgung) sich mal verrechnet hätte (ja ich weiß es gab da mal den FDIV-Bug in einigen Pentiums aber so eine CPU hatte ich nie benutzt) von daher erachte ich die Investition in einen guten Work-Station-PC als ausreichend. Nebst dessen das jedes FPGA-Image immer erst gründlich getestet wird bevor es ausgeliefert wird.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34529">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_34529_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34534"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Jidder</a>
+</h4>
+<ul class="reset smalltext" id="msg_34534_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 1 625</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #36 am:</strong> 07. January 2012, 00:16 »</div>
+<div class="posttile"><h5 id="subject_34534">
+<a href="offset-20.html#msg34534" rel="nofollow">Re: Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_34534_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34534"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34526">Zitat von: Dimension am 06. January 2012, 20:15</a></div></div><blockquote class="bbc_standard_quote">Wer sein System allerdings professionell einsetzen möchte</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Kannst du das konkretisieren? Was ist "professioneller Einsatz"?</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34534">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_34534_signature">Dieser Text wird unter jedem Beitrag angezeigt.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34538"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Dimension</a>
+</h4>
+<ul class="reset smalltext" id="msg_34538_extra_info">
+<li class="postcount">Beiträge: 155</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #37 am:</strong> 07. January 2012, 07:02 »</div>
+<div class="posttile"><h5 id="subject_34538">
+<a href="offset-20.html#msg34538" rel="nofollow">Re: Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_34538_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34538"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34534">Zitat von: Jidder am 07. January 2012, 00:16</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34526">Zitat von: Dimension am 06. January 2012, 20:15</a></div></div><blockquote class="bbc_alternate_quote">Wer sein System allerdings professionell einsetzen möchte</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Kannst du das konkretisieren? Was ist "professioneller Einsatz"?<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Lass es mich so formulieren: Jemand der seine CPU übertaktet zieht Performance der Reliabiliy vor.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34538">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34543"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_34543_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #38 am:</strong> 07. January 2012, 14:07 »</div>
+<div class="posttile"><h5 id="subject_34543">
+<a href="offset-20.html#msg34543" rel="nofollow">Re: Optimale Baumstrukturen fuer malloc/free</a>
+</h5></div>
+<div id="msg_34543_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34543">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34538">Zitat von: Dimension am 07. January 2012, 07:02</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34534">Zitat von: Jidder am 07. January 2012, 00:16</a></div></div><blockquote class="bbc_alternate_quote">Kannst du das konkretisieren? Was ist "professioneller Einsatz"?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Lass es mich so formulieren: Jemand der seine CPU übertaktet zieht Performance der Reliabiliy vor.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist zwar richtig aber keine Antwort auf die Frage.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34543">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_34543_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: <a class="navPages" href="index.html">1</a> [<strong>2</strong>] 
+				</div></div>
+<div class="nextlinks_bottom"><a href="../2945/offset-20.html#msg34561">« vorheriges</a> <a href="../2948/offset-20.html#msg34516">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/3/index.html"><span>OS-Design</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>Optimale Baumstrukturen fuer malloc/free</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.015 Sekunden mit 115 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

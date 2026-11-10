@@ -1,0 +1,44 @@
+Universe soll ein schlankes, universelles (deswegen auch der Name, wer hätte das nur gedacht ;)) und modulares Betriebssystem werden, bei dem Sicherheit besonders groß geschrieben wird.
+
+{{Infobox OS
+|Name = Universe
+|Entwickler = InfinityCoding
+|Version = 1.0 (in Entwicklung)
+|Lizenz = GPL v3, LGPL (libc)
+|Plattform = [[x86]], [[ARM]](In Arbeit)
+|Kernel = Micro-Kernel
+|Sprache = Assembler/C
+|API = nativ, [[POSIX]]
+|Binaerformat = [[ELF]]
+|Homepage = (in Arbeit)
+|IPC = [[Pipe | Pipes]]
+}}
+
+== Universe aktuell==
+Aktuell handelt es sich um einen einfachen Microkernel mit einem kleinen Treibersatz. Es wird in dieser Form seit 2012 entwickelt. Die aktuellsten Neuerungen sind die Einführung eines universellen Kommunikationsprotokolls für Treiber und die Portierung diverser Tools.
+
+
+
+==Universe Kernel 1.0 (Planung/in Arbeit)==
+* Blocktreiber für Bootlaufwerk (CD + ATA)
+* Dateisystemtreiber für das Bootlaufwerk ([[FAT]] und EXT)
+* Standard Konsolen/Grafiktreiber
+* vollständige Portierung der core-utils
+
+Die Treiber sind wie für ein Microkernel üblich außerhalb des Kernels und kommunizieren mittels UDRCP-Protokolls. Dieses Protokoll erlaubt auch das dynamische verändern der Treiberpiplines. 
+
+
+
+'''Interfaces:'''
+*CDI
+*POSIX API (über int $0x80, oder über einen dynamischen Syscall)
+*Universe API (nur über einen dynamischen Syscall)
+
+'''IPC Systeme:'''
+*Pipes
+
+'''Portierungen:'''
+*stdlibc (In Arbeit)
+*zlib
+*fasm
+*gcc (in Arbeit)

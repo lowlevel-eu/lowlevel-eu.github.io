@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Teil 6 - Multitasking – Lowlevel</title>
+
+
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+
+
+
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Teil_6_-_Multitasking rootpage-Teil_6_-_Multitasking skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1899/index.html">Aktueller Artikel</a> · <a href="../../history/1899/index.html">Versionsgeschichte</a> · <a href="../../source/7128.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Teil 6 - Multitasking</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 21. Februar 2010, 12:07 Uhr von <a class="mw-userlink" href="../../pages/1489/index.html" title="Benutzer:Bluecode"><bdi>Bluecode</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(uintXY_t)</span></div><div id="mw-revision-nav">(<a href="../../diffs/7127-7128.html" title="Teil 6 - Multitasking">Unterschied</a>) <a href="../7127/index.html" title="Teil 6 - Multitasking">← Nächstältere Version</a> | <a href="../../pages/1899/index.html" title="Teil 6 - Multitasking">Aktuelle Version</a> (<a href="../../diffs/7128-11392.html" title="Teil 6 - Multitasking">Unterschied</a>) | <a href="../11392/index.html" title="Teil 6 - Multitasking">Nächstjüngere Version →</a> (<a href="../../diffs/7128-11392.html" title="Teil 6 - Multitasking">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><table style="width:100%; background-color: #D0D8FF; border: 1px solid #b8c0e8; text-align:center; margin-bottom: 10px;">
+<tbody><tr>
+<td style="width:33%; text-align:left;">« <a href="../../pages/1898/index.html" title="Teil 5 - Interrupts">Teil 5 - Interrupts</a></td>
+<td style="width:33%; text-align:center;"><b>Navigation</b></td>
+<td style="width:33%; text-align:right;"><a href="../../pages/2094/index.html" title="Teil 7 - Physische Speicherverwaltung">Teil 7 - Physische Speicherverwaltung</a> »</td>
+</tr>
+</tbody></table>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Ziel"><span class="tocnumber">1</span> <span class="toctext">Ziel</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Unsere_Ausgabetasks"><span class="tocnumber">2</span> <span class="toctext">Unsere Ausgabetasks</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Task_starten"><span class="tocnumber">3</span> <span class="toctext">Task starten</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Userspace"><span class="tocnumber">4</span> <span class="toctext">Userspace</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Ziel">Ziel</span></h2>
+<p>Wir wollen zwei Tasks erstellen, die wir durch unser Multitasking "gleichzeitig" laufen lassen. Um das ganze sichtbar zu machen, nehmen wir das klassische Multitasking-Beispiel her: Task 1 gibt in einer Endlosschleife A aus, Task 2 gibt B aus. Am Ende sollten abwechselnd As und Bs auf dem Bildschirm erscheinen.
+</p>
+<h2><span class="mw-headline" id="Unsere_Ausgabetasks">Unsere Ausgabetasks</span></h2>
+<p>Unsere Tasks implementieren wir vorerst als C-Funktion im Kernel. Das ist einfach genug, daher direkt zum Code:
+&lt;c&gt;void task_a(void)
+{
+</p>
+<pre>   while (1) {
+       kprintf("A");
+   }
+</pre>
+<p>}
+</p><p>void task_b(void)
+{
+</p>
+<pre>   while (1) {
+       kprintf("B");
+   }
+</pre>
+<p>}&lt;/c&gt;
+</p>
+<h2><span class="mw-headline" id="Task_starten">Task starten</span></h2>
+<p>Nachdem diese Vorbereitungen getroffen sind, können wir an das eigentliche Multitasking denken. Unser nächster Schritt ist es, in einen Task hineinzuspringen. Teil zwei ist das Herausspringen, aber das heben wir uns erst einmal für später auf.
+</p><p>Was macht jetzt einen Task aus? Was sich zwischen den einzelnen Tasks unterscheidet, ist der Prozessorzustand – also der Inhalt der Register. Wenn wir einen Task unterbrechen, müssen wir seine Registerbelegung speichern, und bevor wir in einen Tasks hineinspringen müssen wir den Zustand wiederherstellen (bzw. beim ersten Einsprung einen vernünftigen Anfangszustand herstellen).
+</p><p>Eine "Struktur für den Prozessorzustand" kommt irgendwie bekannt vor. In der Tat haben wir bei der Interruptbehandlung schon eine <i>struct cpu_state</i> definiert, die wir direkt weiterverwenden können. Die Struktur, wie wir sie in Teil 5 definiert haben, sollte vorerst reichen, denn mehr als die Allzweckregister und eflags benutzen unsere Tasks im Moment nicht. Wenn man es richtig macht, könnten beispielsweise noch die Segmentregister dazukommen.
+</p><p>Wir benutzen die Struktur sogar schon an der richtigen Stelle: Ein Taskwechsel findet immer in einem Interrupthandler statt – das kann z.B. ein Timerinterrupt sein, der signalisiert, dass der Prozess seine Zeit aufgebraucht hat, oder ein Syscall, mit dem das Programm anzeigt, dass es vorzeitig den Prozessor abgeben möchte. Genau genommen findet sogar der ganze Kernel nur noch in Interrupthandlern statt, sobald der erste Task gestartet ist.
+</p><p>Legen wir also einmal den Startzustand für die beiden Tasks fest, jeder bekommt seinen Stack und dort drin eine struct cpu_state:
+&lt;c&gt;static uint8_t stack_a[4096];
+static uint8_t stack_b[4096];
+</p><p>/*
+</p>
+<pre>* Jeder Task braucht seinen eigenen Stack, auf dem er beliebig arbeiten kann,
+* ohne dass ihm andere Tasks Dinge ueberschreiben. Ausserdem braucht ein Task
+* einen Einsprungspunkt.
+*/
+</pre>
+<p>struct cpu_state* init_task(uint8_t* stack, void* entry)
+{
+</p>
+<pre>   /*
+    * CPU-Zustand fuer den neuen Task festlegen
+    */
+   struct cpu_state new_state = {
+       .eax = 0,
+       .ebx = 0,
+       .ecx = 0,
+       .edx = 0,
+       .esi = 0,
+       .edi = 0,
+       .ebp = 0,
+       //.esp = unbenutzt (kein Ring-Wechsel)
+       .eip = (uint32_t) entry,
+</pre>
+<pre>       /* Ring-0-Segmentregister */
+       .cs  = 0x08,
+       //.ss  = unbenutzt (kein Ring-Wechsel)
+</pre>
+<pre>       /* IRQs einschalten (IF = 1) */
+       .eflags = 0x202,
+   };
+</pre>
+<pre>   /*
+    * Den angelegten CPU-Zustand auf den Stack des Tasks kopieren, damit es am
+    * Ende so aussieht als waere der Task durch einen Interrupt unterbrochen
+    * worden. So kann man dem Interrupthandler den neuen Task unterschieben
+    * und er stellt einfach den neuen Prozessorzustand "wieder her".
+    */
+   struct cpu_state* state = (void*) (stack + 4096 - sizeof(new_state));
+   *state = new_state;
+</pre>
+<pre>   return state;
+</pre>
+<p>}&lt;/c&gt;
+</p><p>Wie im Code angedeutet, können wir ss und esp im Prozessorzustand erst einmal ignorieren. Wir haben sie schon in unsere struct cpu_state aufgenommen, weil sie bei einem Interrupt automatisch von der CPU gespeichert werden, wenn wir dazu von einem normalen unprivilegierten Programm (also aus Ring 3) in den Kernel (also Ring 0) wechseln. Wir lassen bisher aber alles mit vollen Privilegien laufen und bekommen daher bei Interrupts auch keinen Stackwechsel.
+</p><p>Als nächstes brauchen wir einen primitiven Scheduler, der uns sagt, welcher Task als nächstes dran ist. Ein Teil ist die Initialisierung, die die beiden Tasks startet und die Datenstrukturen bereitstellt. Dieser Teil muss aufgerufen werden, bevor Hardwareinterrupts aktiviert werden. Der zweite Teil ist der Scheduler selbst, der speichert, wo der alte Task gerade steht und den Zustand des nächsten Tasks zurückgibt.
+</p><p>&lt;c&gt;static int current_task = -1;
+static int num_tasks = 2;
+static struct cpu_state* task_states[2];
+</p><p>void init_multitasking(void)
+{
+</p>
+<pre>   task_states[0] = init_task(stack_a, task_a);
+   task_states[1] = init_task(stack_b, task_b);
+</pre>
+<p>}
+</p><p>/*
+</p>
+<pre>* Gibt den Prozessorzustand des naechsten Tasks zurueck. Der aktuelle
+* Prozessorzustand wird als Parameter uebergeben und gespeichert, damit er
+* beim naechsten Aufruf des Tasks wiederhergestellt werden kann
+*/
+</pre>
+<p>struct cpu_state* schedule(struct cpu_state* cpu)
+{
+</p>
+<pre>   /*
+    * Wenn schon ein Task laeuft, Zustand sichern. Wenn nicht, springen wir
+    * gerade zum ersten Mal in einen Task. Diesen Prozessorzustand brauchen
+    * wir spaeter nicht wieder.
+    */
+   if (current_task &gt;= 0) {
+       task_states[current_task] = cpu;
+   }
+</pre>
+<pre>   /*
+    * Naechsten Task auswaehlen. Wenn alle durch sind, geht es von vorne los
+    */
+   current_task++;
+   current_task %= num_tasks;
+</pre>
+<pre>   /* Prozessorzustand des neuen Tasks aktivieren */
+   cpu = task_states[current_task];
+</pre>
+<pre>   return cpu;
+</pre>
+<p>}&lt;/c&gt;
+</p><p>Jetzt müssen wir den Scheduler nur noch zum Einsatz bringen. Dieser Teil ist das, was das eigentliche Multitasking macht. Der passende Code dazu ist so kurz wie die Idee einfach ist: Anstatt bei einem Interrupt den gerade eben gesicherten Prozessorzustand wiederherzustellen, stellen wir einfach den Zustand eines anderen Tasks wieder her. Dazu wird handle_interrupt so geändert, dass es <i>cpu</i> wieder zurückgibt. Im Fall des Timerinterrupts geben wir allerdings den Zustand des neuen Tasks zurück:
+&lt;c&gt;struct cpu_state* handle_interrupt(struct cpu_state* cpu)
+{
+</p>
+<pre>   struct cpu_state* new_cpu = cpu;
+</pre>
+<pre>   ...
+</pre>
+<pre>   if (cpu-&gt;intr == 0x20) {
+       new_cpu = schedule(cpu);
+   }
+</pre>
+<pre>   ...
+</pre>
+<pre>   return new_cpu;
+</pre>
+<p>}&lt;/c&gt;
+</p><p>Der Interrupt-Handler muss jetzt nur noch diesen Rückgabewert verarbeiten, d.h. den Stack entsprechend wechseln:
+&lt;asm&gt;    ...
+</p>
+<pre>   // Handler aufrufen
+   // Der Rueckgabewert ist der Prozessorzustand des moeglicherweise
+   // gewechselten Tasks. Wir muessen also den Stack dorthin wechseln
+   // um die Register wiederherzustellen.
+   push %esp
+   call handle_interrupt
+   mov %eax, %esp
+</pre>
+<pre>   // CPU-Zustand wiederherstellen
+   ...&lt;/asm&gt;
+</pre>
+<p>Das war's. Beim nächsten Timerinterrupt fängt der Kernel fröhlich an, Multitasking zu machen, und abwechselnd As und Bs auf den Bildschirm zu schreiben. Wer nicht auf den Timerinterrupt warten möchte kann auch den Interrupt 0x20 als Software-Interrupt auslösen.
+</p>
+<h2><span class="mw-headline" id="Userspace">Userspace</span></h2>
+<p>So schön es ist, jetzt mehrere Programm gleichzeitig laufen lassen zu können, perfekt ist das alles noch nicht. Die Tasks laufen alle in Ring 0, haben also alle Privilegien, die sie sich wünschen. Was, wenn ein Programm einfach Interrupts ausschaltet? Das System wäre dann lahmgelegt. Die Programme müssen also nach Ring 3.
+</p><p>Was ändert sich für uns mit Ring-3-Tasks? An sich ist es nicht viel. Wie oben schon angemerkt, kommt zum bereits Bekannten nur noch ein Stackwechsel dazu. Wenn der Prozessor bei einem Interrupt in Ring 3 ist, also einen Ringwechsel durchführen muss, sichert er esp und ss auf den Stack (wie es in struct cpu_state schon vorgesehen ist). Beim Zurückspringen aus dem Interrupt mittels <i>iret</i> stellt er diese Register auch wieder her. Nachdem er die Register gesichert hat, lädt der Prozessor den Kernel-Stack (bestehend aus ss und esp). Diese beiden Werte kommen aus dem aktiven <a href="../../pages/1599/index.html" title="Task State Segment">Task State Segment</a> (TSS).
+</p><p>Aber fangen wir beim leichten Teil an. Stellen wir den Taskzustand auf Ring 3 um. Dazu brauchen wir jetzt zusätzlich zum Kernelstack jedes Tasks, der für den Prozessorzustand und die Ausführung der Interrupt-Handler benutzt wird, einen zweiten getrennten Stack für jeden Task, auf dem dieser beliebig arbeiten kann. Außerdem benutzen wir jetzt die Ring-3-Segmente aus der GDT:
+</p><p>&lt;c&gt;static uint8_t user_stack_a[4096];
+static uint8_t user_stack_b[4096];
+</p><p>struct cpu_state* init_task(uint8_t* stack, uint8_t* user_stack, void* entry)
+{
+</p><p>...
+</p>
+<pre>       .esp = (uint32_t) user_stack + 4096,
+       .eip = (uint32_t) entry,
+</pre>
+<pre>       /* Ring-3-Segmentregister */
+       .cs  = 0x18 | 0x03,
+       .ss  = 0x20 | 0x03,&lt;/c&gt;
+</pre>
+<p>Code und Stack wären damit abgedeckt, aber wir brauchen auch noch die Datensegmente. Unser Aufruf des Interrupthandlers sieht damit folgendermaßen aus:
+&lt;asm&gt;    // Kernel-Datensegmente laden
+</p>
+<pre>   mov $0x10, %ax
+   mov %ax, %ds
+   mov %ax, %es
+</pre>
+<pre>   // Handler aufrufen
+   // Der Rueckgabewert ist der Prozessorzustand des moeglicherweise
+   // gewechselten Tasks. Wir muessen also den Stack dorthin wechseln
+   // um die Register wiederherzustellen.
+   push %esp
+   call handle_interrupt
+   mov %eax, %esp
+</pre>
+<pre>   // User-Datensegmente laden
+   mov $0x23, %ax
+   mov %ax, %ds
+   mov %ax, %es&lt;/asm&gt;
+</pre>
+<p>Als nächstes legen wir das TSS an. Der Aufbau wird im Artikel <a href="../../pages/1599/index.html" title="Task State Segment">Task State Segment</a> beschrieben, wir brauchen davon nur die Felder esp0 und ss0. ss0 können wir konstant auf unser Ring-0-Datensegment setzen, esp0 muss für jeden Task angepasst werden.
+</p><p>&lt;c&gt;static uint32_t tss[32] = { 0, 0, 0x10 };
+</p><p>...
+</p>
+<pre>       if (cpu-&gt;intr == 0x20) {
+           new_cpu = schedule(cpu);
+           tss[1] = (uint32_t) (new_cpu + 1);
+       }&lt;/c&gt;
+</pre>
+<p>Außerdem müssen wir das TSS noch aktivieren. Dazu fügen wir der GDT einen zusätzlichen Eintrag hinzu und laden anschließend auch das Taskregister TR neu (nicht vergessen, das Limit der GDT zu erhöhen, wenn nötig):
+&lt;c&gt;    set_entry(5, (uint32_t) tss, sizeof(tss),
+</p>
+<pre>       GDT_FLAG_TSS | GDT_FLAG_PRESENT | GDT_FLAG_RING3);
+</pre>
+<pre>   // Taskregister neu laden
+   asm volatile("ltr %%ax" : : "a" (5 &lt;&lt; 3));&lt;/c&gt;
+</pre>
+<p>Damit wäre auch der Userspace implementiert. Wer möchte, kann das gern durch ein <i>asm("cli; hlt");</i> in einem der Tasks ausprobieren. Bevor die Tasks nach Ring 3 verschoben worden sind, durften sie die Befehle ausführen und der Kernel kam zum Stillstand. Jetzt wird eine Exception ausgelöst (13 = #GP = General Protection Fault) und der Kernel gibt eine Fehlermeldung aus (bevor er sich ebenfalls in eine Endlosschleife begibt – normal würde er hier stattdessen einfach den Task beenden).
+</p><p><br/>
+</p>
+<table style="width:100%; background-color: #D0D8FF; border: 1px solid #b8c0e8; text-align:center; margin-bottom: 10px;">
+<tbody><tr>
+<td style="width:33%; text-align:left;">« <a href="../../pages/1898/index.html" title="Teil 5 - Interrupts">Teil 5 - Interrupts</a></td>
+<td style="width:33%; text-align:center;"><b>Navigation</b></td>
+<td style="width:33%; text-align:right;"><a href="../../pages/2094/index.html" title="Teil 7 - Physische Speicherverwaltung">Teil 7 - Physische Speicherverwaltung</a> »</td>
+</tr>
+</tbody></table>
+<!-- 
+NewPP limit report
+Cached time: 20261109170507
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.005 seconds
+Real time usage: 0.006 seconds
+Preprocessor visited node count: 52/1000000
+Preprocessor generated node count: 156/1000000
+Post‐expand include size: 916/2097152 bytes
+Template argument size: 256/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.002      1 -total
+ 93.72%    0.939      2 Vorlage:Navigation
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Teil_6_-_Multitasking&amp;oldid=7128</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1895/index.html" title="Kategorie:OS-Dev für Einsteiger">OS-Dev für Einsteiger</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1899/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1899/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

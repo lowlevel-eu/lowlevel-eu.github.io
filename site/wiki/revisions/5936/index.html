@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Direct Memory Access – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Direct_Memory_Access rootpage-Direct_Memory_Access skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1555/index.html">Aktueller Artikel</a> · <a href="../../history/1555/index.html">Versionsgeschichte</a> · <a href="../../source/5936.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Direct Memory Access</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 19. September 2009, 12:47 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Rupi</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Befehlsregister)</span></div><div id="mw-revision-nav">(<a href="../../diffs/5530-5936.html" title="Direct Memory Access">Unterschied</a>) <a href="../5530/index.html" title="Direct Memory Access">← Nächstältere Version</a> | <a href="../../pages/1555/index.html" title="Direct Memory Access">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../6679/index.html" title="Direct Memory Access">Nächstjüngere Version →</a> (<a href="../../diffs/5936-6679.html" title="Direct Memory Access">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div id="Template_Stub">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #D0D8FF; margin: 0 0em; padding: 0 0px; border: 1px solid #b8c0e8" width="100%">
+<tbody><tr>
+<td>Diese Seite oder Abschnitt ist zwar komplett, es wird aber folgende Verbesserungen gewünscht:<br/>
+<p><i>Diesen Artikel erweitern</i>
+</p><p>Hilf Lowlevel, den Artikel zu verbessern.
+</p>
+</td></tr></tbody></table>
+</div>
+<p>Unter <b>Direct Memory Access</b>, oder auch <b>DMA</b> versteht man eine Methode, Daten zwischen Peripheriegeräten zum Arbeitsspeicher und umgekehrt zu übertragen, ohne die CPU dafür benutzen zu müssen. Dies wird meistens mit einem extra Chip, der auf dem Mainboard oder in den Peripheriegeräten selbst verbaut ist, realisiert. Typische DMA-Geräte sind dabei Festplatten und CD/DVD/BD-ROM-Laufwerke. Besonders wird dieses Feature von Multitasking-Betriebssystemen benötigt, da hier der Prozesswechsel sonst durch z.B. Festplattenzugriffe verzögert werden müsste.
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Physikalischer_Aufbau"><span class="tocnumber">1</span> <span class="toctext">Physikalischer Aufbau</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Programmierung_der_Controller"><span class="tocnumber">2</span> <span class="toctext">Programmierung der Controller</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#.C3.9Cbersicht"><span class="tocnumber">2.1</span> <span class="toctext">Übersicht</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Aufbau_der_zusammengesetzten_Bytes"><span class="tocnumber">2.2</span> <span class="toctext">Aufbau der zusammengesetzten Bytes</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="#Statusregister"><span class="tocnumber">2.2.1</span> <span class="toctext">Statusregister</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Befehlsregister"><span class="tocnumber">2.2.2</span> <span class="toctext">Befehlsregister</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Transfermodusregister"><span class="tocnumber">2.2.3</span> <span class="toctext">Transfermodusregister</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Requestregister"><span class="tocnumber">2.2.4</span> <span class="toctext">Requestregister</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#Alles_zusammensetzen:_Vorbereiten_einer_.C3.9Cbertragung"><span class="tocnumber">2.3</span> <span class="toctext">Alles zusammensetzen: Vorbereiten einer Übertragung</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Beispiel"><span class="tocnumber">3</span> <span class="toctext">Beispiel</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Physikalischer_Aufbau">Physikalischer Aufbau</span></h2>
+<p>Für DMA-Transfere wurde in früheren PCs ein Chip mit der Bezeichnung 8237A verwendet. Im Laufe der Zeit wurde ein weiterer Controller hinzugefügt und die Hardware in den Chipsatz integriert.
+Die beiden Controller sind miteinander verbunden, einer von ihnen arbeitet als Master, der andere als Slave.
+Jeder der beiden Controller stellt vier sog. <b>Channel</b>, also Kanäle, zur Verfügung. Dadurch sind parallele und unabhängige Übertragungen möglich.
+</p><p>Vor einer Datenübertragung muss der Controller richtig programmiert bzw. initialisiert werden. Die meisten Einstellungen, die hierfür nötig sind, können für jeden Channel einzeln geändert werden; das heißt, dass alle Channel unabhängig voneinander programmiert werden müssen und unabhängig voneinander die Daten übertragen.
+</p><p>Der eigentliche Transfer wird in der Regel von dem mit diesem Channel verbundenen Stück Hardware gestartet. Dafür hat jeder Controller vier Leitungen mit den Namen DREQ0 bis DREQ3, die den Transfer über den entsprechenden Channel starten. Alternativ kann dieses Signal auch per Software emuliert werden, um die Datenübertragung manuell zu starten. Dazu wird das Requestregister benötigt, das weiter unten beschrieben wird. Die Übertragung wird beendet, wenn die vorab definierte Datenmenge übertragen wurde oder wenn ein Signal auf der EOP-Leitung des Controllers ankommt, d.h. die Übertragung von der Hardware aus beendet wird.
+</p>
+<h2><span class="mw-headline" id="Programmierung_der_Controller">Programmierung der Controller</span></h2>
+<h3><span id="Übersicht"></span><span class="mw-headline" id=".C3.9Cbersicht">Übersicht</span></h3>
+<p>Die folgende Tabelle ist eine Übersicht über alle <a class="mw-redirect" data-archive-original-href="../../pages/1985/index.html" href="../../pages/1543/index.html" title="Port">Ports</a>, die von den beiden Controllern belegt werden. Master- und Slave-Controller verwenden dabei verschiedene Ports. Weiterhin muss beachtet werden, dass die vier Channel pro Controller ebenfalls etliche getrennte Ports verwenden. So kommt ingesammt eine vergleichsweise hohe Zahl an Ports zusammen.
+</p><p>Mit "Zugriff" ist der <a href="../../pages/1514/index.html" title="Assembler">Assemblerbefehl</a> gemeint, mit dem auf den Port zugegriffen werden kann. Diese Spalte gibt an, ob lesend oder schreibend zugegriffen wird. Die Spalte "Größe" gibt an, wieviele Bits das entsprechende Register umfasst. Auch wenn hier 16 stehen sollte, wird nur byteweise mit den DMA-Controllern kommuniziert - siehe dazu die Beschreibung des Flip-Flop-Registers.
+</p><p><br/>
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Name des Registers</th>
+<th>Port Slave</th>
+<th>Port Master</th>
+<th>Zugriff</th>
+<th>Größe</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>Startadresse</td>
+<td>Ch 0: 0x00</td>
+<td>Ch 0: 0xC0</td>
+<td>out</td>
+<td>16</td>
+<td>Die Startadresse des Puffers für die Daten
+</td></tr>
+<tr>
+<td></td>
+<td>Ch 1: 0x02</td>
+<td>Ch 1: 0xC2</td>
+<td>out</td>
+<td>16</td>
+<td>
+</td></tr>
+<tr>
+<td></td>
+<td>Ch 2: 0x04</td>
+<td>Ch 2: 0xC4</td>
+<td>out</td>
+<td>16</td>
+<td>
+</td></tr>
+<tr>
+<td></td>
+<td>Ch 3: 0x06</td>
+<td>Ch 3: 0xC6</td>
+<td>out</td>
+<td>16</td>
+<td>
+</td></tr>
+<tr>
+<td>Zähler</td>
+<td>Ch 0: 0x01</td>
+<td>Ch 0: 0xC1</td>
+<td>out</td>
+<td>16</td>
+<td>Anzahl der Bytes, die übertragen werden sollen, minus eins
+</td></tr>
+<tr>
+<td></td>
+<td>Ch 1: 0x03</td>
+<td>Ch 1: 0xC3</td>
+<td>out</td>
+<td>16</td>
+<td>
+</td></tr>
+<tr>
+<td></td>
+<td>Ch 2: 0x05</td>
+<td>Ch 2: 0xC5</td>
+<td>out</td>
+<td>16</td>
+<td>
+</td></tr>
+<tr>
+<td></td>
+<td>Ch 3: 0x07</td>
+<td>Ch 3: 0xC7</td>
+<td>out</td>
+<td>16</td>
+<td>
+</td></tr>
+<tr>
+<td>Aktuelle Adresse</td>
+<td>Ch 0: 0x00</td>
+<td>Ch 0: 0xC0</td>
+<td>in</td>
+<td>16</td>
+<td>Die Aktuelle Adresse. Sie gibt an, wo der DMA-Controller gerade liest oder schreibt
+</td></tr>
+<tr>
+<td></td>
+<td>Ch 1: 0x02</td>
+<td>Ch 1: 0xC2</td>
+<td>in</td>
+<td>16</td>
+<td>
+</td></tr>
+<tr>
+<td></td>
+<td>Ch 2: 0x04</td>
+<td>Ch 2: 0xC4</td>
+<td>in</td>
+<td>16</td>
+<td>
+</td></tr>
+<tr>
+<td></td>
+<td>Ch 3: 0x06</td>
+<td>Ch 3: 0xC6</td>
+<td>in</td>
+<td>16</td>
+<td>
+</td></tr>
+<tr>
+<td>Aktueller Zähler</td>
+<td>Ch 0: 0x01</td>
+<td>Ch 0: 0xC1</td>
+<td>in</td>
+<td>16</td>
+<td>Der momentane Zählerstand gibt an, wie viele Bytes noch verbleiben
+</td></tr>
+<tr>
+<td></td>
+<td>Ch 1: 0x03</td>
+<td>Ch 1: 0xC3</td>
+<td>in</td>
+<td>16</td>
+<td>
+</td></tr>
+<tr>
+<td></td>
+<td>Ch 2: 0x05</td>
+<td>Ch 2: 0xC5</td>
+<td>in</td>
+<td>16</td>
+<td>
+</td></tr>
+<tr>
+<td></td>
+<td>Ch 3: 0x07</td>
+<td>Ch 3: 0xC7</td>
+<td>in</td>
+<td>16</td>
+<td>
+</td></tr>
+<tr>
+<td>Page</td>
+<td>Ch 0: 0x87</td>
+<td>Ch 0: 0x8F</td>
+<td>out/in</td>
+<td>8</td>
+<td>Da sich mit Hilfe der Startadresse nur ein 16bit-Adressraum ansprechen lässt, also 64KiB, kann hierüber eine Page festegelegt werden. Die Startadresse wird also auf eine 24bit-Adresse erweiter, womit sich immerhin 1MiB ansprechen lässt. Dieses 8bit-Register nimmt dabei die Bits 16-23 dieser Adresse auf.
+</td></tr>
+<tr>
+<td></td>
+<td>Ch 1: 0x83</td>
+<td>Ch 1: 0x8B</td>
+<td>out/in</td>
+<td>8</td>
+<td>
+</td></tr>
+<tr>
+<td></td>
+<td>Ch 2: 0x81</td>
+<td>Ch 2: 0x89</td>
+<td>out/in</td>
+<td>8</td>
+<td>
+</td></tr>
+<tr>
+<td></td>
+<td>Ch 3: 0x82</td>
+<td>Ch 3: 0x8A</td>
+<td>out/in</td>
+<td>8</td>
+<td>
+</td></tr>
+<tr>
+<td>Status</td>
+<td>0x08</td>
+<td>0xD0</td>
+<td>in</td>
+<td>8</td>
+<td>Liefert Statusinformationen zum DMA-Controller (siehe dazu unten)
+</td></tr>
+<tr>
+<td>Befehle</td>
+<td>0x08</td>
+<td>0xD0</td>
+<td>out</td>
+<td>8</td>
+<td>Befehle, die der Controller ausführen soll, werden hierein geschrieben (für eine Liste der Befehle siehe unten)
+</td></tr>
+<tr>
+<td>Controller zurücksetzen</td>
+<td>0x0D</td>
+<td>0xDA</td>
+<td>out</td>
+<td>-</td>
+<td>Durch Schreiben in dieses Register wird ein Reset des entsprechenden Controllers durchgeführt
+</td></tr>
+<tr>
+<td>Flip-Flop</td>
+<td>0x0C</td>
+<td>0xD8</td>
+<td>out</td>
+<td>8</td>
+<td>Dieses Register ist nötig, um mit 8bit-Zugriffen, die 16bit-Register zu verwenden. Vor dem Zugriff auf ein 16bit-Register sollte eine Null an dieses Register gesendet werden. Dadurch wird der Flip-Flop des Controllers zurückgesetzt und es wird beim anschließenden Zugriff auf ein 16bit-Register das Low-Byte adressiert. Der Controller wird das Flip-Flop-Register danach selbstständig auf Eins setzen, wodurch der nächste Zugriff das High-Byte adressiert. Dies ist sowohl beim Lesen als auch beim Schreiben aus bzw. in 16bit-Register nötig.
+</td></tr>
+<tr>
+<td>Transfermodus</td>
+<td>0x0B</td>
+<td>0xD6</td>
+<td>out</td>
+<td>8</td>
+<td>Über dieses Register kann der Übertragungsmodus für einen Channel und einige weitere ergänzende Details zum Befehl, der an das Befehlsregister gesendet wird, festgelegt werden (Für eine genaue Beschreibung siehe unten)
+</td></tr>
+<tr>
+<td>Maskierung eines Channels</td>
+<td>0x0A</td>
+<td>0xD4</td>
+<td>out</td>
+<td>8</td>
+<td>Hierüber kann ein einzelner Channel maksiert, also deaktiviert, werden. Dies sollte immer(!) getan werden, wenn der Controller auf einen Transfer vorbereitet wird, um gleichzeitige Zugriffe von mehreren Programmen zu unterbinden. Die Bits 0 und 1 enthalten dabei die Nummer des Channels, dessen Status geändert werden soll. In Bit 2 wird angegeben, ob der gewählte Channel aktiviert (0) oder deaktiviert (1) werden soll.
+</td></tr>
+<tr>
+<td>Maskierung mehrerer Channel</td>
+<td>0x0F</td>
+<td>0xDE</td>
+<td>out</td>
+<td>8</td>
+<td>Dieses Register hat die gleiche Funktion wie das Maskierungsregister oben, aber mit dem Unterschied, dass mit Hilfe dieses Registers der Zustand meherer Channel gleichzeitig geändert werden kann. Bit 0 bis 3 geben dabei an, ob der entsprechende Channel (0-3) aktiviert (0) oder deaktiviert (1) werden soll. Hierbei muss aufgepasst werden, dass nicht aus Versehen ein Channel irrtümlicherweise (de)aktiviert wird, dessen Status eigentlich unverändert bleiben soll.
+</td></tr>
+<tr>
+<td>Request</td>
+<td>0x09</td>
+<td>0xD2</td>
+<td>out</td>
+<td>8</td>
+<td>Dieses Register ermöglicht es, einen Transfer mittels Software auszulösen. Für den Aufbau des zu sendenen Bytes siehe unten
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Aufbau_der_zusammengesetzten_Bytes">Aufbau der zusammengesetzten Bytes</span></h3>
+<h4><span class="mw-headline" id="Statusregister">Statusregister</span></h4>
+<p>Das Statusregister enthält einige Informationen über die Channel des jeweiligen Controllers. Es ist ein Byte groß und ist folgendermaßen zusammengesetzt:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Beschreibung bei gesetztem Bit
+</th></tr>
+<tr>
+<td>0</td>
+<td>Terminal Count bei Channel 0 erreicht
+</td></tr>
+<tr>
+<td>1</td>
+<td>Terminal Count bei Channel 1 erreicht
+</td></tr>
+<tr>
+<td>2</td>
+<td>Terminal Count bei Channel 2 erreicht
+</td></tr>
+<tr>
+<td>3</td>
+<td>Terminal Count bei Channel 3 erreicht
+</td></tr>
+<tr>
+<td>4</td>
+<td>DMA-Request für Channel 0
+</td></tr>
+<tr>
+<td>5</td>
+<td>DMA-Request für Channel 1
+</td></tr>
+<tr>
+<td>6</td>
+<td>DMA-Request für Channel 2
+</td></tr>
+<tr>
+<td>7</td>
+<td>DMA-Request für Channel 3
+</td></tr></tbody></table>
+<p>Mit Terminal Count ist das Umspringen des Zählers von 0x0000 auf 0xFFFF bzw. von 0xFFFF auf 0x0000 - je nach Zählrichtung - gemeint. Wenn dies der Fall ist wird die Übertragung beendet.
+</p><p>Die DMA-Request-Bits sind auf Eins gesetzt, wenn das dem Channel zugehörige Gerät eine Übertragung per Hardwaresignal starten möchte.
+</p>
+<h4><span class="mw-headline" id="Befehlsregister">Befehlsregister</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Beschreibung bei gesetztem Bit
+</th></tr>
+<tr>
+<td>0</td>
+<td>x
+</td></tr>
+<tr>
+<td>1</td>
+<td>x
+</td></tr>
+<tr>
+<td>2</td>
+<td>DMA-Controller deaktivieren
+</td></tr>
+<tr>
+<td>3</td>
+<td>x
+</td></tr>
+<tr>
+<td>4</td>
+<td>x
+</td></tr>
+<tr>
+<td>5</td>
+<td>x
+</td></tr>
+<tr>
+<td>6</td>
+<td>x
+</td></tr>
+<tr>
+<td>7</td>
+<td>x
+</td></tr></tbody></table>
+<p>x: Bit funktioniert anscheinend nicht
+</p>
+<h4><span class="mw-headline" id="Transfermodusregister">Transfermodusregister</span></h4>
+<p>Mit Hilfe des Transfermodusregisters lassen sich etliche Einstellungen zu jedem Channel bearbeiten. Dazu wird ein Byte nach dem folgenden Schema zusammengesetzt und an den entsprechenden Port geschickt.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0-1</td>
+<td>Channelnummer
+</td></tr>
+<tr>
+<td>2-3</td>
+<td>Transferrichtung:
+</td></tr>
+<tr>
+<td></td>
+<td>00 = Verifizieren: Selbsttest des Controllers
+</td></tr>
+<tr>
+<td></td>
+<td>01 = Schreiben: Vom Gerät zum RAM
+</td></tr>
+<tr>
+<td></td>
+<td>10 = Lesen: Von RAM zum Gerät
+</td></tr>
+<tr>
+<td></td>
+<td>11 = undefiniert
+</td></tr>
+<tr>
+<td>4</td>
+<td>Autoinitialisierung
+</td></tr>
+<tr>
+<td>5</td>
+<td>Zählrichtung:
+</td></tr>
+<tr>
+<td></td>
+<td>0 = Adressregister wird inkrementiert, es wird aufwärts gezählt
+</td></tr>
+<tr>
+<td></td>
+<td>1 = Adressregister wird swkrementiert, es wird abwärts gezählt
+</td></tr>
+<tr>
+<td>6-7</td>
+<td>Transfermodus:
+</td></tr>
+<tr>
+<td></td>
+<td>00 = Demand-Transfer
+</td></tr>
+<tr>
+<td></td>
+<td>01 = Einzel-Transfer
+</td></tr>
+<tr>
+<td></td>
+<td>10 = Block-Transfer
+</td></tr>
+<tr>
+<td></td>
+<td>11 = Kaskadierung
+</td></tr></tbody></table>
+<p>Autonitialisierung: Wenn das Autoinitialisierungsbit gesetzt ist, wird beim Eintreten des Terminal Counts oder bei einem Signal auf der EOP-Leitung die Startadresse und der Zähler auf den zuletzt einprogrammierten Wert zurückgesetzt. Das kann beispielsweise für den <a class="mw-redirect" data-archive-original-href="../../pages/1859/index.html" href="../../pages/1443/index.html" title="Floppy">Floppy</a>-Treiber interessant sein; der gleiche Puffer wird immer wieder verwendet und der Zähler wird nach jedem Lese- oder Schreibvorgang auf die Sektorlänge zurückgesetzt.
+</p>
+<h4><span class="mw-headline" id="Requestregister">Requestregister</span></h4>
+<p>Das Requestregister wird verwendet, um einen Transfer manuell per Software auszulösen. Dazu wird ein Byte an den entsprechenden Port geschickt, das so aufgebaut ist:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Bit</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0-1</td>
+<td>Channelnummer
+</td></tr>
+<tr>
+<td>2</td>
+<td>Request-Bit:
+</td></tr>
+<tr>
+<td></td>
+<td>0 = Kein Request
+</td></tr>
+<tr>
+<td></td>
+<td>1 = Request; das ist das, was wohl in allen Fällen gewollt ist
+</td></tr>
+<tr>
+<td>3-7</td>
+<td>ungenutzt, sollte Null sein
+</td></tr></tbody></table>
+<h3><span id="Alles_zusammensetzen:_Vorbereiten_einer_Übertragung"></span><span class="mw-headline" id="Alles_zusammensetzen:_Vorbereiten_einer_.C3.9Cbertragung">Alles zusammensetzen: Vorbereiten einer Übertragung</span></h3>
+<p><b>TODO</b>
+</p>
+<h2><span class="mw-headline" id="Beispiel">Beispiel</span></h2>
+<p><b>TODO</b>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20261109165046
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.009 seconds
+Real time usage: 0.010 seconds
+Preprocessor visited node count: 61/1000000
+Preprocessor generated node count: 116/1000000
+Post‐expand include size: 475/2097152 bytes
+Template argument size: 24/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.651      1 -total
+ 48.64%    0.803      1 Vorlage:TODO
+ 37.38%    0.617      5 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Direct_Memory_Access&amp;oldid=5936</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1820/index.html" title="Kategorie:TODO">TODO</a></li><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li><li><a href="../../pages/1447/index.html" title="Kategorie:Hardware">Hardware</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1555/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/1779/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1555/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

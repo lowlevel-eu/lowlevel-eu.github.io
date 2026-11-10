@@ -1,0 +1,40 @@
+{{Infobox User
+| Nick = SörenK
+| Picture = http://vivian.comyr.com/logo.png
+| EMail = soerenkoenig98@gmx.de
+| Homepage = http://vivian.comyr.com/
+}}
+
+= Über mich =
+Ich selbst bin ein junger Programmierer und lerne nach wie vor dazu. Meine erste Sprache war PureBasic, mit der ich viel herumprobiert habe und noch gerne für kleine Projekte hernehme. Später gab es einige gescheiterte Versuche mit C++, C, Assembler sowie Java. Dann habe ich XNA (ein MS C# Express Plugin für 2D/3D Spiele auf Windows & Xbox) gefunden und habe erstaunlicherweise C# gut lernen können. Dann wandte ich mich mal wieder der Betriebssystementwicklung zu und wollte Assembler lernen, was zuvor an nicht funktionierenden Programmen scheiterte, und habe mich erkundigt, wie die Programme ausgeführt werden müssen und es hat endlich geklappt! Nun habe ich mich schlaugelesen, wie ein Betriebssystem/Bootloader aufgebaut ist und habe im Forum einige Fragen zur Sicherheit von einem OS gepostet. Und jetzt beginnt die Zeit von meinem Betriebssystem mit dem Namen Vivian. Mal schauen, was aus ihm wird!
+
+= Vivian =
+Da mein Betriebssystem eine Sicherheit von 100% haben soll, habe ich einiges zum Thema Bootloader, BIOS/UEFI und Firmware gelesen. Heraus kam aber nichts gutes: Wenn ich mein Ziel verwirklichen will, muss ich mindestenst den BIOS/UEFI-Code ändern oder noch besser - die Gesamte Firmware aller Chips ändern.
+Pro- und Kontrapunkte beim Codeändern:
+:+ Ich habe den Code vor meinen Augen und weiß, was wann passieren wird
+:+ Sicherheitslecks, welche im Code stehen können, werden geschlossen 
+:+ Ich kann Systemnah programmieren wodurch Vivian schneller wird
+:+ Ich kann die Hardware kontrollieren, welche Unterstützt wird
+:- Es gibt keine Dokumentation von Intel AMD usw., da sonst die Konkurenz abkupfern kann
+:- Hintertürchen, welche in der Hardware eingebaut wurden, können nicht geschlossen werden
+:- Ich muss meinen BIOS-Code veröffentlichen, da sonst mein Code als "Gefährlich" gelten könnte
+:- Ich muss für jeden Chip eine eigene Firmware schreiben und die Liste ist lang
+Mir ist klar, wie viel Arbeit das ist, aber ich möchte ein sicheres OS auf die Beine stellen. Aber solange ich keinen Test-PC habe, kann ich nur planen :)
+=== Aufbau ===
+Da ich die Firmware usw. komplett neu schreiben werde, muss ich mich nicht an allgemein gültige Dinge halten (z.B. dass DS = 0x07C0 sein muss) und kann einen besseren Standart erfinden. Ein Grund dafür ist, dass diese Dinge schon sehr alt und überholt sind. Aber dadurch werden andere Betriebssysteme nicht funktionieren können. Und deshalb werde ich einen Kompatiblitätsmodus hinzufügen, welcher die Original-Software lädt und ausführt - als ob der Chip nie geändert wurde.
+=== Die Firmware ===
+Da ich die OS-Modes (Real-/Protectet) nicht ganz ausgereift finde, werde ich einen Vivian-Mode schreiben, in welchem das Betriebssystem den höchsten Rang hat und die Programme, je nach Funktionen, einen geringeren besitzen.
+Der Code selbst wird immer am Chip angepasst, aber die letztendlichen Funktionen für OS und Co sind gleich. Mein Ziel wird es sein, alle möglichen Chips abzudecken, aber am Anfang werde ich nur die neuesten unterstützen.
+
+=== Das BIOS/UEFI ===
+Werde ich komplett überspringen, da die Firmware gleich sein wird.
+=== Vivian ===
+Wird einen Hybrid-Kernel besitzen.
+=== GUI ===
+Es wird zwei Grundformen geben, das Rechteck und das Sechseck. Das ist auch der Grund, warum das Logo ein Sechseck ist.
+=== Speichervormat ===
+Erstmal ein eigenes, weil ich alle Dinge ausprobieren will und ich es den Viren schwerer machen will, solange es noch bugs gibt. Später werden auch (fast) alle Dokumentierten Formate unterstützt.
+=== Ausführbarer Code ===
+Bisher nur wenige Ideen, weshalb es erstmal keine Programme auf Vivian geben wird.
+=== Preis ===
+Die ersten Versionen werden unter der CC-Lizens stehen. Später wird es in etwa soviel wir Windows kosten. Der Firmware/BIOS-Code wird jedoch immer frei zugänglich sein.

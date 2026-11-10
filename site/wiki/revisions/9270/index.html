@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Versionsverwaltung – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Versionsverwaltung rootpage-Versionsverwaltung skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1801/index.html">Aktueller Artikel</a> · <a href="../../history/1801/index.html">Versionsgeschichte</a> · <a href="../../source/9270.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Versionsverwaltung</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 6. Januar 2011, 14:29 Uhr von <a class="mw-userlink" href="../../pages/2378/index.html" title="Benutzer:Sfan"><bdi>Sfan</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Týndur benutzt git)</span></div><div id="mw-revision-nav">(<a href="../../diffs/6102-9270.html" title="Versionsverwaltung">Unterschied</a>) <a href="../6102/index.html" title="Versionsverwaltung">← Nächstältere Version</a> | <a href="../../pages/1801/index.html" title="Versionsverwaltung">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../9282/index.html" title="Versionsverwaltung">Nächstjüngere Version →</a> (<a href="../../diffs/9270-9282.html" title="Versionsverwaltung">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Versionsverwaltungen machen das Leben einfacher. Nicht nur für Betriebssystementwickler, sondern auch für jede andere Entwicklungsart. Nicht nur für Einzelpersonen, sondern auch und insbesondere für Gruppen. Systeme für die Versionsverwaltung nennen sich VCS (Version Control System) oder SCM (Source Code Managementsystem).
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Hauptaufgaben"><span class="tocnumber">1</span> <span class="toctext">Hauptaufgaben</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Mechanismen"><span class="tocnumber">2</span> <span class="toctext">Mechanismen</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Konzepte"><span class="tocnumber">3</span> <span class="toctext">Konzepte</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Lock-Modify-Write"><span class="tocnumber">3.1</span> <span class="toctext">Lock-Modify-Write</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Copy-Modify-Merge"><span class="tocnumber">3.2</span> <span class="toctext">Copy-Modify-Merge</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Branching_und_Tagging"><span class="tocnumber">3.3</span> <span class="toctext">Branching und Tagging</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Systeme"><span class="tocnumber">4</span> <span class="toctext">Systeme</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Bekannte_Projekte_und_ihr_eingesetztes_VCS"><span class="tocnumber">4.1</span> <span class="toctext">Bekannte Projekte und ihr eingesetztes VCS</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Weblinks"><span class="tocnumber">5</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Hauptaufgaben">Hauptaufgaben</span></h2>
+<p>Eine Versionsverwaltung erfüllt eine handvoll nützliche Aufgaben, die Entwicklern das Leben leichter machen.
+</p>
+<ul><li>Protokollierung der Änderung. Jede Änderung am Quelltext kann nachvollzogen werden, egal von wem, an was, oder wieso.</li>
+<li>Wiederherstellung und Archivierung von Entwicklungsständen. So ist es möglich, bestimmte Versionen von Dateien oder ganzen Verzeichnisbäumen wiederherzustellen, oder auf Anhieb einem Namen einen bestimmten Zustand zuzuordnen (siehe <a href="../../pages/1801/index.html#Branching_und_Tagging" title="Versionsverwaltung">Tagging</a>).</li>
+<li>Koordination von gemeinsamen Zugriffen. Gleichzeitige Änderungen von mehreren Entwicklern werden verhindert, oder erleichtert.</li>
+<li>Koordination von Entwicklungszweigen, z.B. wenn eine alte Funktionalität komplett ersetzt werden soll, aber der Hauptzweig während dieser Änderung weiterhin ungestört funktionieren soll.</li></ul>
+<h2><span class="mw-headline" id="Mechanismen">Mechanismen</span></h2>
+<p>Diese Aufgaben können auf verschiedene Arten umgesetzt werden. Dabei unterscheidet sich insbesondere, wie die Versionsverwaltung aufgebaut ist. Mögliche Varianten:
+</p>
+<ul><li><b>Lokale Versionsverwaltungen</b> laufen komplett auf dem Entwicklerrechner. Fremdentwickler gibt es hierbei in der Regel nicht, eine Koordination zwischen Entwicklern ist nicht nötig.</li>
+<li><b>Zentrale Versionsverwaltungen</b> setzen in der Regel einen Server voraus. Entwickler spiegeln sich einen Entwicklungsstand auf ihr System, um daran zu arbeiten (sog. <i>checkout</i>), der Server behält dabei keinerlei Informationen über lokale Kopien. Nach den Änderungen werden die neuen Versionen wieder auf den Server übertragen (sog. <i>commit</i>). Oft wird hierbei auch eine Rechtekontrolle vorgenommen, so dass nicht jeder seine Änderungen direkt eintragen kann, aber öffentliches Lesen möglich ist. Verbreitete Beispiele für diese Variante sind <a href="../../pages/2036/index.html" title="Subversion">Subversion</a> und <a class="mw-redirect" data-archive-original-href="../../pages/2105/index.html" href="../../pages/2104/index.html" title="CVS">CVS</a>.</li>
+<li><b>Dezentralisierte Versionsverwaltungen</b> sind quasi die Hybriden. Jeder Entwickler hält eine komplette Kopie der gesamten Versionshistorie vorrätig, wie bei einer lokalen Verwaltung. Aber im Gegensatz hierzu können Änderungen auch direkt in fremde Systeme übertragen werden. Beispiele sind <a href="../../pages/1891/index.html" title="Mercurial">Mercurial</a> und das populäre <a href="../../pages/1889/index.html" title="Git">git</a>.</li></ul>
+<h2><span class="mw-headline" id="Konzepte">Konzepte</span></h2>
+<p>Das Arbeiten mit einer Versionsverwaltung basiert auf gewissen Konzepten, welche hier näher erläutert werden sollen.
+</p>
+<h3><span class="mw-headline" id="Lock-Modify-Write">Lock-Modify-Write</span></h3>
+<p>Lock-Modify-Write ist quasi der ursprüngliche Arbeitsvorgang mit einer Versionsverwaltung unter mehreren Benutzern. Wenn ein Entwickler etwas ändern will, markiert er die Datei auf der zentralen Verwaltung als gesperrt (sog. <i>lock</i>). Dann kann er alle Änderungen nach seinen Wünschen durchführen, andere Entwickler bekommen während des Locks besteht keinen Schreibzugriff auf betroffene Objekte. Nach Abschluss der Arbeiten werden die Änderungen zurück übertragen und der Lock aufgehoben. Nun können wieder andere an der Datei arbeiten.
+</p>
+<h3><span class="mw-headline" id="Copy-Modify-Merge">Copy-Modify-Merge</span></h3>
+<p>Copy-Modify-Merge ist die Alternative zu Lock-Modify-Write. Jedem Entwickler wird direkt gestattet an seiner lokalen Kopie Änderungen durchzuführen. Beim Zurückübertragen der Änderungen prüft die Verwaltung selbstständig, ob es Kollisionen zwischen den Änderungen gibt. Ist dies der Fall, wird dem späteren Entwickler zusammen mit den vorherigen Änderungen gemeldet, dass der Vorgang abgebrochen werden muss. Der Entwickler hat dann die Gelegenheit, seine und die fremden Änderungen in Einklang zu bringen (<i>merge</i>), um eine neue Version übertragen zu können. Manche Versionsverwaltungen versuchen auch mehrere Änderungen alleine in Einklang zu bringen, was allerdings nicht immer funktioniert. Vorteil ist, dass problemlos mehrere Entwickler auch den gleichen Quelltext bearbeiten können – solange jeder an einem anderen Teil arbeitet und es nicht zu Änderungen an der gleichen Codestelle kommt. 
+</p>
+<h3><span class="mw-headline" id="Branching_und_Tagging">Branching und Tagging</span></h3>
+<p>Branching und Tagging sind die Konzepte, die sich mit der Koordinierung verschiedener Entwicklungszweige und spezifischen Versionen beschäftigen.
+</p>
+<ul><li><b>Branching</b> wird verwendet, um größere Änderungen einzuführen. Es wird ein neuer Branch gebildet, der den gesamten bisherigen Quelltext enthält. Hier können größere Bereiche rundum erneuert werden, ohne dass andere Entwickler im Hauptentwicklungszweig (<i>trunk</i>) mit Problemen zu rechnen haben. Sind die Änderungen abgeschlossen, wird der Branch in den Hauptzweig überführt, dabei auftretende Probleme (z.B. durch eine geänderte API) sollten dabei beim Merge behoben werden.</li>
+<li><b>Tagging</b> bezeichnet den Vorgang, einem bestimmten Entwicklungszustand einen gewählten Namen zu verleihen. Dies wird insbesondere bei offiziellen Veröffentlichungen gemacht. Generell sollte ein Tag nicht nachträglich geändert werden, falls dies doch notwendig ist, sollten nur Bugfixes vorgenommen werden, keinesfalls aber neue Features hinzugefügt werden, da alles andere die Benutzer verwirren kann.</li></ul>
+<h2><span class="mw-headline" id="Systeme">Systeme</span></h2>
+<p>Momentan (<small>Stand Anfang 2009)</small>) sind die meistgenutzten Systeme im Open-Source-Bereich <a href="../../pages/1889/index.html" title="Git">git</a> und <a href="../../pages/2036/index.html" title="Subversion">Subversion</a>, etwas selter trifft man auch <a href="../../pages/1891/index.html" title="Mercurial">Mercurial</a> oder das etwas ältere <a class="mw-redirect" data-archive-original-href="../../pages/2105/index.html" href="../../pages/2104/index.html" title="CVS">CVS</a>. Dabei sind sowohl Subversion als auch CVS für einen zentralen Aufbau ausgelegt (können aber auch lokal gut verwendet werden), git und Mercurial hingegen folgen einem vollständig dezentralen Ansatz.
+</p>
+<h3><span class="mw-headline" id="Bekannte_Projekte_und_ihr_eingesetztes_VCS">Bekannte Projekte und ihr eingesetztes VCS</span></h3>
+<table class="prettytable">
+<tbody><tr>
+<th>VCS</th>
+<th>Projekt
+</th></tr>
+<tr>
+<td>git</td>
+<td>Linux, Qt, KDE, Compiz Fusion, GIMP, <a href="../../pages/1796/index.html" title="Týndur">Týndur</a>
+</td></tr>
+<tr>
+<td>Mercurial</td>
+<td>Firefox, OpenOffice.org
+</td></tr>
+<tr>
+<td>Subversion</td>
+<td>GCC, GnuPG, Mono, GNOME
+</td></tr>
+<tr>
+<td>CVS</td>
+<td>Bochs
+</td></tr>
+<tr>
+<td>Bazaar</td>
+<td>Ubuntu
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://betterexplained.com/articles/intro-to-distributed-version-control-illustrated/" rel="nofollow">Einführung in dezentrale Versionsverwaltung</a> <i>(english)</i></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170708
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.005 seconds
+Real time usage: 0.006 seconds
+Preprocessor visited node count: 39/1000000
+Preprocessor generated node count: 50/1000000
+Post‐expand include size: 19/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.078      1 Vorlage:Prettytable
+100.00%    1.078      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Versionsverwaltung&amp;oldid=9270</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1887/index.html" title="Kategorie:Versionsverwaltung">Versionsverwaltung</a></li><li><a href="../../pages/1924/index.html" title="Kategorie:Werkzeuge">Werkzeuge</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1801/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1801/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

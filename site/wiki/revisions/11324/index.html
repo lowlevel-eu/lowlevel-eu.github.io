@@ -1,0 +1,3534 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>CPUID – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-CPUID rootpage-CPUID skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1739/index.html">Aktueller Artikel</a> · <a href="../../history/1739/index.html">Versionsgeschichte</a> · <a href="../../source/11324.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">CPUID</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 25. Dezember 2015, 13:24 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Mr. X</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#ECX_-_Erweiterte_Featureflags">→</a>‎<span dir="auto"><span class="autocomment">ECX - Erweiterte Featureflags: </span> Bit 11 heißt "XOP"</span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/11323-11324.html" title="CPUID">Unterschied</a>) <a href="../11323/index.html" title="CPUID">← Nächstältere Version</a> | <a href="../../pages/1739/index.html" title="CPUID">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../11325/index.html" title="CPUID">Nächstjüngere Version →</a> (<a href="../../diffs/11324-11325.html" title="CPUID">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Der <b>CPUID</b>-Befehl liefert, sofern er denn von der CPU unterstützt wird, Informationen zu zahlreichen Fähigkeiten der CPU, wie zum Beispiel den Herstellernamen, die Modellnummer oder die Größe des Caches.
+</p><p><br/>
+</p>
+<div style="padding: 2px; padding-left: 9px; padding-right: 9px; background-color: #ffffff; color: #000000; border: 2px solid #efbf00; text-align:left;">
+<div style="color: #efbf00">
+<p><b>Hinweis:</b>
+</p>
+</div>
+<p>In den nachfolgenden Tabellen werden gelegentlich Tabellenzellen mit blauem oder grünen Hintergrund auftauchen.
+</p><p>Diese deuten einen <b>herstellerspezifischen</b> Eintrag an. Auf anderen Prozessoren sind diese Einträge <b>reserviert</b>!
+</p>
+</div>
+<p>So sehen die herstellerspezifischen Tabellenzellen aus:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Farbe
+</th>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td align="center" colspan="1" style="background: #96b2fb;">Blau
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">Dieser Eintrag gilt <b>ausschließlich</b> für <b>Intel</b>-Prozessoren. Auf AMD-Prozessoren ist dieser Eintrag <b>reserviert</b>!.
+</td></tr>
+<tr>
+<td align="center" colspan="1" style="background: #4dc58e;">Grün
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">Dieser Eintrag gilt <b>ausschließlich</b> für <b>AMD</b>-Prozessoren. Auf Intel-Prozessoren ist dieser Eintrag <b>reserviert</b>!.
+</td></tr></tbody></table>
+<div style="padding: 2px; padding-left: 9px; padding-right: 9px; background-color: #ffffff; color: #000000; border: 2px solid #efbf00; text-align:left;">
+<div style="color: #efbf00">
+<p><b>Hinweis:</b>
+</p>
+</div>
+<p>Manchmal folgen in der Beschreibung eines Registers auch <b>zwei Tabellen</b>. Die erste Tabelle ist dann zur schnellen Übersicht gedacht, die zweite Tabelle beschreibt die Funktion der Einträge.
+</p>
+</div>
+<p><br/>
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Wie_man_CPUID_benutzt"><span class="tocnumber">1</span> <span class="toctext">Wie man CPUID benutzt</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Standardfunktionen"><span class="tocnumber">2</span> <span class="toctext">Standardfunktionen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Funktion_0x0000_0000"><span class="tocnumber">2.1</span> <span class="toctext">Funktion 0x0000_0000</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#EAX_-_H.C3.B6chste_Standardfunktion"><span class="tocnumber">2.1.1</span> <span class="toctext">EAX - Höchste Standardfunktion</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#EBX_-_Vendor"><span class="tocnumber">2.1.2</span> <span class="toctext">EBX - Vendor</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#ECX_-_Vendor"><span class="tocnumber">2.1.3</span> <span class="toctext">ECX - Vendor</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#EDX_-_Vendor"><span class="tocnumber">2.1.4</span> <span class="toctext">EDX - Vendor</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Vendor-ID-Strings"><span class="tocnumber">2.1.5</span> <span class="toctext">Vendor-ID-Strings</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#Funktion_0x0000_0001"><span class="tocnumber">2.2</span> <span class="toctext">Funktion 0x0000_0001</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#EAX_-_Prozessor"><span class="tocnumber">2.2.1</span> <span class="toctext">EAX - Prozessor</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#EBX_-_Sonstiges"><span class="tocnumber">2.2.2</span> <span class="toctext">EBX - Sonstiges</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#ECX_-_Featureflags"><span class="tocnumber">2.2.3</span> <span class="toctext">ECX - Featureflags</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#EDX_-_Featureflags"><span class="tocnumber">2.2.4</span> <span class="toctext">EDX - Featureflags</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-14"><a href="#Funktion_0x0000_0002"><span class="tocnumber">2.3</span> <span class="toctext">Funktion 0x0000_0002</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Funktion_0x0000_0003"><span class="tocnumber">2.4</span> <span class="toctext">Funktion 0x0000_0003</span></a>
+<ul>
+<li class="toclevel-3 tocsection-16"><a href="#EAX_-_Reserviert"><span class="tocnumber">2.4.1</span> <span class="toctext">EAX - Reserviert</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#EBX_-_Reserviert"><span class="tocnumber">2.4.2</span> <span class="toctext">EBX - Reserviert</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#ECX_-_Signatur"><span class="tocnumber">2.4.3</span> <span class="toctext">ECX - Signatur</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#EDX_-Signatur"><span class="tocnumber">2.4.4</span> <span class="toctext">EDX -Signatur</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="#Erweiterte_Funktionen"><span class="tocnumber">3</span> <span class="toctext">Erweiterte Funktionen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-21"><a href="#Funktion_0x8000_0000"><span class="tocnumber">3.1</span> <span class="toctext">Funktion 0x8000_0000</span></a>
+<ul>
+<li class="toclevel-3 tocsection-22"><a href="#EAX"><span class="tocnumber">3.1.1</span> <span class="toctext">EAX</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="#EBX_-_.22Auth.22"><span class="tocnumber">3.1.2</span> <span class="toctext">EBX - "Auth"</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="#ECX_-_.22cAMD.22"><span class="tocnumber">3.1.3</span> <span class="toctext">ECX - "cAMD"</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="#EDX_-_.22enti.22"><span class="tocnumber">3.1.4</span> <span class="toctext">EDX - "enti"</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-26"><a href="#Funktion_0x8000_0001"><span class="tocnumber">3.2</span> <span class="toctext">Funktion 0x8000_0001</span></a>
+<ul>
+<li class="toclevel-3 tocsection-27"><a href="#EAX_-_Familie"><span class="tocnumber">3.2.1</span> <span class="toctext">EAX - Familie</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#EBX_-_Brand_ID"><span class="tocnumber">3.2.2</span> <span class="toctext">EBX - Brand ID</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="#ECX_-_Erweiterte_Featureflags"><span class="tocnumber">3.2.3</span> <span class="toctext">ECX - Erweiterte Featureflags</span></a></li>
+<li class="toclevel-3 tocsection-30"><a href="#EDX_-_Erweiterte_Featureflags"><span class="tocnumber">3.2.4</span> <span class="toctext">EDX - Erweiterte Featureflags</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-31"><a href="#Funktion_0x8000_0002"><span class="tocnumber">3.3</span> <span class="toctext">Funktion 0x8000_0002</span></a>
+<ul>
+<li class="toclevel-3 tocsection-32"><a href="#EAX_-_Prozessorname"><span class="tocnumber">3.3.1</span> <span class="toctext">EAX - Prozessorname</span></a></li>
+<li class="toclevel-3 tocsection-33"><a href="#EBX_-_Prozessorname"><span class="tocnumber">3.3.2</span> <span class="toctext">EBX - Prozessorname</span></a></li>
+<li class="toclevel-3 tocsection-34"><a href="#ECX_-_Prozessorname"><span class="tocnumber">3.3.3</span> <span class="toctext">ECX - Prozessorname</span></a></li>
+<li class="toclevel-3 tocsection-35"><a href="#EDX_-_Prozessorname"><span class="tocnumber">3.3.4</span> <span class="toctext">EDX - Prozessorname</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-36"><a href="#Funktion_0x8000_0003"><span class="tocnumber">3.4</span> <span class="toctext">Funktion 0x8000_0003</span></a>
+<ul>
+<li class="toclevel-3 tocsection-37"><a href="#EAX_-_Prozessorname_2"><span class="tocnumber">3.4.1</span> <span class="toctext">EAX - Prozessorname</span></a></li>
+<li class="toclevel-3 tocsection-38"><a href="#EBX_-_Prozessorname_2"><span class="tocnumber">3.4.2</span> <span class="toctext">EBX - Prozessorname</span></a></li>
+<li class="toclevel-3 tocsection-39"><a href="#ECX_-_Prozessorname_2"><span class="tocnumber">3.4.3</span> <span class="toctext">ECX - Prozessorname</span></a></li>
+<li class="toclevel-3 tocsection-40"><a href="#EDX_-_Prozessorname_2"><span class="tocnumber">3.4.4</span> <span class="toctext">EDX - Prozessorname</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-41"><a href="#Funktion_0x8000_0004"><span class="tocnumber">3.5</span> <span class="toctext">Funktion 0x8000_0004</span></a>
+<ul>
+<li class="toclevel-3 tocsection-42"><a href="#EAX_-_Prozessorname_3"><span class="tocnumber">3.5.1</span> <span class="toctext">EAX - Prozessorname</span></a></li>
+<li class="toclevel-3 tocsection-43"><a href="#EBX_-_Prozessorname_3"><span class="tocnumber">3.5.2</span> <span class="toctext">EBX - Prozessorname</span></a></li>
+<li class="toclevel-3 tocsection-44"><a href="#ECX_-_Prozessorname_3"><span class="tocnumber">3.5.3</span> <span class="toctext">ECX - Prozessorname</span></a></li>
+<li class="toclevel-3 tocsection-45"><a href="#EDX_-_Prozessorname_3"><span class="tocnumber">3.5.4</span> <span class="toctext">EDX - Prozessorname</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-46"><a href="#Siehe_auch"><span class="tocnumber">3.6</span> <span class="toctext">Siehe auch</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Wie_man_CPUID_benutzt">Wie man CPUID benutzt</span></h2>
+<p>Bevor man munter versucht, mit dem CPUID-Befehl Informationen auszulesen, sollte man ersteinmal prüfen, ob die CPU den Befehl überhaupt unterstützt. Dazu testet man, ob das ID-Flag gesetzt und gelöscht werden kann.
+</p><p>Aussehen kann das zum Beispiel so:
+&lt;asm&gt;; Lade Flags nach ECX und EAX
+pushfd
+pop ecx
+mov eax, ecx
+</p>
+<dl><dt>Invertiere das ID-Flag</dt></dl>
+<p>xor eax, 0x200000
+</p>
+<dl><dt>Lade EAX nach EFLAGS</dt></dl>
+<p>push eax
+popfd
+</p>
+<dl><dt>Wenn CPUID unterstützt wird, wird das geänderte ID-Flag übernommen</dt>
+<dt>Ansonsten wird bleibt das alte ID-Flag bestehen</dt></dl>
+<dl><dt>Lade Flags nach EAX</dt></dl>
+<p>pushfd
+pop eax
+</p>
+<dl><dt>Vergleiche vorher(ECX) und nachher(EAX)</dt>
+<dt>Wenn beide gleich sind, wird CPUID nicht unterstützt</dt></dl>
+<p>xor eax, ecx
+je cpuid_unsupported
+jmp cpu_supported
+&lt;/asm&gt;
+</p><p><br/>
+Um den CPUID-Befehl auszuführen, verwendet man einfach den Assemblerbefehl <b>CPUID</b>. Die Funktionsnummer der CPUID-Funktion wird dabei im <b>EAX</b>-Register übergeben. Die Rückgabewerte werden in den Registern <b>EAX</b>, <b>EBX</b>, <b>EDX</b> und <b>ECX</b> abgelegt.
+</p><p>Um zum Beispiel den Vendor-ID-String, also den Herstellernamen, auszulesen, ruft man CPUID mit der Funktionsnummer 0x00000000 auf.
+&lt;asm&gt;
+mov eax, 0x00000000   ; xor eax, eax bewirkt das selbe und ist schneller
+cpuid                 ; Der Vendor-ID-String befindet sich nun in (in dieser Reihenfolge), EBX, EDX, ECX
+&lt;/asm&gt;
+Ein <b>AMD</b>-Prozessor hätte jetzt folgende Registerwerte: <b>EBX</b>="<b>Auth</b>", <b>EDX</b>="<b>enti</b>", <b>ECX</b>="<b>cAMD</b>"<br/>
+Ein <b>Intel</b>-Prozessor hätte jetzt folgende Registerwerte: <b>EBX</b>="<b>Genu</b>", <b>EDX</b>="<b>ineI</b>", <b>ECX</b>="<b>ntel</b>"
+</p>
+<h1><span class="mw-headline" id="Standardfunktionen">Standardfunktionen</span></h1>
+<p>Die Standardfunktionsnummern beginnen bei 0. Die größtmögliche Funktionsnummer, die von der jeweiligen CPU unterstützt wird, befindet sich nach dem Aufruf von Funktion 0 im <i>EAX</i>-Register.
+Die Standardfunktionen sind nicht herstellerspezifisch, sondern sollen für alle CPUs gleich sein. 
+</p>
+<h2><span class="mw-headline" id="Funktion_0x0000_0000">Funktion 0x0000_0000</span></h2>
+<p>CPUID-Funktion Nr. 0x00 gibt die höchste vom Prozessor unterstützte Funktionsnummer im <b>EAX</b>-Register und die <a href="../../pages/1739/index.html#Vendor-ID-Strings" title="CPUID">Vendor-ID</a> in den Registern <b>EBX</b>, <b>EDX</b> und <b>ECX</b>(in dieser Reihenfolge) zurück. 
+</p>
+<div style="padding: 2px 2px 2px 9px; background-color: #ffffff; color: #000000; border: 2px solid #bf111b; text-align:left; margin: 0.5em 0">
+<p style="color: #bf111b"><b>Achtung!</b></p>
+<p>Der String ist nicht nullterminiert!
+</p>
+</div>
+<h4><span id="EAX_-_Höchste_Standardfunktion"></span><span class="mw-headline" id="EAX_-_H.C3.B6chste_Standardfunktion">EAX - Höchste Standardfunktion</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Höchste unterstützte Standardfunktion
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="EBX_-_Vendor">EBX - Vendor</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Bytes 0 - 3 des Vendor-ID-Strings
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="ECX_-_Vendor">ECX - Vendor</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Bytes 8 - 11 des Vendor-ID-Strings
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="EDX_-_Vendor">EDX - Vendor</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Bytes 4 - 7 des Vendor ID-Strings
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="Vendor-ID-Strings">Vendor-ID-Strings</span></h4>
+<p>Eine Liste der möglichen Vendor-ID-Strings
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Vendor-ID-String
+</th>
+<th>Hersteller
+</th></tr>
+<tr>
+<td><tt>"AuthenticAMD"</tt>
+</td>
+<td>AMD
+</td></tr>
+<tr>
+<td><tt>"CentaurHauls"</tt>
+</td>
+<td>Centaur
+</td></tr>
+<tr>
+<td><tt>"CyrixInstead"</tt>
+</td>
+<td>Cyrix
+</td></tr>
+<tr>
+<td><tt>"GenuineIntel"</tt>
+</td>
+<td>Intel
+</td></tr>
+<tr>
+<td><tt>"NexGenDriven"</tt>
+</td>
+<td>NexGen
+</td></tr>
+<tr>
+<td><tt>"Geode by NSC"</tt>
+</td>
+<td>National Semiconductor
+</td></tr>
+<tr>
+<td><tt>"RiseRiseRise"</tt>
+</td>
+<td>Rise
+</td></tr>
+<tr>
+<td><tt>"SiS SiS SiS "</tt>
+</td>
+<td>SiS
+</td></tr>
+<tr>
+<td><tt>"GenuineTMx86"</tt>
+</td>
+<td>Transmeta
+</td></tr>
+<tr>
+<td><tt>"UMC UMC UMC "</tt>
+</td>
+<td>UMC
+</td></tr>
+<tr>
+<td><tt>"VIA VIA VIA "</tt>
+</td>
+<td>VIA
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Funktion_0x0000_0001">Funktion 0x0000_0001</span></h2>
+<h4><span class="mw-headline" id="EAX_-_Prozessor">EAX - Prozessor</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="4" style="background:lightgrey">
+</td>
+<td align="center" colspan="8">Erweiterte Familie
+</td>
+<td align="center" colspan="4">Erweitertes Modell
+</td>
+<td align="center" colspan="2" style="background:lightgrey">
+</td>
+<td align="center" colspan="2" style="background: #96b2fb;">Typ
+</td>
+<td align="center" colspan="4">Familie
+</td>
+<td align="center" colspan="4">Modell
+</td>
+<td align="center" colspan="4">Stepping
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="EBX_-_Sonstiges">EBX - Sonstiges</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="8"><a class="mw-redirect" data-archive-original-href="../../pages/1675/index.html" href="../../pages/1584/index.html" title="APIC">APIC ID</a>
+</td>
+<td align="center" colspan="8">Anzahl logischer Prozessoren
+</td>
+<td align="center" colspan="8">CLFLUSH-Size
+</td>
+<td align="center" colspan="8">Brand ID
+</td></tr></tbody></table>
+<div style="padding: 2px 2px 2px 9px; background-color: #ffffff; color: #000000; border: 2px solid #bf111b; text-align:left; margin: 0.5em 0">
+<p style="color: #bf111b"><b>Achtung!</b></p>
+<p><b>APIC ID</b> ist nur gültig wenn das <b><a href="#EDX_-_Featureflags">APIC-Flag</a></b> gesetzt ist.<br/>
+Die Anzahl der logischen Prozessoren ist nur bei gesetztem <b><a href="#EDX_-_Featureflags">Hyper-Threading-Flag</a></b> gültig.<br/>
+<b>CLFLUSH-Size</b> gibt die Größe einer Cache line in 8-Byte-Blöcken an. Das Feld ist nur gültig in Verbindung mit einem gesetzten <b><a href="#EDX_-_Featureflags">CFLUSH-Flag</a></b>.
+</p>
+</div>
+<h4><span class="mw-headline" id="ECX_-_Featureflags">ECX - Featureflags</span></h4>
+<p>Dies sind die Featureflags. Wenn ein Bit gesetzt (=1) ist, dann wird das entsprechende Feature unterstützt.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="1" style="background:lightgrey">
+</td>
+<td align="center" colspan="1">RDRAND
+</td>
+<td align="center" colspan="1">F16C
+</td>
+<td align="center" colspan="1">AVX
+</td>
+<td align="center" colspan="1">OSXSAVE
+</td>
+<td align="center" colspan="1">XSAVE
+</td>
+<td align="center" colspan="1">AESNI
+</td>
+<td align="center" colspan="1" style="background:lightgrey">
+</td>
+<td align="center" colspan="1">POPCNT
+</td>
+<td align="center" colspan="1">MOVBE
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">x2APIC
+</td>
+<td align="center" colspan="1">SSE4.2
+</td>
+<td align="center" colspan="1">SSE4.1
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">DCA
+</td>
+<td align="center" colspan="2" style="background:lightgrey">
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">PDCM
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">xTPR
+</td>
+<td align="center" colspan="1">CX16
+</td>
+<td align="center" colspan="1">FMA
+</td>
+<td align="center" colspan="1" style="background:lightgrey">
+</td>
+<td align="center" colspan="{{{1}}}" style="background: #96b2fb;">CNXT-ID
+</td>
+<td align="center" colspan="1">SSSE3
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">TM2
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">EST
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">VMX
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">SMX
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">DS-CPL
+</td>
+<td align="center" colspan="1">MONITOR
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">DTES64
+</td>
+<td align="center" colspan="1">PCLMULQDQ
+</td>
+<td align="center" colspan="1">SSE3
+</td></tr></tbody></table>
+<table class="prettytable">
+<tbody><tr>
+<th width="30pt">Bit
+</th>
+<th>Funktion
+</th></tr>
+<tr>
+<th align="center" colspan="1">31
+</th>
+<td align="center" rowspan="1" style="background:lightgrey">
+</td></tr>
+<tr>
+<th align="center" colspan="1">30
+</th>
+<td align="left" colspan="1">Unterstützt den <b>RDRAND</b> Befehl
+</td></tr>
+<tr>
+<th align="center" colspan="1">29
+</th>
+<td align="left" colspan="1">Unterstützt Befehle zum Konvertieren in/von 16-bit Floating-Points
+</td></tr>
+<tr>
+<th align="center" colspan="1">28
+</th>
+<td align="left" colspan="1">Unterstützt <a href="../../pages/2649/index.html" title="Advanced Vector Extensions">AVX</a>
+</td></tr>
+<tr>
+<th align="center" colspan="1">27
+</th>
+<td align="left" colspan="1">Zeigt an, dass das <a href="../../pages/1479/index.html" title="Betriebssystem">Betriebssystem</a> die Befehle <b>XSETBV</b> und <b>XGETBV</b> aktiviert hat, um auf das <b>XFEATURE_ENABLE_MASK</b> Register (<b>XCR0</b>) zuzugreifen und die erweiterten Zustandsfeatures <b>XSAVE</b> und <b>XRSTOR</b> zu nutzen
+</td></tr>
+<tr>
+<th align="center" colspan="1">26
+</th>
+<td align="left" colspan="1">Unterstützt die erweiterten Zustandsfeatures <b>XSAVE</b> und <b>XRSTOR</b>, die Befehle <b>XSETBV</b> und <b>XGETBV</b> und implementiert das <b>XFEATURE_ENABLE_MASK</b> Register (<b>XCR0</b>)
+</td></tr>
+<tr>
+<th align="center" colspan="1">25
+</th>
+<td align="left" colspan="1">Unterstützt AESNI-Befehle
+</td></tr>
+<tr>
+<th align="center" colspan="1">24
+</th>
+<td align="center" rowspan="1" style="background:lightgrey">
+</td></tr>
+<tr>
+<th align="center" colspan="1">23
+</th>
+<td align="left" colspan="1">Unterstützt den <b>POPCNT</b> Befehl
+</td></tr>
+<tr>
+<th align="center" colspan="1">22
+</th>
+<td align="left" colspan="1">Unterstützt den <b>MOVBE</b> Befehl
+</td></tr>
+<tr>
+<th align="center" colspan="1">21
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Unterstützt x2APIC-Features
+</td></tr>
+<tr>
+<th align="center" colspan="1">20
+</th>
+<td align="left" colspan="1">Unterstützt <a href="../../pages/2199/index.html" title="Streaming SIMD Extensions">SSE4.2</a>
+</td></tr>
+<tr>
+<th align="center" colspan="1">19
+</th>
+<td align="left" colspan="1">Unterstützt <a href="../../pages/2199/index.html" title="Streaming SIMD Extensions">SSE4.1</a>
+</td></tr>
+<tr>
+<th align="center" colspan="1">18
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Unterstützt das prefetchen von Daten von einem in den Speicher gemappten Gerät
+</td></tr>
+<tr>
+<th align="center" colspan="1">17
+</th>
+<td align="center" rowspan="2" style="background:lightgrey">
+</td></tr>
+<tr>
+<th align="center" colspan="1">16
+</th></tr>
+<tr>
+<th align="center" colspan="1">15
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Unterstützt das Performance Capabilities MSR (<b>IA32_PERF_CAPABILITIES</b>, MSR 0x345)
+</td></tr>
+<tr>
+<th align="center" colspan="1">14
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Unterstützt die Möglichkeit, das Senden von Task Priority Messages abzuschalten, indem Bit 23 im <b>IA32_MISC_ENABLE</b> MSR gesetzt wird
+</td></tr>
+<tr>
+<th align="center" colspan="1">13
+</th>
+<td align="left" colspan="1">Unterstützt den <b>CMPXCHG16B</b> Befehl
+</td></tr>
+<tr>
+<th align="center" colspan="1">12
+</th>
+<td align="left" colspan="1">Unterstützt FMA3-Befehle
+</td></tr>
+<tr>
+<th align="center" colspan="1">11
+</th></tr>
+<tr>
+<th align="center" colspan="1">10
+</th>
+<td align="left" colspan="{{{1}}}" style="background: #96b2fb;">Der L1-Cachemodus kann vom Bios entweder auf <b>adaptive</b> oder auf <b>shared</b> gesetzt werden
+</td></tr>
+<tr>
+<th align="center" colspan="1">9
+</th>
+<td align="left" colspan="1">Unterstützt <a href="../../pages/2199/index.html" title="Streaming SIMD Extensions">SSSE3</a>
+</td></tr>
+<tr>
+<th align="center" colspan="1">8
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Implementiert den "Thermal Monitor 2 thermal control circuit" (TCC)
+</td></tr>
+<tr>
+<th align="center" colspan="1">7
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Unterstützt Enhanced Intel SpeedStep und implementiert das <b>IA32_PERF_STS</b>-Register und das <b>IA32_PERF_CTL</b>-Register
+</td></tr>
+<tr>
+<th align="center" colspan="1">6
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Unterstützt Intel Trusted Execution
+</td></tr>
+<tr>
+<th align="center" colspan="1">5
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Unterstützt VMX
+</td></tr>
+<tr>
+<th align="center" colspan="1">4
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Unterstützt die Erweiterungen des Debug-Speicher-Features um durch CPL qualifizierten Branch-Message-Speicher zu nutzen
+</td></tr>
+<tr>
+<th align="center" colspan="1">3
+</th>
+<td align="left" colspan="1">Unterstützt den <b>MONITOR</b>-Befehl und den <b>MWAIT</b>-Befehl
+</td></tr>
+<tr>
+<th align="center" colspan="1">2
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Kann den Verlauf der 64-Bit-Branch in/von Adressen in einen Buffer schreiben
+</td></tr>
+<tr>
+<th align="center" colspan="1">1
+</th>
+<td align="left" colspan="1">Unterstützt <b>PCLMULQDQ</b>-Befehl
+</td></tr>
+<tr>
+<th align="center" colspan="1">0
+</th>
+<td align="left" colspan="1">Unterstützt <a href="../../pages/2199/index.html" title="Streaming SIMD Extensions">SSE3</a>
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="EDX_-_Featureflags">EDX - Featureflags</span></h4>
+<p>Dies sind die Featureflags. Wenn ein Bit gesetzt (=1) ist, dann wird das entsprechende Feature unterstützt.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="1" style="background: #96b2fb;">PBE
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">IA64
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">TM
+</td>
+<td align="center" colspan="1">HTT
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">SS
+</td>
+<td align="center" colspan="1">SSE2
+</td>
+<td align="center" colspan="1">SSE
+</td>
+<td align="center" colspan="1">FXSR
+</td>
+<td align="center" colspan="1">MMX
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">ACPI
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">DS
+</td>
+<td align="center" colspan="1" style="background:lightgrey">
+</td>
+<td align="center" colspan="1">CLFLSH
+</td>
+<td align="center" colspan="1" style="background: #96b2fb;">PSN
+</td>
+<td align="center" colspan="1">PSE-36
+</td>
+<td align="center" colspan="1">PAT
+</td>
+<td align="center" colspan="1">CMOV
+</td>
+<td align="center" colspan="1">MCA
+</td>
+<td align="center" colspan="1">PGE
+</td>
+<td align="center" colspan="1">MTRR
+</td>
+<td align="center" colspan="1">SEP
+</td>
+<td align="center" colspan="1" style="background:lightgrey">
+</td>
+<td align="center" colspan="1">APIC
+</td>
+<td align="center" colspan="1">CX8
+</td>
+<td align="center" colspan="1">MCE
+</td>
+<td align="center" colspan="1">PAE
+</td>
+<td align="center" colspan="1">MSR
+</td>
+<td align="center" colspan="1">TSC
+</td>
+<td align="center" colspan="1">PSE
+</td>
+<td align="center" colspan="1">DE
+</td>
+<td align="center" colspan="1">VME
+</td>
+<td align="center" colspan="1">FPU
+</td></tr></tbody></table>
+<table class="prettytable">
+<tbody><tr>
+<th width="30pt">Bit
+</th>
+<th>Funktion
+</th></tr>
+<tr>
+<th align="center" colspan="1">31
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Unterstützt die Benutzung des FERR#-Pins und des PBE#-Pins um dem Prozessor im Stop Clock State (STPCLK#) zu signalisieren, dass er einen wartenden Interrupt bearbeiten und dann zur normalen Ausführung zurückkehren soll.
+</td></tr>
+<tr>
+<th align="center" colspan="1">30
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Gehört zur Intel Itanium Familie und läuft gerade im IA32-Emulationsmodus
+</td></tr>
+<tr>
+<th align="center" colspan="1">29
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Implementiert den "Thermal Monitor aumatic thermal control circuitry" (TCC)
+</td></tr>
+<tr>
+<th align="center" colspan="1">28
+</th>
+<td align="left" colspan="1">Kann mehr als einen logischen Prozessor verwalten
+</td></tr>
+<tr>
+<th align="center" colspan="1">27
+</th>
+<td align="left" colspan="1">Unterstützt die Verwaltung von miteinander in Konflikt stehenden Speichertypen
+</td></tr>
+<tr>
+<th align="center" colspan="1">26
+</th>
+<td align="left" colspan="1">Unterstützt <a href="../../pages/2199/index.html" title="Streaming SIMD Extensions">SSE2</a>
+</td></tr>
+<tr>
+<th align="center" colspan="1">25
+</th>
+<td align="left" colspan="1">Unterstütz <a href="../../pages/2199/index.html" title="Streaming SIMD Extensions">SSE</a>
+</td></tr>
+<tr>
+<th align="center" colspan="1">24
+</th>
+<td align="left" colspan="1">Unterstützt die <b>FXSAVE</b> und <b>FXRSTOR</b> Befehle, mit denen die <a data-archive-original-href="../../pages/1881/index.html#Floatingpointregister" href="../../pages/1881/index.html" title="Register — Der ursprüngliche Abschnitt ist in dieser Momentaufnahme nicht verfügbar; stattdessen wird der Artikel angezeigt.">Floatingpointregister</a> schnell gesichert werden können
+</td></tr>
+<tr>
+<th align="center" colspan="1">23
+</th>
+<td align="left" colspan="1">Unterstützt MMX
+</td></tr>
+<tr>
+<th align="center" colspan="1">22
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Unterstützt Überwachung der Prozessortemperatur und Änderung des Prozessortaktes
+</td></tr>
+<tr>
+<th align="center" colspan="1">21
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Kann Debuginformationen in im Hauptspeicher vorhandene Buffer schreiben
+</td></tr>
+<tr>
+<th align="center" colspan="1">20
+</th>
+<td align="center" colspan="1" style="background:lightgrey">
+</td></tr>
+<tr>
+<th align="center" colspan="1">19
+</th>
+<td align="left" colspan="1">Unterstützt den <b>CLFLUSH</b>-Befehl
+</td></tr>
+<tr>
+<th align="center" colspan="1">18
+</th>
+<td align="left" colspan="1" style="background: #96b2fb;">Besitzt eine 96-Bit Prozessor-Seriennummer (Nur verfügbar auf Prozessoren, die neuer als Pentium 4 sind)
+</td></tr>
+<tr>
+<th align="center" colspan="1">17
+</th>
+<td align="left" colspan="1">Unterstützt <a href="../../pages/1999/index.html" title="Page Size Extension">36-Bit Page Size Extensions</a> (4-MiB <a href="../../pages/1496/index.html" title="Paging">Pages</a>)
+</td></tr>
+<tr>
+<th align="center" colspan="1">16
+</th>
+<td align="left" colspan="1">Unterstützt das <a href="../../pages/1496/index.html" title="Paging">PAT-Bit</a>
+</td></tr>
+<tr>
+<th align="center" colspan="1">15
+</th>
+<td align="left" colspan="1">Unterstützt den <b>CMOVcc</b> Befehl, mit dem bedingte Verschiebungen vorgenommen werden können
+</td></tr>
+<tr>
+<th align="center" colspan="1">14
+</th>
+<td align="left" colspan="1">Unterstützt die Machine-Check-Architektur (Besonders das <b>MTRR_CAP</b>-Register)
+</td></tr>
+<tr>
+<th align="center" colspan="1">13
+</th>
+<td align="left" colspan="1">Unterstützt das <a href="../../pages/1496/index.html" title="Paging">Page-Global-Bit</a>
+</td></tr>
+<tr>
+<th align="center" colspan="1">12
+</th>
+<td align="left" colspan="1">Unterstützt MTRR-Register (Besonders das <b>MTRR_CAP</b>-Register)
+</td></tr>
+<tr>
+<th align="center" colspan="1">11
+</th>
+<td align="left" colspan="1">Unterstützt schnelle <a href="../../pages/1629/index.html" title="Syscall">Syscalls</a> durch die Befehle <a href="../../pages/2083/index.html" title="Sysenter"><b>SYSENTER</b> und <b>SYSEXIT</b></a>
+</td></tr>
+<tr>
+<th align="center" colspan="1">10
+</th>
+<td align="center" colspan="1" style="background:lightgrey">
+</td></tr>
+<tr>
+<th align="center" colspan="1">9
+</th>
+<td align="left" colspan="1">Besitzt einen lokalen <a class="mw-redirect" data-archive-original-href="../../pages/1675/index.html" href="../../pages/1584/index.html" title="APIC">APIC</a>
+</td></tr>
+<tr>
+<th align="center" colspan="1">8
+</th>
+<td align="left" colspan="1">Unterstützt den <b>CMPXCHG8B</b> Befehl
+</td></tr>
+<tr>
+<th align="center" colspan="1">7
+</th>
+<td align="left" colspan="1">Unterstützt Machine-Check-<a href="../../pages/1824/index.html" title="Exception">Exceptions</a>
+</td></tr>
+<tr>
+<th align="center" colspan="1">6
+</th>
+<td align="left" colspan="1">Unterstützt physische Adressen, die größer als 32-Bit sind
+</td></tr>
+<tr>
+<th align="center" colspan="1">5
+</th>
+<td align="left" colspan="1">Implementiert <a href="../../pages/1607/index.html" title="Machine-Specific Register">Modellspezifische Register</a> über die Befehle <b>RDMSR</b> und <b>WRMSR</b>
+</td></tr>
+<tr>
+<th align="center" colspan="1">4
+</th>
+<td align="left" colspan="1">Unterstützt den <b>RDTSC</b> Befehl und CR4.TSD-Bit
+</td></tr>
+<tr>
+<th align="center" colspan="1">3
+</th>
+<td align="left" colspan="1">Unterstützt 4-MiB <a href="../../pages/1496/index.html" title="Paging">Pages</a>
+</td></tr>
+<tr>
+<th align="center" colspan="1">2
+</th>
+<td align="left" colspan="1">Unterstützt I/O-Breakpoints, das CR4.DE-Bit und die DR4- und DR5-Register
+</td></tr>
+<tr>
+<th align="center" colspan="1">1
+</th>
+<td align="left" colspan="1">Unterstützt Erweiterungen des <a href="../../pages/1546/index.html" title="Virtual 8086 Mode">Virtual 8086 Mode</a> (z. B. Virtual Interrupts).
+</td></tr>
+<tr>
+<th align="center" colspan="1">0
+</th>
+<td align="left" colspan="1">Besitzt eine <a class="mw-redirect" data-archive-original-href="../../pages/1615/index.html" href="../../pages/1601/index.html" title="FPU">FPU</a>, die den x87-Befehlssatz implementiert
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Funktion_0x0000_0002">Funktion 0x0000_0002</span></h2>
+<div style="padding:2px; padding-left: 9px; background-color: #ffffff; color: #000000; border: 2px solid #96b2fb; text-align:left;">
+<div style="color: #96b2fb;">
+<p>Der nachfolgende Text ist <b>Intel-spezifisch</b>, das heißt, er trifft <b>ausschließlich</b> auf Intel-Prozessoren zu!
+</p>
+</div>
+<p>Gibt verschiedene Informationen über den Cache und den TLB aus.
+</p>
+</div>
+<p>Die ersten 8 Bit von EAX (also AL) enthalten die Anzahl Ausführungen, die benötigt werden um alle Cache-Deskriptoren des Prozessors auszulesen.
+Die restlichen Bits von EAX, EBX, ECX und EDX enthalten die Cache-Deskriptoren.
+</p>
+<div style="padding: 2px; padding-left: 9px; padding-right: 9px; background-color: #ffffff; color: #000000; border: 2px solid #efbf00; text-align:left;">
+<div style="color: #efbf00">
+<p><b>Hinweis:</b>
+</p>
+</div>
+<p>Hier fehlt eine Erklärung zu den Cache-Deskriptoren.
+</p>
+</div>
+<h2><span class="mw-headline" id="Funktion_0x0000_0003">Funktion 0x0000_0003</span></h2>
+<div style="padding:2px; padding-left: 9px; background-color: #ffffff; color: #000000; border: 2px solid #96b2fb; text-align:left;">
+<div style="color: #96b2fb;">
+<p>Der nachfolgende Text ist <b>Intel-spezifisch</b>, das heißt, er trifft <b>ausschließlich</b> auf Intel-Prozessoren zu!
+</p>
+</div>
+<p>Gibt Bits 63 - 0 der Prozessorsignatur zurück. Um die gesamte 96-Bit Prozessorsignatur zu erhalten muss man noch <b><a data-archive-original-href="../../pages/1739/index.html#EAX_-_Famile" href="../../pages/1739/index.html" title="CPUID — Der ursprüngliche Abschnitt ist in dieser Momentaufnahme nicht verfügbar; stattdessen wird der Artikel angezeigt.">EAX</a></b> von <a data-archive-original-href="../../pages/1739/index.html#Funktion_0x0000_00001" href="../../pages/1739/index.html" title="CPUID — Der ursprüngliche Abschnitt ist in dieser Momentaufnahme nicht verfügbar; stattdessen wird der Artikel angezeigt.">Funktion 0x0000_0001</a> hinzunehmen.
+</p>
+</div>
+<p><br/>
+</p>
+<div style="padding: 2px 2px 2px 9px; background-color: #ffffff; color: #000000; border: 2px solid #bf111b; text-align:left; margin: 0.5em 0">
+<p style="color: #bf111b"><b>Achtung!</b></p>
+<p>Funktioniert nur bei Prozessoren, die das entsprechende <b><a href="#EDX_-_Featureflags">Featureflag (Bit 18)</a></b> gesetzt haben.
+</p>
+</div>
+<h4><span class="mw-headline" id="EAX_-_Reserviert">EAX - Reserviert</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32" style="background:lightgrey"> 
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="EBX_-_Reserviert">EBX - Reserviert</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32" style="background:lightgrey"> 
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="ECX_-_Signatur">ECX - Signatur</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32" style="background: #96b2fb;">Bits 31 - 0 der Prozessorsignatur
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="EDX_-Signatur">EDX -Signatur</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32" style="background: #96b2fb;">Bits 63 - 32 der Prozessorsignatur
+</td></tr></tbody></table>
+<h1><span class="mw-headline" id="Erweiterte_Funktionen">Erweiterte Funktionen</span></h1>
+<p>Es gibt Funktionen, die herstellerspezifisch sind, d.h. sie gelten nur nur für Intel- bzw. nur für AMD-Prozessoren. Solche Befehle sollte man nicht ausführen, wenn man nicht weiß, von welchem Hersteller die CPU ist! Zum Beispiel sollten CPUID-Befehle, die nur für Intel-CPUs gelten, nicht auf einer AMD-CPU ausgeführt werden. Diese Funktionen beginnen bei 0x80000000.
+</p><p>Erweiterte Funktionen von Intel:
+</p>
+<h2><span class="mw-headline" id="Funktion_0x8000_0000">Funktion 0x8000_0000</span></h2>
+<h4><span class="mw-headline" id="EAX">EAX</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Höchste unterstütze Zusatzfunktion
+</td></tr></tbody></table>
+<h4><span id='EBX_-_"Auth"'></span><span class="mw-headline" id="EBX_-_.22Auth.22">EBX - "Auth"</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="8" style="background: #4dc58e;"><i>h</i>
+</td>
+<td align="center" colspan="8" style="background: #4dc58e;"><i>t</i>
+</td>
+<td align="center" colspan="8" style="background: #4dc58e;"><i>u</i>
+</td>
+<td align="center" colspan="8" style="background: #4dc58e;"><i>A</i>
+</td></tr></tbody></table>
+<h4><span id='ECX_-_"cAMD"'></span><span class="mw-headline" id="ECX_-_.22cAMD.22">ECX - "cAMD"</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="8" style="background: #4dc58e;"><i>D</i>
+</td>
+<td align="center" colspan="8" style="background: #4dc58e;"><i>M</i>
+</td>
+<td align="center" colspan="8" style="background: #4dc58e;"><i>A</i>
+</td>
+<td align="center" colspan="8" style="background: #4dc58e;"><i>c</i>
+</td></tr></tbody></table>
+<h4><span id='EDX_-_"enti"'></span><span class="mw-headline" id="EDX_-_.22enti.22">EDX - "enti"</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="8" style="background: #4dc58e;"><i>i</i>
+</td>
+<td align="center" colspan="8" style="background: #4dc58e;"><i>t</i>
+</td>
+<td align="center" colspan="8" style="background: #4dc58e;"><i>n</i>
+</td>
+<td align="center" colspan="8" style="background: #4dc58e;"><i>e</i>
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Funktion_0x8000_0001">Funktion 0x8000_0001</span></h2>
+<h4><span class="mw-headline" id="EAX_-_Familie">EAX - Familie</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="4" style="background:lightgrey">
+</td>
+<td align="center" colspan="8" style="background: #4dc58e;">Erweiterte Familie
+</td>
+<td align="center" colspan="4" style="background: #4dc58e;">Erweitertes Modell
+</td>
+<td align="center" colspan="4" style="background:lightgrey">
+</td>
+<td align="center" colspan="4" style="background: #4dc58e;">Familie
+</td>
+<td align="center" colspan="4" style="background: #4dc58e;">Modell
+</td>
+<td align="center" colspan="4" style="background: #4dc58e;">Stepping
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="EBX_-_Brand_ID">EBX - Brand ID</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="4" style="background: #4dc58e;">PCKTYP
+</td>
+<td align="center" colspan="12" style="background:lightgrey">
+</td>
+<td align="center" colspan="16" style="background: #4dc58e;">Brand ID
+</td></tr></tbody></table>
+<p><b>PCKTYP</b>: Package Type<br/>
+<b>Brand ID</b>: Wird zusammen mit <a href="../../pages/1739/index.html#EBX_-_Sonstiges" title="CPUID">EBX[7:0]</a> von <a href="../../pages/1739/index.html#Funktion_0x0000_0001" title="CPUID">Funktion 0x0000_0001</a> vom <a class="mw-redirect" data-archive-original-href="../../pages/1632/index.html" href="../../pages/1616/index.html" title="BIOS">BIOS</a> genutzt, um den Prozessorstring zu bestimmen. 
+</p>
+<div style="padding: 2px 2px 2px 9px; background-color: #ffffff; color: #000000; border: 2px solid #bf111b; text-align:left; margin: 0.5em 0">
+<p style="color: #bf111b"><b>Achtung!</b></p>
+<p><b>PCKTYP</b> ist nur gültig, wenn <a href="../../pages/1739/index.html#EAX_-_Prozessor" title="CPUID">EAX[7:0]</a> von  <a href="../../pages/1739/index.html#Funktion_0x0000_0001" title="CPUID">Funktion 0x0000_0001</a> mindestens <b>0x10</b> ist. Wenn EAX[7:0] von Funktion 0x0000_0001 niedriger ist als <b>0x10</b> ist dieses Feld <b>reserviert</b>!
+</p>
+</div>
+<h4><span class="mw-headline" id="ECX_-_Erweiterte_Featureflags">ECX - Erweiterte Featureflags</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="4" style="background:lightgrey">
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">PerfTSC
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">DataBreakpointExt
+</td>
+<td align="center" colspan="1" style="background:lightgrey">
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">PerfCtrExtNB
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">PerfCtrExtCore
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">TopologyExt
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">TBM
+</td>
+<td align="center" colspan="4" style="background:lightgrey">
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">FMA4
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">LWP
+</td>
+<td align="center" colspan="1" style="background:lightgrey">
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">WDT
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">SKINIT
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">XOP
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">IBS
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">OSVW
+</td>
+<td align="center" colspan="1">PREFETCHW
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">MisAlignSse
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">SSE4A
+</td>
+<td align="center" colspan="1">ABM
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">AltMovCr8
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">ExtApicSpace
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">SVM
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">CmpLegay
+</td>
+<td align="center" colspan="1">LahfSahf
+</td></tr></tbody></table>
+<table class="prettytable">
+<tbody><tr>
+<th width="30pt">Bit
+</th>
+<th>Funktion
+</th></tr>
+<tr>
+<th align="center" colspan="1">28-31
+</th>
+<td align="center" rowspan="1" style="background:lightgrey">
+</td></tr>
+<tr>
+<th align="center" colspan="1">27
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Performance-Time-Stamp-Counter
+</td></tr>
+<tr>
+<th align="center" colspan="1">26
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Datenzugriffs-Breakpoints
+</td></tr>
+<tr>
+<th align="center" colspan="1">25
+</th>
+<td align="center" colspan="1" style="background:lightgrey">
+</td></tr>
+<tr>
+<th align="center" colspan="1">24
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">NB-Performance-Counter-Erweiterung
+</td></tr>
+<tr>
+<th align="center" colspan="1">23
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Prozessor-Performance-Counter-Erweiterung
+</td></tr>
+<tr>
+<th align="center" colspan="1">22
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Topologie-Erweiterung
+</td></tr>
+<tr>
+<th align="center" colspan="1">21
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Unterstützt Befehle zur Manipulation voranstehender Bits
+</td></tr>
+<tr>
+<th align="center" colspan="1">17-20
+</th>
+<td align="center" colspan="1" style="background:lightgrey">
+</td></tr>
+<tr>
+<th align="center" colspan="1">16
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Unterstützt FMA4-Befehle
+</td></tr>
+<tr>
+<th align="center" colspan="1">15
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">"Lightweight profiling"-Unterstützung
+</td></tr>
+<tr>
+<th align="center" colspan="1">14
+</th>
+<td align="center" colspan="1" style="background:lightgrey">
+</td></tr>
+<tr>
+<th align="center" colspan="1">13
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">"Watchdog Timer"-Unterstützung
+</td></tr>
+<tr>
+<th align="center" colspan="1">12
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Unterstützt <b>SKINIT</b>- und <b>STGI</b>-Befehle
+</td></tr>
+<tr>
+<th align="center" colspan="1">11
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Unterstützt erweiterte Operationen
+</td></tr>
+<tr>
+<th align="center" colspan="1">10
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Unterstützt instruktionsbasiertes Sampling
+</td></tr>
+<tr>
+<th align="center" colspan="1">9
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Unterstützt Betriebssystemsichtbare Umgehungen
+</td></tr>
+<tr>
+<th align="center" colspan="1">8
+</th>
+<td align="left" colspan="1"><b>PREFETCH</b>- und <b>PREFETCHW</b>-Befehle werden unterstützt
+</td></tr>
+<tr>
+<th align="center" colspan="1">7
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Falschausgerichteter SSE-Modus
+</td></tr>
+<tr>
+<th align="center" colspan="1">6
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Unterstützt SSE4A-Befehle
+</td></tr>
+<tr>
+<th align="center" colspan="1">5
+</th>
+<td align="left" colspan="1">Unterstützt <b>LZCNT</b>- und <b>POPCNT</b>-Befehle
+</td></tr>
+<tr>
+<th align="center" colspan="1">4
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;"><b>LOCK MOV CR0</b> bedeutet <b>MOV CR8</b>
+</td></tr>
+<tr>
+<th align="center" colspan="1">3
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Erweiterter APIC-Adressraum (ab Offset 400h)
+</td></tr>
+<tr>
+<th align="center" colspan="1">2
+</th>
+<td align="left" colspan="{{{1}}}" style="background: #4dc58e;">Sichere virtuelle Maschine
+</td></tr>
+<tr>
+<th align="center" colspan="1">1
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">"Core multi-processing legacy modus"
+</td></tr>
+<tr>
+<th align="center" colspan="1">0
+</th>
+<td align="left" colspan="1">Unterstützt <b>LAHF</b>- und <b>SAHF</b>-Befehle im 64-Bit-Modus.
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="EDX_-_Erweiterte_Featureflags">EDX - Erweiterte Featureflags</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="1" style="background: #4dc58e;">3DNow
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">3DNowExt
+</td>
+<td align="center" colspan="1">LM
+</td>
+<td align="center" colspan="1" style="background:lightgrey">
+</td>
+<td align="center" colspan="1">RDTSCP
+</td>
+<td align="center" colspan="1">Page1GB
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">FFXSR
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">FXSR
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">MMX
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">MmxExt
+</td>
+<td align="center" colspan="1" style="background:lightgrey">
+</td>
+<td align="center" colspan="1">NX
+</td>
+<td align="center" colspan="2" style="background:lightgrey">
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">PSE36
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">PAT
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">CMOV
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">MCA
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">PGE
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">MTRR
+</td>
+<td align="center" colspan="1">SYSCALL
+</td>
+<td align="center" colspan="1" style="background:lightgrey">
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">APIC
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">CMPXCHG8B
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">MCE
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">PAE
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">MSR
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">TSC
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">PSE
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">DE
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">VME
+</td>
+<td align="center" colspan="1" style="background: #4dc58e;">FPU
+</td></tr></tbody></table>
+<table class="prettytable">
+<tbody><tr>
+<th width="30pt">Bit
+</th>
+<th>Funktion
+</th></tr>
+<tr>
+<th align="center" colspan="1">31
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Unterstützt 3DNow!-Befehle
+</td></tr>
+<tr>
+<th align="center" colspan="1">30
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Unterstützt erweiterte 3DNow!-Befehle
+</td></tr>
+<tr>
+<th align="center" colspan="1">29
+</th>
+<td align="left" colspan="1">Long-Modus
+</td></tr>
+<tr>
+<th align="center" colspan="1">28
+</th>
+<td align="center" colspan="1" style="background:lightgrey">
+</td></tr>
+<tr>
+<th align="center" colspan="1">27
+</th>
+<td align="left" colspan="1">Unterstützt <b>RDTSCP</b>-Befehl
+</td></tr>
+<tr>
+<th align="center" colspan="1">26
+</th>
+<td align="left" colspan="1">Unterstützt 1GB große Seiten
+</td></tr>
+<tr>
+<th align="center" colspan="1">25
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Unterstützt optimierte <b>FXSAVE</b>- und <b>FXRSTOR</b>-Befehle
+</td></tr>
+<tr>
+<th align="center" colspan="1">23-24
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Siehe Funktion 0x0000_0001
+</td></tr>
+<tr>
+<th align="center" colspan="1">22
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">AMD-Erweiterungen zu MMX
+</td></tr>
+<tr>
+<th align="center" colspan="1">21
+</th>
+<td align="center" colspan="1" style="background:lightgrey">
+</td></tr>
+<tr>
+<th align="center" colspan="1">20
+</th>
+<td align="left" colspan="1">NX-Bit-Seitenschutz
+</td></tr>
+<tr>
+<th align="center" colspan="1">18-19
+</th>
+<td align="center" colspan="1" style="background:lightgrey">
+</td></tr>
+<tr>
+<th align="center" colspan="1">12-17
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Siehe Funktion 0x0000_0001
+</td></tr>
+<tr>
+<th align="center" colspan="1">11
+</th>
+<td align="left" colspan="1">Unterstützt <b>SYSCALL</b>- und <b>SYSRET</b>-Befehle
+</td></tr>
+<tr>
+<th align="center" colspan="1">10
+</th>
+<td align="center" colspan="1" style="background:lightgrey">
+</td></tr>
+<tr>
+<th align="center" colspan="1">0-9
+</th>
+<td align="left" colspan="1" style="background: #4dc58e;">Siehe Funktion 0x0000_0001
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Funktion_0x8000_0002">Funktion 0x8000_0002</span></h2>
+<p>Gibt den Prozessornamen aus.
+</p>
+<h4><span class="mw-headline" id="EAX_-_Prozessorname">EAX - Prozessorname</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Buchstaben 0 - 3 des Prozessornamens
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="EBX_-_Prozessorname">EBX - Prozessorname</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Buchstaben 4 - 7 des Prozessornamens
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="ECX_-_Prozessorname">ECX - Prozessorname</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Buchstaben 8 - 11 des Prozessornamens
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="EDX_-_Prozessorname">EDX - Prozessorname</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Buchstaben 12 - 15 des Prozessornamens
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Funktion_0x8000_0003">Funktion 0x8000_0003</span></h2>
+<p>Gibt den Prozessornamen aus.
+</p>
+<h4><span class="mw-headline" id="EAX_-_Prozessorname_2">EAX - Prozessorname</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Buchstaben 16 - 19 des Prozessornamens
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="EBX_-_Prozessorname_2">EBX - Prozessorname</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Buchstaben 20 - 23 des Prozessornamens
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="ECX_-_Prozessorname_2">ECX - Prozessorname</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Buchstaben 24 - 27 des Prozessornamens
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="EDX_-_Prozessorname_2">EDX - Prozessorname</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Buchstaben 28 - 31 des Prozessornamens
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Funktion_0x8000_0004">Funktion 0x8000_0004</span></h2>
+<p>Gibt den Prozessornamen aus.
+</p>
+<h4><span class="mw-headline" id="EAX_-_Prozessorname_3">EAX - Prozessorname</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Buchstaben 32 - 35 des Prozessornamens
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="EBX_-_Prozessorname_3">EBX - Prozessorname</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Buchstaben 36 - 39 des Prozessornamens
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="ECX_-_Prozessorname_3">ECX - Prozessorname</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Buchstaben 40 - 43 des Prozessornamens
+</td></tr></tbody></table>
+<h4><span class="mw-headline" id="EDX_-_Prozessorname_3">EDX - Prozessorname</span></h4>
+<table class="prettytable">
+<tbody><tr>
+<th colspan="32">Bit
+</th></tr>
+<tr>
+<th width="30pt">31
+</th>
+<th width="30pt">30
+</th>
+<th width="30pt">29
+</th>
+<th width="30pt">28
+</th>
+<th width="30pt">27
+</th>
+<th width="30pt">26
+</th>
+<th width="30pt">25
+</th>
+<th width="30pt">24
+</th>
+<th width="30pt">23
+</th>
+<th width="30pt">22
+</th>
+<th width="30pt">21
+</th>
+<th width="30pt">20
+</th>
+<th width="30pt">19
+</th>
+<th width="30pt">18
+</th>
+<th width="30pt">17
+</th>
+<th width="30pt">16
+</th>
+<th width="30pt">15
+</th>
+<th width="30pt">14
+</th>
+<th width="30pt">13
+</th>
+<th width="30pt">12
+</th>
+<th width="30pt">11
+</th>
+<th width="30pt">10
+</th>
+<th width="30pt">9
+</th>
+<th width="30pt">8
+</th>
+<th width="30pt">7
+</th>
+<th width="30pt">6
+</th>
+<th width="30pt">5
+</th>
+<th width="30pt">4
+</th>
+<th width="30pt">3
+</th>
+<th width="30pt">2
+</th>
+<th width="30pt">1
+</th>
+<th width="30pt">0
+</th></tr>
+<tr>
+<td align="center" colspan="32">Buchstaben 44 - 47 des Prozessornamens
+</td></tr></tbody></table>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li><a class="external text" href="http://wiki.osdev.org/CPUID" rel="nofollow">Englischer Artikel über den CPUID-Befehl</a></li>
+<li><a class="external text" href="http://sandpile.org/ia32/cpuid.htm" rel="nofollow">Englische Doku von CPUID; mit AMD/INTEL und anderen Prozessoren</a></li>
+<li><a class="external text" href="http://support.intel.com/Assets/PDF/appnote/241618.pdf" rel="nofollow">Intels CPUID-Spezifikation</a></li>
+<li><a class="external text" href="http://support.amd.com/de/Processor_TechDocs/25481.pdf" rel="nofollow">AMDs CPUID-Spezifikation</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164852
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.139 seconds
+Real time usage: 0.146 seconds
+Preprocessor visited node count: 4636/1000000
+Preprocessor generated node count: 8339/1000000
+Post‐expand include size: 50553/2097152 bytes
+Template argument size: 8161/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 924/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   69.641      1 -total
+ 19.65%   13.684     32 Vorlage:Prettytable32bit
+  9.81%    6.830     62 Vorlage:Csamd
+  6.03%    4.196    106 Vorlage:Csh
+  5.14%    3.578     23 Vorlage:Csintel
+  4.93%    3.434     26 Vorlage:Csamdl
+  4.75%    3.307     30 Vorlage:Csr
+  4.45%    3.099     88 Vorlage:Color-amd
+  4.19%    2.921     73 Vorlage:Cs
+  3.48%    2.420     17 Vorlage:Csintell
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=CPUID&amp;oldid=11324</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li><li><a href="../../pages/1874/index.html" title="Kategorie:X86">X86</a></li><li><a href="../../pages/1926/index.html" title="Kategorie:X86-Befehle">X86-Befehle</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1739/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/1809/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1739/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/CPUID" hreflang="en" lang="en" title="CPUID – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

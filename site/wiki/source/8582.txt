@@ -1,0 +1,15 @@
+Ich hab mal ein paar Fragen zu Deinem Datei-Format:<br />31 Zeichen für einen Programm-Namen und 79 Zeichen für eine Programm-Beschreibung erscheinen mir etwas wenig, warum das nicht in einer String-Arrea o.ä. unterbringen wo die einzelnen Strings quasi unbegrenzt groß sein dürfen?<br />Wo ist der "normale" Entry-Point? (das scheint ein Standard-Fehler zu sein ;) den hab ich auch gemacht)<br />Es gibt offensichtlich keine Sectionen, wie trennst Du Code, Daten (.data und .bss), Relocations-Infos, Debug-Infos und all das andere Zeugs was man so braucht voneinander?<br />Mit welchen Programm sollen diese Dateien erzeugt werden? Von LD würde ich eher abraten, das Ding ist riesig, dem LD ein neues Datei-Format beizubringen dürfte ein X-faches an Zeit (X ist min 2-Stellig) kosten als einen recht komfortablen ELF-Loader selber zu schreiben (eigentlich reicht zusammenkopieren, gibt ja schließlich alles).<br />Versteh mich nicht falsch, ich will Dir nicht die Freude an einem eigenen Datei-Format verderben aber Du solltest Dir erst mal Gedanken über die gesamte Tool-Kette machen die dafür erforderlich ist. Wenn Du eh auf x86 bleiben möchtest gibt es IMHO nichts besseres als ELF. ELF ist '''das''' Executable-Format, auf allen Plattformen (von 8/16 Bit µC mal abgesehen) und unter allen Betriebssystemen (von Windows mal abgesehen). ELF ist hervorragend gut Dokumentiert, alle Aspekte sind gut durchdacht und es gibt Haufenweise Source-Code dafür. --[[Benutzer:Erik.vikinger|Erik.vikinger]] 17:11, 9. Okt. 2010 (CEST)
+
+:: Als erstes: einen ELF Loader hab ich schon eingebaut, er funktioniert auch problemlos ;)
+:: braucht man die ganzen Sections eigentlich unbedingt? Ich dachte daran an den Header direkt den Maschinencode zu hängen, wo die Adressen innerhalb der Datei komplett aufgelöst sind. Dann würden sie doch eigentlich wegfallen, oder?
+:: Zu den Strings: Mir war es erstmal wichtig überhaupt etwas direkt in der Datei speichern und einfach darauf zugreifen zu können. 31 Zeichen finde ich Eigentlich ausreichend, früher ging auch alles mit 8.3 Dateinamen, dass die Beschreibung etwas knapp werden könnte seh ich ein.
+:: Der normale Entry-Point ist direkt nach dem Dateiheader. Alles danach wird an die Ladeadresse kopiert und dann ausgeführt.
+:: Rolcations-Infos sollen dann später einen extra Header dranhängen, Debuginfos werden hintendrangehangen.
+:: Momentan müssen die Dateien von Hand erzeugt werden, der Header kann von meinem Beispielprogramm erzeugt werden. Dann einfach den Maschinencode vom Assembler anhängen.
+:: Das müsste jetzt alles gewesen sein, wenn nicht, nochmal melden ;)
+:: Trotzdem Danke das du es dir angeschaut hast --[[Benutzer:Littlefox|Littlefox]] 22:35, 9. Okt. 2010 (CEST)
+
+Du kannst ja den Beschreibungsstring ohne Nullterminierung machen, dann hättest du ein Byte mehr zur Verfügung. --[[Benutzer:Tev|Tev]] 22:39, 9. Okt. 2010 (CEST)
+:: <ironie>Wow, ein Byte ;)</ironie> könnte man natürlich machen --[[Benutzer:Littlefox|Littlefox]] 22:46, 9. Okt. 2010 (CEST)
+
+Das selbe kannst du auch dem Programmnamen machen, dann sind es sogar 2 Byte :P --[[Benutzer:Tev|Tev]] 22:52, 9. Okt. 2010 (CEST)

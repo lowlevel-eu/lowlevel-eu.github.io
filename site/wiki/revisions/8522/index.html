@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>VESA BIOS Extensions – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-VESA_BIOS_Extensions rootpage-VESA_BIOS_Extensions skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2303/index.html">Aktueller Artikel</a> · <a href="../../history/2303/index.html">Versionsgeschichte</a> · <a href="../../source/8522.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">VESA BIOS Extensions</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 3. Oktober 2010, 18:50 Uhr von <a class="mw-userlink" href="../../pages/1860/index.html" title="Benutzer:XanClic"><bdi>XanClic</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Code und Tabelle korrigiert, …)</span></div><div id="mw-revision-nav">(<a href="../../diffs/8447-8522.html" title="VESA BIOS Extensions">Unterschied</a>) <a href="../8447/index.html" title="VESA BIOS Extensions">← Nächstältere Version</a> | <a href="../../pages/2303/index.html" title="VESA BIOS Extensions">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../8528/index.html" title="VESA BIOS Extensions">Nächstjüngere Version →</a> (<a href="../../diffs/8522-8528.html" title="VESA BIOS Extensions">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Die VESA BIOS Extensions (kurz: VBE) sind ein Standard der <a class="mw-redirect" data-archive-original-href="../../pages/2006/index.html" href="../../pages/2005/index.html" title="VESA">VESA</a>. Er vereinheitlicht den Zugriff auf eine Grafikkarte und bietet dabei deutlich mehr Möglichkeiten als <a class="mw-redirect" data-archive-original-href="../../pages/1517/index.html" href="../../pages/1516/index.html" title="VGA">VGA</a>. Der Standard wird von nahezu allen Grafikkarten in Version 2.0 oder der letzten Version, 3.0, unterstützt. <b>Daher bezieht sich dieser Artikel, wenn nicht anders vermerkt, auf Version 2.0.</b>
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#VBE_Funktionen"><span class="tocnumber">1</span> <span class="toctext">VBE Funktionen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Allgemein"><span class="tocnumber">1.1</span> <span class="toctext">Allgemein</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Linear_Frame_Buffer"><span class="tocnumber">1.2</span> <span class="toctext">Linear Frame Buffer</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Auf_VBE-Unterst.C3.BCtzung_testen:_4F00h"><span class="tocnumber">1.3</span> <span class="toctext">Auf VBE-Unterstützung testen: 4F00h</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Unterst.C3.BCtzte_Grafikmodi_suchen"><span class="tocnumber">1.4</span> <span class="toctext">Unterstützte Grafikmodi suchen</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Informationen_zu_einem_Grafikmodus:_4F01h"><span class="tocnumber">1.5</span> <span class="toctext">Informationen zu einem Grafikmodus: 4F01h</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#In_einen_Grafikmodus_umschalten:_4F02h"><span class="tocnumber">1.6</span> <span class="toctext">In einen Grafikmodus umschalten: 4F02h</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#VBE_im_Protected_Mode"><span class="tocnumber">2</span> <span class="toctext">VBE im Protected Mode</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Pixel_zeichnen"><span class="tocnumber">3</span> <span class="toctext">Pixel zeichnen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Im_Protected_Mode"><span class="tocnumber">3.1</span> <span class="toctext">Im Protected Mode</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#im_Real_Mode"><span class="tocnumber">3.2</span> <span class="toctext">im Real Mode</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#VBE_3.0"><span class="tocnumber">4</span> <span class="toctext">VBE 3.0</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Weblinks"><span class="tocnumber">5</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="VBE_Funktionen">VBE Funktionen</span></h2>
+<h3><span class="mw-headline" id="Allgemein">Allgemein</span></h3>
+<p>Alle Funktionen der VBE sind im Grunde nur im <a href="../../pages/1665/index.html" title="Real Mode">Real Mode</a> verfügbar (es gibt ein Protected-Mode-Interface, welches allerdings nur sehr spärlich unterstützt wird). Die Funktionsnummer wird in AX übergeben, weitere Informationen in den anderen 16-Bit-Registern. Jede VBE Funktion liefert einen Wert in AX zurück, der Fehlerinformationen darstellt:
+</p>
+<ul><li>004Fh: Aufruf erfolgreich</li>
+<li>014Fh: Fehler bei der Ausführung</li>
+<li>024Fh: Funktion nicht unterstützt</li>
+<li>034Fh: Funktion im aktuellen Grafikmodus nicht unterstützt</li></ul>
+<p>Der Funktionaufruf erfolgt über den Interrupt 0x10.
+Wenn durch irgendwelche Funktionen „FARPTR“ zurückgegeben werden, sind dies für den Real Mode immer DWORDs, im Segment:Offset-Format, im Protected Mode (nur bei der Verwendung des Protected-Mode-Interface) DWORDs im Selektor:Offset-Format (wobei ein 16-Bit-Selektor verwendet wird).
+</p>
+<h3><span class="mw-headline" id="Linear_Frame_Buffer">Linear Frame Buffer</span></h3>
+<p>Grundsätzlich stellt VBE zwei Speichermodelle zur Verfügung, um auf den Grafikkartenspeicher zuzugreifen:
+</p>
+<ul><li><b>paged</b>: Der Speicher wird in mehrere sogenannte Fenster unterteilt, von denen immer nur eines in den Adressraum der CPU einblendet wird. Um den gesamten Grafikkartenspeicher zu adressieren, muss man zwischen den einzelnen Windows wechseln. Dieser Vorgang wird „Bank Switching“ genannt.</li>
+<li><b>flat</b>: Der gesamte Grafikkartenspeicher wird als sogenannter „Linear Frame Buffer“ in den Adressraum der CPU eingeblendet.</li></ul>
+<p>Der LFB ist wohl eine der wichtigsten Neuerungen mit VBE 2.0. Mithilfe dieser Funktionalität kann man direkt auf den Grafikspeicher der Grafikkarte zugreifen und so viel schneller und einfacher Pixel zeichnen. Außerdem entfällt das lästige „Bank Switching“. Daher sollte man (und wird auch) einen Grafikmodus wählen, der den LFB unterstützt.
+</p>
+<h3><span id="Auf_VBE-Unterstützung_testen:_4F00h"></span><span class="mw-headline" id="Auf_VBE-Unterst.C3.BCtzung_testen:_4F00h">Auf VBE-Unterstützung testen: 4F00h</span></h3>
+<p>Diese Funktion überprüft, ob die Grafikkarte VBE unterstützt und wenn ja, welche Version.
+</p>
+<ul><li>AX = 4F00h</li>
+<li>ES:DI = Zeiger auf freien Speicher für den VBE Info Block (512 Bytes)</li></ul>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset
+</th>
+<th>Eintrag
+</th>
+<th>Größe in Byte
+</th>
+<th>Beschreibung
+</th></tr>
+<tr>
+<td>0
+</td>
+<td>Signatur
+</td>
+<td>4
+</td>
+<td>Hier sollte "VESA" stehen (=0x56455341)
+</td></tr>
+<tr>
+<td>4
+</td>
+<td>Version
+</td>
+<td>2
+</td>
+<td>BCD-kodiert: 0x0100 für 1.0, 0x0200 für 2.0, 0x0300 für 3.0
+</td></tr>
+<tr>
+<td>6
+</td>
+<td>Zeiger auf OEMString
+</td>
+<td>4 (FARPTR)
+</td>
+<td>
+</td></tr>
+<tr>
+<td>10
+</td>
+<td>Eigenschaften des Grafikcontrollers
+</td>
+<td>4
+</td>
+<td>
+<ul><li>Bit 2: RAMDAC-Operation: 0=Normal; 1=Leeres Bit benutzen bei großen Blöcken</li>
+<li>Bit 1: 0=Controller ist VGA-kompatibel</li>
+<li>Bit 0: DAC-Breite: 0=6 Bits; 1=6 oder 8 Bits</li></ul>
+</td></tr>
+<tr>
+<td>14
+</td>
+<td>Zeiger auf eine Liste mit unterstützten Grafikmodi
+</td>
+<td>4 (FARPTR)
+</td>
+<td>Diese Liste ist ein Array aus 16 Bit großen Einträgen, die jeweils die Nummer eines unterstützten Modus sind. Der letzte Eintrag ist 0xFFFF.
+</td></tr>
+<tr>
+<td>18
+</td>
+<td>Größe des Grafikspeichers
+</td>
+<td>2
+</td>
+<td>Die Größe des Grafikspeichers in 64-kB-Blöcken
+</td></tr>
+<tr>
+<td>20
+</td>
+<td>OEMSoftwareRevision
+</td>
+<td>2
+</td>
+<td>
+</td></tr>
+<tr>
+<td>22
+</td>
+<td>Zeiger auf OEMVendorNameString
+</td>
+<td>4 (FARPTR)
+</td>
+<td>
+</td></tr>
+<tr>
+<td>26
+</td>
+<td>Zeiger auf OEMProductNameString
+</td>
+<td>4 (FARPTR)
+</td>
+<td>
+</td></tr>
+<tr>
+<td>30
+</td>
+<td>Zeiger auf OEMProductRevision
+</td>
+<td>4 (FARPTR)
+</td>
+<td>
+</td></tr>
+<tr>
+<td>34
+</td>
+<td><i>reserviert</i>
+</td>
+<td>222
+</td>
+<td>
+</td></tr>
+<tr>
+<td>256
+</td>
+<td>Datenbereich für OEMStrings
+</td>
+<td>256
+</td>
+<td>
+</td></tr></tbody></table>
+<p>Vor dem Aufruf sollte das Feld „Signatur“ mit dem Wert „VBE2“ gefüllt werden.
+</p>
+<h3><span id="Unterstützte_Grafikmodi_suchen"></span><span class="mw-headline" id="Unterst.C3.BCtzte_Grafikmodi_suchen">Unterstützte Grafikmodi suchen</span></h3>
+<p>In VBE 1.0 waren die Nummern der verschiedenen Grafikmodi noch vordefiniert:
+</p>
+<table style="margin-left: 1em;">
+<tbody><tr valign="top">
+<td>
+<table class="prettytable">
+<tbody><tr>
+<th>Modus</th>
+<th>Auflösung (Breite×Höhe)</th>
+<th>Farbtiefe (Bit)
+</th></tr>
+<tr>
+<td>0x100</td>
+<td>640×400</td>
+<td>8
+</td></tr>
+<tr>
+<td>0x101</td>
+<td>640×480</td>
+<td>8
+</td></tr>
+<tr>
+<td>0x102</td>
+<td>800×600</td>
+<td>4
+</td></tr>
+<tr>
+<td>0x103</td>
+<td>800×600</td>
+<td>8
+</td></tr>
+<tr>
+<td>0x104</td>
+<td>1024×768</td>
+<td>4
+</td></tr>
+<tr>
+<td>0x105</td>
+<td>1024×768</td>
+<td>8
+</td></tr>
+<tr>
+<td>0x106</td>
+<td>1280×1024</td>
+<td>4
+</td></tr>
+<tr>
+<td>0x107</td>
+<td>1280×1024</td>
+<td>8
+</td></tr>
+<tr>
+<td>0x108</td>
+<td>80×60 (Text)</td>
+<td>4
+</td></tr>
+<tr>
+<td>0x109</td>
+<td>132×25 (Text)</td>
+<td>4
+</td></tr>
+<tr>
+<td>0x10A</td>
+<td>132×43 (Text)</td>
+<td>4
+</td></tr>
+<tr>
+<td>0x10B</td>
+<td>132×50 (Text)</td>
+<td>4
+</td></tr>
+<tr>
+<td>0x10C</td>
+<td>132×60 (Text)</td>
+<td>4
+</td></tr>
+<tr>
+<td>0x10D</td>
+<td>320×200</td>
+<td>15
+</td></tr>
+<tr>
+<td>0x10E</td>
+<td>320×200</td>
+<td>16
+</td></tr>
+<tr>
+<td>0x10F</td>
+<td>320×200</td>
+<td>24
+</td></tr></tbody></table>
+</td>
+<td>
+<table class="prettytable">
+<tbody><tr>
+<th>Modus</th>
+<th>Auflösung (Breite×Höhe)</th>
+<th>Farbtiefe (Bit)
+</th></tr>
+<tr>
+<td>0x110</td>
+<td>640×480</td>
+<td>15
+</td></tr>
+<tr>
+<td>0x111</td>
+<td>640×480</td>
+<td>16
+</td></tr>
+<tr>
+<td>0x112</td>
+<td>640×480</td>
+<td>24
+</td></tr>
+<tr>
+<td>0x113</td>
+<td>800×600</td>
+<td>15
+</td></tr>
+<tr>
+<td>0x114</td>
+<td>800×600</td>
+<td>16
+</td></tr>
+<tr>
+<td>0x115</td>
+<td>800×600</td>
+<td>24
+</td></tr>
+<tr>
+<td>0x116</td>
+<td>1024×768</td>
+<td>15
+</td></tr>
+<tr>
+<td>0x117</td>
+<td>1024×768</td>
+<td>16
+</td></tr>
+<tr>
+<td>0x118</td>
+<td>1024×768</td>
+<td>24
+</td></tr>
+<tr>
+<td>0x119</td>
+<td>1280×1024</td>
+<td>15
+</td></tr>
+<tr>
+<td>0x11A</td>
+<td>1280×1024</td>
+<td>16
+</td></tr>
+<tr>
+<td>0x11B</td>
+<td>1280×1024</td>
+<td>24
+</td></tr>
+<tr>
+<td>0x11C</td>
+<td>1600×1200</td>
+<td>8
+</td></tr>
+<tr>
+<td>0x11D</td>
+<td>1600×1200</td>
+<td>15
+</td></tr>
+<tr>
+<td>0x11E</td>
+<td>1600×1200</td>
+<td>16
+</td></tr>
+<tr>
+<td>0x11F</td>
+<td>1600×1200</td>
+<td>24
+</td></tr></tbody></table>
+</td></tr></tbody></table>
+<p>Mit VBE 2.0 hat man sich allerdings dafür entschieden, dass die Grafikkartenherrsteller einfach nur eine Funktion bereitstellen, die alle von der Grafikkarte unterstützten Modi auflistet.
+Den Zeiger auf diese Liste erhält man mit dem VBE Info Block (4F00h). Diese Liste ist eigentlich nur ein WORD-Array, also eine Hintereinaderreihung von 16-Bit-Nummern. Diese repräsentieren die von der Grafikkarte unterstützten Grafikmodi. Die Liste wird terminiert durch den Eintrag 0xFFFF.
+Es wird empfohlen, sich nicht auf die o. g. Standardmodi zu verlassen, sondern durch Abfragen des Modeinfoblocks die Auflösung und anderen Eigenschaften der Modi aus der Modeliste herauszufinden.
+</p>
+<h3><span class="mw-headline" id="Informationen_zu_einem_Grafikmodus:_4F01h">Informationen zu einem Grafikmodus: 4F01h</span></h3>
+<p>Man durchläuft also die obige Liste der unterstützten Modi und prüft dann mit folgender Funktion, welche Eigenschaften der entsprechende Grafikmodus besitzt:
+</p>
+<ul><li>AX = 4F01h</li>
+<li>CX = Nummer des Grafikmodus</li>
+<li>ES:DI = Zeiger auf freien Speicher für den ModeInfoBlock (256 Bytes)</li></ul>
+<p>So kann man die Nummer desjenigen Grafikmodus herausfinden, den man benötigt.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset
+</th>
+<th>Eintrag
+</th>
+<th>Größe in Byte
+</th>
+<th>Beschreibung
+</th></tr>
+<tr bgcolor="chartreuse">
+<td>0
+</td>
+<td>ModeAttributes
+</td>
+<td>2
+</td>
+<td>
+<ul><li>Bit 7: 0=kein LFB, 1=LFB verfügbar</li>
+<li>Bit 6: 0=kein VGA kompatibles Speichermodell, 1=VGA kompatibles Speichermodell verfügbar (=paged)</li>
+<li>Bit 5: 0=VGA kompatibler Modues, 1= nicht VGA kompatibel</li>
+<li>Bit 4: 0=Textmodus, 1=Grafikmodus</li>
+<li>Bit 3: 0=Monochrom, 1=farbig</li>
+<li>Bit 2: 0=TTY Ausgabe Funktionen werden nicht unterstuützt, 1=werden unterstützt</li>
+<li>Bit 1: Reserved (1)</li>
+<li>Bit 0: 0=Modus wird nicht unterstützt, 1=wird unterstützt</li></ul>
+</td></tr>
+<tr>
+<td>2
+</td>
+<td>WinAAttributes
+</td>
+<td>1
+</td>
+<td>
+<ul><li>Bit 2: 0=Fenster nicht beschreibbar, 1=Fenster beschreibbar</li>
+<li>Bit 1: 0=Fenster lesbar, 1=nicht lesbar</li>
+<li>Bit 0: 0=Reallozierung der Fenster nicht möglich, 1=ist möglich</li></ul>
+</td></tr>
+<tr>
+<td>3
+</td>
+<td>WinBAttributes
+</td>
+<td>1
+</td>
+<td><i>siehe WinAAttributes</i>
+</td></tr>
+<tr>
+<td>4
+</td>
+<td>WinGranularity
+</td>
+<td>2
+</td>
+<td>in kB
+</td></tr>
+<tr>
+<td>6
+</td>
+<td>WinSize
+</td>
+<td>2
+</td>
+<td>Fenstergröße in kB
+</td></tr>
+<tr>
+<td>8
+</td>
+<td>WinASegment
+</td>
+<td>2
+</td>
+<td>Startsegment des A-Fensters (Real-Mode-Segment)
+</td></tr>
+<tr>
+<td>10
+</td>
+<td>WinBSegment
+</td>
+<td>2
+</td>
+<td>Startsegment des B-Fensters (Real-Mode-Segment)
+</td></tr>
+<tr>
+<td>12
+</td>
+<td>WinFuncPtr
+</td>
+<td>4 (FARPTR)
+</td>
+<td>Zeiger auf die „Window Function“
+</td></tr>
+<tr bgcolor="crimson">
+<td>16
+</td>
+<td>BytesPerScanLine
+</td>
+<td>2
+</td>
+<td>Anzahl der Bytes pro Zeile
+</td></tr>
+<tr bgcolor="crimson">
+<td>18
+</td>
+<td>XResolution
+</td>
+<td>2
+</td>
+<td>Horizontale Auflösung
+</td></tr>
+<tr bgcolor="crimson">
+<td>20
+</td>
+<td>YResolution
+</td>
+<td>2
+</td>
+<td>Vertikale Auflösung
+</td></tr>
+<tr>
+<td>22
+</td>
+<td>XCharSize
+</td>
+<td>1
+</td>
+<td>Breite eines Buchstabens (Textmodus)
+</td></tr>
+<tr>
+<td>23
+</td>
+<td>YCharSize
+</td>
+<td>1
+</td>
+<td>Höhe eines Buchstabens (Textmodues)
+</td></tr>
+<tr>
+<td>24
+</td>
+<td>NumberOfPlanes
+</td>
+<td>1
+</td>
+<td>
+</td></tr>
+<tr bgcolor="crimson">
+<td>25
+</td>
+<td>BitsPerPixel
+</td>
+<td>1
+</td>
+<td>Bits pro Pixel (=Farbtiefe)
+</td></tr>
+<tr>
+<td>26
+</td>
+<td>NumberOfBanks
+</td>
+<td>1
+</td>
+<td>
+</td></tr>
+<tr bgcolor="crimson">
+<td>27
+</td>
+<td>Speichermodell
+</td>
+<td>1
+</td>
+<td>
+<ul><li>00h = Text mode</li>
+<li>01h = CGA graphics</li>
+<li>02h = Hercules graphics</li>
+<li>03h = Planar</li>
+<li>04h = Packed pixel</li>
+<li>05h = Non-chain 4, 256 color</li>
+<li>06h = Direct color</li>
+<li>07h = YUV</li></ul>
+</td></tr>
+<tr>
+<td>28
+</td>
+<td>BankSize
+</td>
+<td>1
+</td>
+<td>in kB
+</td></tr>
+<tr>
+<td>29
+</td>
+<td>NumberOfImagePages
+</td>
+<td>1
+</td>
+<td>Anzahl der Images - 1
+</td></tr>
+<tr>
+<td>30
+</td>
+<td>Reserviert
+</td>
+<td>1
+</td>
+<td>=1
+</td></tr>
+<tr bgcolor="lightskyblue">
+<td>31
+</td>
+<td>RedMaskSize
+</td>
+<td>1
+</td>
+<td>Anzahl der Bits, die den roten Farbanteil angeben (Speichermodell: direct color)
+</td></tr>
+<tr bgcolor="lightskyblue">
+<td>32
+</td>
+<td>RedFieldPosition
+</td>
+<td>1
+</td>
+<td>Position des ersten Bits (<a class="mw-redirect" data-archive-original-href="../../pages/2179/index.html" href="../../pages/2043/index.html#MSB_und_LSB" title="LSB">LSB</a>), das den roten Farbanteil angibt
+</td></tr>
+<tr bgcolor="lightskyblue">
+<td>33
+</td>
+<td>GreenMaskSize
+</td>
+<td>1
+</td>
+<td>
+</td></tr>
+<tr bgcolor="lightskyblue">
+<td>34
+</td>
+<td>GreenFieldPosition
+</td>
+<td>1
+</td>
+<td>
+</td></tr>
+<tr bgcolor="lightskyblue">
+<td>35
+</td>
+<td>BlueMaskSize
+</td>
+<td>1
+</td>
+<td>
+</td></tr>
+<tr bgcolor="lightskyblue">
+<td>36
+</td>
+<td>BlueFieldPosition
+</td>
+<td>1
+</td>
+<td>
+</td></tr>
+<tr bgcolor="lightskyblue">
+<td>37
+</td>
+<td>RsvdMaskSize
+</td>
+<td>1
+</td>
+<td>
+</td></tr>
+<tr bgcolor="lightskyblue">
+<td>38
+</td>
+<td>RsvdFieldPosition
+</td>
+<td>1
+</td>
+<td>
+</td></tr>
+<tr>
+<td>39
+</td>
+<td>DirectColorModeInfo
+</td>
+<td>1
+</td>
+<td>
+<ul><li>Bit 1: 0=Alle reservierten Bits in der Farbmaske dürfen <i>nicht</i> benutzt werden, 1=dürfen benutzt werden</li>
+<li>Bit 0: 0=Color-Ramp des DAC ist fest, 1=einstellbar</li></ul>
+</td></tr>
+<tr bgcolor="chartreuse">
+<td>40
+</td>
+<td>PhysBasePtr
+</td>
+<td>4
+</td>
+<td>Physische Adresse des LFB
+</td></tr>
+<tr>
+<td>44
+</td>
+<td>OffScreenMemOffset
+</td>
+<td>4
+</td>
+<td>Zeiger auf den Anfang des Teil des Grafikspeichers, der nicht auf dem Bildschirm zu sehen ist
+</td></tr>
+<tr>
+<td>48
+</td>
+<td>OffScreenMemSize
+</td>
+<td>2
+</td>
+<td>in kB
+</td></tr>
+<tr>
+<td>50
+</td>
+<td>Reserviert
+</td>
+<td>206 Bytes
+</td>
+<td>
+</td></tr></tbody></table>
+<p>Von diesen Einträgen sind einige besonders wichtig:
+</p>
+<ul><li>In <font color="chartreuse">grün</font>: Diese Einträge sind für die Verwendung des <a class="mw-redirect" data-archive-original-href="../../pages/2307/index.html" href="../../pages/2303/index.html#Linear_Frame_Buffer" title="LFB">LFB</a> wichtig.</li>
+<li>In <font color="crimson">rot</font>: Diese Einträge sind zum Adressieren/Zeichnen eines Pixels wichtig.</li>
+<li>In <font color="lightskyblue">blau</font>: Diese Einträge zeigen an, wie die Farbe eines Pixels anzugeben ist. Dies ist in der Regel eine <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">RGB</a>-Angabe. Dafür muss das Speichermodell (27) <i>direct color</i> sein (=6h).</li></ul>
+<h3><span class="mw-headline" id="In_einen_Grafikmodus_umschalten:_4F02h">In einen Grafikmodus umschalten: 4F02h</span></h3>
+<p>Nachdem man nun die gewünschte Grafikmodusnummer hat, muss man nur noch in diesen umschalten:
+</p>
+<ul><li>AX = 4F02h</li>
+<li>BX = VBE-Grafikmodus:
+<ul><li>Bits 0 – 8: Modusnummer</li>
+<li>Bits 9 – 13: reserviert, Null setzen</li>
+<li>Bit 14: Speichermodell: 0=Windowed (paged); 1=Linear (flat)</li>
+<li>Bit 15: Löscht den Grafikspeicher, wenn gelöscht (VBE 3.0 garantiert nicht, das die Grafikkarte dies unterstützt)</li></ul></li></ul>
+<h2><span class="mw-headline" id="VBE_im_Protected_Mode">VBE im Protected Mode</span></h2>
+<div id="Template_Stub">
+<table border="0" cellpadding="0" cellspacing="10" style="background-color: #D0D8FF; margin: 0 0em; padding: 0 0px; border: 1px solid #b8c0e8" width="100%">
+<tbody><tr>
+<td>Diese Seite oder Abschnitt ist zwar komplett, es wird aber folgende Verbesserungen gewünscht:<br/>
+<p><i>{{{1}}}</i>
+</p><p>Hilf Lowlevel, den Artikel zu verbessern.
+</p>
+</td></tr></tbody></table>
+</div>
+<p><br/>
+Mit VBE 2.0 wurde das sogenannte „Protected-Mode-Interface“ eingeführt. Das sind Funktionen, die die Grafikkarte zur Verfügung stellt und die im Gegensatz zu den anderen Funktionen in 16/32-Bit-Protected-Mode-Code vorliegen. Die Adresse dieser Funktionen erhält man mit folgendem Aufruf, der allerdings immer noch im Real Mode stattfinden muss:
+</p>
+<ul><li>AX = 4F0Ah</li>
+<li>BL = 00h</li></ul>
+<p>Diese Funktion liefert folgende Werte zurück:
+</p>
+<ul><li>ES:DI=Zeiger auf eine Tabelle des unten stehenden Formats</li>
+<li>CX=Länge der Tabelle</li></ul>
+<table class="prettytable">
+<tbody><tr>
+<th>Offset
+</th>
+<th>Eintrag
+</th></tr>
+<tr>
+<td>0
+</td>
+<td>Offset der „SetWindow“-Funktion
+</td></tr>
+<tr>
+<td>2
+</td>
+<td>Offset der „SetDisplayStart“-Funktion
+</td></tr>
+<tr>
+<td>4
+</td>
+<td>Offset der „SetPaletteData“-Funktion
+</td></tr>
+<tr>
+<td>6
+</td>
+<td>Offset auf eine Liste aller Ports und Adressen, auf die der Code zugreift
+</td></tr>
+<tr>
+<td>8
+</td>
+<td>Code und Daten
+</td></tr></tbody></table>
+<h2><span class="mw-headline" id="Pixel_zeichnen">Pixel zeichnen</span></h2>
+<h3><span class="mw-headline" id="Im_Protected_Mode">Im Protected Mode</span></h3>
+<p>Um im Protected Mode Pixel zu zeichnen, muss man in den Grafikspeicher schreiben. Hier zeigt sich auch der Vorteil des LFB: er ist im PM viel einfacher und schneller zu handhaben!
+Wenn man also mithilfe des LFB Zugriff auf den Grafikspeicher hat, dann zeichnet man ein Pixel folgendermaßen:
+&lt;c&gt;
+uint8_t* lfb = (uint8_t*) (uintptr_t) vbe_mode_info.phys_base_ptr;
+void draw_pixel(unsigned int x, unsigned int y, unsigned int color)
+{
+</p>
+<pre> *(uint32_t *)(lfb + y * vbe_mode_info.bytes_per_scan_line + x * 4) = color;
+</pre>
+<p>}
+&lt;/c&gt;
+</p><p>(Funktioniert nur, wenn die Farbtiefe 32 Bits pro Pixel beträgt, bei VBE 3.0 lin_bytes_per_scan_line gleich bytes_per_scan_line ist und der LFB virtuell an der gleichen Stelle wie physisch liegt)
+</p><p>Wenn man allerdings das Paged-Modell verwendet, muss man erst den entsprechenden Teil des Grafikspeichers in den Adressraum blenden mithilfe des „Bank Switch“.
+</p>
+<h3><span class="mw-headline" id="im_Real_Mode">im Real Mode</span></h3>
+<p>Im Real Mode kann man die obige Variante theoretisch auch verwenden, wenn der Grafikspeicher sich nicht oberhalb der 1-MB-Marke im Adressraum befindet (sonst wird mindestens der Unreal Mode benötigt).
+</p>
+<h2><span class="mw-headline" id="VBE_3.0">VBE 3.0</span></h2>
+<p>VBE 3.0 bietet nicht viele neue Funktionen an. Eine der wichtigsten ist die Unterstützung für <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Triple Buffering</a>, für die zwei neue Funktionen eingeführt wurden:
+</p><p>ScheduleDisplayStart:
+</p>
+<ul><li>AX=4f07h</li>
+<li>BL=0</li>
+<li>BH=2</li>
+<li>ECX=Offset des ersten Pixels im <a class="mw-redirect" data-archive-original-href="../../pages/2307/index.html" href="../../pages/2303/index.html#Linear_Frame_Buffer" title="LFB">LFB</a></li></ul>
+<p>GetDisplayStartStatus:
+</p>
+<ul><li>AX=4f07h</li>
+<li>BL=0</li>
+<li>BH=4</li>
+<li>liefert AX!=0, wenn das Bild im Buffer, der mit <i>ScheduleDisplayStart</i> gewählt wurde, auf dem Bildschirm abgebildet wurde.</li></ul>
+<p><br/>
+Diese beiden Funktionen kann man natürlich auch für <a href="../../pages/2600/index.html" title="Double Buffering">Double Buffering</a> verwenden:
+</p>
+<ul><li>Den ersten Buffer rendern</li>
+<li>Ihn mit <i>ScheduleDisplayStart</i> auswählen</li>
+<li>Während der erste Buffer auf dem Bildschirm erscheint, den zweiten rendern</li>
+<li>Mit <i>GetDisplayStatus</i> darauf warten, dass der erste Buffer komplett auf dem Bildchirm gezeichnet wurde</li>
+<li>Den zweiten Buffer mit <i>ScheduleDisplayStart</i> auswählen</li>
+<li>Das Bild wieder im ersten Buffer rendern</li>
+<li>Mit <i>GetDisplayStatus</i> darauf warten, dass der zweite Buffer komplett auf dem Bildchirm gezeichnet wurde</li>
+<li>Den ersten Buffer mit <i>ScheduleDisplayStart</i> auswählen</li>
+<li>usw.</li></ul>
+<p><a href="../../pages/2600/index.html" title="Double Buffering">Double Buffering</a> wäre auch schon mit VBE 2.0 möglich (siehe Funktion: 4F07h, 80h – Set Display Start During Vertical Retrace). Allerdings ist müsste man hier direkt auf die Grafikkarte zugreifen, um das Timing hinzukriegen.
+</p>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external free" href="http://www.phatcode.net/res/221/files/vbe20.pdf" rel="nofollow">http://www.phatcode.net/res/221/files/vbe20.pdf</a> – VBE Spezifikation 2.0</li>
+<li><a class="external free" href="http://www.petesqbsite.com/sections/tutorials/tuts/vbe3.pdf" rel="nofollow">http://www.petesqbsite.com/sections/tutorials/tuts/vbe3.pdf</a> – VBE Spezifikation Version 3.0</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170702
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.014 seconds
+Real time usage: 0.015 seconds
+Preprocessor visited node count: 76/1000000
+Preprocessor generated node count: 124/1000000
+Post‐expand include size: 458/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.607      1 -total
+ 43.81%    0.704      1 Vorlage:TODO
+ 38.35%    0.616      5 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=VESA_BIOS_Extensions&amp;oldid=8522</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1820/index.html" title="Kategorie:TODO">TODO</a></li><li><a href="../../pages/1461/index.html" title="Kategorie:Glossar">Glossar</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2303/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2308/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2303/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

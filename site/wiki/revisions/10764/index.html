@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Codeoptimierung – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Codeoptimierung rootpage-Codeoptimierung skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/2187/index.html">Aktueller Artikel</a> · <a href="../../history/2187/index.html">Versionsgeschichte</a> · <a href="../../source/10764.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Codeoptimierung</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 28. August 2012, 14:25 Uhr von <a class="mw-userlink" href="../../pages/1860/index.html" title="Benutzer:XanClic"><bdi>XanClic</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Codeoptimierung_durch_Compiler">→</a>‎<span dir="auto"><span class="autocomment">Codeoptimierung durch Compiler: </span> Typo, Ortho</span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/10763-10764.html" title="Codeoptimierung">Unterschied</a>) <a href="../10763/index.html" title="Codeoptimierung">← Nächstältere Version</a> | <a href="../../pages/2187/index.html" title="Codeoptimierung">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../10765/index.html" title="Codeoptimierung">Nächstjüngere Version →</a> (<a href="../../diffs/10764-10765.html" title="Codeoptimierung">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Durch die Optimierung des Quellcodes eines Programms kann dieses schneller, effektiver und platzsparender arbeiten.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Allgemeines"><span class="tocnumber">1</span> <span class="toctext">Allgemeines</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Datengr.C3.B6.C3.9Fen"><span class="tocnumber">1.1</span> <span class="toctext">Datengrößen</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Alignment"><span class="tocnumber">1.2</span> <span class="toctext">Alignment</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Spr.C3.BCnge_und_Schleifen"><span class="tocnumber">1.3</span> <span class="toctext">Sprünge und Schleifen</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Caching"><span class="tocnumber">1.4</span> <span class="toctext">Caching</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Assembler"><span class="tocnumber">2</span> <span class="toctext">Assembler</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Reduzierung_der_Codegr.C3.B6.C3.9Fe"><span class="tocnumber">2.1</span> <span class="toctext">Reduzierung der Codegröße</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Steigerung_der_Effektivit.C3.A4t"><span class="tocnumber">2.2</span> <span class="toctext">Steigerung der Effektivität</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#PUSHA_.2F_POPA"><span class="tocnumber">2.2.1</span> <span class="toctext">PUSHA / POPA</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Hochsprachen"><span class="tocnumber">3</span> <span class="toctext">Hochsprachen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Codeoptimierung_durch_Compiler"><span class="tocnumber">3.1</span> <span class="toctext">Codeoptimierung durch Compiler</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Optimierungstools"><span class="tocnumber">3.2</span> <span class="toctext">Optimierungstools</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#siehe_auch"><span class="tocnumber">4</span> <span class="toctext">siehe auch</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Weblinks"><span class="tocnumber">5</span> <span class="toctext">Weblinks</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Allgemeines">Allgemeines</span></h2>
+<h3><span id="Datengrößen"></span><span class="mw-headline" id="Datengr.C3.B6.C3.9Fen">Datengrößen</span></h3>
+<ul><li>Die Wortgröße des Prozessors zu verwenden ist meist vorteilhaft. (32 Bit bei i386, 64 Bit bei x86-64).</li></ul>
+<h3><span class="mw-headline" id="Alignment">Alignment</span></h3>
+<ul><li>Code und Daten sollten in getrennten <a href="../../pages/1496/index.html" title="Paging">Pages</a> gehalten werden.</li>
+<li>Wenn man aber gezwungen ist, Code und Daten zu mischen, dann sollte man die Daten so legen, dass Sprünge nicht darüber hinweg springen müssen.</li>
+<li>Selbst modifizierender Code widerspricht diesem Prinzip.</li>
+<li>Sprungziele sollten am Anfang eines Paragrafs (16Byte) stehen.</li></ul>
+<ul><li>Die CPU hat einen internen Datencache von 64KB.</li></ul>
+<p>Daten, die über eine 64KB Grenze verteilt sind, müssen dann zweimal gecacht werden, was die Performance mindert. Somit sollten Daten ihrer Größe entsprechen ausgerichtet werden, also z.B. DWORDs auch nur am Anfang der 4 Byte Grenzen.
+</p>
+<ul><li>Ebenso sollte der <a href="../../pages/2165/index.html" title="Stack">Stack</a> 64KB aligned sein, und die Größe seiner Elemente gleich bleiben.</li></ul>
+<h3><span id="Sprünge_und_Schleifen"></span><span class="mw-headline" id="Spr.C3.BCnge_und_Schleifen">Sprünge und Schleifen</span></h3>
+<p>Sprünge sind ein Problem für die CPU, weil sie das cachen des Codes erheblich erschweren.
+</p>
+<ul><li>Sprünge sollten vermieden werden, wann immer dies möglich ist</li>
+<li>Unnötige Sprünge können vermieden werden, indem der wahrscheinlichere Zweig in einer Verzweigung (if/switch) zuerst ausgeführt wird.</li></ul>
+<p>Somit sind auch Schleifen performancekritisch, da in ihnen sehr oft gesprungen wird.
+</p>
+<ul><li>Schleifen sollten, wenn möglich, aufgelöst werden.</li>
+<li>Bei verschachtelten Schleifen sollte diejenige innen stehen, die am längsten läuft.</li>
+<li>Wenn in einer Schleife dieselbe Berechnung immer wieder ausgeführt wird, dann kann diese auch einmalig vor der Schleife berechnet werden.</li></ul>
+<p>Auch Funktionsaufrufe fallen unter Sprünge.
+</p>
+<ul><li>Funktionen, die nur wenig leisten, sollten vermieden und ihr Code direkt eingearbeitet werden (diesem Zweck dient das inline-Schlüsselwort in C, allerdings werden kurze Funktionen bei entsprechender Optimierung vom C-Compiler oft auch automatisch entsprechend behandelt)</li></ul>
+<h3><span class="mw-headline" id="Caching">Caching</span></h3>
+<ul><li>Je weniger Sprünge, desto effektiver kann der Code gecacht werden.</li>
+<li>Die CPU kann bis zu 16 verschachtelte Funktionsaufrufe cachen, mehr als 16 Verschachtelungen verringern die Performance.</li>
+<li>Die CPU kann Befehle am besten cachen, die weniger als 8 Byte lang sind. Außerdem sollten dabei WORD-Konstanten vermieden werden. Komplexe Befehle wie sysenter oder leave</li>
+<li>Alignments sollten immer eingehalten werden!</li></ul>
+<h2><span class="mw-headline" id="Assembler">Assembler</span></h2>
+<h3><span id="Reduzierung_der_Codegröße"></span><span class="mw-headline" id="Reduzierung_der_Codegr.C3.B6.C3.9Fe">Reduzierung der Codegröße</span></h3>
+<p>Die nachfolgenden Tricks eignen sich besonders zum Programmieren in <a href="../../pages/1514/index.html" title="Assembler">Assembler</a>, wie es z. B. im <a href="../../pages/1477/index.html" title="Bootloader">Bootloader</a> nötig ist.
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Beschreibung
+</th>
+<th>Optimierter Code
+</th></tr>
+<tr>
+<td>Register 0 setzen
+</td>
+<td>&lt;asm&gt;xor eax, eax&lt;/asm&gt;
+</td></tr>
+<tr>
+<td>Prüfen, ob Register 0 ist
+</td>
+<td>&lt;asm&gt;test eax, eax
+<p>jz ...&lt;/asm&gt;
+</p>
+</td></tr>
+<tr>
+<td>Multiplikation mit einer Zweierpotenz
+</td>
+<td>&lt;asm&gt;shl eax, log2 Faktor&lt;/asm&gt;
+</td></tr>
+<tr>
+<td>Division durch eine Zweierpotenz
+</td>
+<td>&lt;asm&gt;shr eax, log2 Divisor&lt;/asm&gt;
+</td></tr>
+<tr>
+<td>Beliebige Multiplikation
+</td>
+<td>&lt;asm&gt;imul eax, [Faktor_1], [Faktor_2]&lt;/asm&gt;
+</td></tr>
+<tr>
+<td>Schleife
+</td>
+<td>&lt;asm&gt;mov ecx, [Anzahl_Wiederholungen]
+<p>von_vorne:
+...
+loop von_vorne&lt;/asm&gt;
+</p>
+</td></tr>
+<tr>
+<td>Bedingte Wertzuweisung, Register
+</td>
+<td>&lt;asm&gt;cmov?? eax, [Wert]&lt;/asm&gt;
+</td></tr>
+<tr>
+<td>Bedingte Wertzuweisung, Byte im Arbeitsspeicher
+</td>
+<td>&lt;asm&gt;set?? [Wert]&lt;/asm&gt;
+</td></tr>
+<tr>
+<td>Addition, Subtraktion
+</td>
+<td>&lt;asm&gt;lea eax, [ebx + ecx + 4]&lt;/asm&gt;
+</td></tr>
+<tr>
+<td>Bestimmte Multiplikationen (z. B. mit 3 oder 5)
+</td>
+<td>&lt;asm&gt;lea eax, [edx * 4 + edx]&lt;/asm&gt;
+</td></tr></tbody></table>
+<h3><span id="Steigerung_der_Effektivität"></span><span class="mw-headline" id="Steigerung_der_Effektivit.C3.A4t">Steigerung der Effektivität</span></h3>
+<ul><li>Registerzugriffe sind immer schneller als Arbeitsspeicherzugriffe.</li>
+<li>Daher sollten Parameter an Funktionen über Register, nicht über den Stack übergeben werden.</li></ul>
+<h4><span id="PUSHA_/_POPA"></span><span class="mw-headline" id="PUSHA_.2F_POPA">PUSHA / POPA</span></h4>
+<ul><li>Von der Verwendung von pusha/popa ist meist abzuraten, da man auch jedes einzelne Register direkt pushen/popen kann, und dabei selektiver vorgehen kann.</li></ul>
+<h2><span class="mw-headline" id="Hochsprachen">Hochsprachen</span></h2>
+<h3><span class="mw-headline" id="Codeoptimierung_durch_Compiler">Codeoptimierung durch Compiler</span></h3>
+<p>Der <a class="mw-redirect" data-archive-original-href="../../pages/1846/index.html" href="../../pages/1805/index.html" title="GCC"> gcc</a> übernimmt die Optimierung über einen dieser Befehle:
+</p>
+<ul><li>-Ox (x ist der Grad der Optimierung; 3 ist die höchste Stufe)</li>
+<li>-Os (s ist keine Variable, sondern wird genau so gesetzt!)</li></ul>
+<p>'-Os' veranlasst den Compiler, nicht unbedingt performanten Code, aber auf jeden Fall kleine Programme zu erzeugen („size optimisation“). 'Ox' dagegen führt dazu, dass verschiedene Optimierungen zur Geschwindigkeitsverbesserung eingeschaltet werden. '-O3' ist die höchste Stufe, führt aber bei einigen Programmen zu Problemen (z. B. empfiehlt Gentoo, -O2 und nicht -O3 zum Kompilieren des Systems zu nutzen). Das sollte jeder für seine Software selbst ausprobieren.
+</p><p>Übrigens kann man mit NASM die Codeoptimierung mit '-Ox' (hier ist x keine Variable!) einschalten. Dies ist jedoch nicht nötig, da das Flag standardmäßig aktiviert ist. Jedoch bleibt NASM ein Assembler, und so ist es dennoch sehr wichtig, die oben beschriebenen Optimierungsvorschläge auch zu nutzen.
+</p>
+<h3><span class="mw-headline" id="Optimierungstools">Optimierungstools</span></h3>
+<p><i>Bisher keine Vorschläge</i>
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="siehe_auch">siehe auch</span></h2>
+<ul><li><a href="../../pages/1521/index.html#Tipps_.26_Tricks" title="Ausgabe 8">Ausgabe 8</a></li></ul>
+<h2><span class="mw-headline" id="Weblinks">Weblinks</span></h2>
+<ul><li><a class="external text" href="http://www.intel.com/Assets/PDF/manual/248966.pdf" rel="nofollow">Intel - Optimierung für IA32</a> (Kapitel 3.3 bis 3.9 sind empfehlenswert)</li>
+<li><a class="external text" href="http://support.amd.com/us/Processor_TechDocs/25112.PDF" rel="nofollow">AMD - Software Optimierung für AMD64</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109164930
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.007 seconds
+Real time usage: 0.007 seconds
+Preprocessor visited node count: 59/1000000
+Preprocessor generated node count: 70/1000000
+Post‐expand include size: 19/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.934      1 Vorlage:Prettytable
+100.00%    0.934      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Codeoptimierung&amp;oldid=10764</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorien</a>: <ul><li><a href="../../pages/1618/index.html" title="Kategorie:Stub">Stub</a></li><li><a href="../../pages/1874/index.html" title="Kategorie:X86">X86</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/2187/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/2188/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/2187/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div><div aria-labelledby="p-lang-label" class="portlet" id="p-lang" role="navigation"><h3 dir="ltr" id="p-lang-label" lang="de">In anderen Sprachen</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="interlanguage-link interwiki-en"><a class="interlanguage-link-target" href="http://wiki.osdev.org/Optimizing" hreflang="en" lang="en" title="Optimizing – English">English</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

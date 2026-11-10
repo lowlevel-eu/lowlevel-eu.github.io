@@ -1,0 +1,22 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Umschalten in Protected Mode — Änderungen 2032 → 2035</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>Umschalten in Protected Mode — Änderungen 2032 → 2035</h1><nav><a href="../revisions/2032/index.html">Version 2032</a> · <a href="../revisions/2035/index.html">Version 2035</a> · <a href="../history/1537/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l4" >Zeile 4:</td>
+<td colspan="2" class="diff-lineno">Zeile 4:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>'''Wichtig''' bei diesem Code ist es, selbst noch <del class="diffchange diffchange-inline">eine passende </del>org-Anweisung <del class="diffchange diffchange-inline">an den Anfang zu stellen.</del></div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>'''Wichtig''' bei diesem Code ist es, selbst noch <ins class="diffchange diffchange-inline">die </ins>org-Anweisung <ins class="diffchange diffchange-inline">auf die Startadresse des Codes anzupassen!!</ins></div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&#160;</div></td><td colspan="2">&#160;</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;asm&gt;;;;&#160; Ein kleines Beispiel, wie man in den 32-Bit Protected Mode wechselt</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&lt;asm&gt;;;;&#160; Ein kleines Beispiel, wie man in den 32-Bit Protected Mode wechselt</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>;;;&#160; Bei Fragen kann man sich einfach an stefan.marcik@web.de oder</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>;;;&#160; Bei Fragen kann man sich einfach an stefan.marcik@web.de oder</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l11" >Zeile 11:</td>
+<td colspan="2" class="diff-lineno">Zeile 10:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[BITS 16]</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>[BITS 16]</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>	org 0x0000		; Addiert zu allen Offsetes die Adresse dieses Codes</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>	org 0x0000		; Addiert zu allen Offsetes die <ins class="diffchange diffchange-inline">Start-</ins>Adresse dieses Codes</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	cli			; Interrupts ausschalten</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>	cli			; Interrupts ausschalten</div></td></tr>
+</table></body></html>

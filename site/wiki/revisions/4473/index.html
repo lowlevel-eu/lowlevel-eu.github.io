@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Interrupt Service Routine – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Interrupt_Service_Routine rootpage-Interrupt_Service_Routine skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1857/index.html">Aktueller Artikel</a> · <a href="../../history/1857/index.html">Versionsgeschichte</a> · <a href="../../source/4473.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Interrupt Service Routine</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 22. Juni 2009, 23:21 Uhr von <a class="new mw-userlink archive-unavailable" title="Im statischen Archiv nicht verfügbar"><bdi>Jidder</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(<a href="#Allgemeine_Interrupthandler">→</a>‎<span dir="auto"><span class="autocomment">Allgemeine Interrupthandler</span></span>)</span></div><div id="mw-revision-nav">(<a href="../../diffs/4472-4473.html" title="Interrupt Service Routine">Unterschied</a>) <a href="../4472/index.html" title="Interrupt Service Routine">← Nächstältere Version</a> | <a href="../../pages/1857/index.html" title="Interrupt Service Routine">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../4483/index.html" title="Interrupt Service Routine">Nächstjüngere Version →</a> (<a href="../../diffs/4473-4483.html" title="Interrupt Service Routine">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><p>Eine <b>Interrupt Service Routine</b> (ISR) ist ein Programmabschnitt, der aufgerufen wird, wenn in der CPU ein <a href="../../pages/1596/index.html" title="Interrupt">Interrupt</a> ausgelöst wird. Damit die CPU die Routine findet, muss ein entsprechender Zeiger in die <a class="mw-redirect" data-archive-original-href="../../pages/1541/index.html" href="../../pages/1540/index.html" title="IVT">IVT</a> (Real Mode) bzw. <a class="mw-redirect" data-archive-original-href="../../pages/1777/index.html" href="../../pages/1603/index.html" title="IDT">IDT</a> (Protected Mode und Long Mode) eingetragen werden.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Aufgaben"><span class="tocnumber">1</span> <span class="toctext">Aufgaben</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Systemaufrufe"><span class="tocnumber">1.1</span> <span class="toctext">Systemaufrufe</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Einfache_Implementierung"><span class="tocnumber">2</span> <span class="toctext">Einfache Implementierung</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Stack-Layout"><span class="tocnumber">2.1</span> <span class="toctext">Stack-Layout</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Kernel-Bedingungen"><span class="tocnumber">2.2</span> <span class="toctext">Kernel-Bedingungen</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Behandlung"><span class="tocnumber">2.3</span> <span class="toctext">Behandlung</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Installation"><span class="tocnumber">3</span> <span class="toctext">Installation</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Nachteile_der_einfachen_Implementierung"><span class="tocnumber">4</span> <span class="toctext">Nachteile der einfachen Implementierung</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Behandlung_mehrerer_Interrupts"><span class="tocnumber">4.1</span> <span class="toctext">Behandlung mehrerer Interrupts</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Weitere_Nachteile"><span class="tocnumber">4.2</span> <span class="toctext">Weitere Nachteile</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Allgemeine_Interrupthandler"><span class="tocnumber">5</span> <span class="toctext">Allgemeine Interrupthandler</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Beispiele"><span class="tocnumber">5.1</span> <span class="toctext">Beispiele</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Task_Gates"><span class="tocnumber">6</span> <span class="toctext">Task Gates</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Real_Mode"><span class="tocnumber">7</span> <span class="toctext">Real Mode</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Siehe_auch"><span class="tocnumber">8</span> <span class="toctext">Siehe auch</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Aufgaben">Aufgaben</span></h2>
+<p>Eine ISR hat als Aufgabe gezielt auf die Unterbrechung zu reagieren. Dies gestaltet sich je nach Art des Interrupt unterschiedlich. Wenn die Ursache ein <a href="../../pages/1596/index.html#Asynchrone_Interrupts" title="Interrupt">asynchroner Interrupt</a> war, muss die Routine außerdem dafür sorgen, dass der Zustand des Programms (insbesondere Register, Programmzähler, Speicher, ...) nicht unbeabsichtigt verändert wird. Bei <a href="../../pages/1596/index.html#Synchrone_Interrupts" title="Interrupt">synchronen Interrupts</a> ist es hingegen in der Regel erforderlich, entweder das Programm zu terminieren, oder die weitergehende Behandlung des Interrupts (Signal-Handler wie z.B. <a href="../../pages/1775/index.html" title="POSIX">POSIX</a>-Signale, Exception-Handler, Debuggeraufruf, ...) zu veranlassen.
+</p>
+<h3><span class="mw-headline" id="Systemaufrufe">Systemaufrufe</span></h3>
+<p>Systemaufrufe (und BIOS-Aufrufe) fallen in die Kategorie synchronen Interrupts. Diese werden mittels eines Software-Interrupts (<i>int xx</i>) ausgelöst, und ihre Seiteneffekte (d.h. ihre eigentliche Funktion) werden in der Regel in Form eines <a class="new archive-unavailable" title="Im statischen Archiv nicht verfügbar">Application Binary Interfaces</a> dokumentiert.
+</p>
+<h2><span class="mw-headline" id="Einfache_Implementierung">Einfache Implementierung</span></h2>
+<p>Die Unterscheidung zwischen asynchronen und synchronen Interrupts, sowie die korrekte Behandlung letzterer, ist für eine erste Implementierung viel zu komplex. Auf der x86-Architektur reicht es aus, alle Interrupts gleich zu behandeln. Dies bedeutet, die ISRs für alle Interrupts haben den selben Aufbau, und teilen sich auch Teile des Codes.
+</p><p>Eine sehr einfache Implementierung, die so in der Praxis wohl nicht zu finden ist, aber anhand der das Grundprinzip erläutert werden soll, könnte wie folgt aussehen. (Einsatztauglichere Handler, die darauf aufbauen, gibt es weiter unten.)
+</p><p>&lt;asm&gt;; Vereinfachter Interrupt-Stub für den Protected Mode
+</p>
+<dl><dt>Verwendbar für IRQs und Software Interrupts</dt>
+<dt>NICHT für alle Exceptions verwendbar!</dt></dl>
+<p>interrupt_stub:
+</p>
+<pre>   ; Alle Register sichern
+   pusha
+   push ds
+   push es
+   push fs
+   push gs
+</pre>
+<pre>   ; In die Datensegmente einen Kernelselektor laden, damit wir 
+   ; garantiert mit Kernelprivilegien auf den Speicher zugreifen
+   mov ax, KERNEL_DS
+   mov ds, ax
+   mov es, ax
+   mov fs, ax
+   mov gs, ax
+</pre>
+<pre>   ; Aufruf der eigentlichen Behandlung
+   call behandlung
+</pre>
+<pre>   ; Alte Registerwerte in umgekehrter Reihenfolge wiederherstellen
+   pop gs
+   pop fs
+   pop es
+   pop ds
+   popa
+</pre>
+<pre>   ; Rücksprung
+   iret&lt;/asm&gt;
+</pre>
+<p>Der Code ist noch recht übersichtlich, trotzdem sollen hier noch einmal einige Details erläutert werden:
+</p>
+<h3><span class="mw-headline" id="Stack-Layout">Stack-Layout</span></h3>
+<p>Wenn die CPU zu dieser Interrupt-Behandlung gesprungen ist, dann hat sie bereits einige Register auf dem Stack gesichert. Wenn sich die CPU im Ring 0 befunden hat, als der Interrupt ausgelöst wurde, sind dies EFLAGS, CS und EIP, die in dieser Reihenfolge auf den Stack gelegt werden. Wenn die CPU im Ring 1-3 war, wurden vorher noch SS und ESP auf den Stack gelegt. (Und es wurde ein neuer Wert für diese beiden Register aus dem <a class="mw-redirect" data-archive-original-href="../../pages/1600/index.html" href="../../pages/1599/index.html" title="TSS">TSS</a> geladen.) 
+</p><p>An der Speicherstelle [ESP] befindet sich somit der alte EIP-Wert, an [ESP + 4] der alte CS-Wert und so weiter. Es ergibt sich also folgendes Bild für den Stackframe, zu dem Zeitpunkt, wenn die CPU sich bei dem Label <i>interrupt_stub</i> befindet:
+</p><p><code>(Erinnerung: Der Stack wächst nach unten, also in Richtung der niedrigen Adressen)
+</code></p><code><dl><dd> : hohe Adressen</dd>
+<dd> :</dd></dl></code><code><p>+-----------+
+| USER SS   |      (nur bei Interrupt in Ring 1-3)
++-----------+
+| USER ESP  |      (nur bei Interrupt in Ring 1-3)
++-----------+
+| EFLAGS    |
++-----------+
+| CS        |
++-----------+
+| EIP       | &lt;---- ESP zeigt hier hin
++-----------+
+</p></code><code></code><dl><code><dd> :</dd>
+</code><dd><code> : niedrige Adressen</code></dd></dl>
+<p>Diese 3 bzw. 5 Werte, die sich auf dem Stack befinden müssen wir also nicht noch einmal sichern. Allerdings müssen wir noch die General Purpose Register und die 4 Segment Register retten. Dies geschieht mit dem <i>pusha</i>, sowie den 4 <i>push</i>s.  Zum Schluss werden mittels <i>pop</i> und <i>popa</i> die alten Werte dieser Register wiederhergestellt, bevor zum Aufrufer zurückgesprungen wird. Dies ist notwendig, um unsere weiter oben formulierte Forderung, dass wir den Zustand des Programms nicht ändern, zu erfüllen. Diese pauschale Sicherung aller Register erlaubt es uns im folgenden Code frei über alle Register zu verfügen.
+</p><p>Kleiner Einschub: Dies hat allerdings auch Folgen für die Wertrückgabe von einem Systemaufruf. Wir können jetzt ja nicht einfach <i>mov eax, ERGEBNIS</i> machen, weil der alte Wert von eax ja am Ende wieder überschrieben wird. Man könnte jetzt natürlich damit anfangen an den pushs und pops herumzubasteln, aber das wird schnell unübersichtlich und fehlerträchtig. Weiter unten werde ich dafür eine elegantere Lösung präsentieren.
+</p><p>Der Stack-Frame sieht nach dem <i>push gs</i> wie folgt aus:
+</p><p><code>(Erinnerung: Der Stack wächst nach unten, also in Richtung der niedrigen Adressen)
+</code></p><code><dl><dd> : hohe Adressen</dd>
+<dd> :</dd></dl></code><code><p>+-----------+
+| USER SS   |      (nur bei Interrupt in Ring 1-3)
++-----------+
+| USER ESP  |      (nur bei Interrupt in Ring 1-3)
++-----------+
+| EFLAGS    |
++-----------+
+| CS        |
++-----------+
+| EIP       |
++-----------+
+| EAX       |
++-----------+
+| ECX       |
++-----------+
+| EDX       |
++-----------+
+| EBX       |
++-----------+
+| ESP       |      (das ESP das im letzten Bildchen auf EIP gezeigt hat)
++-----------+
+| EBP       |
++-----------+
+| ESI       |
++-----------+
+| EDI       |
++-----------+
+| DS        |
++-----------+
+| ES        |
++-----------+
+| FS        |
++-----------+
+| GS        | &lt;---- ESP zeigt hier hin
++-----------+
+</p></code><code></code><dl><code><dd> :</dd>
+</code><dd><code> : niedrige Adressen</code></dd></dl>
+<h3><span class="mw-headline" id="Kernel-Bedingungen">Kernel-Bedingungen</span></h3>
+<p>Bisher haben wir also dafür gesorgt, dass die General Purpose Register und die Segment Register gesichert und wiederhergestellt werden. Dazwischen kommt jetzt der eigentliche Code, der den Interrupt behandeln soll. Dafür ist es allerdings Voraussetzung, dass sich das System in einem definierten Zustand befindet. Zum Beispiel die Segmentregister könnten Ring 3 Selektoren enthalten. Die sind nicht unbedingt geeignet, um auf Daten im Kernel zuzugreifen, deswegen sollten wir diese zunächst mit Kernel Selektoren laden. Dies macht dieser Abschnitt:
+&lt;asm&gt;    mov ax, KERNEL_DS
+</p>
+<pre>   mov ds, ax
+   mov es, ax
+   mov fs, ax
+   mov gs, ax&lt;/asm&gt;
+</pre>
+<p>Dabei ist KERNEL_DS ggf. durch eine passende Konstante zu ersetzen, die den Kernel Daten Selektor repräsentiert. Das Stack Segment Register (SS) muss nicht mehr geladen werden, denn das hatte entweder bereits zum Zeitpunkt des Interrupts einen gültigen Selektor geladen (Ring 0), oder wurde beim Interrupt aus dem TSS geladen (Ring 1-3). Alles andere hätte längst einen General Protection Fault (#GPF) ausgelöst, auf den (bei unserem Stand) unweigerlich ein Double Fault, und dann ein Triple Fault also ein Reboot gefolgt wäre.
+</p>
+<h3><span class="mw-headline" id="Behandlung">Behandlung</span></h3>
+<p>Dann sind wir endlich bereit den Interrupt zu behandeln. In dem Code oben wird einfach zur Routine <i>behandlung</i> gesprungen, die am besten in einer Hochsprache wie C geschrieben ist:
+</p><p>&lt;c&gt;void behandlung()
+{
+</p>
+<pre>   // schreibt ein buntes A in die obere linke Ecke
+   short *video = (short*)0xb8000;
+   video[0] = 0x4141; // 0x??41 = A und 0x41?? = blaue Schrift, roter Hintergrund
+</pre>
+<p>}&lt;/c&gt;
+</p><p>Jetzt haben wir eine ISR, die uns ein buntes A auf den Bildschirm malt. Wenn unser Interrupt allerdings sowas wie ein Systemaufruf ist, dann wäre es doch praktisch, wenn er auf die Register zugreifen könnte.
+</p><p>Dazu nutzen wir aus, dass wir die Registerwerte auf den Stack gesichert haben. Diese dienen praktisch als Parameter für die Methode <i>behandlung</i>. Der erste Parameter einer C-Funktion ist dabei das, was zuletzt auf den Stack gepusht wurde. Bei uns also GS, dann kommt FS und so weiter. Wenn wir das wie folgt machen wird die Funktionsdefinition allerdings etwas lang:
+&lt;c&gt;void behandlung(unsigned int gs, unsigned int fs, unsigned int es ...&lt;/c&gt;
+</p><p>Schlauer ist es ein struct dafür zu nehmen:
+&lt;c&gt;struct stack_frame
+{
+</p>
+<pre>   unsigned int gs, fs, es, ds;
+   unsigned int edi, esi, ebp, _esp, ebx, edx, ecx, eax;
+   unsigned int eip, cs, eflags, esp, ss;
+</pre>
+<p>}
+</p><p>void behandlung(struct stack_frame sf)
+{
+</p>
+<pre>   // ein buntes Zeichen auf den Bildschirm schreiben
+   unsigned short *video = (unsigned short*)0xb8000;
+   unsigned char zeichen = (unsigned char)sf.eax; // AL auslesen (unteres Byte von EAX)
+</pre>
+<pre>   video[0] = 0x4100 | zeichen; // 0x41?? = blaue Schrift, roter Hintergrund
+</pre>
+<pre>   sf.eax = 0x12345678; // Rückgabewert in eax
+</pre>
+<p>}&lt;/c&gt;
+</p><p>Ein Programm könnte jetzt in AL ein Zeichen laden (z.B. 0x42 für B), und unsere ISR aufrufen. Dann würde auf dem Bildschirm ein buntes AL erscheinen.
+</p><p>Außerdem können wir die Werte in dem <i>struct stack_frame</i> dafür benutzen, um Rückgabewerte zu realisieren. Weil das struct auf dem Stack liegt, wird es am Ende der ISR von den <i>pop</i>s wieder in die Register zurückgelesen, und unsere Rückgabewerte
+</p><p>Im Folgenden soll nun erläutert werden, wie man der CPU mitteilt, dass diese unsere ISR benutzen soll
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>Im Protected Mode muss der Zeiger für ein ISR in die <a class="mw-redirect" data-archive-original-href="../../pages/1777/index.html" href="../../pages/1603/index.html" title="IDT">Interrupt Descriptor Table (IDT)</a> eingetragen werden. Das Format ist im dazugehörigen Artikel erklärt. Dabei ist zu beachten, dass die Flags richtig gesetzt werden.
+TODO
+</p>
+<h2><span class="mw-headline" id="Nachteile_der_einfachen_Implementierung">Nachteile der einfachen Implementierung</span></h2>
+<h3><span class="mw-headline" id="Behandlung_mehrerer_Interrupts">Behandlung mehrerer Interrupts</span></h3>
+<p>Folgendes Beispiel soll einen Nachteil dieser ISR illustrieren: 
+</p><p>Zunächst weisen wir den <a class="mw-redirect" data-archive-original-href="../../pages/1466/index.html" href="../../pages/1465/index.html" title="PIC">PIC</a> an die <a class="mw-redirect" data-archive-original-href="../../pages/1667/index.html" href="../../pages/1465/index.html#IRQ_Tabelle" title="IRQ">IRQs</a> 0-15 auf die Interrupts 0x20 bis 0x2f zu mappen, und tragen für all diese Interrupts unsere ISR in die IDT ein. Wenn dann z.B. IRQ 0 ausgelöst wird, schaut die CPU in die IDT an den Eintrag 0x20, und sieht dort, dass sie zu <i>interrupt_stub</i> springen soll. Bei einem anderen IRQ (z.B. IRQ 1) läuft dieses auf genau das selbe hinaus: Die CPU schaut in den Eintrag (z.B. Interrupt 0x21), und sieht, dass sie zu <i>interrupt_stub</i> springen soll. Dort angekommen, wissen wir aber in beiden Fällen nicht, welcher IRQ bzw. Interrupt ausgelöst wurde, weil die CPU uns sowas nicht mitteilt.
+</p><p>Die einzige Lösung dafür ist, für jeden IRQ eine andere ISR einzutragen. Diese Handler sehen genauso aus wie unser Beispiel, aber mit jeweils unterschiedlichen Namen. (Auch bekannt als Copy&amp;Paste):
+</p><p>&lt;asm&gt;; Handler für IRQ 0
+interrupt_stub_irq0:
+</p>
+<pre>   pusha
+   ...
+   call behandlung_irq0
+   ...
+   popa
+   iret
+</pre>
+<dl><dt>Handler für IRQ 1</dt></dl>
+<p>interrupt_stub_irq1:
+</p>
+<pre>   pusha
+   ...
+   call behandlung_irq1
+   ...
+   popa
+   iret
+</pre>
+<dl><dt>Und so weiter&lt;/asm&gt;</dt></dl>
+<p>In jeden Eintrag in der IDT tragen wir einen anderen Handler ein. In Interrupt 0x20 also interrupt_stub_irq0, in Interrupt 0x21 interrupt_stub_irq1, usw. Dann ruft die CPU für jeden IRQ einen anderen Interrupt auf, und wenn wir z.B. in behandlung_irq0 ankommen, wissen wir, dass IRQ 0 ausgelöst wurde.
+</p><p>Das ganze müsste man dann mindestens für die 16 IRQs, die 32 CPU-Exceptions (bzw. eigentlich 19) und einen Software Interrupt machen. Das wird eine Menge Arbeit, was auch eine Menge Bugs bedeutet. 
+</p>
+<h3><span class="mw-headline" id="Weitere_Nachteile">Weitere Nachteile</span></h3>
+<ul><li>Einige Exceptions legen zusätzlich einen Fehlercode auf den Stack, nachdem sie EIP auf den Stack gelegt haben. Dieser Fehlercode enthält weitere Informationen zur Ursache des Fehlers. Genaueres steht dazu im Intel Manual.</li></ul>
+<ul><li>Um präemptives oder kooperatives Software-<a href="../../pages/1495/index.html" title="Multitasking">Multitasking</a> zu implementieren, muss man den Stack Pointer wechseln. Zwar legt unsere Variante mit dem <i>pusha</i> einen Stack Pointer (_esp) auf den Stack, aber das <i>popa</i> ignoriert den immer. Dieser Stack Pointer zeigt übrigens auf den Kernel Stack, denn entweder wurde er aus dem TSS geladen, wenn der Interrupt im Ring 3 auftrat, oder wir haben uns die ganze Zeit schon im Kernel Mode (Ring 0) befunden. Der Stack Pointer, der zusätzlich auf den Stack gelegt wird, wenn ein Interrupt im Ring 3 aufgetreten ist (esp), nützt uns wenig. Wenn wir diesen austauschen, dann tauschen wir maximal die Stacks von zwei Tasks aus, aber dann ist es bereits zu spät für einen kompletten Kontextwechsel: Die General Purpose Register, sowie EIP und EFLAGS wurden noch vom alten Stack geladen. Das heißt wir müssen den Stack irgendwie anders wechseln.</li></ul>
+<p>Deswegen arbeiten wir im Folgenden an einer Generalisierung und Vereinfachung des gesamten Aufbaus unserer ISRs.
+</p>
+<h2><span class="mw-headline" id="Allgemeine_Interrupthandler">Allgemeine Interrupthandler</span></h2>
+<p>Wir wollen wie bereits angedeutet folgende Ziele erfüllen:
+</p>
+<ul><li>pro Interrupt jeweils ein Handler, damit wir die Interrupts auseinander halten können</li>
+<li>möglichst viel gemeinsamer Code für alle Interruptroutinen, um uns Schreibarbeit zu sparen</li>
+<li>eine Möglichkeit im Handler den Stack zu wechseln</li></ul>
+<p>Unser Ansatz besteht dabei aus folgenden Änderungen:
+</p>
+<ul><li>Für Interrupts, die keinen Fehlercode auf den Stack legen, legen wir am Anfang der ISR, noch vor den anderen <i>push</i>s einfach eine 0 auf den Stack. Damit erreichen wir, dass der Stack für alle Interrupts gleich aussieht.</li>
+<li>Ein kurzer (3- bis 4-zeiliger) Interrupt Stub, der die Nummer des Interrupts auf den Stack legt und dann zum gemeinsamen Code springt:</li></ul>
+<p>&lt;asm&gt;exception_0:
+</p>
+<pre>   push dword 0       ; Der Ersatz für den Fehlercode
+   push dword 0       ; Nummer des Interrupts
+   jmp isr_common     ; zum gemeinsamen Teil springen
+</pre>
+<p>exception_1:
+</p>
+<pre>   push dword 0       ; Der Ersatz für den Fehlercode
+   push dword 1       ; Nummer des Interrupts
+   jmp isr_common     ; zum gemeinsamen Teil springen
+</pre>
+<p>...
+</p><p>exception_255:
+</p>
+<pre>   push dword 0       ; Der Ersatz für den Fehlercode
+   push dword 255     ; Nummer des Interrupts
+   jmp isr_common     ; zum gemeinsamen Teil springen&lt;/asm&gt;
+</pre>
+<p>Daraus machen wir uns gleich mal ein Makro:
+&lt;asm&gt;; NASM Code
+%macro interrupt_stub 1
+global interrupt_stub_%1
+interrupt_stub_%1:
+</p>
+<pre>   push dword 0
+   push dword %1
+   jmp isr_common
+</pre>
+<p>%endmacro&lt;/asm&gt;
+</p>
+<ul><li>Die Interrupts, die einen Fehlercode auf den Stack legen, sind nur die Exceptions 8, 10, 11, 12, 13, 14, und 17. Der Rest legt keinen Fehlercode auf den Stack. Für die Exceptions mit Fehlercode, müssen wir ein gesondertes Makro erstellen, das diesen Ersatz nicht pusht:</li></ul>
+<p>&lt;asm&gt;%macro interrupt_stub_error_code 1
+global interrupt_stub_error_code_%1
+interrupt_stub_error_code_%1:
+</p>
+<pre>   push dword %1
+   jmp isr_common
+</pre>
+<p>%endmacro&lt;/asm&gt;
+</p>
+<ul><li>Diese Makros instanzieren wir dann folgendermaßen:</li></ul>
+<p>&lt;asm&gt;; Exceptions
+interrupt_stub 0
+interrupt_stub 1
+interrupt_stub 2
+interrupt_stub 3
+interrupt_stub 4
+interrupt_stub 5
+interrupt_stub 6
+interrupt_stub 7
+interrupt_stub_error_code 8
+interrupt_stub 9
+interrupt_stub_error_code 10
+interrupt_stub_error_code 11
+interrupt_stub_error_code 12
+interrupt_stub_error_code 13
+interrupt_stub_error_code 14
+interrupt_stub 16
+interrupt_stub_error_code 17
+interrupt_stub 18
+interrupt_stub 19
+</p>
+<dl><dt>IRQs (vorausgesetzt diese sind nach 0x20 bis 0x2f gemappt)</dt></dl>
+<p>interrupt_stub 32
+interrupt_stub 33
+interrupt_stub 34
+interrupt_stub 35
+interrupt_stub 36
+interrupt_stub 37
+interrupt_stub 38
+interrupt_stub 39
+interrupt_stub 40
+interrupt_stub 41
+interrupt_stub 42
+interrupt_stub 43
+interrupt_stub 44
+interrupt_stub 45
+interrupt_stub 46
+interrupt_stub 47
+</p>
+<dl><dt>Systemaufruf</dt></dl>
+<p>interrupt_stub 48
+</p>
+<dl><dt>Wer seine Assemblerdatei gerne voll hat, kann natürlich die</dt>
+<dt>Stubs für die restlichen Interrupts auch noch hierhin schreiben.&lt;/asm&gt;</dt></dl>
+<ul><li>Das Stack-Layout sieht jetzt für alle Interrupts so aus. Der einzige Unterschied sind der Fehlercode und die Interruptnummer:</li></ul>
+<p><code>:           : hohe Adressen 
+</code></p><code><dl><dd> :</dd></dl></code><code><p>+-----------+
+| USER SS   |      (nur bei Interrupt in Ring 1-3)
++-----------+
+| USER ESP  |      (nur bei Interrupt in Ring 1-3)
++-----------+
+| EFLAGS    |
++-----------+
+| CS        |
++-----------+
+| EIP       |
++-----------+
+| error     |      Fehlercode (oder Ersatz dafür)
++-----------+
+| interrupt |      Nummer des Interrupts
++-----------+
+| EAX       |
++-----------+
+| ECX       |
++-----------+
+| EDX       |
++-----------+
+| EBX       |
++-----------+
+| ESP       |      (das ESP das im letzten Bildchen auf EIP gezeigt hat)
++-----------+
+| EBP       |
++-----------+
+| ESI       |
++-----------+
+| EDI       |
++-----------+
+| DS        |
++-----------+
+| ES        |
++-----------+
+| FS        |
++-----------+
+| GS        | &lt;---- ESP zeigt hier hin
++-----------+
+</p></code><code></code><dl><code><dd> :</dd>
+</code><dd><code> : niedrige Adressen</code></dd></dl>
+<ul><li>Als nächstes müssen wir den gemeinsamen Teil der Interruptbehandlung anpassen. Das geht recht leicht, denn wir haben ja im Unterschied zu früher nur zwei weitere Werte auf den Stack gelegt. Diese müssen wir also nur entfernen, bevor wir <i>iret</i> ausführen. Allerdings sollten wir dafür nicht <i>pop</i> nehmen, weil das immer ein Ziel haben muss. Wir wollen aber nichts überschreiben, deswegen passen wir einfach den Stack Pointer an. Der Fehlercode und die Interruptnummer sind 32-Bit-Worte (dword), also jeweils 4 Bytes groß, und zusammen 8 Bytes. Wenn wir zu esp 8 addieren, wandern wir in unserem Stack Layout zwei Einträge nach oben, und haben diese Werte übersprungen. Das sieht so aus:</li></ul>
+<p>&lt;asm&gt;; Gemeinsamer Code aller ISRs
+isr_common: 
+</p>
+<pre>   ; Alle Register sichern
+   pusha
+   push ds
+</pre>
+<pre>   ...
+</pre>
+<pre>   pop ds
+   popa
+
+   ; Fehlercode und Interruptnummer vom Stack holen
+   add esp, 8
+</pre>
+<pre>   ; Rücksprung
+   iret&lt;/asm&gt;
+</pre>
+<ul><li>Die Definition unserer C-Struktur ändert sich ebenfalls mit dem Stack Layout:</li></ul>
+<p>&lt;c&gt;struct stack_frame
+{
+</p>
+<pre>   unsigned int gs, fs, es, ds;
+   unsigned int edi, esi, ebp, _esp, ebx, edx, ecx, eax;
+   unsigned int interrupt, error;
+   unsigned int eip, cs, eflags, esp, ss;
+</pre>
+<p>}&lt;/c&gt;
+</p>
+<ul><li>Wenn wir den Stack in der C-Routine wechseln wollen, bietet es sich an, einen Zeiger auf den Stack als Parameter zu übergeben, und den neuen Stack zurückzugeben:</li></ul>
+<p>&lt;c&gt;unsigned int behandlung(unsigned int esp)
+{
+</p>
+<pre>   struct stack_frame * sf = (struct stack_frame *)esp;
+</pre>
+<pre>   /* Hier ESP verändern. Der ganze Apparat sollte über mehrere 
+      Funktionen verteilt werden, aber könnte zum Beispiel so aussehen: */
+   if (sf-&gt;interrupt &gt;= 0 &amp;&amp; sf-&gt;interrupt &lt;= 0x1f) {
+       /* Exceptions */
+       switch (sf-&gt;interrupt) {
+           /* jede Exception einzeln behandeln ... */
+       }
+   } else if (sf-&gt;interrupt &gt;= 0x20 &amp;&amp; sf-&gt;interrupt &lt;= 0x2f) {
+       /* IRQ */
+</pre>
+<pre>       if (sf-&gt;interrupt == 0x20) {
+           /* Timer */
+           /* Den Scheduler aufrufen. Der ist jemand, der ESP
+              ändern will, um einen Taskwechsel zu veranlassen. */
+           esp = schedule(esp); 
+       }
+       /* die anderen IRQs auch behandeln ... */
+</pre>
+<pre>       /* Die Bearbeitung des IRQs beim PIC bestätigen */
+       pic_ack(); 
+   } else if (sf-&gt;interrupt == 0x30) {
+       /* Systemaufruf */
+       switch (sf-&gt;eax) {
+           case 0: /* ... tun, was auch immer Systemaufruf 0 tut */ break;
+           /* und so weiter */
+       }
+   }
+</pre>
+<pre>   return esp;
+</pre>
+<p>}&lt;/c&gt;
+Der Assemblerteil wird angepasst, dass er ESP vorm Aufruf von <i>behandlung</i> auf den Stack legt, und nach dem Aufruf den Rückgabewert wieder nach ESP lädt:
+&lt;asm&gt;isr_common:
+</p>
+<pre>   ; Alle Register sichern
+   pusha
+   push ds
+   push es
+   push fs
+   push gs
+
+   ; In die Datensegmente einen Kernelselektor laden, damit wir 
+   ; garantiert mit Kernelprivilegien auf den Speicher zugreifen
+   mov ax, KERNEL_DS
+   mov ds, ax
+   mov es, ax
+   mov fs, ax
+   mov gs, ax
+
+   ; ESP übergeben
+   push esp
+   ; Aufruf der eigentlichen Behandlung
+   call behandlung
+   ; Rückgabewert in EAX nach ESP schreiben
+   ; -&gt; Stack Wechsel geschieht hier
+   mov esp, eax
+
+   ; Alte Registerwerte in umgekehrter Reihenfolge wiederherstellen
+   pop gs
+   pop fs
+   pop es
+   pop ds
+   popa
+
+   ; Fehlercode und Interruptnummer vom Stack holen
+   add esp, 8
+</pre>
+<pre>   ; Rücksprung
+   iret&lt;/asm&gt;
+</pre>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Beispiele">Beispiele</span></h3>
+<ul><li>Der Code in <a class="mw-redirect" data-archive-original-href="../../pages/2146/index.html" href="../../pages/1796/index.html" title="Tyndur">tyndur</a> ist so wie hier beschrieben aufgebaut. Für <i>kernel</i> befindet er sich in <a class="external text" href="http://git.tyndur.org/?p=tyndur.git;a=blob;f=src/kernel/src/stubs.asm;hb=HEAD" rel="nofollow">src/kernel/src/stubs.asm</a> und die <i>kernel2</i>-Version (AT&amp;T Syntax) befindet sich in <a class="external text" href="http://git.tyndur.org/?p=tyndur.git;a=blob;f=src/kernel2/src/arch/i386/interrupts/int_stubs.S;hb=HEAD" rel="nofollow">src/kernel2/src/arch/i386/interrupts/int_stubs.S</a>.</li>
+<li>Im <a href="../../pages/1849/index.html" title="Software Multitasking Tutorial">Software Multitasking Tutorial für Freebasic</a> wird ein ähnliches Stack Layout verwendet, allerdings wird dort von den hier besprochenen Punkten nur der Stack Wechsel implementiert</li>
+<li>In FreeBSD werden die CPU-Exceptions in <a class="external text" href="http://fxr.watson.org/fxr/source/i386/i386/exception.s" rel="nofollow">i386/i386/exception.s</a> ähnlich wie hier beschrieben behandelt.</li></ul>
+<h2><span class="mw-headline" id="Task_Gates">Task Gates</span></h2>
+<p>TODO
+</p>
+<h2><span class="mw-headline" id="Real_Mode">Real Mode</span></h2>
+<p>Im Real Mode sind im Prinzip die selben Schritte wie im Protected Mode erforderlich. Allerdings werden SS und ESP nie automatisch gesichert bzw. automatisch geladen, weil es ja keine Ring-Unterscheidungen gibt. Die Konstante KERNEL_DS wäre für einen Kernel außerdem einfach CS.
+</p>
+<h2><span class="mw-headline" id="Siehe_auch">Siehe auch</span></h2>
+<ul><li>Intel Manual Volume 3A - Chapter 5 Interrupt and Exception Handling</li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109165510
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.008 seconds
+Real time usage: 0.009 seconds
+Preprocessor visited node count: 59/1000000
+Preprocessor generated node count: 64/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Interrupt_Service_Routine&amp;oldid=4473</a>“</div>
+<div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks"></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1857/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li class="new" id="ca-talk"><a accesskey="t" class="archive-unavailable" rel="discussion" title="Im statischen Archiv nicht verfügbar">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1857/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

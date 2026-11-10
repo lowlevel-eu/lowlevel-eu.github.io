@@ -1,0 +1,901 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="../../../assets/forum/88dcc70c5646d8d6b1bd9ae5.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi..." name="description"/>
+<title>cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...</title>
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav>
+<div id="wrapper" style="width: 95%">
+<div id="header"><div class="frame">
+<div id="top_section"><div id="time">
+
+ 
+					
+
+
+
+<p>09. November 2026, 18:30</p>
+</div>
+<div class="logo"><a href="../../index.html"><img alt="Lowlevel" id="logoplaceholder" src="../../../assets/forum/e5277f0dceba6f83271d1d0d.gif" title="Lowlevel"/></a></div>
+<div class="user"><br/>Willkommen <strong>Gast</strong>. Bitte <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">einloggen</a> oder <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">registrieren</a>.<br/>Hast du deine <a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Aktivierungs E-Mail</a> übersehen?
+			</div>
+</div>
+<div class="middletext" id="upper_section">
+<!--<div class="forumtitle clear" align="center">
+				<h1 class="forumtitle">
+					<a href="http://forum.localhost:8080/index.php">Lowlevel</a>
+				</h1>
+			</div>-->
+</div>
+
+<div align="center" id="main_menu">
+<ul class="dropmenu" id="menu_nav">
+<li id="button_home">
+<a class="active firstlevel" href="../../index.html">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/24330b3af74ff7b238c7d5f8.png"/>Übersicht</span>
+</a>
+</li>
+<li id="button_wiki">
+<a class="firstlevel" href="../../../wiki/pages/1712/index.html">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/2f1dbe8dcd0a56ce84e13661.png"/>Wiki</span>
+</a>
+</li>
+<li id="button_help">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/60b0d976f4a655cd30ef1303.png"/>Hilfe</span>
+</a>
+</li>
+<li id="button_search">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/47142494af67add484f5f076.png"/>Suche</span>
+</a>
+</li>
+<li id="button_login">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="firstlevel"><img alt="*" src="../../../assets/forum/bd9b1842a2ad2b779fadbfd0.png"/>Einloggen</span>
+</a>
+</li>
+<li id="button_register">
+<a class="firstlevel archive-unavailable" title="Im statischen Archiv nicht verfügbar">
+<span class="last firstlevel"><img alt="*" src="../../../assets/forum/8039d1f5cf19471dd2a3b189.png"/>Registrieren</span>
+</a>
+</li>
+</ul>
+</div>
+</div></div>
+<div id="content_section"><div class="frame">
+<div id="main_content_section">
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/10/index.html"><span>Softwareentwicklung</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...</span></a>
+</li>
+</ul>
+</div>
+<a id="top"></a>
+<a id="msg34725"></a>
+<div class="nextlinks"><a href="../2987/index.html#msg34851">« vorheriges</a> <a href="../2954/offset-20.html#msg34813">nächstes »</a></div>
+<div class="pagesection_top">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: <a class="navPages" href="index.html">1</a> [<strong>2</strong>] 
+				</div></div>
+<div id="forumposts">
+<div class="cat_bar">
+<h3 class="catbg">
+<img align="bottom" alt="" src="../../../assets/forum/0f01c9c83ac67395064654f9.gif"/>
+<span id="author">Autor</span>
+						Thema: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...  (Gelesen 74474 mal)
+					</h3>
+</div>
+
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_34725_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #20 am:</strong> 28. January 2012, 19:04 »</div>
+<div class="posttile"><h5 id="subject_34725">
+<a href="offset-20.html#msg34725" rel="nofollow">Re: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...</a>
+</h5></div>
+<div id="msg_34725_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34725">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg34724">Zitat von: taljeth am 28. January 2012, 13:16</a></div></div><blockquote class="bbc_standard_quote">Wiederholt durch 16 teilen und jeweils den Rest auf den Bildschirm ausgeben? <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Etwas das von printf mit %p erledigt wird und da die libc ja auch zur Plattform passen muss ist es IMHO kein Problem da drin auch mal einen kleinen Trick zu benutzen der nicht so ganz sauber ist (in meiner Heap-Implementierung baue ich auch Pointer recht frei zusammen und wieder auseinander, ich sehe da auch kein Problem darin das mein Code nicht portabel ist).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg34724">Zitat von: taljeth am 28. January 2012, 13:16</a></div></div><blockquote class="bbc_standard_quote">Nicht, dass ich wüsste (ich habe aber auch keine explizite Aussage gefunden, dass es undefiniert ist, der Standard scheint einfach nichts dazu zu sagen).</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also ich persönlich halte mich da lieber an die Devise: "alles was nicht ausdrücklich und explizit zugesichert wird ist auch nicht zugesichert, fertig".<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg34724">Zitat von: taljeth am 28. January 2012, 13:16</a></div></div><blockquote class="bbc_standard_quote">Wenn du daraus also einen Segfault machen willst, ist das vermutlich erlaubt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ich denke auch dass das so erlaubt ist aber dafür würde ich immer zusätzlichen Code benötigen und das möchte ich auch wieder nicht, daher möchte ich das lieber gleich ganz verbieten um so den geringsten Aufwand zu haben.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg34724">Zitat von: taljeth am 28. January 2012, 13:16</a></div></div><blockquote class="bbc_standard_quote">Was ist daran schwierig? Unterschiedliche Segmente -&gt; Segfault. Gleiche Segmente -&gt; Differenz der Offsets wird berechnet.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Vielleicht mache ich mir das einfach auch nur zu schwierig. Eines meiner Probleme ist das wenn eine solche Differenz später wieder zu einem Pointer dazu addiert wird das es dann zu einem Überlauf kommen kann und der wird, falls er direkt im Speicherzugriffsbefehl passiert, von der CPU mit einer Exception beantwortet, es kann also passieren das die Funktionsfähigkeit des selben C-Codes vom Optimierungsgrad des Compilers abhängt und das sollte IMHO lieber vermieden werden.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg34724">Zitat von: taljeth am 28. January 2012, 13:16</a></div></div><blockquote class="bbc_standard_quote">Abgesehen davon, dass ich keine andere Methode kenne, die Offsets zu berechnen</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><a class="bbc_link" href="http://www.cplusplus.com/reference/clibrary/cstddef/offsetof/" target="_blank">offsetof()</a>, das ist IMHO auch deswegen nötig weil ja das tatsächliche Speicherlayout in Strukturen auch wieder implementierungsspezifisch ist. Das meistens dahinter im Endeffekt nur der selbe Hack steckt den Du auch direkt benutzen würdest ist da erst mal egal, immerhin muss dafür derjenige gerade stehen der die libc für die konkrete Plattform gebaut hat und der sollte genau wissen was geht und was nicht.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg34724">Zitat von: taljeth am 28. January 2012, 13:16</a></div></div><blockquote class="bbc_standard_quote">"Fast C" heißt "nicht C", das ist eine neue Sprache, für die du erstmal eine ordentliche Spec schreiben solltest.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist mir schon klar, aber eine komplette Spec werde ich da trotzdem nicht schreiben sondern eher eine präzise Auflistung der Unterschiede. Auf der anderen Seite scheint der C-Standard genügend "Interpretationsspielraum" zu bieten das ich wohl trotzdem sagen kann das mein System 100% konform ist, aber da kommen wir dann in Bereiche die sonst eher bei der Interpretation von Bibel, Koran usw. benutzt werden.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg34724">Zitat von: taljeth am 28. January 2012, 13:16</a></div></div><blockquote class="bbc_standard_quote">Pointerarithmetik ist genau definiert, solange du innerhalb von einem Objekt (oder einem Element nach Arrayende) bleibst.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Sicher? Das würde ich arg bezweifeln aber ich lese (morgen) am besten noch mal genau nach. Ich kann mich jedenfalls nicht erinnern das im C-Standard sowas wie "( (&amp;TYPE[i+2]) - (&amp;TYPE[i+1]) ) == sizeof(TYPE)" als true zugesichert wird. Um wie viel ein Pointer bei (&amp;TYPE)++ wirklich inkrementiert wird ist wimre auch implementierungsspezifisch und muss ebenfalls nicht zwangsläufig mit sizeof(TYPE) übereinstimmen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg34724">Zitat von: taljeth am 28. January 2012, 13:16</a></div></div><blockquote class="bbc_standard_quote">Wie groß dein Array war, musst du natürlich immer noch selber wissen. <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja klar, aber was ist mit Padding und ähnlichen Dingen? Sowas darf der Compiler frei nach Befinden oder gewünschtem Optimierungsgrad entscheiden. Arrays sind nicht zwangsläufig kompakt, wimre noch nicht einmal char-Arrays.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg34724">Zitat von: taljeth am 28. January 2012, 13:16</a></div></div><blockquote class="bbc_standard_quote">Aber wenn du ein char a[42] hast und p = &amp;a[12], q = &amp;a[14], dann ist genau definiert, dass  p + 2 * (q - p) = &amp;a[16] ist, zum Beispiel.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Hm, okay, trotzdem würde ich das nicht als <em>guten</em> C-Code bezeichnen, in einem Array sollte man IMHO nur mit dem Index zugreifen und nicht mit Pointer-Arithmetik.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg34724">Zitat von: taljeth am 28. January 2012, 13:16</a></div></div><blockquote class="bbc_standard_quote">In der Praxis ist das genau dasselbe wie mit einem Integer herumzurechnen. Der theoretische Unterschied ist, dass es mit char* definiert und mit uintptr_t implementation defined.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Sicher? So wie ich den C-Standard verstanden habe wird kein exakter und eineindeutiger Zusammenhang zwischen Pointern für Objekte und deren numerische Darstellung als Integer zugesichert. Theoretisch könnte eine CPU ja auch Speicheradressen in Gray-Code darstellen (bei einem Pointer++ müsste der Compiler dann einen anderen Rechenbefehl benutzen als für Integer++) und echter Standard-konformer C-Code müsste trotzdem funktionieren. Das die Differenz von 2 Pointern als Integer den numerischen Wert 12 hat bedeutet nicht das die 2 Objekte (auf die die beiden Pointer zeigen) auch wirklich 12 Bytes von einander entfernt im Speicher liegen, dass das trotzdem auf allen heute existierenden CPUs zutrifft ist noch keine Zusicherung.<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34725">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_34725_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34726"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Jidder</a>
+</h4>
+<ul class="reset smalltext" id="msg_34726_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 1 625</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #21 am:</strong> 28. January 2012, 20:23 »</div>
+<div class="posttile"><h5 id="subject_34726">
+<a href="offset-20.html#msg34726" rel="nofollow">Re: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...</a>
+</h5></div>
+<div id="msg_34726_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34726">Meinst du denn, dass existierende Programme überhaupt die Fähigkeiten deiner Architektur ausnutzen können? Ich glaube nämlich nicht, dass du was anderes machen kannst als je ein Segment für Code, Stack und Daten anzulegen. Die Programme haben ja keine Möglichkeit mitzuteilen, wie die Daten logisch zusammenhängen. Existierende Programme können also die Vorteile der Segmentierung vermutlich nicht nutzen. Macht es überhaupt Sinn diese Programme mit mehr als diesem "Legacy-Modus" á la x86 zu unterstützen?<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34725">Zitat von: erik.vikinger am 28. January 2012, 19:04</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg34724">Zitat von: taljeth am 28. January 2012, 13:16</a></div></div><blockquote class="bbc_alternate_quote">Pointerarithmetik ist genau definiert, solange du innerhalb von einem Objekt (oder einem Element nach Arrayende) bleibst.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Sicher? Das würde ich arg bezweifeln aber ich lese (morgen) am besten noch mal genau nach. Ich kann mich jedenfalls nicht erinnern das im C-Standard sowas wie "( (&amp;TYPE[i+2]) - (&amp;TYPE[i+1]) ) == sizeof(TYPE)" als true zugesichert wird. Um wie viel ein Pointer bei (&amp;TYPE)++ wirklich inkrementiert wird ist wimre auch implementierungsspezifisch und muss ebenfalls nicht zwangsläufig mit sizeof(TYPE) übereinstimmen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>6.5.6 Additive Operators 9.<br/><br/>Deine Notation ist etwas ungenau. Es gilt:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">TYPE foo[123];<br/>int i;<br/>&amp;foo[i + 2] - &amp;foo[i + 1] = (i + 2) - (i + 1) = 1 <br/>(uintptr_t)&amp;foo[i + 2] - (uintptr_t)&amp;foo[i + 1] = sizeof(foo[0])</code><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34725">Zitat von: erik.vikinger am 28. January 2012, 19:04</a></div></div><blockquote class="bbc_standard_quote">Ja klar, aber was ist mit Padding und ähnlichen Dingen? Sowas darf der Compiler frei nach Befinden oder gewünschtem Optimierungsgrad entscheiden. Arrays sind nicht zwangsläufig kompakt, wimre noch nicht einmal char-Arrays.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ein Array ist kompakt. (6.2.5 Types 20) Wenn du ein struct foo { int x; char y; } hast, kann der Compiler das auf 8 Bytes vergrößern, d.h. sizeof(struct foo) = 8, also auch Elemente, die nicht in Arrays sind, können mehr Platz einnehmen als nötig.<br/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34726">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_34726_signature">Dieser Text wird unter jedem Beitrag angezeigt.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34728"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">erik.vikinger</a>
+</h4>
+<ul class="reset smalltext" id="msg_34728_extra_info">
+<li class="postcount">Beiträge: 1 277</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #22 am:</strong> 29. January 2012, 12:39 »</div>
+<div class="posttile"><h5 id="subject_34728">
+<a href="offset-20.html#msg34728" rel="nofollow">Re: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...</a>
+</h5></div>
+<div id="msg_34728_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34728">Hallo,<br/><br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34726">Zitat von: Jidder am 28. January 2012, 20:23</a></div></div><blockquote class="bbc_standard_quote">Meinst du denn, dass existierende Programme überhaupt die Fähigkeiten deiner Architektur ausnutzen können?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Äh, ja, also schon oft. Ich denke das alle Programme zumindest von dem Gewinn an Sicherheit mehr oder weniger profitieren können. Ein absolut fehlerfreies Programm (in dem es gar keine Buffer-Overflows usw. gibt) profitiert natürlich nicht davon aber auf wie viele Programme trifft das denn zu? Vom Geschwindigkeitsvorteil durch das (meistens) abgeschaltete Paging profitieren natürlich auch alle Programme.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34726">Zitat von: Jidder am 28. January 2012, 20:23</a></div></div><blockquote class="bbc_standard_quote">Ich glaube nämlich nicht, dass du was anderes machen kannst als <strong>je</strong> ein Segment für Code, Stack und Daten anzulegen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist aber schon mehr als im klassischen Flat-Memory gemacht wird, dort liegt absolut alles (sogar der OS-Kernel) in einem einzigen Adressraum. Bei mir ist z.B. der OS-Kernel aus dem User-Mode mit wirklich gar keinem Pointer erreichbar (es gibt keine 48/80 Bit-Kombination die den Kernel aus dem User-Mode adressieren kann). Auch muss ein Programm bei mir ja nicht auf 4 Segmente (Code, Const, Data und Stack) beschränkt bleiben, ich habe z.B. vor das der Heap sich über viele Segmente verteilt. Mein malloc() wird sicher nicht jedes mal ein neues Segment erstellen (das wäre totale Speicherverschwendung, schon weil so ein Segment immer ganze Pages belegt und auch etwas an Verwaltungsdaten kostet) aber ich will für jede benutzte Objekt-Größe ein neues Segment erstellen und dieses Segment wie ein Array aus Elementen dieser Größe verwalten (die Verwaltung als Array ist auch ziemlich effizient implementierbar so das malloc und free bei mir ordentlich schnell werden).<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34726">Zitat von: Jidder am 28. January 2012, 20:23</a></div></div><blockquote class="bbc_standard_quote">Die Programme haben ja keine Möglichkeit mitzuteilen, wie die Daten logisch zusammenhängen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Der logische Zusammenhang von verschiedenen Objekten braucht IMHO auch keinen Einfluss darauf haben wie diese Objekte über die Segmente verteilt sind (es wird ja überall mit FAR-Pointern gearbeitet), das einzigste was ich aber in jedem Fall vermeiden will ist das einzelne Objekte/Arrays über mehrere Segmente verteilt werden müssen (so wie im x86-RM bei Objekten/Arrays mit mehr als 64 kB) so das meine Segmente schon recht groß werden können.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34726">Zitat von: Jidder am 28. January 2012, 20:23</a></div></div><blockquote class="bbc_standard_quote">Macht es überhaupt Sinn diese Programme mit mehr als diesem "Legacy-Modus" á la x86 zu unterstützen?</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>IMHO ja. Und selbst wenn es nur 5 Segmente sind (also der Heap nur ein einziges Segment benutzt) ist es ja schon deutlich besser als alles was Flat-Memory auch nur theoretisch anbieten kann. Dazu kommt das spätestens bei Multithreading noch mehr Vorteile zum tragen kommen: jeder Stack hat sein eigenes Segment und kann auch unabhängig von anderen Stacks wachsen so das man sich nicht schon vorher überlegen muss wie man eine potentiell unbekannte Anzahl von Stacks in den einen virtuellen Adressraum unterbringen will. Nebst dessen das für die Stacks auch immer virtueller Speicher verschwendet wird da ja nicht vorhersehbar ist welcher der Stacks eventuell etwas mehr wächst als andere. Bei Flat-Memory muss man die Größe der Stacks immer beschränken um eine vernünftige Koexistenz mehrerer Stack in einem virtuellen Adressraum sicherstellen zu können. Auch kann man bei Flat-Memory die Stack niemals 100% zuverlässig gegeneinander absichern wie ich da <a class="bbc_link" href="../2224/offset-20.html#msg25456" target="_blank">http://forum.lowlevel.eu/index.php?topic=2224.msg25456#msg25456</a> schon mal dargelegt hatte. Von daher bin ich in jedem Fall der Meinung das auch alle existierenden Programme von Segmentierung einen Nutzen haben können.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34726">Zitat von: Jidder am 28. January 2012, 20:23</a></div></div><blockquote class="bbc_standard_quote">6.5.6 Additive Operators 9.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Danke, lese ich mir nachher mal durch.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34726">Zitat von: Jidder am 28. January 2012, 20:23</a></div></div><blockquote class="bbc_standard_quote"><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">&amp;foo[i + 2] - &amp;foo[i + 1] = (i + 2) - (i + 1) = 1</code></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also hier fehlt irgendwo noch "sizeof(TYPE)" weil der Abstand der Indizes ja nur 1 beträgt aber der Abstand der Pointer der Objekt-Größe entsprechen sollte.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34726">Zitat von: Jidder am 28. January 2012, 20:23</a></div></div><blockquote class="bbc_standard_quote"><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">(uintptr_t)&amp;foo[i + 2] - (uintptr_t)&amp;foo[i + 1] = sizeof(foo[0])</code></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Also das ist IMHO auf jeden Fall falsch. Solange Du die Differenz aus zwei Pointern bildest muss auch eine Integer-Zahl (vom Type ptrdiff_t) bei raus kommen die auch wieder als Offset zu gebrauchen sein muss aber wenn Du beide Pointer vorher nach uintptr_t umwandelst dann ist das IMHO nicht mehr gewährleistet. Was ist wenn eine CPU mal tatsächlich eine andere Binärdarstellung für Adressen als für normale (Integer-)Zahlen benutzt? Dann würde Dein Code nicht mehr funktionieren, der C-Standard schreibt auch explizit nicht vor das für Integer das Zweierkomplement zu benutzen ist so das es jedem frei steht hier was anderes zu nutzen.<br/><br/><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34726">Zitat von: Jidder am 28. January 2012, 20:23</a></div></div><blockquote class="bbc_standard_quote">Ein Array ist kompakt.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Im Hinblick auf sizeof(Type) (also inklusive Padding) ja, da hast Du recht. Auch muss das Padding immer gleich sein, egal ob das Objekt in einem Array ist oder alleine benutzt wird oder Teil einer (größeren) Struktur ist. Wenn das nicht gewährleistet wäre könnte man solche Objekte ja nicht kopieren da dann eventuell mal zu viele oder zu wenige Bytes kopiert werden würden. Sowas wie "( (&amp;TYPE[i+2]) - (&amp;TYPE[i+1]) ) == sizeof(TYPE)" wird also doch immer true ergeben müssen, ebenso wie das ein (&amp;TYPE)++ auch immer um sizeof(Type) Bytes vorrücken muss, da hab ich wohl gestern nicht zu Ende gedacht.<br/><br/>Aber das hier der Vergleich am Ende true ergibt ist IMHO nicht zugesichert :<div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">*TYPE p1,p2;<br/>p1 = &amp;type;<br/>p2 = (*TYPE)(((uintptr_t)p1) + sizeof(TYPE));  // eines der Probleme hier ist das die Größe von uintptr_t und size_t (der Return-Type von sizeof) nicht identisch sein muss so dass das Ergebnis schon deswegen ungültig sein könnte<br/>p1++;<br/>if (p1 == p2)  // hier kommt nur dann true raus wenn für Pointer und für Integer die selbe Binärdarstellung in der CPU benutzt wird und das sichert der C-Standard nicht zu</code>So wie ich den C-Standard verstehe ist es nicht zugesichert das Rechenoperationen die direkt mit Pointern durchgeführt werden und Rechenoperationen die mit Integer-Werten von Pointern durchgeführt werden das selbe Ergebnis erzeugen. C-Code der auf sowas basiert ist IMHO nicht 100% konform und wenn der auf meiner Plattform nicht mehr funktioniert dann ist das ein Fehler im C-Code und nicht im Compiler. Deswegen möchte ich diese Dinge ja am liebsten gleich vom Compiler ablehnen lassen damit ich nicht später irgendwelchen Merkwürdigkeiten nachstellen muss, nebst dessen das ich für händische Pointer-Arithmetik (vor allem mit Integern) auch absolut keine Notwendigkeit sehe (sowas kann man immer auch anders machen, von ein paar Spezialfällen innerhalb der Speicherverwaltung mal abgesehen).<br/><br/><br/>Grüße<br/>Erik</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34728">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_34728_signature">Reality is that which, when you stop believing in it, doesn't go away.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34730"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Dimension</a>
+</h4>
+<ul class="reset smalltext" id="msg_34730_extra_info">
+<li class="postcount">Beiträge: 155</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #23 am:</strong> 29. January 2012, 13:43 »</div>
+<div class="posttile"><h5 id="subject_34730">
+<a href="offset-20.html#msg34730" rel="nofollow">Re: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücks</a>
+</h5></div>
+<div id="msg_34730_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34730"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34728">Zitat von: erik.vikinger am 29. January 2012, 12:39</a></div></div><blockquote class="bbc_standard_quote">Mein malloc() wird sicher nicht jedes mal ein neues Segment erstellen (das wäre totale Speicherverschwendung, schon weil so ein Segment immer ganze Pages belegt und auch etwas an Verwaltungsdaten kostet) aber ich will für jede benutzte Objekt-Größe ein neues Segment erstellen und dieses Segment wie ein Array aus Elementen dieser Größe verwalten (die Verwaltung als Array ist auch ziemlich effizient implementierbar so das malloc und free bei mir ordentlich schnell werden).<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/>Wenn du deinen Arrays od. Buffern dann noch einen Header mit 2 Feldern für Elementgröße und Anzahl der Elemente spendierst und diese Angaben für jeden Pointer hast, wirst du absolut keine Overflows mehr brauchen (siehe: fat pointer / <a class="bbc_link" href="http://en.m.wikipedia.org/wiki/Cyclone_(programming_language)" target="_blank">http://en.m.wikipedia.org/wiki/Cyclone_(programming_language)</a>) Um diese dynamisch skalieren zu können ohne zu relokalisieren fallen mir, nur Vektortabellen ein.<br/><br/><br/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34730">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34731"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Jidder</a>
+</h4>
+<ul class="reset smalltext" id="msg_34731_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 1 625</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #24 am:</strong> 29. January 2012, 14:36 »</div>
+<div class="posttile"><h5 id="subject_34731">
+<a href="offset-20.html#msg34731" rel="nofollow">Re: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...</a>
+</h5></div>
+<div id="msg_34731_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34731"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34728">Zitat von: erik.vikinger am 29. January 2012, 12:39</a></div></div><blockquote class="bbc_standard_quote">Mein malloc() wird sicher nicht jedes mal ein neues Segment erstellen (das wäre totale Speicherverschwendung, schon weil so ein Segment immer ganze Pages belegt und auch etwas an Verwaltungsdaten kostet) aber ich will für jede benutzte Objekt-Größe ein neues Segment erstellen und dieses Segment wie ein Array aus Elementen dieser Größe verwalten</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Genau darauf wollte ich hinaus. malloc() hat ja keinen anderen Parameter als die Größe. Ich finde das macht das Argument, dass Buffer Overflows erkennbar sind, hinfällig. Buffer Overflows, die nur Objekte der gleichen Größe betreffen, können immer noch gleichwahrscheinlich auftreten, und haben die selben fatalen Folgen. Das mit den Stacks für die Threads ist zwar ganz nett, aber im Zeitalter von 64-Bit-Adressräumen haut mich das auch nicht mehr vom Hocker. Ich finde Segmentierung muss die strengen Garantien bezüglich der Limits auch an die Anwendungen weiterreichen können, sonst ist es nur Paging mit variabler Page-Größe und riesigem, statischem TLB (d.h. Deskriptortabelle) in der CPU. (Und die Anzahl der unentdeckten Buffer Overflows reduziert sich um ~1/n, wobei n die Anzahl der Objekte pro Segment ist.) Das heißt nicht, dass ich eine Lösung dafür habe, wie man existierenden Programme das beibringen kann, sondern ganz im Gegenteil glaube ich, dass der Versuch C-Programme nachträglich mit Garantien auszustatten, die nicht von C gewährt werden, zum Scheitern verurteilt ist.<br/><br/>Zu der Pointer-Sache: Ich glaube du vertauscht da etwas. Das erste Beispiel hat genau das Verhalten, das du im zweiten erwartest, und umgekehrt.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34731">
+								« <em>Letzte Änderung: 29. January 2012, 14:38 von Jidder</em> »
+							</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_34731_signature">Dieser Text wird unter jedem Beitrag angezeigt.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34736"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_34736_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #25 am:</strong> 30. January 2012, 10:39 »</div>
+<div class="posttile"><h5 id="subject_34736">
+<a href="offset-20.html#msg34736" rel="nofollow">Re: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...</a>
+</h5></div>
+<div id="msg_34736_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34736"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34725">Zitat von: erik.vikinger am 28. January 2012, 19:04</a></div></div><blockquote class="bbc_standard_quote">Ich denke auch dass das so erlaubt ist aber dafür würde ich immer zusätzlichen Code benötigen und das möchte ich auch wieder nicht, daher möchte ich das lieber gleich ganz verbieten um so den geringsten Aufwand zu haben.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Den zusätzlichen Code brauchst du genau dann, wenn jemand Pointerarithmetik benutzt. Du kannst dir natürlich auch die Arbeit machen, jeden Code zu patchen, der das tut, weil er sonst nicht kompiliert. Halte ich aber insgesamt gesehen für ineffizienter als ein, zwei Instruktionen mehr zu generieren.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Eines meiner Probleme ist das wenn eine solche Differenz später wieder zu einem Pointer dazu addiert wird das es dann zu einem Überlauf kommen kann und der wird, falls er direkt im Speicherzugriffsbefehl passiert, von der CPU mit einer Exception beantwortet, es kann also passieren das die Funktionsfähigkeit des selben C-Codes vom Optimierungsgrad des Compilers abhängt und das sollte IMHO lieber vermieden werden.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Wieso sollte es zu einem Überlauf kommen, solange man innerhalb eines Objekts bleibt? Und wenn man es nicht tut, ist das undefined behaviour und eine Exception ist absolut in Ordnung.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote"><a class="bbc_link" href="http://www.cplusplus.com/reference/clibrary/cstddef/offsetof/" target="_blank">offsetof()</a>, das ist IMHO auch deswegen nötig weil ja das tatsächliche Speicherlayout in Strukturen auch wieder implementierungsspezifisch ist. Das meistens dahinter im Endeffekt nur der selbe Hack steckt den Du auch direkt benutzen würdest ist da erst mal egal, immerhin muss dafür derjenige gerade stehen der die libc für die konkrete Plattform gebaut hat und der sollte genau wissen was geht und was nicht.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Und jetzt rate mal, wie offsetof implementiert ist? <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/><br/>Das ist einfach ein Makro, das die Pointerarithmetik versteckt. Wenn das Makro also nicht mehr kompiliert, hast du auch kein offsetof. Als Funktion, die man dazulinken könnte, geht das nicht.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Das ist mir schon klar, aber eine komplette Spec werde ich da trotzdem nicht schreiben sondern eher eine präzise Auflistung der Unterschiede. Auf der anderen Seite scheint der C-Standard genügend "Interpretationsspielraum" zu bieten das ich wohl trotzdem sagen kann das mein System 100% konform ist, aber da kommen wir dann in Bereiche die sonst eher bei der Interpretation von Bibel, Koran usw. benutzt werden.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ohne weiter vom Thema abweichen zu wollen, vermute ich von dir, dass du dich weder mit Bibel noch Koran näher auseinandergesetzt hast und da womöglich Dinge missverstehst... (wobei ich vom Koran selber keine Ahnung habe)<br/><br/>Mein Vergleich wären eher juristische Spitzfindigkeiten über die Interpretation von Gesetzen - und man redet ja nicht umsonst von <em>language lawyers</em>.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote">Sicher? Das würde ich arg bezweifeln aber ich lese (morgen) am besten noch mal genau nach. Ich kann mich jedenfalls nicht erinnern das im C-Standard sowas wie "( (&amp;TYPE[i+2]) - (&amp;TYPE[i+1]) ) == sizeof(TYPE)" als true zugesichert wird. Um wie viel ein Pointer bei (&amp;TYPE)++ wirklich inkrementiert wird ist wimre auch implementierungsspezifisch und muss ebenfalls nicht zwangsläufig mit sizeof(TYPE) übereinstimmen.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Das ist falsch. Lies es nach, es ist alles wohldefiniert.<br/><br/><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg34724">Zitat von: taljeth am 28. January 2012, 13:16</a></div></div><blockquote class="bbc_alternate_quote">Aber wenn du ein char a[42] hast und p = &amp;a[12], q = &amp;a[14], dann ist genau definiert, dass  p + 2 * (q - p) = &amp;a[16] ist, zum Beispiel.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Hm, okay, trotzdem würde ich das nicht als <em>guten</em> C-Code bezeichnen, in einem Array sollte man IMHO nur mit dem Index zugreifen und nicht mit Pointer-Arithmetik.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Genau so ist die Pointerarithmetik definiert: Die Differenz zweier Pointer ist die Differenz der Indizes im Array. Und dass a<em> nichts anderes als *(a + i) (und damit auch i[a]) ist, dürftest du ja selbst wissen.<br/><br/></em><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote"><a href="index.html#msg34724">Zitat von: taljeth am 28. January 2012, 13:16</a></div></div><blockquote class="bbc_alternate_quote">In der Praxis ist das genau dasselbe wie mit einem Integer herumzurechnen. Der theoretische Unterschied ist, dass es mit char* definiert und mit uintptr_t implementation defined.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Sicher? So wie ich den C-Standard verstanden habe wird kein exakter und eineindeutiger Zusammenhang zwischen Pointern für Objekte und deren numerische Darstellung als Integer zugesichert. Theoretisch könnte eine CPU ja auch Speicheradressen in Gray-Code darstellen (bei einem Pointer++ müsste der Compiler dann einen anderen Rechenbefehl benutzen als für Integer++) und echter Standard-konformer C-Code müsste trotzdem funktionieren. Das die Differenz von 2 Pointern als Integer den numerischen Wert 12 hat bedeutet nicht das die 2 Objekte (auf die die beiden Pointer zeigen) auch wirklich 12 Bytes von einander entfernt im Speicher liegen, dass das trotzdem auf allen heute existierenden CPUs zutrifft ist noch keine Zusicherung.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Ja. Jetzt hast du genau beschrieben, warum es implementation defined ist, wenn man auf einem uintptr_t rumrechnet. Wenn man es auf einem char* tut (und innerhalb eines Objekts bleibt, wie immer), dann ist es genau definiert und der Compile müsste auf deiner gray-codierten CPU mit dreiwertiger Logik und signed-Darstellung mit Basis -2 eben Zusatzaufwand treiben, um das gewünschte Ergebnis herzustellen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34736">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_34736_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34739"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_34739_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #26 am:</strong> 30. January 2012, 19:45 »</div>
+<div class="posttile"><h5 id="subject_34739">
+<a href="offset-20.html#msg34739" rel="nofollow">Re: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...</a>
+</h5></div>
+<div id="msg_34739_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34739"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34736">Zitat von: taljeth am 30. January 2012, 10:39</a></div></div><blockquote class="bbc_standard_quote"><div class="quoteheader"><div class="topslice_quote">Zitat</div></div><blockquote class="bbc_alternate_quote"><a class="bbc_link" href="http://www.cplusplus.com/reference/clibrary/cstddef/offsetof/" target="_blank">offsetof()</a>, das ist IMHO auch deswegen nötig weil ja das tatsächliche Speicherlayout in Strukturen auch wieder implementierungsspezifisch ist. Das meistens dahinter im Endeffekt nur der selbe Hack steckt den Du auch direkt benutzen würdest ist da erst mal egal, immerhin muss dafür derjenige gerade stehen der die libc für die konkrete Plattform gebaut hat und der sollte genau wissen was geht und was nicht.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Und jetzt rate mal, wie offsetof implementiert ist? <img alt=";)" class="smiley" src="../../../assets/forum/d6353e1cb6a21c5ab0ba62cf.gif" title="Wink"/><br/>Das ist einfach ein Makro, das die Pointerarithmetik versteckt. Wenn das Makro also nicht mehr kompiliert, hast du auch kein offsetof. Als Funktion, die man dazulinken könnte, geht das nicht.<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div>Da wäre ich mir nicht so sicher, gcc hat dafür ein builtin, siehe <a class="bbc_link" href="http://gcc.gnu.org/onlinedocs/gcc/Offsetof.html" target="_blank">hier</a>. Aber keine Ahnung warum genau man das brauch, ich versteh auch nicht was es da so für Randfälle für den "member-designator" geben kann, die man eventuell mit Pointerarithmetik alleine nicht hinbekommt.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34739">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_34739_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34740"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_34740_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #27 am:</strong> 30. January 2012, 21:57 »</div>
+<div class="posttile"><h5 id="subject_34740">
+<a href="offset-20.html#msg34740" rel="nofollow">Re: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...</a>
+</h5></div>
+<div id="msg_34740_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34740">Ah, nett. tyndur benutzt ein handgestricktes Makro. Könnte vielleicht deswegen sein, weil Pointerarithmetik wie gesagt nur innerhalb von Objekten klar definiert ist und man bei offsetof() keins hat, sondern auf (struct foo*) NULL zurückgreift. Andererseits weiß gcc ja auch, was er implementiert, insofern wäre da kein Builtin nötig. Irgendwie komisch.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34740">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_34740_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34786"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Dimension</a>
+</h4>
+<ul class="reset smalltext" id="msg_34786_extra_info">
+<li class="postcount">Beiträge: 155</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #28 am:</strong> 10. February 2012, 00:29 »</div>
+<div class="posttile"><h5 id="subject_34786">
+<a href="offset-20.html#msg34786" rel="nofollow">Re: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücks</a>
+</h5></div>
+<div id="msg_34786_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34786"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34728">Zitat von: erik.vikinger am 29. January 2012, 12:39</a></div></div><blockquote class="bbc_standard_quote">Aber das hier der Vergleich am Ende true ergibt ist IMHO nicht zugesichert :<div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">*TYPE p1,p2;<br/>p1 = &amp;type;<br/>p2 = (*TYPE)(((uintptr_t)p1) + sizeof(TYPE));  // eines der Probleme hier ist das die Größe von uintptr_t und size_t (der Return-Type von sizeof) nicht identisch sein muss so dass das Ergebnis schon deswegen ungültig sein könnte<br/>p1++;<br/>if (p1 == p2)  // hier kommt nur dann true raus wenn für Pointer und für Integer die selbe Binärdarstellung in der CPU benutzt wird und das sichert der C-Standard nicht zu</code>So wie ich den C-Standard verstehe ist es nicht zugesichert das Rechenoperationen die direkt mit Pointern durchgeführt werden und Rechenoperationen die mit Integer-Werten von Pointern durchgeführt werden das selbe Ergebnis erzeugen. C-Code der auf sowas basiert ist IMHO nicht 100% konform und wenn der auf meiner Plattform nicht mehr funktioniert dann ist das ein Fehler im C-Code und nicht im Compiler. Deswegen möchte ich diese Dinge ja am liebsten gleich vom Compiler ablehnen lassen damit ich nicht später irgendwelchen Merkwürdigkeiten nachstellen muss, nebst dessen das ich für händische Pointer-Arithmetik (vor allem mit Integern) auch absolut keine Notwendigkeit sehe (sowas kann man immer auch anders machen, von ein paar Spezialfällen innerhalb der Speicherverwaltung mal abgesehen).<br/></blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">id main(){<br/>char * p1 = 0;<br/>short * p2 = 0;<br/>printf("%p %p %p %p", p1, p2, p1 + 1, p2 + 1);<br/>}<br/></code>Ergibt bei mir:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">(nil) (nil) 0x1 0x2<br/></code>Habe keinen gcc zur Hand, da mein Android ungerootet ist, und nehme codepad.org: <a class="bbc_link" href="http://codepad.org/fIVT8TDA" target="_blank">http://codepad.org/fIVT8TDA</a></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34786">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34791"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_34791_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #29 am:</strong> 10. February 2012, 22:19 »</div>
+<div class="posttile"><h5 id="subject_34791">
+<a href="offset-20.html#msg34791" rel="nofollow">Re: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...</a>
+</h5></div>
+<div id="msg_34791_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34791">Und was genau soll das zeigen, Dimension?  <img alt=":?" class="smiley" src="../../../assets/forum/a4beef0807c51186279e2aac.gif" title="huh"/></div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34791">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_34791_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34793"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Dimension</a>
+</h4>
+<ul class="reset smalltext" id="msg_34793_extra_info">
+<li class="postcount">Beiträge: 155</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #30 am:</strong> 10. February 2012, 23:05 »</div>
+<div class="posttile"><h5 id="subject_34793">
+<a href="offset-20.html#msg34793" rel="nofollow">Re: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücks</a>
+</h5></div>
+<div id="msg_34793_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34793">Korrigier mich wenn ich falsch liege, aber ging es nicht primär um Arithmetik mit Pointern und Integern? Ob GCC das spezifische Verhalten von GCC nun auf eine genaue Vorgabe in der Spezifikation hinweist, weiss ich nicht. Die Frage is doch wohl viel eher, ob GCC, Visual  Studio, Borland, Watcom, etc. Standardkonform compilieren.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34793">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34794"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">bluecode</a>
+</h4>
+<ul class="reset smalltext" id="msg_34794_extra_info">
+<li class="postcount">Beiträge: 1 391</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+<li><a class="new_win" href="http://repo.or.cz/w/lightOS.git" target="_blank" title="lightOS"><img alt="lightOS" src="../../../assets/forum/1d792245f3aeda7614748dc1.gif"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #31 am:</strong> 11. February 2012, 00:33 »</div>
+<div class="posttile"><h5 id="subject_34794">
+<a href="offset-20.html#msg34794" rel="nofollow">Re: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...</a>
+</h5></div>
+<div id="msg_34794_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34794">Nein, die Frage ist was genau standardkonform überhaupt bedeutet. Und da hilft ein Test mit Compiler X auf Platform Y halt garnichts.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34794">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_34794_signature"><div align="center"><a class="bbc_link" href="http://repo.or.cz/w/lightOS.git" target="_blank">lightOS</a><br/>"Überlegen sie mal 'nen Augenblick, dann lösen sich die ganzen Widersprüche auf. Die Wut wird noch größer, aber die intellektuelle Verwirrung lässt nach.", Georg Schramm</div></div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34820"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">MasterLee</a>
+</h4>
+<ul class="reset smalltext" id="msg_34820_extra_info">
+<li class="postcount">Beiträge: 49</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #32 am:</strong> 16. February 2012, 10:05 »</div>
+<div class="posttile"><h5 id="subject_34820">
+<a href="offset-20.html#msg34820" rel="nofollow">Re: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...</a>
+</h5></div>
+<div id="msg_34820_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34820">Manche APIs definieren Felder die sowohl für direkte Werte als auch für Zeiger genutzt werden. Nehmen wir z.B. folgendes Beispiel:<br/><div class="codeheader">Code: <a class="codeoperation archive-unavailable" title="Im statischen Archiv nicht verfügbar">[Auswählen]</a></div><code class="bbc_code">LRESULT CALLBACK WindowProc(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);<br/>...<br/>case WM_MOVE:<br/>int xPos = (int)(short) LOWORD(lParam);   // horizontal position <br/>int yPos = (int)(short) HIWORD(lParam);   // vertical position <br/>...<br/>case WM_CREATE:<br/>CREATESTRUCT *pCS=(CREATESTRUCT*)lParam;<br/>...</code>Das würde auf jeden Fall ein Problem machen da hier abhängig davon was LPARAM überhaupt ist entweder ein cast von einem Zeiger auf Zahl und umgekehrt von Zahl auf Zeiger(irgendwie muss es auch reingekommen sein) durchgeführt wird.<br/><br/>Das würde nicht funktionieren wenn ein Zeiger komplexer definiert würde zum Beispiel als Produkt aus Selektor und Offset. Da aber die Firma die obiges verbrochen hat dafür bekannt hat nicht gerade Standard konform zu arbeiten wollte ich wissen ob es generell erlaubt ist ein Zeiger nach Integer oder umgekehrt zu casten.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34820">
+</div>
+<div class="smalltext reportlinks">
+</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34821"></a>
+<div class="windowbg2">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">kevin</a>
+</h4>
+<ul class="reset smalltext" id="msg_34821_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 2 769</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #33 am:</strong> 16. February 2012, 10:08 »</div>
+<div class="posttile"><h5 id="subject_34821">
+<a href="offset-20.html#msg34821" rel="nofollow">Re: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...</a>
+</h5></div>
+<div id="msg_34821_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34821">Casts von Integer auf Pointer und umgekehrt sind im C-Standard wohldefiniert. Steht aber auch mehrfach in diesem Thread.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34821">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_34821_signature">Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+<a id="msg34838"></a>
+<div class="windowbg">
+<span class="topslice"><span></span></span>
+<div class="post_wrapper">
+<div class="poster">
+<h4>
+<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Jidder</a>
+</h4>
+<ul class="reset smalltext" id="msg_34838_extra_info">
+<li class="membergroup">Administrator</li>
+<li class="postcount">Beiträge: 1 625</li>
+<li class="im_icons">
+<ul>
+<li><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar"><img alt="Profil anzeigen" src="../../../assets/forum/cf5ef89b09ab6bfdf7bde5e0.png" title="Profil anzeigen"/></a></li>
+</ul>
+</li>
+</ul>
+<div class="ip">
+<img alt="" src="../../../assets/forum/b4b1fc5eed04d69bbe180c1e.gif"/>
+								Gespeichert					</div>
+</div>
+<div class="postarea">
+<div class="flow_hidden">
+<div class="keyinfo">
+<div class="messageicon">
+<img alt="" src="../../../assets/forum/94a4319ad3fffa9543ab91fd.gif"/>
+</div>
+<div class="smalltext">« <strong>Antwort #34 am:</strong> 17. February 2012, 14:46 »</div>
+<div class="posttile"><h5 id="subject_34838">
+<a href="offset-20.html#msg34838" rel="nofollow">Re: cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...</a>
+</h5></div>
+<div id="msg_34838_quick_mod"></div>
+</div>
+</div>
+<div class="post">
+<div class="inner" id="msg_34838"><div class="quoteheader"><div class="topslice_quote"><a href="offset-20.html#msg34820">Zitat von: MasterLee am 16. February 2012, 10:05</a></div></div><blockquote class="bbc_standard_quote">Das würde nicht funktionieren wenn ein Zeiger komplexer definiert würde zum Beispiel als Produkt aus Selektor und Offset. Da aber die Firma die obiges verbrochen hat dafür bekannt hat nicht gerade Standard konform zu arbeiten wollte ich wissen ob es generell erlaubt ist ein Zeiger nach Integer oder umgekehrt zu casten.</blockquote><div class="quotefooter"><div class="botslice_quote"></div></div><br/>LPARAM ist ja long, und da hat unter 16-Bit-Windows ein Selektor-Offset-Paar reingepasst. Wenn du long als 64-Bit-Integer definierst, kannst du deinen 16:32-far-pointer da auch problemlos reinstecken. Wenn jetzt 64-Bit-far-pointer oder so nutzen willst, dann funktioniert der Code natürlich nicht mehr. Aber ich würde auch nicht unbedingt einen Port von Windows auf meinen Compiler/Architektur/was-auch-immer-du-im-Sinn-hast anstreben. Wenn du hingegen so eine API nur grob imitieren willst, dann kannst du einfach einen Parameter als Pointer statt als Integer vorsehen. Casts vom Offset-Teil des Pointers auf Integer sollten ja immer gehen.</div>
+</div>
+</div>
+<div class="moderatorbar">
+<div class="smalltext modified" id="modified_34838">
+</div>
+<div class="smalltext reportlinks">
+</div>
+<div class="signature" id="msg_34838_signature">Dieser Text wird unter jedem Beitrag angezeigt.</div>
+</div>
+</div>
+<span class="botslice"><span></span></span>
+</div>
+<hr class="post_separator"/>
+
+</div>
+<a id="lastPost"></a>
+<div class="pagesection_bottom">
+<div class="buttonlist floatright">
+<ul>
+<li><a class="button_strip_print archive-unavailable" rel="new_win nofollow" title="Im statischen Archiv nicht verfügbar"><span class="last"><img alt="Drucken" src="../../../assets/forum/71c94e7c269ab1ce5f681149.png" title="Drucken"/>Drucken</span></a></li>
+</ul>
+</div>
+<div class="pagelinks floatleft">Seiten: <a class="navPages" href="index.html">1</a> [<strong>2</strong>] 
+				</div></div>
+<div class="nextlinks_bottom"><a href="../2987/index.html#msg34851">« vorheriges</a> <a href="../2954/offset-20.html#msg34813">nächstes »</a></div>
+<div class="navigate_section">
+<ul>
+<li><img alt="+" src="../../../assets/forum/b59452010036b8e7df20093f.png"/></li>
+<li>
+<a href="../../index.html"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../index.html#c1"><span>Lowlevel</span></a> »
+			</li>
+<li>
+<a href="../../boards/10/index.html"><span>Softwareentwicklung</span></a> »
+			</li>
+<li class="last">Thema: 
+				<a href="index.html"><span>cast von Zeiger auf nicht Zeiger und umgekehrt in C unter spezieller Berücksi...</span></a>
+</li>
+</ul>
+</div>
+<div id="moderationbuttons"></div>
+<div class="plainbox" id="display_jump_to"> </div>
+<br class="clear"/>
+
+
+</div>
+</div></div><div id="loginform">
+
+
+<div class="info"><h2>Einloggen</h2></div>
+
+
+
+<br/>
+
+</div>
+<div style="clear: both"></div>
+<div id="footer_section"><div class="frame">
+<ul class="reset">
+<li class="copyright">
+<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a class="new_win archive-unavailable" target="_blank" title="Im statischen Archiv nicht verfügbar">SMF 2.0.14</a> |
+<a class="new_win" href="http://www.simplemachines.org/about/smf/license.php" target="_blank" title="Lizenz">SMF © 2017</a>, <a class="new_win" href="http://www.simplemachines.org" target="_blank" title="Simple Machines">Simple Machines</a>
+</span></li>
+</ul>
+<p>Seite erstellt in 0.01 Sekunden mit 31 Abfragen.</p>
+</div></div>
+</div>
+</body></html>

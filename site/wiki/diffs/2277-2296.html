@@ -1,0 +1,55 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>C++ — Änderungen 2277 → 2296</title><style>
+body{max-width:85rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 sans-serif;color:#222}
+a{color:#0645ad}table{border-collapse:collapse;width:100%}td,th{padding:.4rem;border:1px solid #ddd;text-align:left}
+nav,.archive-notice{padding:.7rem;background:#eef3f8;margin-bottom:1rem}
+.diff-deletedline{background:#ffe49c}.diff-addedline{background:#c5e8ff}.diffchange{font-weight:bold}
+pre{white-space:pre-wrap} .archive-unavailable{color:#666}
+</style><link rel="icon" type="image/png" href="../../Favicon.png"></head><body><h1>C++ — Änderungen 2277 → 2296</h1><nav><a href="../revisions/2277/index.html">Version 2277</a> · <a href="../revisions/2296/index.html">Version 2296</a> · <a href="../history/1486/index.html">Versionsgeschichte</a> · <a href="../../index.html">Archivstartseite</a> · <a data-archive-search-link href="../../search/index.html">Suche</a></nav><table class="diff"><tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l17" >Zeile 17:</td>
+<td colspan="2" class="diff-lineno">Zeile 17:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== g++ ==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>== g++ ==</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;<del class="diffchange diffchange-inline">pre</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;<ins class="diffchange diffchange-inline">cpp</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>extern &quot;C&quot; void __cxa_pure_virtual()</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>extern &quot;C&quot; void __cxa_pure_virtual()</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l23" >Zeile 23:</td>
+<td colspan="2" class="diff-lineno">Zeile 23:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; // Programm/Kernel beenden</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; // Programm/Kernel beenden</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;/<del class="diffchange diffchange-inline">pre</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;/<ins class="diffchange diffchange-inline">cpp</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>= globale/statische Objekte =</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>= globale/statische Objekte =</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l45" >Zeile 45:</td>
+<td colspan="2" class="diff-lineno">Zeile 45:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Im Konstruktor eines globalen/statischen Objekts wird die folgende Funktion aufgerufen:</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Im Konstruktor eines globalen/statischen Objekts wird die folgende Funktion aufgerufen:</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;cpp&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; int __cxa_atexit(void (* f)(void *), void *p, void *d);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; int __cxa_atexit(void (* f)(void *), void *p, void *d);</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/cpp&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>f ist ein Funktionszeiger zu einem Destruktor, p der Parameter, der dem Destruktor übergeben werden soll und d ist das sog. &quot;home DSO&quot; (DSO = dynamic shared object).&#160; Diese Funktion sollte alle drei Parameter speichern und bei Erfolg 0, andernfalls nicht 0 zurückgeben. Wenn der Kernel/das Programm dann beendet wird, sollte man die Funktion</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>f ist ein Funktionszeiger zu einem Destruktor, p der Parameter, der dem Destruktor übergeben werden soll und d ist das sog. &quot;home DSO&quot; (DSO = dynamic shared object).&#160; Diese Funktion sollte alle drei Parameter speichern und bei Erfolg 0, andernfalls nicht 0 zurückgeben. Wenn der Kernel/das Programm dann beendet wird, sollte man die Funktion</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;cpp&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; void __cxa_finalize(void *d);</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160; void __cxa_finalize(void *d);</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange">&lt;/cpp&gt;</ins></div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>mit d = 0 aufrufen, um alle mit __cxa_atexit registrierten Funktionen mit passenden Paramtern aufzurufen. Die registrierten Funktionen müssen in umgekehrter Reihenfolge aufgerugen werden.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>mit d = 0 aufrufen, um alle mit __cxa_atexit registrierten Funktionen mit passenden Paramtern aufzurufen. Die registrierten Funktionen müssen in umgekehrter Reihenfolge aufgerugen werden.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Außerdem muss man ein Symbol namens __dso_handle bereitstellen. Es wird allerdings nur die Adresse des Symbols verwendet um ein DSO zu identifizieren und um __cxa_atexit aufzurufen.</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>Außerdem muss man ein Symbol namens __dso_handle bereitstellen. Es wird allerdings nur die Adresse des Symbols verwendet um ein DSO zu identifizieren und um __cxa_atexit aufzurufen.</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;<del class="diffchange diffchange-inline">pre</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;<ins class="diffchange diffchange-inline">cpp</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>extern &quot;C&quot;</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>extern &quot;C&quot;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; &#160; {</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; &#160; {</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l81" >Zeile 81:</td>
+<td colspan="2" class="diff-lineno">Zeile 85:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>/* Zerstört momentan unabhängig von d alle Objekte */</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>/* <ins class="diffchange diffchange-inline">NOTE: </ins>Zerstört momentan unabhängig von d alle Objekte */</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>void __cxa_finalize(void *d)</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>void __cxa_finalize(void *d)</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>{</div></td></tr>
+<tr><td colspan="2" class="diff-lineno" id="mw-diff-left-l91" >Zeile 91:</td>
+<td colspan="2" class="diff-lineno">Zeile 95:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; &#160; }</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>&#160;&#160; &#160; &#160; &#160; }</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>}</div></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>&lt;/<del class="diffchange diffchange-inline">pre</del>&gt;</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&lt;/<ins class="diffchange diffchange-inline">cpp</ins>&gt;</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>= new/delete =</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>= new/delete =</div></td></tr>
+</table></body></html>

@@ -1,0 +1,95 @@
+== Überarbeiten ==
+* Das Wiki braucht dringend einen neuen Kategorienbaum. Manche Artikel kann man im Moment wirklich nicht vernünftig kategorisieren. Alles nur nach [[:Kategorie:Glossar]] zu stopfen kann es auch nicht sein. (siehe auch [[Lowlevel:Kategoriebaum]])
+* [[System Management Mode]]
+* [[GRUB Installation auf einem USB-Stick]]
+* [[Kernel]]
+** [[Exokernel]] einarbeiten und dann redirecten
+* [[ISA]]
+* [[Textausgabe]] bedarf wahrscheinlich der Überarbeitung (stilistisch)
+
+== Magazin ausschlachten ==
+* [[Ausgabe 1#Lowlevel-Grundlagen, Teil 1|Ausgabe 1: Lowlevel-Grundlagen]]
+* [[Ausgabe 2#Lowlevel-Grundlagen, Teil 2|Ausgabe 2: Lowlevel-Grundlagen]]
+* [[Ausgabe 1#Etwas Systemtheorie|Ausgabe 1: Etwas Systemtheorie]] -> [[Bootprozess]] oder so
+
+== Erweitern ==
+* [[Cross-Compiler]]: aus irgendeinem Grund ist hier der i*86 Teil weggefallen
+* [[Mathematischer Koprozessor]] - Programmierung, Einsatz im OS-Dev
+* [[Treiber]]
+* [[Linux | Linux Artikel erweitern]]
+* [[IPC]]: Ideen für RPC aus dem Thread im Forum
+* [[FAT]]: Was sind Cluster? Wie liest man Dateien?
+* das [[PE]]-Dateiformat erklären
+* [[Long Mode]]
+* Dateisysteme wie FAT, extfs, reiser, UDF, iso9660 usw.
+* [[SMP]]
+* [[APIC]]
+** logischer Adressierungsmodus
+** [[Benutzer:Bluecode]] glaubt, dass in der SMP-Spec irgendwas dazu steht wie die PIC mit dem Zeuch verbunden ist bzw. verbunden sein kann
+* irgendwo edge- vs. level-triggered Interrupts besprechen
+* [[x86]]
+** Ergänzungen zur Handhabung von Interrupts
+*** Was genau? Denke das gehört eher dann in [[Real Mode]], [[Protected Mode]] und/oder [[Long Mode]]
+** Eingehen auf verschiedene Befehlssätze
+*** [[Benutzer:Bluecode | bluecode]] würde Vorschlagen nur auf [[FPU (x86)]], [[MMX]] und [[SSE]] zu verweisen
+**** Das Wichtigste für uns OS-Frickler ist vielleicht, wie man die mit Multitasking kombiniert. Also wie man unnötiges Sichern/Wiederherstellen der Register vermeidet. 3DNow! wäre wohl auch noch ein Kandidat in der Liste.
+** Liste der Hardware die sonst noch zu einem x86-System gehört
+* [[x86-64]]: SSE und FPU Register in [[FPU (x86)]] und [[SSE]] oder so verschieben
+* [[AMD PCnet]] Netzwerkkarte
+* [[Floppy Disk Controller]]
+* [[:Kategorie:Versionsverwaltung]]
+* OSDev dür Einsteiger Serie: auf irgendwas zum Umwandeln zwischen verschiedenen Zahlensystemen verweisen
+* [[VFS]]
+
+== Kleinigkeiten ==
+* [[I/O APIC]]: Beschreibung des INIT Delivery Modes
+* [[GRUB]]: Beispiel für eine Config, die man jemandem geben kann, der einfach nur Kernel und Module im Speicher haben will.
+
+== Neu erstellen ==
+* sowas in richtung troubleshooting oder so, mit zB
+** Warum meckert mein Linker irgendwas mit ''undefined reference'' (auch im Spezialfall C++, extern "C" und so)
+*** <strike>Du bist doch normalerweise für wenigstens ein paar Relevanzkriterien, [[Benutzer:XanClic|XanClic]] weiß nicht, ob Linkprobleme direkt was hier im Wiki zu suchen haben... Eher ein Link zu einem guten Tutorial etc. zum Thema (wobei mir da spontan keins einfällt).</strike>
+** du wolltest eine IDT/GDT laden und es gibt Exceptions? Registerdump des Emulators IDTR und GDTR (Adresse und Größe) überprüfen
+** bitte Liste erweitern
+* Warum empfehlen wir GRUB? Wir sollten irgendwo ne Liste von Gründen dafür/dagegen sammeln, das Thema kommt so elendig oft auf, dass man dann darauf verweisen könnte. [[Benutzer:Bluecode]] fällt nur kein Name für einen Artikel dazu ein, Vorschläge?
+** [[Benutzer:XanClic|XanClic]] würde das im [[GRUB]]-Artikel unterbringen.
+* irgendwas zu QEMU und GDB, primär wie man beides zusammen verwendet
+* Entwicklungsumgebungen - Woraus sollte sie bestehen, welche Programme gibt es für einen Verwendungszweck - gesonderte Programmvorstellungen, vllt. Empfehlungen wären gut! Die unterschiedlichen Entwicklungsplattformen (Linux, Windows, ...) sollten schon aufgeführt sein.
+** Teilweise erledigt: [[Editor]]en sind schon abgedeckt.
+* <strike>Interne Darstellung der Zahlen, Darstellungsmöglichkeiten negativer Zahlen, Aufbau von Gleitkommazahlen (IEEE)</strike>
+:* ''Muss noch ausgebaut werden, siehe [[Binäre Datentypen]]''
+* Wie funktionert eine CPU, ein Befehl, ein Maschinenzyklus, ein Interrupt? Alles, was an den Universitäten im Laufe von 2-4 Semestern gelehrt wird, in 5 Absätzen mit einer prise Humor und garniert mit bunten Struktogrammen.
+* Datenblätter lesen und verstehen! Was tun, wenn das Internet kaputt gegangen ist, und man keine Codebeispiele zum Abtippen hat? (Zum Anfang vielleicht die Datenblätter von [[PIC]], [[PIT]] und die Intel Manuals. Dann knackigere Sachen wie Netzwerkkarten, Soundkarten, ATA, ... was weiß ich.)
+:Was meinst du damit? Soll das eine Anleitung werden, wie man Datenblätter ließt oder Primär eine Liste mit allen Datenblättern als Links? [[Benutzer:Programm Noob|Programm Noob]] 14:53, 7. Jan. 2010 (CET)
+:: Eine Anleitung, Links zu Datenblättern sind bei den Artikeln weit besser aufgehoben
+* Aritkel zu Datenstrukturen:
+**Stack
+**Heap
+**Ausbau des Artikels [[Speicherverwaltung]]
+**evtl noch kurz Datenstrukturen wie den "Binärbaum" (=binary tree) oder "Verlinkte Liste" (=linked list) erläutern?
+* <strike>[[USB]]</strike> und alles drumherum (<strike>[[UHCI]]</strike>, [[OHCI]], [[EHCI]], vielleicht ja auch [[xHCI]])
+** Selbst eingetragen, nun löffel ich die Suppe auch selbst aus. Wer helfen kann und will, ist natürlich herzlich eingeladen! ;-) --[[Benutzer:XanClic|XanClic]] 01:21, 6. Mär. 2010 (CET)
+* APM, und vielleicht als Beispiel wie man damit einen PC herunterfährt
+** Wäre ACPI nicht besser? Dazu gibt es im OS-Dev-Forum immerhin ein Beispiel (dazu könnte man ja einfach einen Link im ACPI-Artikel setzen): [http://forum.osdev.org/viewtopic.php?f=1&t=16990&p=151565] --[[Benutzer:XanClic|XanClic]] 14:47, 24. Feb. 2010 (CET)
+* Mich würde mal interessieren, wie man ein Programm für das eigenen OS portiert. Also mit einer Anleitung, wie man das dan compilern muss usw. --user94 21:14, 8. Mär. 2010 (CET)
+** Wie sowas funktioniert dürfte sehr stark von Deinem OS abhängen. Allgemeine Anleitungen sind da IMHO unmöglich. --[[Benutzer:Erik.vikinger|Erik.vikinger]] 17:16, 9. Mär. 2010 (CET)
+:: Ich mein, man hat ja eine libc oder so was ähnliches. Und wie kann man damit dann z.B. [[FASM]] compilern? Weil da steht ja, dass man nicht viel dazu braucht.--user94 19:20, 9. Mär. 2010 (CET)
+::: Na ja, bei FASM linkt man halt einfach die [http://flatassembler.net/fasm-1.69.12.tar.gz libc-Objektdatei] gegen die eigene libc.a. Bei anderen Sachen ist es aber eben um einiges komplizierter und weil es bei FASM so einfach ist, denke ich nicht, dass sich da eine Seite lohnt (wogegen es bei anderen Sachen eben, wie von Erik beschrieben, zu betriebssystemspezifisch ist). --[[Benutzer:XanClic|XanClic]] 20:30, 9. Mär. 2010 (CET)
+* Ich habe auf Basis von Radixsort einen extrem schnellen Sortieralgorithmus entwickelt, mit dem unter C nach allen Datentypen sortiert werden kann, und habe ihn bei SourceForge ''public'' gemacht. Ich habe schon einen Artikel bei [http://de.wikiversity.org/wiki/Kurs:Algorithmen_und_Datenstrukturen/Kapitel_2 Wikiversity] (letzter Algorithmus) eingestellt. Da man auch in Betriebssystemen Tabellen sortieren muß, könnte das auch hier von Interesse sein. Falls dem so ist, würde ich einen Artikel schreiben, der technisch genauer darauf eingeht, was wie und warum funktioniert. --[[Benutzer:JDHenning|JDHenning]] 12:12, 16. Mär. 2010 (CET)
+:* Wer ein Betriebssystem schreiben will, der sollte auch sortieren können... Außerdem braucht man in seiner libc eh ein qsort(), das kann man dann implementieren. Radixsort eignet sich aber nicht als Implementierung für qsort(), weil es nicht jede totalgeordnete Menge sortieren kann. --[[Benutzer:DickHuuhn|DickHuuhn]] 21:03, 16. Mär. 2010 (CET)
+:* Bist du bitte so nett und gibst mir '''irgendein''' Beispiel einer Sortieraufgabe, die Quicksort handhaben kann und ExtraDix nicht? Da ExtraDix nach allen in C bekannten Datentypen sortieren kann bin ich mal gespannt ;-). --[[Benutzer:JDHenning|JDHenning]] 11:50, 18. Mär. 2010 (CET)
+::*Array aus Zeigern auf Strukturen, welche Autotypen enthalten, nach Baujahr sortieren, bitte. ^^ --[[Benutzer:DickHuuhn|DickHuuhn]] 01:25, 21. Mär. 2010 (CET)
+::*Alle nicht in C direkt eingebauten Datentypen, dann möchte ich primär die Vergleichsfunktion angeben, was bei einem nicht vergleichsbasierten Algorithmus offensichtlich nicht möglich ist. Ich finde es auch nicht besonders redlich, dann auf der Wikipedia-Seite das mit Quicksort zu vergleichen. Abgesehen davon ist es eine Implementierung eines Algorithmus und kein Algorithmus an sich, deswegen finde ich es selbst auf der [http://de.wikiversity.org/wiki/Kurs:Algorithmen_und_Datenstrukturen/Kapitel_2#ExtraDix Wikipedia-Seite] fehl am Platz.--[[Benutzer:Bluecode|Bluecode]] 12:28, 18. Mär. 2010 (CET)
+::*Es ist sowohl ein Algorithmus, nämlich die Erweiterung von RadixSort, als auch eine Implementierung, die aus pragmatischen Gründen den gleichen Namen bekommen hat. In C gibt es integer und floats mit unterschiedlichen Ausprägungen sowie strings und alle diese lassen sich sortieren. Dann gibt es die zusammengesetzten Strukturen, die aus diesen Grundtypen aufgebaut werden. Alle diese können mittels ExtraDix sortiert werden und andere Datentypen sind mir in C nicht bekannt. Was also meinst du bitte mit "Alle nicht in C direkt eingebauten Datentypen"? Und was ist unredlich am Vergleich mit Quicksort? Schließlich wird dieser Algorithmus an vielen Stellen als der schnellste angepriesen. --[[Benutzer:JDHenning|JDHenning]] 12:13, 19. Mär. 2010 (CET)
+::*Worin besteht denn der Unterschied zwischen Radixsort und ExtraDix? Es ist unredlich in dem Sinne, dass man bei Quicksort eine beliebige Ordnung auf den zu sortierenden Objekten angeben kann, bei Radixsort aber nur eine Ordnung auf dem Alphabet und es wird automatisch daraus die lexikographische Ordnung. Bei ExtraDix kommt hinzu (zumindest so wie ich das verstehe), dass die Ordnung automatisch die der Binärdarstellung des Objekts ist (und man kann dann nur zwischen aufsteigend bzw. absteigend wählen). Außerdem kann man bei Strukturen sowie ich das sehe nur ein Feld der Struktur auswählen und nach diesem Sortieren lassen. Was ist nun wenn man mehrere Felder braucht, um zu vergleichen? zB könnte ich mir einen n-dimensionalen Vektor vorstellen, den ich der Länge nach sortieren will, dabei aber nicht die Länge explizit speichern will. Ich will deine Implemtierung in keinster Weise diskreditieren, aber 1. ich halte Sortieralgorithmen nicht relevant für dieses Wiki (dafür gibt es genug andere Plätze im Internet um eine gute Erklärung dafür zu finden), falls du anderer Meinung bist, müsstest du mir Erklären warum das speziell beim OSDev (das ist das Thema des Wikis) und nicht nur allgemein beim Programmieren (das ist nicht das Thema des Wikis) relevant ist 2. Ich halte ExtraDix für eine Implementierung von RadixSort und nicht für einen Algorithmus (siehe oben)
+::*Es ist, wie der Name schon sagt, eine Erweiterung von Radixsort. Mir ist keine Version von Radixsort bekannt, die etwa floats sortiert, ohne sie zuvor entweder in eine dezimale Darstellung zu bringen, oder sie bitweise zu bearbeiten. Der Vorteil von ExtraDix ist, dass alle gängigen Sortieraufgaben mit einer Geschwindigkeit erledigt werden, die sehr dicht am mathematischen Optimum liegen (und ich weiß, dass man mit Bucketsort schneller ist, wenn man nach 16-Bit-Zahlen sortiert und 65.000 Eimer aufstellt, aber dann ist man auch sehr viel schneller als Quicksort). Ich will auch nicht Quicksort schlecht machen; es ist nur so, dass es ab ein paar hundert Datensätzen nicht der schnellste Algorithmus ist. Und es gibt natürlich auch Aufgaben, die man mit ExtraDix nicht handhaben kann. Aber alle Sortieraufgaben, die man mit normalen Datenbanken machen kann, kann man damit erledigen. Und warum ich gefragt habe ob es euch interessiert, liegt an dem alten Unix-Spruch: "Letztendlich sind alles Dateien" der eigentlich ergänzt werden müßte mit "und viele davon sind Datenbank-Tabellen". Und wenn es euch nicht interessiert, dann beenden wir doch ganz einfach die Diskussion an dieser Stelle.--[[Benutzer:JDHenning|JDHenning]] 11:22, 22. Mär. 2010 (CET)
+::*IMO ist diese Diskussion ganz und gar nicht überflüssig. Denn im OSDev muss man früher oder später sortieren (z.B. bei der GUI). Dabei stößt man aber auf ganz andere Probleme als der "gewöhnliche" Programmierer: Der Quicksort ist zwar immer noch der schnellste Alogrithmus, aber leider auch rekursiv. Radixsort ist langsamer, speicherplatzintensiver und nur eingeschränkt nutzbar, aber dafür auf jeden Fall stabil. Man wird also früher oder später nicht ums Sortieren herumkommen, und dann sollte man hier im Wiki doch eine Antwort finden, wie man dieses Problem am sichersten und schnellsten löst. --[[Benutzer:Bjork|Bjork]] 11:32, 23. Mär. 2010 (CET)
+* Hier kommt dein Wunsch hin ;)
+
+== Diskussionen, die sich noch nicht erledigt haben ==
+* [[Diskussion:Ausgabe 2]]
+* weitere: siehe [http://lowlevel.brainsware.org/wiki/index.php?title=Spezial%3APr%C3%A4fixindex&from=&namespace=1 Liste der Diskussionsseiten]
+
+Siehe auch: [[Spezial:Wantedpages | Gewünschte Seiten]] | [[Spezial:Wantedcategories | Gewünschte Kategorieseiten]] | [[Spezial:Linkliste/Vorlage:TODO | Seiten, die die TODO-Vorlage verwenden]] | [[:Kategorie:Stub | Stubs]]
+
+[[Kategorie:Internes]]

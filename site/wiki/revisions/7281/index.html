@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html class="client-nojs" dir="ltr" lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Universal Serial Bus – Lowlevel</title>
+<link href="../../../assets/wiki/688581c3f159ce09e656f829.css" rel="stylesheet"/>
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE60Fixes.css?303" media="screen"/><![endif]--><!--[if IE 7]><link rel="stylesheet" href="/w/skins/MonoBook/resources/IE70Fixes.css?303" media="screen"/><![endif]-->
+<meta content="" name="ResourceLoaderDynamicStyles"/>
+<link href="../../../assets/wiki/c684767cbc3a40b76e39d85d.css" rel="stylesheet"/>
+<meta content="MediaWiki 1.31.7" name="generator"/>
+<meta content="noindex,nofollow" name="robots"/>
+
+<!--[if lt IE 9]><script src="/w/load.php?debug=false&amp;lang=de&amp;modules=html5shiv&amp;only=scripts&amp;skin=monobook&amp;sync=1"></script><![endif]-->
+<link rel="icon" type="image/png" href="../../../Favicon.png"></head>
+<body class="mediawiki ltr sitedir-ltr capitalize-all-nouns mw-hide-empty-elt ns-0 ns-subject page-Universal_Serial_Bus rootpage-Universal_Serial_Bus skin-monobook action-view"><nav class="archive-notice">Schreibgeschütztes Archiv · <a href="../../../index.html">Archivstartseite</a> · <a href="../../pages/1690/index.html">Aktueller Artikel</a> · <a href="../../history/1690/index.html">Versionsgeschichte</a> · <a href="../../source/7281.txt">Quelltext dieser Version</a> · <a data-archive-search-link href="../../../search/index.html">Suche</a></nav><div id="globalWrapper"><div id="column-content"><div class="mw-body" id="content" role="main"><a id="top"></a><div class="mw-indicators mw-body-content">
+</div>
+<h1 class="firstHeading" id="firstHeading" lang="de">Universal Serial Bus</h1><div class="mw-body-content" id="bodyContent"><div id="siteSub">Aus Lowlevel</div><div dir="ltr" id="contentSub" lang="de"><div class="mw-revision"><div id="mw-revision-info">Version vom 6. März 2010, 11:24 Uhr von <a class="mw-userlink" href="../../pages/1860/index.html" title="Benutzer:XanClic"><bdi>XanClic</bdi></a> <span class="mw-usertoollinks">(<a class="new mw-usertoollinks-talk archive-unavailable" title="Im statischen Archiv nicht verfügbar">Diskussion</a> | <a class="mw-usertoollinks-contribs archive-unavailable" title="Im statischen Archiv nicht verfügbar">Beiträge</a>)</span> <span class="comment">(Vorwiderstand)</span></div><div id="mw-revision-nav">(<a href="../../diffs/7277-7281.html" title="Universal Serial Bus">Unterschied</a>) <a href="../7277/index.html" title="Universal Serial Bus">← Nächstältere Version</a> | <a href="../../pages/1690/index.html" title="Universal Serial Bus">Aktuelle Version</a> (<a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Unterschied</a>) | <a href="../7282/index.html" title="Universal Serial Bus">Nächstjüngere Version →</a> (<a href="../../diffs/7281-7282.html" title="Universal Serial Bus">Unterschied</a>)</div></div></div><div class="mw-jump" id="jump-to-nav">Wechseln zu:<a href="#column-one">Navigation</a>, </div><!-- start content --><div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="de"><div class="mw-parser-output"><div style="padding: 2px; padding-left: 9px; padding-right: 9px; background-color: #ffffff; color: #000000; border: 2px solid #efbf00; text-align:left;">
+<div style="color: #efbf00">
+<p><b>Hinweis:</b>
+</p>
+</div>
+<p>Der Autor kannte sich bei Erstellung des Artikels nicht besonders mit dem Thema aus. Da dieses Thema aber dringend nach einem Artikel verlangte (z. B. aufgrund eines Eintrags in der <a href="../../pages/1518/index.html" title="TODO">TODO</a>-Liste), hat er sich dennoch entschieden, seine Kenntnisse niederzuschreiben.
+</p><p>Wenn <b>du</b> dich mit diesem Thema einigermaßen auskennst, dann bist du <b>jetzt</b> aufgerufen, diesen Artikel zu erweitern und/oder zu korrigieren (oder natürlich diesen Hinweis zu entfernen, wenn du den Artikel für korrekt befindest)!
+</p>
+</div>
+<p>Der <b>Universal Serial Bus</b> (kurz <b>USB</b>) ist ein <a href="../../pages/1769/index.html" title="Kategorie:Bus"> Bus</a> zur Verbindung von Geräten mit einem PC und wird von praktisch jedem modernen Computer unterstützt. USB ist abwärtskompatibel, d. h., dass man lagsame USB 1.0-Geräte an den schnelleren USB 2.0 oder 3.0 anschließen kann und umgekehrt.
+</p>
+<div class="toc" id="toc"><div class="toctitle" dir="ltr" lang="de"><h2>Inhaltsverzeichnis</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Einsatzgebiete"><span class="tocnumber">1</span> <span class="toctext">Einsatzgebiete</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Spezifikationen"><span class="tocnumber">2</span> <span class="toctext">Spezifikationen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#USB_3.0"><span class="tocnumber">2.1</span> <span class="toctext">USB 3.0</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#USB_2.0"><span class="tocnumber">2.2</span> <span class="toctext">USB 2.0</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#USB_1.1"><span class="tocnumber">2.3</span> <span class="toctext">USB 1.1</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#USB_1.0"><span class="tocnumber">2.4</span> <span class="toctext">USB 1.0</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#USB-Controller"><span class="tocnumber">3</span> <span class="toctext">USB-Controller</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Elektrische_Hintergr.C3.BCnde"><span class="tocnumber">4</span> <span class="toctext">Elektrische Hintergründe</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Daten.C3.BCbertragung"><span class="tocnumber">4.1</span> <span class="toctext">Datenübertragung</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Selbstversuch"><span class="tocnumber">4.2</span> <span class="toctext">Selbstversuch</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Links"><span class="tocnumber">5</span> <span class="toctext">Links</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Literatur"><span class="tocnumber">6</span> <span class="toctext">Literatur</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Einsatzgebiete">Einsatzgebiete</span></h2>
+<p>USB ist sehr vielseitig verwendbar, es eignet sich z. B. für externe Festplatten, Flashspeicher (USB-Sticks), Drucker, Kartenleser, Multimediageräte, HID-Geräte und vieles mehr. Ursprünglich wurde es für langsame Geräte wie Drucker, Tastatur oder Maus entworfen, mit den Geschwindigkeitsklassen High-Speed (seit USB 2.0) und SuperSpeed (seit USB 3.0) jedoch eignet es sich auch für Geräte, die eine höhere Bandbreite benötigen, wie Festplatten oder Webcams.
+</p>
+<h2><span class="mw-headline" id="Spezifikationen">Spezifikationen</span></h2>
+<p><b>Für alle USB-Spezifikationen gilt</b>:
+</p>
+<ul><li>Spannung: 5 V</li>
+<li>Stromstärke: 100 mA (bei USB 3.0 150 mA); nach besonderer Freigabe bis zu 500 mA (bei USB 3.0 900 mA)</li></ul>
+<h3><span class="mw-headline" id="USB_3.0">USB 3.0</span></h3>
+<p>USB 3.0 ist noch sehr spärlich verfügbar. Erste Spezifikationen gab es 2008, USB 3.0 erlaubt eine Übertragungsrate von 5,0 GBit/s (SuperSpeed) was durch die <a class="external text" href="http://de.wikipedia.org/wiki/8b10b-Code" rel="nofollow">8b10b-Codierung</a> 500 MByte/s Brutto-Transferrate ergibt. Zudem kann ein Gerät auf Anfrage bis zu 900 mA statt der bisherigen 500 mA erhalten. Damit lassen sich problemlos USB-Festplatten ohne externe Stromquelle anschließen.
+</p>
+<h3><span class="mw-headline" id="USB_2.0">USB 2.0</span></h3>
+<p>USB 2.0 wurde im Jahr 2000 veröffentlicht und bot erstmal High-Speed mit einer Übertragungsrate von 480 MBit/s an.
+</p>
+<h3><span class="mw-headline" id="USB_1.1">USB 1.1</span></h3>
+<p>USB 1.1 wurde 1998 veröffentlicht und behob einige Fehler und Unklarheiten
+</p>
+<h3><span class="mw-headline" id="USB_1.0">USB 1.0</span></h3>
+<p>USB 1.0 wurde 1996 von Intel veröffentlicht und diente (wie auch noch heute) zum Anschluss von Peripheriegeräten an den PC.
+Es eignete sich wegen der langsamen Datenübertragung von 12 MBit/s nicht zum Anschluss von Festplatten.
+</p>
+<h2><span class="mw-headline" id="USB-Controller">USB-Controller</span></h2>
+<p>Es existieren folgende Standards für USB-Host-Controller:
+</p>
+<ul><li><a class="mw-redirect" data-archive-original-href="../../pages/1693/index.html" href="../../pages/1575/index.html" title="OHCI">OHCI</a></li>
+<li><a class="mw-redirect" data-archive-original-href="../../pages/1694/index.html" href="../../pages/1576/index.html" title="UHCI">UHCI</a></li>
+<li><a class="mw-redirect" data-archive-original-href="../../pages/1695/index.html" href="../../pages/1577/index.html" title="EHCI">EHCI</a></li>
+<li><a class="mw-redirect" data-archive-original-href="../../pages/1691/index.html" href="../../pages/1692/index.html" title="XHCI">xHCI</a></li></ul>
+<h2><span id="Elektrische_Hintergründe"></span><span class="mw-headline" id="Elektrische_Hintergr.C3.BCnde">Elektrische Hintergründe</span></h2>
+<p>Schneidet man ein USB-Kabel wie z. B. ein altes Handykabel auf, so wird man darin vier weitere Kabel entdecken, meist sind sie rot, schwarz, grün und weiß. Diese Farben stehen für die jeweilige Bedeutung:
+</p>
+<table class="prettytable">
+<tbody><tr>
+<th>Farbe</th>
+<th>Name</th>
+<th>Bedeutung
+</th></tr>
+<tr>
+<td>Rot</td>
+<td>V<sub>BUS</sub></td>
+<td>Betriebsspannung (5 Volt)
+</td></tr>
+<tr>
+<td>Schwarz</td>
+<td>Ground</td>
+<td>Masse (also 0 Volt)
+</td></tr>
+<tr>
+<td>Grün</td>
+<td>D+</td>
+<td>Eine der beiden Datenleitungen
+</td></tr>
+<tr>
+<td>Weiß</td>
+<td>D-</td>
+<td>Die andere Datenleitung
+</td></tr></tbody></table>
+<p>Die Anschlüsse V<sub>BUS</sub> und GND bilden für das USB-Gerät also eine Spannungsquelle, mit D+ und D- werden Daten seriell übertragen. Ist das Potential von D+ höher als das von D-, so liegt auf dem Bus eine differentielle 1 an, ist es umgekehrt, so handelt es sich um eine differentielle 0. Der Unterschied muss dabei jeweils mindestens 200 mV betragen.
+</p><p>Wenn kein Gerät am USB angeschlossen ist, befindet sich auf beiden Datenleitungen die gleiche Spannung, ist sie hoch, bezeichnet man dies als SE1 (Single Ended 1), ist sie niedrig, so wird dies SE0 (Single Ended 0) genannt. Wie wird nun das Anschließen eines Geräts an einem USB-Port erkannt? Logischerweise muss dazu das Gerät dafür sorgen, dass die beiden Leitungen ein unterschiedliches Potential erhalten. Damit erhält der entsprechende Hub auch sofort eine Information zur Geschwindigkeit des Geräts, dies funktioniert so:
+</p>
+<ul><li>Low-Speed-Geräte müssen die D--Leitung auf 3,3 V hochziehen (mit einem 1,5-kΩ-Widerstand).</li>
+<li>Full-Speed-Geräte hingegen ziehen die D+-Leitung hoch.</li></ul>
+<p>High-Speed-Geräte sind nicht in dieser Liste aufgeführt, sie melden sich zunächst als Full-Speed-Geräte (jedes High-Speed-Gerät muss auch im Full-Speed-Modus arbeiten, ob es seine eigentliche Funktion dann auch erfüllen kann, sei dahingestellt).
+</p><p>Diese Einteilung führt natürlich auch zu Unterschieden in der Handhabung von Low- und Full-Speed-Geräten: Wenn der Hub keine Spannung treibt, so stellt sich der Idle-Zustand ein, das heißt, bei Low-Speed-Geräten gibt es eine differentielle 0 (D- &gt; D+) und bei Full-Speed-Geräten eine differentielle 1 (D+ &gt; D-). Dieser Zustand wird auch J-State genannt, der jeweils andere ist der K-State. Bei letzterem muss der Hub aktiv eine Spannung durch beide Datenleitungen treiben, um die vom Gerät eingestellte Spannung zu invertieren.
+</p><p>Auf dem USB kann es also vier Zustände geben: SE0 (D+ = D-, beide niedrig), SE1 (D+ = D-, beide hoch), J (Idle-Zustand, bei Low-Speed D- &gt; D+, bei High-Speed D+ &gt; D-) und K (Hub treibt aktiv Signal, bei Low-Speed D+ &gt; D-, bei High-Speed D- &gt; D+). Dabei werden für die Datenübertragung selbst nur der J- und K-State verwendet, die anderen sind für das Anzeigen besonderer Ereignisse von Bedeutung.
+</p>
+<h3><span id="Datenübertragung"></span><span class="mw-headline" id="Daten.C3.BCbertragung">Datenübertragung</span></h3>
+<p>Daten werden, bevor sie über den USB verschickt werden, doppelt verschlüsselt:
+</p><p>Zuerst findet ein sogenanntes Bitstuffing statt. Das heißt, nach sechs aufeinander folgenden Einsen im eingehenden Datenstrom wird automatisch eine Null eingefügt (unabhängig davon, ob das Bit danach wieder eine Eins wäre). Dies mag merkwürdig erscheinen, erklärt sich jedoch aus der zweiten Verschlüsselung, der NRZI-Kodierung.
+</p><p>NRZI (Non Return to Zero Invert) bedeutet, dass nach jeder 0 der Zustand auf der Datenleitung invertiert wird und nach jeder 1 so gelassen wird, wie er ist. Dies dient dazu, dass Geräte allein aus diesem Wechsel der Spannung den USB-Takt verfolgen können. Daraus erklärt sich auch das Bitstuffing: Viele aufeinander folgende Einsen führen zu einem konstanten Zustand der Datenleitungen, dies muss jedoch verhindert werden, eben damit die Geräte nicht aus dem Takt geraten. Dazu wird dann zwangsweise ein Null eingefügt, um einen Zustandswechsel zu erreichen.
+</p><p>Möchte man also z. B. einen Text wie „Lowlevel?“ per USB verschicken, so sähe das folgendermaßen aus:
+</p><p>Zunächst müssen die Zeichen in einen Bitstrom umgewandelt werden. Da wir ASCII verwenden, sehen die Bytes zuerst so aus:
+</p>
+<pre>0x4C 0x6F 0x77 0x6C 0x65 0x76 0x65 0x6C 0x3F</pre>
+<p>Wir nehmen Little Endian, also wird daraus der Bitstrom:
+</p>
+<pre>001100101111011011101110001101101010011001101110101001100011011011111100</pre>
+<p>Jetzt zum Bitstuffing. Wir haben nur einmal im Bitstrom sechs aufeinander folgende Einsen und das ist das Fragezeichen (deshalb habe ich es auch im Beispiel benutzt). Obwohl direkt danach sowieso eine Null käme, müssen wir eine weitere einfügen, denn der Empfänger könnte sonst in manchen Fällen (hier wäre es wohl dank der zweiten Null danach eindeutig) nicht eindeutig wissen, ob die 0 von einem Bitstuff herrührt oder einfach so da war. Unsere Daten erfahren also eine klitzekleine Veränderung:
+</p>
+<pre>0011001011110110111011100011011010100110011011101010011000110110111111000</pre>
+<p>Jetzt noch zum NRZI. Bevor Daten gesendet werden, befindet sich die Leitung im Idle-Zustand (nehmen wir zumindest an), das heißt, wir haben am Anfang ein J. Hier jetzt der Zustand der Leitung, das erste Zeichen kennzeichnet ihn vor dem Senden, das letzte danach (somit haben wir 74 Zeichen für 73 Bits):
+</p>
+<pre>JKJJJKJJKKKKKJJJKKKKJJJJKJKKKJJJKKJJKJJJKJJJKKKKJJKKJKKKJKJJJKKKJJJJJJJKJK</pre>
+<p>Vielleicht ist es so deutlicher zu erkennen (- ist J, _ ist K):
+</p>
+<pre>-_---_––_____---____----_-___---__--_---_---____--__-___-_---___-------_-_</pre>
+<p>Ob J oder K der differentiellen 1 bzw. 0 entspricht, hängt dann von der Geschwindigkeit des Geräts ab.
+</p>
+<h3><span class="mw-headline" id="Selbstversuch">Selbstversuch</span></h3>
+<p>Um den ganzen Spaß einmal selbst zu testen, bedarf es nicht viel &amp;#150; natürlich gebe ich hier keine Garantie dafür, dass es funktioniert oder dafür, dass nichts kaputt geht, also:
+</p>
+<div style="border:1px solid black;">
+<div style="padding:10px; background-color: #bf111b; color: #fff; border: 2px solid white; text-align:center">
+<p><b>Warnung</b>
+</p><p>Ich garantiere weder dafür, dass dieses Experiment funktioniert, noch dafür, dass eure Hardware bzw. die hier verwendeten Bauteile unbeschädigt bleiben &amp;#150; dieser Versuch läuft komplett auf eigene Gefahr!
+</p>
+</div>
+</div>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><a class="image" href="../../pages/2201/index.html"><img alt="" class="thumbimage" height="370" src="../../../assets/wiki/b2571b43bae26a36195dc09a.png" srcset="../../../assets/wiki/141bc134f8a4bfc1eb39bce9.png 1.5x, ../../../assets/wiki/ad49b899bf35fb4934870a7c.png 2x" width="300"/></a> <div class="thumbcaption"><div class="magnify"><a class="internal" href="../../pages/2201/index.html" title="vergrößern"></a></div>Fertiger Schaltplan</div></div></div>
+<p>Nun gut, wer jetzt noch mutig genug ist, um diese Gefahr auf sich zu nehmen, der benötigt:
+</p>
+<ul><li>Ein altes USB-Kabel, das nicht mehr benötigt wird</li>
+<li>Ein relativ scharfes Messer</li>
+<li>Eine Möglichkeit zum Verbinden von Kabeln (Steckbretter, Löten, der Fantasie sind hier kaum Grenzen gesetzt)</li>
+<li>Einen Widerstand, der zumindest in die Nähe von 1,5 kΩ kommt sowie einer, der mindestens 200 Ω besitzen sollte (aber nicht viel mehr)</li>
+<li>Einen Transistor (könnte auch ohne gehen)</li>
+<li>Eine LED</li></ul>
+<p>So teuer sollte das also nicht sein, wenn was kaputt geht, dann ist das wohl die LED. Heutige Hostcontroller besitzen zudem Überspannungsschutz, sodass auch hier nichts schiefgehen sollte.
+</p><p>Der USB-Verkehr ist natürlich viel zu schnell, um ihn tatsächlich beobachten zu können. Aber einige Teile kann man sichtbar machen. So dauert z. B. der Reset eines Geräts mindestens 50 ms, während dieser Zeit wird ein SE0 auf dem Bus getrieben. Dies könnte man also tatsächlich erkennen.
+</p>
+<ul><li>Zuerst muss das Kabel aufgeschnitten werden. Darin müssten sich die oben genannten vier farbigen Kabel befinden, vermutlich von Metallfäden und anderen Materialien abgeschirmt. Das Kabel muss nun so aufgeschnitten werden, dass die vier Einzelkabel ziemlich unabhängig voneinander beweglich sind.</li>
+<li>Nun muss zuerst der 1,5-kΩ-Widerstand das rote (V<sub>BUS</sub>) und das grüne Kabel (D+) verbinden, um ein Full-Speed-Gerät vorzutäuschen. Man kann natürlich auch das rote und das weiße Kabel (D-) verbinden, dann handelt es sich um ein Low-Speed-Gerät. Zum Testen kann man theoretisch schon den USB-Stecker einstecken und das Betriebssystem sollte ein neues USB-Gerät melden (welches sich aber natürlich als fehlerhaft erweist), unter Linux sollte dies z. B. in der per Alt+F10 zu erreichenden Console zu beobachten sein (oder auch per dmesg | tail -f).</li>
+<li>Um jetzt tatsächlich etwas zu sehen, brauchen wir noch Transistor und LED. Die Basis des Transistors kommt an D+ (oder D-, je nachdem, wo der Widerstand von V<sub>BUS</sub> endet), der Kollektor nach V<sub>BUS</sub> und der Emitter wird an die LED angeschlossen (möglichst in Durchlassrichtung, am Emitter liegt der Pluspol). Die andere Seite der LED wird dann an den zweiten Widerstand, unseren Vorwiderstand, angeschlossen. Dessen anderes Ende kommt dann an Ground. Bei einem 200-Ω-Widerstand sollten 11,5 bis 17,5 mA erreicht werden, eine normale LED nimmt 20 &amp;#150; aber besser zu wenig als zu viel.</li></ul>
+<p>Sobald man jetzt das USB-Kabel einsteckt, sollte die LED leuchten (hoffentlich nicht rauchen und stinken) und nach kurzer Zeit leicht blinken &amp;#150; in diesem Moment treibt der Hub die D+-Leitung (oder D-) auf 0. Bei Datenübertragungen ist dieser Zeitraum allerdings extrem kurz, sodass es sich dabei vermutlich um einen Reset mit SE0 handelt. Zusätzlich könnte man auch einen Lautsprecher statt der LED anschließen, dann sollte sich ein leichtes Summen einstellen. Dies zeigt an, dass Daten gesendet werden (bzw. nicht wirklich Daten, aber schon diese nicht-wirklich-Daten werden so oft gesendet (1 kHz), dass es für ein Summen reicht). Bei jedem Reset sollte der Lautsprecher knacken.
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li><a class="external text" href="http://www.usb.org/developers/docs/" rel="nofollow">Offizielle USB-Spezifikationen</a></li>
+<li><a class="external text" href="http://www.beyondlogic.org/usbnutshell/usb1.htm" rel="nofollow">USB in a nutshell</a></li></ul>
+<h2><span class="mw-headline" id="Literatur">Literatur</span></h2>
+<ul><li>Udo Eberhardt, Hans-Joachim Kelm: <i>USB 2.0.</i> Franzis, Poing 2001, <a class="external text" href="http://books.google.com/books?as_isbn=3772379656" rel="nofollow">ISBN 3-7723-7965-6</a></li></ul>
+<!-- 
+NewPP limit report
+Cached time: 20261109170649
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.010 seconds
+Real time usage: 0.011 seconds
+Preprocessor visited node count: 115/1000000
+Preprocessor generated node count: 222/1000000
+Post‐expand include size: 1860/2097152 bytes
+Template argument size: 725/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 396/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    2.297      1 -total
+ 46.79%    1.075      1 Vorlage:EMEJMM
+ 21.64%    0.497      1 Vorlage:Warnung
+ 21.63%    0.497      1 Vorlage:Hinweis
+ 20.89%    0.480      1 Vorlage:Prettytable
+-->
+</div></div><div class="printfooter">
+Abgerufen von „<a dir="ltr" href="index.html">http://wiki.localhost:8080/w/index.php?title=Universal_Serial_Bus&amp;oldid=7281</a>“</div>
+<div class="catlinks" data-mw="interface" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Kategorie</a>: <ul><li><a href="../../pages/1769/index.html" title="Kategorie:Bus">Bus</a></li></ul></div></div><!-- end content --><div class="visualClear"></div></div></div></div><div dir="ltr" id="column-one" lang="de"><h2>Navigationsmenü</h2><div aria-labelledby="p-cactions-label" class="portlet" id="p-cactions" role="navigation"><h3 dir="ltr" id="p-cactions-label" lang="de">Ansichten</h3><div class="pBody"><ul dir="ltr" lang="de"><li class="selected" id="ca-nstab-main"><a accesskey="c" href="../../pages/1690/index.html" title="Seiteninhalt anzeigen [c]">Seite</a></li><li id="ca-talk"><a accesskey="t" href="../../pages/1815/index.html" rel="discussion" title="Diskussion zum Seiteninhalt [t]">Diskussion</a></li><li id="ca-viewsource"><a accesskey="e" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Quelltext anzeigen</a></li><li id="ca-history"><a accesskey="h" href="../../history/1690/index.html" title="Frühere Versionen dieser Seite [h]">Versionsgeschichte</a></li></ul></div></div><div aria-labelledby="p-personal-label" class="portlet" id="p-personal" role="navigation"><h3 dir="ltr" id="p-personal-label" lang="de">Meine Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="pt-login"><a accesskey="o" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Anmelden</a></li></ul></div></div><div class="portlet" id="p-logo" role="banner"><a class="mw-wiki-logo" href="../../pages/1712/index.html" title="Hauptseite"></a></div><div aria-labelledby="p-navigation-label" class="portlet generated-sidebar" id="p-navigation" role="navigation"><h3 dir="ltr" id="p-navigation-label" lang="de">Navigation</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="n-mainpage"><a accesskey="z" href="../../pages/1712/index.html" title="Hauptseite anzeigen [z]">Hauptseite</a></li><li id="n-Lowlevel-Portal"><a href="../../pages/1688/index.html">Lowlevel-Portal</a></li><li id="n-Lowlevel-Forum"><a href="../../../forum/index.html" rel="nofollow">Lowlevel-Forum</a></li><li id="n-recentchanges"><a accesskey="r" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Letzte Änderungen</a></li><li id="n-Zuf.C3.A4llige-Seite"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Zufällige Seite</a></li><li id="n-Wiki-Crashkurs"><a href="../../pages/2049/index.html">Wiki-Crashkurs</a></li></ul></div></div><div class="portlet" id="p-search" role="search"><h3 dir="ltr" id="p-search-label" lang="de"><label for="searchInput">Suche</label></h3><div class="pBody" id="searchBody">  </div></div><div aria-labelledby="p-tb-label" class="portlet" id="p-tb" role="navigation"><h3 dir="ltr" id="p-tb-label" lang="de">Werkzeuge</h3><div class="pBody"><ul dir="ltr" lang="de"><li id="t-whatlinkshere"><a accesskey="j" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Links auf diese Seite</a></li><li id="t-recentchangeslinked"><a accesskey="k" class="archive-unavailable" rel="nofollow" title="Im statischen Archiv nicht verfügbar">Änderungen an verlinkten Seiten</a></li><li id="t-specialpages"><a accesskey="q" class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Spezialseiten</a></li><li id="t-print"><a accesskey="p" href="index.html" rel="alternate" title="Druckansicht dieser Seite [p]">Druckversion</a></li><li id="t-permalink"><a href="index.html" title="Dauerhafter Link zu dieser Seitenversion">Permanenter Link</a></li><li id="t-info"><a class="archive-unavailable" title="Im statischen Archiv nicht verfügbar">Seiten­informationen</a></li></ul></div></div></div><!-- end of the left (by default at least) column --><div class="visualClear"></div><div dir="ltr" id="footer" lang="de" role="contentinfo"><div class="footer-icons" id="f-copyrightico"><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland" height="31" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" width="88"/></a></div><div class="footer-icons" id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img alt="Powered by MediaWiki" height="31" src="../../../assets/wiki/eb28b0b161a87943b03c4c8f.png" srcset="../../../assets/wiki/700266efa4ca53a53007500e.png 1.5x, ../../../assets/wiki/776b3efd10f85444ec69f2eb.png 2x" width="88"/></a></div><ul id="f-list"><li id="copyright">Der Inhalt ist verfügbar unter der Lizenz <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/" rel="nofollow">Namensnennung - Keine kommerzielle Nutzung - Weitergabe unter gleichen Bedingungen 3.0 Deutschland</a>, sofern nicht anders angegeben.</li><li id="privacy"><a href="../../pages/2290/index.html" title="Lowlevel:Datenschutz">Datenschutz</a></li><li id="about"><a href="../../pages/1417/index.html" title="Lowlevel:Über Lowlevel">Über Lowlevel</a></li><li id="disclaimer"><a href="../../pages/2280/index.html" title="Lowlevel:Impressum">Haftungsausschluss</a></li></ul></div></div></body></html>

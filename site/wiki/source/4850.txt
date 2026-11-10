@@ -1,0 +1,155 @@
+Die '''serielle Schnittstelle''' (Abkürzung: '''COM''' oder '''RS232''') scheint veraltet ist aber sehr nützlich um z.B. den [[Kernel]] im frühen Entwicklungstand zu [[Debugging | debuggen]], denn der Bildschirm kann nur begrenzt Text anzeigen und in keinem der Emulatoren kann man mittels Copy'n'Paste den Bildschirminhalt kopieren. Außerdem sollte bei keinem Betriebssystem ein Treiber für die serielle Schnittstelle fehlen, da sie heute auch noch oft Anwendung findet und leicht zu programmieren ist.
+
+==Basis-I/O-Ports finden==
+Normalerweise haben die COM-Ports folgende Basis-I/O-Ports:
+{| {{prettytable}}
+! Name || I/O-Port || IRQ
+|-
+| COM1 || 0x3F8   || 4
+|-
+| COM2 || 0x2F8   || 3
+|-
+| COM3 || 0x3E8   || 4
+|-
+| COM4 || 0x2E8   || 3
+|}
+Man sollte die Basis-I/O-Ports aber aus der [[BIOS Data Area]] auslesen.
+
+==Offsets der einzelnen Register==
+Da ein COM-Port mehrere Register benutzt, braucht er auch mehrere I/O-Ports. Die oben angegebenen I/O-Ports sind nur die Basis-I/O-Ports. Man muss also nachher noch das Offset der einzelnen Register addieren. Folgende Register verbergen sich hinter den Offsets:
+
+{| {{prettytable}}
+! Offset || Lesen/Schreiben || Name
+|-
+| 0      || rw              || Transmitting-Buffer
+|-
+| 1      || rw              || InterruptEnable-Register
+|-
+| 2      || r               || InterruptIdentification-Register
+|-
+| 2      || w               || FIFOControl-Register
+|-
+| 3      || rw              || LineControl-Register
+|-
+| 4      || rw              || ModemControl-Register
+|-
+| 5      || r               || LineStatus-Register
+|-
+| 6      || r               || ModemStatus-Register
+|-
+| 7      || rw              || Scratch-Register
+|}
+Der Transmitting-Buffer und der InterruptEnable-Buffer wird bei einem gesetzten DLAB (Umschaltbit) dazu verwendet die Baudrate zu speichern.
+
+==Programmierung==
+Ich werde hier ein wenig drauf eingehen, wie man verschiedene Optionen setzt und auf einen COM-Port sendet bzw. empfängt.
+
+===Baudrate einstellen===
+Um die Baudrate einzustellen muss man erstmal das DLAB-Bit setzen, es ist eine Art Umschaltbit um 12 Register über 8 I/O-Port-Adressen zu benutzen. Dafür muss man im LineControl-Register Bit 7 setzen.
+
+Die Baudrate wird aber nicht direkt gespeichert. Es wird immer nur ein Teiler gespeichert. Diesen kann man wie folgt berechnen:\
+''t = 115200/b''\
+Wobei ''t'' der Teiler und ''b'' die Baudrate ist.
+
+Nun kann man in den Transmitting-Buffer das Lowbyte des Teilers und in das InterruptEnable-Register das Highbyte.
+
+Danach sollte man das DLAB-Bit wieder zurücksetzen.
+
+===Parität setzen===
+Es gibt 4 verschiedene Paritäten: Odd, Even, High Parity und Low Parity.
+Diese setzt man mithilfe von 3 Bits, es sind die Bits 3-5 des LineControl-Registers.
+{| {{prettytable}}
+! Parität     || Bit 3 || Bit 4 || Bit 5
+|-
+| Keine       || 0     || X     || X
+|-
+| Odd         || 1     || 0     || 0
+|-
+| Even        || 1     || 1     || 0
+|-
+| High Parity || 1     || 0     || 1
+|-
+| Low Parity  || 1     || 1     || 1
+|}
+
+===Bytelänge setzen===
+Die Bytelänge bestimmt wie viel Bits ein Byte ergeben. Heutzutage werden eigentlich immer 8 Bits zu einem Byte zusammengefasst. Ein Byte kann 5 bis 8 Bits haben. Zum Setzen der Anzahl werden Bits 0 und 1 im LineControl-Register benutzt. 00b entspricht 5 Bits 01b 6 usw. Also einfach die Anzahl an Bits minus 5 und in einen zwei-Bit-Wert wandeln.
+
+===Anzahl Stoppbits setzen===
+Die Anzahl an Stoppbits wird mit Bit 2 des LineControl-Registers gesetzt. 0b entspricht einem Stoppbit und 1b zwei Stoppbits (für Bytes mit 5 Bits 1.5 Stoppbits).
+
+===Senden===
+Zum Senden muss man erstmal nachschauen ob man senden darf. Wenn Bit 5 des LineStatus-Registers gesetzt ist darf man Senden. Dafür schreibt man einfach das zu sendende Byte in Transmitting-Buffer.
+
+===Empfangen===
+Im InterruptControl-Register wird bestimmt zu welchen Ereignissen man einen Interrupt bekommt. Welche Bits für was stehen wird hier nicht besprochen, doch wenn man 0x00 in das InterruptControl-Register schreibt, wird man nie einen Interrupt bekommen. So wollen wir vorgehen und einfach Lesen ohne vorher auf einen Interrupt zu warten. Das Prinzip des Lesens ist allerdings gleich, auch wenn man vorher auf einen Interrupt wartet.
+In Bit 0 des LineStatus-Registers sieht man ob ein Byte empfangen wurde. Man kann es dann einfach aus dem Transmitting-Buffer lesen.
+
+==Beispiel==
+
+<c>
+ // Einige Definitionen
+ #define IER 1
+ #define IIR 2
+ #define FCR 2
+ #define LCR 3
+ #define MCR 4
+ #define LSR 5
+ #define MSR 6
+
+ // Funktion zum initialisieren eines COM-Ports
+ void init_com(uint16_t base, uint32_t baud, uint8_t parity, uint8_t bits) {
+   // Teiler berechnen
+   union {
+     uint8_t b[2];
+     uint16_t w;
+   } divisor;
+   divisor.w = 115200/baud;;
+
+   // Interrupt ausschalten
+   outb(base+IER,0x00);
+   
+   // DLAB-Bit setzen
+   outb(base+LCR,0x80);
+   
+   // Teiler (low) setzen
+   outb(base+0,divisor.b[0]);
+   
+   // Teiler (high) setzen
+   outb(base+1,divisor.b[1]);
+   
+   // Anzahl Bits, Parität, usw setzen (DLAB zurücksetzen)
+   outb(base+LCR,((parity&0x7)<<3)|((bits-5)&0x3));
+   
+   // Initialisierung abschließen
+   outb(base+FCR,0xC7);
+   outb(base+MCR,0x0B);
+ }
+ 
+ // Ob man schreiben kann
+ uint8_t is_transmit_empty(u16 base) {
+   return inb(base+LSR)&0x20;
+ }
+ 
+ // Byte senden
+ void write_com(uint16_t base, uint8_t chr) {
+   while (is_transmit_empty(base)==0);
+   outb(base,chr);
+ }
+ 
+ // Ob man lesen kann
+ uint8_t serial_received(uint16_t base) {
+   return inb(base+LSR)&1;
+ }
+ 
+ // Byte empfangen
+ uint8_t read_serial(uint16_t base) {
+   while (!serial_received(base));
+   return inb(base);
+ }
+</c>
+
+==Weblinks==
+* http://www.nondot.org/sabre/os/files/Communication/CP_serial.pdf
+
+[[Category:Hardware]]
